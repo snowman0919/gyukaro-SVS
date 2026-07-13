@@ -29,7 +29,7 @@ Real-anchor source-loop renderer described in `architecture.md`, selected becaus
 
 ## Teacher models actually used
 
-None. Three official candidates were evaluated for interface/license feasibility only; see `teacher_report.md`.
+No teacher audio is used by v1. One MOSS-TTS-Nano KO/EN/JA pilot was actually rendered and acoustically filtered, but remains unadmitted; see `teacher_report.md`.
 
 ## SVS systems actually inspected
 
