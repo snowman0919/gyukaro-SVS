@@ -24,4 +24,16 @@ Executed pilot: Apache-2.0 `OpenMOSS-Team/MOSS-TTS-Nano` replacement (0.1B) ran 
 
 Higgs TTS 3 4B and MOSS Local Transformer v1.5 were downloaded and successfully served through SGLang-Omni in an isolated Python 3.12 environment. On GB10, the MOSS codec needed its SDPA fallback because SGLang FA3 cannot fall back to a FA2 package in this environment; the fallback is logged and used only for the teacher pilot. MOSS-Nano remains a clearly labeled small replacement pilot, not evidence of Local-Transformer fine-tuning.
 
-The fixed 100×3 corpus is `configs/teachers/trilingual_pilot.jsonl`; it rotates five categorized real GYU references and five style labels per language. Required next gate: execute it across all three requested teachers, retain revisions, then apply this same filter before selecting any weighted synthetic corpus.
+The fixed 100×3 corpus is `configs/teachers/trilingual_pilot.jsonl`; it rotates five categorized real GYU references and five style labels per language.
+
+## Full MOSS Local v1.5 run
+
+The complete 300-item corpus was generated with `OpenMOSS-Team/MOSS-TTS-Local-Transformer-v1.5@be7766a6735b98bd793f7c79fb720b4d0f5d13b8`. The provenance manifest is `data/manifests/teacher_moss_local_v15.jsonl`; generated WAVs remain ignored synthetic artifacts. `artifacts/eval/teacher_moss_local_v15_scored.jsonl` records the real gate output: 196/300 passed the acoustic, Whisper content/language, WavLM, and ECAPA thresholds, while 104/300 require review.
+
+| Language | Generated | Gate pass, unadmitted | Mean confidence |
+|---|---:|---:|---:|
+| Korean | 100 | 99 | 0.9050 |
+| English | 100 | 78 | 0.8204 |
+| Japanese | 100 | 19 | 0.7483 |
+
+This is evidence for the gate, not a weighted synthetic training corpus. MOSS Local is a speech clone rather than score-conditioned singing supervision, and the Japanese result is especially insufficient. Fish S2 Pro and Higgs TTS 3 4B must each complete the same 100×3 generation and gate before any cross-teacher selection can be considered.
