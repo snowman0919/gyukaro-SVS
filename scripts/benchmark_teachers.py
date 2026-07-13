@@ -35,11 +35,15 @@ def main() -> None:
     output.parent.mkdir(parents=True, exist_ok=True)
     completed = {json.loads(line)["id"]: json.loads(line) for line in output.read_text().splitlines()} if output.exists() else {}
     generated = 0
+    metadata_changed = False
     for source in rows:
         if args.limit is not None and generated >= args.limit:
             break
         target = Path("data/teacher") / args.teacher / f"{source['id']}.wav"
         if source["id"] in completed and valid_audio(target):
+            if completed[source["id"]].get("model_revision") != args.model_revision:
+                completed[source["id"]]["model_revision"] = args.model_revision
+                metadata_changed = True
             continue
         target.parent.mkdir(parents=True, exist_ok=True)
         response = requests.post(args.endpoint, json={
@@ -57,6 +61,8 @@ def main() -> None:
         output.write_text("".join(json.dumps(row, ensure_ascii=False) + "\n" for row in completed.values()))
         generated += 1
         print(f"generated={generated} id={source['id']}", flush=True)
+    if metadata_changed:
+        output.write_text("".join(json.dumps(row, ensure_ascii=False) + "\n" for row in completed.values()))
     print(f"completed={len(completed)} generated_now={generated} output={output}")
 
 
