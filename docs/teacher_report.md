@@ -46,4 +46,4 @@ Fish S2 Pro and Higgs TTS 3 4B completed the same pinned 100×3 corpus. `teacher
 | English | 273 | 273 | 0.1841 |
 | Japanese | 69 | 69 | 0.1777 |
 
-The selected manifest is `data/manifests/teacher_weighted.jsonl`: MOSS 196, Fish 228, Higgs 209. Every row is `representation_distillation_only_not_singing_decoder`; no synthetic teacher speech is presented as real GYU singing. The fixed core corpus has neutral, soft, breathy, energetic, and bright conditions; `trilingual_style_supplement.jsonl` supplies separately tracked dark/emotional cases for the next teacher pass.
+The selected manifest is `data/manifests/teacher_weighted.jsonl`: MOSS 196, Fish 228, Higgs 209. Every row is `representation_distillation_only_not_singing_decoder`; no synthetic teacher speech is presented as real GYU singing. The fixed core corpus has neutral, soft, breathy, energetic, and bright conditions. A separate 18-item dark/emotional set ran through all three teachers: 32/54 outputs passed and are recorded in `teacher_style_supplement_weighted.jsonl` (dark 19, emotional 13; KO 14, EN 16, JA 2).

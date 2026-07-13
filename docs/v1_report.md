@@ -47,4 +47,4 @@ sh run.sh
 
 ## Next highest-value improvements
 
-Run the separately tracked dark/emotional teacher supplement, add EN/JA supervised or high-confidence pseudo-singing data, then replace DSP note conversion with a pretrained flow-matching SVS acoustic decoder.
+Expand the validated EN/JA pseudo-singing set beyond its one English pilot, then replace DSP note conversion with a pretrained flow-matching SVS acoustic decoder.
