@@ -51,8 +51,17 @@ def main() -> None:
     output = Path(args.output)
     output.parent.mkdir(parents=True, exist_ok=True)
     completed = {json.loads(line)["id"]: json.loads(line) for line in output.read_text().splitlines()} if output.exists() else {}
+    sources = {source["id"]: source for source in rows}
     generated = 0
     metadata_changed = False
+    for identifier, row in completed.items():
+        source = sources[identifier]
+        if "style_prompt" not in row:
+            row["style_prompt"] = source.get("style_prompt", source["style"])
+            metadata_changed = True
+        if "seed" not in row:
+            row["seed"] = source.get("seed")
+            metadata_changed = True
     for source in rows:
         if args.limit is not None and generated >= args.limit:
             break
@@ -70,6 +79,7 @@ def main() -> None:
         completed[source["id"]] = source | {
             "teacher": args.teacher, "model_revision": args.model_revision, "output_path": str(target),
             "sample_rate": info.samplerate, "channels": info.channels,
+            "style_prompt": source.get("style_prompt", source["style"]), "seed": source.get("seed"),
             "generation_config": {"max_new_tokens": args.max_new_tokens, "protocol": args.protocol},
             "quality_status": "pending_gate",
         }

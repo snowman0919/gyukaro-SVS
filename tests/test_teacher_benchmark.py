@@ -10,3 +10,4 @@ def test_teacher_benchmark_has_fixed_trilingual_coverage():
     assert Counter(row["language"] for row in rows) == {"ko": 100, "en": 100, "ja": 100}
     assert len({row["id"] for row in rows}) == 300
     assert len({row["reference_ids"][0] for row in rows}) == 5
+    assert {row["style_prompt"] for row in rows} == {"neutral", "soft", "breathy", "energetic", "bright"}

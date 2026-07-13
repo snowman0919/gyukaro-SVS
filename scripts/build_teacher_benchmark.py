@@ -69,6 +69,7 @@ def main() -> None:
                     "language": language,
                     "text": text,
                     "style": style,
+                    "style_prompt": style,
                     "reference_ids": [f"gyu_real_{source_index:06d}"],
                     "reference_role": reference_role,
                     "reference_audio_path": f"data/source/Korea Digital Media High School {source_index}.m4a",
