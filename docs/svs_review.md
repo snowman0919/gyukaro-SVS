@@ -1,12 +1,21 @@
 # SVS review and decision
 
-| System | Useful idea | GYU v1 decision |
-|---|---|---|
-| TCSinger 2 | multilingual content and blurred phoneme/note boundaries | future neural backbone; needs verified lyrics/alignments |
-| FM-Singer | latent conditional flow matching | future acoustic generator, not usable with current label uncertainty |
-| TechSinger | technique conditioning | reserve expression curves in protocol |
-| SoulX-Singer | zero-shot singer conditioning | future reference/timbre encoder candidate |
-| YingMusic-Singer Plus | score-aware expressive generation | future pseudo-singing teacher candidate |
-| OpenVPI DiffSinger | established score/phoneme training and renderer conventions | compatibility reference; supplied environment scaffold retained |
+This is an architecture review, not a claim that any of these systems was trained or shipped in GYU v1. No third-party model code or weights are included in the package.
 
-TCSinger 2 paper: https://arxiv.org/abs/2505.14910. Current v1 rejects code reuse: a randomly initialized flow/diffusion SVS trained on 29 minutes with unverified text would be less honest and less useful than an explicitly limited real-anchor renderer.
+| System | Specific component inspected | GYU data needed | Isolated experiment | v1 decision / legal status |
+|---|---|---|---|---|
+| TCSinger 2 | Blurred-Boundary Content encoder; contrastive custom-audio encoder; F0-supervised flow Custom Transformer | Yes: clean text/score/audio pairs plus enough singers/styles for zero-shot claims | Train only its content-duration front end on high-confidence GYU segments; evaluate held-out phrases before any acoustic model | Reuse rejected for v1. Paper describes a strong multilingual zero-shot design, but 29 minutes and 76 verified phrases cannot support its data assumptions. Check the upstream code/weight license before any reuse. [Paper](https://arxiv.org/abs/2505.14910) |
+| FM-Singer | cVAE score-conditioned prior/posterior plus latent conditional flow-matching refinement | Yes: stable score, phoneme duration, F0 and mel labels | Add a flow-refiner only after a baseline GYU acoustic model has a held-out reconstruction baseline | Reimplement only the *idea* later; no code/weight reuse now. It addresses latent mismatch, not missing alignment. [Paper](https://arxiv.org/abs/2601.00217) |
+| TechSinger | technique detector, prompt-to-technique predictor, flow-matching pitch/acoustic generator | Yes: phoneme-level technique labels or reliable pseudo-labels across the target languages | First run the detector on held-out GYU audio and manually audit a small labeled set; keep technique curves optional in score JSON | Preserve an expression-control slot in the protocol; reject model reuse/training now. Its seven-technique supervision is unavailable in this corpus. [Paper](https://arxiv.org/abs/2502.12572) |
+| SoulX-Singer | score/MIDI-or-melody conditioning and reference-singer zero-shot path | A reference clip is sufficient for inference, but robust personalization claims need its large pretraining distribution | Run official inference only after license review, with held-out GYU references and Korean/English/Japanese score prompts | Candidate benchmark/teacher, not a v1 dependency. Public code exists, but code and checkpoint licenses must be verified separately. [Paper](https://arxiv.org/abs/2602.07803) [Code](https://github.com/Soul-AILab/SoulX-Singer) |
+| YingMusic-Singer Plus | timbre reference + melody-providing singing clip + lyric editing without manual alignment | Reference and melody clip for inference; paired GYU data only for adaptation | Use an authorized held-out GYU melody clip and changed lyric set; score melody preservation, intelligibility, and identity separately | Candidate pseudo-singing teacher only after its checkpoint license and lyric provenance are cleared. It is not a replacement for symbolic-score SVS in v1. [Paper/model page](https://huggingface.co/papers/2603.24589) |
+| OpenVPI DiffSinger | phoneme/note/duration/F0 data contract, acoustic model + vocoder separation, renderer conventions | Yes: complete phoneme-note alignment and sufficient target-singer data | Convert only confirmed GYU segments to the OpenVPI-style manifest and train a tiny baseline after manual hold-out split | Keep as interoperability reference; do not call it trained or shipped. Its implementation license and every pretrained dependency must be checked at integration time. [Project](https://github.com/openvpi/DiffSinger) |
+
+## Hybrid selected for the next real SVS milestone
+
+1. Keep the package's score JSON/OpenUtau bridge as the stable frontend.
+2. Use verified text, note, duration and F0 records to create a DiffSinger-compatible supervised baseline.
+3. Add a reference-timbre encoder only when a held-out identity metric is available; use a teacher only as explicitly gated pseudo-data.
+4. Consider a TCSinger-style blurred-boundary duration/content module and FM-Singer-style latent refinement only after the baseline clears held-out pitch, lyric and identity gates.
+
+Current v1 deliberately rejects an unvalidated flow/diffusion model: a randomly initialized system trained on 29 minutes with partial text alignment would conceal uncertainty rather than improve singing quality.

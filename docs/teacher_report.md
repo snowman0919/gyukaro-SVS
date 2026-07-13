@@ -8,6 +8,18 @@ Research verified current official interfaces and cloned pinned official source 
 
 Pinned source inspections: Fish Speech `ad99ec5`, MOSS-TTS `e5e2926`, Higgs Audio `05a145b`. MOSS current v1.5 Local Transformer is 4B and 48 kHz stereo; it supersedes the previously named 1.7B non-v1.5 local checkpoint.
 
+Executed requested-teacher result: all three requested teachers ran with the same authorized GYU reference (`gyu_real_000215`), its corresponding Korean reference transcript, and the Korean prompt `하늘에 빛이 내려와.`.
+
+| Teacher | Output | Measured artifact | Status |
+|---|---|---|---|
+| Fish S2 Pro | `data/teacher/fish_s2_ko.wav` | 44.1 kHz mono, 2.786395 s, peak 0.206116, RMS 0.034635, silence 0.378695 | Unadmitted |
+| Higgs TTS 3 4B | `data/teacher/higgs_tts3_ko.wav` | 24 kHz mono, 4.52 s, peak 0.914032, RMS 0.193381, silence 0.242754 | Unadmitted |
+| MOSS Local Transformer v1.5 | `data/teacher/moss_local_ko.wav` | 48 kHz stereo, 3.92 s, peak 0.241180, RMS 0.046807, silence 0.204953 | Unadmitted |
+
+Provenance is tracked in `data/manifests/teacher_executed.jsonl`; generated WAVs are intentionally ignored. None is **admitted**: no ASR/CER, language-ID, two-encoder speaker verification, or agreement comparison has yet passed.
+
 Executed pilot: Apache-2.0 `OpenMOSS-Team/MOSS-TTS-Nano` replacement (0.1B) ran in cloned GYU voice mode for one Korean, English, and Japanese phrase. `teacher_pilot.jsonl` and `teacher_filtered.jsonl` retain provenance. All three pass only basic acoustic gates: 6.4 s, 48 kHz stereo, peak 0.447–0.845, RMS 0.082–0.182, silence 0.020–0.055. They remain **unadmitted** because speaker-embedding, ASR/CER, language-ID, and cross-teacher disagreement gates are not yet run.
 
-Required next gate: execute the three requested teachers with a fixed 100×3 corpus, retain revisions, then reject samples on ASR, language ID, clipping, duration, F0, and two independent speaker embeddings.
+Higgs TTS 3 4B and MOSS Local Transformer v1.5 were downloaded and successfully served through SGLang-Omni in an isolated Python 3.12 environment. On GB10, the MOSS codec needed its SDPA fallback because SGLang FA3 cannot fall back to a FA2 package in this environment; the fallback is logged and used only for the teacher pilot. MOSS-Nano remains a clearly labeled small replacement pilot, not evidence of Local-Transformer fine-tuning.
+
+Required next gate: execute all three requested teachers with a fixed 100×3 corpus, retain revisions, then reject samples on ASR, language ID, clipping, duration, F0, and two independent speaker embeddings.

@@ -25,7 +25,7 @@ Fine-tuned MOSS-TTS-Nano acoustic-token model plus GYU reference conditioning, t
 
 ## Teacher models actually used
 
-MOSS-TTS-Nano KO/EN/JA clone pilot was run and acoustically filtered. Fish S2 Pro, Higgs TTS 3, and MOSS Local Transformer were inspected but not admitted to training; see `teacher_report.md`.
+MOSS-TTS-Nano KO/EN/JA clone pilot was run and acoustically filtered. Fish S2 Pro, Higgs TTS 3 4B, and MOSS Local Transformer v1.5 each produced a separate Korean GYU-reference clone pilot; none of their generated audio was admitted to training. See `teacher_report.md`.
 
 ## SVS systems actually inspected
 
