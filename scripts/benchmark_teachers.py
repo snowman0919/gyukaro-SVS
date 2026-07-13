@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import base64
 import json
 from pathlib import Path
 
@@ -20,11 +21,24 @@ def valid_audio(path: Path) -> bool:
         return False
 
 
+def request_payload(source: dict, protocol: str, max_new_tokens: int) -> dict:
+    reference = {"text": source["reference_text"]}
+    if protocol == "fish":
+        reference["audio"] = base64.b64encode(Path(source["reference_audio_path"]).read_bytes()).decode()
+        return {"text": source["text"], "references": [reference], "format": "wav", "max_new_tokens": max_new_tokens}
+    reference["audio_path"] = str(Path(source["reference_audio_path"]).resolve())
+    return {
+        "input": source["text"], "references": [reference], "language": LANGUAGES[source["language"]],
+        "instructions": source["style"], "max_new_tokens": max_new_tokens,
+    }
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--teacher", required=True)
     parser.add_argument("--model-revision", required=True)
     parser.add_argument("--endpoint", required=True)
+    parser.add_argument("--protocol", choices=("openai", "fish"), default="openai")
     parser.add_argument("--input", default="configs/teachers/trilingual_pilot.jsonl")
     parser.add_argument("--output", required=True)
     parser.add_argument("--limit", type=int)
@@ -46,10 +60,7 @@ def main() -> None:
                 metadata_changed = True
             continue
         target.parent.mkdir(parents=True, exist_ok=True)
-        response = requests.post(args.endpoint, json={
-            "input": source["text"], "references": [{"audio_path": str(Path(source["reference_audio_path"]).resolve()), "text": source["reference_text"]}],
-            "language": LANGUAGES[source["language"]], "instructions": source["style"], "max_new_tokens": args.max_new_tokens,
-        }, timeout=600)
+        response = requests.post(args.endpoint, json=request_payload(source, args.protocol, args.max_new_tokens), timeout=600)
         response.raise_for_status()
         target.write_bytes(response.content)
         info = sf.info(target)
