@@ -19,7 +19,7 @@ Japanese status: foundation-model cross-lingual render validated; experimental a
 
 SFT: 64 examples, 3 epochs, 48 optimizer steps, BF16, global batch 4, max length 512. Logged loss: 6.0353 at step 5, 5.5230 at step 30, final checkpoint at step 48. KO/EN/JA finetuned renderer samples are each 48 kHz mono, 6.45 s.
 
-SoulX-Singer SVC English pilot: an authorized GYU reference (segment 216) converted the official English singing target `Who says you're not pretty...` to a 48 kHz, 8.294 s WAV. Duration ratio was 1.0 and RMVPE target/output F0-contour correlation was 0.9502. It clears only the pitch/duration check; speaker similarity and lyric-ASR gates remain unmeasured, so it is retained only as an evaluation artifact (`artifacts/eval/gyu_soulx_svc_english_pilot.json`), never as training data.
+SoulX-Singer SVC English pilot: an authorized GYU reference (segment 216) converted the official English singing target `Who says you're not pretty...` to a 48 kHz, 8.294 s WAV. Duration ratio was 1.0, RMVPE target/output F0-contour correlation 0.9502, Whisper content score 0.7123, WavLM speaker score 0.9473, and ECAPA score 0.5903. It passes the one-file acoustic/lyric/identity gate (`artifacts/eval/gyu_soulx_svc_english_gated.jsonl`), but remains an evaluation-only high-confidence pseudo-singing pilot: one English example is not enough to retrain or claim KO/JA pseudo-singing coverage.
 
 ## Architecture chosen
 
@@ -35,7 +35,7 @@ TCSinger 2, FM-Singer, TechSinger, SoulX-Singer, YingMusic-Singer Plus, and Open
 
 ## Important compromises
 
-SFT corpus is Korean-only and tiny. Output is score-controlled vocalization, not full phoneme-to-note neural SVS. The first SoulX English SVC pilot clears pitch/duration only, so pseudo singing is not admitted before speaker and lyric gates. Empty isolated-prompt Nano generations fall back to real GYU reference audio; this is recorded in runtime code and must be eliminated by fuller acoustic training.
+SFT corpus is Korean-only and tiny. Output is score-controlled vocalization, not full phoneme-to-note neural SVS. One SoulX English pseudo-singing pilot passes its gates but is too small to admit to retraining. Empty isolated-prompt Nano generations fall back to real GYU reference audio; this is recorded in runtime code and must be eliminated by fuller acoustic training.
 
 ## Run v1
 
