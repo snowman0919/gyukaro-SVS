@@ -1,8 +1,8 @@
 numpy
-scipy
 soundfile
 torch
+transformers
+pyyaml
+scipy
 torchaudio
 torchcodec
-transformers
-onnxruntime

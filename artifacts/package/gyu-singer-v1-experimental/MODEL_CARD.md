@@ -1,1 +1,5 @@
-MOSS-TTS-Nano foundation weights fine-tuned for 3 epochs/48 steps on 64 ASR-confirmed GYU singing phrases. Runtime adds authorized GYU reference conditioning and note-by-note pitch/time transforms. Long-note, consonant, and unseen multilingual lyric quality remain experimental.
+## Scope
+
+Input: Korean, English, or Japanese lyric-note JSON. Model: TriSinger conditional-flow acoustic-latent generator (3.0 MB checkpoint) decoded by frozen Apache-2.0 MOSS audio tokenizer. Training: 76 real GYU segments; 60 train/5 validation/5 test, real anchors only for acoustic target; 633 teacher rows representation-only at trust 0.05-0.20. Score for real anchors was inferred from speech duration, not ground-truth singing notation.
+
+This is an experimental personalized SVS runtime, not a production-quality multilingual singer.

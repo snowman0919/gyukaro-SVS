@@ -11,7 +11,7 @@ import torch
 import torchaudio
 from transformers import AutoModelForCausalLM
 
-from .renderer import midi_hz
+from .baseline_renderer import midi_hz
 
 
 def estimate_f0(audio: np.ndarray, rate: int) -> float:

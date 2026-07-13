@@ -1,43 +1,49 @@
 # GYU Singer v1 experimental
 
-Overall status: packaged neural v1-experimental
+Overall status: packaged experimental hybrid runtime
 Packaged v1: `gyu-singer-v1-experimental.zip`
 Package path: `artifacts/package/gyu-singer-v1-experimental.zip`
-Package SHA-256: `6756adc410845ab50b38bef9b86110f7c0e0cd571e2d7f572033380efc5bacb8`
-Best checkpoint: `checkpoints/gyu_moss_nano_sft/checkpoint-last`
-Renderer status: CLI plus resident localhost HTTP daemon; fine-tuned neural backend default
-Editor integration status: OpenUtau score-export bridge protocol
-Korean status: real GYU SFT and score render validated
-English status: foundation-model cross-lingual render validated; experimental after KO-only SFT
-Japanese status: foundation-model cross-lingual render validated; experimental after KO-only SFT
+Package SHA-256: `21582fb38c0131e594f98ec7213579cd5808f207c337e9e56ac56bfbb6b684dc`
+Best checkpoint: `checkpoints/gyu_hybrid_v0.2.pt`
+Renderer status: phrase-level CLI and resident HTTP (`GET /health`, `GET /model`, `POST /render`)
+Editor integration status: executable USTX score exporter/HTTP bridge
+Korean status: real-anchor trained; experimental quality
+English status: frontend/render exercised; experimental
+Japanese status: frontend/render exercised; experimental
 
 ## What actually works
 
-132 real recordings are indexed; 76 phrase alignments are ASR/script confirmed; 64 real D/E singing phrases were tokenized and used for SFT. `gyu-singer render` accepts score JSON and renders 48 kHz mono WAV with lyric conditioning, MIDI pitch, timing, and dynamics. Clean-package smoke rendered a 6.45 s WAV without external model cache.
+132 source recordings were indexed and 76 real GYU supervision rows prepared. Hybrid model renders entire phrases in one conditional-flow generation then decodes them with a frozen pretrained codec. Clean package smoke generated 48 kHz mono WAV using only packaged runtime and model files. Baseline source-loop and per-note TTS/DSP paths are not hybrid SVS.
+
+## What does not work
+
+Real-anchor score timing is inferred, not verified singing score annotation. No pseudo-singing row passed a multilingual admission gate; one English pilot remains evaluation-only. No listening study, intelligibility score or pitch-accuracy metric proves production singing quality. OpenUtau bridge is not a native renderer plugin.
 
 ## Measured results
 
-SFT: 64 examples, 3 epochs, 48 optimizer steps, BF16, global batch 4, max length 512. Logged loss: 6.0353 at step 5, 5.5230 at step 30, final checkpoint at step 48. KO/EN/JA finetuned renderer samples are each 48 kHz mono, 6.45 s.
-
-SoulX-Singer SVC English pilot: an authorized GYU reference (segment 216) converted the official English singing target `Who says you're not pretty...` to a 48 kHz, 8.294 s WAV. Duration ratio was 1.0, RMVPE target/output F0-contour correlation 0.9502, Whisper content score 0.7123, WavLM speaker score 0.9473, and ECAPA score 0.5903. It passes the one-file acoustic/lyric/identity gate (`artifacts/eval/gyu_soulx_svc_english_gated.jsonl`), but remains an evaluation-only high-confidence pseudo-singing pilot: one English example is not enough to retrain or claim KO/JA pseudo-singing coverage.
+160 steps on GB10: final total loss 2.353837, flow 2.289662, pitch 0.057003, teacher representation 0.408833. 60/5/5 real train/valid/test rows; 633 teacher representation rows. Package smoke: 48 kHz mono, 307200 frames.
 
 ## Architecture chosen
 
-Fine-tuned MOSS-TTS-Nano acoustic-token model plus GYU reference conditioning, then note-by-note pitch/time DSP. See `architecture.md`.
+TriSinger phrase-level conditional flow combines language-aware phonemes, score, blurred boundaries, timbre, style and explicit pitch conditions. MOSS audio tokenizer decoder is frozen. See `docs/architecture_v2.md`.
 
 ## Teacher models actually used
 
-MOSS-TTS-Nano KO/EN/JA clone pilot was run and acoustically filtered. Fish S2 Pro, Higgs TTS 3 4B, and MOSS Local Transformer v1.5 completed a 100×3 controlled GYU-reference benchmark: 633/900 cross-teacher-gated rows were retained only for representation distillation, never the singing decoder. See `teacher_report.md`.
+Fish S2 Pro, Higgs TTS 3 4B and MOSS Local Transformer v1.5 generated/evaluated teacher rows; retained rows supervise representation loss only.
 
 ## SVS systems actually inspected
 
-TCSinger 2, FM-Singer, TechSinger, SoulX-Singer, YingMusic-Singer Plus, and OpenVPI DiffSinger; see `svs_review.md`.
+TCSinger 2, FM-Singer, TechSinger, SoulX-Singer, YingMusic-Singer Plus and OpenVPI DiffSinger.
+
+## Training completed
+
+`PYTHONPATH=src python scripts/prepare_hybrid_data.py`; `scripts/cache_hybrid_latents.py`; `scripts/train_hybrid.py --steps 160`.
 
 ## Important compromises
 
-SFT corpus is Korean-only and tiny. Output is score-controlled vocalization, not full phoneme-to-note neural SVS. One SoulX English pseudo-singing pilot passes its gates but is too small to admit to retraining. Empty isolated-prompt Nano generations fall back to real GYU reference audio; this is recorded in runtime code and must be eliminated by fuller acoustic training.
+Small real corpus, inferred bootstrap scores, compact model and no accepted multilingual pseudo-singing data. Quality claims are deliberately limited to executable rendering.
 
-## Run v1
+## Exact commands to run v1
 
 ```sh
 cd artifacts/package/gyu-singer-v1-experimental
@@ -47,4 +53,4 @@ sh run.sh
 
 ## Next highest-value improvements
 
-Expand the validated EN/JA pseudo-singing set beyond its one English pilot, then replace DSP note conversion with a pretrained flow-matching SVS acoustic decoder.
+Create verified musical score alignments; admit a quality-gated multilingual pseudo-singing set; add validation metrics/listening evaluation; implement native OpenUtau renderer integration.

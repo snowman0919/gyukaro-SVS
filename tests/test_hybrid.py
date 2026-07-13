@@ -1,0 +1,82 @@
+import urllib.request
+import importlib.util
+
+import numpy as np
+import torch
+
+from gyu_singer.alignment import build_phrase_frames
+from gyu_singer.frontend import phonemize
+from gyu_singer.losses import flow_matching_loss, log_pitch_loss, weighted_distillation_loss
+from gyu_singer.model import TriSingerModel, grad_norm
+from gyu_singer.renderer import build_server
+from gyu_singer.score import normalize_score
+
+
+def test_trilingual_frontend_structural_features():
+    ko, en, ja = phonemize("ko", "한글"), phonemize("en", "soft voice"), phonemize("ja", "がっこうん")
+    assert any(row[2] for row in ko.features)  # Korean coda
+    assert any(row[3] for row in en.features)  # rule-based stress proxy, inferred
+    assert any(row[6] for row in ja.features) and any(row[7] for row in ja.features)
+    assert all(ko.word_boundaries[-1:]) and all(en.word_boundaries[-1:])
+
+
+def test_alignment_assigns_each_note_its_lyric():
+    frames = build_phrase_frames(phonemize("ko", "하늘"), [{"pitch": 60, "start": 0, "duration": .5, "lyric": "하"}, {"pitch": 64, "start": .5, "duration": .5, "lyric": "늘"}])
+    assert frames.note_index.max() == 1 and frames.boundary.sum() == 2
+    assert frames.phoneme_ids[0] != frames.phoneme_ids[7]
+
+
+def _batch():
+    return {"phoneme_ids": torch.ones(1, 6, dtype=torch.long), "language_ids": torch.zeros(1, 6, dtype=torch.long),
+            "features": torch.zeros(1, 6, 8), "midi": torch.full((1, 6), 60.0), "note_index": torch.zeros(1, 6, dtype=torch.long),
+            "boundary": torch.zeros(1, 6), "reference_features": torch.zeros(1, 160), "style_preset": torch.zeros(1, dtype=torch.long),
+            "style_controls": torch.zeros(1, 5), "f0_hz": torch.full((1, 6), 261.0), "voiced": torch.ones(1, 6), "residual": torch.zeros(1, 6)}
+
+
+def test_all_hybrid_modules_receive_gradient():
+    model, batch = TriSingerModel(dim=32), _batch()
+    output = model(torch.randn(1, 6, 768), torch.tensor([.4]), batch)
+    loss = output["velocity"].square().mean() + output["acoustic_bias"].square().mean() + output["pitch_log_f0"].mean() + model.distillation_prediction(batch).square().mean()
+    loss.backward()
+    for name in ("phoneme_encoder", "language_encoder", "score_encoder", "blurred_boundary_encoder", "timbre_encoder", "style_encoder", "pitch_encoder", "conditional_flow_transformer", "singing_decoder"):
+        assert grad_norm(getattr(model, name)) > 0, name
+
+
+def test_losses_use_pitch_mask_and_teacher_trust():
+    assert log_pitch_loss(torch.zeros(1, 2), torch.tensor([[1.0, 100.0]]), torch.tensor([[0.0, 1.0]])) > 0
+    assert weighted_distillation_loss(torch.tensor([[0.0], [10.0]]), torch.zeros(2, 1), torch.tensor([1.0, 0.0])) == 0
+    assert flow_matching_loss(torch.ones(1, 2, 3), torch.zeros(1, 2, 3)) == 1
+
+
+def test_score_protocol_and_resident_http():
+    score = normalize_score({"language": "ko", "notes": [{"pitch": 60, "start": 0, "duration": .2, "lyric": "아"}]})
+    assert score["sample_rate"] == 48000
+    class Fake:
+        sample_rate = 48000
+        def render(self, incoming):
+            assert incoming["language"] == "ko"; return np.zeros(9600, np.float32)
+    server = build_server(Fake(), port=0)
+    import threading
+    thread = threading.Thread(target=server.serve_forever); thread.start()
+    try:
+        host, port = server.server_address
+        assert b'"status": "ok"' in urllib.request.urlopen(f"http://{host}:{port}/health").read()
+        request = urllib.request.Request(f"http://{host}:{port}/render", data=b'{"language":"ko","notes":[{"pitch":60,"start":0,"duration":0.2,"lyric":"\xec\x95\x84"}]}', method="POST")
+        assert urllib.request.urlopen(request).read()[:4] == b"RIFF"
+    finally:
+        server.shutdown(); thread.join()
+
+
+def test_hybrid_path_has_no_baseline_dsp_calls():
+    source = open("src/gyu_singer/inference/hybrid.py").read()
+    assert "pitch_shift" not in source and "phase_vocoder" not in source and "NeuralRenderer" not in source
+
+
+def test_openutau_ustx_bridge_converts_ticks(tmp_path):
+    bridge_path = "integrations/openutau/bridge.py"
+    spec = importlib.util.spec_from_file_location("ustx_bridge", bridge_path)
+    bridge = importlib.util.module_from_spec(spec); spec.loader.exec_module(bridge)
+    source = tmp_path / "song.ustx"
+    source.write_text("resolution: 480\ntempos:\n  - bpm: 120\nvoice_parts:\n  - position: 480\n    notes:\n      - position: 0\n        duration: 480\n        tone: 60\n        lyric: 아\n")
+    score = bridge.ustx_score(source, "ko")
+    assert score["notes"] == [{"pitch": 60.0, "start": 0.5, "duration": 0.5, "lyric": "아"}]

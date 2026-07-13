@@ -1,6 +1,6 @@
 import numpy as np
 
-from gyu_singer.renderer import Renderer, midi_hz
+from gyu_singer.baseline_renderer import Renderer, midi_hz
 
 
 def test_midi_hz_reference_pitch():

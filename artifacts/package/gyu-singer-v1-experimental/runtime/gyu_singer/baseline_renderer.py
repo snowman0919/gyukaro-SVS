@@ -13,7 +13,7 @@ def midi_hz(pitch: float) -> float:
 
 
 class Renderer:
-    """Resident, score-controlled renderer backed by adapted GYU voice loops."""
+    """Stage 0 loop baseline; not the hybrid neural SVS path."""
 
     def __init__(self, model_path: str | Path):
         bank = np.load(model_path, allow_pickle=False)

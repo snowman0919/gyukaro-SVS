@@ -1,5 +1,13 @@
-# Renderer protocol v1
+# GYU Renderer Protocol v2
 
-`gyu-singer --model checkpoints/gyu_v1_experimental.npz render input.json --output output.wav`
+Resident server command:
 
-Input has `sample_rate`, `language`, `tempo`, and ordered `notes`. Each note needs `pitch` (MIDI), `start`, `duration`, and `lyric`; optional `dynamics` is 0..1. `gyu-singer serve --port 8765` keeps loops resident and accepts JSON `POST /render`, returning WAV.
+```sh
+gyu-singer --backend hybrid-svs serve --port 8765
+```
+
+`GET /health` returns readiness. `GET /model` returns backend and output rate. `POST /render` accepts JSON and returns a 48 kHz PCM WAV without reloading model.
+
+Required score fields: `language` (`ko`, `en`, `ja`) and ordered non-overlapping `notes`. Every note has MIDI `pitch`, second-based `start` and `duration`, and `lyric`. Optional `expressions`: scalar `dynamics`, `breathiness`, `tension`, `brightness`, `vibrato`.
+
+`integrations/openutau/bridge.py` converts one USTX voice part to this protocol.

@@ -1,3 +1,3 @@
 # GYU Singer v1-experimental
 
-`sh install.sh`, then `sh run.sh`. Dependencies install only into package-local `.venv`. Score notes drive fine-tuned GYU vocalization, MIDI pitch, timing, and dynamics. This is an experimental neural vocalizer, not full score-to-acoustic SVS.
+Compact phrase-level neural SVS runtime. `sh install.sh`, then `sh run.sh`. It uses a 160-step compact conditional-flow checkpoint trained on real GYU anchors with inferred score timing plus weighted teacher representation loss. Output quality and non-Korean singing remain experimental; no source-loop or per-note DSP path is used by this package.

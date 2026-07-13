@@ -1,1 +1,1 @@
-GYU reference recording: authorized target-speaker material. MOSS-TTS-Nano model card declares Apache-2.0. Runtime dependencies retain upstream licenses.
+GYU recordings: authorized target-speaker data; package redistributes only one authorized 48 kHz reference WAV. MOSS audio tokenizer: upstream Apache-2.0 model card. Runtime dependencies retain their upstream licenses.
