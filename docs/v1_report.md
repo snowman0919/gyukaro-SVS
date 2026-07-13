@@ -19,6 +19,8 @@ Japanese status: foundation-model cross-lingual render validated; experimental a
 
 SFT: 64 examples, 3 epochs, 48 optimizer steps, BF16, global batch 4, max length 512. Logged loss: 6.0353 at step 5, 5.5230 at step 30, final checkpoint at step 48. KO/EN/JA finetuned renderer samples are each 48 kHz mono, 6.45 s.
 
+SoulX-Singer SVC English pilot: an authorized GYU reference (segment 216) converted the official English singing target `Who says you're not pretty...` to a 48 kHz, 8.294 s WAV. Duration was preserved exactly, but target/output F0-contour correlation was 0.3382. It fails the pseudo-singing pitch gate and is retained only as an evaluation artifact (`artifacts/eval/gyu_soulx_svc_english_pilot.json`), never as training data.
+
 ## Architecture chosen
 
 Fine-tuned MOSS-TTS-Nano acoustic-token model plus GYU reference conditioning, then note-by-note pitch/time DSP. See `architecture.md`.
@@ -33,7 +35,7 @@ TCSinger 2, FM-Singer, TechSinger, SoulX-Singer, YingMusic-Singer Plus, and Open
 
 ## Important compromises
 
-SFT corpus is Korean-only and tiny. Output is score-controlled vocalization, not full phoneme-to-note neural SVS. Empty isolated-prompt Nano generations fall back to real GYU reference audio; this is recorded in runtime code and must be eliminated by fuller acoustic training.
+SFT corpus is Korean-only and tiny. Output is score-controlled vocalization, not full phoneme-to-note neural SVS. The first SoulX English SVC pilot failed its F0 gate, so pseudo singing is not admitted. Empty isolated-prompt Nano generations fall back to real GYU reference audio; this is recorded in runtime code and must be eliminated by fuller acoustic training.
 
 ## Run v1
 

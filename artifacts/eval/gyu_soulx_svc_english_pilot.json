@@ -1,0 +1,11 @@
+{
+  "target": "data/cache/soulx-singer/example/audio/en_target.mp3",
+  "output": "artifacts/samples/gyu_soulx_svc_english_pilot.wav",
+  "target_sample_rate": 48000,
+  "output_sample_rate": 48000,
+  "target_duration_sec": 8.294,
+  "output_duration_sec": 8.294,
+  "duration_ratio": 1.0,
+  "f0_contour_correlation": 0.3382,
+  "validation": "exploratory_svc_pitch_duration_only_not_lyric_or_speaker_gate"
+}
