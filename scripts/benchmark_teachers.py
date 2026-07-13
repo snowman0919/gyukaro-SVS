@@ -21,6 +21,12 @@ def valid_audio(path: Path) -> bool:
         return False
 
 
+def write_manifest(path: Path, rows: dict[str, dict]) -> None:
+    temporary = path.with_suffix(path.suffix + ".tmp")
+    temporary.write_text("".join(json.dumps(row, ensure_ascii=False) + "\n" for row in rows.values()))
+    temporary.replace(path)
+
+
 def request_payload(source: dict, protocol: str, max_new_tokens: int) -> dict:
     reference = {"text": source["reference_text"]}
     if protocol == "fish":
@@ -83,11 +89,11 @@ def main() -> None:
             "generation_config": {"max_new_tokens": args.max_new_tokens, "protocol": args.protocol},
             "quality_status": "pending_gate",
         }
-        output.write_text("".join(json.dumps(row, ensure_ascii=False) + "\n" for row in completed.values()))
+        write_manifest(output, completed)
         generated += 1
         print(f"generated={generated} id={source['id']}", flush=True)
     if metadata_changed:
-        output.write_text("".join(json.dumps(row, ensure_ascii=False) + "\n" for row in completed.values()))
+        write_manifest(output, completed)
     print(f"completed={len(completed)} generated_now={generated} output={output}")
 
 
