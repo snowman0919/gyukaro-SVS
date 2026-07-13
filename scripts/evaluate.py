@@ -110,6 +110,10 @@ def language_code(language: str) -> str:
     return {"Korean": "ko", "English": "en", "Japanese": "ja"}.get(language, language)
 
 
+def agreement_peers(rows: list[dict], row: dict) -> list[dict]:
+    return [peer for peer in rows if peer is not row and peer["teacher"] != row["teacher"]]
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--input", default="data/manifests/teacher_executed.jsonl")
@@ -143,11 +147,11 @@ def main() -> None:
             "speaker_score": cosine(generated_wavlm[row["output_path"]], wavlm),
             "speaker_score_2": cosine(evaluator.ecapa_embedding(audio16), ecapa),
         })
-    grouped: dict[tuple[str, str], list[dict]] = defaultdict(list)
+    grouped: dict[str, list[dict]] = defaultdict(list)
     for row in rows:
-        grouped[(language_code(row["language"]), row["text"])].append(row)
+        grouped[row["id"]].append(row)
     for row in rows:
-        peers = [peer for peer in grouped[(language_code(row["language"]), row["text"])] if peer is not row]
+        peers = agreement_peers(grouped[row["id"]], row)
         row["teacher_agreement_score"] = round(float(np.mean([cosine(generated_wavlm[row["output_path"]], generated_wavlm[peer["output_path"]]) for peer in peers])), 4) if peers else None
         minimums = [row["acoustic_pass"], row["content_score"] >= 0.55, row["language_score"] >= 0.8, row["speaker_score"] >= 0.1, row["speaker_score_2"] >= 0.1]
         row["overall_confidence"] = round(float(np.mean([row["content_score"], row["language_score"], max(row["speaker_score"], 0), max(row["speaker_score_2"], 0)])), 4)
