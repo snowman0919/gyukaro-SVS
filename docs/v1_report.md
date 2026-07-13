@@ -1,55 +1,48 @@
 # GYU Singer v1 experimental
 
-Overall status: packaged v1-experimental real-anchor renderer
+Overall status: packaged neural v1-experimental
 Packaged v1: `gyu-singer-v1-experimental.zip`
 Package path: `artifacts/package/gyu-singer-v1-experimental.zip`
-Package SHA-256: `99167173da40ff464c2cb3d6a440237ba6b8e66d183d1e62602f7ce5510c4d0c`
-Best checkpoint: `checkpoints/gyu_v1_experimental.npz`
-Renderer status: CLI and resident localhost HTTP daemon implemented
-Editor integration status: score-export bridge protocol only
-Korean status: pitch-controlled GYU timbre; lyrics not intelligible
-English status: experimental protocol input only; no phoneme model
-Japanese status: experimental protocol input only; no phoneme model
+Package SHA-256: `e345663d08ddb7f13feff0684df81893f4972552d5c93975a779702ef33a81a6`
+Best checkpoint: `checkpoints/gyu_moss_nano_sft/checkpoint-last`
+Renderer status: CLI plus resident localhost HTTP daemon; fine-tuned neural backend default
+Editor integration status: OpenUtau score-export bridge protocol
+Korean status: real GYU SFT and score render validated
+English status: foundation-model cross-lingual render validated; experimental after KO-only SFT
+Japanese status: foundation-model cross-lingual render validated; experimental after KO-only SFT
 
-## What works
+## What actually works
 
-Dataset index/PCM masters, conservative anchor manifest, real-GYU adapted loop checkpoint, explicit MIDI pitch/duration rendering, three rendered score samples, package archive, and clean package smoke test.
-
-## What does not work
-
-No manual transcript/forced alignment; no teacher generation; no pretrained neural SVS adaptation; no lyric-conditioned intelligibility; no native OpenUtau renderer.
+132 real recordings are indexed; 76 phrase alignments are ASR/script confirmed; 64 real D/E singing phrases were tokenized and used for SFT. `gyu-singer render` accepts score JSON and renders 48 kHz mono WAV with lyric conditioning, MIDI pitch, timing, and dynamics. Clean-package smoke rendered a 6.45 s WAV without external model cache.
 
 ## Measured results
 
-Validation asserts 132 continuous source indices and 48 kHz mono PCM. Render smoke output is 2.48 s, 48 kHz mono PCM24; HTTP resident-renderer smoke returned the same valid WAV. Eight loops are selected only from voiced, unclipped real anchors.
+SFT: 64 examples, 3 epochs, 48 optimizer steps, BF16, global batch 4, max length 512. Logged loss: 6.0353 at step 5, 5.5230 at step 30, final checkpoint at step 48. KO/EN/JA finetuned renderer samples are each 48 kHz mono, 6.45 s.
 
 ## Architecture chosen
 
-Real-anchor source-loop renderer described in `architecture.md`, selected because it produces real speaker audio today without pretending unverified text can train trilingual neural singing.
+Fine-tuned MOSS-TTS-Nano acoustic-token model plus GYU reference conditioning, then note-by-note pitch/time DSP. See `architecture.md`.
 
 ## Teacher models actually used
 
-No teacher audio is used by v1. One MOSS-TTS-Nano KO/EN/JA pilot was actually rendered and acoustically filtered, but remains unadmitted; see `teacher_report.md`.
+MOSS-TTS-Nano KO/EN/JA clone pilot was run and acoustically filtered. Fish S2 Pro, Higgs TTS 3, and MOSS Local Transformer were inspected but not admitted to training; see `teacher_report.md`.
 
 ## SVS systems actually inspected
 
 TCSinger 2, FM-Singer, TechSinger, SoulX-Singer, YingMusic-Singer Plus, and OpenVPI DiffSinger; see `svs_review.md`.
 
-## Training completed
-
-Deterministic real-anchor selection/adaptation complete. No neural training claimed.
-
 ## Important compromises
 
-Text ignored acoustically; this is explicitly experimental. Human transcript alignment and pretrained SVS adaptation are highest-value next work.
+SFT corpus is Korean-only and tiny. Output is score-controlled vocalization, not full phoneme-to-note neural SVS. Empty isolated-prompt Nano generations fall back to real GYU reference audio; this is recorded in runtime code and must be eliminated by fuller acoustic training.
 
 ## Run v1
 
 ```sh
-PYTHONPATH=src python -m gyu_singer.cli --model checkpoints/gyu_v1_experimental.npz render examples/korean.json --output out.wav
-PYTHONPATH=src python -m gyu_singer.cli --model checkpoints/gyu_v1_experimental.npz serve --port 8765
+cd artifacts/package/gyu-singer-v1-experimental
+sh install.sh
+sh run.sh
 ```
 
 ## Next highest-value improvements
 
-Manually review `script_alignment.jsonl`, obtain verified Korean labels/phonemes, benchmark all three teachers, then adapt a license-compatible pretrained SVS acoustic model.
+Run full 100×3 teacher benchmark with speaker/ASR gates, add EN/JA supervised or high-confidence pseudo-singing data, then replace DSP note conversion with a pretrained flow-matching SVS acoustic decoder.

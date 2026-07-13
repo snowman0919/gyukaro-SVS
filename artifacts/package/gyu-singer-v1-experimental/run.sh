@@ -1,2 +1,2 @@
 #!/bin/sh
-PYTHONPATH=runtime python -m gyu_singer.cli --model model/gyu_v1_experimental.npz render examples/korean.json --output output.wav
+PYTHONPATH=runtime python -m gyu_singer.cli --backend neural --model model/gyu_moss_nano_sft --audio-tokenizer model/moss-audio-tokenizer-nano --reference model/gyu_reference.m4a render examples/smoke.json --output output.wav

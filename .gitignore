@@ -9,6 +9,10 @@ checkpoints/*
 !checkpoints/.gitkeep
 artifacts/samples/*.wav
 render.wav
+artifacts/reports/asr.*
+artifacts/package/gyu-singer-v1-experimental/model/gyu_moss_nano_sft/
+artifacts/package/gyu-singer-v1-experimental/model/moss-audio-tokenizer-nano/
+artifacts/package/gyu-singer-v1-experimental/model/gyu_reference.m4a
 artifacts/package/*.zip
 *.pyc
 __pycache__/

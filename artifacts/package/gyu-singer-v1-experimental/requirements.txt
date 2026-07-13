@@ -1,0 +1,8 @@
+numpy
+scipy
+soundfile
+torch
+torchaudio
+torchcodec
+transformers
+onnxruntime

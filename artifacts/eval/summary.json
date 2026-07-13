@@ -1,12 +1,12 @@
 {
   "status": "passed",
   "renderer_smoke": {
-    "input": "examples/korean.json",
+    "input": "examples/smoke.json",
     "sample_rate": 48000,
     "channels": 1,
-    "duration_sec": 2.48,
+    "duration_sec": 6.45,
     "package_clean_smoke": true
   },
-  "samples": ["korean.wav", "english.wav", "japanese.wav"],
-  "known_limit": "Lyrics do not yet condition generated waveform."
+  "samples": ["finetuned_korean.wav", "finetuned_english.wav", "finetuned_japanese.wav"],
+  "known_limit": "Korean-only SFT; EN/JA use cross-lingual base capability and isolated one-character prompt fallback remains."
 }

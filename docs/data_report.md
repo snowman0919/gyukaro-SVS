@@ -1,7 +1,7 @@
 # GYU recording report
 
-`scripts/index_recordings.py` measured 132 sequential ALAC `.m4a` files, indices 106–237. All decode to mono 48,000 Hz PCM S24LE masters. Total duration is 1,740.117 s (29.002 min), source duration range 3.669–41.216 s, median detected F0 136.075 Hz, median voiced-frame ratio 0.5031, and 2 takes have peak-clipping flags. Measured per-file duration, RMS, peak, approximate loudness, active ratio, autocorrelation F0 statistics, voiced ratio, clipping, and decode state live in `data/manifests/real_recordings.jsonl`.
+132 sequential ALAC `.m4a` recordings, indices 106–237, decode to 48 kHz mono PCM S24LE masters. Total duration: 1,740.117 s (29.002 min); source duration 3.669–41.216 s; median detected F0 136.075 Hz; median voiced ratio 0.5031; 2 peak-clipping flags. Per-file measurements are in `data/manifests/real_recordings.jsonl`.
 
-Script PDF was found in source archive. Source order supports block assignment A–G: A 106–119, B 120–153, C 154–170, D 171–202, E 203–222, F 223–232, G 233–237. No ASR transcript was available, so every item has `script_text_unverified`, blank text, and confidence 0.35. This is intentionally not a usable text-aligned neural training set yet.
+Local Whisper large-v3-turbo transcribed every recording. Source order plus the embedded script PDF reconstructs blocks as A 106–117, B 118–139, C 140–157, D 158–211, E 212–221, F 222–236, G 237. 76 phrase segments have explicit script correspondence at confidence 0.99; 56 exercise/free-take mappings remain marked for review. Evidence: `asr_transcripts.jsonl`, `script_alignment.jsonl`, and `artifacts/reports/alignment_review.md`.
 
-`real_segments.jsonl` has conservative active segments, real trust weight 1.0, and split labels. `script_alignment.jsonl` is a review artifact, not asserted correspondence.
+`neural_supervision.jsonl` contains 76 high-confidence C/D/E real anchors; `moss_sft_raw.jsonl` selects the 64 real singing D/E takes used by SFT. No generated teacher sample is represented as real data.

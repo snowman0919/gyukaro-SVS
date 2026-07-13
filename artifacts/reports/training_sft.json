@@ -1,0 +1,17 @@
+{
+  "status": "completed",
+  "framework": "OpenMOSS MOSS-TTS-Nano finetuning/sft.py",
+  "base_model": "OpenMOSS-Team/MOSS-TTS-Nano",
+  "checkpoint": "checkpoints/gyu_moss_nano_sft/checkpoint-last",
+  "real_gyu_examples": 64,
+  "epochs": 3,
+  "optimizer_steps": 48,
+  "effective_batch_size": 4,
+  "precision": "bf16",
+  "max_length": 512,
+  "learning_rate": 1e-5,
+  "attention": "sdpa",
+  "loss_step_5": 6.0353,
+  "loss_step_30": 5.523,
+  "command_note": "Initial flash_attention_2 run failed because flash_attn was absent; rerun with sdpa completed."
+}

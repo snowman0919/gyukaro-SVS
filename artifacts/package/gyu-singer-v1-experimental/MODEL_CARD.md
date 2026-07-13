@@ -1,1 +1,1 @@
-Real GYU-derived voiced loop bank. Pitch controlled by resampling. Text/phoneme conditioning is not trained; lyrics are accepted for protocol compatibility only.
+MOSS-TTS-Nano foundation weights fine-tuned for 3 epochs/48 steps on 64 ASR-confirmed GYU singing phrases. Runtime adds authorized GYU reference conditioning and note-by-note pitch/time transforms. Long-note, consonant, and unseen multilingual lyric quality remain experimental.
