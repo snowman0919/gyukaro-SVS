@@ -27,7 +27,7 @@ Fine-tuned MOSS-TTS-Nano acoustic-token model plus GYU reference conditioning, t
 
 ## Teacher models actually used
 
-MOSS-TTS-Nano KO/EN/JA clone pilot was run and acoustically filtered. Fish S2 Pro, Higgs TTS 3 4B, and MOSS Local Transformer v1.5 each produced a separate Korean GYU-reference clone pilot; none of their generated audio was admitted to training. See `teacher_report.md`.
+MOSS-TTS-Nano KO/EN/JA clone pilot was run and acoustically filtered. Fish S2 Pro, Higgs TTS 3 4B, and MOSS Local Transformer v1.5 completed a 100×3 controlled GYU-reference benchmark: 633/900 cross-teacher-gated rows were retained only for representation distillation, never the singing decoder. See `teacher_report.md`.
 
 ## SVS systems actually inspected
 
@@ -47,4 +47,4 @@ sh run.sh
 
 ## Next highest-value improvements
 
-Run full 100×3 teacher benchmark with speaker/ASR gates, add EN/JA supervised or high-confidence pseudo-singing data, then replace DSP note conversion with a pretrained flow-matching SVS acoustic decoder.
+Run the separately tracked dark/emotional teacher supplement, add EN/JA supervised or high-confidence pseudo-singing data, then replace DSP note conversion with a pretrained flow-matching SVS acoustic decoder.

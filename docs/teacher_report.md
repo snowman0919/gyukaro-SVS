@@ -36,4 +36,14 @@ The complete 300-item corpus was generated with `OpenMOSS-Team/MOSS-TTS-Local-Tr
 | English | 100 | 78 | 0.8204 |
 | Japanese | 100 | 19 | 0.7483 |
 
-This is evidence for the gate, not a weighted synthetic training corpus. MOSS Local is a speech clone rather than score-conditioned singing supervision, and the Japanese result is especially insufficient. Fish S2 Pro and Higgs TTS 3 4B must each complete the same 100×3 generation and gate before any cross-teacher selection can be considered.
+## Full cross-teacher gate and weighted corpus
+
+Fish S2 Pro and Higgs TTS 3 4B completed the same pinned 100×3 corpus. `teacher_full_trilingual.jsonl` combines all 900 outputs; `teacher_full_trilingual_scored.jsonl` applies Whisper, WavLM, ECAPA, acoustic checks, and same-item cross-teacher agreement. 633/900 pass without training admission; 267 require review.
+
+| Language | Gate pass | Weighted representation rows | Mean trust weight |
+|---|---:|---:|---:|
+| Korean | 291 | 291 | 0.1901 |
+| English | 273 | 273 | 0.1841 |
+| Japanese | 69 | 69 | 0.1777 |
+
+The selected manifest is `data/manifests/teacher_weighted.jsonl`: MOSS 196, Fish 228, Higgs 209. Every row is `representation_distillation_only_not_singing_decoder`; no synthetic teacher speech is presented as real GYU singing. The fixed core corpus has neutral, soft, breathy, energetic, and bright conditions; `trilingual_style_supplement.jsonl` supplies separately tracked dark/emotional cases for the next teacher pass.
