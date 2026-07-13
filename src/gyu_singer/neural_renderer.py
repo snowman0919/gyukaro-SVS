@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import math
 import json
+import threading
 from pathlib import Path
 
 import numpy as np
@@ -32,6 +33,8 @@ class NeuralRenderer:
         self.model_path, self.tokenizer_path, self.reference_path = map(str, (model_path, tokenizer_path, reference_path))
         self.sample_rate = sample_rate
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
+        # ponytail: one shared CUDA model is serialized; add worker processes only when concurrent renders matter.
+        self._inference_lock = threading.Lock()
         dtype = torch.bfloat16 if self.device == "cuda" else torch.float32
         self.model = AutoModelForCausalLM.from_pretrained(self.model_path, trust_remote_code=True)
         self.model._set_attention_implementation("sdpa")
@@ -43,12 +46,12 @@ class NeuralRenderer:
         text = lyric * 3 if len(lyric.replace(" ", "")) == 1 else lyric
         raw_path = Path("/tmp/gyu_note.wav")
         try:
-            with torch.inference_mode():
+            with self._inference_lock, torch.inference_mode():
                 try:
                     self.model.inference(text=text or "아", output_audio_path=raw_path, mode="voice_clone", prompt_audio_path=self.reference_path, audio_tokenizer_type="moss-audio-tokenizer-nano", audio_tokenizer_pretrained_name_or_path=self.tokenizer_path, device=self.device, max_new_frames=frames, do_sample=False)
                 except RuntimeError:
                     self.model.inference(text=(text or "아") * 3, output_audio_path=raw_path, mode="voice_clone", prompt_audio_path=self.reference_path, audio_tokenizer_type="moss-audio-tokenizer-nano", audio_tokenizer_pretrained_name_or_path=self.tokenizer_path, device=self.device, max_new_frames=160, do_sample=False)
-            audio, rate = sf.read(raw_path, dtype="float32", always_2d=True)
+                audio, rate = sf.read(raw_path, dtype="float32", always_2d=True)
             audio = torch.from_numpy(audio.mean(1))
         except RuntimeError:
             # ponytail: Nano may emit an empty token sequence for isolated phonemes; replace with real GYU reference until acoustic finetuning fixes this.

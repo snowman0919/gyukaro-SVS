@@ -3,7 +3,7 @@
 Overall status: packaged neural v1-experimental
 Packaged v1: `gyu-singer-v1-experimental.zip`
 Package path: `artifacts/package/gyu-singer-v1-experimental.zip`
-Package SHA-256: `e345663d08ddb7f13feff0684df81893f4972552d5c93975a779702ef33a81a6`
+Package SHA-256: `0b147c24ab7f230d92c497e706c12fd361adebdb29c20eb994ee108124761c4e`
 Best checkpoint: `checkpoints/gyu_moss_nano_sft/checkpoint-last`
 Renderer status: CLI plus resident localhost HTTP daemon; fine-tuned neural backend default
 Editor integration status: OpenUtau score-export bridge protocol

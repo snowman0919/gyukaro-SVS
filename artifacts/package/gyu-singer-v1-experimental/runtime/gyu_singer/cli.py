@@ -1,10 +1,10 @@
 from __future__ import annotations
 
 import argparse
+import io
 import json
 import os
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
-from pathlib import Path
 
 import soundfile as sf
 
@@ -35,10 +35,10 @@ def main() -> None:
             if self.path != "/render":
                 self.send_error(404); return
             score = json.loads(self.rfile.read(int(self.headers["Content-Length"])))
-            output = Path("render.wav")
-            sf.write(output, renderer.render(score), score.get("sample_rate", renderer.sample_rate), subtype="PCM_24")
+            output = io.BytesIO()
+            sf.write(output, renderer.render(score), score.get("sample_rate", renderer.sample_rate), format="WAV", subtype="PCM_24")
             self.send_response(200); self.send_header("Content-Type", "audio/wav"); self.end_headers()
-            self.wfile.write(output.read_bytes())
+            self.wfile.write(output.getvalue())
     ThreadingHTTPServer(("127.0.0.1", args.port), Handler).serve_forever()
 
 
