@@ -24,10 +24,10 @@ def contour_correlation(target: np.ndarray, output: np.ndarray) -> float:
     return round(float(np.corrcoef(target, output)[0, 1]), 4)
 
 
-def metrics(path: str) -> tuple[np.ndarray, int, float]:
+def metrics(path: str, f0_path: str | None) -> tuple[np.ndarray, int, float]:
     audio, rate = sf.read(path, dtype="float32", always_2d=True)
     mono = audio.mean(axis=1)
-    return f0_contour(mono, rate), rate, len(mono) / rate
+    return np.load(f0_path) if f0_path else f0_contour(mono, rate), rate, len(mono) / rate
 
 
 def main() -> None:
@@ -35,9 +35,11 @@ def main() -> None:
     parser.add_argument("--target", required=True)
     parser.add_argument("--output", required=True)
     parser.add_argument("--report", required=True)
+    parser.add_argument("--target-f0")
+    parser.add_argument("--output-f0")
     args = parser.parse_args()
-    target_f0, target_rate, target_duration = metrics(args.target)
-    output_f0, output_rate, output_duration = metrics(args.output)
+    target_f0, target_rate, target_duration = metrics(args.target, args.target_f0)
+    output_f0, output_rate, output_duration = metrics(args.output, args.output_f0)
     result = {
         "target": args.target,
         "output": args.output,
@@ -47,6 +49,7 @@ def main() -> None:
         "output_duration_sec": round(output_duration, 4),
         "duration_ratio": round(output_duration / target_duration, 4),
         "f0_contour_correlation": contour_correlation(target_f0, output_f0),
+        "f0_extractor": "precomputed" if args.target_f0 and args.output_f0 else "librosa_yin",
         "validation": "exploratory_svc_pitch_duration_only_not_lyric_or_speaker_gate",
     }
     Path(args.report).parent.mkdir(parents=True, exist_ok=True)

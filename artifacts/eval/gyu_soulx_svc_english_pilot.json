@@ -6,6 +6,7 @@
   "target_duration_sec": 8.294,
   "output_duration_sec": 8.294,
   "duration_ratio": 1.0,
-  "f0_contour_correlation": 0.3382,
+  "f0_contour_correlation": 0.9502,
+  "f0_extractor": "precomputed",
   "validation": "exploratory_svc_pitch_duration_only_not_lyric_or_speaker_gate"
 }
