@@ -22,3 +22,6 @@ def test_agreement_is_limited_to_the_same_benchmark_item():
         {"id": "item_2", "teacher": "moss"},
     ]
     assert module.agreement_peers(rows[:2], rows[0]) == [rows[1]]
+    assert module.passes_agreement(None)
+    assert module.passes_agreement(0.5)
+    assert not module.passes_agreement(0.49)

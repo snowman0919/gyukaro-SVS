@@ -114,6 +114,10 @@ def agreement_peers(rows: list[dict], row: dict) -> list[dict]:
     return [peer for peer in rows if peer is not row and peer["teacher"] != row["teacher"]]
 
 
+def passes_agreement(score: float | None) -> bool:
+    return score is None or score >= 0.5
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--input", default="data/manifests/teacher_executed.jsonl")
@@ -153,7 +157,8 @@ def main() -> None:
     for row in rows:
         peers = agreement_peers(grouped[row["id"]], row)
         row["teacher_agreement_score"] = round(float(np.mean([cosine(generated_wavlm[row["output_path"]], generated_wavlm[peer["output_path"]]) for peer in peers])), 4) if peers else None
-        minimums = [row["acoustic_pass"], row["content_score"] >= 0.55, row["language_score"] >= 0.8, row["speaker_score"] >= 0.1, row["speaker_score_2"] >= 0.1]
+        agreement_pass = passes_agreement(row["teacher_agreement_score"])
+        minimums = [row["acoustic_pass"], row["content_score"] >= 0.55, row["language_score"] >= 0.8, row["speaker_score"] >= 0.1, row["speaker_score_2"] >= 0.1, agreement_pass]
         row["overall_confidence"] = round(float(np.mean([row["content_score"], row["language_score"], max(row["speaker_score"], 0), max(row["speaker_score_2"], 0)])), 4)
         row["quality_status"] = "teacher_gate_pass_unadmitted" if all(minimums) else "review_required"
     output = Path(args.output)
