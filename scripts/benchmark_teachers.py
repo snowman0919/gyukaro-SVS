@@ -23,6 +23,7 @@ def valid_audio(path: Path) -> bool:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--teacher", required=True)
+    parser.add_argument("--model-revision", required=True)
     parser.add_argument("--endpoint", required=True)
     parser.add_argument("--input", default="configs/teachers/trilingual_pilot.jsonl")
     parser.add_argument("--output", required=True)
@@ -49,7 +50,7 @@ def main() -> None:
         target.write_bytes(response.content)
         info = sf.info(target)
         completed[source["id"]] = source | {
-            "teacher": args.teacher, "model_revision": "local-run-2026-07-14", "output_path": str(target),
+            "teacher": args.teacher, "model_revision": args.model_revision, "output_path": str(target),
             "sample_rate": info.samplerate, "channels": info.channels, "generation_config": {"max_new_tokens": args.max_new_tokens},
             "quality_status": "pending_gate",
         }
