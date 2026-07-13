@@ -25,7 +25,10 @@ def request_payload(source: dict, protocol: str, max_new_tokens: int) -> dict:
     reference = {"text": source["reference_text"]}
     if protocol == "fish":
         reference["audio"] = base64.b64encode(Path(source["reference_audio_path"]).read_bytes()).decode()
-        return {"text": source["text"], "references": [reference], "format": "wav", "max_new_tokens": max_new_tokens}
+        return {
+            "text": source["text"], "references": [reference], "format": "wav", "max_new_tokens": max_new_tokens,
+            "use_memory_cache": "on",
+        }
     reference["audio_path"] = str(Path(source["reference_audio_path"]).resolve())
     return {
         "input": source["text"], "references": [reference], "language": LANGUAGES[source["language"]],
@@ -66,7 +69,8 @@ def main() -> None:
         info = sf.info(target)
         completed[source["id"]] = source | {
             "teacher": args.teacher, "model_revision": args.model_revision, "output_path": str(target),
-            "sample_rate": info.samplerate, "channels": info.channels, "generation_config": {"max_new_tokens": args.max_new_tokens},
+            "sample_rate": info.samplerate, "channels": info.channels,
+            "generation_config": {"max_new_tokens": args.max_new_tokens, "protocol": args.protocol},
             "quality_status": "pending_gate",
         }
         output.write_text("".join(json.dumps(row, ensure_ascii=False) + "\n" for row in completed.values()))

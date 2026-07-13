@@ -19,4 +19,4 @@ def test_fish_payload_encodes_authorized_reference(tmp_path):
     reference = tmp_path / "reference.wav"
     reference.write_bytes(b"audio")
     payload = module.request_payload({"text": "hello", "reference_text": "ref", "reference_audio_path": str(reference)}, "fish", 42)
-    assert payload == {"text": "hello", "references": [{"text": "ref", "audio": "YXVkaW8="}], "format": "wav", "max_new_tokens": 42}
+    assert payload == {"text": "hello", "references": [{"text": "ref", "audio": "YXVkaW8="}], "format": "wav", "max_new_tokens": 42, "use_memory_cache": "on"}
