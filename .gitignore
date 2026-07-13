@@ -1,0 +1,15 @@
+data/source/
+gyu.zip
+._gyu.zip
+data/processed/
+data/teacher/
+data/pseudo_singing/
+data/cache/
+checkpoints/*
+!checkpoints/.gitkeep
+artifacts/samples/*.wav
+render.wav
+artifacts/package/*.zip
+*.pyc
+__pycache__/
+.venv/

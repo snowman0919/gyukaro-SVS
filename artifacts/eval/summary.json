@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "renderer_smoke": {
+    "input": "examples/korean.json",
+    "sample_rate": 48000,
+    "channels": 1,
+    "duration_sec": 2.48,
+    "package_clean_smoke": true
+  },
+  "samples": ["korean.wav", "english.wav", "japanese.wav"],
+  "known_limit": "Lyrics do not yet condition generated waveform."
+}

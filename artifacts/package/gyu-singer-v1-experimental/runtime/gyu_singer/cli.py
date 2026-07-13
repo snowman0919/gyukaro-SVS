@@ -1,0 +1,41 @@
+from __future__ import annotations
+
+import argparse
+import json
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+from pathlib import Path
+
+import soundfile as sf
+
+from .renderer import Renderer
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(prog="gyu-singer")
+    parser.add_argument("--model", default="checkpoints/gyu_v1_experimental.npz")
+    sub = parser.add_subparsers(dest="command", required=True)
+    render = sub.add_parser("render")
+    render.add_argument("input")
+    render.add_argument("--output", required=True)
+    serve = sub.add_parser("serve")
+    serve.add_argument("--port", type=int, default=8765)
+    args = parser.parse_args()
+    renderer = Renderer(args.model)
+    if args.command == "render":
+        renderer.render_file(args.input, args.output)
+        return
+
+    class Handler(BaseHTTPRequestHandler):
+        def do_POST(self):
+            if self.path != "/render":
+                self.send_error(404); return
+            score = json.loads(self.rfile.read(int(self.headers["Content-Length"])))
+            output = Path("render.wav")
+            sf.write(output, renderer.render(score), score.get("sample_rate", renderer.sample_rate), subtype="PCM_24")
+            self.send_response(200); self.send_header("Content-Type", "audio/wav"); self.end_headers()
+            self.wfile.write(output.read_bytes())
+    ThreadingHTTPServer(("127.0.0.1", args.port), Handler).serve_forever()
+
+
+if __name__ == "__main__":
+    main()

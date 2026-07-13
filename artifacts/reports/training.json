@@ -1,0 +1,16 @@
+{
+  "status": "completed",
+  "kind": "real-anchor source-loop adaptation",
+  "trainable_parameters": 0,
+  "source_indices": [
+    164,
+    184,
+    230,
+    236,
+    232,
+    229,
+    215,
+    221
+  ],
+  "reason": "29 minutes with unverified text is insufficient for credible neural multilingual SVS from scratch"
+}
