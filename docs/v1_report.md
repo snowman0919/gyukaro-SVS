@@ -21,7 +21,7 @@ No manual transcript/forced alignment; no teacher generation; no pretrained neur
 
 ## Measured results
 
-Validation asserts 132 continuous source indices and 48 kHz mono PCM. Render smoke output is 48 kHz mono PCM24. Eight loops are selected only from voiced, unclipped real anchors.
+Validation asserts 132 continuous source indices and 48 kHz mono PCM. Render smoke output is 2.48 s, 48 kHz mono PCM24; HTTP resident-renderer smoke returned the same valid WAV. Eight loops are selected only from voiced, unclipped real anchors.
 
 ## Architecture chosen
 
