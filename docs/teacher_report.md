@@ -16,10 +16,12 @@ Executed requested-teacher result: all three requested teachers ran with the sam
 | Higgs TTS 3 4B | `data/teacher/higgs_tts3_ko.wav` | 24 kHz mono, 4.52 s, peak 0.914032, RMS 0.193381, silence 0.242754 | Unadmitted |
 | MOSS Local Transformer v1.5 | `data/teacher/moss_local_ko.wav` | 48 kHz stereo, 3.92 s, peak 0.241180, RMS 0.046807, silence 0.204953 | Unadmitted |
 
-Provenance is tracked in `data/manifests/teacher_executed.jsonl`; generated WAVs are intentionally ignored. None is **admitted**: no ASR/CER, language-ID, two-encoder speaker verification, or agreement comparison has yet passed.
+`scripts/evaluate.py` ran local Whisper large-v3-turbo, WavLM base-plus speaker verification, ECAPA-TDNN speaker verification, acoustic/F0 checks, and pairwise WavLM teacher agreement on these three controlled outputs. All transcribed `하늘에 빛이 내려와` exactly after normalization (content/language score 1.0). WavLM/ECAPA/reference scores were Fish `0.9167/0.6910`, Higgs `0.8899/0.7139`, MOSS Local `0.8122/0.5865`; teacher-agreement scores were `0.8977`, `0.8600`, and `0.8800`. The machine-readable result is `artifacts/eval/teacher_scored.jsonl`.
+
+These are **teacher-gate passes, not training admission**: three Korean short prompts cannot establish 100×3 language coverage, sustained-singing quality, or resistance to teacher identity leakage.
 
 Executed pilot: Apache-2.0 `OpenMOSS-Team/MOSS-TTS-Nano` replacement (0.1B) ran in cloned GYU voice mode for one Korean, English, and Japanese phrase. `teacher_pilot.jsonl` and `teacher_filtered.jsonl` retain provenance. All three pass only basic acoustic gates: 6.4 s, 48 kHz stereo, peak 0.447–0.845, RMS 0.082–0.182, silence 0.020–0.055. They remain **unadmitted** because speaker-embedding, ASR/CER, language-ID, and cross-teacher disagreement gates are not yet run.
 
 Higgs TTS 3 4B and MOSS Local Transformer v1.5 were downloaded and successfully served through SGLang-Omni in an isolated Python 3.12 environment. On GB10, the MOSS codec needed its SDPA fallback because SGLang FA3 cannot fall back to a FA2 package in this environment; the fallback is logged and used only for the teacher pilot. MOSS-Nano remains a clearly labeled small replacement pilot, not evidence of Local-Transformer fine-tuning.
 
-Required next gate: execute all three requested teachers with a fixed 100×3 corpus, retain revisions, then reject samples on ASR, language ID, clipping, duration, F0, and two independent speaker embeddings.
+The fixed 100×3 corpus is `configs/teachers/trilingual_pilot.jsonl`; it rotates five categorized real GYU references and five style labels per language. Required next gate: execute it across all three requested teachers, retain revisions, then apply this same filter before selecting any weighted synthetic corpus.
