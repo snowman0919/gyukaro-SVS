@@ -1,7 +1,12 @@
-Overall status: experimental neural phrase SVS; quality gate fail, not v1.
-Current stage: GYU Hybrid Singer v0.2-experimental.
+Overall status: two distinct experimental paths exist.  The compact GYU
+checkpoint fails quality and is not v1.  The dynamic frozen ACE-Step ->
+SoulX-Singer phrase backend passes the predeclared KO/EN/JA score, hold, and
+ASR gate, but its package depends on an external 13 GB model cache and pinned
+SoulX runtime.  Therefore this is **not** a self-contained v1 release.
+Current stage: compact `GYU Hybrid Singer v0.2-experimental` plus
+`hybrid-soulx-phrase` quality-runtime proof.
 Package: `artifacts/package/gyu-hybrid-singer-v0.2-experimental.zip`
-Package SHA-256: `1cb8b147721c54b41d7610ac4cbbf7f76f53652f2c80cf8f9206be76dec9b642`
+Package SHA-256: `965491a14a4068dc58156275f780b60159f1f9c22b02841b8e4ab64d2be2be6a`
 Git commit: `65ce87348e331b18f0939bd77dd9a81e9a9ef4ad` (report generation source revision)
 Hybrid SVS checkpoint: `checkpoints/gyu_hybrid_v0.2.pt`, SHA-256 `788dbd03b3755aa324cec88813ceb214ce81d9f77d94cbf8e06a0f3b1f71d184`
 Trainable parameters: 762,210.
@@ -73,6 +78,24 @@ Current hybrid F0 correlation: KO 0.3390, EN -0.2012, JA 0.1278. ASR similarity:
 # Known failures
 
 Generated hybrid F0 does not reliably follow score; intelligibility is weak; 3-second vowels are voiced but miss requested C4; real score labels are inferred; style controls uncalibrated; Korean-only real target data limits EN/JA evidence.
+
+# Quality-runtime evidence (separate from the failed compact checkpoint)
+
+`hybrid-soulx-phrase` performs full-phrase ACE-Step lyric-vocal generation
+and full-phrase SoulX-Singer neural timbre transfer conditioned on the exact
+50 Hz score F0 contour.  It is not the source-loop renderer and it does not
+use per-note TTS, pitch shifting, time stretching, or waveform concatenation.
+Actual CLI outputs passed the fixed objective gate: KO `0.9942` F0 correlation
+and `11.08` cents MAE; EN `0.9637` / `21.52`; JA `0.9917` / `12.63`; held-note
+CV was at most `0.0056`; lyric similarity was `1.0000/0.7105/0.6000`.
+`artifacts/reports/soulx_runtime_smoke.json` is the exact evidence.
+
+`artifacts/package/gyu-hybrid-singer-v0.3-quality-runtime.zip` was unzipped
+and its `run.sh` generated 48 kHz mono output.  It is intentionally a thin
+runtime package: it requires external cached Apache-2.0 ACE-Step and
+SoulX-Singer weights plus a compatible pinned SoulX environment.  Do not
+describe it as standalone, production-ready, or as validation of the failed
+compact checkpoint.
 
 # Claims that are explicitly not being made
 

@@ -87,11 +87,13 @@ def metrics(path: str, score: dict, f0: F0Extractor, ref: np.ndarray, wavlm, ext
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--skip-baseline-render", action="store_true")
+    parser.add_argument("--checkpoint", default="checkpoints/gyu_hybrid_v0.2.pt")
+    parser.add_argument("--report", default="artifacts/reports/baseline_hybrid_evaluation.json")
     args = parser.parse_args()
     device = "cuda" if torch.cuda.is_available() else "cpu"
     Path("artifacts/samples").mkdir(exist_ok=True)
     baseline = None if args.skip_baseline_render else NeuralRenderer("checkpoints/gyu_moss_nano_sft/checkpoint-last", "data/cache/moss-audio-tokenizer-nano", "data/source/Korea Digital Media High School 215.m4a")
-    hybrid = HybridRenderer(load_hybrid_model("checkpoints/gyu_hybrid_v0.2.pt", device), MossCodecDecoder("data/cache/moss-audio-tokenizer-nano", device), "data/processed/master/216.wav")
+    hybrid = HybridRenderer(load_hybrid_model(args.checkpoint, device), MossCodecDecoder("data/cache/moss-audio-tokenizer-nano", device), "data/processed/master/216.wav")
     extractor = AutoFeatureExtractor.from_pretrained("data/cache/wavlm-base-plus-sv")
     wavlm = AutoModelForAudioXVector.from_pretrained("data/cache/wavlm-base-plus-sv").to(device).eval()
     ref = embedding(wavlm, extractor, audio16("data/processed/master/216.wav"), device)
@@ -106,7 +108,7 @@ def main() -> None:
         torch.manual_seed(21)
         sf.write(paths["hybrid_svs"], hybrid.render(score), 48000)
         result["scores"][language] = {name: metrics(path, score, f0, ref, wavlm, extractor, asr, processor, device) | {"path": path} for name, path in paths.items()}
-    Path("artifacts/reports/baseline_hybrid_evaluation.json").write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n")
+    Path(args.report).write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n")
     print(json.dumps(result, ensure_ascii=False, indent=2))
 
 

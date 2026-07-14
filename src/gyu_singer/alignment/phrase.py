@@ -29,7 +29,7 @@ class PhraseFrames:
     boundary_types: list[str]
 
 
-def build_phrase_frames(frontend: FrontendOutput, notes: list[dict], pitch_curve: list[dict] | None = None, frame_hz: float = 12.5) -> PhraseFrames:
+def build_phrase_frames(frontend: FrontendOutput, notes: list[dict], pitch_curve: list[dict] | None = None, frame_hz: float = 12.5, phoneme_alignment: list[dict] | None = None) -> PhraseFrames:
     if not notes:
         raise ValueError("notes must not be empty")
     ordered = sorted(notes, key=lambda note: float(note.get("start", note.get("start_sec", 0))))
@@ -44,6 +44,16 @@ def build_phrase_frames(frontend: FrontendOutput, notes: list[dict], pitch_curve
     note_duration = torch.zeros(frames)
     boundary = torch.zeros(frames)
     phoneme_durations, note_sequence, boundary_types = [], [], []
+    if phoneme_alignment:
+        for phone in phoneme_alignment:
+            index = int(phone["phoneme_index"])
+            if index >= len(frontend.phoneme_ids): continue
+            start = max(0, int(round(float(phone["start"]) * frame_hz)))
+            end = min(frames, max(start + 1, int(round((float(phone["start"]) + float(phone["duration"])) * frame_hz))))
+            phoneme_ids[start:end] = frontend.phoneme_ids[index]
+            language_ids[start:end] = frontend.language_ids[index]
+            features[start:end] = torch.tensor(frontend.features[index], dtype=torch.float32)
+            phoneme_durations.append({"symbol": frontend.symbols[index], "note_index": -1, "start_frame": start, "duration_frames": end - start, "boundary_type": "ctc_forced"})
     for index, note in enumerate(ordered):
         start = int(round(float(note.get("start", note.get("start_sec", 0))) * frame_hz))
         end = max(start + 1, int(round((float(note.get("start", note.get("start_sec", 0))) + float(note.get("duration", note.get("duration_sec", 0)))) * frame_hz)))
@@ -54,19 +64,24 @@ def build_phrase_frames(frontend: FrontendOutput, notes: list[dict], pitch_curve
         note_duration[start:end] = float(note.get("duration", note.get("duration_sec", 0))) / max(total, 1e-3)
         # A slur carries articulation across note onset instead of creating a hard boundary.
         boundary[start] = 0.0 if note.get("slur", False) else 1.0
-        # Score lyric owns its note frames; no phrase-wide character stretching.
         lyric = str(note.get("lyric", ""))
-        units = phonemize(frontend.language, lyric) if lyric.strip() else frontend
-        positions = torch.linspace(0, len(units.phoneme_ids) - 1, end - start).round().long()
-        phoneme_ids[start:end] = torch.tensor(units.phoneme_ids)[positions]
-        language_ids[start:end] = torch.tensor(units.language_ids)[positions]
-        features[start:end] = torch.tensor(units.features, dtype=torch.float32)[positions]
+        if not phoneme_alignment:
+            # Score lyric owns its note frames; no phrase-wide character stretching.
+            units = phonemize(frontend.language, lyric) if lyric.strip() else frontend
+            positions = torch.linspace(0, len(units.phoneme_ids) - 1, end - start).round().long()
+            phoneme_ids[start:end] = torch.tensor(units.phoneme_ids)[positions]
+            language_ids[start:end] = torch.tensor(units.language_ids)[positions]
+            features[start:end] = torch.tensor(units.features, dtype=torch.float32)[positions]
         boundary_type = "slur" if note.get("slur", False) else "hard"
         boundary_types.append(boundary_type)
         note_sequence.append({"id": str(note.get("id", f"n{index + 1}")), "index": index, "pitch": float(note["pitch"]), "start_frame": start, "end_frame": end, "lyric": lyric, "boundary_type": boundary_type})
-        for phoneme_index, symbol in enumerate(units.symbols):
-            owned = (positions == phoneme_index).nonzero().flatten()
-            if len(owned): phoneme_durations.append({"symbol": symbol, "note_index": index, "start_frame": start + int(owned[0]), "duration_frames": len(owned), "boundary_type": boundary_type})
+        if not phoneme_alignment:
+            for phoneme_index, symbol in enumerate(units.symbols):
+                owned = (positions == phoneme_index).nonzero().flatten()
+                if len(owned): phoneme_durations.append({"symbol": symbol, "note_index": index, "start_frame": start + int(owned[0]), "duration_frames": len(owned), "boundary_type": boundary_type})
+    for duration in phoneme_durations:
+        if duration["note_index"] < 0:
+            duration["note_index"] = int(note_index[min(frames - 1, duration["start_frame"] + duration["duration_frames"] // 2)])
     # Silence gaps inherit nearest preceding content but remain unvoiced.
     for index in range(1, frames):
         if phoneme_ids[index] == 0:

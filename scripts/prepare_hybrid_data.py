@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Create reproducible phrase-score manifests for hybrid training.
 
-Real recordings lack verified musical scores, so generated note timing is explicitly
-marked inferred and is never reported as source annotation.
+Real recordings use RMVPE/script-prior reconstructed scores. They remain
+explicitly inferred and are never reported as source annotation.
 """
 from __future__ import annotations
 
@@ -14,17 +14,6 @@ def read(path: Path) -> list[dict]:
     return [json.loads(line) for line in path.read_text().splitlines() if line]
 
 
-def inferred_score(row: dict) -> dict:
-    units = [char for char in row["text"] if not char.isspace() and char not in ".,!?"] or ["아"]
-    duration = float(row["duration_sec"])
-    step = duration / len(units)
-    base = round(69 + 12 * __import__("math").log2(max(float(row.get("f0_median_hz", 220)), 55) / 440))
-    return {"language": row["language"], "tempo": 120, "sample_rate": 48000,
-            "score_source": row.get("score_source", "inferred_from_speech_duration_not_ground_truth"),
-            "notes": [{"pitch": max(36, min(84, base + (index % 3) - 1)), "start": round(index * step, 5), "duration": round(step, 5), "lyric": unit}
-                      for index, unit in enumerate(units)]}
-
-
 def write(path: Path, rows: list[dict]) -> None:
     path.write_text("".join(json.dumps(row, ensure_ascii=False) + "\n" for row in rows))
 
@@ -32,10 +21,13 @@ def write(path: Path, rows: list[dict]) -> None:
 def main() -> None:
     root = Path("data/manifests")
     real = read(root / "neural_supervision.jsonl")
+    reconstructed = {row["id"]: row for row in read(root / "reconstructed_real_scores.jsonl")}
+    phoneme_alignment = {row["id"]: row["phones"] for row in read(root / "real_phoneme_alignment.jsonl")}
     rows = []
     for row in real:
+        score = reconstructed[row["id"]]
         rows.append({"id": row["id"], "phase": "C_real_gyu", "audio_path": row["audio_path"], "f0_path": f"data/cache/hybrid_f0/{row['id']}.npy", "language": row["language"], "text": row["text"],
-                     "trust_weight": 1.0, "split": row["split"], "score": inferred_score(row)})
+                     "trust_weight": 1.0, "split": row["split"], "phoneme_alignment": phoneme_alignment[row["id"]], "score": {"language": score["language"], "tempo": 120, "sample_rate": 48000, "score_source": score["score_source"], "script_shape_prior": score["script_shape_prior"], "notes": score["notes"]}})
     accepted_path = root / "pseudo_singing_accepted.jsonl"
     if accepted_path.exists():
         for row in read(accepted_path):

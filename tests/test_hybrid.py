@@ -6,6 +6,7 @@ import torch
 
 from gyu_singer.alignment import build_phrase_frames
 from gyu_singer.frontend import FEATURE_SIZE, phonemize
+from gyu_singer.inference.soulx import SoulXPhraseRenderer
 from gyu_singer.losses import flow_matching_loss, log_pitch_loss, weighted_distillation_loss
 from gyu_singer.model import TriSingerModel, grad_norm
 from gyu_singer.renderer import build_server
@@ -37,6 +38,14 @@ def test_alignment_assigns_each_note_its_lyric():
 def test_alignment_uses_slur_to_soften_note_boundary():
     frames = build_phrase_frames(phonemize("ko", "하늘"), [{"pitch": 60, "start": 0, "duration": .5, "lyric": "하"}, {"pitch": 64, "start": .5, "duration": .5, "lyric": "늘", "slur": True}])
     assert frames.boundary[0] == 1 and frames.boundary[6] == 0
+
+
+def test_ctc_alignment_overrides_even_phoneme_division():
+    front = phonemize("ko", "하늘")
+    aligned = [{"phoneme_index": 0, "start": 0.0, "duration": .08}, {"phoneme_index": 1, "start": .08, "duration": .56}, {"phoneme_index": 2, "start": .64, "duration": .08}, {"phoneme_index": 3, "start": .72, "duration": .08}, {"phoneme_index": 4, "start": .80, "duration": .56}]
+    frames = build_phrase_frames(front, [{"pitch": 60, "start": 0, "duration": .8, "lyric": "하"}, {"pitch": 64, "start": .8, "duration": .8, "lyric": "늘"}], phoneme_alignment=aligned)
+    assert frames.phoneme_durations[1]["duration_frames"] > frames.phoneme_durations[0]["duration_frames"]
+    assert frames.phoneme_durations[0]["boundary_type"] == "ctc_forced"
 
 
 def test_blurred_boundary_and_pitch_conditions_change_phrase_condition():
@@ -103,6 +112,12 @@ def test_score_protocol_and_resident_http():
 def test_hybrid_path_has_no_baseline_dsp_calls():
     source = open("src/gyu_singer/inference/hybrid.py").read()
     assert "pitch_shift" not in source and "phase_vocoder" not in source and "NeuralRenderer" not in source
+
+
+def test_soulx_phrase_backend_builds_one_score_contour():
+    score = normalize_score({"language": "ja", "tempo": 120, "notes": [{"pitch": 60, "start": 0, "duration": 1, "lyric": "あ"}, {"pitch": 67, "start": 1, "duration": 1, "lyric": "い"}], "curves": {"pitch": [{"time": 0, "value": 0}, {"time": 1, "value": 0}]}})
+    contour = SoulXPhraseRenderer._f0(score, 2)
+    assert contour.shape == (100,) and np.isclose(np.median(contour[:50]), 261.6256, atol=1) and np.isclose(np.median(contour[50:]), 391.9954, atol=1)
 
 
 def test_phrase_flow_uses_all_notes_in_one_tensor():

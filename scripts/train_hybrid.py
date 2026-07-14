@@ -29,16 +29,14 @@ def resize(values: torch.Tensor, length: int) -> torch.Tensor:
 
 def batch_from_row(row: dict, device: str, target_length: int | None = None, teacher_audio: bool = False) -> dict[str, torch.Tensor]:
     front = phonemize(row["language"], row["text"])
-    frames = build_phrase_frames(front, row["score"]["notes"])
+    frames = build_phrase_frames(front, row["score"]["notes"], phoneme_alignment=row.get("phoneme_alignment"))
     length = target_length or len(frames.midi)
+    nominal = frames.f0_hz.clone()
+    target_f0, target_voiced = nominal.clone(), frames.voiced.clone()
     if row.get("f0_path") and Path(row["f0_path"]).exists():
         actual_f0 = torch.from_numpy(np.load(row["f0_path"]).astype("float32"))
         actual_f0 = resize(actual_f0, len(frames.midi))
-        voiced = (actual_f0 > 1).float()
-        nominal = 440.0 * torch.pow(torch.tensor(2.0), (frames.midi - 69.0) / 12.0)
-        frames.f0_hz = torch.where(voiced.bool(), actual_f0, nominal)
-        frames.voiced = voiced
-        frames.residual = torch.where(voiced.bool(), 12 * torch.log2(frames.f0_hz.clamp_min(1) / nominal), torch.zeros_like(nominal))
+        target_voiced, target_f0 = (actual_f0 > 1).float(), torch.where(actual_f0 > 1, actual_f0, nominal)
     def seq(name: str, dtype: torch.dtype | None = None) -> torch.Tensor:
         value = getattr(frames, name)
         if value.ndim == 1: value = resize(value, length)
@@ -47,7 +45,7 @@ def batch_from_row(row: dict, device: str, target_length: int | None = None, tea
         return value[None].to(device)
     return {"phoneme_ids": seq("phoneme_ids", torch.long), "language_ids": seq("language_ids", torch.long), "features": seq("features"),
             "midi": seq("midi"), "note_index": seq("note_index", torch.long), "note_onset": seq("note_onset"), "note_duration": seq("note_duration"), "boundary": seq("boundary"), "f0_hz": seq("f0_hz"),
-            "voiced": seq("voiced"), "residual": seq("residual"), "reference_features": acoustic_reference_features(row["audio_path"], strict_sample_rate=not teacher_audio)[None].to(device),
+            "voiced": seq("voiced"), "residual": seq("residual"), "target_f0_hz": resize(target_f0, length)[None].to(device), "target_voiced": resize(target_voiced, length)[None].to(device), "reference_features": acoustic_reference_features(row["audio_path"], strict_sample_rate=not teacher_audio)[None].to(device),
             "style_preset": torch.tensor([STYLE_PRESETS.get(row.get("style", "neutral"), 0)], dtype=torch.long, device=device), "style_controls": torch.tensor([[0.8, 0, 0, 0, 0]], device=device)}
 
 
@@ -88,7 +86,7 @@ def main() -> None:
             target = torch.load(Path(args.latents) / f"{row['id']}.pt", map_location=device, weights_only=True)[None]
             batch = batch_from_row(row, device, target.shape[1])
             output = model(torch.zeros_like(target), torch.full((1,), .5, device=device), batch)
-            values.append(float(flow_matching_loss(output["velocity"], target) + .05 * log_pitch_loss(output["pitch_log_f0"], batch["f0_hz"], batch["voiced"])))
+            values.append(float(flow_matching_loss(output["velocity"], target) + .05 * log_pitch_loss(output["pitch_log_f0"], batch["target_f0_hz"], batch["target_voiced"])))
         model.train()
         return {"step": step, "acoustic_loss": round(sum(values) / len(values), 6)}
     for step in range(1, args.steps + 1):
@@ -99,7 +97,7 @@ def main() -> None:
         output = model((1 - flow_time[:, None, None]) * noise + flow_time[:, None, None] * target, flow_time, batch)
         acoustic = output["velocity"] + 0.10 * output["acoustic_bias"]
         loss_flow = flow_matching_loss(acoustic, target - noise) * float(row["trust_weight"])
-        loss_pitch = log_pitch_loss(output["pitch_log_f0"], batch["f0_hz"], batch["voiced"]) * float(row["trust_weight"])
+        loss_pitch = log_pitch_loss(output["pitch_log_f0"], batch["target_f0_hz"], batch["target_voiced"]) * float(row["trust_weight"])
         loss_teacher = torch.zeros((), device=device)
         if args.teacher_loss_weight:
             teacher = teachers[(step - 1) % len(teachers)]

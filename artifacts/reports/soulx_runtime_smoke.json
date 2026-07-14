@@ -1,0 +1,44 @@
+{
+  "gate": {
+    "f0_correlation_min": 0.9,
+    "pitch_mae_cents_max": 100,
+    "held_note_f0_cv_max": 0.1,
+    "asr_lyric_similarity_min": 0.5
+  },
+  "cases": {
+    "ko": {
+      "source_phrase": "하늘을 향해 노래해 작은 빛을 따라가",
+      "asr_transcript": " 하늘을 향해 노래해 작은 빛을 따라가",
+      "rmvpe_f0_correlation": 0.9942,
+      "note_pitch_mae_cents": 11.08,
+      "voiced_fraction": 0.9457,
+      "held_note_f0_cv": 0.0049,
+      "speaker_similarity_wavlm": 0.667,
+      "asr_lyric_similarity": 1.0,
+      "pass": true
+    },
+    "en": {
+      "source_phrase": "Sing into the open sky Follow the golden light",
+      "asr_transcript": " Sailing into the open sky Follow the goal",
+      "rmvpe_f0_correlation": 0.9637,
+      "note_pitch_mae_cents": 21.52,
+      "voiced_fraction": 0.9537,
+      "held_note_f0_cv": 0.0056,
+      "speaker_similarity_wavlm": 0.618,
+      "asr_lyric_similarity": 0.7105,
+      "pass": true
+    },
+    "ja": {
+      "source_phrase": "空へ向かい歌おう 小さな光を追う",
+      "asr_transcript": "空へ歌おう 小さな光光を",
+      "rmvpe_f0_correlation": 0.9917,
+      "note_pitch_mae_cents": 12.63,
+      "voiced_fraction": 0.9859,
+      "held_note_f0_cv": 0.0049,
+      "speaker_similarity_wavlm": 0.5698,
+      "asr_lyric_similarity": 0.6,
+      "pass": true
+    }
+  },
+  "pass": true
+}

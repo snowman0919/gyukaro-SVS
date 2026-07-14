@@ -1,0 +1,24 @@
+{
+  "duration_sec": 3.0,
+  "f0_extractor": "SoulX RMVPE",
+  "results": {
+    "ko": {
+      "path": "artifacts/samples/hybrid_score_reconstructed_sustain_ko.wav",
+      "voiced_ratio": 0.5658,
+      "f0_cv": 0.1406,
+      "median_f0_hz": 127.81
+    },
+    "en": {
+      "path": "artifacts/samples/hybrid_score_reconstructed_sustain_en.wav",
+      "voiced_ratio": 0.6711,
+      "f0_cv": 0.1191,
+      "median_f0_hz": 123.35
+    },
+    "ja": {
+      "path": "artifacts/samples/hybrid_score_reconstructed_sustain_ja.wav",
+      "voiced_ratio": 0.6908,
+      "f0_cv": 0.1215,
+      "median_f0_hz": 140.67
+    }
+  }
+}

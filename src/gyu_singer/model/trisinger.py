@@ -89,6 +89,7 @@ class TriSingerModel(nn.Module):
         self.pitch_encoder = PitchConditionEncoder(dim)
         self.conditional_flow_transformer = ConditionalFlowTransformer(dim, latent_dim)
         self.singing_decoder = SingingDecoder(dim, latent_dim)
+        # Existing checkpoint key retained; its output is now interpreted as semitone residual.
         self.pitch_head = nn.Linear(dim, 1)
         self.distillation_head = nn.Linear(dim, 160)
 
@@ -104,10 +105,12 @@ class TriSingerModel(nn.Module):
 
     def forward(self, noisy_latent: torch.Tensor, time: torch.Tensor, batch: dict[str, torch.Tensor]) -> dict[str, torch.Tensor]:
         condition, timbre, content = self.condition(batch)
+        residual = self.pitch_head(condition).squeeze(-1)
         return {
             "velocity": self.conditional_flow_transformer(noisy_latent, time, condition),
             "acoustic_bias": self.singing_decoder(condition),
-            "pitch_log_f0": self.pitch_head(condition).squeeze(-1),
+            "pitch_residual": residual,
+            "pitch_log_f0": batch["f0_hz"].clamp_min(1).log() + residual * (torch.log(torch.tensor(2.0, device=condition.device)) / 12),
             "condition": condition,
             "timbre": timbre,
             "content": content,

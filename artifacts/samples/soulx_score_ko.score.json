@@ -1,0 +1,25 @@
+{
+  "sample_rate": 24000,
+  "notes": [
+    {
+      "pitch": 60,
+      "start": 0.0,
+      "duration": 2.48
+    },
+    {
+      "pitch": 67,
+      "start": 2.48,
+      "duration": 2.48
+    },
+    {
+      "pitch": 72,
+      "start": 4.96,
+      "duration": 2.48
+    },
+    {
+      "pitch": 67,
+      "start": 7.44,
+      "duration": 2.5
+    }
+  ]
+}
