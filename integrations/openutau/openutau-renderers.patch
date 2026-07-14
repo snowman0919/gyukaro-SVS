@@ -1,0 +1,85 @@
+diff --git a/OpenUtau.Core/Render/Renderers.cs b/OpenUtau.Core/Render/Renderers.cs
+--- a/OpenUtau.Core/Render/Renderers.cs
++++ b/OpenUtau.Core/Render/Renderers.cs
+@@ -15,12 +15,14 @@ public static class Renderers {
+         public const string VOGEN = "VOGEN";
+         public const string DIFFSINGER = "DIFFSINGER";
+         public const string VOICEVOX = "VOICEVOX";
++        public const string GYU_SINGER = "GYU-SINGER";
+ 
+         static readonly string[] classicRenderers = new[] { WORLDLINE_R, CLASSIC };
+         static readonly string[] enunuRenderers = new[] { ENUNU };
+         static readonly string[] vogenRenderers = new[] { VOGEN };
+         static readonly string[] diffSingerRenderers = new[] { DIFFSINGER };
+         static readonly string[] voicevoxRenderers = new[] { VOICEVOX };
++        static readonly string[] gyuSingerRenderers = new[] { GYU_SINGER };
+         static readonly string[] noRenderers = new string[0];
+ 
+         public static string[] GetSupportedRenderers(USingerType singerType) {
+@@ -35,6 +37,8 @@ public static class Renderers {
+                     return diffSingerRenderers;
+                 case USingerType.Voicevox:
+                     return voicevoxRenderers;
++                case USingerType.GyuSinger:
++                    return gyuSingerRenderers;
+                 default:
+                     return noRenderers;
+             }
+@@ -43,7 +47,8 @@ public static class Renderers {
+         public static List<string> getRendererOptions() {
+             return new List<string> {
+                 "WORLDLINE-R",
+-                "Classic"
++                "Classic",
++                GYU_SINGER
+             };
+         }
+ 
+@@ -70,6 +75,8 @@ public static class Renderers {
+                 return new DiffSinger.DiffSingerRenderer();
+             } else if (renderer == VOICEVOX) {
+                 return new Voicevox.VoicevoxRenderer();
++            } else if (renderer == GYU_SINGER) {
++                return new GyuSinger.GyuSingerRenderer();
+             }
+             return null;
+         }
+diff --git a/OpenUtau.Core/SingerManager.cs b/OpenUtau.Core/SingerManager.cs
+--- a/OpenUtau.Core/SingerManager.cs
++++ b/OpenUtau.Core/SingerManager.cs
+@@ -31,6 +31,7 @@ public class SingerManager : SingletonBase<SingerManager> {
+             var stopWatch = Stopwatch.StartNew();
+             var singers = ClassicSingerLoader.FindAllSingers()
+                 .Concat(Vogen.VogenSingerLoader.FindAllSingers())
++                .Concat(GyuSinger.GyuSingerLoader.FindAllSingers())
+                 .Distinct();
+             Singers = singers
+                 .ToLookup(s => s.Id)
+diff --git a/OpenUtau.Core/Ustx/USinger.cs b/OpenUtau.Core/Ustx/USinger.cs
+--- a/OpenUtau.Core/Ustx/USinger.cs
++++ b/OpenUtau.Core/Ustx/USinger.cs
+@@ -193,7 +193,7 @@ public class USubbank {
+         }
+     }
+ 
+-    [Flags] public enum USingerType { Classic = 0x1, Enunu = 0x2, Vogen = 0x4, DiffSinger = 0x5, Voicevox = 0x6 }
++    [Flags] public enum USingerType { Classic = 0x1, Enunu = 0x2, Vogen = 0x4, DiffSinger = 0x5, Voicevox = 0x6, GyuSinger = 0x7 }
+ 
+     public static class SingerTypeUtils {
+         public static Dictionary<USingerType?, string> SingerTypeNames = new Dictionary<USingerType?, string>(){
+@@ -201,6 +201,7 @@ public static class SingerTypeUtils {
+             {USingerType.Enunu, "enunu"},
+             {USingerType.DiffSinger, "diffsinger"},
+             {USingerType.Voicevox, "voicevox"},
++            {USingerType.GyuSinger, "gyu-singer"},
+         };
+ 
+         public static Dictionary<string, USingerType> SingerTypeFromName = new Dictionary<string, USingerType>(){
+@@ -208,6 +209,7 @@ public static class SingerTypeUtils {
+             {"enunu", USingerType.Enunu},
+             {"diffsinger", USingerType.DiffSinger},
+             {"voicevox", USingerType.Voicevox},
++            {"gyu-singer", USingerType.GyuSinger},
+         };
+ 
+     }

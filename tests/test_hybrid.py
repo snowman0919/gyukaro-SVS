@@ -155,4 +155,25 @@ def test_openutau_ustx_bridge_converts_ticks(tmp_path):
     source = tmp_path / "song.ustx"
     source.write_text("resolution: 480\ntempos:\n  - bpm: 120\nvoice_parts:\n  - position: 480\n    notes:\n      - position: 0\n        duration: 480\n        tone: 60\n        lyric: 아\n")
     score = bridge.ustx_score(source, "ko")
-    assert score["notes"] == [{"pitch": 60.0, "start": 0.5, "duration": 0.5, "lyric": "아"}]
+    assert score["notes"] == [{"pitch": 60.0, "start": 0.0, "duration": 0.5, "lyric": "아"}]
+
+
+def test_openutau_bridge_maps_tempo_pitch_and_style(tmp_path):
+    bridge_path = "integrations/openutau/bridge.py"
+    spec = importlib.util.spec_from_file_location("ustx_bridge_controls", bridge_path)
+    bridge = importlib.util.module_from_spec(spec); spec.loader.exec_module(bridge)
+    source = tmp_path / "controls.ustx"
+    source.write_text("""resolution: 480
+tempos: [{position: 0, bpm: 120}, {position: 480, bpm: 60}]
+voice_parts:
+- position: 0
+  notes:
+  - {position: 0, duration: 960, tone: 60, tuning: 25, lyric: sing}
+  curves:
+  - {abbr: pitd, xs: [0, 960], ys: [0, 100]}
+  - {abbr: gyus, xs: [0, 960], ys: [3, 3]}
+""")
+    score = bridge.ustx_score(source, "en")
+    assert score["notes"][0] == {"pitch": 60.25, "start": 0.0, "duration": 1.5, "lyric": "sing"}
+    assert score["curves"]["pitch"][-1] == {"time": 1.5, "value": 1.0}
+    assert score["style"]["preset"] == "energetic"

@@ -1,0 +1,132 @@
+name: GYU Singer v0.9 KO EN JA
+comment: Phrase-level SoulX resident renderer example; no per-note TTS or waveform pitch shifting.
+ustx_version: "0.9"
+expressions:
+  gyus:
+    name: 'GYU style: 0 neutral, 1 soft, 2 breathy, 3 energetic, 4 relative C, 5 relative B'
+    abbr: gyus
+    type: Curve
+    min: 0
+    max: 5
+    default_value: 0
+    is_flag: false
+    flag: ""
+    skip_output_if_default: false
+time_signatures:
+- bar_position: 0
+  beat_per_bar: 4
+  beat_unit: 4
+tempos:
+- position: 0
+  bpm: 112
+tracks:
+- singer: GYU-SINGER
+  phonemizer: OpenUtau.Core.DefaultPhonemizer
+  renderer_settings: {renderer: GYU-SINGER}
+  track_name: GYU KO
+- singer: GYU-SINGER
+  phonemizer: OpenUtau.Core.DefaultPhonemizer
+  renderer_settings: {renderer: GYU-SINGER}
+  track_name: GYU EN
+- singer: GYU-SINGER
+  phonemizer: OpenUtau.Core.DefaultPhonemizer
+  renderer_settings: {renderer: GYU-SINGER}
+  track_name: GYU JA
+voice_parts:
+- duration: 1920
+  name: KO phrase
+  track_no: 0
+  position: 0
+  notes:
+  - position: 0
+    duration: 480
+    tone: 60
+    lyric: 하
+    pitch: {data: [{x: -40, y: 0, shape: io}, {x: 40, y: 0, shape: io}], snap_first: true}
+    vibrato: {length: 0, period: 175, depth: 25, in: 10, out: 10, shift: 0, drift: 0, vol_link: 0}
+  - position: 480
+    duration: 480
+    tone: 62
+    lyric: 늘
+    pitch: {data: [{x: -40, y: 0, shape: io}, {x: 40, y: 0, shape: io}], snap_first: true}
+    vibrato: {length: 0, period: 175, depth: 25, in: 10, out: 10, shift: 0, drift: 0, vol_link: 0}
+  - position: 960
+    duration: 480
+    tone: 64
+    lyric: 빛
+    pitch: {data: [{x: -40, y: 0, shape: io}, {x: 40, y: 0, shape: io}], snap_first: true}
+    vibrato: {length: 45, period: 180, depth: 35, in: 10, out: 10, shift: 0, drift: 0, vol_link: 0}
+  - position: 1440
+    duration: 480
+    tone: 67
+    lyric: 노래
+    pitch: {data: [{x: -40, y: 0, shape: io}, {x: 40, y: 0, shape: io}], snap_first: true}
+    vibrato: {length: 0, period: 175, depth: 25, in: 10, out: 10, shift: 0, drift: 0, vol_link: 0}
+  curves:
+  - abbr: pitd
+    xs: [0, 720, 960, 1440, 1920]
+    ys: [0, 0, 75, -25, 0]
+- duration: 1920
+  name: EN phrase
+  track_no: 1
+  position: 0
+  notes:
+  - position: 0
+    duration: 480
+    tone: 60
+    lyric: sing
+    pitch: {data: [{x: -40, y: 0, shape: io}, {x: 40, y: 0, shape: io}], snap_first: true}
+    vibrato: {length: 0, period: 175, depth: 25, in: 10, out: 10, shift: 0, drift: 0, vol_link: 0}
+  - position: 480
+    duration: 480
+    tone: 64
+    lyric: with
+    pitch: {data: [{x: -40, y: 0, shape: io}, {x: 40, y: 0, shape: io}], snap_first: true}
+    vibrato: {length: 0, period: 175, depth: 25, in: 10, out: 10, shift: 0, drift: 0, vol_link: 0}
+  - position: 960
+    duration: 480
+    tone: 62
+    lyric: me
+    pitch: {data: [{x: -40, y: 0, shape: io}, {x: 40, y: 0, shape: io}], snap_first: true}
+    vibrato: {length: 45, period: 180, depth: 35, in: 10, out: 10, shift: 0, drift: 0, vol_link: 0}
+  - position: 1440
+    duration: 480
+    tone: 67
+    lyric: now
+    pitch: {data: [{x: -40, y: 0, shape: io}, {x: 40, y: 0, shape: io}], snap_first: true}
+    vibrato: {length: 0, period: 175, depth: 25, in: 10, out: 10, shift: 0, drift: 0, vol_link: 0}
+  curves:
+  - {abbr: pitd, xs: [0, 720, 960, 1440, 1920], ys: [0, 0, 75, -25, 0]}
+  - {abbr: gyus, xs: [0, 1920], ys: [2, 2]}
+- duration: 1920
+  name: JA phrase
+  track_no: 2
+  position: 0
+  notes:
+  - position: 0
+    duration: 480
+    tone: 64
+    lyric: 歌
+    pitch: {data: [{x: -40, y: 0, shape: io}, {x: 40, y: 0, shape: io}], snap_first: true}
+    vibrato: {length: 0, period: 175, depth: 25, in: 10, out: 10, shift: 0, drift: 0, vol_link: 0}
+  - position: 480
+    duration: 480
+    tone: 62
+    lyric: を
+    pitch: {data: [{x: -40, y: 0, shape: io}, {x: 40, y: 0, shape: io}], snap_first: true}
+    vibrato: {length: 0, period: 175, depth: 25, in: 10, out: 10, shift: 0, drift: 0, vol_link: 0}
+  - position: 960
+    duration: 480
+    tone: 60
+    lyric: うた
+    pitch: {data: [{x: -40, y: 0, shape: io}, {x: 40, y: 0, shape: io}], snap_first: true}
+    vibrato: {length: 45, period: 180, depth: 35, in: 10, out: 10, shift: 0, drift: 0, vol_link: 0}
+  - position: 1440
+    duration: 480
+    tone: 67
+    lyric: おう
+    pitch: {data: [{x: -40, y: 0, shape: io}, {x: 40, y: 0, shape: io}], snap_first: true}
+    vibrato: {length: 0, period: 175, depth: 25, in: 10, out: 10, shift: 0, drift: 0, vol_link: 0}
+  curves:
+  - {abbr: pitd, xs: [0, 720, 960, 1440, 1920], ys: [0, 0, 75, -25, 0]}
+  - {abbr: gyus, xs: [0, 1920], ys: [3, 3]}

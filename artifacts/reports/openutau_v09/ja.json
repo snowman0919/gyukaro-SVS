@@ -1,0 +1,63 @@
+{
+  "protocol": "gyu-renderer-v2",
+  "source": "OpenUtau USTX",
+  "language": "ja",
+  "tempo": 112.0,
+  "sample_rate": 48000,
+  "notes": [
+    {
+      "pitch": 64.0,
+      "start": 0.0,
+      "duration": 0.535714,
+      "lyric": "歌"
+    },
+    {
+      "pitch": 62.0,
+      "start": 0.535714,
+      "duration": 0.535714,
+      "lyric": "を"
+    },
+    {
+      "pitch": 60.0,
+      "start": 1.071429,
+      "duration": 0.535714,
+      "lyric": "うた"
+    },
+    {
+      "pitch": 67.0,
+      "start": 1.607143,
+      "duration": 0.535714,
+      "lyric": "おう"
+    }
+  ],
+  "curves": {
+    "pitch": [
+      {
+        "time": 0.0,
+        "value": 0.0
+      },
+      {
+        "time": 0.803571,
+        "value": 0.0
+      },
+      {
+        "time": 1.071429,
+        "value": 0.75
+      },
+      {
+        "time": 1.607143,
+        "value": -0.25
+      },
+      {
+        "time": 2.142857,
+        "value": 0.0
+      }
+    ],
+    "dynamics": [],
+    "breathiness": [],
+    "tension": []
+  },
+  "style": {
+    "preset": "energetic"
+  }
+}
