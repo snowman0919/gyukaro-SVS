@@ -2,9 +2,9 @@ Overall status: experimental neural phrase SVS; quality gate fail, not v1.
 Current stage: GYU Hybrid Singer v0.2-experimental.
 Package: `artifacts/package/gyu-hybrid-singer-v0.2-experimental.zip`
 Package SHA-256: `5103241fd817234cafbb8358a39017ab64a1432331f2688ebc4df79559b26423`
-Git commit: `81dd69f5a41101482ab2984b6e4619a27ec5d5dd` (report generation source revision)
+Git commit: `abf5c1bd37459ad60376d2446df6213ca1afbfce` (report generation source revision)
 Hybrid SVS checkpoint: `checkpoints/gyu_hybrid_v0.2.pt`, SHA-256 `73d457dfb9e9267d06e600fe31bbea2198d68af4e95c9779dd9441c2851f0595`
-Trainable parameters: 762,018.
+Trainable parameters: 762,210.
 Phrase-level neural generation: yes; one full phrase frame tensor, conditional-flow latent sample, frozen codec decode.
 Phoneme-note alignment: yes; deterministic language-aware note-frame mapping; real/pseudo bootstrap labels marked inferred.
 Continuous pitch conditioning: yes; MIDI, curve/residual, UV mask, masked log-F0 loss; current generated F0 quality fails.
@@ -36,7 +36,7 @@ Real GYU rows use inferred timing plus cached RMVPE F0, codec latents, and trust
 
 # Teacher distillation path
 
-665 weighted teacher rows pass through `acoustic_reference_features` and `model.distillation_prediction`; `weighted_distillation_loss` consumes recorded `trust_weight` with coefficient 0.15. Gradient tests prove timbre and language encoders receive non-zero teacher-loss gradients.
+665 weighted teacher rows pass through `acoustic_reference_features` and `model.distillation_prediction`; `weighted_distillation_loss` consumes recorded `trust_weight` with coefficient 0.15. Gradient tests prove timbre, language, and style encoders receive non-zero teacher-loss gradients.
 
 # Pseudo-singing generation and gates
 
@@ -48,11 +48,11 @@ TCSinger-style blurred local context addresses hard boundaries; FM-Singer-style 
 
 # Gradient connectivity evidence
 
-`tests/test_hybrid.py::test_all_hybrid_modules_receive_gradient` checks every retained model module. `test_teacher_distillation_reaches_timbre_and_language_encoders` checks teacher-stage gradients. Full suite result recorded in this worktree: 22 passed.
+`tests/test_hybrid.py::test_all_hybrid_modules_receive_gradient` checks every retained model module. `test_teacher_distillation_reaches_timbre_language_and_style_encoders` checks teacher-stage gradients. Full suite result is recorded by `PYTHONPATH=src pytest -q`.
 
 # Training runs
 
-CUDA, AdamW `2e-4`, batch 1, 1,200 steps; train rows 60 real + 24 pseudo; validation/test 8/5. Final logged losses: total 1.324734, flow 1.321476, pitch 0.018544, teacher 0.015539. `artifacts/reports/hybrid_training.json` is full per-step evidence. GPU peak memory and wall-clock were not captured.
+CUDA, AdamW `0.0002`, batch 1, 8000 steps; train rows 60 real + 24 pseudo; validation/test 8/5. Final logged losses: total 1.324734, flow 1.321476, pitch 0.018544, teacher 0.015539. `artifacts/reports/hybrid_training.json` records full history, validation losses, wall clock 328.127 s, GPU peak 51136000 bytes, and validation audio paths.
 
 # Ablation results
 
