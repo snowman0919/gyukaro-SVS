@@ -2,7 +2,7 @@ Overall status: incomplete experimental milestone; semantic v0.6 acceptance gate
 Current version: gyu-singer-v0.6 experimental
 Package: gyu-singer-v0.6-incomplete (not promoted as accepted)
 Package SHA-256: b8496d7038adfadc46b74fe7cb5aa8cc52df938d9c147c20bdc41bdd19db09b5
-Git commit: recorded after this report is committed
+Git commit: 64858fa4086918035659fce136e5dbfeb55bac8a
 Manual verified score phrases: 24 independently transcribed/reviewed rows; no target RMVPE used for score construction
 Independent prosody evaluation: completed; v0.5 does not beat nominal verified score in aggregate
 Teacher internal paired rows: 191 Fish+MOSS (KO 99, EN 77, JA 15), 382 extracted vectors; Higgs hidden unavailable
