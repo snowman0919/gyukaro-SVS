@@ -9,7 +9,7 @@ Phrase-level neural generation: yes; full phrase frame tensor, one CFM latent sa
 Phoneme-note alignment: yes; deterministic explicit frame mapping, real-anchor scores inferred.
 Continuous pitch conditioning: yes; nominal MIDI, RMVPE/inferred F0, UV mask, residual, masked log-F0 loss.
 Teacher distillation gradient verified: yes; timbre and language encoder gradients nonzero in teacher-loss test.
-Pseudo-singing used in training: yes; EN and JA accepted Fish S2 `[singing]` then SoulX SVC rows, trust 0.20.
+Pseudo-singing used in training: no; Fish S2 pilot rows excluded after license review.
 Blurred boundary active: yes; `BlurredBoundaryEncoder` in condition path.
 Conditional flow matching active: yes; rectified-flow latent velocity training and Euler inference.
 Style conditioning active: yes; preset plus five controls in `StyleEncoder`; calibration not established.
@@ -32,7 +32,7 @@ Japanese: runtime/frontend exercised; no Japanese support claim.
 
 ## Exact data flow by dataset type
 
-Real GYU: inferred note timing plus cached RMVPE F0, codec latent target, trust 1.0 CFM/pitch loss. Pseudo singing: accepted Fish S2 `[singing]` then SoulX SVC 48 kHz WAV, inferred pilot contour score, codec latent target, trust 0.20 CFM/pitch loss. Teacher rows: teacher audio feature target only; no codec latent and no hard GYU-singing acoustic supervision. Train has 60 real plus 2 pseudo; validation 5 real plus 1 pseudo; test 5 real.
+Real GYU: inferred note timing plus cached RMVPE F0, codec latent target, trust 1.0 CFM/pitch loss. Fish S2 `[singing]` then SoulX SVC pilot WAVs are evaluation-only because Fish's license forbids the relevant generative-model training use. Teacher rows: teacher audio feature target only; no codec latent and no hard GYU-singing acoustic supervision. Train/validation/test contain 60/5/5 real rows.
 
 ## Teacher distillation path
 
@@ -40,7 +40,7 @@ Both required teacher manifests total 665 rows. Each teacher audio becomes `acou
 
 ## Pseudo-singing generation and gates
 
-Three controlled Fish S2 `[singing]` to SoulX SVC probes were admitted by `scripts/admit_pseudo_probes.py`: KO RMVPE 0.9918/WavLM 0.8585/ECAPA 0.7218, EN 0.9778/0.9632/0.6769, JA 0.9964/0.8812/0.7253. Candidate rows record duration ratio, ASR content, language, speaker scores, provenance, synthetic status, and trust. KO is validation holdout; EN/JA train. Corpus has only 3 items, below requested 100–500.
+Three controlled Fish S2 `[singing]` to SoulX SVC probes were measured: KO RMVPE 0.9918/WavLM 0.8585/ECAPA 0.7218, EN 0.9778/0.9632/0.6769, JA 0.9964/0.8812/0.7253. Candidate rows record duration ratio, ASR content, language, speaker scores, provenance, and synthetic status. They are rejected from training under Fish license terms. A SoulX-direct or otherwise explicitly permitted pipeline is required. Corpus has 0 legally admitted items, below requested 100–500.
 
 ## SVS concepts integrated
 
@@ -72,7 +72,7 @@ Evidence: `artifacts/reports/baseline_hybrid_evaluation.json`, RMVPE from SoulX.
 
 ## Known failures
 
-Hybrid generated F0 does not follow score; intelligibility is weak; real scores are inferred from speech timing; pseudo corpus is 3 instead of 100–500; EN/JA have no real GYU singing supervision; style controls are uncalibrated; full staged validation and training telemetry are absent; evaluation has short synthetic phrases and baseline generation variance.
+Hybrid generated F0 does not follow score; intelligibility is weak; real scores are inferred from speech timing; no legally admitted pseudo corpus exists; EN/JA have no real GYU singing supervision; style controls are uncalibrated; full staged validation and training telemetry are absent; evaluation has short synthetic phrases and baseline generation variance.
 
 ## Claims that are explicitly not being made
 

@@ -39,7 +39,7 @@ def main() -> None:
     accepted_path = root / "pseudo_singing_accepted.jsonl"
     if accepted_path.exists():
         for row in read(accepted_path):
-            if row.get("quality_status") != "accepted":
+            if row.get("quality_status") != "accepted" or row.get("training_license") != "allowed":
                 continue
             score = row.get("score")
             if score:

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Admit only measured Fish→SoulX multilingual pilot rows as low-trust pseudo singing."""
+"""Record Fish→SoulX probes, excluding them from training under Fish license terms."""
 from __future__ import annotations
 
 import json
@@ -36,8 +36,8 @@ def main() -> None:
         sf.write(target, mono, 48000)
         row = {"id": identifier, "generator": "Fish S2 [singing] -> SoulX SVC", "model_revision": "Fish S2 local + SoulX-Singer SVC@40493ad", "reference_ids": ["gyu_real_000216"], "language": language, "text": text,
                "source_output_path": source, "output_path": str(target), "f0_contour_correlation_rmvpe": f0, "duration_ratio": 1.0, "content_score": content, "speaker_score": wavlm, "speaker_score_2": ecapa,
-               "quality_status": "accepted", "trust_weight": 0.20, "training_use": "synthetic_pseudo_singing_acoustic_low_trust", "score": score(language, text, duration)}
-        candidates.append(row); accepted.append(row)
+               "quality_status": "rejected_license", "trust_weight": 0.0, "training_license": "prohibited_for_foundational_generative_ai_training", "training_use": "evaluation_only_not_training", "score": score(language, text, duration)}
+        candidates.append(row)
     root = Path("data/manifests")
     for name, rows in (("pseudo_singing_candidates.jsonl", candidates), ("pseudo_singing_accepted.jsonl", accepted)):
         (root / name).write_text("".join(json.dumps(row, ensure_ascii=False) + "\n" for row in rows))
