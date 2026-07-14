@@ -61,7 +61,7 @@ if [ ! -f "$OPENUTAU/.gyu-overlay-$OPENUTAU_REV" ]; then
   "$ROOT/integrations/openutau/install_fork.sh" "$OPENUTAU"
   : > "$OPENUTAU/.gyu-overlay-$OPENUTAU_REV"
 fi
-"$DOTNET" build "$OPENUTAU/OpenUtau.csproj" -c Release
+"$DOTNET" build "$OPENUTAU/OpenUtau/OpenUtau.csproj" -c Release
 
 chmod +x "$ROOT/serve.sh" "$ROOT/render-example.sh" "$ROOT/launch-openutau.sh"
 if [ "$SKIP_RENDER" -eq 0 ]; then
