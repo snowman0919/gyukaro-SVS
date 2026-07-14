@@ -97,7 +97,7 @@ def main() -> None:
         output = model((1 - flow_time[:, None, None]) * noise + flow_time[:, None, None] * target, flow_time, batch)
         acoustic = output["velocity"] + 0.10 * output["acoustic_bias"]
         loss_flow = flow_matching_loss(acoustic, target - noise) * float(row["trust_weight"])
-        loss_pitch = log_pitch_loss(output["pitch_log_f0"], batch["f0_hz"], batch["voiced"])
+        loss_pitch = log_pitch_loss(output["pitch_log_f0"], batch["f0_hz"], batch["voiced"]) * float(row["trust_weight"])
         loss_teacher = torch.zeros((), device=device)
         if args.teacher_loss_weight:
             teacher = teachers[(step - 1) % len(teachers)]
