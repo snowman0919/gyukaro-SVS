@@ -1,8 +1,8 @@
 Overall status: experimental neural phrase SVS; quality gate fail, not v1.
 Current stage: GYU Hybrid Singer v0.2-experimental.
 Package: `artifacts/package/gyu-hybrid-singer-v0.2-experimental.zip`
-Package SHA-256: `6d86411429df1cbdd65eb8b3c1ea78b61f0da150f6ebf2523fd29506ef196ddf`
-Git commit: `cf82ac359f5ff2c0acadf2de1e6a6b153da30405` (report generation source revision)
+Package SHA-256: `8e52aeb80203880ffed1513ba72ebdfc852d66824eb89d8de0ba04f24c0b0b43`
+Git commit: `cf7a3f4f12d0c8e7d9196c8c72536e39b6bea8a1` (report generation source revision)
 Hybrid SVS checkpoint: `checkpoints/gyu_hybrid_v0.2.pt`, SHA-256 `73d457dfb9e9267d06e600fe31bbea2198d68af4e95c9779dd9441c2851f0595`
 Trainable parameters: 762,018.
 Phrase-level neural generation: yes; one full phrase frame tensor, conditional-flow latent sample, frozen codec decode.
@@ -60,7 +60,7 @@ CUDA, AdamW `2e-4`, batch 1, 1,200 steps; train rows 60 real + 24 pseudo; valida
 
 # Baseline versus hybrid metrics
 
-Current hybrid F0 correlation: KO -0.5597, EN unavailable, JA -0.9848. ASR similarity: KO 0.0000, EN 0.0000, JA 0.5000. Full identical-score comparison: `docs/evaluation_v2_report.md`.
+Current hybrid F0 correlation: KO 0.6464, EN 0.3920, JA -0.1025. ASR similarity: KO 0.0000, EN 0.0000, JA 0.2000. Full identical-score comparison: `docs/evaluation_v2_report.md`.
 
 # Listening sample paths
 

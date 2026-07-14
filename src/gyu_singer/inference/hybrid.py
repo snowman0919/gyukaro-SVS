@@ -61,7 +61,7 @@ class HybridRenderer:
     def render(self, score: dict) -> np.ndarray:
         """One conditional-flow pass over whole phrase, then frozen codec decode."""
         batch = self.batch(score)
-        latent = self.model.sample(batch) + self.model.singing_decoder(self.model.condition(batch)[0])
+        latent = self.model.sample(batch)
         audio = self.codec.decode(latent)[0].numpy()
         return audio / max(1.0, float(np.abs(audio).max()) / 0.92)
 

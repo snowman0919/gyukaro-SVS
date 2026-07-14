@@ -123,7 +123,8 @@ class TriSingerModel(nn.Module):
         latent = torch.randn(shape, device=batch["phoneme_ids"].device)
         for index in range(steps):
             time = torch.full((shape[0],), index / steps, device=latent.device)
-            latent = latent + self.forward(latent, time, batch)["velocity"] / steps
+            output = self.forward(latent, time, batch)
+            latent = latent + (output["velocity"] + 0.10 * output["acoustic_bias"]) / steps
         return latent
 
 

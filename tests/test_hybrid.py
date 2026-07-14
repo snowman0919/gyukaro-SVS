@@ -99,6 +99,13 @@ def test_phrase_flow_uses_all_notes_in_one_tensor():
     assert latent.shape == (1, 6, 768)
 
 
+def test_sample_integrates_decoder_bias_with_training_scale():
+    model, batch = TriSingerModel(dim=32), _batch()
+    model.forward = lambda latent, time, batch: {"velocity": torch.zeros_like(latent), "acoustic_bias": torch.ones_like(latent)}
+    torch.manual_seed(7); expected = torch.randn(1, 6, 768) + .1
+    torch.manual_seed(7); assert torch.allclose(model.sample(batch, steps=2), expected, atol=1e-5)
+
+
 def test_openutau_ustx_bridge_converts_ticks(tmp_path):
     bridge_path = "integrations/openutau/bridge.py"
     spec = importlib.util.spec_from_file_location("ustx_bridge", bridge_path)

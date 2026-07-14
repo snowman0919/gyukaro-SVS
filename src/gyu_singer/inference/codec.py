@@ -21,6 +21,10 @@ class MossCodecDecoder:
             raise ValueError("codec latent must be [batch, frames, 768]")
         values = latent.to(self.device, dtype=torch.float32).transpose(1, 2)
         lengths = torch.full((values.shape[0],), values.shape[-1], device=self.device, dtype=torch.long)
+        # `latent` is MOSS encoder space. Decoder consumes quantizer-decoded space;
+        # bypassing RVQ produces invalid waveform activations.
+        _, codes, lengths = self.model.quantizer(values, lengths, None)
+        values = self.model.quantizer.decode_codes(codes).float()
         for block in self.model.decoder:
             values, lengths = block(values, lengths)
         values, lengths = self.model._restore_channels_from_codec(values, lengths)
