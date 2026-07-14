@@ -1,3 +1,83 @@
-# v0.6 pseudo singing
+# v0.6 pseudo-singing coverage
 
-No new pseudo-singing candidates were admitted in this milestone. The existing v0.5 corpus remains a low-trust auxiliary baseline (27 accepted rows) and is not used as high-trust GYU prosody supervision. Gap analysis remains pending for targeted 200–500 candidate generation; this is an explicit v0.6 acceptance blocker, not a silently claimed result.
+{
+  "real_gyu_score_corpus": {
+    "rows": 76,
+    "notes": 1262,
+    "languages": {
+      "ko": 76
+    },
+    "pitch_range_midi": [
+      36,
+      65
+    ],
+    "interval_abs_midi": {
+      "mean": 1.293,
+      "large_jump_count_ge5": 44
+    },
+    "duration_sec": {
+      "min": 0.08,
+      "max": 1.6,
+      "sustained_count_ge0_8": 32
+    },
+    "transitions": {
+      "repeated_note_count": 384,
+      "ascending_count": 380,
+      "descending_count": 422
+    },
+    "tempo_proxy_bpm_from_note_onsets": 170.79
+  },
+  "accepted_pseudo_singing": {
+    "rows": 45,
+    "notes": 1195,
+    "languages": {
+      "ko": 21,
+      "en": 14,
+      "ja": 10
+    },
+    "pitch_range_midi": [
+      41,
+      80
+    ],
+    "interval_abs_midi": {
+      "mean": 2.159,
+      "large_jump_count_ge5": 128
+    },
+    "duration_sec": {
+      "min": 0.06,
+      "max": 3.16,
+      "sustained_count_ge0_8": 28
+    },
+    "transitions": {
+      "repeated_note_count": 175,
+      "ascending_count": 500,
+      "descending_count": 475
+    },
+    "tempo_proxy_bpm_from_note_onsets": 176.9
+  },
+  "targeted_generation": {
+    "candidate_target": "200-500",
+    "coverage": [
+      "pitch range",
+      "interval",
+      "duration",
+      "tempo proxy",
+      "sustained vowels",
+      "repeated notes",
+      "ascending",
+      "descending",
+      "large jumps",
+      "language"
+    ],
+    "gate": [
+      "RMVPE agreement",
+      "duration ratio",
+      "speaker similarity",
+      "ASR",
+      "language ID",
+      "audio quality",
+      "degeneration"
+    ]
+  },
+  "label_policy": "Pseudo note features are RMVPE-inferred and remain low-trust; they are not real-GYU prosody labels."
+}

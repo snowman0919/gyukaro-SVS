@@ -8,14 +8,14 @@
         "dark_minus_neutral_centroid_hz": 24.105
       },
       "v06_spectral_only": {
-        "dark_minus_neutral_wavlm_l2": 0.006871,
-        "dark_minus_neutral_centroid_hz": 1.393
+        "dark_minus_neutral_wavlm_l2": 0.006603,
+        "dark_minus_neutral_centroid_hz": 23.612
       },
       "v06_latent": {
-        "dark_minus_neutral_wavlm_l2": 0.007594,
-        "dark_minus_neutral_centroid_hz": 1.451
+        "dark_minus_neutral_wavlm_l2": 0.006392,
+        "dark_minus_neutral_centroid_hz": 19.324
       },
-      "latent_vs_spectral_only_dark_wavlm_l2": 0.001663
+      "latent_vs_spectral_only_dark_wavlm_l2": 0.002592
     },
     "heldout_ko": {
       "v05_spectral": {
@@ -23,14 +23,14 @@
         "dark_minus_neutral_centroid_hz": 21.138
       },
       "v06_spectral_only": {
-        "dark_minus_neutral_wavlm_l2": 0.005287,
-        "dark_minus_neutral_centroid_hz": 4.551
+        "dark_minus_neutral_wavlm_l2": 0.005029,
+        "dark_minus_neutral_centroid_hz": 29.705
       },
       "v06_latent": {
-        "dark_minus_neutral_wavlm_l2": 0.005754,
-        "dark_minus_neutral_centroid_hz": 3.51
+        "dark_minus_neutral_wavlm_l2": 0.00566,
+        "dark_minus_neutral_centroid_hz": 26.032
       },
-      "latent_vs_spectral_only_dark_wavlm_l2": 0.004911
+      "latent_vs_spectral_only_dark_wavlm_l2": 0.002966
     }
   },
   "caveat": "This measures output effects, not a claim that the weak teacher-style supervision establishes every style preset semantically."

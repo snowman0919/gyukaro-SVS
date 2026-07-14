@@ -1,6 +1,7 @@
 # v0.6 training record
 
-- Independent score manifest: 24 rows, PyIN plus script-pattern/spectrogram review, RMVPE target excluded from score construction.
-- Shared identity: 191 style-conditioned Fish/MOSS rows but 44 unique text/reference groups, 64-dimensional space, weighted cross-view cosine agreement; no fabricated speaker negatives. Text/reference groups are split atomically.
-- Latent SoulX adapter: 296,193 trainable parameters in a compact gated FiLM module; SoulX backbone frozen. A 32-row dark/emotional teacher-style corpus now trains a trust-weighted style-classification + identity-invariance objective; it remains weak teacher speech evidence, not GYU singing supervision.
-- Prosody: v0.6 checkpoint trains 24 verified + 76 high-confidence reconstructed rows with trust labels; it is used by the v0.6 renderer. Independent evaluation shows only a small MAE change and no decisive correlation gain.
+- Independent score supervision: 24 target-F0-independent PyIN/script/spectrogram/CTC-reviewed rows, plus 76 high-confidence reconstructed rows with trust weights; 100 rows total. Pseudo singing is excluded from real-GYU prosody targets.
+- Shared identity: 249 Fish/MOSS pair rows from 102 unique semantic groups, with atomic train/validation/test splits 191/32/26. A trust-weighted Barlow cross-view objective replaced the collapsed cosine-only pilot. Held-out Fish/MOSS cosine is 0.94029; nearest-centroid teacher leakage is 0.50000 and language clustering is 0.42308.
+- Latent SoulX adapter: compact gated FiLM at SoulX `gt_decoder_inp`; SoulX backbone frozen. Spectral v0.5 adapter remains baseline.
+- Targeted pseudo singing: 200 ACE-Step candidates generated from measured gaps; 45 passed RMVPE, duration, WavLM, ASR/LID, and degeneration gates at trust 0.20. It is generic low-trust transition evidence, not real-GYU prosody supervision.
+- Prosody: v0.6 checkpoint trains the 24+76 score corpus, but independent evaluation does not show a consistent gain over v0.5. The production v0.6 renderer therefore retains the v0.5 prosody controller; v0.6 prosody remains an explicit experimental baseline.

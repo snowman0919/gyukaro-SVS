@@ -9,16 +9,16 @@ from __future__ import annotations
 import collections
 import hashlib
 import json
+import argparse
 from pathlib import Path
 
-
-SOURCE = Path("data/manifests/teacher_weighted.jsonl")
-DEST = Path("data/manifests/teacher_internal_pairs.jsonl")
-
-
 def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--input", default="data/manifests/teacher_weighted.jsonl")
+    parser.add_argument("--output", default="data/manifests/teacher_internal_pairs.jsonl")
+    args = parser.parse_args()
     grouped: dict[str, dict[str, dict]] = collections.defaultdict(dict)
-    for line in SOURCE.read_text().splitlines():
+    for line in Path(args.input).read_text().splitlines():
         if not line.strip():
             continue
         row = json.loads(line)
@@ -71,8 +71,8 @@ def main() -> None:
     for row in rows:
         split_groups[row["semantic_group_id"]].add(row["split"])
     assert all(len(splits) == 1 for splits in split_groups.values()), "semantic group leaked across splits"
-    DEST.parent.mkdir(parents=True, exist_ok=True)
-    DEST.write_text("".join(json.dumps(row, ensure_ascii=False) + "\n" for row in rows))
+    output = Path(args.output); output.parent.mkdir(parents=True, exist_ok=True)
+    output.write_text("".join(json.dumps(row, ensure_ascii=False) + "\n" for row in rows))
     print({"rows": len(rows), "languages": dict(collections.Counter(r["language"] for r in rows)),
            "splits": dict(collections.Counter(r["split"] for r in rows)),
            "semantic_groups": len(split_groups),

@@ -16,7 +16,6 @@ from transformers import AutoFeatureExtractor, AutoModelForAudioXVector, AutoMod
 
 sys.path.insert(0, "data/cache/soulx-singer")
 from preprocess.tools.f0_extraction import F0Extractor
-from prepare_hybrid_data import inferred_score
 
 
 def audio16(path: str) -> np.ndarray:
@@ -50,6 +49,24 @@ def audio_gate(audio: np.ndarray) -> tuple[float, float, str]:
     envelope = np.array([np.mean(np.abs(chunk)) for chunk in np.array_split(mono, 64)])
     fingerprint = hashlib.sha256(np.round(envelope / max(float(envelope.max()), 1e-6) * 255).astype("uint8").tobytes()).hexdigest()
     return rms, silence, fingerprint
+
+
+def inferred_score(row: dict, f0: np.ndarray, hop_seconds: float = .02) -> dict:
+    """Low-trust RMVPE note runs for pseudo coverage only, never source annotation."""
+    voiced = np.asarray(f0, dtype=float) > 1
+    midi = np.zeros(len(f0), dtype=int)
+    midi[voiced] = np.rint(69 + 12 * np.log2(np.asarray(f0)[voiced] / 440)).clip(36, 84).astype(int)
+    units = [char for char in row["text"] if not char.isspace() and char not in ".,!?"] or ["la"]
+    notes, start = [], None
+    for index, pitch in enumerate(midi.tolist() + [-1]):
+        if pitch > 0 and start is None:
+            start = index
+        if start is not None and (pitch != midi[start] or pitch <= 0):
+            duration = (index - start) * hop_seconds
+            if duration >= .06:
+                notes.append({"pitch": int(midi[start]), "start": round(start * hop_seconds, 5), "duration": round(duration, 5), "lyric": units[len(notes) % len(units)]})
+            start = index if pitch > 0 else None
+    return {"language": row["language"], "tempo": 120, "sample_rate": 48000, "score_source": "inferred_from_RMVPE_contour_not_ground_truth", "notes": notes}
 
 
 def main() -> None:
@@ -88,7 +105,7 @@ def main() -> None:
         median_f0 = float(np.median(target_f0[target_f0 > 1])) if np.any(target_f0 > 1) else 220.0
         row = source | {"duration_sec": round(len(output_audio) / output_rate, 5), "f0_median_hz": round(median_f0, 3), "f0_contour_correlation_rmvpe": round(correlation, 4), "duration_ratio": round(duration, 4), "speaker_score": round(speaker, 4), "rms": round(rms, 6), "silence_ratio": round(silence, 4), "audio_fingerprint": fingerprint, "audio_quality_pass": quality_audio, "asr_transcript": transcript, "content_score": content, "language_detected": language(transcript), "training_license": "allowed", "trust_weight": .20 if accepted else 0.0, "quality_status": "accepted" if accepted else "rejected_gate", "training_use": "synthetic_pseudo_singing_acoustic_low_trust" if accepted else "evaluation_only_not_training"}
         if accepted:
-            row["score"] = inferred_score(row | {"score_source": "inferred_from_RMVPE_pitch_median_and_duration_not_ground_truth"})
+            row["score"] = inferred_score(row, target_f0)
         rows.append(row); print(source["id"], row["quality_status"], flush=True)
     Path(args.candidates).write_text("".join(json.dumps(row, ensure_ascii=False) + "\n" for row in rows))
     Path(args.accepted).write_text("".join(json.dumps(row, ensure_ascii=False) + "\n" for row in rows if row["quality_status"] == "accepted"))

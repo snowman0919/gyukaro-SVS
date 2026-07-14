@@ -24,6 +24,11 @@ TEXTS = {
         "은빛 달이 호수 표면을 환하게 비춘다.", "오래된 사진 속 웃음이 다시 떠오른다.",
         "등불 하나가 어두운 길을 밝혀 준다.", "먼 바다 너머로 작은 배가 돌아온다.",
         "손바닥 위 눈송이가 금세 녹아내린다.", "새벽 종소리가 마을 전체에 울려 퍼진다.",
+        "햇빛이 오래된 벽돌길을 천천히 비춘다.", "작은 종이연이 들판 위를 높이 난다.",
+        "고요한 정원에 분수 물방울이 떨어진다.", "유리병 속 편지가 파도에 밀려온다.",
+        "낮은 구름이 산마을 지붕을 감싼다.", "푸른 잉크가 하얀 종이 위로 번진다.",
+        "새로운 발자국이 모래 위에 남아 있다.", "저녁 시장에서 귤 향기가 퍼진다.",
+        "나무 의자 곁에 작은 기타가 놓여 있다.", "별빛 아래서 먼 종이 울리기 시작한다.",
     ],
     "en": [
         "Rain taps softly against the narrow attic window.", "A paper boat turns slowly in the shallow stream.",
@@ -38,16 +43,16 @@ TEXTS = {
         "A small key waits under the blue flowerpot.", "Golden wheat bends when the evening wind arrives.",
     ],
     "ja": [
-        "あめのあとににじがみずたまりにうつる。", "あさのえきであたたかいパンのにおいがする。",
-        "しろいねこがまどべでゆっくりのびをする。", "やまのみちにちいさなすずのねがひびく。",
-        "ゆうひがかわのうえをきんいろにそめる。", "ふるいとけいがしずかなへやでなる。",
-        "あおいふうせんがそらのたかくへあがる。", "もりのおくでこだまがこえをかえす。",
-        "ゆきのうえにうさぎのあしあとがつづく。", "ひかるほしをみあげてねがいをかける。",
-        "ちいさなふねがうみのむこうへすすむ。", "はるのかぜがさくらのはなをはこぶ。",
-        "あかりのついたみせにひとがあつまる。", "まっすぐなみちをじてんしゃでかけぬける。",
-        "あたらしいほんをひらいてたびをはじめる。", "よるのひろばでこどもたちがわらう。",
-        "ことりのうたがにわいっぱいにひろがる。", "つきあかりがしずかなみなとをてらす。",
-        "こおったまどにゆびでえをかいてみる。", "とおいまちからでんしゃがゆっくりくる。",
+        "雨の後に虹が水たまりに映る。", "朝の駅で暖かいパンの匂いがする。",
+        "白い猫が窓辺でゆっくり伸びをする。", "山の道に小さな鈴の音が響く。",
+        "夕日が川の上を金色に染める。", "古い時計が静かな部屋で鳴る。",
+        "青い風船が空の高くへ上がる。", "森の奥で木霊が声を返す。",
+        "雪の上に兎の足跡が続く。", "光る星を見上げて願いをかける。",
+        "小さな船が海の向こうへ進む。", "春の風が桜の花を運ぶ。",
+        "明かりのついた店に人が集まる。", "真っ直ぐな道を自転車で駆け抜ける。",
+        "新しい本を開いて旅を始める。", "夜の広場で子供たちが笑う。",
+        "小鳥の歌が庭いっぱいに広がる。", "月明かりが静かな港を照らす。",
+        "凍った窓に指で絵を書いてみる。", "遠い町から電車がゆっくり来る。",
     ],
 }
 REFERENCES = [(216, "low_register"), (220, "neutral_mid"), (215, "high_register"), (219, "expressive_phrase"), (212, "long_natural_phrase")]
@@ -60,7 +65,7 @@ def rows() -> list[dict]:
     for language, texts in TEXTS.items():
         for number, (text, (source, role)) in enumerate(zip(texts, cycle(REFERENCES)), 1):
             values.append({"id": f"teacher_v06_{language}_{number:03d}", "language": language, "text": text, "style": "neutral", "reference_ids": [f"gyu_real_{source:06d}"], "reference_role": role, "reference_audio_path": f"data/processed/master/{source}.wav", "reference_text": segment[source]})
-    assert len(values) == 60 and len({(row["language"], row["text"], tuple(row["reference_ids"])) for row in values}) == 60
+    assert len(values) == 70 and len({(row["language"], row["text"], tuple(row["reference_ids"])) for row in values}) == 70
     return values
 
 
@@ -77,7 +82,7 @@ def fish(items: list[dict], output: Path) -> list[dict]:
     for index, row in enumerate(items):
         path = output / f"{row['id']}.wav"
         if not path.exists():
-            request = ServeTTSRequest(text=row["text"], references=[ServeReferenceAudio(audio=Path(row["reference_audio_path"]).read_bytes(), text=row["reference_text"])], seed=606 + index, max_new_tokens=512, chunk_length=200)
+            request = ServeTTSRequest(text=row["text"], references=[ServeReferenceAudio(audio=Path(row["reference_audio_path"]).read_bytes(), text=row["reference_text"])], seed=606 + index, max_new_tokens=256, chunk_length=200)
             for value in engine.inference(request):
                 if value.code == "error": raise value.error
                 if value.code == "final":
@@ -106,9 +111,12 @@ def moss(items: list[dict], output: Path) -> list[dict]:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(); parser.add_argument("--teacher", choices=("fish", "moss"), required=True); parser.add_argument("--limit", type=int); args = parser.parse_args()
+    parser = argparse.ArgumentParser(); parser.add_argument("--teacher", choices=("fish", "moss"), required=True); parser.add_argument("--limit", type=int); parser.add_argument("--manifest-only", action="store_true"); args = parser.parse_args()
     items = rows()[:args.limit] if args.limit else rows(); root = Path("data/teacher") / f"{args.teacher}_v06_unique"; root.mkdir(parents=True, exist_ok=True)
-    generated = fish(items, root) if args.teacher == "fish" else moss(items, root)
+    if args.manifest_only:
+        generated = [row | ({"teacher": "fish_s2_pro", "model_revision": "Fish Audio S2 Pro local pinned", "output_path": str(root / f"{row['id']}.wav"), "sample_rate": 44100, "quality_status": "pending_gate"} if args.teacher == "fish" else {"teacher": "moss_local_v15", "model_revision": "OpenMOSS-Team/MOSS-TTS-Local-Transformer-v1.5@be7766a6735b98bd793f7c79fb720b4d0f5d13b8", "output_path": str(root / f"{row['id']}.wav"), "sample_rate": 48000, "quality_status": "pending_gate"}) for row in items]
+    else:
+        generated = fish(items, root) if args.teacher == "fish" else moss(items, root)
     Path(f"data/manifests/teacher_v06_unique_{args.teacher}.jsonl").write_text("".join(json.dumps(row, ensure_ascii=False) + "\n" for row in generated))
 
 

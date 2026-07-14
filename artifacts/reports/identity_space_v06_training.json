@@ -1,16 +1,16 @@
 {
-  "paired_rows": 191,
-  "semantic_text_reference_groups": 44,
-  "trained_rows": 149,
+  "paired_rows": 249,
+  "semantic_text_reference_groups": 102,
+  "trained_rows": 191,
   "split_counts": {
-    "train": 149,
-    "validation": 22,
-    "test": 20
+    "train": 191,
+    "validation": 32,
+    "test": 26
   },
   "language_counts": {
-    "ko": 99,
-    "en": 77,
-    "ja": 15
+    "ko": 128,
+    "en": 92,
+    "ja": 29
   },
   "shared_dim": 64,
   "teacher_representations": {
@@ -20,27 +20,31 @@
   "history": [
     {
       "step": 200,
-      "loss": 8e-05,
-      "teacher_cos": 0.999629
+      "loss": 1.931732,
+      "teacher_cos": 0.968071,
+      "barlow": 1.927819
     },
     {
       "step": 400,
-      "loss": 7.4e-05,
-      "teacher_cos": 0.999721
+      "loss": 0.63853,
+      "teacher_cos": 0.988372,
+      "barlow": 0.636962
     },
     {
       "step": 600,
-      "loss": 4.8e-05,
-      "teacher_cos": 0.999793
+      "loss": 0.993188,
+      "teacher_cos": 0.984621,
+      "barlow": 0.991009
     },
     {
       "step": 800,
-      "loss": 3e-05,
-      "teacher_cos": 0.999867
+      "loss": 0.656016,
+      "teacher_cos": 0.990585,
+      "barlow": 0.654638
     }
   ],
   "checkpoint": "checkpoints/gyu_identity_space_v0.6.pt",
-  "objective": "weighted teacher agreement + same-GYU cross-language positive + GYU reference alignment",
-  "negative_policy": "no fabricated speaker negatives; cross-view consistency only",
+  "objective": "trust-weighted Barlow cross-view agreement + matched-view alignment + student calibration",
+  "negative_policy": "no fabricated speaker negatives; cross-view consistency with variance preservation",
   "split_policy": "text/reference semantic group and language stratified; validation/test groups excluded from optimizer"
 }

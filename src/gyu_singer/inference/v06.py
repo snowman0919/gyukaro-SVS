@@ -13,7 +13,6 @@ from gyu_singer.model import MultiTeacherIdentityEncoder
 from gyu_singer.score import normalize_score
 
 from .acoustic_style import adapt_waveform, load_adapter
-from .quality_controller import QualityPitchController
 from .v05 import GyuSingerV05Renderer
 
 
@@ -22,9 +21,9 @@ class GyuSingerV06Renderer(GyuSingerV05Renderer):
         self.root = Path(root)
         self.latent_adapter_enabled = latent_adapter_enabled
         super().__init__(reference, root=root, latent_adapter_checkpoint="checkpoints/gyu_latent_adapter_v0.6.pt" if latent_adapter_enabled else None)
-        prosody = self.root / "checkpoints/gyu_prosody_v0.6.pt"
-        if prosody.exists():
-            self.pitch_controller = QualityPitchController(prosody, acoustic_reference_features(self.reference))
+        # Independent-score evaluation did not show a consistent v0.6 prosody gain, so the
+        # production v0.6 path retains the measured v0.5 controller.  The v0.6 checkpoint is
+        # packaged only as an explicit experimental baseline.
         path = self.root / "checkpoints/gyu_identity_space_v0.6.pt"
         saved = torch.load(path, map_location="cpu", weights_only=False)
         self.identity_encoder = MultiTeacherIdentityEncoder(**saved["model_config"]).to(self.pitch_controller.device).eval()
@@ -40,7 +39,7 @@ class GyuSingerV06Renderer(GyuSingerV05Renderer):
             self.teacher_moss = torch.load(moss_path, weights_only=True).float().flatten().to(self.pitch_controller.device)
 
     def model_info(self) -> dict:
-        return {"backend": "gyu-singer-v0.6", "model_version": "gyu-singer-v0.6-experimental", "prosody_checkpoint": "checkpoints/gyu_prosody_v0.6.pt", "identity_checkpoint": "checkpoints/gyu_identity_space_v0.6.pt", "latent_adapter_checkpoint": "checkpoints/gyu_latent_adapter_v0.6.pt", "content": "OmniVoice", "decoder": "SoulX-Singer SVC", "languages": ["ko", "en", "ja"], "sample_rate": self.sample_rate, "v0_4_fallback": False, "per_note_tts": False, "waveform_pitch_shift": False}
+        return {"backend": "gyu-singer-v0.6", "model_version": "gyu-singer-v0.6-experimental", "prosody_checkpoint": "checkpoints/gyu_prosody_v0.5.pt", "prosody_v0_6_checkpoint": "checkpoints/gyu_prosody_v0.6.pt (experimental baseline; not selected)", "identity_checkpoint": "checkpoints/gyu_identity_space_v0.6.pt", "latent_adapter_checkpoint": "checkpoints/gyu_latent_adapter_v0.6.pt", "content": "OmniVoice", "decoder": "SoulX-Singer SVC", "languages": ["ko", "en", "ja"], "sample_rate": self.sample_rate, "v0_4_fallback": False, "per_note_tts": False, "waveform_pitch_shift": False}
 
     @staticmethod
     def _style_vector(style: dict, device: torch.device) -> torch.Tensor:
