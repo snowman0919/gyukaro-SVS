@@ -85,9 +85,10 @@ Generated compact-hybrid F0 does not reliably follow score; intelligibility is w
 and full-phrase SoulX-Singer neural timbre transfer conditioned on the exact
 50 Hz score F0 contour.  It is not the source-loop renderer and it does not
 use per-note TTS, pitch shifting, time stretching, or waveform concatenation.
-Actual CLI outputs passed the fixed objective gate: KO `0.9942` F0 correlation
-and `11.08` cents MAE; EN `0.9637` / `21.52`; JA `0.9917` / `12.63`; held-note
-CV was at most `0.0056`; lyric similarity was `1.0000/0.7105/0.6000`.
+Actual resident-runtime outputs passed the fixed objective gate: KO `0.9942` F0
+correlation and `11.08` cents MAE; EN `0.9604` / `22.01`; JA `0.9905` /
+`13.40`; held-note CV was at most `0.0049`; lyric similarity was
+`1.0000/0.7105/0.6000`.
 `artifacts/reports/soulx_runtime_smoke.json` is the exact evidence.
 
 `artifacts/package/gyu-hybrid-singer-v0.3-quality-runtime.zip` was unzipped

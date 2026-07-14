@@ -72,8 +72,8 @@ note MAE <= 100 cents, held-note CV <= 0.10, and lyric similarity >= 0.50.
 | Language | F0 corr | pitch MAE | held-note F0 CV | WavLM | ASR similarity | gate |
 |---|---:|---:|---:|---:|---:|---|
 | KO | 0.9942 | 11.08 cents | 0.0049 | 0.6670 | 1.0000 | pass |
-| EN | 0.9637 | 21.52 cents | 0.0056 | 0.6180 | 0.7105 | pass |
-| JA | 0.9917 | 12.63 cents | 0.0049 | 0.5698 | 0.6000 | pass |
+| EN | 0.9604 | 22.01 cents | 0.0045 | 0.7109 | 0.7105 | pass |
+| JA | 0.9905 | 13.40 cents | 0.0049 | 0.5215 | 0.6000 | pass |
 
 Evidence: `artifacts/reports/soulx_runtime_smoke.json`.  A separate thin
 package, `artifacts/package/gyu-hybrid-singer-v0.3-quality-runtime.zip`, was
