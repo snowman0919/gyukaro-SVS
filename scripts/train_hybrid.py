@@ -18,6 +18,7 @@ from gyu_singer.data import acoustic_reference_features, read_jsonl
 from gyu_singer.frontend import phonemize
 from gyu_singer.losses import flow_matching_loss, log_pitch_loss, weighted_distillation_loss
 from gyu_singer.model import TriSingerModel
+from gyu_singer.inference.codec import MossCodecDecoder
 
 
 def resize(values: torch.Tensor, length: int) -> torch.Tensor:
@@ -59,6 +60,9 @@ def main() -> None:
     parser.add_argument("--dim", type=int, default=96)
     parser.add_argument("--teacher-loss-weight", type=float, default=0.15)
     parser.add_argument("--validate-every", type=int, default=200)
+    parser.add_argument("--validation-audio-every", type=int, default=1000)
+    parser.add_argument("--validation-audio-dir", default="artifacts/validation/hybrid")
+    parser.add_argument("--resume", help="checkpoint model weights to continue training")
     parser.add_argument("--output", default="checkpoints/gyu_hybrid_v0.2.pt")
     parser.add_argument("--report", default="artifacts/reports/hybrid_training.json")
     args = parser.parse_args()
@@ -67,10 +71,13 @@ def main() -> None:
     rows, validation_rows = read_jsonl(args.train), read_jsonl(args.validation)
     teachers = read_jsonl(args.teachers) + read_jsonl(args.teacher_style_supplement)
     model = TriSingerModel(dim=args.dim).to(device).train()
+    if args.resume:
+        model.load_state_dict(torch.load(args.resume, map_location=device, weights_only=False)["model"])
     optimizer = torch.optim.AdamW(model.parameters(), lr=2e-4)
-    history, validation = [], []
+    history, validation, validation_audio = [], [], []
     started = time.perf_counter()
     if device == "cuda": torch.cuda.reset_peak_memory_stats()
+    codec = MossCodecDecoder("data/cache/moss-audio-tokenizer-nano", device) if args.validation_audio_every else None
 
     @torch.inference_mode()
     def validate() -> dict:
@@ -105,10 +112,18 @@ def main() -> None:
         if step % 20 == 0: print(history[-1])
         if step % args.validate_every == 0:
             validation.append(validate()); print(validation[-1])
+        if codec and step % args.validation_audio_every == 0:
+            model.eval()
+            row = validation_rows[0]
+            target = torch.load(Path(args.latents) / f"{row['id']}.pt", map_location=device, weights_only=True)[None]
+            sample = model.sample(batch_from_row(row, device, target.shape[1]))
+            path = Path(args.validation_audio_dir) / f"step_{step:06d}.wav"; path.parent.mkdir(parents=True, exist_ok=True)
+            sf.write(path, codec.decode(sample)[0].numpy(), 48000)
+            validation_audio.append(str(path)); model.train()
     Path(args.output).parent.mkdir(parents=True, exist_ok=True)
     torch.save({"model": model.eval().cpu().state_dict(), "model_config": {"dim": args.dim}, "steps": args.steps, "teacher_loss": "weighted_representation_only"}, args.output)
     Path(args.report).parent.mkdir(parents=True, exist_ok=True)
-    report = {"device": device, "steps": args.steps, "optimizer": "AdamW", "learning_rate": 2e-4, "batch_size": 1, "gradient_accumulation": 1, "precision": "torch_default", "trainable_parameters": sum(parameter.numel() for parameter in model.parameters()), "real_rows": sum(row["phase"] == "C_real_gyu" for row in rows), "pseudo_rows": sum(row["phase"] == "B_pseudo_singing" for row in rows), "validation_rows": len(validation_rows), "teacher_rows": len(teachers), "teacher_loss_weight": args.teacher_loss_weight, "trust_weights": sorted({float(row["trust_weight"]) for row in rows}), "train_duration_sec": round(sum(sf.info(row["audio_path"]).duration for row in rows), 3), "wall_clock_sec": round(time.perf_counter() - started, 3), "gpu_peak_memory_bytes": torch.cuda.max_memory_allocated() if device == "cuda" else 0, "history": history, "validation": validation, "checkpoint": args.output}
+    report = {"device": device, "steps": args.steps, "resume": args.resume, "optimizer": "AdamW", "learning_rate": 2e-4, "batch_size": 1, "gradient_accumulation": 1, "precision": "torch_default", "trainable_parameters": sum(parameter.numel() for parameter in model.parameters()), "real_rows": sum(row["phase"] == "C_real_gyu" for row in rows), "pseudo_rows": sum(row["phase"] == "B_pseudo_singing" for row in rows), "validation_rows": len(validation_rows), "teacher_rows": len(teachers), "teacher_loss_weight": args.teacher_loss_weight, "trust_weights": sorted({float(row["trust_weight"]) for row in rows}), "train_duration_sec": round(sum(sf.info(row["audio_path"]).duration for row in rows), 3), "wall_clock_sec": round(time.perf_counter() - started, 3), "gpu_peak_memory_bytes": torch.cuda.max_memory_allocated() if device == "cuda" else 0, "history": history, "validation": validation, "validation_audio": validation_audio, "checkpoint": args.output}
     Path(args.report).write_text(json.dumps(report, indent=2) + "\n")
 
 
