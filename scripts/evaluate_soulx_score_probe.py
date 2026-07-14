@@ -24,6 +24,7 @@ PROBE_CASES = {
     "ja": ("artifacts/samples/soulx_score_ja.wav", "空へ向かい歌おう\n小さな光を追う", "artifacts/samples/soulx_score_ja.score.json"),
 }
 RUNTIME_CASES = {"ko": ("/tmp/gyu-soulx-quality-ko.wav", "하늘을 향해 노래해 작은 빛을 따라가", "examples/quality_ko.json"), "en": ("/tmp/gyu-soulx-quality-en.wav", "Sing into the open sky Follow the golden light", "examples/quality_en.json"), "ja": ("/tmp/gyu-soulx-quality-ja.wav", "空へ向かい歌おう 小さな光を追う", "examples/quality_ja.json")}
+HELDOUT_CASES = {"ko": ("/tmp/gyu-heldout-ko.wav", "바람이 불어와 마음을 감싸줘", "examples/heldout_ko.json"), "en": ("/tmp/gyu-heldout-en.wav", "Carry my voice across the quiet river", "examples/heldout_en.json"), "ja": ("/tmp/gyu-heldout-ja.wav", "新しい歌を風に乗せて届ける", "examples/heldout_ja.json")}
 
 
 def audio16(path: str) -> np.ndarray:
@@ -57,7 +58,8 @@ def speaker_embedding(model, extractor, path: str, device: str) -> np.ndarray:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(); parser.add_argument("--runtime-smoke", action="store_true"); args = parser.parse_args()
+    parser = argparse.ArgumentParser(); parser.add_argument("--runtime-smoke", action="store_true"); parser.add_argument("--heldout", action="store_true"); args = parser.parse_args()
+    if args.runtime_smoke and args.heldout: parser.error("choose one case set")
     device = "cuda" if torch.cuda.is_available() else "cpu"
     f0 = F0Extractor("data/cache/soulx-singer/pretrained_models/SoulX-Singer-Preprocess/rmvpe/rmvpe.pt", device=device, target_sr=24000, hop_size=480, verbose=False)
     extractor = AutoFeatureExtractor.from_pretrained("data/cache/wavlm-base-plus-sv")
@@ -66,7 +68,8 @@ def main() -> None:
     processor = AutoProcessor.from_pretrained("data/cache/whisper-large-v3-turbo")
     asr = AutoModelForSpeechSeq2Seq.from_pretrained("data/cache/whisper-large-v3-turbo", dtype=torch.float16 if device == "cuda" else torch.float32).to(device).eval()
     results = {"gate": {"f0_correlation_min": 0.9, "pitch_mae_cents_max": 100, "held_note_f0_cv_max": 0.1, "asr_lyric_similarity_min": 0.5}, "cases": {}}
-    for language, (path, text, score_path) in (RUNTIME_CASES if args.runtime_smoke else PROBE_CASES).items():
+    cases = HELDOUT_CASES if args.heldout else RUNTIME_CASES if args.runtime_smoke else PROBE_CASES
+    for language, (path, text, score_path) in cases.items():
         observed = f0.process(path, verbose=False)
         score = json.loads(Path(score_path).read_text())
         target = np.zeros_like(observed)
@@ -97,7 +100,7 @@ def main() -> None:
         metrics["pass"] = all((metrics["rmvpe_f0_correlation"] >= .9, metrics["note_pitch_mae_cents"] <= 100, metrics["held_note_f0_cv"] <= .1, metrics["asr_lyric_similarity"] >= .5))
         results["cases"][language] = metrics
     results["pass"] = all(case["pass"] for case in results["cases"].values())
-    output = Path("artifacts/reports/soulx_runtime_smoke.json" if args.runtime_smoke else "artifacts/reports/soulx_score_probe.json"); output.parent.mkdir(parents=True, exist_ok=True)
+    output = Path("artifacts/reports/soulx_heldout_smoke.json" if args.heldout else "artifacts/reports/soulx_runtime_smoke.json" if args.runtime_smoke else "artifacts/reports/soulx_score_probe.json"); output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(results, ensure_ascii=False, indent=2) + "\n")
     print(json.dumps(results, ensure_ascii=False, indent=2))
 

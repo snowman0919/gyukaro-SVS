@@ -65,7 +65,7 @@ quality candidate.
 The runnable primary `hybrid-svs` backend (with `hybrid-soulx-phrase` as a
 compatibility alias) was exercised through the public CLI, not through a
 pre-rendered fixture. `TriSingerModel(latent_dim=1)` first predicts a bounded
-expressive score residual, then ACE-Step generates one complete lyric phrase
+expressive score residual, then OmniVoice generates one duration-locked lyric phrase
 and SoulX-Singer receives the full explicit 50 Hz score-plus-residual contour.
 `scripts/evaluate_soulx_score_probe.py --runtime-smoke` measured those CLI
 outputs. The predeclared gate is correlation >= 0.90,
@@ -73,16 +73,15 @@ note MAE <= 100 cents, held-note CV <= 0.10, and lyric similarity >= 0.50.
 
 | Language | F0 corr | pitch MAE | held-note F0 CV | WavLM | ASR similarity | gate |
 |---|---:|---:|---:|---:|---:|---|
-| KO | 0.9942 | 11.08 cents | 0.0049 | 0.6670 | 1.0000 | pass |
-| EN | 0.9604 | 22.01 cents | 0.0045 | 0.7109 | 0.7105 | pass |
-| JA | 0.9905 | 13.40 cents | 0.0049 | 0.5215 | 0.6000 | pass |
+| KO | 0.9918 | 11.93 cents | 0.0038 | 0.6518 | 1.0000 | pass |
+| EN | 0.9965 | 10.24 cents | 0.0050 | 0.8707 | 0.9688 | pass |
+| JA | 0.9949 | 11.80 cents | 0.0060 | 0.8686 | 0.5652 | pass |
 
-Evidence: `artifacts/reports/soulx_runtime_smoke.json`.  A separate thin
-package, `artifacts/package/gyu-hybrid-singer-v0.3-quality-runtime.zip`, was
+Evidence: `artifacts/reports/soulx_heldout_smoke.json`; these phrases are held out from controller training. A separate thin
+package, `artifacts/package/gyu-hybrid-singer-v0.4-quality-runtime.zip`, was
 unzipped and ran its `run.sh` successfully, producing a 48 kHz mono WAV. It
 includes a 0.8 MB controller checkpoint and `bootstrap.sh` to download the
-13 GB Apache-2.0 upstream ACE-Step/SoulX dependencies into isolated pinned
-environments. This does not validate the failed compact checkpoint.
+upstream OmniVoice/SoulX dependencies into isolated pinned environments. This does not validate the failed compact checkpoint.
 
 ## Identical-score primary versus baseline
 
@@ -93,11 +92,11 @@ energy jump at the first note boundary:
 
 | Language | renderer | F0 corr | pitch MAE | boundary jump | WavLM | ASR similarity |
 |---|---|---:|---:|---:|---:|---:|
-| KO | baseline | 0.2676 | 656.27c | 0.4417 | 0.4364 | 0.0000 |
-| KO | primary `hybrid-svs` | 0.9942 | 11.08c | 0.0446 | 0.6670 | 1.0000 |
-| EN | baseline | 0.1944 | 377.72c | 0.8457 | 0.4597 | 0.0526 |
-| EN | primary `hybrid-svs` | 0.9604 | 22.01c | 0.0309 | 0.7109 | 0.7105 |
-| JA | baseline | 0.4944 | 797.38c | 0.6197 | 0.4968 | 0.0667 |
-| JA | primary `hybrid-svs` | 0.9905 | 13.40c | 0.1424 | 0.5215 | 0.6000 |
+| KO | baseline | 0.2936 | 852.85c | 0.1619 | 0.3055 | 0.0000 |
+| KO | primary `hybrid-svs` | 0.9877 | 15.16c | 0.2453 | 0.6630 | 0.9333 |
+| EN | baseline | 0.4566 | 635.84c | 5.6649 | 0.3145 | 0.0000 |
+| EN | primary `hybrid-svs` | 0.9792 | 22.02c | 0.2567 | 0.7761 | 0.9211 |
+| JA | baseline | 0.1061 | 613.80c | 0.0028 | 0.4740 | 0.0667 |
+| JA | primary `hybrid-svs` | 0.9848 | 15.06c | 0.0094 | 0.7156 | 0.8667 |
 
-Exact data: `artifacts/reports/primary_vs_baseline_evaluation.json`.
+Exact data: `artifacts/reports/primary_vs_baseline_evaluation.json`; the script now renders the current primary instead of reusing `/tmp` output.

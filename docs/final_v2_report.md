@@ -1,18 +1,18 @@
 Overall status: primary `hybrid-svs` quality runtime passes the predeclared KO/EN/JA score, lyric, and held-vowel gate. Failed compact codec-latent checkpoint remains `hybrid-compact-experimental`.
-Current stage: GYU Hybrid Singer v0.3 quality runtime; bootstrap-runnable, not an offline-weight bundle.
-Package: `artifacts/package/gyu-hybrid-singer-v0.3-quality-runtime.zip`
-Package SHA-256: `aeabe177b535d1edbd5f8c02db17bfd973689b73ef707a0a05c069ab7a194795`
-Git commit: `a6a9c73` (primary quality-controller implementation revision)
+Current stage: GYU Hybrid Singer v0.4 quality runtime; bootstrap-runnable, not an offline-weight bundle.
+Package: `artifacts/package/gyu-hybrid-singer-v0.4-quality-runtime.zip`
+Package SHA-256: `f2b0d83240fc5b4f25cbb15f5e2c04571593e2df27a4de74e7cc319d1d131621`
+Git revision: current duration-locked OmniVoice primary revision
 Hybrid SVS checkpoint: `gyu_quality_pitch_controller.pt`, SHA-256 `c5aa5ef00101800d5d84cac453b8b0fad463567a5745bebc5933a4ab95d278f2`
 Trainable parameters: 193,940 controller parameters.
-Phrase-level neural generation: yes; full phrase controller, ACE-Step content, and SoulX neural decode.
+Phrase-level neural generation: yes; full phrase controller, OmniVoice content, and SoulX neural decode.
 Phoneme-note alignment: yes; deterministic language-aware mapping; real labels remain inferred.
 Continuous pitch conditioning: yes; score F0/control in, flow-predicted expressive residual into SoulX; RMVPE F0 target only.
 Teacher distillation gradient verified: yes; weighted teacher loss reaches controller timbre/language/style representations.
 Pseudo-singing used in training: yes; 24 accepted compact rows and six explicitly synthetic quality-controller F0 rows.
 Blurred boundary active: yes; quality controller condition path.
 Conditional flow matching active: yes; controller source-to-residual flow before neural decode.
-Style conditioning active: yes; controller controls plus ACE style prompt.
+Style conditioning active: yes; controller controls.
 OpenUtau integration: executable USTX bridge through resident quality renderer; native registration not implemented.
 Korean: quality gate pass.
 English: quality gate pass.
@@ -24,11 +24,11 @@ Japanese: quality gate pass.
 
 # What was actually implemented in this Goal
 
-`TriSingerModel(latent_dim=1)` now drives the primary quality path: unified phoneme, language, score, blurred-boundary, timbre, style, and pitch features flow through `ConditionalFlowTransformer` and `SingingDecoder` to produce an expressive F0 residual. Protocol v2, persistent ACE/SoulX workers, trilingual frontend, hard no-DSP path test, and executable USTX bridge are present.
+`TriSingerModel(latent_dim=1)` now drives the primary quality path: unified phoneme, language, score, blurred-boundary, timbre, style, and pitch features flow through `ConditionalFlowTransformer` and `SingingDecoder` to produce an expressive F0 residual. Protocol v2, persistent OmniVoice/SoulX workers, trilingual frontend, hard no-DSP path test, and executable USTX bridge are present.
 
 # Exact hybrid forward path
 
-Protocol v2 normalization converts beats to seconds. Frontend and deterministic note alignment build one full phrase tensor. `TriSingerModel.condition` fuses content, score, blurred boundaries, GYU reference timbre, style, and score-only continuous pitch. `SingingDecoder` creates a residual source and `ConditionalFlowTransformer` refines it. The bounded residual is added to the full 50 Hz nominal score contour, then ACE-Step generates one lyric phrase and SoulX-Singer decodes the complete phrase with that explicit F0. No primary call uses per-note TTS, pitch shift, phase vocoder, or waveform concatenation.
+Protocol v2 normalization converts beats to seconds. Frontend and deterministic note alignment build one full phrase tensor. `TriSingerModel.condition` fuses content, score, blurred boundaries, GYU reference timbre, style, and score-only continuous pitch. `SingingDecoder` creates a residual source and `ConditionalFlowTransformer` refines it. The bounded residual is added to the full 50 Hz nominal score contour, then OmniVoice generates one duration-locked lyric phrase and SoulX-Singer decodes the complete phrase with that explicit F0. No primary call uses per-note TTS, pitch shift, phase vocoder, or waveform concatenation.
 
 # Exact data flow by dataset type
 
@@ -61,9 +61,9 @@ CUDA, AdamW `0.0002`, batch 1, 8000 steps; train rows 60 real + 24 pseudo; valid
 # Baseline versus hybrid metrics
 
 On identical four-note scores, primary `hybrid-svs` F0 correlation is KO
-0.9942, EN 0.9604, JA 0.9905; pitch MAE is 11.08, 22.01, 13.40 cents; lyric
-similarity is 1.0000, 0.7105, 0.6000. The old per-note DSP baseline reaches
-0.2676/0.1944/0.4944 correlation and 0.0000/0.0526/0.0667 lyric similarity.
+0.9918, EN 0.9965, JA 0.9949; pitch MAE is 11.93, 10.24, 11.80 cents; lyric
+similarity is 1.0000, 0.9688, 0.5652. The old per-note DSP baseline reaches
+0.2936/0.4566/0.1061 correlation and 0.0000/0.0000/0.0667 lyric similarity.
 Exact evidence: `artifacts/reports/primary_vs_baseline_evaluation.json`.
 
 # Listening sample paths
@@ -72,7 +72,7 @@ Exact evidence: `artifacts/reports/primary_vs_baseline_evaluation.json`.
 
 # OpenUtau integration status
 
-`integrations/openutau/bridge.py` reads `.ustx`, selects voice part, converts project ticks and first tempo to protocol v2 seconds, writes JSON, and can POST to resident `/render`. `examples/openutau_smoke.ustx` has been exercised through the `hybrid-soulx-phrase` quality HTTP backend, producing a 48 kHz mono WAV. The service keeps one pinned ACE-Step worker and one pinned SoulX worker resident across requests. Tempo maps, native renderer registration, and editor curves are not implemented.
+`integrations/openutau/bridge.py` reads `.ustx`, selects voice part, converts project ticks and first tempo to protocol v2 seconds, writes JSON, and can POST to resident `/render`. `examples/openutau_smoke.ustx` has been exercised through the `hybrid-soulx-phrase` quality HTTP backend, producing a 48 kHz mono WAV. The service keeps one pinned OmniVoice worker and one pinned SoulX worker resident across requests. Tempo maps, native renderer registration, and editor curves are not implemented.
 
 # Known failures
 
@@ -82,20 +82,20 @@ Generated compact-hybrid F0 does not reliably follow score; intelligibility is w
 
 Primary `hybrid-svs` loads the trained TriSinger pitch controller, which
 predicts a bounded flow residual from score/content/timbre/style inputs. It
-performs full-phrase ACE-Step lyric-vocal generation and full-phrase
+performs full-phrase OmniVoice lyric generation and full-phrase
 SoulX-Singer neural timbre transfer conditioned on the resulting exact 50 Hz
 score contour. It is not the source-loop renderer and it does not use per-note
 TTS, pitch shifting, time stretching, or waveform concatenation.
-Actual resident-runtime outputs passed the fixed objective gate: KO `0.9942` F0
-correlation and `11.08` cents MAE; EN `0.9604` / `22.01`; JA `0.9905` /
-`13.40`; held-note CV was at most `0.0049`; lyric similarity was
-`1.0000/0.7105/0.6000`.
-`artifacts/reports/soulx_runtime_smoke.json` is the exact evidence.
+Actual resident-runtime held-out outputs passed the fixed objective gate: KO `0.9918` F0
+correlation and `11.93` cents MAE; EN `0.9965` / `10.24`; JA `0.9949` /
+`11.80`; held-note CV was at most `0.0060`; lyric similarity was
+`1.0000/0.9688/0.5652`.
+`artifacts/reports/soulx_heldout_smoke.json` is the exact evidence.
 
-`artifacts/package/gyu-hybrid-singer-v0.3-quality-runtime.zip` was unzipped
+`artifacts/package/gyu-hybrid-singer-v0.4-quality-runtime.zip` was unzipped
 and its `run.sh` generated 48 kHz mono output. It includes the controller
 checkpoint and a reproducible `bootstrap.sh` for the isolated pinned
-Apache-2.0 ACE-Step/SoulX environments and model downloads. It is not
+OmniVoice/SoulX environments and model downloads. It is not
 validation of the failed compact checkpoint.
 
 # Claims that are explicitly not being made
@@ -107,8 +107,8 @@ No offline-weight bundle, compact-checkpoint quality claim, annotated source sin
 ```sh
 PYTHONPATH=src python scripts/package_quality_runtime.py
 rm -rf /tmp/gyu-quality-smoke && mkdir /tmp/gyu-quality-smoke
-unzip -q artifacts/package/gyu-hybrid-singer-v0.3-quality-runtime.zip -d /tmp/gyu-quality-smoke
-cd /tmp/gyu-quality-smoke/gyu-hybrid-singer-v0.3-quality-runtime
+unzip -q artifacts/package/gyu-hybrid-singer-v0.4-quality-runtime.zip -d /tmp/gyu-quality-smoke
+cd /tmp/gyu-quality-smoke/gyu-hybrid-singer-v0.4-quality-runtime
 sh bootstrap.sh /path/to/cache
 GYU_SINGER_CACHE=/path/to/cache GYU_SOULX_PYTHON=/path/to/cache/soulx-singer/.venv/bin/python sh run.sh
 ```

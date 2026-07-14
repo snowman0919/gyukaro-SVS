@@ -16,6 +16,7 @@ from transformers import AutoFeatureExtractor, AutoModelForAudioXVector, AutoMod
 
 from gyu_singer.inference import HybridRenderer, load_hybrid_model
 from gyu_singer.inference.codec import MossCodecDecoder
+from gyu_singer.inference.soulx import SoulXPhraseRenderer
 from gyu_singer.neural_renderer import NeuralRenderer
 
 sys.path.insert(0, "data/cache/soulx-singer")
@@ -95,6 +96,7 @@ def main() -> None:
     Path("artifacts/samples").mkdir(exist_ok=True)
     baseline = None if args.skip_baseline_render else NeuralRenderer("checkpoints/gyu_moss_nano_sft/checkpoint-last", "data/cache/moss-audio-tokenizer-nano", "data/source/Korea Digital Media High School 215.m4a")
     hybrid = None if args.quality_primary else HybridRenderer(load_hybrid_model(args.checkpoint, device), MossCodecDecoder("data/cache/moss-audio-tokenizer-nano", device), "data/processed/master/216.wav")
+    quality = SoulXPhraseRenderer("data/processed/master/216.wav") if args.quality_primary else None
     extractor = AutoFeatureExtractor.from_pretrained("data/cache/wavlm-base-plus-sv")
     wavlm = AutoModelForAudioXVector.from_pretrained("data/cache/wavlm-base-plus-sv").to(device).eval()
     ref = embedding(wavlm, extractor, audio16("data/processed/master/216.wav"), device)
@@ -109,7 +111,11 @@ def main() -> None:
         if hybrid:
             torch.manual_seed(21)
             sf.write(paths["hybrid_svs"], hybrid.render(score), 48000)
+        if quality:
+            sf.write(paths["hybrid_svs_quality"], quality.render(score), 48000)
         result["scores"][language] = {name: metrics(path, score, f0, ref, wavlm, extractor, asr, processor, device) | {"path": path} for name, path in paths.items()}
+    if quality:
+        quality.close()
     Path(args.report).write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n")
     print(json.dumps(result, ensure_ascii=False, indent=2))
 

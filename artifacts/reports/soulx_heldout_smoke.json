@@ -1,0 +1,44 @@
+{
+  "gate": {
+    "f0_correlation_min": 0.9,
+    "pitch_mae_cents_max": 100,
+    "held_note_f0_cv_max": 0.1,
+    "asr_lyric_similarity_min": 0.5
+  },
+  "cases": {
+    "ko": {
+      "source_phrase": "바람이 불어와 마음을 감싸줘",
+      "asr_transcript": " 바람이 불어와 마음을 감싸줘",
+      "rmvpe_f0_correlation": 0.9918,
+      "note_pitch_mae_cents": 11.93,
+      "voiced_fraction": 0.9505,
+      "held_note_f0_cv": 0.0038,
+      "speaker_similarity_wavlm": 0.6518,
+      "asr_lyric_similarity": 1.0,
+      "pass": true
+    },
+    "en": {
+      "source_phrase": "Carry my voice across the quiet river",
+      "asr_transcript": " Carry my voice across the quiet driver.",
+      "rmvpe_f0_correlation": 0.9965,
+      "note_pitch_mae_cents": 10.24,
+      "voiced_fraction": 0.9617,
+      "held_note_f0_cv": 0.005,
+      "speaker_similarity_wavlm": 0.8707,
+      "asr_lyric_similarity": 0.9688,
+      "pass": true
+    },
+    "ja": {
+      "source_phrase": "新しい歌を風に乗せて届ける",
+      "asr_transcript": "新しい歌を風に乗せて新しい歌を風に乗せて届ける",
+      "rmvpe_f0_correlation": 0.9949,
+      "note_pitch_mae_cents": 11.8,
+      "voiced_fraction": 0.8446,
+      "held_note_f0_cv": 0.006,
+      "speaker_similarity_wavlm": 0.8686,
+      "asr_lyric_similarity": 0.5652,
+      "pass": true
+    }
+  },
+  "pass": true
+}
