@@ -2,7 +2,7 @@ Overall status: primary `hybrid-svs` quality runtime passes the predeclared KO/E
 Current stage: GYU Hybrid Singer v0.3 quality runtime; bootstrap-runnable, not an offline-weight bundle.
 Package: `artifacts/package/gyu-hybrid-singer-v0.3-quality-runtime.zip`
 Package SHA-256: `aeabe177b535d1edbd5f8c02db17bfd973689b73ef707a0a05c069ab7a194795`
-Git commit: current quality-controller source revision (recorded by Git)
+Git commit: `a6a9c73` (primary quality-controller implementation revision)
 Hybrid SVS checkpoint: `gyu_quality_pitch_controller.pt`, SHA-256 `c5aa5ef00101800d5d84cac453b8b0fad463567a5745bebc5933a4ab95d278f2`
 Trainable parameters: 193,940 controller parameters.
 Phrase-level neural generation: yes; full phrase controller, ACE-Step content, and SoulX neural decode.
