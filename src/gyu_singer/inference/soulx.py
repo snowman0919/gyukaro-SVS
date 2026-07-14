@@ -42,6 +42,10 @@ class _Worker:
             try: self.process.wait(timeout=5)
             except subprocess.TimeoutExpired: self.process.kill()
 
+    @property
+    def alive(self) -> bool:
+        return self.process.poll() is None
+
 
 class SoulXPhraseRenderer:
     """Whole phrase neural content generation and neural timbre transfer."""
@@ -106,3 +110,7 @@ class SoulXPhraseRenderer:
     def close(self) -> None:
         for worker in (getattr(self, "omnivoice", None), getattr(self, "soulx", None)):
             if worker: worker.close()
+
+    def health(self) -> dict:
+        workers = {name: bool(worker and worker.alive) for name in ("omnivoice", "soulx") if (worker := getattr(self, name, None)) is not None}
+        return {"status": "ok" if workers and all(workers.values()) else "unhealthy", "workers": workers}

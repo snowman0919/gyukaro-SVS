@@ -1,0 +1,39 @@
+{
+  "environment": {
+    "device": "NVIDIA GB10",
+    "cuda_memory_source": "torch.cuda.mem_get_info; nvidia-smi reports Not Supported on unified-memory GB10"
+  },
+  "render_exit_code": 0,
+  "wall_seconds_including_build": 58.219,
+  "resident_rss_before_render_mb": 1305.4,
+  "peak_resident_process_tree_rss_mb": 9118.81,
+  "peak_openutau_process_tree_rss_mb": 1107.24,
+  "system_used_baseline_mb": 5460.45,
+  "peak_system_used_mb": 20860.65,
+  "system_used_growth_mb": 15400.2,
+  "gpu_used_baseline_mb": 66897.29,
+  "peak_gpu_used_mb": 82298.96,
+  "gpu_used_growth_mb": 15401.67,
+  "sample_count": 251,
+  "render_metrics": {
+    "tracks": 3,
+    "parts": 17,
+    "notes": 136,
+    "phrases": 17,
+    "first_render_seconds": 54.3573696,
+    "cached_render_seconds": 0.1068495,
+    "cache_misses": 17,
+    "cache_hits": 17,
+    "stale_cache_files_after_repeat": 0,
+    "failed_phrases": 0,
+    "retries": 0,
+    "sample_rate": 44100,
+    "channels": 2,
+    "duration_seconds": 119.9828571
+  },
+  "project": "examples/openutau_v10_longform.ustx",
+  "wav": "/home/kotori9/code/gyukaro/artifacts/reports/longform_v10.wav",
+  "render_log": "/home/kotori9/code/gyukaro/artifacts/reports/longform_v10_render.log",
+  "server_log": "/home/kotori9/code/gyukaro/artifacts/reports/longform_v10_server.log",
+  "pass": true
+}

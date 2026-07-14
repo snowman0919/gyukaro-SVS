@@ -1,0 +1,30 @@
+
+Welcome to .NET 8.0!
+---------------------
+SDK Version: 8.0.422
+
+----------------
+Installed an ASP.NET Core HTTPS development certificate.
+To trust the certificate, view the instructions: https://aka.ms/dotnet-https-linux
+
+----------------
+Write your first app: https://aka.ms/dotnet-hello-world
+Find out what's new: https://aka.ms/dotnet-whats-new
+Explore documentation: https://aka.ms/dotnet-docs
+Report issues and find source on GitHub: https://github.com/dotnet/core
+Use 'dotnet --help' to see available commands or visit: https://aka.ms/dotnet-cli
+--------------------------------------------------------------------------------------
+An issue was encountered verifying workloads. For more information, run "dotnet workload update".
+  OpenUtau.Core -> /tmp/OpenUtau-v10-fresh/OpenUtau.Core/bin/Release/net8.0/OpenUtau.Core.dll
+  OpenUtau.Plugin.Builtin -> /tmp/OpenUtau-v10-fresh/OpenUtau.Plugin.Builtin/bin/Release/net8.0/OpenUtau.Plugin.Builtin.dll
+  OpenUtau -> /tmp/OpenUtau-v10-fresh/OpenUtau/bin/Release/net8.0/OpenUtau.dll
+/tmp/OpenUtau-v10-fresh/OpenUtau.Test/Plugins/EnArpaPlusTest.cs(56,21): warning xUnit1013: Public method 'SyllableTest' on test class 'EnArpaPlusTest' should be marked as a Theory. Reduce the visibility of the method, or add a Theory attribute to the method. (https://xunit.net/xunit.analyzers/rules/xUnit1013) [/tmp/OpenUtau-v10-fresh/OpenUtau.Test/OpenUtau.Test.csproj]
+/tmp/OpenUtau-v10-fresh/OpenUtau.Test/Core/Format/MusicXMLTest.cs(140,13): warning xUnit2013: Do not use Assert.Equal() to check for collection size. Use Assert.Single instead. (https://xunit.net/xunit.analyzers/rules/xUnit2013) [/tmp/OpenUtau-v10-fresh/OpenUtau.Test/OpenUtau.Test.csproj]
+  OpenUtau.Test -> /tmp/OpenUtau-v10-fresh/OpenUtau.Test/bin/Release/net8.0/OpenUtau.Test.dll
+Test run for /tmp/OpenUtau-v10-fresh/OpenUtau.Test/bin/Release/net8.0/OpenUtau.Test.dll (.NETCoreApp,Version=v8.0)
+VSTest version 17.11.1 (arm64)
+
+Starting test execution, please wait...
+A total of 1 test files matched the specified pattern.
+
+Passed!  - Failed:     0, Passed:     1, Skipped:     0, Total:     1, Duration: < 1 ms - OpenUtau.Test.dll (net8.0)

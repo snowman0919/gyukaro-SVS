@@ -1,0 +1,32 @@
+{
+  "repository": "https://github.com/stakira/OpenUtau.git",
+  "branch": "master",
+  "commit": "27573ac5c888d927119d5f65a207312d79194b1f",
+  "clone": {
+    "path": "/tmp/OpenUtau-v10-fresh",
+    "fresh_network_clone": true,
+    "initial_worktree_clean": true
+  },
+  "environment": {
+    "os": "Ubuntu Linux 6.17.0-1021-nvidia aarch64",
+    "dotnet": "8.0.422",
+    "python": "3.11.14"
+  },
+  "unmodified_upstream": {
+    "restore": "pass",
+    "build": "pass",
+    "tests_total": 206,
+    "tests_passed": 205,
+    "tests_failed": 1,
+    "failure": "OpenUtau.Plugins.JaPresampTest.ToneShiftAltTest: upstream test expected a た_VCV_G4 but resolved raw た",
+    "failure_reproduced_alone": true,
+    "gyu_related": false
+  },
+  "gyu_overlay": {
+    "install": "pass",
+    "build": "pass",
+    "native_mapping_tests": "7/7 pass",
+    "resident_renderer_test": "1/1 pass",
+    "upstream_api_changes_since_v0.9_pin": false
+  }
+}

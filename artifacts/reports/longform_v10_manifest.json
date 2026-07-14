@@ -1,0 +1,117 @@
+{
+  "project": "examples/openutau_v10_longform.ustx",
+  "tempo": 70,
+  "notes": 136,
+  "phrases": 17,
+  "languages": {
+    "ko": 104,
+    "en": 16,
+    "ja": 16
+  },
+  "duration_seconds": 120.0,
+  "boundaries": [
+    {
+      "tick": 3840,
+      "seconds": 6.857142857142858,
+      "expected_gap_seconds": 0.4285714285714286,
+      "continuous_pitch_expected": false
+    },
+    {
+      "tick": 7920,
+      "seconds": 14.142857142857142,
+      "expected_gap_seconds": 0.0,
+      "continuous_pitch_expected": true
+    },
+    {
+      "tick": 11760,
+      "seconds": 21.0,
+      "expected_gap_seconds": 0.4285714285714286,
+      "continuous_pitch_expected": false
+    },
+    {
+      "tick": 15840,
+      "seconds": 28.285714285714285,
+      "expected_gap_seconds": 0.0,
+      "continuous_pitch_expected": true
+    },
+    {
+      "tick": 19680,
+      "seconds": 35.14285714285714,
+      "expected_gap_seconds": 0.4285714285714286,
+      "continuous_pitch_expected": false
+    },
+    {
+      "tick": 23760,
+      "seconds": 42.42857142857143,
+      "expected_gap_seconds": 0.0,
+      "continuous_pitch_expected": true
+    },
+    {
+      "tick": 27600,
+      "seconds": 49.28571428571429,
+      "expected_gap_seconds": 0.4285714285714286,
+      "continuous_pitch_expected": false
+    },
+    {
+      "tick": 31680,
+      "seconds": 56.57142857142857,
+      "expected_gap_seconds": 0.0,
+      "continuous_pitch_expected": true
+    },
+    {
+      "tick": 35520,
+      "seconds": 63.42857142857143,
+      "expected_gap_seconds": 0.4285714285714286,
+      "continuous_pitch_expected": false
+    },
+    {
+      "tick": 39600,
+      "seconds": 70.71428571428572,
+      "expected_gap_seconds": 0.0,
+      "continuous_pitch_expected": true
+    },
+    {
+      "tick": 43440,
+      "seconds": 77.57142857142858,
+      "expected_gap_seconds": 0.4285714285714286,
+      "continuous_pitch_expected": false
+    },
+    {
+      "tick": 47520,
+      "seconds": 84.85714285714286,
+      "expected_gap_seconds": 0.0,
+      "continuous_pitch_expected": true
+    },
+    {
+      "tick": 51360,
+      "seconds": 91.71428571428572,
+      "expected_gap_seconds": 0.4285714285714286,
+      "continuous_pitch_expected": false
+    },
+    {
+      "tick": 55440,
+      "seconds": 99.0,
+      "expected_gap_seconds": 0.0,
+      "continuous_pitch_expected": true
+    },
+    {
+      "tick": 59280,
+      "seconds": 105.85714285714286,
+      "expected_gap_seconds": 0.4285714285714286,
+      "continuous_pitch_expected": false
+    },
+    {
+      "tick": 63360,
+      "seconds": 113.14285714285714,
+      "expected_gap_seconds": 0.0,
+      "continuous_pitch_expected": true
+    }
+  ],
+  "contains_pitch_curve": true,
+  "contains_vibrato": true,
+  "styles": [
+    "neutral",
+    "breathy",
+    "energetic"
+  ]
+}

@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using NAudio.Wave;
 using Newtonsoft.Json;
+using OpenUtau.Classic;
 using OpenUtau.Core.Format;
 using OpenUtau.Core.Render;
 using OpenUtau.Core.SignalChain;
@@ -18,7 +19,7 @@ using Serilog;
 
 namespace OpenUtau.Core.GyuSinger {
     public sealed class GyuSinger : USinger {
-        static readonly List<USubbank> EmptySubbanks = new();
+        static readonly List<USubbank> DefaultSubbank = new() { new USubbank(new Subbank()) };
         static readonly List<string> EmptyErrors = new();
         public GyuSinger() { found = loaded = true; }
         public override string Id => "GYU-SINGER";
@@ -29,7 +30,7 @@ namespace OpenUtau.Core.GyuSinger {
         public override string Version => "0.9";
         public override string OtherInfo => "Resident phrase neural renderer";
         public override string DefaultPhonemizer => "OpenUtau.Core.DefaultPhonemizer";
-        public override IList<USubbank> Subbanks => EmptySubbanks;
+        public override IList<USubbank> Subbanks => DefaultSubbank;
         public override IList<string> Errors => EmptyErrors;
         public override bool TryGetOto(string phoneme, out UOto oto) { oto = UOto.OfDummy(phoneme); return true; }
     }

@@ -1,7 +1,10 @@
+import json
+import urllib.error
 import urllib.request
 import importlib.util
 
 import numpy as np
+import pytest
 import torch
 
 from gyu_singer.alignment import build_phrase_frames
@@ -105,6 +108,37 @@ def test_score_protocol_and_resident_http():
         assert b'"status": "ok"' in urllib.request.urlopen(f"http://{host}:{port}/health").read()
         request = urllib.request.Request(f"http://{host}:{port}/render", data=b'{"language":"ko","notes":[{"pitch":60,"start":0,"duration":0.2,"lyric":"\xec\x95\x84"}]}', method="POST")
         assert urllib.request.urlopen(request).read()[:4] == b"RIFF"
+    finally:
+        server.shutdown(); thread.join()
+
+
+def test_resident_http_serializes_and_recovers_after_failure():
+    import concurrent.futures
+    import threading
+    import time
+    class Fake:
+        sample_rate = 48000
+        active = peak = 0
+        lock = threading.Lock()
+        def render(self, incoming):
+            if incoming.get("fail"): raise RuntimeError("expected failure")
+            with self.lock:
+                self.active += 1; self.peak = max(self.peak, self.active)
+            time.sleep(.02)
+            with self.lock: self.active -= 1
+            return np.zeros(960, np.float32)
+    fake = Fake(); server = build_server(fake, port=0)
+    thread = threading.Thread(target=server.serve_forever); thread.start()
+    host, port = server.server_address
+    def request(body):
+        incoming = urllib.request.Request(f"http://{host}:{port}/render", data=json.dumps(body).encode(), method="POST")
+        return urllib.request.urlopen(incoming).read()
+    try:
+        with concurrent.futures.ThreadPoolExecutor(2) as pool:
+            assert all(body[:4] == b"RIFF" for body in pool.map(request, [{}, {}]))
+        assert fake.peak == 1
+        with pytest.raises(urllib.error.HTTPError) as error: request({"fail": True})
+        assert error.value.code == 500 and request({})[:4] == b"RIFF"
     finally:
         server.shutdown(); thread.join()
 

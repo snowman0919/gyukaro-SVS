@@ -58,7 +58,14 @@ def main() -> None:
     if args.command == "render":
         renderer.render_file(args.input, args.output); return
     from .renderer import build_server
-    build_server(renderer, port=args.port).serve_forever()
+    server = build_server(renderer, port=args.port)
+    try:
+        server.serve_forever()
+    except KeyboardInterrupt:
+        pass
+    finally:
+        server.server_close()
+        if hasattr(renderer, "close"): renderer.close()
 
 
 if __name__ == "__main__":

@@ -1,0 +1,3404 @@
+name: GYU Singer v1.0 long-form release validation
+comment: Two-minute native OpenUtau phrase-render/export test.
+ustx_version: '0.9'
+expressions:
+  gyus:
+    name: GYU style
+    abbr: gyus
+    type: Curve
+    min: 0
+    max: 5
+    default_value: 0
+    is_flag: false
+    flag: ''
+    skip_output_if_default: false
+time_signatures:
+- bar_position: 0
+  beat_per_bar: 4
+  beat_unit: 4
+tempos:
+- position: 0
+  bpm: 70
+tracks:
+- singer: GYU-SINGER
+  phonemizer: OpenUtau.Core.DefaultPhonemizer
+  renderer_settings:
+    renderer: GYU-SINGER
+  track_name: GYU KO
+- singer: GYU-SINGER
+  phonemizer: OpenUtau.Core.DefaultPhonemizer
+  renderer_settings:
+    renderer: GYU-SINGER
+  track_name: GYU EN
+- singer: GYU-SINGER
+  phonemizer: OpenUtau.Core.DefaultPhonemizer
+  renderer_settings:
+    renderer: GYU-SINGER
+  track_name: GYU JA
+voice_parts:
+- duration: 3840
+  name: KO phrase 01
+  track_no: 0
+  position: 0
+  notes:
+  - position: 0
+    duration: 480
+    tone: 60
+    lyric: 하
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 480
+    duration: 480
+    tone: 62
+    lyric: 늘
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 960
+    duration: 480
+    tone: 64
+    lyric: 을
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 1440
+    duration: 480
+    tone: 65
+    lyric: 향
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 1920
+    duration: 480
+    tone: 64
+    lyric: 해
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 2400
+    duration: 480
+    tone: 62
+    lyric: 노
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 45
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 2880
+    duration: 480
+    tone: 60
+    lyric: 래
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 3360
+    duration: 480
+    tone: 60
+    lyric: 해
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  curves:
+  - abbr: pitd
+    xs:
+    - 0
+    - 1920
+    - 3840
+    ys:
+    - 0
+    - 75
+    - 0
+  - abbr: gyus
+    xs:
+    - 0
+    - 3840
+    ys:
+    - 0
+    - 0
+- duration: 3840
+  name: KO phrase 02
+  track_no: 0
+  position: 4080
+  notes:
+  - position: 0
+    duration: 480
+    tone: 60
+    lyric: 작
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 480
+    duration: 480
+    tone: 60
+    lyric: 은
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 960
+    duration: 480
+    tone: 63
+    lyric: 빛
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 1440
+    duration: 480
+    tone: 65
+    lyric: 을
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 1920
+    duration: 480
+    tone: 67
+    lyric: 따
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 2400
+    duration: 480
+    tone: 65
+    lyric: 라
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 45
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 2880
+    duration: 480
+    tone: 62
+    lyric: 가
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 3360
+    duration: 480
+    tone: 60
+    lyric: 자
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  curves:
+  - abbr: pitd
+    xs:
+    - 0
+    - 1920
+    - 3840
+    ys:
+    - 0
+    - -50
+    - 0
+  - abbr: gyus
+    xs:
+    - 0
+    - 3840
+    ys:
+    - 2
+    - 2
+- duration: 3840
+  name: KO phrase 03
+  track_no: 0
+  position: 7920
+  notes:
+  - position: 0
+    duration: 480
+    tone: 60
+    lyric: 바
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 480
+    duration: 480
+    tone: 58
+    lyric: 람
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 960
+    duration: 480
+    tone: 60
+    lyric: 결
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 1440
+    duration: 480
+    tone: 64
+    lyric: 에
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 1920
+    duration: 480
+    tone: 62
+    lyric: 마
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 2400
+    duration: 480
+    tone: 60
+    lyric: 음
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 45
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 2880
+    duration: 480
+    tone: 59
+    lyric: 실
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 3360
+    duration: 480
+    tone: 60
+    lyric: 어
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  curves:
+  - abbr: pitd
+    xs:
+    - 0
+    - 1920
+    - 3840
+    ys:
+    - 0
+    - 75
+    - 0
+  - abbr: gyus
+    xs:
+    - 0
+    - 3840
+    ys:
+    - 3
+    - 3
+- duration: 3840
+  name: KO phrase 04
+  track_no: 0
+  position: 12000
+  notes:
+  - position: 0
+    duration: 480
+    tone: 60
+    lyric: 푸
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 480
+    duration: 480
+    tone: 62
+    lyric: 른
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 960
+    duration: 480
+    tone: 64
+    lyric: 별
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 1440
+    duration: 480
+    tone: 65
+    lyric: 을
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 1920
+    duration: 480
+    tone: 64
+    lyric: 바
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 2400
+    duration: 480
+    tone: 62
+    lyric: 라
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 45
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 2880
+    duration: 480
+    tone: 60
+    lyric: 보
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 3360
+    duration: 480
+    tone: 60
+    lyric: 며
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  curves:
+  - abbr: pitd
+    xs:
+    - 0
+    - 1920
+    - 3840
+    ys:
+    - 0
+    - -50
+    - 0
+  - abbr: gyus
+    xs:
+    - 0
+    - 3840
+    ys:
+    - 0
+    - 0
+- duration: 3840
+  name: KO phrase 05
+  track_no: 0
+  position: 15840
+  notes:
+  - position: 0
+    duration: 480
+    tone: 60
+    lyric: 오
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 480
+    duration: 480
+    tone: 60
+    lyric: 늘
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 960
+    duration: 480
+    tone: 63
+    lyric: 처
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 1440
+    duration: 480
+    tone: 65
+    lyric: 럼
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 1920
+    duration: 480
+    tone: 67
+    lyric: 함
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 2400
+    duration: 480
+    tone: 65
+    lyric: 께
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 45
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 2880
+    duration: 480
+    tone: 62
+    lyric: 걷
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 3360
+    duration: 480
+    tone: 60
+    lyric: 자
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  curves:
+  - abbr: pitd
+    xs:
+    - 0
+    - 1920
+    - 3840
+    ys:
+    - 0
+    - 75
+    - 0
+  - abbr: gyus
+    xs:
+    - 0
+    - 3840
+    ys:
+    - 2
+    - 2
+- duration: 3840
+  name: KO phrase 06
+  track_no: 0
+  position: 19920
+  notes:
+  - position: 0
+    duration: 480
+    tone: 60
+    lyric: 따
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 480
+    duration: 480
+    tone: 58
+    lyric: 뜻
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 960
+    duration: 480
+    tone: 60
+    lyric: 한
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 1440
+    duration: 480
+    tone: 64
+    lyric: 꿈
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 1920
+    duration: 480
+    tone: 62
+    lyric: 을
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 2400
+    duration: 480
+    tone: 60
+    lyric: 그
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 45
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 2880
+    duration: 480
+    tone: 59
+    lyric: 려
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 3360
+    duration: 480
+    tone: 60
+    lyric: 봐
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  curves:
+  - abbr: pitd
+    xs:
+    - 0
+    - 1920
+    - 3840
+    ys:
+    - 0
+    - -50
+    - 0
+  - abbr: gyus
+    xs:
+    - 0
+    - 3840
+    ys:
+    - 3
+    - 3
+- duration: 3840
+  name: KO phrase 07
+  track_no: 0
+  position: 23760
+  notes:
+  - position: 0
+    duration: 480
+    tone: 60
+    lyric: 새
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 480
+    duration: 480
+    tone: 62
+    lyric: 벽
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 960
+    duration: 480
+    tone: 64
+    lyric: 공
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 1440
+    duration: 480
+    tone: 65
+    lyric: 기
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 1920
+    duration: 480
+    tone: 64
+    lyric: 깨
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 2400
+    duration: 480
+    tone: 62
+    lyric: 어
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 45
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 2880
+    duration: 480
+    tone: 60
+    lyric: 나
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 3360
+    duration: 480
+    tone: 60
+    lyric: 면
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  curves:
+  - abbr: pitd
+    xs:
+    - 0
+    - 1920
+    - 3840
+    ys:
+    - 0
+    - 75
+    - 0
+  - abbr: gyus
+    xs:
+    - 0
+    - 3840
+    ys:
+    - 0
+    - 0
+- duration: 3840
+  name: KO phrase 08
+  track_no: 0
+  position: 27840
+  notes:
+  - position: 0
+    duration: 480
+    tone: 60
+    lyric: 우
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 480
+    duration: 480
+    tone: 60
+    lyric: 리
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 960
+    duration: 480
+    tone: 63
+    lyric: 목
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 1440
+    duration: 480
+    tone: 65
+    lyric: 소
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 1920
+    duration: 480
+    tone: 67
+    lyric: 리
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 2400
+    duration: 480
+    tone: 65
+    lyric: 이
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 45
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 2880
+    duration: 480
+    tone: 62
+    lyric: 어
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 3360
+    duration: 480
+    tone: 60
+    lyric: 져
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  curves:
+  - abbr: pitd
+    xs:
+    - 0
+    - 1920
+    - 3840
+    ys:
+    - 0
+    - -50
+    - 0
+  - abbr: gyus
+    xs:
+    - 0
+    - 3840
+    ys:
+    - 2
+    - 2
+- duration: 3840
+  name: KO phrase 09
+  track_no: 0
+  position: 31680
+  notes:
+  - position: 0
+    duration: 480
+    tone: 60
+    lyric: 멀
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 480
+    duration: 480
+    tone: 58
+    lyric: 리
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 960
+    duration: 480
+    tone: 60
+    lyric: 있
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 1440
+    duration: 480
+    tone: 64
+    lyric: 는
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 1920
+    duration: 480
+    tone: 62
+    lyric: 길
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 2400
+    duration: 480
+    tone: 60
+    lyric: 끝
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 45
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 2880
+    duration: 480
+    tone: 59
+    lyric: 까
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 3360
+    duration: 480
+    tone: 60
+    lyric: 지
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  curves:
+  - abbr: pitd
+    xs:
+    - 0
+    - 1920
+    - 3840
+    ys:
+    - 0
+    - 75
+    - 0
+  - abbr: gyus
+    xs:
+    - 0
+    - 3840
+    ys:
+    - 3
+    - 3
+- duration: 3840
+  name: KO phrase 10
+  track_no: 0
+  position: 35760
+  notes:
+  - position: 0
+    duration: 480
+    tone: 60
+    lyric: 반
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 480
+    duration: 480
+    tone: 62
+    lyric: 짝
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 960
+    duration: 480
+    tone: 64
+    lyric: 이
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 1440
+    duration: 480
+    tone: 65
+    lyric: 는
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 1920
+    duration: 480
+    tone: 64
+    lyric: 순
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 2400
+    duration: 480
+    tone: 62
+    lyric: 간
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 45
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 2880
+    duration: 480
+    tone: 60
+    lyric: 마
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 3360
+    duration: 480
+    tone: 60
+    lyric: 다
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  curves:
+  - abbr: pitd
+    xs:
+    - 0
+    - 1920
+    - 3840
+    ys:
+    - 0
+    - -50
+    - 0
+  - abbr: gyus
+    xs:
+    - 0
+    - 3840
+    ys:
+    - 0
+    - 0
+- duration: 3840
+  name: KO phrase 11
+  track_no: 0
+  position: 39600
+  notes:
+  - position: 0
+    duration: 480
+    tone: 60
+    lyric: 소
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 480
+    duration: 480
+    tone: 60
+    lyric: 중
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 960
+    duration: 480
+    tone: 63
+    lyric: 한
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 1440
+    duration: 480
+    tone: 65
+    lyric: 맘
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 1920
+    duration: 480
+    tone: 67
+    lyric: 기
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 2400
+    duration: 480
+    tone: 65
+    lyric: 억
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 45
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 2880
+    duration: 480
+    tone: 62
+    lyric: 할
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 3360
+    duration: 480
+    tone: 60
+    lyric: 게
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  curves:
+  - abbr: pitd
+    xs:
+    - 0
+    - 1920
+    - 3840
+    ys:
+    - 0
+    - 75
+    - 0
+  - abbr: gyus
+    xs:
+    - 0
+    - 3840
+    ys:
+    - 2
+    - 2
+- duration: 3840
+  name: KO phrase 12
+  track_no: 0
+  position: 43680
+  notes:
+  - position: 0
+    duration: 480
+    tone: 60
+    lyric: 다
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 480
+    duration: 480
+    tone: 58
+    lyric: 시
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 960
+    duration: 480
+    tone: 60
+    lyric: 노
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 1440
+    duration: 480
+    tone: 64
+    lyric: 래
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 1920
+    duration: 480
+    tone: 62
+    lyric: 피
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 2400
+    duration: 480
+    tone: 60
+    lyric: 어
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 45
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 2880
+    duration: 480
+    tone: 59
+    lyric: 나
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 3360
+    duration: 480
+    tone: 60
+    lyric: 고
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  curves:
+  - abbr: pitd
+    xs:
+    - 0
+    - 1920
+    - 3840
+    ys:
+    - 0
+    - -50
+    - 0
+  - abbr: gyus
+    xs:
+    - 0
+    - 3840
+    ys:
+    - 3
+    - 3
+- duration: 3840
+  name: KO phrase 13
+  track_no: 0
+  position: 47520
+  notes:
+  - position: 0
+    duration: 480
+    tone: 60
+    lyric: 끝
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 480
+    duration: 480
+    tone: 62
+    lyric: 없
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 960
+    duration: 480
+    tone: 64
+    lyric: 는
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 1440
+    duration: 480
+    tone: 65
+    lyric: 빛
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 1920
+    duration: 480
+    tone: 64
+    lyric: 향
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 2400
+    duration: 480
+    tone: 62
+    lyric: 해
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 45
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 2880
+    duration: 480
+    tone: 60
+    lyric: 가
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 3360
+    duration: 480
+    tone: 60
+    lyric: 자
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  curves:
+  - abbr: pitd
+    xs:
+    - 0
+    - 1920
+    - 3840
+    ys:
+    - 0
+    - 75
+    - 0
+  - abbr: gyus
+    xs:
+    - 0
+    - 3840
+    ys:
+    - 0
+    - 0
+- duration: 3840
+  name: EN phrase 14
+  track_no: 1
+  position: 51600
+  notes:
+  - position: 0
+    duration: 480
+    tone: 62
+    lyric: sing
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 480
+    duration: 480
+    tone: 62
+    lyric: with
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 960
+    duration: 480
+    tone: 65
+    lyric: me
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 1440
+    duration: 480
+    tone: 67
+    lyric: beneath
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 1920
+    duration: 480
+    tone: 69
+    lyric: the
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 2400
+    duration: 480
+    tone: 67
+    lyric: open
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 45
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 2880
+    duration: 480
+    tone: 64
+    lyric: sky
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 3360
+    duration: 480
+    tone: 62
+    lyric: +sky
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  curves:
+  - abbr: pitd
+    xs:
+    - 0
+    - 1920
+    - 3840
+    ys:
+    - 0
+    - -50
+    - 0
+  - abbr: gyus
+    xs:
+    - 0
+    - 3840
+    ys:
+    - 2
+    - 2
+- duration: 3840
+  name: EN phrase 15
+  track_no: 1
+  position: 55440
+  notes:
+  - position: 0
+    duration: 480
+    tone: 62
+    lyric: carry
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 480
+    duration: 480
+    tone: 60
+    lyric: our
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 960
+    duration: 480
+    tone: 62
+    lyric: song
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 1440
+    duration: 480
+    tone: 66
+    lyric: across
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 1920
+    duration: 480
+    tone: 64
+    lyric: the
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 2400
+    duration: 480
+    tone: 62
+    lyric: quiet
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 45
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 2880
+    duration: 480
+    tone: 61
+    lyric: night
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 3360
+    duration: 480
+    tone: 62
+    lyric: +night
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  curves:
+  - abbr: pitd
+    xs:
+    - 0
+    - 1920
+    - 3840
+    ys:
+    - 0
+    - 75
+    - 0
+  - abbr: gyus
+    xs:
+    - 0
+    - 3840
+    ys:
+    - 3
+    - 3
+- duration: 3840
+  name: JA phrase 16
+  track_no: 2
+  position: 59520
+  notes:
+  - position: 0
+    duration: 480
+    tone: 64
+    lyric: 空
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 480
+    duration: 480
+    tone: 66
+    lyric: へ
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 960
+    duration: 480
+    tone: 68
+    lyric: 歌
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 1440
+    duration: 480
+    tone: 69
+    lyric: を
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 1920
+    duration: 480
+    tone: 68
+    lyric: 届
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 2400
+    duration: 480
+    tone: 66
+    lyric: け
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 45
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 2880
+    duration: 480
+    tone: 64
+    lyric: よ
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 3360
+    duration: 480
+    tone: 64
+    lyric: う
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  curves:
+  - abbr: pitd
+    xs:
+    - 0
+    - 1920
+    - 3840
+    ys:
+    - 0
+    - -50
+    - 0
+  - abbr: gyus
+    xs:
+    - 0
+    - 3840
+    ys:
+    - 0
+    - 0
+- duration: 3840
+  name: JA phrase 17
+  track_no: 2
+  position: 63360
+  notes:
+  - position: 0
+    duration: 480
+    tone: 64
+    lyric: 光
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 480
+    duration: 480
+    tone: 64
+    lyric: を
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 960
+    duration: 480
+    tone: 67
+    lyric: 追
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 1440
+    duration: 480
+    tone: 69
+    lyric: い
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 1920
+    duration: 480
+    tone: 71
+    lyric: か
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 2400
+    duration: 480
+    tone: 69
+    lyric: け
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 45
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 2880
+    duration: 480
+    tone: 66
+    lyric: よ
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  - position: 3360
+    duration: 480
+    tone: 64
+    lyric: う
+    pitch:
+      data:
+      - x: -40
+        y: 0
+        shape: io
+      - x: 40
+        y: 0
+        shape: io
+      snap_first: true
+    vibrato:
+      length: 0
+      period: 180
+      depth: 35
+      in: 10
+      out: 10
+      shift: 0
+      drift: 0
+      vol_link: 0
+  curves:
+  - abbr: pitd
+    xs:
+    - 0
+    - 1920
+    - 3840
+    ys:
+    - 0
+    - 75
+    - 0
+  - abbr: gyus
+    xs:
+    - 0
+    - 3840
+    ys:
+    - 2
+    - 2
