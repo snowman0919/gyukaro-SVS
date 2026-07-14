@@ -26,9 +26,9 @@ if [ ! -x "$PY" ]; then python3 -m venv --system-site-packages "$RUNTIME/soulx-v
 "$PY" -m pip install -q --no-deps "$ROOT"
 
 if [ -n "$CACHE_SOURCE" ]; then
-  "$PY" "$ROOT/model-downloader.py" --runtime "$RUNTIME" --manifest "$ROOT/model-dependencies.json" --cache-source "$CACHE_SOURCE"
+  "$PY" "$ROOT/model_downloader.py" --runtime "$RUNTIME" --manifest "$ROOT/model-dependencies.json" --cache-source "$CACHE_SOURCE"
 else
-  "$PY" "$ROOT/model-downloader.py" --runtime "$RUNTIME" --manifest "$ROOT/model-dependencies.json"
+  "$PY" "$ROOT/model_downloader.py" --runtime "$RUNTIME" --manifest "$ROOT/model-dependencies.json"
 fi
 
 OMNI_PY=$RUNTIME/cache/omnivoice/.venv/bin/python
@@ -37,7 +37,7 @@ if [ ! -x "$OMNI_PY" ]; then python3 -m venv "$RUNTIME/cache/omnivoice/.venv"; f
 "$OMNI_PY" -m pip install -q -e "$RUNTIME/cache/omnivoice"
 
 "$PY" -c 'import torch; assert torch.cuda.is_available(), "CUDA PyTorch is required"; print("CUDA:", torch.cuda.get_device_name())'
-"$PY" "$ROOT/model-downloader.py" --runtime "$RUNTIME" --manifest "$ROOT/model-dependencies.json" --verify-only
+"$PY" "$ROOT/model_downloader.py" --runtime "$RUNTIME" --manifest "$ROOT/model-dependencies.json" --verify-only
 
 if [ -n "${GYU_DOTNET:-}" ]; then
   DOTNET=$GYU_DOTNET
