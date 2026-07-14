@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import argparse
 from pathlib import Path
 
 import numpy as np
@@ -53,9 +54,12 @@ def aggregate(rows: list[dict]) -> dict:
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser(); parser.add_argument("--v06-checkpoint", default=None); args = parser.parse_args()
     source = [json.loads(line) for line in Path("data/manifests/manual_verified_scores.jsonl").read_text().splitlines() if line]
     reference = acoustic_reference_features("data/processed/master/216.wav")
     runs = {"nominal_verified_score": score_model(source, None), "v0.4_synthetic_controller": score_model(source, QualityPitchController("checkpoints/gyu_quality_pitch_controller.pt", reference)), "v0.5_real_gyu_controller": score_model(source, QualityPitchController("checkpoints/gyu_prosody_v0.5.pt", reference))}
+    if args.v06_checkpoint:
+        runs["v0.6_verified_plus_reconstructed_controller"] = score_model(source, QualityPitchController(args.v06_checkpoint, reference))
     report = {"score_set": "data/manifests/manual_verified_scores.jsonl", "rows": len(source), "score_independent_from_target_f0": all(row["verification"]["score_independent_from_target_f0"] for row in source), "runs": {name: {"aggregate": aggregate(values), "rows": values} for name, values in runs.items()}}
     Path("artifacts/reports/independent_prosody_evaluation.json").write_text(json.dumps(report, indent=2) + "\n"); Path("docs/independent_prosody_evaluation.md").write_text("# Independent prosody evaluation (v0.6)\n\n" + json.dumps(report, indent=2) + "\n")
     print({name: value["aggregate"] for name, value in report["runs"].items()})

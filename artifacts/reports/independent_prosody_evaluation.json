@@ -761,6 +761,259 @@
           "vibrato_extent_error_cents": 53.37
         }
       ]
+    },
+    "v0.6_verified_plus_reconstructed_controller": {
+      "aggregate": {
+        "f0_correlation": 0.6844,
+        "pitch_mae_cents": 58.2721,
+        "log_f0_rmse": 0.1354,
+        "note_onset_residual_cents": 79.9883,
+        "transition_contour_error_cents": 79.9675,
+        "vibrato_rate_error_hz": 0.3992,
+        "vibrato_extent_error_cents": 119.4325
+      },
+      "rows": [
+        {
+          "id": "gyu_real_000171",
+          "f0_correlation": 0.0842,
+          "pitch_mae_cents": 27.16,
+          "log_f0_rmse": 0.2791,
+          "note_onset_residual_cents": 33.68,
+          "transition_contour_error_cents": 24.9,
+          "vibrato_rate_error_hz": 0.3906,
+          "vibrato_extent_error_cents": 858.07
+        },
+        {
+          "id": "gyu_real_000172",
+          "f0_correlation": 0.8787,
+          "pitch_mae_cents": 38.56,
+          "log_f0_rmse": 0.09728,
+          "note_onset_residual_cents": 25.96,
+          "transition_contour_error_cents": 27.03,
+          "vibrato_rate_error_hz": 0.6696,
+          "vibrato_extent_error_cents": 32.61
+        },
+        {
+          "id": "gyu_real_000173",
+          "f0_correlation": 0.2759,
+          "pitch_mae_cents": 53.71,
+          "log_f0_rmse": 0.18321,
+          "note_onset_residual_cents": 33.3,
+          "transition_contour_error_cents": 33.3,
+          "vibrato_rate_error_hz": 0.8152,
+          "vibrato_extent_error_cents": 532.88
+        },
+        {
+          "id": "gyu_real_000174",
+          "f0_correlation": 0.7758,
+          "pitch_mae_cents": 50.75,
+          "log_f0_rmse": 0.12123,
+          "note_onset_residual_cents": 39.89,
+          "transition_contour_error_cents": 39.89,
+          "vibrato_rate_error_hz": 0.5,
+          "vibrato_extent_error_cents": 134.84
+        },
+        {
+          "id": "gyu_real_000175",
+          "f0_correlation": 0.8564,
+          "pitch_mae_cents": 45.83,
+          "log_f0_rmse": 0.09523,
+          "note_onset_residual_cents": 103.42,
+          "transition_contour_error_cents": 104.5,
+          "vibrato_rate_error_hz": 0.5682,
+          "vibrato_extent_error_cents": 41.07
+        },
+        {
+          "id": "gyu_real_000176",
+          "f0_correlation": 0.7383,
+          "pitch_mae_cents": 85.74,
+          "log_f0_rmse": 0.0966,
+          "note_onset_residual_cents": 65.57,
+          "transition_contour_error_cents": 165.86,
+          "vibrato_rate_error_hz": 0.4464,
+          "vibrato_extent_error_cents": 63.01
+        },
+        {
+          "id": "gyu_real_000177",
+          "f0_correlation": 0.9344,
+          "pitch_mae_cents": 42.87,
+          "log_f0_rmse": 0.04519,
+          "note_onset_residual_cents": 92.8,
+          "transition_contour_error_cents": 60.03,
+          "vibrato_rate_error_hz": 0.0,
+          "vibrato_extent_error_cents": 10.98
+        },
+        {
+          "id": "gyu_real_000178",
+          "f0_correlation": 0.9548,
+          "pitch_mae_cents": 57.89,
+          "log_f0_rmse": 0.07044,
+          "note_onset_residual_cents": 105.21,
+          "transition_contour_error_cents": 58.0,
+          "vibrato_rate_error_hz": 0.5208,
+          "vibrato_extent_error_cents": 60.99
+        },
+        {
+          "id": "gyu_real_000179",
+          "f0_correlation": 0.7264,
+          "pitch_mae_cents": 119.53,
+          "log_f0_rmse": 0.13955,
+          "note_onset_residual_cents": 77.74,
+          "transition_contour_error_cents": 77.74,
+          "vibrato_rate_error_hz": 0.4808,
+          "vibrato_extent_error_cents": 409.97
+        },
+        {
+          "id": "gyu_real_000180",
+          "f0_correlation": 0.5536,
+          "pitch_mae_cents": 46.27,
+          "log_f0_rmse": 0.18114,
+          "note_onset_residual_cents": 71.88,
+          "transition_contour_error_cents": 81.52,
+          "vibrato_rate_error_hz": 0.25,
+          "vibrato_extent_error_cents": 20.64
+        },
+        {
+          "id": "gyu_real_000181",
+          "f0_correlation": 0.8515,
+          "pitch_mae_cents": 46.66,
+          "log_f0_rmse": 0.11338,
+          "note_onset_residual_cents": 9.45,
+          "transition_contour_error_cents": 42.06,
+          "vibrato_rate_error_hz": 0.0,
+          "vibrato_extent_error_cents": 51.3
+        },
+        {
+          "id": "gyu_real_000182",
+          "f0_correlation": 0.9516,
+          "pitch_mae_cents": 39.91,
+          "log_f0_rmse": 0.0481,
+          "note_onset_residual_cents": 22.4,
+          "transition_contour_error_cents": 17.92,
+          "vibrato_rate_error_hz": 0.5,
+          "vibrato_extent_error_cents": 49.39
+        },
+        {
+          "id": "gyu_real_000183",
+          "f0_correlation": 0.8932,
+          "pitch_mae_cents": 59.15,
+          "log_f0_rmse": 0.05683,
+          "note_onset_residual_cents": 59.15,
+          "transition_contour_error_cents": 54.1,
+          "vibrato_rate_error_hz": 0.5435,
+          "vibrato_extent_error_cents": 36.15
+        },
+        {
+          "id": "gyu_real_000184",
+          "f0_correlation": 0.6466,
+          "pitch_mae_cents": 112.93,
+          "log_f0_rmse": 0.24324,
+          "note_onset_residual_cents": 237.88,
+          "transition_contour_error_cents": 295.33,
+          "vibrato_rate_error_hz": 0.2717,
+          "vibrato_extent_error_cents": 28.9
+        },
+        {
+          "id": "gyu_real_000185",
+          "f0_correlation": 0.4121,
+          "pitch_mae_cents": 63.75,
+          "log_f0_rmse": 0.18291,
+          "note_onset_residual_cents": 54.17,
+          "transition_contour_error_cents": 68.03,
+          "vibrato_rate_error_hz": 0.7212,
+          "vibrato_extent_error_cents": 27.2
+        },
+        {
+          "id": "gyu_real_000186",
+          "f0_correlation": 0.3603,
+          "pitch_mae_cents": 56.95,
+          "log_f0_rmse": 0.20416,
+          "note_onset_residual_cents": 74.71,
+          "transition_contour_error_cents": 50.6,
+          "vibrato_rate_error_hz": 0.463,
+          "vibrato_extent_error_cents": 12.86
+        },
+        {
+          "id": "gyu_real_000187",
+          "f0_correlation": 0.8995,
+          "pitch_mae_cents": 40.35,
+          "log_f0_rmse": 0.08189,
+          "note_onset_residual_cents": 66.8,
+          "transition_contour_error_cents": 100.29,
+          "vibrato_rate_error_hz": 0.0,
+          "vibrato_extent_error_cents": 85.97
+        },
+        {
+          "id": "gyu_real_000188",
+          "f0_correlation": -0.3538,
+          "pitch_mae_cents": 80.29,
+          "log_f0_rmse": 0.29653,
+          "note_onset_residual_cents": 82.42,
+          "transition_contour_error_cents": 82.42,
+          "vibrato_rate_error_hz": 0.8333,
+          "vibrato_extent_error_cents": 188.74
+        },
+        {
+          "id": "gyu_real_000189",
+          "f0_correlation": 0.8658,
+          "pitch_mae_cents": 46.35,
+          "log_f0_rmse": 0.12909,
+          "note_onset_residual_cents": 76.93,
+          "transition_contour_error_cents": 63.42,
+          "vibrato_rate_error_hz": 0.0,
+          "vibrato_extent_error_cents": 14.44
+        },
+        {
+          "id": "gyu_real_000190",
+          "f0_correlation": 0.6618,
+          "pitch_mae_cents": 46.59,
+          "log_f0_rmse": 0.20664,
+          "note_onset_residual_cents": 63.6,
+          "transition_contour_error_cents": 43.34,
+          "vibrato_rate_error_hz": 0.2315,
+          "vibrato_extent_error_cents": 21.72
+        },
+        {
+          "id": "gyu_real_000191",
+          "f0_correlation": 0.8491,
+          "pitch_mae_cents": 41.26,
+          "log_f0_rmse": 0.12053,
+          "note_onset_residual_cents": 40.5,
+          "transition_contour_error_cents": 61.63,
+          "vibrato_rate_error_hz": 0.431,
+          "vibrato_extent_error_cents": 32.33
+        },
+        {
+          "id": "gyu_real_000192",
+          "f0_correlation": 0.9301,
+          "pitch_mae_cents": 58.11,
+          "log_f0_rmse": 0.05374,
+          "note_onset_residual_cents": 140.31,
+          "transition_contour_error_cents": 140.31,
+          "vibrato_rate_error_hz": 0.0,
+          "vibrato_extent_error_cents": 29.56
+        },
+        {
+          "id": "gyu_real_000193",
+          "f0_correlation": 0.866,
+          "pitch_mae_cents": 62.88,
+          "log_f0_rmse": 0.12128,
+          "note_onset_residual_cents": 164.06,
+          "transition_contour_error_cents": 164.06,
+          "vibrato_rate_error_hz": 0.2232,
+          "vibrato_extent_error_cents": 66.35
+        },
+        {
+          "id": "gyu_real_000194",
+          "f0_correlation": 0.8129,
+          "pitch_mae_cents": 75.04,
+          "log_f0_rmse": 0.08344,
+          "note_onset_residual_cents": 177.89,
+          "transition_contour_error_cents": 62.94,
+          "vibrato_rate_error_hz": 0.7212,
+          "vibrato_extent_error_cents": 56.41
+        }
+      ]
     }
   }
 }

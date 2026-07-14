@@ -1,10 +1,10 @@
 Overall status: incomplete experimental milestone; semantic v0.6 acceptance gates A–F are partially evidenced, G/H require clean-package and stronger independent identity/style evaluation
 Current version: gyu-singer-v0.6 experimental
 Package: gyu-singer-v0.6-incomplete (not promoted as accepted)
-Package SHA-256: b8496d7038adfadc46b74fe7cb5aa8cc52df938d9c147c20bdc41bdd19db09b5
+Package SHA-256: f70dd240bb9ed753f8e8a527a64af6c3683eb2d3179d6de03f0f8d03f67b6372
 Git commit: 64858fa4086918035659fce136e5dbfeb55bac8a
 Manual verified score phrases: 24 independently transcribed/reviewed rows; no target RMVPE used for score construction
-Independent prosody evaluation: completed; v0.5 does not beat nominal verified score in aggregate
+Independent prosody evaluation: completed; v0.6 MAE 58.27c vs nominal 56.75c and correlation 0.6844 vs 0.6846, no decisive gain
 Teacher internal paired rows: 191 Fish+MOSS (KO 99, EN 77, JA 15), 382 extracted vectors; Higgs hidden unavailable
 Fish internal representation: Fish-S2-Pro-DAC.encoder_hidden, mean pooled
 MOSS internal representation: MOSS-Audio-Tokenizer-Nano.encoder_hidden_states, mean pooled
@@ -16,7 +16,7 @@ Pseudo singing used: v0.5 accepted low-trust corpus only; no new v0.6 candidates
 Phrase-level generation: KO/EN/JA smoke WAVs produced
 Per-note TTS used: no
 Waveform pitch shifting used: no
-v0.5 fallback used by v0.6 backend: no; v0.5 prosody checkpoint retained
+v0.5 fallback used by v0.6 backend: no; v0.6 prosody checkpoint used, v0.5 retained as baseline
 OpenUtau readiness: protocol fields documented; native bridge deferred
 Korean: real GYU prosody evidence and phrase render; independent score gain unproven
 English: generic singing prosody plus GYU identity/style adaptation; no real GYU EN singing claim

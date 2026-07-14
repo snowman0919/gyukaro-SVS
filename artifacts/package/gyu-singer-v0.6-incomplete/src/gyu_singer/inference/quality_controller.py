@@ -49,7 +49,7 @@ class QualityPitchController:
     @torch.no_grad()
     def predict(self, score: dict) -> tuple[torch.Tensor, float]:
         batch, duration = condition_batch(score, self.reference_features, self.device)
-        if self.version == "v0.5":
+        if self.version in {"v0.5", "v0.6"}:
             # v0.5 real-GYU path: score-only supervised pitch head.
             source = self.model.acoustic_source(batch)
             output = self.model(torch.zeros_like(source), torch.zeros(1, device=self.device), batch)
