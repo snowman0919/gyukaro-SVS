@@ -1,96 +1,93 @@
-Overall status: experimental hybrid neural SVS runtime verified; quality gate not passed.
+Overall status: experimental neural phrase SVS; quality gate fail, not v1.
 Current stage: GYU Hybrid Singer v0.2-experimental.
-Package: `artifacts/package/gyu-hybrid-singer-v0.2-experimental.zip`.
-Package SHA-256: `782368eb62d7bc6bfa8b57c3328a27eee4edd3a044be2f179c6c60416550839f`.
-Git commit: `7fd93ababa2df6dd92945dc69a12cbe111407367`.
-Hybrid SVS checkpoint: `checkpoints/gyu_hybrid_v0.2.pt`, SHA-256 `2710544a42620a41ade4b212318956dab73cefc4c005aacf18497f7a77d03b70`.
+Package: `artifacts/package/gyu-hybrid-singer-v0.2-experimental.zip`
+Package SHA-256: `d25de9873c435ce2fa7e355ea194bea9fe5f698076e1413e8c85d086b15e104d`
+Git commit: `d15e57931754ae93d64893ec0cf07c1158b819b6` (report generation source revision)
+Hybrid SVS checkpoint: `checkpoints/gyu_hybrid_v0.2.pt`, SHA-256 `1a194d390879e89f0a498fe529d4cdbdaf235973e7bde6c08060333f6a423617`
 Trainable parameters: 762,018.
-Phrase-level neural generation: yes; full phrase frame tensor, one CFM latent sample, frozen codec decode.
-Phoneme-note alignment: yes; deterministic explicit frame mapping, real-anchor scores inferred.
-Continuous pitch conditioning: yes; nominal MIDI, RMVPE/inferred F0, UV mask, residual, masked log-F0 loss.
-Teacher distillation gradient verified: yes; timbre and language encoder gradients nonzero in teacher-loss test.
-Pseudo-singing used in training: no; Fish S2 pilot rows excluded after license review.
-Blurred boundary active: yes; `BlurredBoundaryEncoder` in condition path.
-Conditional flow matching active: yes; rectified-flow latent velocity training and Euler inference.
-Style conditioning active: yes; preset plus five controls in `StyleEncoder`; calibration not established.
-OpenUtau integration: executable USTX bridge/export plus resident render POST; no native engine registration.
-Korean: runtime exercised; quality not accepted.
+Phrase-level neural generation: yes; one full phrase frame tensor, conditional-flow latent sample, frozen codec decode.
+Phoneme-note alignment: yes; deterministic language-aware note-frame mapping; real/pseudo bootstrap labels marked inferred.
+Continuous pitch conditioning: yes; MIDI, curve/residual, UV mask, masked log-F0 loss; current generated F0 quality fails.
+Teacher distillation gradient verified: yes; timbre and language encoder non-zero gradients under teacher loss.
+Pseudo-singing used in training: yes; 24 accepted low-trust train rows, 100 candidates/27 accepted overall.
+Blurred boundary active: yes; `BlurredBoundaryEncoder` is in condition path.
+Conditional flow matching active: yes; rectified-flow target/noise objective and Euler phrase sampling.
+Style conditioning active: yes; preset plus five controls; not calibrated.
+OpenUtau integration: executable USTX parser/exporter plus resident renderer POST; native renderer registration not implemented.
+Korean: runtime/frontend exercised; quality not accepted.
 English: runtime/frontend exercised; quality not accepted.
-Japanese: runtime/frontend exercised; no Japanese support claim.
+Japanese: runtime/frontend exercised; quality not accepted.
 
-## What was inherited from Stage 0
+# What was inherited from Stage 0
 
-132 source recordings, canonical 48 kHz masters, real anchor supervision, 64 MOSS SFT pairs, 900 teacher generations, 633 weighted teacher rows plus 32 style rows, SoulX pilot, resident renderer, and baseline artifacts remain preserved. `baseline_renderer.py` and `neural_renderer.py` remain comparison renderers only. Historical package is explicitly relabeled `GYU Neural Vocalizer Baseline v0.1`; it is not v1 SVS.
+132 indexed recordings, canonical 48 kHz masters, real phrase anchors, MOSS baseline, teacher manifests, and baseline resident runtime remain preserved. `baseline_renderer.py` and `neural_renderer.py` are comparison backends only.
 
-## What was actually implemented in this Goal
+# What was actually implemented in this Goal
 
-`TriSingerModel` has connected `UnifiedPhonemeEncoder`, `LanguageFeatureEncoder`, `ScoreEncoder`, `BlurredBoundaryEncoder`, `TimbreEncoder`, `StyleEncoder`, `PitchConditionEncoder`, `ConditionalFlowTransformer`, and `SingingDecoder`. Protocol v2 supports beat timing, curves, style preset, and deterministic frame conversion. Hybrid resident service exposes `/health`, `/model`, and `/render`. USTX bridge exports score v2 and can return renderer WAV.
+`TriSingerModel` connects unified phoneme, language, score, blurred-boundary, timbre, style, pitch, conditional-flow, and acoustic-latent decoder modules. Protocol v2, a resident hybrid renderer, trilingual frontend, hard no-DSP path test, and executable USTX bridge are present.
 
-## Exact hybrid forward path
+# Exact hybrid forward path
 
-`normalize_score` validates score v2. `phonemize` makes language-aware units. `build_phrase_frames` creates one phrase's phoneme IDs, language features, note index/onset/duration/boundary, nominal or curve F0, UV, and residual. `TriSingerModel.condition` fuses content, score, blurred context, reference timbre, style, and pitch. `ConditionalFlowTransformer` predicts latent velocity during rectified-flow training and Euler sampling. `SingingDecoder` adds latent bias. Frozen `MossCodecDecoder` decodes one 768-D phrase latent stream to WAV. `hybrid.py` contains no `pitch_shift`, `phase_vocoder`, note loop, or `NeuralRenderer` call.
+Protocol v2 normalization converts beats to seconds. Frontend and deterministic note alignment build one full phrase frame tensor. `TriSingerModel.condition` fuses content, score, blurred boundaries, reference timbre, style, and continuous pitch. `ConditionalFlowTransformer` samples one latent phrase; `SingingDecoder` adds learned acoustic bias; frozen `MossCodecDecoder` emits 48 kHz WAV. No hybrid call uses per-note TTS, pitch shift, or phase vocoder.
 
-## Exact data flow by dataset type
+# Exact data flow by dataset type
 
-Real GYU: inferred note timing plus cached RMVPE F0, codec latent target, trust 1.0 CFM/pitch loss. Fish S2 `[singing]` then SoulX SVC pilot WAVs are evaluation-only because Fish's license forbids the relevant generative-model training use. Teacher rows: teacher audio feature target only; no codec latent and no hard GYU-singing acoustic supervision. Train/validation/test contain 60/5/5 real rows.
+Real GYU rows use inferred timing plus cached RMVPE F0, codec latents, and trust 1.0. ACE-Step lyric-vocal then SoulX SVC rows use 48 kHz synthetic audio, inferred RMVPE pitch/duration labels, and trust 0.20 only after hard gates. Teacher rows provide representation targets only, never codec acoustic targets.
 
-## Teacher distillation path
+# Teacher distillation path
 
-Both required teacher manifests total 665 rows. Each teacher audio becomes `acoustic_reference_features`; `model.distillation_prediction` is compared by trust-weighted representation loss. Loss coefficient is 0.15. `test_losses_use_pitch_mask_and_teacher_trust` verifies zero trust does not contribute. `test_teacher_distillation_reaches_timbre_and_language_encoders` verifies intended gradients.
+665 weighted teacher rows pass through `acoustic_reference_features` and `model.distillation_prediction`; `weighted_distillation_loss` consumes recorded `trust_weight` with coefficient 0.15. Gradient tests prove timbre and language encoders receive non-zero teacher-loss gradients.
 
-## Pseudo-singing generation and gates
+# Pseudo-singing generation and gates
 
-Three controlled Fish S2 `[singing]` to SoulX SVC probes were measured: KO RMVPE 0.9918/WavLM 0.8585/ECAPA 0.7218, EN 0.9778/0.9632/0.6769, JA 0.9964/0.8812/0.7253. Candidate rows record duration ratio, ASR content, language, speaker scores, provenance, and synthetic status. They are rejected from training under Fish license terms. A SoulX-direct or otherwise explicitly permitted pipeline is required. Corpus has 0 legally admitted items, below requested 100–500.
+ACE-Step-v1-3.5B (Apache-2.0) creates 100 KO/EN/JA a-cappella lyric candidates. Apache-2.0 SoulX SVC transfers GYU timbre. Gate requires RMVPE correlation ≥0.90, duration 0.85–1.15, WavLM ≥0.65, Whisper content ≥0.10, and matching transcript script-language. 27 rows pass; all rejections are evaluation-only. Provenance and metrics: `docs/pseudo_singing_report.md`.
 
-## SVS concepts integrated
+# SVS concepts integrated
 
-TCSinger-style soft context: 5-frame blurred boundary convolution. FM-Singer-style CFM: interpolated noise/codec target velocity MSE plus sampled Euler path. TechSinger-style technique conditioning: 8 presets and 5 continuous controls. Traceability, forward sites, losses, tests, and current evaluation state are in `docs/component_traceability.md`.
+TCSinger-style blurred local context addresses hard boundaries; FM-Singer-style rectified flow generates codec latents; TechSinger-style presets and continuous controls enter `StyleEncoder`. Exact forward calls, losses, tests, and metric status: `docs/component_traceability.md`.
 
-## Gradient connectivity evidence
+# Gradient connectivity evidence
 
-`tests/test_hybrid.py::test_all_hybrid_modules_receive_gradient` passes for all retained model components. Teacher test passes nonzero timbre and language gradients. Phrase sample, protocol, resident HTTP, frontend KO/EN/JA, USTX conversion, no-DSP regression, alignment, flow loss, pitch, and trust-loss tests all pass. Full suite: 22 passed.
+`tests/test_hybrid.py::test_all_hybrid_modules_receive_gradient` checks every retained model module. `test_teacher_distillation_reaches_timbre_and_language_encoders` checks teacher-stage gradients. Full suite result recorded in this worktree: 22 passed.
 
-## Training runs
+# Training runs
 
-Main run: CUDA GB10, AdamW LR 2e-4, batch 1, 1,200 steps, 762,018 trainable parameters. Last metrics: total 1.503340, flow 1.488786, pitch 0.018468, teacher 0.090877. Full history: `artifacts/reports/hybrid_training.json`. GPU peak memory, wall clock, and held-out objective are missing and not claimed.
+CUDA, AdamW `2e-4`, batch 1, 1,200 steps; train rows 60 real + 24 pseudo; validation/test 8/5. Final logged losses: total 1.552181, flow 1.539861, pitch 0.003032, teacher 0.08112. `artifacts/reports/hybrid_training.json` is full per-step evidence. GPU peak memory and wall-clock were not captured.
 
-## Ablation results
+# Ablation results
 
-Compatible 80-step checkpoints compare teacher coefficient 0 against 0.15. WavLM cosine to real GYU: no teacher KO/EN/JA `0.5288/0.5582/0.5165`; teacher `0.5310/0.5429/0.5169`. Teacher branch is connected and changes output, but this short A/B does not prove overall gain.
+`artifacts/reports/hybrid_teacher_ablation.json` contains short no-teacher versus weighted-teacher WavLM comparisons. It proves teacher branch changes output, not a quality gain.
 
-## Baseline versus hybrid metrics
+# Baseline versus hybrid metrics
 
-Evidence: `artifacts/reports/baseline_hybrid_evaluation.json`, RMVPE from SoulX. Hybrid current KO/EN/JA F0 correlation is `-0.1638/-0.3146/-0.4096`, pitch MAE `1812.01/1886.69/1819.80` cents, and ASR similarity `0.0000/0.1250/0.1818`. Boundary-energy jump is lower for KO and JA but worse for EN in this seed. These results fail v1 pitch and intelligibility bars.
+Current hybrid F0 correlation: KO unavailable, EN unavailable, JA unavailable. ASR similarity: KO 0.0000, EN 0.1250, JA 0.5000. Full identical-score comparison: `docs/evaluation_v2_report.md`.
 
-## Listening sample paths
+# Listening sample paths
 
-`artifacts/samples/baseline_ko.wav`, `baseline_en.wav`, `baseline_ja.wav`, `hybrid_ko.wav`, `hybrid_en.wav`, `hybrid_ja.wav`; A/B samples are `artifacts/samples/ablation_{no_teacher,with_teacher}_{ko,en,ja}.wav`. They are evaluation artifacts, not quality endorsements.
+`artifacts/samples/baseline_{ko,en,ja}.wav`, `artifacts/samples/hybrid_{ko,en,ja}.wav`, and `artifacts/samples/ablation_{no_teacher,with_teacher}_{ko,en,ja}.wav`.
 
-## OpenUtau integration status
+# OpenUtau integration status
 
-`integrations/openutau/bridge.py` parses USTX YAML voice parts, maps ticks using project resolution and first tempo, writes protocol v2, and POSTs resident `/render` when requested. Unit test proves tick conversion. Native OpenUtau renderer registration, tempo maps, and editor curves remain blocked/unimplemented; bridge is a real exporter, not a native plugin claim.
+`integrations/openutau/bridge.py` reads `.ustx`, selects voice part, converts project ticks and first tempo to protocol v2 seconds, writes JSON, and can POST to resident `/render`. Tempo maps, native renderer registration, and editor curves are not implemented.
 
-## Known failures
+# Known failures
 
-Hybrid generated F0 does not follow score; intelligibility is weak; real scores are inferred from speech timing; no legally admitted pseudo corpus exists; EN/JA have no real GYU singing supervision; style controls are uncalibrated; full staged validation and training telemetry are absent; evaluation has short synthetic phrases and baseline generation variance.
+Generated hybrid F0 does not follow score; EN evaluation has insufficient voiced frames; intelligibility is weak; real score labels are inferred; style controls uncalibrated; Korean-only real target data limits EN/JA evidence; training telemetry lacks peak memory/wall-clock.
 
-## Claims that are explicitly not being made
+# Claims that are explicitly not being made
 
-No v1 release. No production singer. No neural quality superiority over Stage 0. No Japanese singing support based only on WAV output. No claim teacher data improves quality. No claim inferred annotations are source singing scores. No claim baseline DSP is primary SVS.
+No v1 release, production singer, quality superiority over baseline, Japanese singing-quality support, annotated source singing scores, or teacher-data quality gain.
 
-## Exact package commands
+# Exact package commands
 
 ```sh
 PYTHONPATH=src python scripts/package_v1.py
 rm -rf /tmp/gyu-hybrid-smoke && mkdir /tmp/gyu-hybrid-smoke
 unzip -q artifacts/package/gyu-hybrid-singer-v0.2-experimental.zip -d /tmp/gyu-hybrid-smoke
 cd /tmp/gyu-hybrid-smoke/gyu-hybrid-singer-v0.2-experimental
-sh install.sh
-sh run.sh
+PYTHONPATH=runtime python -m gyu_singer.cli --backend hybrid-svs --checkpoint model/gyu_hybrid_v0.2.pt --audio-tokenizer model/moss-audio-tokenizer-nano --reference model/gyu_reference_216.wav render examples/smoke.json --output output.wav
 ```
 
-Package smoke already passed with system dependencies: 48 kHz mono, 307,200 frames.
+# Highest-value next steps
 
-## Highest-value next steps
-
-Generate and quality-gate 100–500 legally usable scored pseudo phrases across stated registers and techniques; replace inferred real scores with annotated singing; train with real phrase validation/early stopping; add duration residual learning; measure listening tests and stable reproducible multi-seed metrics; then reassess v1 only after pitch, intelligibility, and timbre pass.
+Add legal scored singing supervision with real EN/JA target data, train duration residuals and contour losses, capture held-out validation/telemetry, then rerun multi-seed listening and objective tests before reassessing v1.

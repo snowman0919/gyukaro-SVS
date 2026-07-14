@@ -5,7 +5,7 @@ import numpy as np
 import torch
 
 from gyu_singer.alignment import build_phrase_frames
-from gyu_singer.frontend import phonemize
+from gyu_singer.frontend import FEATURE_SIZE, phonemize
 from gyu_singer.losses import flow_matching_loss, log_pitch_loss, weighted_distillation_loss
 from gyu_singer.model import TriSingerModel, grad_norm
 from gyu_singer.renderer import build_server
@@ -14,7 +14,9 @@ from gyu_singer.score import normalize_score
 
 def test_trilingual_frontend_structural_features():
     ko, en, ja = phonemize("ko", "한글"), phonemize("en", "soft voice"), phonemize("ja", "がっこうん")
+    tense, aspirated = phonemize("ko", "까카"), phonemize("ko", "파타")
     assert any(row[2] for row in ko.features)  # Korean coda
+    assert any(row[8] for row in tense.features) and any(row[9] for row in aspirated.features)
     assert any(row[3] for row in en.features)  # rule-based stress proxy, inferred
     assert any(row[6] for row in ja.features) and any(row[7] for row in ja.features)
     assert all(ko.word_boundaries[-1:]) and all(en.word_boundaries[-1:])
@@ -37,7 +39,7 @@ def test_blurred_boundary_and_pitch_conditions_change_phrase_condition():
 
 def _batch():
     return {"phoneme_ids": torch.ones(1, 6, dtype=torch.long), "language_ids": torch.zeros(1, 6, dtype=torch.long),
-            "features": torch.zeros(1, 6, 8), "midi": torch.full((1, 6), 60.0), "note_index": torch.zeros(1, 6, dtype=torch.long),
+            "features": torch.zeros(1, 6, FEATURE_SIZE), "midi": torch.full((1, 6), 60.0), "note_index": torch.zeros(1, 6, dtype=torch.long),
             "note_onset": torch.zeros(1, 6), "note_duration": torch.ones(1, 6), "boundary": torch.zeros(1, 6), "reference_features": torch.zeros(1, 160), "style_preset": torch.zeros(1, dtype=torch.long),
             "style_controls": torch.zeros(1, 5), "f0_hz": torch.full((1, 6), 261.0), "voiced": torch.ones(1, 6), "residual": torch.zeros(1, 6)}
 

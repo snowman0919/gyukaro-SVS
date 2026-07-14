@@ -4,6 +4,8 @@ from __future__ import annotations
 import torch
 from torch import nn
 
+from gyu_singer.frontend import FEATURE_SIZE
+
 
 class UnifiedPhonemeEncoder(nn.Module):
     def __init__(self, dim: int):
@@ -13,7 +15,7 @@ class UnifiedPhonemeEncoder(nn.Module):
 
 class LanguageFeatureEncoder(nn.Module):
     def __init__(self, dim: int):
-        super().__init__(); self.language = nn.Embedding(3, dim); self.features = nn.Linear(8, dim)
+        super().__init__(); self.language = nn.Embedding(3, dim); self.features = nn.Linear(FEATURE_SIZE, dim)
     def forward(self, language_ids: torch.Tensor, features: torch.Tensor) -> torch.Tensor: return self.language(language_ids) + self.features(features)
 
 

@@ -6,7 +6,7 @@ from dataclasses import dataclass
 
 
 LANGUAGE_IDS = {"ko": 0, "en": 1, "ja": 2}
-FEATURE_SIZE = 8  # onset, nucleus, coda, stress, mora, long, geminate, nasal
+FEATURE_SIZE = 10  # onset, nucleus, coda, stress, mora, long, geminate, nasal, tense, aspirated
 
 
 @dataclass(frozen=True)
@@ -24,9 +24,10 @@ def _id(symbol: str) -> int:
     return 1 + int.from_bytes(hashlib.blake2s(symbol.encode(), digest_size=2).digest(), "big") % 2047
 
 
-def _unit(symbol: str, language: str, feature: int, syllable_end: bool, word_end: bool) -> tuple[str, int, int, list[float], bool, bool]:
+def _unit(symbol: str, language: str, feature: int | tuple[int, ...], syllable_end: bool, word_end: bool) -> tuple[str, int, int, list[float], bool, bool]:
     flags = [0.0] * FEATURE_SIZE
-    flags[feature] = 1.0
+    for index in (feature,) if isinstance(feature, int) else feature:
+        flags[index] = 1.0
     return symbol, _id(symbol), LANGUAGE_IDS[language], flags, syllable_end, word_end
 
 
@@ -42,7 +43,8 @@ def _korean(text: str) -> list[tuple]:
             units.append(_unit(f"ko_{char}", "ko", 0, True, False)); continue
         onset, rest = divmod(code, 21 * 28)
         nucleus, coda = divmod(rest, 28)
-        units.append(_unit(f"ko_onset_{onset}", "ko", 0, False, False))
+        onset_features = (0,) + ((8,) if onset in {1, 4, 8, 10, 13} else ()) + ((9,) if onset in {14, 15, 16, 17} else ())
+        units.append(_unit(f"ko_onset_{onset}", "ko", onset_features, False, False))
         units.append(_unit(f"ko_nucleus_{nucleus}", "ko", 1, coda == 0, False))
         if coda:
             units.append(_unit(f"ko_coda_{coda}", "ko", 2, True, False))

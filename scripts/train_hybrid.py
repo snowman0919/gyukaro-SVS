@@ -88,7 +88,7 @@ def main() -> None:
     Path(args.output).parent.mkdir(parents=True, exist_ok=True)
     torch.save({"model": model.eval().cpu().state_dict(), "model_config": {"dim": args.dim}, "steps": args.steps, "teacher_loss": "weighted_representation_only"}, args.output)
     Path(args.report).parent.mkdir(parents=True, exist_ok=True)
-    Path(args.report).write_text(json.dumps({"device": device, "steps": args.steps, "real_rows": len(rows), "teacher_rows": len(teachers), "teacher_loss_weight": args.teacher_loss_weight, "history": history, "checkpoint": args.output}, indent=2) + "\n")
+    Path(args.report).write_text(json.dumps({"device": device, "steps": args.steps, "real_rows": sum(row["phase"] == "C_real_gyu" for row in rows), "pseudo_rows": sum(row["phase"] == "B_pseudo_singing" for row in rows), "teacher_rows": len(teachers), "teacher_loss_weight": args.teacher_loss_weight, "history": history, "checkpoint": args.output}, indent=2) + "\n")
 
 
 if __name__ == "__main__":

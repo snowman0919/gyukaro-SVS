@@ -20,7 +20,7 @@ def inferred_score(row: dict) -> dict:
     step = duration / len(units)
     base = round(69 + 12 * __import__("math").log2(max(float(row.get("f0_median_hz", 220)), 55) / 440))
     return {"language": row["language"], "tempo": 120, "sample_rate": 48000,
-            "score_source": "inferred_from_speech_duration_not_ground_truth",
+            "score_source": row.get("score_source", "inferred_from_speech_duration_not_ground_truth"),
             "notes": [{"pitch": max(36, min(84, base + (index % 3) - 1)), "start": round(index * step, 5), "duration": round(step, 5), "lyric": unit}
                       for index, unit in enumerate(units)]}
 
@@ -43,7 +43,7 @@ def main() -> None:
                 continue
             score = row.get("score")
             if score:
-                rows.append({"id": row["id"], "phase": "B_pseudo_singing", "audio_path": row["output_path"], "language": row["language"], "text": row["text"],
+                rows.append({"id": row["id"], "phase": "B_pseudo_singing", "audio_path": row["output_path"], "f0_path": f"data/cache/hybrid_f0/{row['id']}.npy", "language": row["language"], "text": row["text"],
                              "trust_weight": float(row["trust_weight"]), "split": "train", "score": score})
     train_rows = [row for row in rows if row["split"] == "train"]
     # Original corpus has no validation split. Deterministic holdout prevents silent test tuning.
