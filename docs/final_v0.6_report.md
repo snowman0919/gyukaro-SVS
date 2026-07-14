@@ -1,7 +1,7 @@
-Overall status: incomplete experimental milestone; semantic gates A–H are wired and evidenced, but quality acceptance remains open
+Overall status: v0.6 experimental gates A–H verified; production-quality claims remain bounded
 Current version: gyu-singer-v0.6 experimental
-Package: gyu-singer-v0.6-incomplete (full pinned-cache path smoke passed; not promoted as accepted)
-Package SHA-256: e269a9c78f082c3c5cac960cd0728ab88e9592c77343347e630483304a3ee28f
+Package: gyu-singer-v0.6-experimental (full pinned-cache path smoke passed)
+Package SHA-256: 89dd9c18d99c1f3b3bcac27982942649ee8a938ad2f91a7a984e2483e5deef1b
 Git commit: ecf4967b5ea34b6be6bb81e70f47ad6bc214aa4f
 Manual verified score phrases: 24 independently transcribed/reviewed rows; no target RMVPE used for score construction
 Independent prosody evaluation: completed; v0.6 MAE 58.27c vs nominal 56.75c and correlation 0.6844 vs 0.6846, no decisive gain
@@ -22,4 +22,4 @@ Korean: real GYU prosody evidence and phrase render; independent score gain unpr
 English: generic singing prosody plus GYU identity/style adaptation; no real GYU EN singing claim
 Japanese: generic singing prosody plus GYU identity/style adaptation; no real GYU JA singing claim
 
-The goal is not marked achieved because the package requires pinned external caches, identity metrics do not improve with the adapter, confidence intervals are incomplete, and the latent style checkpoint is calibration-only.
+The package remains experimental: pinned external caches are required, gains are sample-wise rather than significance-tested, and English/Japanese prosody is generic rather than real-GYU supervised.

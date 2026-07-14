@@ -1,0 +1,50 @@
+# v0.5 evaluation
+
+{
+  "checkpoint": "checkpoints/gyu_prosody_v0.5.pt",
+  "heldout_rows": 5,
+  "target": "real GYU RMVPE F0",
+  "metrics": {
+    "correlation_mean": 0.8667,
+    "pitch_mae_cents_median": 53.16,
+    "nominal_mae_cents_median": 57.52,
+    "improvement_cents_median": 3.8
+  },
+  "rows": [
+    {
+      "id": "gyu_real_000153",
+      "correlation": 0.7655,
+      "pitch_mae_cents": 58.41,
+      "nominal_pitch_mae_cents": 68.05,
+      "improvement_cents": 9.63
+    },
+    {
+      "id": "gyu_real_000170",
+      "correlation": 0.901,
+      "pitch_mae_cents": 47.72,
+      "nominal_pitch_mae_cents": 42.4,
+      "improvement_cents": -5.33
+    },
+    {
+      "id": "gyu_real_000187",
+      "correlation": 0.9571,
+      "pitch_mae_cents": 53.16,
+      "nominal_pitch_mae_cents": 65.73,
+      "improvement_cents": 12.57
+    },
+    {
+      "id": "gyu_real_000204",
+      "correlation": 0.7885,
+      "pitch_mae_cents": 53.72,
+      "nominal_pitch_mae_cents": 57.52,
+      "improvement_cents": 3.8
+    },
+    {
+      "id": "gyu_real_000221",
+      "correlation": 0.9216,
+      "pitch_mae_cents": 42.83,
+      "nominal_pitch_mae_cents": 39.15,
+      "improvement_cents": -3.68
+    }
+  ]
+}

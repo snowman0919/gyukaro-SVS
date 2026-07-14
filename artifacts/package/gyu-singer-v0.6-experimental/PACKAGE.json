@@ -1,0 +1,6 @@
+{
+  "status": "experimental",
+  "backend": "gyu-singer-v0.6",
+  "git_commit": "see repository final report",
+  "reason": "prosody and style gains are bounded experimental evidence; full path requires pinned model cache"
+}
