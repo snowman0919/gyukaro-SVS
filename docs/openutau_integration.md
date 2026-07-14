@@ -1,3 +1,7 @@
 # OpenUtau integration
 
-OpenUtau USTX is UTF-8 YAML with 480 ticks per quarter note and voice-part note timing. `integrations/openutau/bridge.py` parses one voice part, exports renderer protocol v2 JSON and can POST it to resident `/render`. It was unit-tested with tick-to-second conversion. It is a bridge, not native OpenUtau engine registration; tempo maps and editor curves are not yet forwarded.
+Current official OpenUtau source is [`stakira/OpenUtau`](https://github.com/stakira/OpenUtau). Its documented extension points are editor plugins/phonemizers, voicebank renderers, and USTX project interchange; the official developer index also lists a proposed `svs.io` backend API. No stable generic external HTTP neural-renderer registration contract was found during the 2026-07-14 review.
+
+OpenUtau USTX is UTF-8 YAML with voice-part note timing. `integrations/openutau/bridge.py` parses one voice part, exports renderer protocol v2 JSON and can POST it to resident `/render`, returning the generated WAV for cache/playback integration. It is unit-tested with tick-to-second conversion.
+
+Native OpenUtau engine registration is therefore deliberately not claimed. Current blocker: bridge must either target a released `svs.io` contract or maintain a C# renderer extension against OpenUtau internals. Tempo maps and editor curves are not yet forwarded.
