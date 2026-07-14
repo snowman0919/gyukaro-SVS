@@ -1,9 +1,9 @@
 Overall status: Release candidate technically validated; final release blocked on human listening review
-Highest truthful release: v1.0.0 RC4, not yet published
+Highest truthful release: public v1.0.0 RC4 prerelease
 Source commit: `ce7a1e088de0b38777551ba583c993817dc9d020` (validated RC4 source; report changes follow)
 OpenUtau upstream commit: `27573ac5c888d927119d5f65a207312d79194b1f`
-Git tag: pending
-GitHub release URL: pending
+Git tag: `v1.0.0-rc.4`; final `v1.0.0` pending
+GitHub release URL: `https://github.com/snowman0919/gyukaro-SVS/releases/tag/v1.0.0-rc.4`; final release pending
 Package: `artifacts/package/gyu-singer-v1.0.0-rc4.zip`
 Package SHA-256: `507e51cc9199a248f217eb359b2790e7f56797ccfc15b3f639cc6ad5fb2d2702`
 Fresh OpenUtau clone: pass, official `stakira/OpenUtau` master
@@ -22,7 +22,7 @@ Breathy: objective proxy pass; human review pending
 Energetic: objective proxy pass; human review pending
 Repeated rendering: pass, 20/20 identical hashes; long-form cache rerender 0.104 seconds
 Memory stability: pass; repeated stress growth -1313.66 MiB, long-form peak unified-memory growth 15.40 GiB
-Public release re-download verification: pending; v1.0.0 is not published
+Public release re-download verification: RC4 re-download checksum, archive test, and byte-for-byte comparison pass; final v1.0.0 pending
 
 ## What changed from v0.9
 
@@ -46,7 +46,7 @@ The resident loads each model once, reports worker state from `/health`, seriali
 
 ## Known limitations
 
-Linux NVIDIA CUDA is the only release-tested platform. Initial model download is roughly 9 GB. Peak measured unified-memory growth was about 15.4 GB. Korean alone has personalized prosody evidence. EN/JA intelligibility varies, particularly the held-out Japanese phrase. GYU identity gains are small and their confidence intervals cross zero. Neutral, breathy, and energetic are the stable presets; soft, dark, and bright remain experimental. CUDA work already in flight cannot be preempted immediately. Human listening is still pending, so the final tag and public release are deliberately absent.
+Linux NVIDIA CUDA is the only release-tested platform. Initial model download is roughly 9 GB. Peak measured unified-memory growth was about 15.4 GB. Korean alone has personalized prosody evidence. EN/JA intelligibility varies, particularly the held-out Japanese phrase. GYU identity gains are small and their confidence intervals cross zero. Neutral, breathy, and energetic are the stable presets; soft, dark, and bright remain experimental. CUDA work already in flight cannot be preempted immediately. Human listening is still pending, so only a public prerelease exists and the final tag is deliberately absent.
 
 ## Evidence
 
