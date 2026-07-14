@@ -8,7 +8,7 @@ from collections import defaultdict
 from pathlib import Path
 
 
-def filter_rows(rows: list[dict]) -> list[dict]:
+def filter_rows(rows: list[dict], minimum_teachers: int = 3) -> list[dict]:
     teachers_by_id: dict[str, set[str]] = defaultdict(set)
     for row in rows:
         teachers_by_id[row["id"]].add(row["teacher"])
@@ -16,7 +16,7 @@ def filter_rows(rows: list[dict]) -> list[dict]:
         row for row in rows
         if row.get("quality_status") == "teacher_gate_pass_unadmitted"
         and (row.get("teacher_agreement_score") or 0) >= 0.5
-        and len(teachers_by_id[row["id"]]) >= 3
+        and len(teachers_by_id[row["id"]]) >= minimum_teachers
     ]
     means: dict[tuple[str, str], float] = {}
     grouped: dict[tuple[str, str], list[float]] = defaultdict(list)
@@ -45,9 +45,10 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--input", required=True)
     parser.add_argument("--output", default="data/manifests/teacher_weighted.jsonl")
+    parser.add_argument("--minimum-teachers", type=int, default=3)
     args = parser.parse_args()
     rows = [json.loads(line) for line in Path(args.input).read_text().splitlines() if line]
-    selected = filter_rows(rows)
+    selected = filter_rows(rows, args.minimum_teachers)
     output = Path(args.output)
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text("".join(json.dumps(row, ensure_ascii=False) + "\n" for row in selected))
