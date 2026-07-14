@@ -28,6 +28,9 @@ for source in FILES:
 archive = root.parent / f"{NAME}.zip"
 with zipfile.ZipFile(archive, "w", zipfile.ZIP_DEFLATED) as z:
     for path in root.rglob("*"):
-        if path.is_file(): z.write(path, Path(NAME) / path.relative_to(root))
+        if path.is_file():
+            info = zipfile.ZipInfo(str(Path(NAME) / path.relative_to(root)), date_time=(1980, 1, 1, 0, 0, 0))
+            info.compress_type = zipfile.ZIP_DEFLATED
+            z.writestr(info, path.read_bytes())
 digest = hashlib.sha256(archive.read_bytes()).hexdigest(); archive.with_suffix(".zip.sha256").write_text(digest + "  " + archive.name + "\n")
 print({"package": str(archive), "sha256": digest, "status": "incomplete"})
