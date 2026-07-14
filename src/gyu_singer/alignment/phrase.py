@@ -47,7 +47,8 @@ def build_phrase_frames(frontend: FrontendOutput, notes: list[dict], pitch_curve
         note_index[start:end] = index
         note_onset[start:end] = float(note.get("start", note.get("start_sec", 0))) / max(total, 1e-3)
         note_duration[start:end] = float(note.get("duration", note.get("duration_sec", 0))) / max(total, 1e-3)
-        boundary[start] = 1.0
+        # A slur carries articulation across note onset instead of creating a hard boundary.
+        boundary[start] = 0.0 if note.get("slur", False) else 1.0
         # Score lyric owns its note frames; no phrase-wide character stretching.
         lyric = str(note.get("lyric", ""))
         units = phonemize(frontend.language, lyric) if lyric.strip() else frontend

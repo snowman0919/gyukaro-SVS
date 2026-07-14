@@ -28,6 +28,11 @@ def test_alignment_assigns_each_note_its_lyric():
     assert frames.phoneme_ids[0] != frames.phoneme_ids[7]
 
 
+def test_alignment_uses_slur_to_soften_note_boundary():
+    frames = build_phrase_frames(phonemize("ko", "하늘"), [{"pitch": 60, "start": 0, "duration": .5, "lyric": "하"}, {"pitch": 64, "start": .5, "duration": .5, "lyric": "늘", "slur": True}])
+    assert frames.boundary[0] == 1 and frames.boundary[6] == 0
+
+
 def test_blurred_boundary_and_pitch_conditions_change_phrase_condition():
     model, batch = TriSingerModel(dim=32), _batch()
     base, _, _ = model.condition(batch)
