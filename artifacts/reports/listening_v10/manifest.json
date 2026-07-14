@@ -1,6 +1,18 @@
 {
-  "human_review_status": "pending",
+  "human_review_status": "failed",
   "subjective_scores": null,
+  "release_suitability": "failed",
+  "review": {
+    "lyrics": "generally intelligible",
+    "primary_defect": "clearly audible metallic/robotic artifacts with intermittent harsh buzzing or noise-like distortion",
+    "pitch_timbre_defect": "some pitch transitions smear or partially collapse",
+    "worst_conditions": [
+      "fast syllable transitions",
+      "high notes",
+      "large pitch intervals"
+    ],
+    "decision": "not acceptable for final v1.0"
+  },
   "items": [
     {
       "id": "ko_neutral",

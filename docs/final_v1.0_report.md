@@ -1,5 +1,5 @@
-Overall status: Release candidate technically validated; final release blocked on human listening review
-Highest truthful release: public v1.0.0 RC4 prerelease
+Overall status: RC4 human listening failed; artifact isolation and repair in progress
+Highest truthful release: failed public v1.0.0 RC4 prerelease; not suitable for final release
 Source commit: `ce7a1e088de0b38777551ba583c993817dc9d020` (validated RC4 source; report changes follow)
 OpenUtau upstream commit: `27573ac5c888d927119d5f65a207312d79194b1f`
 Git tag: `v1.0.0-rc.4`; final `v1.0.0` pending
@@ -18,11 +18,11 @@ JA: pass; generic multilingual prosody plus GYU identity/style, mean ASR lyric s
 Note pitch edit: pass, actual OpenUtau renderer +2 semitones produced +201.58 cents
 User pitch edit: pass, actual OpenUtau renderer +1 semitone PITD produced +102.86 cents
 Lyric edit: pass, actual OpenUtau renderer changed Whisper from “하늘빛 노래 불러요” to “사랑을 담아서 마음을 전해요”
-Breathy: objective proxy pass; human review pending
-Energetic: objective proxy pass; human review pending
+Breathy: objective proxy pass; RC4 human quality review failed overall
+Energetic: objective proxy pass; RC4 human quality review failed overall
 Repeated rendering: pass, 20/20 identical hashes; long-form cache rerender 0.104 seconds
 Memory stability: pass; repeated stress growth -1313.66 MiB, long-form peak unified-memory growth 15.40 GiB
-Public release re-download verification: RC4 re-download checksum, archive test, and byte-for-byte comparison pass; final v1.0.0 pending
+Public release re-download verification: RC4 bytes verified but audio quality failed; final v1.0.0 prohibited
 
 ## What changed from v0.9
 
@@ -46,7 +46,7 @@ The resident loads each model once, reports worker state from `/health`, seriali
 
 ## Known limitations
 
-Linux NVIDIA CUDA is the only release-tested platform. Initial model download is roughly 9 GB. Peak measured unified-memory growth was about 15.4 GB. Korean alone has personalized prosody evidence. EN/JA intelligibility varies, particularly the held-out Japanese phrase. GYU identity gains are small and their confidence intervals cross zero. Neutral, breathy, and energetic are the stable presets; soft, dark, and bright remain experimental. CUDA work already in flight cannot be preempted immediately. Human listening is still pending, so only a public prerelease exists and the final tag is deliberately absent.
+Linux NVIDIA CUDA is the only release-tested platform. Initial model download is roughly 9 GB. Peak measured unified-memory growth was about 15.4 GB. Korean alone has personalized prosody evidence. EN/JA intelligibility varies, particularly the held-out Japanese phrase. GYU identity gains are small and their confidence intervals cross zero. RC4 human listening found unacceptable metallic/robotic artifacts, intermittent harsh buzzing/noise, and smeared or collapsing transitions, worst on fast syllables, high notes, and large intervals. The final tag is prohibited until a later RC passes human review.
 
 ## Evidence
 

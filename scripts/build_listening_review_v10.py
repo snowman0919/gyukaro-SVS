@@ -35,7 +35,19 @@ def main() -> None:
     audio, rate = sf.read("artifacts/reports/longform_v10.wav", dtype="float32", always_2d=True)
     boundary = root / "phrase_boundary.wav"; sf.write(boundary, audio[round(13.4 * rate):round(14.9 * rate)], rate, subtype="PCM_16")
     items.append(("phrase_boundary", boundary, "continuous boundary 2 at 14.1429 seconds"))
-    manifest = {"human_review_status": "pending", "subjective_scores": None, "items": []}
+    manifest = {
+        "human_review_status": "failed",
+        "subjective_scores": None,
+        "release_suitability": "failed",
+        "review": {
+            "lyrics": "generally intelligible",
+            "primary_defect": "clearly audible metallic/robotic artifacts with intermittent harsh buzzing or noise-like distortion",
+            "pitch_timbre_defect": "some pitch transitions smear or partially collapse",
+            "worst_conditions": ["fast syllable transitions", "high notes", "large pitch intervals"],
+            "decision": "not acceptable for final v1.0",
+        },
+        "items": [],
+    }
     for name, path, purpose in items:
         info = sf.info(path)
         manifest["items"].append({"id": name, "path": str(path), "purpose": purpose, "sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
