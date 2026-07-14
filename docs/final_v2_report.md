@@ -2,7 +2,7 @@ Overall status: experimental neural phrase SVS; quality gate fail, not v1.
 Current stage: GYU Hybrid Singer v0.2-experimental.
 Package: `artifacts/package/gyu-hybrid-singer-v0.2-experimental.zip`
 Package SHA-256: `8e52aeb80203880ffed1513ba72ebdfc852d66824eb89d8de0ba04f24c0b0b43`
-Git commit: `5ac34a970b74f0c1c96b148432cfbaad001ac7d0` (report generation source revision)
+Git commit: `54abad2ed12fc502917d4dc9a20b0622a5f8907e` (report generation source revision)
 Hybrid SVS checkpoint: `checkpoints/gyu_hybrid_v0.2.pt`, SHA-256 `73d457dfb9e9267d06e600fe31bbea2198d68af4e95c9779dd9441c2851f0595`
 Trainable parameters: 762,018.
 Phrase-level neural generation: yes; one full phrase frame tensor, conditional-flow latent sample, frozen codec decode.
@@ -72,7 +72,7 @@ Current hybrid F0 correlation: KO 0.6464, EN 0.3920, JA -0.1025. ASR similarity:
 
 # Known failures
 
-Generated hybrid F0 does not follow score; EN evaluation has insufficient voiced frames; intelligibility is weak; real score labels are inferred; style controls uncalibrated; Korean-only real target data limits EN/JA evidence; training telemetry lacks peak memory/wall-clock.
+Generated hybrid F0 does not reliably follow score; intelligibility is weak; 3-second vowels are voiced but miss requested C4; real score labels are inferred; style controls uncalibrated; Korean-only real target data limits EN/JA evidence.
 
 # Claims that are explicitly not being made
 

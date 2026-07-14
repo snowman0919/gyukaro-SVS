@@ -23,6 +23,7 @@ def value(number: float | None) -> str:
 def main() -> None:
     training = read("artifacts/reports/hybrid_training.json")
     evaluation = read("artifacts/reports/baseline_hybrid_evaluation.json")["scores"]
+    sustain = read("artifacts/reports/hybrid_sustained_vowels.json")["results"]
     accepted = count("data/manifests/pseudo_singing_accepted.jsonl")
     checkpoint = Path("checkpoints/gyu_hybrid_v0.2.pt")
     archive = Path("artifacts/package/gyu-hybrid-singer-v0.2-experimental.zip")
@@ -42,7 +43,8 @@ Final loss: total {last['loss']}, flow {last['flow']}, pitch {last['pitch']}, te
     for language, results in evaluation.items():
         for renderer, result in results.items():
             lines.append(f"| {language.upper()} | {renderer} | {value(result['rmvpe_f0_correlation'])} | {value(result['note_pitch_mae_cents'])} | {value(result['speaker_similarity_wavlm'])} | {value(result['asr_lyric_similarity'])} |")
-    evaluation_text = "\n".join(lines) + "\n\nHybrid pitch and intelligibility do not meet v1 quality bars; Japanese output is a frontend/runtime exercise, not a quality claim.\n"
+    sustain_text = ", ".join(f"{language.upper()} voiced {result['voiced_ratio']}, F0 CV {result['f0_cv']}, median {result['median_f0_hz']} Hz" for language, result in sustain.items())
+    evaluation_text = "\n".join(lines) + f"\n\n3-second held-vowel benchmark (SoulX RMVPE): {sustain_text}. Stable voiced output exists, but median F0 is not the requested C4 and pitch does not meet v1 quality bars.\n\nJapanese output is a frontend/runtime exercise, not a quality claim.\n"
     final_text = f"""Overall status: experimental neural phrase SVS; quality gate fail, not v1.
 Current stage: GYU Hybrid Singer v0.2-experimental.
 Package: `artifacts/package/gyu-hybrid-singer-v0.2-experimental.zip`
@@ -117,7 +119,7 @@ Current hybrid F0 correlation: KO {value(evaluation['ko']['hybrid_svs']['rmvpe_f
 
 # Known failures
 
-Generated hybrid F0 does not follow score; EN evaluation has insufficient voiced frames; intelligibility is weak; real score labels are inferred; style controls uncalibrated; Korean-only real target data limits EN/JA evidence; training telemetry lacks peak memory/wall-clock.
+Generated hybrid F0 does not reliably follow score; intelligibility is weak; 3-second vowels are voiced but miss requested C4; real score labels are inferred; style controls uncalibrated; Korean-only real target data limits EN/JA evidence.
 
 # Claims that are explicitly not being made
 
