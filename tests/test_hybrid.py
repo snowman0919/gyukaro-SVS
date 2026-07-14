@@ -21,6 +21,7 @@ def test_trilingual_frontend_structural_features():
     assert "en_aa" in en.symbols and "en_oy" in en.symbols
     unknown = phonemize("en", "thing")
     assert all(unknown.inferred) and unknown.symbols == ["en_th", "en_ih", "en_ng"]
+    assert phonemize("ja", "光の向こうへ").symbols == ["ja_h", "ja_i", "ja_k", "ja_a", "ja_r", "ja_i", "ja_n", "ja_o", "ja_m", "ja_u", "ja_k", "ja_o", "ja_u", "ja_h", "ja_e"]
     assert any(row[6] for row in ja.features) and any(row[7] for row in ja.features)
     assert all(ko.word_boundaries[-1:]) and all(en.word_boundaries[-1:])
 

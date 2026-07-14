@@ -9,6 +9,21 @@ from pathlib import Path
 
 LANGUAGE_IDS = {"ko": 0, "en": 1, "ja": 2}
 FEATURE_SIZE = 10  # onset, nucleus, coda, stress, mora, long, geminate, nasal, tense, aspirated
+_JA_WORDS = {
+    "空から静かな光が降りてくる": "そらからしずかなひかりがふりてくる", "空へ向かい歌おう": "そらへむかいうたおう",
+    "風の上を歩こう": "かぜのうえをあるこう", "小さな光を追う": "ちいさなひかりをおう",
+    "新しい夢を歌う": "あたらしいゆめをうたう", "光の向こうへ": "ひかりのむこうへ",
+}
+_JA_KANA = {
+    "あ": ("a",), "い": ("i",), "う": ("u",), "え": ("e",), "お": ("o",), "か": ("k", "a"), "き": ("k", "i"), "く": ("k", "u"), "け": ("k", "e"), "こ": ("k", "o"),
+    "が": ("g", "a"), "ぎ": ("g", "i"), "ぐ": ("g", "u"), "げ": ("g", "e"), "ご": ("g", "o"), "さ": ("s", "a"), "し": ("sh", "i"), "す": ("s", "u"), "せ": ("s", "e"), "そ": ("s", "o"),
+    "ざ": ("z", "a"), "じ": ("j", "i"), "ず": ("z", "u"), "ぜ": ("z", "e"), "ぞ": ("z", "o"), "た": ("t", "a"), "ち": ("ch", "i"), "つ": ("ts", "u"), "て": ("t", "e"), "と": ("t", "o"),
+    "だ": ("d", "a"), "ぢ": ("j", "i"), "づ": ("z", "u"), "で": ("d", "e"), "ど": ("d", "o"), "な": ("n", "a"), "に": ("n", "i"), "ぬ": ("n", "u"), "ね": ("n", "e"), "の": ("n", "o"),
+    "は": ("h", "a"), "ひ": ("h", "i"), "ふ": ("f", "u"), "へ": ("h", "e"), "ほ": ("h", "o"), "ば": ("b", "a"), "び": ("b", "i"), "ぶ": ("b", "u"), "べ": ("b", "e"), "ぼ": ("b", "o"),
+    "ぱ": ("p", "a"), "ぴ": ("p", "i"), "ぷ": ("p", "u"), "ぺ": ("p", "e"), "ぽ": ("p", "o"), "ま": ("m", "a"), "み": ("m", "i"), "む": ("m", "u"), "め": ("m", "e"), "も": ("m", "o"),
+    "や": ("y", "a"), "ゆ": ("y", "u"), "よ": ("y", "o"), "ら": ("r", "a"), "り": ("r", "i"), "る": ("r", "u"), "れ": ("r", "e"), "ろ": ("r", "o"), "わ": ("w", "a"), "を": ("o",),
+}
+_JA_DIGRAPHS = {"きゃ": ("ky", "a"), "きゅ": ("ky", "u"), "きょ": ("ky", "o"), "ぎゃ": ("gy", "a"), "ぎゅ": ("gy", "u"), "ぎょ": ("gy", "o"), "しゃ": ("sh", "a"), "しゅ": ("sh", "u"), "しょ": ("sh", "o"), "じゃ": ("j", "a"), "じゅ": ("j", "u"), "じょ": ("j", "o"), "ちゃ": ("ch", "a"), "ちゅ": ("ch", "u"), "ちょ": ("ch", "o"), "にゃ": ("ny", "a"), "にゅ": ("ny", "u"), "にょ": ("ny", "o"), "ひゃ": ("hy", "a"), "ひゅ": ("hy", "u"), "ひょ": ("hy", "o"), "みゃ": ("my", "a"), "みゅ": ("my", "u"), "みょ": ("my", "o"), "りゃ": ("ry", "a"), "りゅ": ("ry", "u"), "りょ": ("ry", "o")}
 
 
 @dataclass(frozen=True)
@@ -85,16 +100,26 @@ def _english(text: str) -> list[tuple]:
 
 def _japanese(text: str) -> list[tuple]:
     units = []
-    for char in text:
-        if char.isspace():
+    for source, reading in _JA_WORDS.items(): text = text.replace(source, reading)
+    index = 0
+    while index < len(text):
+        char = text[index]
+        if char.isspace() or char in "。、，,.!?！？":
             if units:
                 units[-1] = (*units[-1][:-2], True, units[-1][-1])
-            continue
-        if char == "ー": feature, symbol = 5, "ja_long"
-        elif char == "っ": feature, symbol = 6, "ja_geminate"
-        elif char == "ん": feature, symbol = 7, "ja_nasal"
-        else: feature, symbol = 4, f"ja_{char}"
-        units.append(_unit(symbol, "ja", feature, True, False))
+            index += 1; continue
+        if char == "ー":
+            units.append(_unit("ja_long", "ja", (4, 5), True, False)); index += 1; continue
+        if char == "っ":
+            units.append(_unit("ja_geminate", "ja", (4, 6), True, False)); index += 1; continue
+        if char == "ん":
+            units.append(_unit("ja_n", "ja", (4, 7), True, False)); index += 1; continue
+        mora = _JA_DIGRAPHS.get(text[index:index + 2]) or _JA_KANA.get(char)
+        if not mora:
+            units.append(_unit(f"ja_unknown_{char}", "ja", 4, True, False, True)); index += 1; continue
+        for phone_index, phone in enumerate(mora):
+            units.append(_unit(f"ja_{phone}", "ja", 4 if phone_index == len(mora) - 1 else 0, phone_index == len(mora) - 1, False))
+        index += 2 if text[index:index + 2] in _JA_DIGRAPHS else 1
     return units
 
 
