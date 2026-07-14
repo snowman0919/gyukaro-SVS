@@ -52,9 +52,9 @@ def main():
     parser.add_argument("--metrics-only", action="store_true")
     args = parser.parse_args()
     REPORT.mkdir(parents=True, exist_ok=True)
-    paths = {}
-    for version in ("v06", "v07"):
-        paths.update({path.stem.removeprefix(f"{version}_ablation_"): str(path) for path in REPORT.glob(f"{version}_ablation_*.wav")})
+    paths = {path.stem.removeprefix(f"{args.version}_ablation_"): str(path) for path in REPORT.glob(f"{args.version}_ablation_*.wav")}
+    if args.version == "v07":
+        paths.update({path.stem.removeprefix("v06_ablation_"): str(path) for path in REPORT.glob("v06_ablation_style_*.wav")})
     if not args.style and not args.metrics_only:
         renderer = (GyuSingerV07Renderer if args.version == "v07" else GyuSingerV06Renderer)("data/processed/master/216.wav")
         try:

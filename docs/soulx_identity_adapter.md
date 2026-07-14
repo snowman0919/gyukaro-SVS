@@ -6,23 +6,23 @@
       "language": "ko",
       "variants": {
         "none": {
-          "wavlm_to_gyu": 0.67068,
-          "ecapa_to_gyu": 0.21091,
-          "wavlm_l2_to_student": 0.002285
+          "wavlm_to_gyu": 0.67574,
+          "ecapa_to_gyu": 0.21374,
+          "wavlm_l2_to_student": 0.001886
         },
         "fish_only": {
-          "wavlm_to_gyu": 0.68364,
-          "ecapa_to_gyu": 0.22669,
-          "wavlm_l2_to_student": 0.001613
+          "wavlm_to_gyu": 0.67462,
+          "ecapa_to_gyu": 0.21651,
+          "wavlm_l2_to_student": 0.00138
         },
         "fish_moss": {
-          "wavlm_to_gyu": 0.68343,
-          "ecapa_to_gyu": 0.2249,
-          "wavlm_l2_to_student": 0.001683
+          "wavlm_to_gyu": 0.6714,
+          "ecapa_to_gyu": 0.21331,
+          "wavlm_l2_to_student": 0.002052
         },
         "student": {
-          "wavlm_to_gyu": 0.67112,
-          "ecapa_to_gyu": 0.22682,
+          "wavlm_to_gyu": 0.67797,
+          "ecapa_to_gyu": 0.21326,
           "wavlm_l2_to_student": 0.0
         }
       }
@@ -31,23 +31,23 @@
       "language": "ko",
       "variants": {
         "none": {
-          "wavlm_to_gyu": 0.67942,
-          "ecapa_to_gyu": 0.02505,
-          "wavlm_l2_to_student": 0.00312
+          "wavlm_to_gyu": 0.69011,
+          "ecapa_to_gyu": 0.03022,
+          "wavlm_l2_to_student": 0.001992
         },
         "fish_only": {
-          "wavlm_to_gyu": 0.70677,
-          "ecapa_to_gyu": 0.03763,
-          "wavlm_l2_to_student": 0.002718
+          "wavlm_to_gyu": 0.69409,
+          "ecapa_to_gyu": 0.03411,
+          "wavlm_l2_to_student": 0.001971
         },
         "fish_moss": {
-          "wavlm_to_gyu": 0.69734,
-          "ecapa_to_gyu": 0.0312,
-          "wavlm_l2_to_student": 0.00257
+          "wavlm_to_gyu": 0.68584,
+          "ecapa_to_gyu": 0.02314,
+          "wavlm_l2_to_student": 0.002414
         },
         "student": {
-          "wavlm_to_gyu": 0.69429,
-          "ecapa_to_gyu": 0.03337,
+          "wavlm_to_gyu": 0.69131,
+          "ecapa_to_gyu": 0.02897,
           "wavlm_l2_to_student": 0.0
         }
       }
@@ -56,23 +56,23 @@
       "language": "en",
       "variants": {
         "none": {
-          "wavlm_to_gyu": 0.78662,
-          "ecapa_to_gyu": 0.13934,
-          "wavlm_l2_to_student": 0.004264
+          "wavlm_to_gyu": 0.7903,
+          "ecapa_to_gyu": 0.13698,
+          "wavlm_l2_to_student": 0.001033
         },
         "fish_only": {
-          "wavlm_to_gyu": 0.79297,
-          "ecapa_to_gyu": 0.14262,
-          "wavlm_l2_to_student": 0.001213
+          "wavlm_to_gyu": 0.78436,
+          "ecapa_to_gyu": 0.13405,
+          "wavlm_l2_to_student": 0.002404
         },
         "fish_moss": {
-          "wavlm_to_gyu": 0.79492,
-          "ecapa_to_gyu": 0.14579,
-          "wavlm_l2_to_student": 0.001219
+          "wavlm_to_gyu": 0.79413,
+          "ecapa_to_gyu": 0.13326,
+          "wavlm_l2_to_student": 0.000989
         },
         "student": {
-          "wavlm_to_gyu": 0.7897,
-          "ecapa_to_gyu": 0.14409,
+          "wavlm_to_gyu": 0.78978,
+          "ecapa_to_gyu": 0.13336,
           "wavlm_l2_to_student": 0.0
         }
       }
@@ -81,23 +81,23 @@
       "language": "en",
       "variants": {
         "none": {
-          "wavlm_to_gyu": 0.87827,
-          "ecapa_to_gyu": 0.27655,
-          "wavlm_l2_to_student": 0.002963
+          "wavlm_to_gyu": 0.87287,
+          "ecapa_to_gyu": 0.26513,
+          "wavlm_l2_to_student": 0.001426
         },
         "fish_only": {
-          "wavlm_to_gyu": 0.87304,
-          "ecapa_to_gyu": 0.27091,
-          "wavlm_l2_to_student": 0.002313
+          "wavlm_to_gyu": 0.87852,
+          "ecapa_to_gyu": 0.26981,
+          "wavlm_l2_to_student": 0.001388
         },
         "fish_moss": {
-          "wavlm_to_gyu": 0.87644,
-          "ecapa_to_gyu": 0.27727,
-          "wavlm_l2_to_student": 0.00144
+          "wavlm_to_gyu": 0.87664,
+          "ecapa_to_gyu": 0.26583,
+          "wavlm_l2_to_student": 0.001115
         },
         "student": {
-          "wavlm_to_gyu": 0.8787,
-          "ecapa_to_gyu": 0.27136,
+          "wavlm_to_gyu": 0.87639,
+          "ecapa_to_gyu": 0.27036,
           "wavlm_l2_to_student": 0.0
         }
       }
@@ -106,23 +106,23 @@
       "language": "ja",
       "variants": {
         "none": {
-          "wavlm_to_gyu": 0.41693,
-          "ecapa_to_gyu": 0.05352,
-          "wavlm_l2_to_student": 0.002503
+          "wavlm_to_gyu": 0.42076,
+          "ecapa_to_gyu": 0.05145,
+          "wavlm_l2_to_student": 0.001193
         },
         "fish_only": {
-          "wavlm_to_gyu": 0.42396,
-          "ecapa_to_gyu": 0.04872,
-          "wavlm_l2_to_student": 0.00183
+          "wavlm_to_gyu": 0.42122,
+          "ecapa_to_gyu": 0.05327,
+          "wavlm_l2_to_student": 0.001602
         },
         "fish_moss": {
-          "wavlm_to_gyu": 0.4387,
-          "ecapa_to_gyu": 0.04906,
-          "wavlm_l2_to_student": 0.001561
+          "wavlm_to_gyu": 0.41747,
+          "ecapa_to_gyu": 0.05359,
+          "wavlm_l2_to_student": 0.002077
         },
         "student": {
-          "wavlm_to_gyu": 0.43402,
-          "ecapa_to_gyu": 0.0485,
+          "wavlm_to_gyu": 0.43118,
+          "ecapa_to_gyu": 0.0561,
           "wavlm_l2_to_student": 0.0
         }
       }
@@ -131,23 +131,23 @@
       "language": "ja",
       "variants": {
         "none": {
-          "wavlm_to_gyu": 0.82201,
-          "ecapa_to_gyu": 0.30212,
-          "wavlm_l2_to_student": 0.002803
+          "wavlm_to_gyu": 0.81301,
+          "ecapa_to_gyu": 0.3067,
+          "wavlm_l2_to_student": 0.000905
         },
         "fish_only": {
-          "wavlm_to_gyu": 0.80131,
-          "ecapa_to_gyu": 0.29146,
-          "wavlm_l2_to_student": 0.001247
+          "wavlm_to_gyu": 0.81048,
+          "ecapa_to_gyu": 0.30389,
+          "wavlm_l2_to_student": 0.001345
         },
         "fish_moss": {
-          "wavlm_to_gyu": 0.80613,
-          "ecapa_to_gyu": 0.2902,
-          "wavlm_l2_to_student": 0.001717
+          "wavlm_to_gyu": 0.80998,
+          "ecapa_to_gyu": 0.29965,
+          "wavlm_l2_to_student": 0.00103
         },
         "student": {
-          "wavlm_to_gyu": 0.79812,
-          "ecapa_to_gyu": 0.29142,
+          "wavlm_to_gyu": 0.80795,
+          "ecapa_to_gyu": 0.30315,
           "wavlm_l2_to_student": 0.0
         }
       }
@@ -156,99 +156,99 @@
   "student_minus_no_identity": {
     "wavlm_to_gyu": {
       "n": 6,
-      "mean": 0.002,
-      "p2_5": -0.00932,
-      "p97_5": 0.01124,
+      "mean": 0.00196,
+      "p2_5": -0.00158,
+      "p97_5": 0.00561,
       "values": [
-        0.00044,
-        0.01487,
-        0.00308,
-        0.00043,
-        0.01709,
-        -0.02389
+        0.00223,
+        0.0012,
+        -0.00052,
+        0.00352,
+        0.01042,
+        -0.00506
       ]
     },
     "ecapa_to_gyu": {
       "n": 6,
-      "mean": 0.00134,
-      "p2_5": -0.00605,
-      "p97_5": 0.00835,
+      "mean": 0.00016,
+      "p2_5": -0.00253,
+      "p97_5": 0.00301,
       "values": [
-        0.01591,
-        0.00832,
-        0.00475,
-        -0.00519,
-        -0.00502,
-        -0.0107
+        -0.00048,
+        -0.00125,
+        -0.00362,
+        0.00523,
+        0.00465,
+        -0.00355
       ]
     }
   },
   "cross_language_identity_consistency": {
     "quality": {
       "none": {
-        "wavlm_pairwise_mean": 0.71532,
+        "wavlm_pairwise_mean": 0.72771,
         "pairs": [
-          0.75396,
-          0.77253,
-          0.61947
+          0.77349,
+          0.76588,
+          0.64377
         ]
       },
       "fish_only": {
-        "wavlm_pairwise_mean": 0.74156,
+        "wavlm_pairwise_mean": 0.73831,
         "pairs": [
-          0.79739,
-          0.76886,
-          0.65844
+          0.78371,
+          0.76588,
+          0.66534
         ]
       },
       "fish_moss": {
-        "wavlm_pairwise_mean": 0.74336,
+        "wavlm_pairwise_mean": 0.72618,
         "pairs": [
-          0.78644,
-          0.7772,
-          0.66644
+          0.77451,
+          0.7722,
+          0.63183
         ]
       },
       "student": {
-        "wavlm_pairwise_mean": 0.7453,
+        "wavlm_pairwise_mean": 0.73263,
         "pairs": [
-          0.78765,
-          0.78327,
-          0.66497
+          0.77126,
+          0.778,
+          0.64865
         ]
       }
     },
     "heldout": {
       "none": {
-        "wavlm_pairwise_mean": 0.89438,
+        "wavlm_pairwise_mean": 0.9017,
         "pairs": [
-          0.87356,
-          0.88357,
-          0.92602
+          0.88111,
+          0.89815,
+          0.92584
         ]
       },
       "fish_only": {
-        "wavlm_pairwise_mean": 0.8987,
+        "wavlm_pairwise_mean": 0.90167,
         "pairs": [
-          0.88179,
-          0.90479,
-          0.90952
+          0.87704,
+          0.90406,
+          0.92391
         ]
       },
       "fish_moss": {
-        "wavlm_pairwise_mean": 0.89756,
+        "wavlm_pairwise_mean": 0.89703,
         "pairs": [
-          0.87798,
-          0.89749,
-          0.91721
+          0.87079,
+          0.89484,
+          0.92546
         ]
       },
       "student": {
-        "wavlm_pairwise_mean": 0.89848,
+        "wavlm_pairwise_mean": 0.9008,
         "pairs": [
-          0.87776,
-          0.9054,
-          0.91227
+          0.88099,
+          0.89665,
+          0.92476
         ]
       }
     }
