@@ -2,7 +2,7 @@ Overall status: INCOMPLETE — real Korean path runs, but held-out prosody quali
 Current version: gyu-singer-v0.5-incomplete
 Package: gyu-singer-v0.5-incomplete
 Package SHA-256: `4ebd38c589427c96a8388024fccc80e7a0c39ecca5f182cb4ff5bf8c142f01f8`
-Git commit: recorded at release commit
+Git commit: `6985eac`
 Real score reconstruction: active, inferred RMVPE + script-constrained candidates/accepted
 Deprecated fake-score path used in v0.5 training: no
 Target F0 leakage removed: yes; production condition excludes target F0
