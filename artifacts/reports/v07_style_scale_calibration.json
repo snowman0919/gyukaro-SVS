@@ -1,0 +1,363 @@
+{
+  "selection_set": "examples/quality_ko.json",
+  "test_phrases_used": false,
+  "grid": [
+    -2.0,
+    -1.0,
+    -0.5,
+    -0.25,
+    0.25,
+    0.5,
+    1.0,
+    2.0
+  ],
+  "neutral": {
+    "spectral_centroid_hz": 1067.923306,
+    "rms": 0.15750377,
+    "high_frequency_ratio_4khz": 0.01357493
+  },
+  "results": {
+    "soft": {
+      "selected": {
+        "scale": -2.0,
+        "metric": "rms",
+        "delta": 0.00916161,
+        "direction_score": -0.00916161,
+        "path": "artifacts/reports/v07_style_scale_search/soft_-2.wav"
+      },
+      "candidates": [
+        {
+          "scale": -2.0,
+          "metric": "rms",
+          "delta": 0.00916161,
+          "direction_score": -0.00916161,
+          "path": "artifacts/reports/v07_style_scale_search/soft_-2.wav"
+        },
+        {
+          "scale": -1.0,
+          "metric": "rms",
+          "delta": 0.00955956,
+          "direction_score": -0.00955956,
+          "path": "artifacts/reports/v07_style_scale_search/soft_-1.wav"
+        },
+        {
+          "scale": -0.5,
+          "metric": "rms",
+          "delta": 0.00925064,
+          "direction_score": -0.00925064,
+          "path": "artifacts/reports/v07_style_scale_search/soft_-0.5.wav"
+        },
+        {
+          "scale": -0.25,
+          "metric": "rms",
+          "delta": 0.00960936,
+          "direction_score": -0.00960936,
+          "path": "artifacts/reports/v07_style_scale_search/soft_-0.25.wav"
+        },
+        {
+          "scale": 0.25,
+          "metric": "rms",
+          "delta": 0.01136857,
+          "direction_score": -0.01136857,
+          "path": "artifacts/reports/v07_style_scale_search/soft_+0.25.wav"
+        },
+        {
+          "scale": 0.5,
+          "metric": "rms",
+          "delta": 0.0114243,
+          "direction_score": -0.0114243,
+          "path": "artifacts/reports/v07_style_scale_search/soft_+0.5.wav"
+        },
+        {
+          "scale": 1.0,
+          "metric": "rms",
+          "delta": 0.01186949,
+          "direction_score": -0.01186949,
+          "path": "artifacts/reports/v07_style_scale_search/soft_+1.wav"
+        },
+        {
+          "scale": 2.0,
+          "metric": "rms",
+          "delta": 0.01218067,
+          "direction_score": -0.01218067,
+          "path": "artifacts/reports/v07_style_scale_search/soft_+2.wav"
+        }
+      ]
+    },
+    "breathy": {
+      "selected": {
+        "scale": -2.0,
+        "metric": "high_frequency_ratio_4khz",
+        "delta": 0.01243908,
+        "direction_score": 0.01243908,
+        "path": "artifacts/reports/v07_style_scale_search/breathy_-2.wav"
+      },
+      "candidates": [
+        {
+          "scale": -2.0,
+          "metric": "high_frequency_ratio_4khz",
+          "delta": 0.01243908,
+          "direction_score": 0.01243908,
+          "path": "artifacts/reports/v07_style_scale_search/breathy_-2.wav"
+        },
+        {
+          "scale": -1.0,
+          "metric": "high_frequency_ratio_4khz",
+          "delta": 0.01174595,
+          "direction_score": 0.01174595,
+          "path": "artifacts/reports/v07_style_scale_search/breathy_-1.wav"
+        },
+        {
+          "scale": -0.5,
+          "metric": "high_frequency_ratio_4khz",
+          "delta": 0.01123883,
+          "direction_score": 0.01123883,
+          "path": "artifacts/reports/v07_style_scale_search/breathy_-0.5.wav"
+        },
+        {
+          "scale": -0.25,
+          "metric": "high_frequency_ratio_4khz",
+          "delta": 0.01110465,
+          "direction_score": 0.01110465,
+          "path": "artifacts/reports/v07_style_scale_search/breathy_-0.25.wav"
+        },
+        {
+          "scale": 0.25,
+          "metric": "high_frequency_ratio_4khz",
+          "delta": 0.01121295,
+          "direction_score": 0.01121295,
+          "path": "artifacts/reports/v07_style_scale_search/breathy_+0.25.wav"
+        },
+        {
+          "scale": 0.5,
+          "metric": "high_frequency_ratio_4khz",
+          "delta": 0.01066789,
+          "direction_score": 0.01066789,
+          "path": "artifacts/reports/v07_style_scale_search/breathy_+0.5.wav"
+        },
+        {
+          "scale": 1.0,
+          "metric": "high_frequency_ratio_4khz",
+          "delta": 0.0095205,
+          "direction_score": 0.0095205,
+          "path": "artifacts/reports/v07_style_scale_search/breathy_+1.wav"
+        },
+        {
+          "scale": 2.0,
+          "metric": "high_frequency_ratio_4khz",
+          "delta": 0.00927814,
+          "direction_score": 0.00927814,
+          "path": "artifacts/reports/v07_style_scale_search/breathy_+2.wav"
+        }
+      ]
+    },
+    "energetic": {
+      "selected": {
+        "scale": -0.5,
+        "metric": "rms",
+        "delta": 0.00031029,
+        "direction_score": 0.00031029,
+        "path": "artifacts/reports/v07_style_scale_search/energetic_-0.5.wav"
+      },
+      "candidates": [
+        {
+          "scale": -2.0,
+          "metric": "rms",
+          "delta": 6.403e-05,
+          "direction_score": 6.403e-05,
+          "path": "artifacts/reports/v07_style_scale_search/energetic_-2.wav"
+        },
+        {
+          "scale": -1.0,
+          "metric": "rms",
+          "delta": 0.00012892,
+          "direction_score": 0.00012892,
+          "path": "artifacts/reports/v07_style_scale_search/energetic_-1.wav"
+        },
+        {
+          "scale": -0.5,
+          "metric": "rms",
+          "delta": 0.00031029,
+          "direction_score": 0.00031029,
+          "path": "artifacts/reports/v07_style_scale_search/energetic_-0.5.wav"
+        },
+        {
+          "scale": -0.25,
+          "metric": "rms",
+          "delta": -0.00060952,
+          "direction_score": -0.00060952,
+          "path": "artifacts/reports/v07_style_scale_search/energetic_-0.25.wav"
+        },
+        {
+          "scale": 0.25,
+          "metric": "rms",
+          "delta": -0.00155296,
+          "direction_score": -0.00155296,
+          "path": "artifacts/reports/v07_style_scale_search/energetic_+0.25.wav"
+        },
+        {
+          "scale": 0.5,
+          "metric": "rms",
+          "delta": -0.00172453,
+          "direction_score": -0.00172453,
+          "path": "artifacts/reports/v07_style_scale_search/energetic_+0.5.wav"
+        },
+        {
+          "scale": 1.0,
+          "metric": "rms",
+          "delta": -0.00186439,
+          "direction_score": -0.00186439,
+          "path": "artifacts/reports/v07_style_scale_search/energetic_+1.wav"
+        },
+        {
+          "scale": 2.0,
+          "metric": "rms",
+          "delta": -0.00229357,
+          "direction_score": -0.00229357,
+          "path": "artifacts/reports/v07_style_scale_search/energetic_+2.wav"
+        }
+      ]
+    },
+    "dark": {
+      "selected": {
+        "scale": -2.0,
+        "metric": "spectral_centroid_hz",
+        "delta": -14.048398,
+        "direction_score": 14.048398,
+        "path": "artifacts/reports/v07_style_scale_search/dark_-2.wav"
+      },
+      "candidates": [
+        {
+          "scale": -2.0,
+          "metric": "spectral_centroid_hz",
+          "delta": -14.048398,
+          "direction_score": 14.048398,
+          "path": "artifacts/reports/v07_style_scale_search/dark_-2.wav"
+        },
+        {
+          "scale": -1.0,
+          "metric": "spectral_centroid_hz",
+          "delta": -13.081136,
+          "direction_score": 13.081136,
+          "path": "artifacts/reports/v07_style_scale_search/dark_-1.wav"
+        },
+        {
+          "scale": -0.5,
+          "metric": "spectral_centroid_hz",
+          "delta": -12.695676,
+          "direction_score": 12.695676,
+          "path": "artifacts/reports/v07_style_scale_search/dark_-0.5.wav"
+        },
+        {
+          "scale": -0.25,
+          "metric": "spectral_centroid_hz",
+          "delta": -13.466849,
+          "direction_score": 13.466849,
+          "path": "artifacts/reports/v07_style_scale_search/dark_-0.25.wav"
+        },
+        {
+          "scale": 0.25,
+          "metric": "spectral_centroid_hz",
+          "delta": -0.351722,
+          "direction_score": 0.351722,
+          "path": "artifacts/reports/v07_style_scale_search/dark_+0.25.wav"
+        },
+        {
+          "scale": 0.5,
+          "metric": "spectral_centroid_hz",
+          "delta": 0.271197,
+          "direction_score": -0.271197,
+          "path": "artifacts/reports/v07_style_scale_search/dark_+0.5.wav"
+        },
+        {
+          "scale": 1.0,
+          "metric": "spectral_centroid_hz",
+          "delta": 4.304639,
+          "direction_score": -4.304639,
+          "path": "artifacts/reports/v07_style_scale_search/dark_+1.wav"
+        },
+        {
+          "scale": 2.0,
+          "metric": "spectral_centroid_hz",
+          "delta": 1.879243,
+          "direction_score": -1.879243,
+          "path": "artifacts/reports/v07_style_scale_search/dark_+2.wav"
+        }
+      ]
+    },
+    "bright": {
+      "selected": {
+        "scale": -1.0,
+        "metric": "spectral_centroid_hz",
+        "delta": -34.157434,
+        "direction_score": -34.157434,
+        "path": "artifacts/reports/v07_style_scale_search/bright_-1.wav"
+      },
+      "candidates": [
+        {
+          "scale": -2.0,
+          "metric": "spectral_centroid_hz",
+          "delta": -35.85181,
+          "direction_score": -35.85181,
+          "path": "artifacts/reports/v07_style_scale_search/bright_-2.wav"
+        },
+        {
+          "scale": -1.0,
+          "metric": "spectral_centroid_hz",
+          "delta": -34.157434,
+          "direction_score": -34.157434,
+          "path": "artifacts/reports/v07_style_scale_search/bright_-1.wav"
+        },
+        {
+          "scale": -0.5,
+          "metric": "spectral_centroid_hz",
+          "delta": -38.948024,
+          "direction_score": -38.948024,
+          "path": "artifacts/reports/v07_style_scale_search/bright_-0.5.wav"
+        },
+        {
+          "scale": -0.25,
+          "metric": "spectral_centroid_hz",
+          "delta": -38.785705,
+          "direction_score": -38.785705,
+          "path": "artifacts/reports/v07_style_scale_search/bright_-0.25.wav"
+        },
+        {
+          "scale": 0.25,
+          "metric": "spectral_centroid_hz",
+          "delta": -43.87121,
+          "direction_score": -43.87121,
+          "path": "artifacts/reports/v07_style_scale_search/bright_+0.25.wav"
+        },
+        {
+          "scale": 0.5,
+          "metric": "spectral_centroid_hz",
+          "delta": -45.699524,
+          "direction_score": -45.699524,
+          "path": "artifacts/reports/v07_style_scale_search/bright_+0.5.wav"
+        },
+        {
+          "scale": 1.0,
+          "metric": "spectral_centroid_hz",
+          "delta": -44.502193,
+          "direction_score": -44.502193,
+          "path": "artifacts/reports/v07_style_scale_search/bright_+1.wav"
+        },
+        {
+          "scale": 2.0,
+          "metric": "spectral_centroid_hz",
+          "delta": -46.454613,
+          "direction_score": -46.454613,
+          "path": "artifacts/reports/v07_style_scale_search/bright_+2.wav"
+        }
+      ]
+    }
+  },
+  "selected_scales": {
+    "soft": -2.0,
+    "breathy": -2.0,
+    "energetic": -0.5,
+    "dark": -2.0,
+    "bright": -1.0
+  }
+}

@@ -17,10 +17,11 @@ from .v05 import GyuSingerV05Renderer
 
 
 class GyuSingerV06Renderer(GyuSingerV05Renderer):
-    def __init__(self, reference: str | Path, root: str | Path = ".", latent_adapter_enabled: bool = True):
+    def __init__(self, reference: str | Path, root: str | Path = ".", latent_adapter_enabled: bool = True, latent_adapter_checkpoint: str | Path | None = None):
         self.root = Path(root)
         self.latent_adapter_enabled = latent_adapter_enabled
-        super().__init__(reference, root=root, latent_adapter_checkpoint="checkpoints/gyu_latent_adapter_v0.6.pt" if latent_adapter_enabled else None)
+        checkpoint = latent_adapter_checkpoint or "checkpoints/gyu_latent_adapter_v0.6.pt"
+        super().__init__(reference, root=root, latent_adapter_checkpoint=checkpoint if latent_adapter_enabled else None)
         # Independent-score evaluation did not show a consistent v0.6 prosody gain, so the
         # production v0.6 path retains the measured v0.5 controller.  The v0.6 checkpoint is
         # packaged only as an explicit experimental baseline.
@@ -50,6 +51,10 @@ class GyuSingerV06Renderer(GyuSingerV05Renderer):
         vector[8:13] = torch.tensor(controls, device=device)
         return vector
 
+    def _content_style_preset(self, style: dict) -> str:
+        """Hook kept identical for v0.6; v0.7 isolates latent style causality."""
+        return style["preset"]
+
     def _identity_vector(self) -> torch.Tensor:
         if not self.identity_enabled or self.identity_mode == "none":
             return torch.zeros(64, device=self.pitch_controller.device)
@@ -70,7 +75,7 @@ class GyuSingerV06Renderer(GyuSingerV05Renderer):
         strength = float(score["style"]["prosody_strength"])
         expressive = self.pitch_controller.predict(score)[0] * strength
         from .quality_controller import STYLE
-        style = score["style"]; preset = torch.tensor(STYLE[style["preset"]], device=self.pitch_controller.device)
+        style = score["style"]; preset = torch.tensor(STYLE[self._content_style_preset(style)], device=self.pitch_controller.device)
         identity = self._identity_vector()
         style_vector = self._style_vector(style, self.pitch_controller.device) if self.style_enabled else torch.zeros(64, device=self.pitch_controller.device)
         identity_ref = self.reference_features + .05 * identity.repeat((self.reference_features.shape[0] + identity.shape[0] - 1) // identity.shape[0])[: self.reference_features.shape[0]]
@@ -87,7 +92,7 @@ class GyuSingerV06Renderer(GyuSingerV05Renderer):
             content_audio = adapt_waveform(content_audio, content_rate, self.acoustic_adapter, identity_ref, torch.from_numpy(controls).to(self.pitch_controller.device), preset, style["acoustic_style_strength"])
             sf.write(content, content_audio, content_rate, subtype="PCM_16")
             info = sf.info(content); np.save(contour, self._f0(score, info.frames / info.samplerate, expressive.cpu().numpy()))
-            self.soulx.request({"source": str(content), "f0_npy": str(contour), "output": str(output), "identity_npy": str(identity_path), "style_npy": str(style_path)})
+            self.soulx.request({"source": str(content), "f0_npy": str(contour), "output": str(output), "identity_npy": str(identity_path) if self.identity_enabled and self.identity_mode != "none" else None, "style_npy": str(style_path) if self.style_enabled else None})
             audio, rate = sf.read(output, dtype="float32", always_2d=True)
         mono = audio.mean(axis=1)
         from scipy.signal import resample_poly

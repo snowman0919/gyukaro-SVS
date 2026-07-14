@@ -1,4 +1,4 @@
-# v06 SoulX identity adapter
+# v07 SoulX identity adapter
 
 {
   "scores": {
@@ -255,4 +255,4 @@
   }
 }
 
-Fixed score, lyrics, deterministic OmniVoice/SoulX seeds, and reference; only named conditioning varies. v06 identity uses two phrases per KO/EN/JA. Style compares available spectral and latent paths on two KO phrases.
+Fixed score, lyrics, deterministic OmniVoice/SoulX seeds, and reference; only named conditioning varies. v07 identity uses two phrases per KO/EN/JA. Style compares available spectral and latent paths on two KO phrases.

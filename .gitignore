@@ -10,6 +10,7 @@ checkpoints/*
 artifacts/samples/*.wav
 render.wav
 artifacts/reports/asr.*
+artifacts/reports/v07_style_scale_search/
 artifacts/package/gyu-singer-v1-experimental/model/gyu_moss_nano_sft/
 artifacts/package/gyu-singer-v1-experimental/model/moss-audio-tokenizer-nano/
 artifacts/package/gyu-singer-v1-experimental/model/gyu_reference.m4a

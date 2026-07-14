@@ -23,7 +23,7 @@ from preprocess.tools.f0_extraction import F0Extractor
 from soulxsinger.models.soulxsinger_svc import SoulXSingerSVC
 from soulxsinger.utils.audio_utils import load_wav
 from soulxsinger.utils.file_utils import load_config
-from gyu_singer.inference.latent_adapter import SoulXLatentAdapter
+from gyu_singer.inference.latent_adapter import SoulXLatentAdapter, SoulXRealLatentAdapters
 
 
 RESULT = "__GYU_RESULT__"
@@ -57,34 +57,51 @@ def initialize(args):
     adapter = None
     if args.latent_adapter:
         saved_adapter = torch.load(args.latent_adapter, map_location="cuda", weights_only=False)
-        adapter = SoulXLatentAdapter(**saved_adapter.get("config", {})).cuda().half().eval()
+        adapter_class = SoulXRealLatentAdapters if saved_adapter.get("version") == "v0.7" else SoulXLatentAdapter
+        adapter = adapter_class(**saved_adapter.get("config", {})).cuda().half().eval()
         adapter.load_state_dict(saved_adapter["model"])
         model._gyu_latent_adapter = adapter
-        original_reverse = model.cfm_decoder.reverse_diffusion
-        def adapted_reverse(pt_mel, pt_decoder_inp, gt_decoder_inp, n_timesteps=32, cfg=1):
-            identity = getattr(model, "_gyu_identity", None)
-            style = getattr(model, "_gyu_style", None)
-            if identity is not None and style is not None:
-                gt_decoder_inp = adapter(gt_decoder_inp, identity, style)
-            return original_reverse(pt_mel, pt_decoder_inp, gt_decoder_inp, n_timesteps=n_timesteps, cfg=cfg)
-        model.cfm_decoder.reverse_diffusion = adapted_reverse
+    original_reverse = model.cfm_decoder.reverse_diffusion
+    def adapted_reverse(pt_mel, pt_decoder_inp, gt_decoder_inp, n_timesteps=32, cfg=1):
+        captures = getattr(model, "_gyu_latent_captures", None)
+        if captures is not None:
+            captures.append(gt_decoder_inp.detach().float().cpu())
+        identity = getattr(model, "_gyu_identity", None)
+        style = getattr(model, "_gyu_style", None)
+        if isinstance(adapter, SoulXRealLatentAdapters) and (identity is not None or style is not None):
+            gt_decoder_inp = adapter(gt_decoder_inp, identity, style)
+        elif adapter is not None and identity is not None and style is not None:
+            gt_decoder_inp = adapter(gt_decoder_inp, identity, style)
+        return original_reverse(pt_mel, pt_decoder_inp, gt_decoder_inp, n_timesteps=n_timesteps, cfg=cfg)
+    model.cfm_decoder.reverse_diffusion = adapted_reverse
     reference = load_wav(args.reference, config.audio.sample_rate).cuda()
     extractor = F0Extractor(args.rmvpe, device=device, target_sr=24000, hop_size=480, verbose=False)
+    model._gyu_f0_extractor = extractor
     return model, config, reference, extractor.process(args.reference, verbose=False)
 
 
-def render(model, config, reference, ref_f0, source_path: str, contour: np.ndarray, output: str, identity_path: str | None = None, style_path: str | None = None) -> None:
+def render(model, config, reference, ref_f0, source_path: str, contour: np.ndarray | None, output: str, identity_path: str | None = None, style_path: str | None = None, latent_output: str | None = None) -> None:
     source = load_wav(source_path, config.audio.sample_rate).cuda()
+    if contour is None:
+        contour = model._gyu_f0_extractor.process(source_path, verbose=False)
     expected = round(source.shape[-1] / 480)
     if len(contour) != expected:
         contour = np.interp(np.arange(expected), np.linspace(0, expected - 1, len(contour)), contour).astype(np.float32)
     if getattr(model, "_gyu_latent_adapter", None) is not None:
         model._gyu_identity = torch.from_numpy(np.load(identity_path).astype(np.float32)).cuda().half() if identity_path else None
         model._gyu_style = torch.from_numpy(np.load(style_path).astype(np.float32)).cuda().half() if style_path else None
+    model._gyu_latent_captures = [] if latent_output else None
     with torch.inference_mode():
         # Keep ablations causal: identical source/F0 uses identical diffusion noise.
         torch.manual_seed(21)
         audio, _ = model.infer(reference, source, torch.from_numpy(ref_f0).unsqueeze(0).cuda(), torch.from_numpy(contour).unsqueeze(0).cuda(), auto_shift=False, pitch_shift=0, n_steps=16, cfg=2.5, use_fp16=True)
+    if latent_output:
+        captures = model._gyu_latent_captures
+        if not captures:
+            raise RuntimeError("SoulX produced no gt_decoder_inp latent")
+        latent_path = Path(latent_output); latent_path.parent.mkdir(parents=True, exist_ok=True)
+        torch.save(torch.cat(captures, dim=1), latent_path)
+    model._gyu_latent_captures = None
     path = Path(output); path.parent.mkdir(parents=True, exist_ok=True)
     sf.write(path, audio.squeeze().float().cpu().numpy(), config.audio.sample_rate)
 
@@ -93,7 +110,8 @@ def worker(model, config, reference, ref_f0) -> None:
     for line in sys.stdin:
         try:
             request = json.loads(line)
-            render(model, config, reference, ref_f0, request["source"], np.load(request["f0_npy"]).astype(np.float32), request["output"], request.get("identity_npy"), request.get("style_npy"))
+            contour = np.load(request["f0_npy"]).astype(np.float32) if request.get("f0_npy") else None
+            render(model, config, reference, ref_f0, request["source"], contour, request["output"], request.get("identity_npy"), request.get("style_npy"), request.get("latent_output"))
             print(RESULT, json.dumps({"output": request["output"]}), flush=True)
         except Exception as error:
             print(ERROR, str(error), flush=True)
@@ -112,6 +130,7 @@ def main() -> None:
     parser.add_argument("--rmvpe", default="data/cache/soulx-singer/pretrained_models/SoulX-Singer-Preprocess/rmvpe/rmvpe.pt")
     parser.add_argument("--worker", action="store_true")
     parser.add_argument("--latent-adapter")
+    parser.add_argument("--latent-output")
     args = parser.parse_args()
     model, config, reference, ref_f0 = initialize(args)
     if args.worker:
@@ -123,7 +142,7 @@ def main() -> None:
         contour, notes = np.load(args.f0_npy).astype(np.float32), []
     else:
         contour, notes = score_f0(source.shape[-1] / config.audio.sample_rate, [int(x) for x in args.pitches.split(",")])
-    render(model, config, reference, ref_f0, args.source, contour, args.output)
+    render(model, config, reference, ref_f0, args.source, contour, args.output, latent_output=args.latent_output)
     if notes:
         Path(args.output).with_suffix(".score.json").write_text(json.dumps({"sample_rate": 24000, "notes": notes}, indent=2) + "\n")
     print(json.dumps({"output": args.output, "duration": round(source.shape[-1] / config.audio.sample_rate, 3), "notes": notes}))

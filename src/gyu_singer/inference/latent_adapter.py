@@ -18,3 +18,39 @@ class SoulXLatentAdapter(nn.Module):
         gamma = 0.05 * torch.tanh(gamma)[:, None, :]
         beta = 0.05 * torch.tanh(beta)[:, None, :]
         return hidden + torch.sigmoid(self.gate) * (hidden * gamma + beta)
+
+
+class _SoulXFiLMPath(nn.Module):
+    def __init__(self, condition_dim: int = 64, hidden_dim: int = 512):
+        super().__init__()
+        self.condition = nn.Sequential(nn.Linear(condition_dim, 128), nn.SiLU(), nn.Linear(128, hidden_dim * 2))
+        self.gate = nn.Parameter(torch.tensor(-1.0))
+
+    def forward(self, hidden: torch.Tensor, condition: torch.Tensor) -> torch.Tensor:
+        if condition.ndim == 1:
+            condition = condition[None]
+        gamma, beta = self.condition(condition).chunk(2, dim=-1)
+        delta = hidden * (0.1 * torch.tanh(gamma)[:, None, :]) + 0.1 * torch.tanh(beta)[:, None, :]
+        return hidden + torch.sigmoid(self.gate) * delta
+
+
+class GYUIdentityAdapter(_SoulXFiLMPath):
+    """Identity-only FiLM path trained on actual SoulX decoder inputs."""
+
+
+class GYUStyleAdapter(_SoulXFiLMPath):
+    """Style-only FiLM path trained on actual SoulX decoder inputs."""
+
+
+class SoulXRealLatentAdapters(nn.Module):
+    def __init__(self, identity_dim: int = 64, style_dim: int = 64, hidden_dim: int = 512):
+        super().__init__()
+        self.identity = GYUIdentityAdapter(identity_dim, hidden_dim)
+        self.style = GYUStyleAdapter(style_dim, hidden_dim)
+
+    def forward(self, hidden: torch.Tensor, identity: torch.Tensor | None, style: torch.Tensor | None) -> torch.Tensor:
+        if identity is not None:
+            hidden = self.identity(hidden, identity)
+        if style is not None:
+            hidden = self.style(hidden, style)
+        return hidden

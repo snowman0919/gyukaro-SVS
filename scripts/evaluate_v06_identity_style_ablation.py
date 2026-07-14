@@ -14,6 +14,7 @@ from transformers import AutoFeatureExtractor, AutoModelForAudioXVector
 
 from gyu_singer.inference.v05 import GyuSingerV05Renderer
 from gyu_singer.inference.v06 import GyuSingerV06Renderer
+from gyu_singer.inference.v07 import GyuSingerV07Renderer
 
 
 REPORT = Path("artifacts/reports")
@@ -25,8 +26,8 @@ def audio16(path):
     return resample_poly(audio, 16000, rate).astype("float32") if rate != 16000 else audio
 
 
-def write(renderer, score, name, paths):
-    path = REPORT / f"v06_ablation_{name}.wav"
+def write(renderer, score, name, paths, version="v06"):
+    path = REPORT / f"{version}_ablation_{name}.wav"
     sf.write(path, renderer.render(score), renderer.sample_rate, subtype="PCM_16")
     paths[name] = str(path)
 
@@ -46,23 +47,26 @@ def centroid(path):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--style", choices=("v05_spectral", "v06_spectral_only", "v06_latent"))
+    parser.add_argument("--version", choices=("v06", "v07"), default="v06")
+    parser.add_argument("--style", choices=("v05_spectral", "v06_spectral_only", "v06_latent", "v07_latent"))
     parser.add_argument("--metrics-only", action="store_true")
     args = parser.parse_args()
     REPORT.mkdir(parents=True, exist_ok=True)
-    paths = {path.stem.removeprefix("v06_ablation_"): str(path) for path in REPORT.glob("v06_ablation_*.wav")}
+    paths = {}
+    for version in ("v06", "v07"):
+        paths.update({path.stem.removeprefix(f"{version}_ablation_"): str(path) for path in REPORT.glob(f"{version}_ablation_*.wav")})
     if not args.style and not args.metrics_only:
-        renderer = GyuSingerV06Renderer("data/processed/master/216.wav")
+        renderer = (GyuSingerV07Renderer if args.version == "v07" else GyuSingerV06Renderer)("data/processed/master/216.wav")
         try:
             for score_path in SCORES:
                 score = json.loads(score_path.read_text()); label = score_path.stem
                 for mode in ("none", "fish_only", "fish_moss", "student"):
                     renderer.identity_mode, renderer.identity_enabled, renderer.style_enabled = mode, mode != "none", True
-                    write(renderer, score, f"identity_{mode}_{label}", paths)
+                    write(renderer, score, f"identity_{mode}_{label}", paths, args.version)
         finally:
             renderer.close()
         return
-    factories = {"v05_spectral": GyuSingerV05Renderer, "v06_spectral_only": lambda ref: GyuSingerV06Renderer(ref, latent_adapter_enabled=False), "v06_latent": GyuSingerV06Renderer}
+    factories = {"v05_spectral": GyuSingerV05Renderer, "v06_spectral_only": lambda ref: GyuSingerV06Renderer(ref, latent_adapter_enabled=False), "v06_latent": GyuSingerV06Renderer, "v07_latent": GyuSingerV07Renderer}
     if args.style:
         name, factory = args.style, factories[args.style]
         renderer = factory("data/processed/master/216.wav")
@@ -72,8 +76,8 @@ def main():
                 for preset in ("neutral", "dark"):
                     score = copy.deepcopy(base); score.setdefault("style", {})["preset"] = preset
                     if hasattr(renderer, "identity_mode"):
-                        renderer.identity_mode, renderer.identity_enabled, renderer.style_enabled = "student", True, name == "v06_latent"
-                    write(renderer, score, f"style_{name}_{preset}_{score_path.stem}", paths)
+                        renderer.identity_mode, renderer.identity_enabled, renderer.style_enabled = "student", True, name in {"v06_latent", "v07_latent"}
+                    write(renderer, score, f"style_{name}_{preset}_{score_path.stem}", paths, args.version)
         finally:
             renderer.close()
 
@@ -102,17 +106,29 @@ def main():
             variants[mode] = {"wavlm_to_gyu": round(float(np.dot(reference[0], w)), 5), "ecapa_to_gyu": round(float(np.dot(reference[1], e)), 5), "wavlm_l2_to_student": round(float(np.sqrt(np.mean((w - embs[f'identity_student_{label}'][0]) ** 2))), 6)}
         identity[label] = {"language": language, "variants": variants}
     deltas = {metric: [identity[label]["variants"]["student"][metric] - identity[label]["variants"]["none"][metric] for label in identity] for metric in ("wavlm_to_gyu", "ecapa_to_gyu")}
+    cross_language = {}
+    for kind in ("quality", "heldout"):
+        cross_language[kind] = {}
+        for mode in ("none", "fish_only", "fish_moss", "student"):
+            values = [embs[f"identity_{mode}_{kind}_{language}"][0] for language in ("ko", "en", "ja")]
+            pairs = [float(np.dot(values[left], values[right])) for left, right in ((0, 1), (0, 2), (1, 2))]
+            cross_language[kind][mode] = {"wavlm_pairwise_mean": round(float(np.mean(pairs)), 5), "pairs": [round(value, 5) for value in pairs]}
     style = {}
     for score_path in (Path("examples/quality_ko.json"), Path("examples/heldout_ko.json")):
         label = score_path.stem; style[label] = {}
-        for name in ("v05_spectral", "v06_spectral_only", "v06_latent"):
+        style_names = ("v05_spectral", "v06_spectral_only", "v06_latent", "v07_latent") if args.version == "v07" else ("v05_spectral", "v06_spectral_only", "v06_latent")
+        for name in style_names:
             neutral = embs[f"style_{name}_neutral_{label}"][0]; dark = embs[f"style_{name}_dark_{label}"][0]
             style[label][name] = {"dark_minus_neutral_wavlm_l2": round(float(np.sqrt(np.mean((dark - neutral) ** 2))), 6), "dark_minus_neutral_centroid_hz": round(centroid(paths[f"style_{name}_dark_{label}"]) - centroid(paths[f"style_{name}_neutral_{label}"]), 3)}
-        style[label]["latent_vs_spectral_only_dark_wavlm_l2"] = round(float(np.sqrt(np.mean((embs[f"style_v06_latent_dark_{label}"][0] - embs[f"style_v06_spectral_only_dark_{label}"][0]) ** 2))), 6)
-    report = {"paths": paths, "identity_ablation": {"scores": identity, "student_minus_no_identity": {metric: interval(values) for metric, values in deltas.items()}}, "style_ablation": style, "protocol": "Fixed score, lyrics, deterministic OmniVoice/SoulX seeds, and reference; only the named conditioning is varied. Identity uses two phrases per KO/EN/JA. Style compares v0.5 spectral-only, v0.6 without latent injection, and v0.6 latent injection on two KO phrases.", "caveat": "This measures output effects, not a claim that the weak teacher-style supervision establishes every style preset semantically."}
-    Path("artifacts/reports/v06_identity_style_ablation.json").write_text(json.dumps(report, indent=2) + "\n")
-    Path("docs/soulx_identity_adapter.md").write_text("# v0.6 SoulX identity adapter\n\n" + json.dumps(report["identity_ablation"], indent=2) + "\n\n" + report["protocol"] + "\n")
-    Path("docs/latent_style_adapter.md").write_text("# v0.6 latent acoustic-style adapter\n\n" + json.dumps({"style_ablation": style, "caveat": report["caveat"]}, indent=2) + "\n")
+        comparison = "v07_latent" if args.version == "v07" else "v06_latent"
+        style[label]["latent_vs_spectral_only_dark_wavlm_l2"] = round(float(np.sqrt(np.mean((embs[f"style_{comparison}_dark_{label}"][0] - embs[f"style_v06_spectral_only_dark_{label}"][0]) ** 2))), 6)
+    report = {"paths": paths, "identity_ablation": {"scores": identity, "student_minus_no_identity": {metric: interval(values) for metric, values in deltas.items()}, "cross_language_identity_consistency": cross_language}, "style_ablation": style, "protocol": f"Fixed score, lyrics, deterministic OmniVoice/SoulX seeds, and reference; only named conditioning varies. {args.version} identity uses two phrases per KO/EN/JA. Style compares available spectral and latent paths on two KO phrases.", "caveat": "Output differences are evidence only; intended semantic direction requires separate acoustic-proxy checks."}
+    Path(f"artifacts/reports/{args.version}_identity_style_ablation.json").write_text(json.dumps(report, indent=2) + "\n")
+    identity_doc = "docs/identity_adapter_v0.7.md" if args.version == "v07" else "docs/soulx_identity_adapter.md"
+    style_doc = "docs/style_adapter_v0.7.md" if args.version == "v07" else "docs/latent_style_adapter.md"
+    Path(identity_doc).write_text(f"# {args.version} SoulX identity adapter\n\n" + json.dumps(report["identity_ablation"], indent=2) + "\n\n" + report["protocol"] + "\n")
+    if args.version != "v07":
+        Path(style_doc).write_text(f"# {args.version} latent acoustic-style adapter\n\n" + json.dumps({"style_ablation": style, "caveat": report["caveat"]}, indent=2) + "\n")
     print(json.dumps(report, indent=2))
 
 

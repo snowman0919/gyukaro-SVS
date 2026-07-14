@@ -1,4 +1,4 @@
-# v0.6 latent acoustic-style adapter
+# v06 latent acoustic-style adapter
 
 {
   "style_ablation": {
@@ -33,5 +33,5 @@
       "latent_vs_spectral_only_dark_wavlm_l2": 0.002966
     }
   },
-  "caveat": "This measures output effects, not a claim that the weak teacher-style supervision establishes every style preset semantically."
+  "caveat": "Output differences are evidence only; intended semantic direction requires separate acoustic-proxy checks."
 }
