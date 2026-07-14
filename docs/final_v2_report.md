@@ -108,7 +108,8 @@ PYTHONPATH=src python scripts/package_quality_runtime.py
 rm -rf /tmp/gyu-quality-smoke && mkdir /tmp/gyu-quality-smoke
 unzip -q artifacts/package/gyu-hybrid-singer-v0.3-quality-runtime.zip -d /tmp/gyu-quality-smoke
 cd /tmp/gyu-quality-smoke/gyu-hybrid-singer-v0.3-quality-runtime
-GYU_SINGER_CACHE=/path/to/cache GYU_SOULX_PYTHON=/path/to/.venv-soulx/bin/python sh run.sh
+sh bootstrap.sh /path/to/cache
+GYU_SINGER_CACHE=/path/to/cache GYU_SOULX_PYTHON=/path/to/cache/soulx-singer/.venv/bin/python sh run.sh
 ```
 
 # Highest-value next steps
