@@ -7,7 +7,7 @@ Current stage: compact `GYU Hybrid Singer v0.2-experimental` plus
 `hybrid-soulx-phrase` quality-runtime proof.
 Package: `artifacts/package/gyu-hybrid-singer-v0.2-experimental.zip`
 Package SHA-256: `965491a14a4068dc58156275f780b60159f1f9c22b02841b8e4ab64d2be2be6a`
-Git commit: `65ce87348e331b18f0939bd77dd9a81e9a9ef4ad` (report generation source revision)
+Git commit: `0a8fdde` (quality-runtime and reconstructed-score implementation revision)
 Hybrid SVS checkpoint: `checkpoints/gyu_hybrid_v0.2.pt`, SHA-256 `788dbd03b3755aa324cec88813ceb214ce81d9f77d94cbf8e06a0f3b1f71d184`
 Trainable parameters: 762,210.
 Phrase-level neural generation: yes; one full phrase frame tensor, conditional-flow latent sample, frozen codec decode.
