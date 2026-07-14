@@ -116,6 +116,10 @@ class TriSingerModel(nn.Module):
             "content": content,
         }
 
+    def acoustic_source(self, batch: dict[str, torch.Tensor]) -> torch.Tensor:
+        """Condition-derived codec-latent source for residual flow matching."""
+        return self.singing_decoder(self.condition(batch)[0])
+
     def distillation_prediction(self, batch: dict[str, torch.Tensor]) -> torch.Tensor:
         _, timbre, content = self.condition(batch)
         style = self.style_encoder(batch["style_preset"], batch["style_controls"])
@@ -123,12 +127,11 @@ class TriSingerModel(nn.Module):
 
     @torch.no_grad()
     def sample(self, batch: dict[str, torch.Tensor], steps: int = 8) -> torch.Tensor:
-        shape = (batch["phoneme_ids"].shape[0], batch["phoneme_ids"].shape[1], self.latent_dim)
-        latent = torch.randn(shape, device=batch["phoneme_ids"].device)
+        latent = self.acoustic_source(batch)
         for index in range(steps):
-            time = torch.full((shape[0],), index / steps, device=latent.device)
+            time = torch.full((latent.shape[0],), index / steps, device=latent.device)
             output = self.forward(latent, time, batch)
-            latent = latent + (output["velocity"] + 0.10 * output["acoustic_bias"]) / steps
+            latent = latent + output["velocity"] / steps
         return latent
 
 

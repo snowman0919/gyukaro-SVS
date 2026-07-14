@@ -1,0 +1,77 @@
+{
+  "f0_extractor": "SoulX RMVPE",
+  "scores": {
+    "ko": {
+      "vocalizer_baseline": {
+        "rmvpe_f0_correlation": -0.3646,
+        "note_pitch_mae_cents": 914.66,
+        "voiced_accuracy": 0.1111,
+        "boundary_energy_jump": 5.4339,
+        "speaker_similarity_wavlm": 0.2304,
+        "asr_transcript": " 감사합니다.",
+        "asr_lyric_similarity": 0.0,
+        "held_note_f0_cv": null,
+        "path": "artifacts/samples/baseline_ko.wav"
+      },
+      "hybrid_svs": {
+        "rmvpe_f0_correlation": -0.3001,
+        "note_pitch_mae_cents": 1096.19,
+        "voiced_accuracy": 0.1833,
+        "boundary_energy_jump": 0.1314,
+        "speaker_similarity_wavlm": 0.5315,
+        "asr_transcript": " 네",
+        "asr_lyric_similarity": 0.0,
+        "held_note_f0_cv": null,
+        "path": "artifacts/samples/hybrid_ko.wav"
+      }
+    },
+    "en": {
+      "vocalizer_baseline": {
+        "rmvpe_f0_correlation": 0.9194,
+        "note_pitch_mae_cents": 1074.03,
+        "voiced_accuracy": 0.3333,
+        "boundary_energy_jump": 0.434,
+        "speaker_similarity_wavlm": 0.6094,
+        "asr_transcript": " Oh",
+        "asr_lyric_similarity": 0.0,
+        "held_note_f0_cv": null,
+        "path": "artifacts/samples/baseline_en.wav"
+      },
+      "hybrid_svs": {
+        "rmvpe_f0_correlation": -0.6851,
+        "note_pitch_mae_cents": 1409.92,
+        "voiced_accuracy": 0.6167,
+        "boundary_energy_jump": 0.9912,
+        "speaker_similarity_wavlm": 0.8195,
+        "asr_transcript": " Right. Okay.",
+        "asr_lyric_similarity": 0.1111,
+        "held_note_f0_cv": 0.0275,
+        "path": "artifacts/samples/hybrid_en.wav"
+      }
+    },
+    "ja": {
+      "vocalizer_baseline": {
+        "rmvpe_f0_correlation": -0.1025,
+        "note_pitch_mae_cents": 336.65,
+        "voiced_accuracy": 0.2381,
+        "boundary_energy_jump": 0.1509,
+        "speaker_similarity_wavlm": 0.336,
+        "asr_transcript": "ご視聴ありがとうございました",
+        "asr_lyric_similarity": 0.1429,
+        "held_note_f0_cv": 0.0579,
+        "path": "artifacts/samples/baseline_ja.wav"
+      },
+      "hybrid_svs": {
+        "rmvpe_f0_correlation": -0.3801,
+        "note_pitch_mae_cents": 867.13,
+        "voiced_accuracy": 0.4167,
+        "boundary_energy_jump": 0.2095,
+        "speaker_similarity_wavlm": 0.5494,
+        "asr_transcript": "はい",
+        "asr_lyric_similarity": 0.5,
+        "held_note_f0_cv": 0.0137,
+        "path": "artifacts/samples/hybrid_ja.wav"
+      }
+    }
+  }
+}

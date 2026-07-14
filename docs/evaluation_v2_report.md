@@ -48,6 +48,18 @@ correlation was `0.0535/-0.1049/0.0563` and pitch MAE was
 `1386.04/1461.64/1427.69` cents. The 3-second hold report also misses C4.
 This retrain is a failed experiment, not the production candidate.
 
+## Residual-flow compact retrain: failed quality gate
+
+The v0.4 compact sampler starts from the `SingingDecoder`'s
+condition-derived codec-latent source and uses conditional flow only for the
+source-to-target residual.  It lowers validation acoustic loss, but generated
+KO/EN/JA F0 correlation is `-0.3001/-0.6851/-0.3801`, pitch MAE is
+`1096.19/1409.92/867.13` cents, and lyric similarity is `0.0000/0.1111/0.5000`.
+Its 3-second held-note medians are `148.37/136.63/139.61 Hz`, not C4.  See
+`artifacts/reports/hybrid_residual_flow_evaluation.json` and
+`artifacts/reports/hybrid_residual_flow_sustained.json`.  Do not use it as the
+quality candidate.
+
 ## Dynamic quality-runtime gate: passed
 
 The runnable `hybrid-soulx-phrase` backend was exercised through the public

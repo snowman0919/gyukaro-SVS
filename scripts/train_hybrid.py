@@ -85,18 +85,20 @@ def main() -> None:
         for row in validation_rows:
             target = torch.load(Path(args.latents) / f"{row['id']}.pt", map_location=device, weights_only=True)[None]
             batch = batch_from_row(row, device, target.shape[1])
-            output = model(torch.zeros_like(target), torch.full((1,), .5, device=device), batch)
-            values.append(float(flow_matching_loss(output["velocity"], target) + .05 * log_pitch_loss(output["pitch_log_f0"], batch["target_f0_hz"], batch["target_voiced"])))
+            source = model.acoustic_source(batch)
+            output = model(.5 * source + .5 * target, torch.full((1,), .5, device=device), batch)
+            values.append(float(flow_matching_loss(output["velocity"], target - source) + .5 * flow_matching_loss(source, target) + .05 * log_pitch_loss(output["pitch_log_f0"], batch["target_f0_hz"], batch["target_voiced"])))
         model.train()
         return {"step": step, "acoustic_loss": round(sum(values) / len(values), 6)}
     for step in range(1, args.steps + 1):
         row = rows[(step - 1) % len(rows)]
         target = torch.load(Path(args.latents) / f"{row['id']}.pt", map_location=device, weights_only=True)[None]
         batch = batch_from_row(row, device, target.shape[1])
-        noise, flow_time = torch.randn_like(target), torch.rand(1, device=device)
-        output = model((1 - flow_time[:, None, None]) * noise + flow_time[:, None, None] * target, flow_time, batch)
-        acoustic = output["velocity"] + 0.10 * output["acoustic_bias"]
-        loss_flow = flow_matching_loss(acoustic, target - noise) * float(row["trust_weight"])
+        flow_time = torch.rand(1, device=device)
+        source = model.acoustic_source(batch)
+        output = model((1 - flow_time[:, None, None]) * source + flow_time[:, None, None] * target, flow_time, batch)
+        loss_flow = flow_matching_loss(output["velocity"], target - source) * float(row["trust_weight"])
+        loss_source = flow_matching_loss(source, target) * float(row["trust_weight"])
         loss_pitch = log_pitch_loss(output["pitch_log_f0"], batch["target_f0_hz"], batch["target_voiced"]) * float(row["trust_weight"])
         loss_teacher = torch.zeros((), device=device)
         if args.teacher_loss_weight:
@@ -106,9 +108,9 @@ def main() -> None:
                            "score": {"notes": [{"pitch": 60, "start": 0, "duration": max(0.1, float(teacher["duration_sec"])), "lyric": teacher["text"]}]}}
             teacher_batch = batch_from_row(teacher_row, device, 8, teacher_audio=True)
             loss_teacher = weighted_distillation_loss(model.distillation_prediction(teacher_batch), teacher_features, torch.tensor([teacher["trust_weight"]], device=device))
-        loss = loss_flow + 0.05 * loss_pitch + args.teacher_loss_weight * loss_teacher
+        loss = loss_flow + 0.5 * loss_source + 0.05 * loss_pitch + args.teacher_loss_weight * loss_teacher
         optimizer.zero_grad(); loss.backward(); torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0); optimizer.step()
-        history.append({"step": step, "loss": round(float(loss.detach()), 6), "flow": round(float(loss_flow.detach()), 6), "pitch": round(float(loss_pitch.detach()), 6), "teacher": round(float(loss_teacher.detach()), 6)})
+        history.append({"step": step, "loss": round(float(loss.detach()), 6), "flow": round(float(loss_flow.detach()), 6), "source": round(float(loss_source.detach()), 6), "pitch": round(float(loss_pitch.detach()), 6), "teacher": round(float(loss_teacher.detach()), 6)})
         if step % 20 == 0: print(history[-1])
         if step % args.validate_every == 0:
             validation.append(validate()); print(validation[-1])

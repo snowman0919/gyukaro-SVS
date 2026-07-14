@@ -17,6 +17,7 @@ artifacts/package/*.zip
 /artifacts/package/gyu-hybrid-singer-v0.2-experimental/
 /artifacts/package/gyu-hybrid-singer-v0.3-quality-runtime/
 artifacts/validation/hybrid_score_reconstructed/
+artifacts/validation/hybrid_residual_flow/
 *.pyc
 __pycache__/
 .venv/

@@ -77,7 +77,7 @@ Current hybrid F0 correlation: KO 0.3390, EN -0.2012, JA 0.1278. ASR similarity:
 
 # Known failures
 
-Generated hybrid F0 does not reliably follow score; intelligibility is weak; 3-second vowels are voiced but miss requested C4; real score labels are inferred; style controls uncalibrated; Korean-only real target data limits EN/JA evidence.
+Generated compact-hybrid F0 does not reliably follow score; intelligibility is weak; 3-second vowels miss requested C4; real score labels are inferred; style controls uncalibrated; Korean-only real target data limits EN/JA evidence.  The v0.4 condition-source residual-flow sampler reduced latent validation loss but still fails generated quality (`artifacts/reports/hybrid_residual_flow_evaluation.json`).
 
 # Quality-runtime evidence (separate from the failed compact checkpoint)
 

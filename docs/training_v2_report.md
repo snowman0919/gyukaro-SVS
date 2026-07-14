@@ -17,3 +17,13 @@ quality and held-vowel reports are
 `artifacts/reports/hybrid_score_reconstructed_evaluation.json` and
 `artifacts/reports/hybrid_score_reconstructed_sustained.json`.  It fails the
 quality gate, so it is retained only as a reproducible negative result.
+
+## Residual-flow sampler run
+
+`gyu_hybrid_v0.4_residual_flow.pt` replaces the random-noise sampler with a
+condition-derived codec-latent source plus conditional residual flow.  It ran
+8,000 steps; final flow/source/pitch losses were `0.159420/1.047986/0.093336`
+and validation acoustic loss was `0.935427`.  Despite lower loss,
+`artifacts/reports/hybrid_residual_flow_evaluation.json` and
+`artifacts/reports/hybrid_residual_flow_sustained.json` fail the quality gate.
+The run is evidence that the sampler changed, not a production checkpoint.
