@@ -1,0 +1,802 @@
+{
+  "a": [
+    "AH0"
+  ],
+  "above": [
+    "AH0",
+    "B",
+    "AH1",
+    "V"
+  ],
+  "across": [
+    "AH0",
+    "K",
+    "R",
+    "AO1",
+    "S"
+  ],
+  "after": [
+    "AE1",
+    "F",
+    "T",
+    "ER0"
+  ],
+  "again": [
+    "AH0",
+    "G",
+    "EH1",
+    "N"
+  ],
+  "and": [
+    "AH0",
+    "N",
+    "D"
+  ],
+  "are": [
+    "AA1",
+    "R"
+  ],
+  "autumn": [
+    "AO1",
+    "T",
+    "AH0",
+    "M"
+  ],
+  "beautiful": [
+    "B",
+    "Y",
+    "UW1",
+    "T",
+    "AH0",
+    "F",
+    "AH0",
+    "L"
+  ],
+  "begin": [
+    "B",
+    "IH0",
+    "G",
+    "IH1",
+    "N"
+  ],
+  "beside": [
+    "B",
+    "IH0",
+    "S",
+    "AY1",
+    "D"
+  ],
+  "beyond": [
+    "B",
+    "IH0",
+    "AA1",
+    "N",
+    "D"
+  ],
+  "black": [
+    "B",
+    "L",
+    "AE1",
+    "K"
+  ],
+  "bloom": [
+    "B",
+    "L",
+    "UW1",
+    "M"
+  ],
+  "blue": [
+    "B",
+    "L",
+    "UW1"
+  ],
+  "brave": [
+    "B",
+    "R",
+    "EY1",
+    "V"
+  ],
+  "breathe": [
+    "B",
+    "R",
+    "IY1",
+    "DH"
+  ],
+  "breeze": [
+    "B",
+    "R",
+    "IY1",
+    "Z"
+  ],
+  "bridge": [
+    "B",
+    "R",
+    "IH1",
+    "JH"
+  ],
+  "bright": [
+    "B",
+    "R",
+    "AY1",
+    "T"
+  ],
+  "bring": [
+    "B",
+    "R",
+    "IH1",
+    "NG"
+  ],
+  "calm": [
+    "K",
+    "AA1",
+    "M"
+  ],
+  "can": [
+    "K",
+    "AE1",
+    "N"
+  ],
+  "careful": [
+    "K",
+    "EH1",
+    "R",
+    "F",
+    "AH0",
+    "L"
+  ],
+  "carries": [
+    "K",
+    "AE1",
+    "R",
+    "IY0",
+    "Z"
+  ],
+  "carry": [
+    "K",
+    "AE1",
+    "R",
+    "IY0"
+  ],
+  "children": [
+    "CH",
+    "IH1",
+    "L",
+    "D",
+    "R",
+    "AH0",
+    "N"
+  ],
+  "clear": [
+    "K",
+    "L",
+    "IH1",
+    "R"
+  ],
+  "clock": [
+    "K",
+    "L",
+    "AA1",
+    "K"
+  ],
+  "clouds": [
+    "K",
+    "L",
+    "AW1",
+    "D",
+    "Z"
+  ],
+  "cross": [
+    "K",
+    "R",
+    "AO1",
+    "S"
+  ],
+  "distant": [
+    "D",
+    "IH1",
+    "S",
+    "T",
+    "AH0",
+    "N",
+    "T"
+  ],
+  "dream": [
+    "D",
+    "R",
+    "IY1",
+    "M"
+  ],
+  "dreams": [
+    "D",
+    "R",
+    "IY1",
+    "M",
+    "Z"
+  ],
+  "drift": [
+    "D",
+    "R",
+    "IH1",
+    "F",
+    "T"
+  ],
+  "drum": [
+    "D",
+    "R",
+    "AH1",
+    "M"
+  ],
+  "even": [
+    "IY1",
+    "V",
+    "IH0",
+    "N"
+  ],
+  "fades": [
+    "F",
+    "EY1",
+    "D",
+    "Z"
+  ],
+  "falling": [
+    "F",
+    "AA1",
+    "L",
+    "IH0",
+    "NG"
+  ],
+  "falls": [
+    "F",
+    "AO1",
+    "L",
+    "Z"
+  ],
+  "feet": [
+    "F",
+    "IY1",
+    "T"
+  ],
+  "field": [
+    "F",
+    "IY1",
+    "L",
+    "D"
+  ],
+  "final": [
+    "F",
+    "AY1",
+    "N",
+    "AH0",
+    "L"
+  ],
+  "floats": [
+    "F",
+    "L",
+    "OW1",
+    "T",
+    "S"
+  ],
+  "floor": [
+    "F",
+    "L",
+    "AO1",
+    "R"
+  ],
+  "flowers": [
+    "F",
+    "L",
+    "AW1",
+    "ER0",
+    "Z"
+  ],
+  "follow": [
+    "F",
+    "AA1",
+    "L",
+    "OW0"
+  ],
+  "follows": [
+    "F",
+    "AA1",
+    "L",
+    "OW0",
+    "Z"
+  ],
+  "fresh": [
+    "F",
+    "R",
+    "EH1",
+    "SH"
+  ],
+  "from": [
+    "F",
+    "R",
+    "AH1",
+    "M"
+  ],
+  "garden": [
+    "G",
+    "AA1",
+    "R",
+    "D",
+    "AH0",
+    "N"
+  ],
+  "gate": [
+    "G",
+    "EY1",
+    "T"
+  ],
+  "gentle": [
+    "JH",
+    "EH1",
+    "N",
+    "T",
+    "AH0",
+    "L"
+  ],
+  "golden": [
+    "G",
+    "OW1",
+    "L",
+    "D",
+    "AH0",
+    "N"
+  ],
+  "green": [
+    "G",
+    "R",
+    "IY1",
+    "N"
+  ],
+  "grows": [
+    "G",
+    "R",
+    "OW1",
+    "Z"
+  ],
+  "hill": [
+    "HH",
+    "IH1",
+    "L"
+  ],
+  "hope": [
+    "HH",
+    "OW1",
+    "P"
+  ],
+  "in": [
+    "IH0",
+    "N"
+  ],
+  "into": [
+    "IH0",
+    "N",
+    "T",
+    "UW1"
+  ],
+  "is": [
+    "IH1",
+    "Z"
+  ],
+  "keeps": [
+    "K",
+    "IY1",
+    "P",
+    "S"
+  ],
+  "laugh": [
+    "L",
+    "AE1",
+    "F"
+  ],
+  "leaves": [
+    "L",
+    "IY1",
+    "V",
+    "Z"
+  ],
+  "let": [
+    "L",
+    "EH1",
+    "T"
+  ],
+  "light": [
+    "L",
+    "AY1",
+    "T"
+  ],
+  "long": [
+    "L",
+    "AO1",
+    "NG"
+  ],
+  "me": [
+    "M",
+    "IY1"
+  ],
+  "moonlight": [
+    "M",
+    "UW1",
+    "N",
+    "L",
+    "AY2",
+    "T"
+  ],
+  "morning": [
+    "M",
+    "AO1",
+    "R",
+    "N",
+    "IH0",
+    "NG"
+  ],
+  "moves": [
+    "M",
+    "UW1",
+    "V",
+    "Z"
+  ],
+  "night": [
+    "N",
+    "AY1",
+    "T"
+  ],
+  "not": [
+    "N",
+    "AA1",
+    "T"
+  ],
+  "note": [
+    "N",
+    "OW1",
+    "T"
+  ],
+  "old": [
+    "OW1",
+    "L",
+    "D"
+  ],
+  "on": [
+    "AA1",
+    "N"
+  ],
+  "open": [
+    "OW1",
+    "P",
+    "AH0",
+    "N"
+  ],
+  "our": [
+    "AW1",
+    "ER0"
+  ],
+  "over": [
+    "OW1",
+    "V",
+    "ER0"
+  ],
+  "please": [
+    "P",
+    "L",
+    "IY1",
+    "Z"
+  ],
+  "pretty": [
+    "P",
+    "R",
+    "IH1",
+    "T",
+    "IY0"
+  ],
+  "quick": [
+    "K",
+    "W",
+    "IH1",
+    "K"
+  ],
+  "quiet": [
+    "K",
+    "W",
+    "AY1",
+    "AH0",
+    "T"
+  ],
+  "rain": [
+    "R",
+    "EY1",
+    "N"
+  ],
+  "red": [
+    "R",
+    "EH1",
+    "D"
+  ],
+  "rhythm": [
+    "R",
+    "IH1",
+    "DH",
+    "AH0",
+    "M"
+  ],
+  "rise": [
+    "R",
+    "AY1",
+    "Z"
+  ],
+  "river": [
+    "R",
+    "IH1",
+    "V",
+    "ER0"
+  ],
+  "road": [
+    "R",
+    "OW1",
+    "D"
+  ],
+  "rolls": [
+    "R",
+    "OW1",
+    "L",
+    "Z"
+  ],
+  "says": [
+    "S",
+    "EH1",
+    "Z"
+  ],
+  "scarf": [
+    "S",
+    "K",
+    "AA1",
+    "R",
+    "F"
+  ],
+  "sea": [
+    "S",
+    "IY1"
+  ],
+  "shine": [
+    "SH",
+    "AY1",
+    "N"
+  ],
+  "silver": [
+    "S",
+    "IH1",
+    "L",
+    "V",
+    "ER0"
+  ],
+  "sing": [
+    "S",
+    "IH1",
+    "NG"
+  ],
+  "sky": [
+    "S",
+    "K",
+    "AY1"
+  ],
+  "slowly": [
+    "S",
+    "L",
+    "OW1",
+    "L",
+    "IY0"
+  ],
+  "small": [
+    "S",
+    "M",
+    "AO1",
+    "L"
+  ],
+  "soft": [
+    "S",
+    "AA1",
+    "F",
+    "T"
+  ],
+  "softly": [
+    "S",
+    "AO1",
+    "F",
+    "T",
+    "L",
+    "IY0"
+  ],
+  "song": [
+    "S",
+    "AO1",
+    "NG"
+  ],
+  "stars": [
+    "S",
+    "T",
+    "AA1",
+    "R",
+    "Z"
+  ],
+  "stay": [
+    "S",
+    "T",
+    "EY1"
+  ],
+  "steady": [
+    "S",
+    "T",
+    "EH1",
+    "D",
+    "IY0"
+  ],
+  "steps": [
+    "S",
+    "T",
+    "EH1",
+    "P",
+    "S"
+  ],
+  "stone": [
+    "S",
+    "T",
+    "OW1",
+    "N"
+  ],
+  "stops": [
+    "S",
+    "T",
+    "AA1",
+    "P",
+    "S"
+  ],
+  "strong": [
+    "S",
+    "T",
+    "R",
+    "AO1",
+    "NG"
+  ],
+  "the": [
+    "DH",
+    "AH0"
+  ],
+  "this": [
+    "DH",
+    "IH1",
+    "S"
+  ],
+  "three": [
+    "TH",
+    "R",
+    "IY1"
+  ],
+  "through": [
+    "TH",
+    "R",
+    "UW1"
+  ],
+  "thunder": [
+    "TH",
+    "AH1",
+    "N",
+    "D",
+    "ER0"
+  ],
+  "ticks": [
+    "T",
+    "IH1",
+    "K",
+    "S"
+  ],
+  "tomorrow": [
+    "T",
+    "AH0",
+    "M",
+    "AA1",
+    "R",
+    "OW2"
+  ],
+  "train": [
+    "T",
+    "R",
+    "EY1",
+    "N"
+  ],
+  "traveler": [
+    "T",
+    "R",
+    "AE1",
+    "V",
+    "AH0",
+    "L",
+    "ER0"
+  ],
+  "under": [
+    "AH1",
+    "N",
+    "D",
+    "ER0"
+  ],
+  "valley": [
+    "V",
+    "AE1",
+    "L",
+    "IY0"
+  ],
+  "voice": [
+    "V",
+    "OY1",
+    "S"
+  ],
+  "vowel": [
+    "V",
+    "AW1",
+    "AH0",
+    "L"
+  ],
+  "warm": [
+    "W",
+    "AO1",
+    "R",
+    "M"
+  ],
+  "we": [
+    "W",
+    "IY1"
+  ],
+  "while": [
+    "W",
+    "AY1",
+    "L"
+  ],
+  "whisper": [
+    "W",
+    "IH1",
+    "S",
+    "P",
+    "ER0"
+  ],
+  "who": [
+    "HH",
+    "UW1"
+  ],
+  "winding": [
+    "W",
+    "AY1",
+    "N",
+    "D",
+    "IH0",
+    "NG"
+  ],
+  "window": [
+    "W",
+    "IH1",
+    "N",
+    "D",
+    "OW0"
+  ],
+  "winter": [
+    "W",
+    "IH1",
+    "N",
+    "T",
+    "ER0"
+  ],
+  "with": [
+    "W",
+    "IH1",
+    "DH"
+  ],
+  "wooden": [
+    "W",
+    "UH1",
+    "D",
+    "AH0",
+    "N"
+  ],
+  "you": [
+    "Y",
+    "UW1"
+  ]
+}

@@ -23,6 +23,10 @@ class PhraseFrames:
     note_onset: torch.Tensor
     note_duration: torch.Tensor
     boundary: torch.Tensor
+    phoneme_note_mapping: torch.Tensor
+    phoneme_durations: list[dict]
+    note_sequence: list[dict]
+    boundary_types: list[str]
 
 
 def build_phrase_frames(frontend: FrontendOutput, notes: list[dict], pitch_curve: list[dict] | None = None, frame_hz: float = 12.5) -> PhraseFrames:
@@ -39,6 +43,7 @@ def build_phrase_frames(frontend: FrontendOutput, notes: list[dict], pitch_curve
     note_onset = torch.zeros(frames)
     note_duration = torch.zeros(frames)
     boundary = torch.zeros(frames)
+    phoneme_durations, note_sequence, boundary_types = [], [], []
     for index, note in enumerate(ordered):
         start = int(round(float(note.get("start", note.get("start_sec", 0))) * frame_hz))
         end = max(start + 1, int(round((float(note.get("start", note.get("start_sec", 0))) + float(note.get("duration", note.get("duration_sec", 0)))) * frame_hz)))
@@ -56,6 +61,12 @@ def build_phrase_frames(frontend: FrontendOutput, notes: list[dict], pitch_curve
         phoneme_ids[start:end] = torch.tensor(units.phoneme_ids)[positions]
         language_ids[start:end] = torch.tensor(units.language_ids)[positions]
         features[start:end] = torch.tensor(units.features, dtype=torch.float32)[positions]
+        boundary_type = "slur" if note.get("slur", False) else "hard"
+        boundary_types.append(boundary_type)
+        note_sequence.append({"id": str(note.get("id", f"n{index + 1}")), "index": index, "pitch": float(note["pitch"]), "start_frame": start, "end_frame": end, "lyric": lyric, "boundary_type": boundary_type})
+        for phoneme_index, symbol in enumerate(units.symbols):
+            owned = (positions == phoneme_index).nonzero().flatten()
+            if len(owned): phoneme_durations.append({"symbol": symbol, "note_index": index, "start_frame": start + int(owned[0]), "duration_frames": len(owned), "boundary_type": boundary_type})
     # Silence gaps inherit nearest preceding content but remain unvoiced.
     for index in range(1, frames):
         if phoneme_ids[index] == 0:
@@ -81,4 +92,8 @@ def build_phrase_frames(frontend: FrontendOutput, notes: list[dict], pitch_curve
         note_onset=note_onset,
         note_duration=note_duration,
         boundary=boundary,
+        phoneme_note_mapping=note_index,
+        phoneme_durations=phoneme_durations,
+        note_sequence=note_sequence,
+        boundary_types=boundary_types,
     )

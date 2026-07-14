@@ -18,6 +18,7 @@ shutil.copytree("data/cache/moss-audio-tokenizer-nano", root / "model/moss-audio
 shutil.copy2("checkpoints/gyu_hybrid_v0.2.pt", root / "model/gyu_hybrid_v0.2.pt")
 shutil.copy2("data/processed/master/216.wav", root / "model/gyu_reference_216.wav")
 shutil.copy2("examples/smoke.json", root / "examples/smoke.json")
+shutil.copy2("examples/openutau_smoke.ustx", root / "examples/openutau_smoke.ustx")
 for source, target in (("integrations/openutau", "integrations/openutau"), ("integrations/renderer_protocol", "integrations/renderer_protocol")):
     shutil.copytree(source, root / target, dirs_exist_ok=True, ignore=shutil.ignore_patterns("__pycache__"))
 (root / "requirements.txt").write_text("numpy\nsoundfile\ntorch\ntransformers\npyyaml\nscipy\ntorchaudio\ntorchcodec\n")

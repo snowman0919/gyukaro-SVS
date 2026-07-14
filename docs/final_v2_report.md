@@ -1,14 +1,14 @@
 Overall status: experimental neural phrase SVS; quality gate fail, not v1.
 Current stage: GYU Hybrid Singer v0.2-experimental.
 Package: `artifacts/package/gyu-hybrid-singer-v0.2-experimental.zip`
-Package SHA-256: `5103241fd817234cafbb8358a39017ab64a1432331f2688ebc4df79559b26423`
-Git commit: `abf5c1bd37459ad60376d2446df6213ca1afbfce` (report generation source revision)
-Hybrid SVS checkpoint: `checkpoints/gyu_hybrid_v0.2.pt`, SHA-256 `73d457dfb9e9267d06e600fe31bbea2198d68af4e95c9779dd9441c2851f0595`
+Package SHA-256: `7142f877006106f13eb41274a692645071ad5e805fa711a160044c928db4853e`
+Git commit: `2deb946b23a25d6d7837f7d53ade73ae0089a429` (report generation source revision)
+Hybrid SVS checkpoint: `checkpoints/gyu_hybrid_v0.2.pt`, SHA-256 `c94ddf6abb23ec6e949f4021abb31260977fed355eaaea5d937a78fa82c453ff`
 Trainable parameters: 762,210.
 Phrase-level neural generation: yes; one full phrase frame tensor, conditional-flow latent sample, frozen codec decode.
 Phoneme-note alignment: yes; deterministic language-aware note-frame mapping; real/pseudo bootstrap labels marked inferred.
 Continuous pitch conditioning: yes; MIDI, curve/residual, UV mask, masked log-F0 loss; current generated F0 quality fails.
-Teacher distillation gradient verified: yes; timbre and language encoder non-zero gradients under teacher loss.
+Teacher distillation gradient verified: yes; timbre, language, and style encoder non-zero gradients under teacher loss.
 Pseudo-singing used in training: yes; 24 accepted low-trust train rows, 100 candidates/27 accepted overall.
 Blurred boundary active: yes; `BlurredBoundaryEncoder` is in condition path.
 Conditional flow matching active: yes; rectified-flow target/noise objective and Euler phrase sampling.
@@ -52,7 +52,7 @@ TCSinger-style blurred local context addresses hard boundaries; FM-Singer-style 
 
 # Training runs
 
-CUDA, AdamW `0.0002`, batch 1, 8000 steps; train rows 60 real + 24 pseudo; validation/test 8/5. Final logged losses: total 1.324734, flow 1.321476, pitch 0.018544, teacher 0.015539. `artifacts/reports/hybrid_training.json` records full history, validation losses, wall clock 328.127 s, GPU peak 51136000 bytes, and validation audio paths.
+CUDA, AdamW `0.0002`, batch 1, 8000 steps; train rows 60 real + 24 pseudo; validation/test 8/5. Final logged losses: total 1.281118, flow 1.278163, pitch 0.004908, teacher 0.018067. `artifacts/reports/hybrid_training.json` records full history, validation losses, wall clock 256.307 s, GPU peak 207839232 bytes, and validation audio paths.
 
 # Ablation results
 
@@ -60,7 +60,7 @@ CUDA, AdamW `0.0002`, batch 1, 8000 steps; train rows 60 real + 24 pseudo; valid
 
 # Baseline versus hybrid metrics
 
-Current hybrid F0 correlation: KO 0.6464, EN 0.3920, JA -0.1025. ASR similarity: KO 0.0000, EN 0.0000, JA 0.2000. Full identical-score comparison: `docs/evaluation_v2_report.md`.
+Current hybrid F0 correlation: KO 0.4442, EN -0.0446, JA -0.3414. ASR similarity: KO 0.0000, EN 0.0000, JA 0.0000. Full identical-score comparison: `docs/evaluation_v2_report.md`.
 
 # Listening sample paths
 
@@ -68,7 +68,7 @@ Current hybrid F0 correlation: KO 0.6464, EN 0.3920, JA -0.1025. ASR similarity:
 
 # OpenUtau integration status
 
-`integrations/openutau/bridge.py` reads `.ustx`, selects voice part, converts project ticks and first tempo to protocol v2 seconds, writes JSON, and can POST to resident `/render`. Tempo maps, native renderer registration, and editor curves are not implemented.
+`integrations/openutau/bridge.py` reads `.ustx`, selects voice part, converts project ticks and first tempo to protocol v2 seconds, writes JSON, and can POST to resident `/render`. `examples/openutau_smoke.ustx` has been exercised through that full path, producing a 48 kHz mono WAV. Tempo maps, native renderer registration, and editor curves are not implemented.
 
 # Known failures
 

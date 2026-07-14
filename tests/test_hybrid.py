@@ -17,7 +17,10 @@ def test_trilingual_frontend_structural_features():
     tense, aspirated = phonemize("ko", "까카"), phonemize("ko", "파타")
     assert any(row[2] for row in ko.features)  # Korean coda
     assert any(row[8] for row in tense.features) and any(row[9] for row in aspirated.features)
-    assert any(row[3] for row in en.features)  # rule-based stress proxy, inferred
+    assert any(row[3] == 1 for row in en.features) and not any(en.inferred)  # CMU lexical stress
+    assert "en_aa" in en.symbols and "en_oy" in en.symbols
+    unknown = phonemize("en", "thing")
+    assert all(unknown.inferred) and unknown.symbols == ["en_th", "en_ih", "en_ng"]
     assert any(row[6] for row in ja.features) and any(row[7] for row in ja.features)
     assert all(ko.word_boundaries[-1:]) and all(en.word_boundaries[-1:])
 
@@ -26,6 +29,8 @@ def test_alignment_assigns_each_note_its_lyric():
     frames = build_phrase_frames(phonemize("ko", "하늘"), [{"pitch": 60, "start": 0, "duration": .5, "lyric": "하"}, {"pitch": 64, "start": .5, "duration": .5, "lyric": "늘"}])
     assert frames.note_index.max() == 1 and frames.boundary.sum() == 2
     assert frames.phoneme_ids[0] != frames.phoneme_ids[7]
+    assert frames.phoneme_note_mapping.tolist() == frames.note_index.tolist()
+    assert len(frames.phoneme_durations) == 5 and [note["boundary_type"] for note in frames.note_sequence] == ["hard", "hard"]
 
 
 def test_alignment_uses_slur_to_soften_note_boundary():

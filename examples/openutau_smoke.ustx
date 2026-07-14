@@ -1,0 +1,14 @@
+resolution: 480
+tempos:
+  - bpm: 120
+voice_parts:
+  - position: 0
+    notes:
+      - position: 0
+        duration: 480
+        tone: 60
+        lyric: 하
+      - position: 480
+        duration: 480
+        tone: 64
+        lyric: 늘

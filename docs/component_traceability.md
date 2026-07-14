@@ -12,4 +12,4 @@
 | Conditional flow matching | FM-Singer | random-init waveform generation impractical | `ConditionalFlowTransformer` | predicts latent velocity in `forward` and Euler `sample` | rectified-flow MSE | flow objective and gradient tests | integrated |
 | Codec acoustic decoder | pretrained codec reuse | tiny corpus cannot train waveform decoder | `inference/codec.py:MossCodecDecoder` | after sampled latent | frozen, no acoustic training loss | package smoke render | integrated |
 
-`tests/test_hybrid.py::test_all_hybrid_modules_receive_gradient` observes non-zero gradients for every learned component. `test_teacher_distillation_reaches_timbre_and_language_encoders` repeats this for teacher loss. Connectivity evidence is not quality evidence.
+`tests/test_hybrid.py::test_all_hybrid_modules_receive_gradient` observes non-zero gradients for every learned component. `test_teacher_distillation_reaches_timbre_language_and_style_encoders` repeats this for teacher loss. Connectivity evidence is not quality evidence.
