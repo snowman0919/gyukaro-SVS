@@ -1,0 +1,66 @@
+{
+  "protocol": "actual OpenUtau GyuSingerRenderer.Render audio",
+  "renderer_url": "http://127.0.0.1:8765",
+  "project": "examples/openutau_v09.ustx",
+  "formats": {
+    "ko": {
+      "sample_rate": 44100,
+      "channels": 1,
+      "seconds": 2.0
+    },
+    "en": {
+      "sample_rate": 44100,
+      "channels": 1,
+      "seconds": 2.0
+    },
+    "ja": {
+      "sample_rate": 44100,
+      "channels": 1,
+      "seconds": 2.0
+    },
+    "note_pitch_edit": {
+      "sample_rate": 44100,
+      "channels": 1,
+      "seconds": 2.0
+    },
+    "lyric_edit": {
+      "sample_rate": 44100,
+      "channels": 1,
+      "seconds": 2.0
+    },
+    "user_pitch_edit": {
+      "sample_rate": 44100,
+      "channels": 1,
+      "seconds": 2.0
+    },
+    "style_energetic": {
+      "sample_rate": 44100,
+      "channels": 1,
+      "seconds": 2.0
+    }
+  },
+  "note_edit_pitch_shift_cents": 201.58,
+  "user_pitch_curve_shift_cents": 102.86,
+  "base_transcript": " 하늘빛 노래 불러요",
+  "lyric_edit_transcript": " 사랑을 담아서 마음을 전해요",
+  "lyric_waveform_rms_difference": 0.143887,
+  "neutral_rms": 0.086276,
+  "energetic_rms": 0.0873,
+  "gates": {
+    "ko_en_ja_expected_format": true,
+    "note_edit_changes_pitch": true,
+    "user_pitch_curve_changes_f0": true,
+    "lyric_edit_changes_content": true,
+    "energetic_style_changes_audio": true
+  },
+  "pass": true,
+  "outputs": {
+    "ko": "artifacts/reports/openutau_v10/outputs/ko.wav",
+    "en": "artifacts/reports/openutau_v10/outputs/en.wav",
+    "ja": "artifacts/reports/openutau_v10/outputs/ja.wav",
+    "note_pitch_edit": "artifacts/reports/openutau_v10/outputs/note_pitch_edit.wav",
+    "lyric_edit": "artifacts/reports/openutau_v10/outputs/lyric_edit.wav",
+    "user_pitch_edit": "artifacts/reports/openutau_v10/outputs/user_pitch_edit.wav",
+    "style_energetic": "artifacts/reports/openutau_v10/outputs/style_energetic.wav"
+  }
+}

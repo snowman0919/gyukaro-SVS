@@ -15,9 +15,9 @@ Phrase-boundary quality: pass, all 16 boundaries
 KO: pass; personalized real-GYU prosody, mean ASR lyric similarity 1.000
 EN: pass; generic multilingual prosody plus GYU identity/style, mean ASR lyric similarity 0.9449
 JA: pass; generic multilingual prosody plus GYU identity/style, mean ASR lyric similarity 0.6826
-Note pitch edit: pass, +2 semitones produced +200.41 cents
-User pitch edit: pass, approximately +1 semitone PITD produced +92.52 cents
-Lyric edit: pass, Whisper transcript changed with the edited lyric
+Note pitch edit: pass, actual OpenUtau renderer +2 semitones produced +201.58 cents
+User pitch edit: pass, actual OpenUtau renderer +1 semitone PITD produced +102.86 cents
+Lyric edit: pass, actual OpenUtau renderer changed Whisper from “하늘빛 노래 불러요” to “사랑을 담아서 마음을 전해요”
 Breathy: objective proxy pass; human review pending
 Energetic: objective proxy pass; human review pending
 Repeated rendering: pass, 20/20 identical hashes; long-form cache rerender 0.104 seconds
@@ -26,7 +26,7 @@ Public release re-download verification: RC4 re-download checksum, archive test,
 
 ## What changed from v0.9
 
-v1.0 validates the native renderer against a fresh official OpenUtau clone, fixes real phrase loading and cache invalidation, hardens the resident service, adds a realistic two-minute project and boundary gates, and replaces the manual development setup with a pinned installer and launcher. RC testing found and fixed three distribution defects: downloader invocation, OpenUtau project path, and omitted English lexicon package data.
+v1.0 validates the native renderer against a fresh official OpenUtau clone, fixes real phrase loading and cache invalidation, hardens the resident service, adds a realistic two-minute project and boundary gates, and replaces the manual development setup with a pinned installer and launcher. RC testing found and fixed three distribution defects: downloader invocation, OpenUtau project path, and omitted English lexicon package data. A completion audit also replaced split mapping/direct-HTTP behavior evidence with audio measured after the real C# `GyuSingerRenderer.Render` path.
 
 ## Production path
 
@@ -51,6 +51,7 @@ Linux NVIDIA CUDA is the only release-tested platform. Initial model download is
 ## Evidence
 
 - `artifacts/reports/openutau_upstream_v10.json`
+- `artifacts/reports/openutau_v10/behavior.json`
 - `artifacts/reports/runtime_v10_stress.json`
 - `artifacts/reports/longform_v10_quality.json`
 - `artifacts/reports/longform_v10_supervised.json`

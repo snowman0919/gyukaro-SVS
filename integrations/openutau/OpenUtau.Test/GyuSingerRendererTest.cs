@@ -20,27 +20,27 @@ namespace OpenUtau.Test {
             public override bool TryGetOto(string phoneme, out UOto oto) { oto = UOto.OfDummy(phoneme); return true; }
         }
 
-        internal static RenderPhrase Phrase(int secondTone = 64, string secondLyric = "늘", int pitchDeviation = 0, int style = 0) {
+        internal static RenderPhrase Phrase(int firstTone = 60, int secondTone = 64, string firstLyric = "하", string secondLyric = "늘", int pitchDeviation = 0, int style = 0, int noteDuration = 480) {
             var project = Ustx.Create();
             var styleDescriptor = new UExpressionDescriptor("GYU style", "gyus", 0, 5, 0) { type = UExpressionType.Curve };
             project.RegisterExpression(styleDescriptor);
             var track = project.tracks[0];
             track.Singer = new FakeSinger();
             track.RendererSettings.renderer = Renderers.GYU_SINGER;
-            var part = new UVoicePart { duration = 960 };
-            var first = project.CreateNote(60, 0, 480); first.lyric = "하";
-            var second = project.CreateNote(secondTone, 480, 480); second.lyric = secondLyric;
+            var part = new UVoicePart { duration = noteDuration * 2 };
+            var first = project.CreateNote(firstTone, 0, noteDuration); first.lyric = firstLyric;
+            var second = project.CreateNote(secondTone, noteDuration, noteDuration); second.lyric = secondLyric;
             part.notes.Add(first); part.notes.Add(second);
             part.phonemes.Add(new UPhoneme { rawPosition = 0, rawPhoneme = "ha", Parent = first });
-            part.phonemes.Add(new UPhoneme { rawPosition = 480, rawPhoneme = "nul", Parent = second });
+            part.phonemes.Add(new UPhoneme { rawPosition = noteDuration, rawPhoneme = "nul", Parent = second });
             if (pitchDeviation != 0) {
                 var curve = new UCurve(project.expressions[Ustx.PITD]);
-                curve.xs.AddRange(new[] { 0, 960 }); curve.ys.AddRange(new[] { pitchDeviation, pitchDeviation });
+                curve.xs.AddRange(new[] { 0, noteDuration * 2 }); curve.ys.AddRange(new[] { pitchDeviation, pitchDeviation });
                 part.curves.Add(curve);
             }
             if (style != 0) {
                 var curve = new UCurve(styleDescriptor);
-                curve.xs.AddRange(new[] { 0, 960 }); curve.ys.AddRange(new[] { style, style });
+                curve.xs.AddRange(new[] { 0, noteDuration * 2 }); curve.ys.AddRange(new[] { style, style });
                 part.curves.Add(curve);
             }
             project.parts.Add(part);
@@ -59,7 +59,7 @@ namespace OpenUtau.Test {
         [Fact]
         public void NoteAndLyricEditsChangePayload() {
             var original = GyuSingerRenderer.BuildRequest(Phrase());
-            var edited = GyuSingerRenderer.BuildRequest(Phrase(67, "빛"));
+            var edited = GyuSingerRenderer.BuildRequest(Phrase(secondTone: 67, secondLyric: "빛"));
             Assert.NotEqual(original.notes[1].pitch, edited.notes[1].pitch);
             Assert.NotEqual(original.notes[1].lyric, edited.notes[1].lyric);
         }

@@ -64,6 +64,7 @@ def main() -> None:
     parser.add_argument("--render-url", default="http://127.0.0.1:8765")
     parser.add_argument("--project", default="examples/openutau_v09.ustx")
     parser.add_argument("--output", default="artifacts/reports/openutau_v09/behavior.json")
+    parser.add_argument("--existing-audio-dir", type=Path)
     args = parser.parse_args()
     output = Path(args.output); audio_dir = output.parent / "outputs"; audio_dir.mkdir(parents=True, exist_ok=True)
     bridge = load_bridge()
@@ -79,8 +80,9 @@ def main() -> None:
     energetic = deepcopy(base); energetic["style"] = {"preset": "energetic"}
     cases = {"ko": base, "en": en, "ja": ja, "note_pitch_edit": note_edit, "lyric_edit": lyric_edit,
              "user_pitch_edit": user_pitch, "style_energetic": energetic}
-    paths = {name: audio_dir / f"{name}.wav" for name in cases}
-    for name, score in cases.items(): render(args.render_url, score, paths[name])
+    paths = {name: (args.existing_audio_dir or audio_dir) / f"{name}.wav" for name in cases}
+    if not args.existing_audio_dir:
+        for name, score in cases.items(): render(args.render_url, score, paths[name])
 
     f0 = F0Extractor(str(CACHE / "soulx-singer/pretrained_models/SoulX-Singer-Preprocess/rmvpe/rmvpe.pt"),
                      device="cpu", target_sr=24000, hop_size=480, verbose=False)
@@ -94,21 +96,21 @@ def main() -> None:
         rms[name] = float(np.sqrt(np.mean(audio**2)))
         formats[name] = {"sample_rate": rate, "channels": audio.shape[1], "seconds": round(len(audio) / rate, 4)}
     processor = AutoProcessor.from_pretrained(CACHE / "whisper-large-v3-turbo")
-    asr = AutoModelForSpeechSeq2Seq.from_pretrained(CACHE / "whisper-large-v3-turbo", dtype=torch.float32).eval()
+    asr = AutoModelForSpeechSeq2Seq.from_pretrained(CACHE / "whisper-large-v3-turbo", torch_dtype=torch.float32).eval()
     base_transcript = transcript(paths["ko"], "ko", processor, asr)
     edited_transcript = transcript(paths["lyric_edit"], "ko", processor, asr)
     base_audio, edited_audio = audio16(paths["ko"]), audio16(paths["lyric_edit"])
     size = min(len(base_audio), len(edited_audio))
     lyric_waveform_difference = float(np.sqrt(np.mean((base_audio[:size] - edited_audio[:size]) ** 2)))
     gates = {
-        "ko_en_ja_48k_mono": all(value["sample_rate"] == 48000 and value["channels"] == 1 for value in formats.values()),
+        "ko_en_ja_expected_format": all(value["sample_rate"] == (44100 if args.existing_audio_dir else 48000) and value["channels"] == 1 for value in formats.values()),
         "note_edit_changes_pitch": np.isfinite(note_shift) and note_shift > 100,
         "user_pitch_curve_changes_f0": np.isfinite(user_shift) and user_shift > 40,
         "lyric_edit_changes_content": normalized(base_transcript) != normalized(edited_transcript) and lyric_waveform_difference > .005,
         "energetic_style_changes_audio": abs(rms["style_energetic"] - rms["ko"]) > .001,
     }
     report = {
-        "protocol": "Native OpenUtau mapping is compiled/tested separately; these requests reproduce its phrase payload against the resident service.",
+        "protocol": "actual OpenUtau GyuSingerRenderer.Render audio" if args.existing_audio_dir else "Native OpenUtau mapping is compiled/tested separately; these requests reproduce its phrase payload against the resident service.",
         "renderer_url": args.render_url, "project": args.project, "formats": formats,
         "note_edit_pitch_shift_cents": round(note_shift, 2), "user_pitch_curve_shift_cents": round(user_shift, 2),
         "base_transcript": base_transcript, "lyric_edit_transcript": edited_transcript,
