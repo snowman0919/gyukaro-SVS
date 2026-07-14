@@ -2,7 +2,7 @@ Overall status: v0.6 experimental gates A–H verified; production-quality claim
 Current version: gyu-singer-v0.6 experimental
 Package: gyu-singer-v0.6-experimental (full pinned-cache path smoke passed)
 Package SHA-256: 89dd9c18d99c1f3b3bcac27982942649ee8a938ad2f91a7a984e2483e5deef1b
-Git commit: ecf4967b5ea34b6be6bb81e70f47ad6bc214aa4f
+Git commit: 7f73081 (latest package milestone; report pin follows)
 Manual verified score phrases: 24 independently transcribed/reviewed rows; no target RMVPE used for score construction
 Independent prosody evaluation: completed; v0.6 MAE 58.27c vs nominal 56.75c and correlation 0.6844 vs 0.6846, no decisive gain
 Teacher internal paired rows: 191 Fish+MOSS (KO 99, EN 77, JA 15), 382 extracted vectors; Higgs hidden unavailable
