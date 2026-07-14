@@ -1,7 +1,7 @@
 Overall status: incomplete experimental milestone; semantic v0.6 acceptance gates A–F are partially evidenced, G/H require clean-package and stronger independent identity/style evaluation
 Current version: gyu-singer-v0.6 experimental
 Package: gyu-singer-v0.6-incomplete (not promoted as accepted)
-Package SHA-256: 18457e036f5f12b26f8be404839b025ae1da8e5d898dc2cb94d790dd14a5c502
+Package SHA-256: cf9a7381ac7e0b7c58f32b2f83e14c1b78a90de6cc05348349a6eecb5a927324
 Git commit: recorded after this report is committed
 Manual verified score phrases: 24 independently transcribed/reviewed rows; no target RMVPE used for score construction
 Independent prosody evaluation: completed; v0.5 does not beat nominal verified score in aggregate

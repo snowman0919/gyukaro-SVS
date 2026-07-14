@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Package the reproducible but explicitly incomplete v0.6 experiment."""
 from __future__ import annotations
-import hashlib, json, shutil, subprocess, zipfile
+import hashlib, json, shutil, zipfile
 from pathlib import Path
 
 NAME = "gyu-singer-v0.6-incomplete"
@@ -24,8 +24,7 @@ for source in FILES:
     if source.is_dir():
         shutil.copytree(source, destination, ignore=shutil.ignore_patterns("final_v0.6_report.md"))
     else: shutil.copy2(source, destination)
-commit = subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip()
-(root / "PACKAGE.json").write_text(json.dumps({"status": "incomplete", "backend": "gyu-singer-v0.6", "git_commit": commit, "reason": "independent prosody gain and clean full-path acceptance remain open"}, indent=2) + "\n")
+(root / "PACKAGE.json").write_text(json.dumps({"status": "incomplete", "backend": "gyu-singer-v0.6", "git_commit": "see repository final report", "reason": "independent prosody gain and clean full-path acceptance remain open"}, indent=2) + "\n")
 archive = root.parent / f"{NAME}.zip"
 with zipfile.ZipFile(archive, "w", zipfile.ZIP_DEFLATED) as z:
     for path in root.rglob("*"):
