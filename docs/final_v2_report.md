@@ -2,7 +2,7 @@ Overall status: experimental neural phrase SVS; quality gate fail, not v1.
 Current stage: GYU Hybrid Singer v0.2-experimental.
 Package: `artifacts/package/gyu-hybrid-singer-v0.2-experimental.zip`
 Package SHA-256: `72ff1dbc8d322875b5bcfb7cad964124ce5fd85b1329aac2f4285a10cd642a49`
-Git commit: `7c4276851b1f20fb9eaef62c7e3a4654b300eb0e` (report generation source revision)
+Git commit: `fb411d0f181c5a5d0b46e0bf586b4ba69e8f87c7` (report generation source revision)
 Hybrid SVS checkpoint: `checkpoints/gyu_hybrid_v0.2.pt`, SHA-256 `73d457dfb9e9267d06e600fe31bbea2198d68af4e95c9779dd9441c2851f0595`
 Trainable parameters: 762,018.
 Phrase-level neural generation: yes; one full phrase frame tensor, conditional-flow latent sample, frozen codec decode.
