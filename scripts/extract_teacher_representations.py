@@ -47,11 +47,10 @@ def extract_fish(path: str, model) -> tuple[torch.Tensor, tuple[int, ...]]:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(); parser.add_argument("--limit", type=int, default=None)
+    parser = argparse.ArgumentParser(); parser.add_argument("--limit", type=int, default=None); parser.add_argument("--pairs", default="data/manifests/teacher_internal_pairs.jsonl"); parser.add_argument("--output", default="data/manifests/teacher_internal_representations.jsonl")
     args = parser.parse_args()
     device = "cuda" if torch.cuda.is_available() else "cpu"; manifest = []
-    pairs = rows("data/manifests/teacher_internal_pairs.jsonl", args.limit)
-    pair_by_id = {row["benchmark_id"]: row for row in pairs}
+    pairs = rows(args.pairs, args.limit)
     moss = transformers.AutoModel.from_pretrained("data/cache/moss-audio-tokenizer-nano", trust_remote_code=True, local_files_only=True).to(device).eval()
     for row in pairs:
         value, shape = extract_moss(row["moss_output"], moss); path = Path("data/cache/teacher_representations/moss") / f"{row['benchmark_id']}.pt"; path.parent.mkdir(parents=True, exist_ok=True); torch.save(value, path); manifest.append({"id": row["benchmark_id"], "language": row["language"], "teacher": "moss_local_v15", "trust_weight": float(row.get("moss_trust", .2)), "representation": "MOSS-Audio-Tokenizer-Nano.encoder_hidden_states", "shape": list(shape), "pooled_shape": list(value.shape), "path": str(path), "revision": "local:data/cache/moss-audio-tokenizer-nano"})
@@ -59,7 +58,7 @@ def main() -> None:
     fish = load_fish()
     for row in pairs:
         value, shape = extract_fish(row["fish_output"], fish); path = Path("data/cache/teacher_representations/fish") / f"{row['benchmark_id']}.pt"; path.parent.mkdir(parents=True, exist_ok=True); torch.save(value, path); manifest.append({"id": row["benchmark_id"], "language": row["language"], "teacher": "fish_s2_pro", "trust_weight": float(row.get("fish_trust", .2)), "representation": "Fish-S2-Pro-DAC.encoder_hidden", "shape": list(shape), "pooled_shape": list(value.shape), "path": str(path), "revision": "local:data/cache/fish-s2-pro"})
-    Path("data/manifests/teacher_internal_representations.jsonl").write_text("".join(json.dumps(row) + "\n" for row in manifest))
+    Path(args.output).write_text("".join(json.dumps(row) + "\n" for row in manifest))
     print({"rows": len(manifest), "teachers": sorted({row["teacher"] for row in manifest}), "device": device})
 
 
