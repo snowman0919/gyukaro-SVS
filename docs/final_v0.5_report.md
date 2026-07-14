@@ -2,7 +2,7 @@ Overall status: EXPERIMENTAL
 Current version: gyu-singer-v0.5-experimental
 Package: gyu-singer-v0.5-experimental
 Package SHA-256: `9943544a58e360ea6a37c6e61d7f6451047f88a3678e61909f22c2c702e1b4cc`
-Git commit: `6985eac`
+Git commit: `9345cdb`
 Real score reconstruction: active, inferred RMVPE + script-constrained candidates/accepted
 Deprecated fake-score path used in v0.5 training: no
 Target F0 leakage removed: yes; production condition excludes target F0
