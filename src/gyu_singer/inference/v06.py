@@ -18,9 +18,10 @@ from .v05 import GyuSingerV05Renderer
 
 
 class GyuSingerV06Renderer(GyuSingerV05Renderer):
-    def __init__(self, reference: str | Path, root: str | Path = "."):
+    def __init__(self, reference: str | Path, root: str | Path = ".", latent_adapter_enabled: bool = True):
         self.root = Path(root)
-        super().__init__(reference, root=root, latent_adapter_checkpoint="checkpoints/gyu_latent_adapter_v0.6.pt")
+        self.latent_adapter_enabled = latent_adapter_enabled
+        super().__init__(reference, root=root, latent_adapter_checkpoint="checkpoints/gyu_latent_adapter_v0.6.pt" if latent_adapter_enabled else None)
         prosody = self.root / "checkpoints/gyu_prosody_v0.6.pt"
         if prosody.exists():
             self.pitch_controller = QualityPitchController(prosody, acoustic_reference_features(self.reference))

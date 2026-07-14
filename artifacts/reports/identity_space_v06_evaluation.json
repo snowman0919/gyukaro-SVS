@@ -1,32 +1,49 @@
 {
-  "train_rows": 185,
-  "test_rows": 3,
+  "train_rows": 149,
+  "test_rows": 20,
   "test_languages": {
-    "en": 1,
-    "ja": 1,
-    "ko": 1
+    "en": 6,
+    "ja": 5,
+    "ko": 9
   },
   "same_gyu_cross_teacher_cosine": {
-    "mean": 0.99986,
-    "median": 0.99986,
+    "mean": 0.99974,
+    "median": 0.99976,
     "values": [
+      0.99985,
+      0.99984,
+      0.99983,
+      0.99985,
       0.99986,
-      0.99988,
-      0.99985
+      0.99977,
+      0.99977,
+      0.99967,
+      0.99977,
+      0.99968,
+      0.99959,
+      0.99983,
+      0.99983,
+      0.99966,
+      0.99973,
+      0.99976,
+      0.99967,
+      0.9997,
+      0.99974,
+      0.99951
     ]
   },
   "same_gyu_cross_language_cosine": {
     "en-en": 1.0,
     "en-ja": 0.99996,
-    "en-ko": 0.99996,
+    "en-ko": 0.99997,
     "ja-en": 0.99996,
     "ja-ja": 1.0,
-    "ja-ko": 0.99997,
-    "ko-en": 0.99996,
-    "ko-ja": 0.99997,
+    "ja-ko": 0.99995,
+    "ko-en": 0.99997,
+    "ko-ja": 0.99995,
     "ko-ko": 1.0
   },
-  "teacher_identification_leakage_nearest_centroid": 0.5,
-  "language_clustering_nearest_centroid_accuracy": 0.66667,
+  "teacher_identification_leakage_nearest_centroid": 0.8,
+  "language_clustering_nearest_centroid_accuracy": 0.55,
   "interpretation": "Leakage and clustering are reported as diagnostics; no pretty projection is treated as primary evidence."
 }

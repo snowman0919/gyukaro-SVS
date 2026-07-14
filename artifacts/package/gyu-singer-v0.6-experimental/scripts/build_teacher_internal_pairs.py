@@ -7,6 +7,7 @@ Splits are assigned by benchmark id so text/reference combinations cannot leak.
 from __future__ import annotations
 
 import collections
+import hashlib
 import json
 from pathlib import Path
 
@@ -38,6 +39,7 @@ def main() -> None:
             "benchmark_id": benchmark_id,
             "language": fish["language"],
             "text": fish["text"],
+            "style": fish.get("style", "neutral"),
             "reference_ids": fish.get("reference_ids", []),
             "fish_output": fish["output_path"],
             "moss_output": moss["output_path"],
@@ -49,16 +51,31 @@ def main() -> None:
             "teacher_count": len(agreements),
             "split": "train",
         }
+        semantic = json.dumps([row["language"], row["text"], row["reference_ids"]], ensure_ascii=False, separators=(",", ":"))
+        row["semantic_group_id"] = hashlib.sha256(semantic.encode()).hexdigest()[:16]
         rows.append(row)
-    # Stratify deterministic held-out rows by language; benchmark IDs remain disjoint.
+    # Keep every text/reference semantic group in one split.  Style variants are
+    # real teacher outputs, but must not leak the same text/reference pair.
     for language in sorted({r["language"] for r in rows}):
-        language_rows = [r for r in rows if r["language"] == language]
-        for index, row in enumerate(language_rows):
-            row["split"] = "test" if index == 0 else ("validation" if index == 1 else "train")
+        groups: dict[str, list[dict]] = collections.defaultdict(list)
+        for row in rows:
+            if row["language"] == language:
+                groups[row["semantic_group_id"]].append(row)
+        ordered = [groups[key] for key in sorted(groups)]
+        held_out = max(1, round(len(ordered) * .1))
+        for index, group in enumerate(ordered):
+            split = "test" if index < held_out else ("validation" if index < held_out * 2 else "train")
+            for row in group:
+                row["split"] = split
+    split_groups = collections.defaultdict(set)
+    for row in rows:
+        split_groups[row["semantic_group_id"]].add(row["split"])
+    assert all(len(splits) == 1 for splits in split_groups.values()), "semantic group leaked across splits"
     DEST.parent.mkdir(parents=True, exist_ok=True)
     DEST.write_text("".join(json.dumps(row, ensure_ascii=False) + "\n" for row in rows))
     print({"rows": len(rows), "languages": dict(collections.Counter(r["language"] for r in rows)),
            "splits": dict(collections.Counter(r["split"] for r in rows)),
+           "semantic_groups": len(split_groups),
            "with_higgs": sum(r["higgs_output"] is not None for r in rows)})
 
 
