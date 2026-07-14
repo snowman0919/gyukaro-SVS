@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import importlib.util
 import json
+import os
 import re
 import sys
 import urllib.request
@@ -17,7 +18,8 @@ import torch
 from scipy.signal import resample_poly
 from transformers import AutoModelForSpeechSeq2Seq, AutoProcessor
 
-sys.path.insert(0, "data/cache/soulx-singer")
+CACHE = Path(os.environ.get("GYU_SINGER_CACHE", "data/cache"))
+sys.path.insert(0, str(CACHE / "soulx-singer"))
 from preprocess.tools.f0_extraction import F0Extractor
 
 
@@ -80,7 +82,7 @@ def main() -> None:
     paths = {name: audio_dir / f"{name}.wav" for name in cases}
     for name, score in cases.items(): render(args.render_url, score, paths[name])
 
-    f0 = F0Extractor("data/cache/soulx-singer/pretrained_models/SoulX-Singer-Preprocess/rmvpe/rmvpe.pt",
+    f0 = F0Extractor(str(CACHE / "soulx-singer/pretrained_models/SoulX-Singer-Preprocess/rmvpe/rmvpe.pt"),
                      device="cpu", target_sr=24000, hop_size=480, verbose=False)
     contours = {name: f0.process(str(path), verbose=False) for name, path in paths.items()}
     note_shift = paired_pitch_shift(contours["ko"], contours["note_pitch_edit"])
@@ -91,8 +93,8 @@ def main() -> None:
         audio, rate = sf.read(path, dtype="float32", always_2d=True)
         rms[name] = float(np.sqrt(np.mean(audio**2)))
         formats[name] = {"sample_rate": rate, "channels": audio.shape[1], "seconds": round(len(audio) / rate, 4)}
-    processor = AutoProcessor.from_pretrained("data/cache/whisper-large-v3-turbo")
-    asr = AutoModelForSpeechSeq2Seq.from_pretrained("data/cache/whisper-large-v3-turbo", dtype=torch.float32).eval()
+    processor = AutoProcessor.from_pretrained(CACHE / "whisper-large-v3-turbo")
+    asr = AutoModelForSpeechSeq2Seq.from_pretrained(CACHE / "whisper-large-v3-turbo", dtype=torch.float32).eval()
     base_transcript = transcript(paths["ko"], "ko", processor, asr)
     edited_transcript = transcript(paths["lyric_edit"], "ko", processor, asr)
     base_audio, edited_audio = audio16(paths["ko"]), audio16(paths["lyric_edit"])
