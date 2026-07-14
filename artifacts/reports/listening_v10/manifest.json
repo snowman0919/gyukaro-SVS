@@ -1,0 +1,87 @@
+{
+  "human_review_status": "pending",
+  "subjective_scores": null,
+  "items": [
+    {
+      "id": "ko_neutral",
+      "path": "artifacts/reports/listening_v10/ko_neutral.wav",
+      "purpose": "existing final production output",
+      "sha256": "49ac7a3679ed536c5badba31b65d69279ffa82d365e9eea990f7bd374c54803b",
+      "sample_rate": 48000,
+      "channels": 1,
+      "duration_seconds": 9.92
+    },
+    {
+      "id": "ko_breathy",
+      "path": "artifacts/reports/listening_v10/ko_breathy.wav",
+      "purpose": "existing final production output",
+      "sha256": "9c0cc2bc6b1f8d973fcfddc9cf9c00c4edff2f874250c1b3e0375dbe98187a6c",
+      "sample_rate": 48000,
+      "channels": 1,
+      "duration_seconds": 9.92
+    },
+    {
+      "id": "ko_energetic",
+      "path": "artifacts/reports/listening_v10/ko_energetic.wav",
+      "purpose": "existing final production output",
+      "sha256": "01f7ef80b24e9498c3b47e5ed5dfff92cc5d44c0f2c8245f8bbb3717d200e083",
+      "sample_rate": 48000,
+      "channels": 1,
+      "duration_seconds": 9.92
+    },
+    {
+      "id": "en",
+      "path": "artifacts/reports/listening_v10/en.wav",
+      "purpose": "existing final production output",
+      "sha256": "4648a6d52ca95319c155500fbd9ecc88972d17ff51d86f530dc4d64e13023262",
+      "sample_rate": 48000,
+      "channels": 1,
+      "duration_seconds": 9.92
+    },
+    {
+      "id": "ja",
+      "path": "artifacts/reports/listening_v10/ja.wav",
+      "purpose": "existing final production output",
+      "sha256": "fed42307d2f147fed8d3058472c2ce273678968de35503f127852295d5a16891",
+      "sample_rate": 48000,
+      "channels": 1,
+      "duration_seconds": 9.92
+    },
+    {
+      "id": "rapid_ko",
+      "path": "artifacts/reports/listening_v10/rapid_ko.wav",
+      "purpose": "examples/review_rapid_ko.json",
+      "sha256": "6f18509f9ff18af49eb23a65822ff777d8f35a157b642d4eec61847442a6cb50",
+      "sample_rate": 48000,
+      "channels": 1,
+      "duration_seconds": 2.0
+    },
+    {
+      "id": "sustain_ko",
+      "path": "artifacts/reports/listening_v10/sustain_ko.wav",
+      "purpose": "examples/review_sustain_ko.json",
+      "sha256": "9359133ae92df1ff1a417c45dae7e38172a36789b2bc6e686ff785c8053dc0da",
+      "sample_rate": 48000,
+      "channels": 1,
+      "duration_seconds": 6.0
+    },
+    {
+      "id": "large_interval_ko",
+      "path": "artifacts/reports/listening_v10/large_interval_ko.wav",
+      "purpose": "examples/review_large_interval_ko.json",
+      "sha256": "6adcf0088fc1094ed627fcc0eecef264290b941b03b719ce925310dc12d9499e",
+      "sample_rate": 48000,
+      "channels": 1,
+      "duration_seconds": 4.8
+    },
+    {
+      "id": "phrase_boundary",
+      "path": "artifacts/reports/listening_v10/phrase_boundary.wav",
+      "purpose": "continuous boundary 2 at 14.1429 seconds",
+      "sha256": "649a890f5bddd5bc353af4eb00efc98225d6cafb50cdd9254cbf740dbf59cdf7",
+      "sample_rate": 44100,
+      "channels": 2,
+      "duration_seconds": 1.5
+    }
+  ]
+}

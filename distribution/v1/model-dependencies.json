@@ -1,0 +1,83 @@
+{
+  "schema": 1,
+  "inference": [
+    {
+      "name": "OpenUtau",
+      "kind": "git",
+      "repository": "https://github.com/stakira/OpenUtau.git",
+      "revision": "27573ac5c888d927119d5f65a207312d79194b1f",
+      "install_path": "OpenUtau",
+      "purpose": "native singing editor and GYU phrase renderer host",
+      "required_at_inference": true,
+      "expected_size_bytes": 0
+    },
+    {
+      "name": "OmniVoice source",
+      "kind": "git",
+      "repository": "https://github.com/k2-fsa/OmniVoice.git",
+      "revision": "1574e06a767808c9343740ba695e7515c3d484e2",
+      "install_path": "cache/omnivoice",
+      "purpose": "multilingual phrase content generation",
+      "required_at_inference": true,
+      "expected_size_bytes": 27590627
+    },
+    {
+      "name": "OmniVoice singing checkpoint",
+      "kind": "huggingface",
+      "repository": "ModelsLab/omnivoice-singing",
+      "revision": "2c17b791fd5c5a1bd638660ddff871310e4bb298",
+      "install_path": "cache/omnivoice-checkpoint",
+      "purpose": "multilingual phrase content weights",
+      "required_at_inference": true,
+      "expected_size_bytes": 3267469827,
+      "checksums": {
+        "model.safetensors": "1141123172e28971fc97a59f0dfbb5356574c2730b141e2486ee01da089f98b6",
+        "audio_tokenizer/model.safetensors": "fe7c5e8785e0a05833e1bfc3e002ec7f55af21e306b2e7154a448c1f54ccfb0d"
+      }
+    },
+    {
+      "name": "SoulX-Singer source",
+      "kind": "git",
+      "repository": "https://github.com/Soul-AILab/SoulX-Singer.git",
+      "revision": "81aeb3ae772c70093c3de74dc23c92d983801ae4",
+      "install_path": "cache/soulx-singer",
+      "purpose": "phrase singing decoder",
+      "required_at_inference": true,
+      "expected_size_bytes": 27590627
+    },
+    {
+      "name": "SoulX-Singer checkpoint",
+      "kind": "huggingface",
+      "repository": "Soul-AILab/SoulX-Singer",
+      "revision": "40493ad90286056c7a9095035164434a79daa8c9",
+      "install_path": "cache/soulx-singer/pretrained_models/SoulX-Singer",
+      "purpose": "SoulX phrase decoder weights",
+      "required_at_inference": true,
+      "expected_size_bytes": 5613236481,
+      "checksums": {
+        "model-svc.pt": "38e72d9e15be6eef3cc937daaf81421a7b5b546816786530bb9aa346cee5d43c"
+      }
+    },
+    {
+      "name": "SoulX preprocessing checkpoint",
+      "kind": "huggingface",
+      "repository": "Soul-AILab/SoulX-Singer-Preprocess",
+      "revision": "83dc50289d22a81b1e9998f5b9e111aef7c1fdcd",
+      "install_path": "cache/soulx-singer/pretrained_models/SoulX-Singer-Preprocess",
+      "purpose": "RMVPE score-conditioned pitch extraction",
+      "required_at_inference": true,
+      "expected_size_bytes": 181184589,
+      "checksums": {
+        "rmvpe/rmvpe.pt": "6d62215f4306e3ca278246188607209f09af3dc77ed4232efdd069798c4ec193"
+      }
+    }
+  ],
+  "packaged_project_checkpoints": {
+    "gyu_prosody_v0.5.pt": "bec3cede202fd23eeb72fc2fd17f4912b82e2dbd8e50d1d2c5162491a90042ab",
+    "gyu_teacher_identity_v0.5.pt": "13187abd032b9a84d79bc77368bba46dec088c27daa92d9683607319a05596ef",
+    "gyu_acoustic_style_adapter_v0.5.pt": "819a1cd71a81d75e78b40a80877737761904d012d1363ba3d3cf718919cb24c8",
+    "gyu_identity_space_v0.6.pt": "814047b41c3a5532e7229c3f210394608844ae0417c79fd2c8d532ab2e6f4c66",
+    "gyu_real_latent_adapters_v0.7.pt": "ae9bc2592f666337e443db6a2e0c425bb33e1547153b21d6779c75cd342a8a38"
+  },
+  "training_only_not_downloaded": ["Fish Audio S2 Pro", "MOSS-TTS-Local-Transformer-v1.5", "Higgs TTS 3 4B"]
+}

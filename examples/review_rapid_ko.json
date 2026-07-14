@@ -1,0 +1,15 @@
+{
+  "language": "ko",
+  "tempo": 180,
+  "sample_rate": 48000,
+  "notes": [
+    {"pitch": 60, "start": 0.0, "duration": 0.25, "lyric": "빠"},
+    {"pitch": 62, "start": 0.25, "duration": 0.25, "lyric": "르"},
+    {"pitch": 64, "start": 0.5, "duration": 0.25, "lyric": "게"},
+    {"pitch": 65, "start": 0.75, "duration": 0.25, "lyric": "노"},
+    {"pitch": 67, "start": 1.0, "duration": 0.25, "lyric": "래"},
+    {"pitch": 65, "start": 1.25, "duration": 0.25, "lyric": "하"},
+    {"pitch": 62, "start": 1.5, "duration": 0.25, "lyric": "자"},
+    {"pitch": 60, "start": 1.75, "duration": 0.25, "lyric": "아"}
+  ]
+}

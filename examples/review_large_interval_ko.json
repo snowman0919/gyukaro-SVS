@@ -1,0 +1,11 @@
+{
+  "language": "ko",
+  "tempo": 100,
+  "sample_rate": 48000,
+  "notes": [
+    {"pitch": 55, "start": 0.0, "duration": 1.2, "lyric": "높"},
+    {"pitch": 67, "start": 1.2, "duration": 1.2, "lyric": "이"},
+    {"pitch": 79, "start": 2.4, "duration": 1.2, "lyric": "날"},
+    {"pitch": 60, "start": 3.6, "duration": 1.2, "lyric": "아"}
+  ]
+}

@@ -1,35 +1,80 @@
 #!/usr/bin/env python3
-"""Build self-contained experimental v0.2 hybrid package from trained local artifacts."""
+"""Build deterministic GYU Singer v1.0 release-candidate bytes."""
 from __future__ import annotations
 
+import argparse
 import hashlib
 import json
 import shutil
+import subprocess
+import zipfile
 from pathlib import Path
 
 
-root = Path("artifacts/package/gyu-hybrid-singer-v0.2-experimental")
-training = json.loads(Path("artifacts/reports/hybrid_training.json").read_text())
-if root.exists(): shutil.rmtree(root)
-for part in ("model", "runtime", "examples", "integrations/openutau", "integrations/renderer_protocol", "config"):
-    (root / part).mkdir(parents=True, exist_ok=True)
-shutil.copytree("src/gyu_singer", root / "runtime/gyu_singer", ignore=shutil.ignore_patterns("__pycache__", "*.pyc"))
-shutil.copytree("data/cache/moss-audio-tokenizer-nano", root / "model/moss-audio-tokenizer-nano", ignore=shutil.ignore_patterns(".cache", "__pycache__"))
-shutil.copy2("checkpoints/gyu_hybrid_v0.2.pt", root / "model/gyu_hybrid_v0.2.pt")
-shutil.copy2("data/processed/master/216.wav", root / "model/gyu_reference_216.wav")
-shutil.copy2("examples/smoke.json", root / "examples/smoke.json")
-shutil.copy2("examples/openutau_smoke.ustx", root / "examples/openutau_smoke.ustx")
-for source, target in (("integrations/openutau", "integrations/openutau"), ("integrations/renderer_protocol", "integrations/renderer_protocol")):
-    shutil.copytree(source, root / target, dirs_exist_ok=True, ignore=shutil.ignore_patterns("__pycache__"))
-(root / "requirements.txt").write_text("numpy\nsoundfile\ntorch\ntransformers\npyyaml\nscipy\ntorchaudio\ntorchcodec\n")
-(root / "install.sh").write_text("#!/bin/sh\nset -eu\npython -m venv --system-site-packages .venv\n.venv/bin/python -m pip install -r requirements.txt\n")
-(root / "run.sh").write_text("#!/bin/sh\nset -eu\ncd \"$(dirname \"$0\")\"\nPYTHONPATH=runtime .venv/bin/python -m gyu_singer.cli --backend hybrid-compact-experimental --checkpoint model/gyu_hybrid_v0.2.pt --audio-tokenizer model/moss-audio-tokenizer-nano --reference model/gyu_reference_216.wav render examples/smoke.json --output output.wav\n")
-(root / "README.md").write_text(f"# GYU Hybrid Singer v0.2-experimental\n\nCompact phrase-level neural SVS runtime. `sh install.sh`, then `sh run.sh`. Checkpoint has {training['steps']} CFM steps on {training['real_rows']} real anchors, {training['pseudo_rows']} accepted Apache-2.0 ACE-Step/SoulX pseudo-singing acoustic rows at trust 0.20, and {training['teacher_rows']} weighted teacher rows used only for representation loss. Output quality is poor and multilingual singing is not claimed. This package has no source-loop, per-note TTS, pitch-shift, or phase-vocoder path.\n")
-(root / "MODEL_CARD.md").write_text(f"## Scope\n\nInput: Korean, English, or Japanese lyric-note protocol-v2 JSON. Model: TriSinger conditional-flow acoustic-latent generator (3.0 MB checkpoint) decoded by frozen Apache-2.0 MOSS audio tokenizer. Training: {training['real_rows']} real train rows, {training['pseudo_rows']} accepted low-trust pseudo-singing rows, {training['validation_rows']} validation, 5 test; {training['teacher_rows']} teacher rows only for trust-weighted representation loss. Pseudo labels are inferred from RMVPE pitch median and duration, not source annotations. Real-anchor score timing is inferred from speech duration, not ground-truth singing notation.\n\nThis is an experimental personalized SVS runtime, not a production-quality multilingual singer. It emits phrase audio, but measured F0 and intelligibility do not yet meet a v1 bar.\n")
-(root / "LICENSES.md").write_text("GYU recordings: authorized target-speaker data; package redistributes only one authorized 48 kHz reference WAV. MOSS audio tokenizer: upstream Apache-2.0 model card. Runtime dependencies retain their upstream licenses.\n")
-archive = Path("artifacts/package/gyu-hybrid-singer-v0.2-experimental.zip")
-if archive.exists(): archive.unlink()
-shutil.make_archive(str(archive.with_suffix("")), "zip", root.parent, root.name)
-digest = hashlib.sha256(archive.read_bytes()).hexdigest()
-Path(str(archive) + ".sha256").write_text(f"{digest}  {archive.name}\n")
-print(archive, digest)
+NAME = "gyu-singer-v1.0"
+CHECKPOINTS = [
+    "gyu_prosody_v0.5.pt", "gyu_teacher_identity_v0.5.pt", "gyu_acoustic_style_adapter_v0.5.pt",
+    "gyu_identity_space_v0.6.pt", "gyu_real_latent_adapters_v0.7.pt",
+]
+EXAMPLES = [
+    "quality_ko.json", "quality_en.json", "quality_ja.json", "heldout_ko.json", "heldout_en.json", "heldout_ja.json",
+    "review_rapid_ko.json", "review_sustain_ko.json", "review_large_interval_ko.json",
+    "openutau_v09.ustx", "openutau_v10_longform.ustx",
+]
+EVIDENCE = [
+    "openutau_upstream_v10.json", "runtime_v10_stress.json", "longform_v10_manifest.json",
+    "longform_v10_render_metrics.json", "longform_v10_quality.json", "longform_v10_supervised.json",
+    "release_audio_v10.json",
+]
+
+
+def copy(source: Path, destination: Path) -> None:
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    if source.is_dir():
+        shutil.copytree(source, destination, ignore=shutil.ignore_patterns("__pycache__", "*.pyc"))
+    else:
+        shutil.copy2(source, destination)
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(); parser.add_argument("--archive", default="artifacts/package/gyu-singer-v1.0.0-rc1.zip")
+    args = parser.parse_args(); package_dir = Path("artifacts/package"); root = package_dir / NAME
+    shutil.rmtree(root, ignore_errors=True); root.mkdir(parents=True)
+    copy(Path("src"), root / "src"); copy(Path("pyproject.toml"), root / "pyproject.toml")
+    for script in ("probe_soulx_score.py", "generate_omnivoice_phrase.py"):
+        copy(Path("scripts") / script, root / "scripts" / script)
+    for checkpoint in CHECKPOINTS: copy(Path("checkpoints") / checkpoint, root / "checkpoints" / checkpoint)
+    copy(Path("data/processed/master/216.wav"), root / "model/gyu_reference_216.wav")
+    copy(Path("integrations/openutau"), root / "integrations/openutau")
+    for example in EXAMPLES: copy(Path("examples") / example, root / "examples" / example)
+    for path in Path("distribution/v1").iterdir(): copy(path, root / path.name)
+    for report in EVIDENCE: copy(Path("artifacts/reports") / report, root / "evidence" / report)
+    copy(Path("artifacts/reports/listening_v10"), root / "listening")
+
+    commit = subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip()
+    metadata = {
+        "version": "1.0.0", "release_state": "release candidate", "source_commit": commit,
+        "backend": "gyu-singer-v0.8", "openutau_revision": "27573ac5c888d927119d5f65a207312d79194b1f",
+        "package_root": NAME, "per_note_tts": False, "waveform_pitch_shifting": False,
+        "training_teachers_required_at_inference": False,
+    }
+    (root / "PACKAGE.json").write_text(json.dumps(metadata, indent=2) + "\n")
+    for path in (root / "install.sh", root / "serve.sh", root / "render-example.sh", root / "launch-openutau.sh",
+                 root / "model_downloader.py", root / "verify-install.py", root / "integrations/openutau/install_fork.sh",
+                 root / "integrations/openutau/test_resident_fork.sh", root / "integrations/openutau/test_longform_fork.sh"):
+        path.chmod(0o755)
+
+    archive = Path(args.archive); archive.parent.mkdir(parents=True, exist_ok=True); archive.unlink(missing_ok=True)
+    with zipfile.ZipFile(archive, "w", zipfile.ZIP_DEFLATED, compresslevel=9) as output:
+        for path in sorted(root.rglob("*")):
+            if not path.is_file(): continue
+            relative = Path(NAME) / path.relative_to(root)
+            info = zipfile.ZipInfo(str(relative), date_time=(1980, 1, 1, 0, 0, 0)); info.compress_type = zipfile.ZIP_DEFLATED
+            info.external_attr = (0o100755 if path.stat().st_mode & 0o111 else 0o100644) << 16
+            output.writestr(info, path.read_bytes(), compress_type=zipfile.ZIP_DEFLATED, compresslevel=9)
+    digest = hashlib.sha256(archive.read_bytes()).hexdigest()
+    archive.with_suffix(archive.suffix + ".sha256").write_text(f"{digest}  {archive.name}\n")
+    print(json.dumps({"package": str(archive), "sha256": digest, "bytes": archive.stat().st_size, "commit": commit}, indent=2))
+
+
+if __name__ == "__main__": main()

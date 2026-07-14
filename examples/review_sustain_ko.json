@@ -1,0 +1,9 @@
+{
+  "language": "ko",
+  "tempo": 60,
+  "sample_rate": 48000,
+  "notes": [
+    {"pitch": 64, "start": 0.0, "duration": 6.0, "lyric": "아"}
+  ],
+  "style": {"preset": "neutral", "vibrato": 0.5}
+}

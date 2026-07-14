@@ -1,0 +1,12 @@
+{
+  "backend": "gyu-singer-v0.8",
+  "resident_host": "127.0.0.1",
+  "resident_port": 8765,
+  "openutau_renderer": "GYU-SINGER",
+  "styles": {
+    "stable": ["neutral", "breathy", "energetic"],
+    "experimental": ["soft", "dark", "bright"]
+  },
+  "languages": ["ko", "en", "ja"],
+  "decoder_sample_rate": 48000
+}
