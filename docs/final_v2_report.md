@@ -1,9 +1,9 @@
 Overall status: experimental neural phrase SVS; quality gate fail, not v1.
 Current stage: GYU Hybrid Singer v0.2-experimental.
 Package: `artifacts/package/gyu-hybrid-singer-v0.2-experimental.zip`
-Package SHA-256: `7142f877006106f13eb41274a692645071ad5e805fa711a160044c928db4853e`
-Git commit: `4ebe3828cf46a522b0391f7471b1bf4af7899ed8` (report generation source revision)
-Hybrid SVS checkpoint: `checkpoints/gyu_hybrid_v0.2.pt`, SHA-256 `c94ddf6abb23ec6e949f4021abb31260977fed355eaaea5d937a78fa82c453ff`
+Package SHA-256: `1cb8b147721c54b41d7610ac4cbbf7f76f53652f2c80cf8f9206be76dec9b642`
+Git commit: `03f6deaa536574843ec512de6262c91104c5305c` (report generation source revision)
+Hybrid SVS checkpoint: `checkpoints/gyu_hybrid_v0.2.pt`, SHA-256 `788dbd03b3755aa324cec88813ceb214ce81d9f77d94cbf8e06a0f3b1f71d184`
 Trainable parameters: 762,210.
 Phrase-level neural generation: yes; one full phrase frame tensor, conditional-flow latent sample, frozen codec decode.
 Phoneme-note alignment: yes; deterministic language-aware note-frame mapping; real/pseudo bootstrap labels marked inferred.
@@ -52,7 +52,7 @@ TCSinger-style blurred local context addresses hard boundaries; FM-Singer-style 
 
 # Training runs
 
-CUDA, AdamW `0.0002`, batch 1, 8000 steps; train rows 60 real + 24 pseudo; validation/test 8/5. Final logged losses: total 1.281118, flow 1.278163, pitch 0.004908, teacher 0.018067. `artifacts/reports/hybrid_training.json` records full history, validation losses, wall clock 256.307 s, GPU peak 207839232 bytes, and validation audio paths.
+CUDA, AdamW `0.0002`, batch 1, 8000 steps; train rows 60 real + 24 pseudo; validation/test 8/5. Final logged losses: total 1.280458, flow 1.277616, pitch 0.00415, teacher 0.017563. `artifacts/reports/hybrid_training.json` records full history, validation losses, wall clock 302.948 s, GPU peak 207839232 bytes, and validation audio paths.
 
 # Ablation results
 
@@ -60,7 +60,7 @@ CUDA, AdamW `0.0002`, batch 1, 8000 steps; train rows 60 real + 24 pseudo; valid
 
 # Baseline versus hybrid metrics
 
-Current hybrid F0 correlation: KO 0.4442, EN -0.0446, JA -0.3414. ASR similarity: KO 0.0000, EN 0.0000, JA 0.0000. Full identical-score comparison: `docs/evaluation_v2_report.md`.
+Current hybrid F0 correlation: KO 0.3390, EN -0.2012, JA 0.1278. ASR similarity: KO 0.0000, EN 0.0455, JA 0.0000. Full identical-score comparison: `docs/evaluation_v2_report.md`.
 
 # Listening sample paths
 
