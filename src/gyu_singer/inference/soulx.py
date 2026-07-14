@@ -5,6 +5,7 @@ import json
 import os
 import subprocess
 import tempfile
+import atexit
 from pathlib import Path
 
 import numpy as np
@@ -15,6 +16,29 @@ from gyu_singer.score import normalize_score
 
 
 _STYLE = {"neutral": "neutral", "soft": "soft gentle", "breathy": "breathy", "energetic": "energetic", "dark": "dark emotional", "bright": "bright", "tense": "tense", "vibrato": "gentle vibrato"}
+RESULT = "__GYU_RESULT__"
+ERROR = "__GYU_ERROR__"
+
+
+class _Worker:
+    """One pinned-runtime model process, reused by all resident requests."""
+    def __init__(self, command: list[str], cwd: Path, environment: dict[str, str]):
+        self.process = subprocess.Popen(command, cwd=cwd, env=environment, text=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, bufsize=1)
+
+    def request(self, body: dict) -> None:
+        if not self.process.stdin or not self.process.stdout:
+            raise RuntimeError("quality worker pipes unavailable")
+        self.process.stdin.write(json.dumps(body) + "\n"); self.process.stdin.flush()
+        for line in self.process.stdout:
+            if line.startswith(RESULT): return
+            if line.startswith(ERROR): raise RuntimeError(line.removeprefix(ERROR).strip())
+        raise RuntimeError("quality worker exited before response")
+
+    def close(self) -> None:
+        if self.process.poll() is None:
+            self.process.terminate()
+            try: self.process.wait(timeout=5)
+            except subprocess.TimeoutExpired: self.process.kill()
 
 
 class SoulXPhraseRenderer:
@@ -28,9 +52,14 @@ class SoulXPhraseRenderer:
         self.soulx_python = Path(os.environ.get("GYU_SOULX_PYTHON", self.root / ".venv-soulx/bin/python"))
         for executable in (self.ace_python, self.soulx_python):
             if not executable.exists(): raise FileNotFoundError(f"missing pinned neural runtime: {executable}")
+        ace_environment = os.environ | {"PYTHONPATH": str(self.cache / "ace-step"), "GYU_SINGER_CACHE": str(self.cache)}
+        soulx = self.cache / "soulx-singer"
+        self.ace = _Worker([str(self.ace_python), "scripts/generate_ace_phrase.py", "--worker", "--checkpoint", str(self.cache / "ace-step-checkpoint")], self.root, ace_environment)
+        self.soulx = _Worker([str(self.soulx_python), "scripts/probe_soulx_score.py", "--worker", "--reference", str(self.reference), "--model", str(soulx / "pretrained_models/SoulX-Singer/model-svc.pt"), "--config", str(soulx / "soulxsinger/config/soulxsinger.yaml"), "--rmvpe", str(soulx / "pretrained_models/SoulX-Singer-Preprocess/rmvpe/rmvpe.pt")], self.root, os.environ | {"GYU_SINGER_CACHE": str(self.cache)})
+        atexit.register(self.close)
 
     def model_info(self) -> dict:
-        return {"backend": "hybrid-soulx-phrase", "model_version": "gyu-hybrid-v0.3-quality-probe", "checkpoint": "ACE-Step-v1-3.5B + SoulX-Singer SVC (frozen)", "languages": ["ko", "en", "ja"], "sample_rate": self.sample_rate}
+        return {"backend": "hybrid-soulx-phrase", "model_version": "gyu-hybrid-v0.3-quality-probe", "checkpoint": "ACE-Step-v1-3.5B + SoulX-Singer SVC (frozen)", "languages": ["ko", "en", "ja"], "sample_rate": self.sample_rate, "resident_workers": True}
 
     @staticmethod
     def _f0(score: dict, duration: float) -> np.ndarray:
@@ -48,14 +77,16 @@ class SoulXPhraseRenderer:
         score = normalize_score(score); duration = max(note["start"] + note["duration"] for note in score["notes"])
         with tempfile.TemporaryDirectory(prefix="gyu-soulx-") as directory:
             temp = Path(directory); content, contour, output = temp / "content.wav", temp / "f0.npy", temp / "output.wav"
-            environment = os.environ | {"PYTHONPATH": str(self.cache / "ace-step")}
-            subprocess.run([str(self.ace_python), "scripts/generate_ace_phrase.py", "--checkpoint", str(self.cache / "ace-step-checkpoint"), "--language", score["language"], "--lyrics", "\n".join(note["lyric"] for note in score["notes"]), "--duration", str(duration), "--style", _STYLE[score["style"]["preset"]], "--output", str(content)], cwd=self.root, env=environment, check=True)
+            self.ace.request({"language": score["language"], "lyrics": "\n".join(note["lyric"] for note in score["notes"]), "duration": duration, "style": _STYLE[score["style"]["preset"]], "output": str(content)})
             info = sf.info(content); np.save(contour, self._f0(score, info.frames / info.samplerate))
-            soulx = self.cache / "soulx-singer"
-            subprocess.run([str(self.soulx_python), "scripts/probe_soulx_score.py", "--source", str(content), "--reference", str(self.reference), "--f0-npy", str(contour), "--model", str(soulx / "pretrained_models/SoulX-Singer/model-svc.pt"), "--config", str(soulx / "soulxsinger/config/soulxsinger.yaml"), "--rmvpe", str(soulx / "pretrained_models/SoulX-Singer-Preprocess/rmvpe/rmvpe.pt"), "--output", str(output)], cwd=self.root, check=True)
+            self.soulx.request({"source": str(content), "f0_npy": str(contour), "output": str(output)})
             audio, rate = sf.read(output, dtype="float32", always_2d=True)
         mono = audio.mean(axis=1)
         return resample_poly(mono, self.sample_rate, rate).astype(np.float32) if rate != self.sample_rate else mono
 
     def render_file(self, input_path: str | Path, output_path: str | Path) -> None:
         sf.write(output_path, self.render(json.loads(Path(input_path).read_text())), self.sample_rate, subtype="PCM_24")
+
+    def close(self) -> None:
+        for worker in (getattr(self, "ace", None), getattr(self, "soulx", None)):
+            if worker: worker.close()

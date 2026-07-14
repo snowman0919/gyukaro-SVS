@@ -6,7 +6,7 @@ import torch
 
 from gyu_singer.alignment import build_phrase_frames
 from gyu_singer.frontend import FEATURE_SIZE, phonemize
-from gyu_singer.inference.soulx import SoulXPhraseRenderer
+from gyu_singer.inference.soulx import SoulXPhraseRenderer, _Worker
 from gyu_singer.losses import flow_matching_loss, log_pitch_loss, weighted_distillation_loss
 from gyu_singer.model import TriSingerModel, grad_norm
 from gyu_singer.renderer import build_server
@@ -118,6 +118,18 @@ def test_soulx_phrase_backend_builds_one_score_contour():
     score = normalize_score({"language": "ja", "tempo": 120, "notes": [{"pitch": 60, "start": 0, "duration": 1, "lyric": "あ"}, {"pitch": 67, "start": 1, "duration": 1, "lyric": "い"}], "curves": {"pitch": [{"time": 0, "value": 0}, {"time": 1, "value": 0}]}})
     contour = SoulXPhraseRenderer._f0(score, 2)
     assert contour.shape == (100,) and np.isclose(np.median(contour[:50]), 261.6256, atol=1) and np.isclose(np.median(contour[50:]), 391.9954, atol=1)
+
+
+def test_quality_worker_waits_for_tagged_response():
+    class Sink:
+        value = ""
+        def write(self, value): self.value += value
+        def flush(self): pass
+    class Process:
+        stdin, stdout = Sink(), iter(["startup log\n", '__GYU_RESULT__ {"output":"x"}\n'])
+    worker = _Worker.__new__(_Worker); worker.process = Process()
+    worker.request({"output": "x"})
+    assert '"output": "x"' in worker.process.stdin.value
 
 
 def test_phrase_flow_uses_all_notes_in_one_tensor():

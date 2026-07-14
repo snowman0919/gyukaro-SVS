@@ -6,8 +6,8 @@ OpenUtau USTX is UTF-8 YAML with voice-part note timing. `integrations/openutau/
 
 Executable smoke evidence: `examples/openutau_smoke.ustx` exported two Korean
 notes through `bridge.py`, posted to the live `hybrid-soulx-phrase` quality
-renderer, and returned a 48 kHz mono WAV on 2026-07-14.  The HTTP bridge stays
-resident; ACE-Step and SoulX run in their pinned worker environments per
-render. The package includes this USTX fixture.
+renderer, and returned a 48 kHz mono WAV on 2026-07-14. The HTTP service keeps
+one pinned ACE-Step worker and one pinned SoulX worker resident across
+requests. The package includes this USTX fixture.
 
 Native OpenUtau engine registration is therefore deliberately not claimed. Current blocker: bridge must either target a released `svs.io` contract or maintain a C# renderer extension against OpenUtau internals. Tempo maps and editor curves are not yet forwarded.

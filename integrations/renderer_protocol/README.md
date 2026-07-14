@@ -8,10 +8,9 @@ PYTHONPATH=src python -m gyu_singer.cli --backend hybrid-soulx-phrase serve --po
 ```
 
 `GET /health` returns readiness. `GET /model` returns backend, version,
-checkpoint, languages and 48 kHz rate. `POST /render` returns WAV.  The HTTP
-server stays resident; ACE-Step and SoulX execute in their pinned runtimes for
-each render, so this is functional editor integration, not a low-latency
-resident-weight claim.
+checkpoint, languages and 48 kHz rate. `POST /render` returns WAV. The HTTP
+service starts one ACE-Step worker and one SoulX worker; both keep their model
+weights loaded across render requests.
 
 Notes must use either seconds (`start`, `duration`) or beats (`start_beat`, `duration_beats`). Beat values convert as `seconds = beats * 60 / tempo` before phrase-frame alignment. Each note requires `id`, MIDI `pitch`, `lyric`; optional `slur` is accepted and preserved.
 

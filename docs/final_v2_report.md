@@ -73,7 +73,7 @@ Current hybrid F0 correlation: KO 0.3390, EN -0.2012, JA 0.1278. ASR similarity:
 
 # OpenUtau integration status
 
-`integrations/openutau/bridge.py` reads `.ustx`, selects voice part, converts project ticks and first tempo to protocol v2 seconds, writes JSON, and can POST to resident `/render`. `examples/openutau_smoke.ustx` has been exercised through the `hybrid-soulx-phrase` quality HTTP backend, producing a 48 kHz mono WAV. The HTTP service is resident but invokes pinned ACE-Step/SoulX workers per render. Tempo maps, native renderer registration, and editor curves are not implemented.
+`integrations/openutau/bridge.py` reads `.ustx`, selects voice part, converts project ticks and first tempo to protocol v2 seconds, writes JSON, and can POST to resident `/render`. `examples/openutau_smoke.ustx` has been exercised through the `hybrid-soulx-phrase` quality HTTP backend, producing a 48 kHz mono WAV. The service keeps one pinned ACE-Step worker and one pinned SoulX worker resident across requests. Tempo maps, native renderer registration, and editor curves are not implemented.
 
 # Known failures
 
