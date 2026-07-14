@@ -9,6 +9,6 @@ Linux with an NVIDIA CUDA GPU, Python 3.11+, Git, about 16 GB free RAM/unified m
 ./launch-openutau.sh examples/openutau_v10_longform.ustx
 ```
 
-The installer creates only `.runtime/` inside this folder, downloads exact revisions, builds the pinned OpenUtau fork automatically, and performs a real 48 kHz render smoke. No manual clone, patch, virtualenv, `PYTHONPATH`, or model-cache configuration is needed.
+The installer creates only `.runtime/` inside this folder, downloads exact revisions, builds the pinned OpenUtau fork automatically, and performs real KO/EN/JA 48 kHz render smokes. No manual clone, patch, virtualenv, `PYTHONPATH`, or model-cache configuration is needed.
 
 See `INSTALL.md`, `OPENUTAU.md`, and `LIMITATIONS.md` before use.

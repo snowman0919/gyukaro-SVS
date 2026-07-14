@@ -1,0 +1,77 @@
+{
+  "status": "pass",
+  "candidate": {
+    "archive": "artifacts/package/gyu-singer-v1.0.0-rc4.zip",
+    "sha256": "507e51cc9199a248f217eb359b2790e7f56797ccfc15b3f639cc6ad5fb2d2702",
+    "bytes": 11005009,
+    "metadata": {
+      "version": "1.0.0",
+      "release_state": "release candidate",
+      "source_commit": "ce7a1e088de0b38777551ba583c993817dc9d020",
+      "backend": "gyu-singer-v0.8",
+      "openutau_revision": "27573ac5c888d927119d5f65a207312d79194b1f",
+      "package_root": "gyu-singer-v1.0",
+      "per_note_tts": false,
+      "waveform_pitch_shifting": false,
+      "training_teachers_required_at_inference": false
+    }
+  },
+  "clean_install": {
+    "root": "/tmp/gyu-v1-rc4-clean/gyu-singer-v1.0",
+    "source_checkout_pythonpath_used": false,
+    "cache_seed_method": "documented install.sh --cache-source with downloader revision/checksum verification",
+    "openutau_revision": "27573ac5c888d927119d5f65a207312d79194b1f",
+    "packaged_english_lexicon": true,
+    "installed_english_lexicon": "/tmp/gyu-v1-rc4-clean/gyu-singer-v1.0/.runtime/soulx-venv/lib/python3.11/site-packages/gyu_singer/frontend/english_lexicon.json",
+    "smoke_audio": {
+      "ko": {
+        "path": "/tmp/gyu-v1-rc4-clean/gyu-singer-v1.0/.runtime/install-smoke-ko.wav",
+        "sha256": "16cfb34c36121e6be1abfbf453002c490967146f3cd5917616cfc5863adb2687",
+        "sample_rate": 48000,
+        "channels": 1,
+        "duration_seconds": 9.92
+      },
+      "en": {
+        "path": "/tmp/gyu-v1-rc4-clean/gyu-singer-v1.0/.runtime/install-smoke-en.wav",
+        "sha256": "033d9ded15b81dc3279ad0a259060e12ca89aecd6a0ac9ad11f15daf7a0a06c7",
+        "sample_rate": 48000,
+        "channels": 1,
+        "duration_seconds": 9.92
+      },
+      "ja": {
+        "path": "/tmp/gyu-v1-rc4-clean/gyu-singer-v1.0/.runtime/install-smoke-ja.wav",
+        "sha256": "5bdb2d57e7e11e602ed2fd9848ecae3c0a40efae8cbe0c0766427398ac9db7ea",
+        "sample_rate": 48000,
+        "channels": 1,
+        "duration_seconds": 9.92
+      }
+    }
+  },
+  "installed_package_longform": {
+    "audio": {
+      "path": "/tmp/gyu-rc4-longform.wav",
+      "sha256": "728b02c18ed99f9336d3621c212aa2d984eb0e22f87a62d051c832a35e52f4c3",
+      "sample_rate": 44100,
+      "channels": 2,
+      "duration_seconds": 119.98285714285714
+    },
+    "metrics": {
+      "tracks": 3,
+      "parts": 17,
+      "notes": 136,
+      "phrases": 17,
+      "first_render_seconds": 50.0651159,
+      "cached_render_seconds": 0.1043282,
+      "cache_misses": 17,
+      "cache_hits": 17,
+      "stale_cache_files_after_repeat": 0,
+      "failed_phrases": 0,
+      "retries": 0,
+      "sample_rate": 44100,
+      "channels": 2,
+      "duration_seconds": 119.9828571
+    }
+  },
+  "expected_longform_sha256": "728b02c18ed99f9336d3621c212aa2d984eb0e22f87a62d051c832a35e52f4c3",
+  "exact_longform_reproduction": true
+}

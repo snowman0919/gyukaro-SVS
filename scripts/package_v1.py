@@ -24,7 +24,7 @@ EXAMPLES = [
 EVIDENCE = [
     "openutau_upstream_v10.json", "runtime_v10_stress.json", "longform_v10_manifest.json",
     "longform_v10_render_metrics.json", "longform_v10_quality.json", "longform_v10_supervised.json",
-    "release_audio_v10.json",
+    "release_audio_v10.json", "release_candidate_v10.json",
 ]
 
 
