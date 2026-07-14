@@ -34,7 +34,7 @@ def main() -> None:
     real = read(root / "neural_supervision.jsonl")
     rows = []
     for row in real:
-        rows.append({"id": row["id"], "phase": "C_real_gyu", "audio_path": row["audio_path"], "language": row["language"], "text": row["text"],
+        rows.append({"id": row["id"], "phase": "C_real_gyu", "audio_path": row["audio_path"], "f0_path": f"data/cache/hybrid_f0/{row['id']}.npy", "language": row["language"], "text": row["text"],
                      "trust_weight": 1.0, "split": row["split"], "score": inferred_score(row)})
     accepted_path = root / "pseudo_singing_accepted.jsonl"
     if accepted_path.exists():

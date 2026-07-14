@@ -16,7 +16,7 @@ def build_server(renderer, host: str = "127.0.0.1", port: int = 8765) -> Threadi
 
         def do_GET(self) -> None:
             if self.path == "/health": self._json({"status": "ok"})
-            elif self.path == "/model": self._json({"backend": renderer.__class__.__name__, "sample_rate": renderer.sample_rate})
+            elif self.path == "/model": self._json(renderer.model_info() if hasattr(renderer, "model_info") else {"backend": renderer.__class__.__name__, "sample_rate": renderer.sample_rate})
             else: self.send_error(404)
 
         def do_POST(self) -> None:

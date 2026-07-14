@@ -1,0 +1,570 @@
+{
+  "device": "cuda",
+  "steps": 80,
+  "real_rows": 62,
+  "teacher_rows": 665,
+  "teacher_loss_weight": 0.0,
+  "history": [
+    {
+      "step": 1,
+      "loss": 4.384153,
+      "flow": 4.192428,
+      "pitch": 3.834497,
+      "teacher": 0.0
+    },
+    {
+      "step": 2,
+      "loss": 4.221445,
+      "flow": 4.04153,
+      "pitch": 3.598303,
+      "teacher": 0.0
+    },
+    {
+      "step": 3,
+      "loss": 3.883895,
+      "flow": 3.690485,
+      "pitch": 3.868199,
+      "teacher": 0.0
+    },
+    {
+      "step": 4,
+      "loss": 3.534505,
+      "flow": 3.332583,
+      "pitch": 4.038439,
+      "teacher": 0.0
+    },
+    {
+      "step": 5,
+      "loss": 3.463062,
+      "flow": 3.276286,
+      "pitch": 3.735514,
+      "teacher": 0.0
+    },
+    {
+      "step": 6,
+      "loss": 3.632045,
+      "flow": 3.458413,
+      "pitch": 3.472654,
+      "teacher": 0.0
+    },
+    {
+      "step": 7,
+      "loss": 3.313267,
+      "flow": 3.130532,
+      "pitch": 3.654715,
+      "teacher": 0.0
+    },
+    {
+      "step": 8,
+      "loss": 3.341748,
+      "flow": 3.155122,
+      "pitch": 3.732506,
+      "teacher": 0.0
+    },
+    {
+      "step": 9,
+      "loss": 3.486512,
+      "flow": 3.328779,
+      "pitch": 3.154667,
+      "teacher": 0.0
+    },
+    {
+      "step": 10,
+      "loss": 3.225416,
+      "flow": 3.043761,
+      "pitch": 3.633103,
+      "teacher": 0.0
+    },
+    {
+      "step": 11,
+      "loss": 3.14068,
+      "flow": 2.976153,
+      "pitch": 3.290532,
+      "teacher": 0.0
+    },
+    {
+      "step": 12,
+      "loss": 3.134011,
+      "flow": 2.959026,
+      "pitch": 3.499698,
+      "teacher": 0.0
+    },
+    {
+      "step": 13,
+      "loss": 3.168365,
+      "flow": 2.986673,
+      "pitch": 3.633837,
+      "teacher": 0.0
+    },
+    {
+      "step": 14,
+      "loss": 3.108831,
+      "flow": 2.948562,
+      "pitch": 3.20538,
+      "teacher": 0.0
+    },
+    {
+      "step": 15,
+      "loss": 3.072687,
+      "flow": 2.914489,
+      "pitch": 3.163958,
+      "teacher": 0.0
+    },
+    {
+      "step": 16,
+      "loss": 3.124091,
+      "flow": 2.965987,
+      "pitch": 3.162089,
+      "teacher": 0.0
+    },
+    {
+      "step": 17,
+      "loss": 3.009936,
+      "flow": 2.861965,
+      "pitch": 2.959413,
+      "teacher": 0.0
+    },
+    {
+      "step": 18,
+      "loss": 3.030478,
+      "flow": 2.895018,
+      "pitch": 2.709192,
+      "teacher": 0.0
+    },
+    {
+      "step": 19,
+      "loss": 2.959641,
+      "flow": 2.823099,
+      "pitch": 2.73084,
+      "teacher": 0.0
+    },
+    {
+      "step": 20,
+      "loss": 3.257652,
+      "flow": 3.120282,
+      "pitch": 2.747384,
+      "teacher": 0.0
+    },
+    {
+      "step": 21,
+      "loss": 2.993723,
+      "flow": 2.861238,
+      "pitch": 2.649686,
+      "teacher": 0.0
+    },
+    {
+      "step": 22,
+      "loss": 2.991297,
+      "flow": 2.878786,
+      "pitch": 2.250212,
+      "teacher": 0.0
+    },
+    {
+      "step": 23,
+      "loss": 3.019216,
+      "flow": 2.900903,
+      "pitch": 2.366254,
+      "teacher": 0.0
+    },
+    {
+      "step": 24,
+      "loss": 2.970612,
+      "flow": 2.847369,
+      "pitch": 2.464867,
+      "teacher": 0.0
+    },
+    {
+      "step": 25,
+      "loss": 3.034939,
+      "flow": 2.952723,
+      "pitch": 1.644305,
+      "teacher": 0.0
+    },
+    {
+      "step": 26,
+      "loss": 2.803622,
+      "flow": 2.71168,
+      "pitch": 1.838839,
+      "teacher": 0.0
+    },
+    {
+      "step": 27,
+      "loss": 2.920436,
+      "flow": 2.830777,
+      "pitch": 1.793179,
+      "teacher": 0.0
+    },
+    {
+      "step": 28,
+      "loss": 2.880496,
+      "flow": 2.790788,
+      "pitch": 1.794172,
+      "teacher": 0.0
+    },
+    {
+      "step": 29,
+      "loss": 2.817327,
+      "flow": 2.744911,
+      "pitch": 1.448322,
+      "teacher": 0.0
+    },
+    {
+      "step": 30,
+      "loss": 2.845219,
+      "flow": 2.770364,
+      "pitch": 1.49711,
+      "teacher": 0.0
+    },
+    {
+      "step": 31,
+      "loss": 2.838378,
+      "flow": 2.768229,
+      "pitch": 1.402986,
+      "teacher": 0.0
+    },
+    {
+      "step": 32,
+      "loss": 2.841974,
+      "flow": 2.795333,
+      "pitch": 0.932806,
+      "teacher": 0.0
+    },
+    {
+      "step": 33,
+      "loss": 2.942312,
+      "flow": 2.890795,
+      "pitch": 1.030355,
+      "teacher": 0.0
+    },
+    {
+      "step": 34,
+      "loss": 2.75695,
+      "flow": 2.697986,
+      "pitch": 1.179282,
+      "teacher": 0.0
+    },
+    {
+      "step": 35,
+      "loss": 2.886779,
+      "flow": 2.835934,
+      "pitch": 1.016891,
+      "teacher": 0.0
+    },
+    {
+      "step": 36,
+      "loss": 2.705006,
+      "flow": 2.665082,
+      "pitch": 0.798485,
+      "teacher": 0.0
+    },
+    {
+      "step": 37,
+      "loss": 2.924246,
+      "flow": 2.890181,
+      "pitch": 0.68131,
+      "teacher": 0.0
+    },
+    {
+      "step": 38,
+      "loss": 2.827011,
+      "flow": 2.796614,
+      "pitch": 0.607939,
+      "teacher": 0.0
+    },
+    {
+      "step": 39,
+      "loss": 2.753324,
+      "flow": 2.725818,
+      "pitch": 0.550116,
+      "teacher": 0.0
+    },
+    {
+      "step": 40,
+      "loss": 3.1352,
+      "flow": 3.100604,
+      "pitch": 0.691927,
+      "teacher": 0.0
+    },
+    {
+      "step": 41,
+      "loss": 2.698547,
+      "flow": 2.675857,
+      "pitch": 0.453803,
+      "teacher": 0.0
+    },
+    {
+      "step": 42,
+      "loss": 2.616356,
+      "flow": 2.601336,
+      "pitch": 0.3004,
+      "teacher": 0.0
+    },
+    {
+      "step": 43,
+      "loss": 2.680405,
+      "flow": 2.661218,
+      "pitch": 0.383752,
+      "teacher": 0.0
+    },
+    {
+      "step": 44,
+      "loss": 2.734626,
+      "flow": 2.713787,
+      "pitch": 0.416785,
+      "teacher": 0.0
+    },
+    {
+      "step": 45,
+      "loss": 2.726696,
+      "flow": 2.709428,
+      "pitch": 0.345354,
+      "teacher": 0.0
+    },
+    {
+      "step": 46,
+      "loss": 2.697267,
+      "flow": 2.676687,
+      "pitch": 0.411606,
+      "teacher": 0.0
+    },
+    {
+      "step": 47,
+      "loss": 2.878536,
+      "flow": 2.852476,
+      "pitch": 0.521189,
+      "teacher": 0.0
+    },
+    {
+      "step": 48,
+      "loss": 2.688077,
+      "flow": 2.675821,
+      "pitch": 0.245133,
+      "teacher": 0.0
+    },
+    {
+      "step": 49,
+      "loss": 2.829567,
+      "flow": 2.811248,
+      "pitch": 0.366382,
+      "teacher": 0.0
+    },
+    {
+      "step": 50,
+      "loss": 2.669634,
+      "flow": 2.657824,
+      "pitch": 0.236196,
+      "teacher": 0.0
+    },
+    {
+      "step": 51,
+      "loss": 2.566245,
+      "flow": 2.555136,
+      "pitch": 0.222172,
+      "teacher": 0.0
+    },
+    {
+      "step": 52,
+      "loss": 2.739514,
+      "flow": 2.715038,
+      "pitch": 0.489529,
+      "teacher": 0.0
+    },
+    {
+      "step": 53,
+      "loss": 2.585573,
+      "flow": 2.574297,
+      "pitch": 0.225517,
+      "teacher": 0.0
+    },
+    {
+      "step": 54,
+      "loss": 2.54067,
+      "flow": 2.528646,
+      "pitch": 0.240481,
+      "teacher": 0.0
+    },
+    {
+      "step": 55,
+      "loss": 2.782192,
+      "flow": 2.770516,
+      "pitch": 0.233513,
+      "teacher": 0.0
+    },
+    {
+      "step": 56,
+      "loss": 2.642979,
+      "flow": 2.630419,
+      "pitch": 0.251194,
+      "teacher": 0.0
+    },
+    {
+      "step": 57,
+      "loss": 2.562572,
+      "flow": 2.551296,
+      "pitch": 0.225524,
+      "teacher": 0.0
+    },
+    {
+      "step": 58,
+      "loss": 2.506962,
+      "flow": 2.498766,
+      "pitch": 0.163918,
+      "teacher": 0.0
+    },
+    {
+      "step": 59,
+      "loss": 2.464178,
+      "flow": 2.455178,
+      "pitch": 0.179986,
+      "teacher": 0.0
+    },
+    {
+      "step": 60,
+      "loss": 2.405191,
+      "flow": 2.399705,
+      "pitch": 0.109715,
+      "teacher": 0.0
+    },
+    {
+      "step": 61,
+      "loss": 0.70853,
+      "flow": 0.609494,
+      "pitch": 1.980715,
+      "teacher": 0.0
+    },
+    {
+      "step": 62,
+      "loss": 0.640058,
+      "flow": 0.598558,
+      "pitch": 0.83,
+      "teacher": 0.0
+    },
+    {
+      "step": 63,
+      "loss": 2.313864,
+      "flow": 2.307153,
+      "pitch": 0.134207,
+      "teacher": 0.0
+    },
+    {
+      "step": 64,
+      "loss": 2.422083,
+      "flow": 2.416813,
+      "pitch": 0.105394,
+      "teacher": 0.0
+    },
+    {
+      "step": 65,
+      "loss": 2.580727,
+      "flow": 2.574438,
+      "pitch": 0.125791,
+      "teacher": 0.0
+    },
+    {
+      "step": 66,
+      "loss": 2.314817,
+      "flow": 2.308861,
+      "pitch": 0.119122,
+      "teacher": 0.0
+    },
+    {
+      "step": 67,
+      "loss": 2.405264,
+      "flow": 2.399439,
+      "pitch": 0.116516,
+      "teacher": 0.0
+    },
+    {
+      "step": 68,
+      "loss": 2.379282,
+      "flow": 2.373415,
+      "pitch": 0.117341,
+      "teacher": 0.0
+    },
+    {
+      "step": 69,
+      "loss": 2.563614,
+      "flow": 2.558264,
+      "pitch": 0.106994,
+      "teacher": 0.0
+    },
+    {
+      "step": 70,
+      "loss": 2.423928,
+      "flow": 2.416377,
+      "pitch": 0.151037,
+      "teacher": 0.0
+    },
+    {
+      "step": 71,
+      "loss": 2.488746,
+      "flow": 2.483432,
+      "pitch": 0.106276,
+      "teacher": 0.0
+    },
+    {
+      "step": 72,
+      "loss": 2.495656,
+      "flow": 2.487112,
+      "pitch": 0.170882,
+      "teacher": 0.0
+    },
+    {
+      "step": 73,
+      "loss": 2.300497,
+      "flow": 2.297793,
+      "pitch": 0.054079,
+      "teacher": 0.0
+    },
+    {
+      "step": 74,
+      "loss": 2.456252,
+      "flow": 2.448906,
+      "pitch": 0.14691,
+      "teacher": 0.0
+    },
+    {
+      "step": 75,
+      "loss": 2.54098,
+      "flow": 2.534835,
+      "pitch": 0.122895,
+      "teacher": 0.0
+    },
+    {
+      "step": 76,
+      "loss": 2.406942,
+      "flow": 2.403096,
+      "pitch": 0.076916,
+      "teacher": 0.0
+    },
+    {
+      "step": 77,
+      "loss": 2.313022,
+      "flow": 2.30955,
+      "pitch": 0.069439,
+      "teacher": 0.0
+    },
+    {
+      "step": 78,
+      "loss": 2.475857,
+      "flow": 2.470575,
+      "pitch": 0.105647,
+      "teacher": 0.0
+    },
+    {
+      "step": 79,
+      "loss": 2.265967,
+      "flow": 2.262443,
+      "pitch": 0.070484,
+      "teacher": 0.0
+    },
+    {
+      "step": 80,
+      "loss": 2.335359,
+      "flow": 2.332327,
+      "pitch": 0.060636,
+      "teacher": 0.0
+    }
+  ],
+  "checkpoint": "checkpoints/gyu_hybrid_ablation_no_teacher.pt"
+}

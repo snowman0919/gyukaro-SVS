@@ -28,13 +28,17 @@ def main() -> None:
     render.add_argument("--output", required=True)
     frontend = sub.add_parser("frontend")
     frontend.add_argument("--language", choices=("ko", "en", "ja"), required=True)
-    frontend.add_argument("input", help="text to phonemize")
+    frontend.add_argument("input", nargs="?", help="text to phonemize")
+    frontend.add_argument("--text", help="text to phonemize (protocol-v2 documented form)")
     serve = sub.add_parser("serve")
     serve.add_argument("--port", type=int, default=8765)
     args = parser.parse_args()
     if args.command == "frontend":
         from .frontend import phonemize
-        print(phonemize(args.language, args.input)); return
+        text = args.text or args.input
+        if not text:
+            parser.error("frontend requires text or --text")
+        print(phonemize(args.language, text)); return
     renderer = make_renderer(args)
     if args.command == "render":
         renderer.render_file(args.input, args.output); return

@@ -1,3 +1,3 @@
-# GYU Singer v1-experimental
+# GYU Neural Vocalizer Baseline v0.1
 
-Compact phrase-level neural SVS runtime. `sh install.sh`, then `sh run.sh`. It uses a 160-step compact conditional-flow checkpoint trained on real GYU anchors with inferred score timing plus weighted teacher representation loss. Output quality and non-Korean singing remain experimental; no source-loop or per-note DSP path is used by this package.
+Historical Stage 0 package. Its renderer is MOSS per-note TTS plus F0 estimation, pitch shift, phase-vocoder duration conversion, fades, and concatenation. It is retained for comparison only, not presented as phrase-level neural SVS. Use `gyu-hybrid-singer-v0.2-experimental` for current neural phrase runtime.

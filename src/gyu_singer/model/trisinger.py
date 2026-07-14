@@ -19,10 +19,10 @@ class LanguageFeatureEncoder(nn.Module):
 
 class ScoreEncoder(nn.Module):
     def __init__(self, dim: int):
-        super().__init__(); self.projection = nn.Sequential(nn.Linear(4, dim), nn.SiLU(), nn.Linear(dim, dim))
-    def forward(self, midi: torch.Tensor, note_index: torch.Tensor, boundary: torch.Tensor, length: int) -> torch.Tensor:
+        super().__init__(); self.projection = nn.Sequential(nn.Linear(6, dim), nn.SiLU(), nn.Linear(dim, dim))
+    def forward(self, midi: torch.Tensor, note_index: torch.Tensor, note_onset: torch.Tensor, note_duration: torch.Tensor, boundary: torch.Tensor, length: int) -> torch.Tensor:
         index = note_index.float() / max(1, length - 1)
-        return self.projection(torch.stack((midi / 127.0, index, boundary, 1.0 - boundary), dim=-1))
+        return self.projection(torch.stack((midi / 127.0, index, note_onset, note_duration, boundary, 1.0 - boundary), dim=-1))
 
 
 class BlurredBoundaryEncoder(nn.Module):
@@ -92,7 +92,7 @@ class TriSingerModel(nn.Module):
 
     def condition(self, batch: dict[str, torch.Tensor]) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
         content = self.phoneme_encoder(batch["phoneme_ids"]) + self.language_encoder(batch["language_ids"], batch["features"])
-        score = self.score_encoder(batch["midi"], batch["note_index"], batch["boundary"], content.shape[1])
+        score = self.score_encoder(batch["midi"], batch["note_index"], batch["note_onset"], batch["note_duration"], batch["boundary"], content.shape[1])
         boundary = self.blurred_boundary_encoder(content, score, batch["boundary"])
         timbre = self.timbre_encoder(batch["reference_features"])
         style = self.style_encoder(batch["style_preset"], batch["style_controls"])

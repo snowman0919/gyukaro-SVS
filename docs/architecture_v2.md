@@ -1,5 +1,20 @@
-# Hybrid architecture v0.2
+# GYU Hybrid Singer v0.2 architecture
 
-`TriSingerModel` processes an entire phrase frame sequence once. It combines unified phonemes, language features, score, blurred boundaries, reference timbre, style controls and explicit F0 conditions. `ConditionalFlowTransformer` predicts a rectified-flow acoustic latent velocity. `SingingDecoder` adds a learned latent bias; frozen MOSS audio-tokenizer decoder converts 768-D latents to 48 kHz audio. No waveform decoder is trained from random initialization.
+Stage 0 remains intact: `baseline_renderer.py` is source-loop rendering and `neural_renderer.py` is MOSS per-note TTS with pitch shift and phase vocoder. Both are baseline-only. They are not SVS claims and are never called by `hybrid-svs`.
 
-Real-anchor score timing is inferred from speech duration and labelled `inferred_from_speech_duration_not_ground_truth`; it is a bootstrap control signal, not real singing annotation. Stage 0 `baseline_renderer.py` and `neural_renderer.py` are retained only as baselines. Hybrid inference never calls their note loop, pitch shift or phase vocoder.
+`TriSingerModel` is compact phrase-level CFM. It receives the full frame sequence for all notes and phonemes in a score, then produces one codec-latent sequence. Frozen MOSS codec decoding converts that sequence to 48 kHz WAV. No waveform model is trained from scratch.
+
+```text
+protocol v2 score + lyric
+  phonemize + phoneme-note frames + nominal/curve F0
+  UnifiedPhonemeEncoder + LanguageFeatureEncoder + ScoreEncoder
+  BlurredBoundaryEncoder + TimbreEncoder + StyleEncoder + PitchConditionEncoder
+  ConditionalFlowTransformer (rectified-flow latent velocity)
+  SingingDecoder latent bias
+  frozen MOSS codec decoder
+  phrase WAV
+```
+
+Real-anchor note timing is `inferred_from_speech_duration_not_ground_truth`. It is bootstrap control, never presented as real singing notation. Teacher speech is representation-only. Accepted Fish S2 `[singing]` then SoulX SVC WAVs are synthetic low-trust acoustic targets.
+
+Model source: `src/gyu_singer/model/trisinger.py`. Phrase assembly: `alignment/phrase.py`. Inference: `inference/hybrid.py`. Losses: `losses/objectives.py`. Runtime: `renderer/service.py`.

@@ -4,6 +4,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 import math
 
+import numpy as np
 import torch
 
 from gyu_singer.frontend import FrontendOutput, phonemize
@@ -19,10 +20,12 @@ class PhraseFrames:
     voiced: torch.Tensor
     residual: torch.Tensor
     note_index: torch.Tensor
+    note_onset: torch.Tensor
+    note_duration: torch.Tensor
     boundary: torch.Tensor
 
 
-def build_phrase_frames(frontend: FrontendOutput, notes: list[dict], frame_hz: float = 12.5) -> PhraseFrames:
+def build_phrase_frames(frontend: FrontendOutput, notes: list[dict], pitch_curve: list[dict] | None = None, frame_hz: float = 12.5) -> PhraseFrames:
     if not notes:
         raise ValueError("notes must not be empty")
     ordered = sorted(notes, key=lambda note: float(note.get("start", note.get("start_sec", 0))))
@@ -33,6 +36,8 @@ def build_phrase_frames(frontend: FrontendOutput, notes: list[dict], frame_hz: f
     features = torch.zeros(frames, len(frontend.features[0]))
     midi = torch.zeros(frames)
     note_index = torch.zeros(frames, dtype=torch.long)
+    note_onset = torch.zeros(frames)
+    note_duration = torch.zeros(frames)
     boundary = torch.zeros(frames)
     for index, note in enumerate(ordered):
         start = int(round(float(note.get("start", note.get("start_sec", 0))) * frame_hz))
@@ -40,6 +45,8 @@ def build_phrase_frames(frontend: FrontendOutput, notes: list[dict], frame_hz: f
         end = min(frames, end)
         midi[start:end] = float(note["pitch"])
         note_index[start:end] = index
+        note_onset[start:end] = float(note.get("start", note.get("start_sec", 0))) / max(total, 1e-3)
+        note_duration[start:end] = float(note.get("duration", note.get("duration_sec", 0))) / max(total, 1e-3)
         boundary[start] = 1.0
         # Score lyric owns its note frames; no phrase-wide character stretching.
         lyric = str(note.get("lyric", ""))
@@ -54,7 +61,13 @@ def build_phrase_frames(frontend: FrontendOutput, notes: list[dict], frame_hz: f
             phoneme_ids[index] = phoneme_ids[index - 1]
             language_ids[index] = language_ids[index - 1]
             features[index] = features[index - 1]
-    f0_hz = 440.0 * torch.pow(torch.tensor(2.0), (midi - 69.0) / 12.0)
+    residual = torch.zeros(frames)
+    if pitch_curve:
+        times = torch.arange(frames) / frame_hz
+        points_t = torch.tensor([point["time"] for point in pitch_curve])
+        points_v = torch.tensor([point["value"] for point in pitch_curve])
+        residual = torch.from_numpy(np.interp(times.numpy(), points_t.numpy(), points_v.numpy()).astype("float32"))
+    f0_hz = 440.0 * torch.pow(torch.tensor(2.0), (midi + residual - 69.0) / 12.0)
     return PhraseFrames(
         phoneme_ids=phoneme_ids,
         language_ids=language_ids,
@@ -62,7 +75,9 @@ def build_phrase_frames(frontend: FrontendOutput, notes: list[dict], frame_hz: f
         midi=midi,
         f0_hz=f0_hz,
         voiced=torch.ones(frames),
-        residual=torch.zeros(frames),
+        residual=residual,
         note_index=note_index,
+        note_onset=note_onset,
+        note_duration=note_duration,
         boundary=boundary,
     )

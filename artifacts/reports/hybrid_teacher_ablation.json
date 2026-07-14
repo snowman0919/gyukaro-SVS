@@ -1,0 +1,15 @@
+{
+  "metric": "WavLM cosine to GYU reference; short ablation, not intelligibility evidence",
+  "runs": {
+    "no_teacher": {
+      "ko": 0.5288,
+      "en": 0.5582,
+      "ja": 0.5165
+    },
+    "with_teacher": {
+      "ko": 0.531,
+      "en": 0.5429,
+      "ja": 0.5169
+    }
+  }
+}

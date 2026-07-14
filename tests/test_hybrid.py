@@ -26,10 +26,19 @@ def test_alignment_assigns_each_note_its_lyric():
     assert frames.phoneme_ids[0] != frames.phoneme_ids[7]
 
 
+def test_blurred_boundary_and_pitch_conditions_change_phrase_condition():
+    model, batch = TriSingerModel(dim=32), _batch()
+    base, _, _ = model.condition(batch)
+    batch["boundary"][:, 3] = 1
+    batch["residual"][:, 4:] = 1.5
+    shifted, _, _ = model.condition(batch)
+    assert not torch.allclose(base, shifted)
+
+
 def _batch():
     return {"phoneme_ids": torch.ones(1, 6, dtype=torch.long), "language_ids": torch.zeros(1, 6, dtype=torch.long),
             "features": torch.zeros(1, 6, 8), "midi": torch.full((1, 6), 60.0), "note_index": torch.zeros(1, 6, dtype=torch.long),
-            "boundary": torch.zeros(1, 6), "reference_features": torch.zeros(1, 160), "style_preset": torch.zeros(1, dtype=torch.long),
+            "note_onset": torch.zeros(1, 6), "note_duration": torch.ones(1, 6), "boundary": torch.zeros(1, 6), "reference_features": torch.zeros(1, 160), "style_preset": torch.zeros(1, dtype=torch.long),
             "style_controls": torch.zeros(1, 5), "f0_hz": torch.full((1, 6), 261.0), "voiced": torch.ones(1, 6), "residual": torch.zeros(1, 6)}
 
 
@@ -42,6 +51,14 @@ def test_all_hybrid_modules_receive_gradient():
         assert grad_norm(getattr(model, name)) > 0, name
 
 
+def test_teacher_distillation_reaches_timbre_and_language_encoders():
+    model, batch = TriSingerModel(dim=32), _batch()
+    loss = weighted_distillation_loss(model.distillation_prediction(batch), torch.ones(1, 160), torch.tensor([0.2]))
+    loss.backward()
+    assert grad_norm(model.timbre_encoder) > 0
+    assert grad_norm(model.language_encoder) > 0
+
+
 def test_losses_use_pitch_mask_and_teacher_trust():
     assert log_pitch_loss(torch.zeros(1, 2), torch.tensor([[1.0, 100.0]]), torch.tensor([[0.0, 1.0]])) > 0
     assert weighted_distillation_loss(torch.tensor([[0.0], [10.0]]), torch.zeros(2, 1), torch.tensor([1.0, 0.0])) == 0
@@ -49,8 +66,9 @@ def test_losses_use_pitch_mask_and_teacher_trust():
 
 
 def test_score_protocol_and_resident_http():
-    score = normalize_score({"language": "ko", "notes": [{"pitch": 60, "start": 0, "duration": .2, "lyric": "아"}]})
+    score = normalize_score({"language": "ko", "tempo": 120, "style": {"preset": "bright"}, "curves": {"pitch": [[0, 0], [1, 2]]}, "notes": [{"id": "n1", "pitch": 60, "start_beat": 0, "duration_beats": 1, "lyric": "아"}]})
     assert score["sample_rate"] == 48000
+    assert score["notes"][0]["duration"] == .5 and score["curves"]["pitch"][1]["time"] == .5
     class Fake:
         sample_rate = 48000
         def render(self, incoming):
@@ -70,6 +88,13 @@ def test_score_protocol_and_resident_http():
 def test_hybrid_path_has_no_baseline_dsp_calls():
     source = open("src/gyu_singer/inference/hybrid.py").read()
     assert "pitch_shift" not in source and "phase_vocoder" not in source and "NeuralRenderer" not in source
+
+
+def test_phrase_flow_uses_all_notes_in_one_tensor():
+    model, batch = TriSingerModel(dim=32), _batch()
+    batch["note_index"] = torch.tensor([[0, 0, 0, 1, 1, 1]])
+    latent = model.sample(batch, steps=2)
+    assert latent.shape == (1, 6, 768)
 
 
 def test_openutau_ustx_bridge_converts_ticks(tmp_path):

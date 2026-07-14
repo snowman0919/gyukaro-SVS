@@ -1,13 +1,15 @@
 # GYU Renderer Protocol v2
 
-Resident server command:
+Hybrid service stays resident:
 
 ```sh
 gyu-singer --backend hybrid-svs serve --port 8765
 ```
 
-`GET /health` returns readiness. `GET /model` returns backend and output rate. `POST /render` accepts JSON and returns a 48 kHz PCM WAV without reloading model.
+`GET /health` returns readiness. `GET /model` returns backend, version, checkpoint, languages and 48 kHz rate. `POST /render` returns WAV without reloading the model.
 
-Required score fields: `language` (`ko`, `en`, `ja`) and ordered non-overlapping `notes`. Every note has MIDI `pitch`, second-based `start` and `duration`, and `lyric`. Optional `expressions`: scalar `dynamics`, `breathiness`, `tension`, `brightness`, `vibrato`.
+Notes must use either seconds (`start`, `duration`) or beats (`start_beat`, `duration_beats`). Beat values convert as `seconds = beats * 60 / tempo` before phrase-frame alignment. Each note requires `id`, MIDI `pitch`, `lyric`; optional `slur` is accepted and preserved.
 
-`integrations/openutau/bridge.py` converts one USTX voice part to this protocol.
+`curves.pitch` is a semitone residual curve consumed by `PitchConditionEncoder`; point form is `{ "beat": 1, "value": 0.5 }`, `{ "time": 0.5, "value": 0.5 }`, or `[beat, value]`. Other supported curve names are `dynamics`, `breathiness`, `tension`, `brightness`, `vibrato`; their phrase means condition `StyleEncoder`. `style.preset` accepts `neutral`, `soft`, `breathy`, `energetic`, `dark`, `bright`, `tense`, `vibrato`.
+
+Unknown curves fail validation rather than silently doing nothing.
