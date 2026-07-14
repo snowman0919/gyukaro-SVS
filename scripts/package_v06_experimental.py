@@ -21,7 +21,8 @@ for source in FILES:
     if not source.exists(): continue
     destination = root / source
     destination.parent.mkdir(parents=True, exist_ok=True)
-    if source.is_dir(): shutil.copytree(source, destination)
+    if source.is_dir():
+        shutil.copytree(source, destination, ignore=shutil.ignore_patterns("final_v0.6_report.md"))
     else: shutil.copy2(source, destination)
 commit = subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip()
 (root / "PACKAGE.json").write_text(json.dumps({"status": "incomplete", "backend": "gyu-singer-v0.6", "git_commit": commit, "reason": "independent prosody gain and clean full-path acceptance remain open"}, indent=2) + "\n")

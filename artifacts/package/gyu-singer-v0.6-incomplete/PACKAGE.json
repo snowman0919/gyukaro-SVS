@@ -1,6 +1,6 @@
 {
   "status": "incomplete",
   "backend": "gyu-singer-v0.6",
-  "git_commit": "de1d8145c35ed8ba3eb8a3573a7b204fcc9a3dc3",
+  "git_commit": "1a59bde05293001d199c17770c780f8280af25f0",
   "reason": "independent prosody gain and clean full-path acceptance remain open"
 }
