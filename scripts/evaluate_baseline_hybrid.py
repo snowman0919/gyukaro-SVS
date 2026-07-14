@@ -87,13 +87,14 @@ def metrics(path: str, score: dict, f0: F0Extractor, ref: np.ndarray, wavlm, ext
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--skip-baseline-render", action="store_true")
+    parser.add_argument("--quality-primary", action="store_true", help="compare baseline with current primary CLI outputs in /tmp")
     parser.add_argument("--checkpoint", default="checkpoints/gyu_hybrid_v0.2.pt")
     parser.add_argument("--report", default="artifacts/reports/baseline_hybrid_evaluation.json")
     args = parser.parse_args()
     device = "cuda" if torch.cuda.is_available() else "cpu"
     Path("artifacts/samples").mkdir(exist_ok=True)
     baseline = None if args.skip_baseline_render else NeuralRenderer("checkpoints/gyu_moss_nano_sft/checkpoint-last", "data/cache/moss-audio-tokenizer-nano", "data/source/Korea Digital Media High School 215.m4a")
-    hybrid = HybridRenderer(load_hybrid_model(args.checkpoint, device), MossCodecDecoder("data/cache/moss-audio-tokenizer-nano", device), "data/processed/master/216.wav")
+    hybrid = None if args.quality_primary else HybridRenderer(load_hybrid_model(args.checkpoint, device), MossCodecDecoder("data/cache/moss-audio-tokenizer-nano", device), "data/processed/master/216.wav")
     extractor = AutoFeatureExtractor.from_pretrained("data/cache/wavlm-base-plus-sv")
     wavlm = AutoModelForAudioXVector.from_pretrained("data/cache/wavlm-base-plus-sv").to(device).eval()
     ref = embedding(wavlm, extractor, audio16("data/processed/master/216.wav"), device)
@@ -102,11 +103,12 @@ def main() -> None:
     f0 = F0Extractor("data/cache/soulx-singer/pretrained_models/SoulX-Singer-Preprocess/rmvpe/rmvpe.pt", device=device, target_sr=24000, hop_size=480, verbose=False)
     result = {"f0_extractor": "SoulX RMVPE", "scores": {}}
     for language, lyrics in SCORES.items():
-        score = {"language": language, "tempo": 120, "sample_rate": 48000, "notes": [{"pitch": 60, "start": 0.0, "duration": .6, "lyric": lyrics[0]}, {"pitch": 64, "start": .6, "duration": .6, "lyric": lyrics[1]}]}
-        paths = {"vocalizer_baseline": f"artifacts/samples/baseline_{language}.wav", "hybrid_svs": f"artifacts/samples/hybrid_{language}.wav"}
+        score = json.loads(Path(f"examples/quality_{language}.json").read_text()) if args.quality_primary else {"language": language, "tempo": 120, "sample_rate": 48000, "notes": [{"pitch": 60, "start": 0.0, "duration": .6, "lyric": lyrics[0]}, {"pitch": 64, "start": .6, "duration": .6, "lyric": lyrics[1]}]}
+        paths = {"vocalizer_baseline": f"artifacts/samples/baseline_{language}.wav", "hybrid_svs_quality": f"/tmp/gyu-soulx-quality-{language}.wav"} if args.quality_primary else {"vocalizer_baseline": f"artifacts/samples/baseline_{language}.wav", "hybrid_svs": f"artifacts/samples/hybrid_{language}.wav"}
         if baseline: sf.write(paths["vocalizer_baseline"], baseline.render(score), 48000)
-        torch.manual_seed(21)
-        sf.write(paths["hybrid_svs"], hybrid.render(score), 48000)
+        if hybrid:
+            torch.manual_seed(21)
+            sf.write(paths["hybrid_svs"], hybrid.render(score), 48000)
         result["scores"][language] = {name: metrics(path, score, f0, ref, wavlm, extractor, asr, processor, device) | {"path": path} for name, path in paths.items()}
     Path(args.report).write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n")
     print(json.dumps(result, ensure_ascii=False, indent=2))

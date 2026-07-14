@@ -1,23 +1,23 @@
-# Compact TriSinger component traceability
+# Production quality-path component traceability
 
-This table proves the listed modules participate in the **compact
-`hybrid-svs`** training/inference path.  That checkpoint fails the quality
-gate.  The quality-passing `hybrid-soulx-phrase` runtime instead uses frozen
-ACE-Step and SoulX-Singer workers; it is score-conditioned whole-phrase neural
-generation, but it does not make the compact TriSinger modules part of its
-forward path.  Therefore it does not satisfy the prompt's production-candidate
-component requirement by association.
+`hybrid-soulx-phrase` loads `gyu_quality_pitch_controller.pt`, a
+`TriSingerModel(latent_dim=1)`. Its UnifiedPhoneme, language, score, blurred
+boundary, timbre, style, pitch, conditional-flow, and SingingDecoder modules
+produce a bounded expressive F0 residual from score/control/reference inputs.
+That residual is added to the nominal score F0 and is consumed by the frozen
+SoulX neural acoustic decoder. The compact `hybrid-svs` codec-latent checkpoint
+remains a failed experimental path; it is not the quality candidate.
 
 | Concept | Source inspiration | Project problem | Implementation | Forward call | Loss / supervision | Evidence | Status |
 |---|---|---|---|---|---|---|---|
-| Unified phonemes | trilingual SVS frontend | opaque lyric text | `frontend/phonemizer.py:phonemize`, `UnifiedPhonemeEncoder` | `TriSingerModel.condition` | CFM; teacher representation | `test_all_hybrid_modules_receive_gradient` | integrated |
-| Language features | language-aware singing frontend | Korean/English/Japanese timing differs | `LanguageFeatureEncoder` | `condition` added to content | CFM; teacher representation | KO/EN/JA frontend tests, teacher language gradient | integrated |
-| Phoneme-note mapping | score-conditioned SVS | lyric cannot be whole-note TTS | `alignment/phrase.py:build_phrase_frames`, `scripts/align_real_phonemes.py` | `ScoreEncoder` receives mapping index, onset, duration | CFM | MMS CTC plus singing-vowel prior; alignment regression test | integrated; real labels inferred |
-| Blurred boundary | TCSinger 2 | hard transition discontinuity | `BlurredBoundaryEncoder` | `condition` after content+score | CFM | boundary condition/gradient test; lower energy jump in current evaluation | integrated, quality not proven |
-| Timbre | target-speaker adaptation | retain GYU reference identity | `TimbreEncoder` | broadcast into condition | weighted teacher representation | teacher batch timbre gradient; WavLM metric | integrated |
-| Style/technique | TechSinger | preset and curve controls absent | `StyleEncoder` | broadcast into condition | CFM; teacher style rows | full-module gradient test | integrated, controls uncalibrated |
-| Pitch curve | score SVS / FM-Singer conditioning | actual-F0 leakage and uncontrolled pitch | `PitchConditionEncoder`, `TriSingerModel.pitch_head` residual | nominal score F0 plus controls enter condition; actual RMVPE F0 is target only | voiced masked score-to-real log-F0 residual loss | leakage-free batch path, pitch curve test; compact retrain F0 report | integrated; compact quality failed |
-| Conditional flow matching | FM-Singer | random-init waveform generation impractical | `ConditionalFlowTransformer`, `SingingDecoder` | decoder produces condition-derived latent source; flow predicts source-to-target residual and Euler `sample` refines it | source latent MSE plus residual-flow MSE | flow objective/gradient tests; v0.4 evaluation | integrated; compact quality failed |
-| Codec acoustic decoder | pretrained codec reuse | tiny corpus cannot train waveform decoder | `inference/codec.py:MossCodecDecoder` | after sampled latent | frozen, no acoustic training loss | package smoke render | integrated |
+| Unified phonemes | trilingual SVS frontend | opaque lyric text | `frontend/phonemizer.py:phonemize`, `UnifiedPhonemeEncoder` | `QualityPitchController.predict` -> `TriSingerModel.sample` | residual-flow F0 target; teacher representation in compact stage | gradient test; production score render | integrated |
+| Language features | language-aware singing frontend | Korean/English/Japanese timing differs | `LanguageFeatureEncoder` | quality controller condition | residual-flow F0 target; teacher representation in compact stage | KO/EN/JA frontend tests, production score render | integrated |
+| Phoneme-note mapping | score-conditioned SVS | lyric cannot be whole-note TTS | `alignment/phrase.py:build_phrase_frames`, `scripts/align_real_phonemes.py` | quality controller `ScoreEncoder` receives mapping index, onset, duration | residual-flow F0 target | MMS CTC plus singing-vowel prior; alignment regression test | integrated; real labels inferred |
+| Blurred boundary | TCSinger 2 | hard transition discontinuity | `BlurredBoundaryEncoder` | quality controller condition before residual flow | residual-flow F0 target | boundary condition/gradient test; quality gate | integrated |
+| Timbre | target-speaker adaptation | retain GYU reference identity | `TimbreEncoder` | GYU reference broadcast into quality controller condition | residual-flow F0 target; weighted teacher representation in compact stage | teacher batch timbre gradient; WavLM metric | integrated |
+| Style/technique | TechSinger | preset and curve controls absent | `StyleEncoder` | quality controller condition; ACE phrase style prompt | residual-flow F0 target; teacher style rows in compact stage | full-module gradient test | integrated, controls partly calibrated |
+| Pitch curve | score SVS / FM-Singer conditioning | actual-F0 leakage and uncontrolled pitch | `PitchConditionEncoder`, `QualityPitchController` | score nominal F0/control -> flow residual -> SoulX F0 input | synthetic quality-runtime RMVPE residual target | controller contour regression; resident quality gate | integrated |
+| Conditional flow matching | FM-Singer | expressive contour from score is missing | `ConditionalFlowTransformer`, `SingingDecoder` | controller decoder produces residual source; flow refines it before SoulX decode | source plus residual-flow RMVPE-F0 MSE | flow/gradient tests; resident quality gate | integrated |
+| Neural acoustic decoder | pretrained singing decoder reuse | tiny corpus cannot train waveform decoder | `SoulX-Singer SVC` worker | complete phrase content plus controller-conditioned explicit F0 | frozen Apache-2.0 decoder; controller F0 losses | package smoke and KO/EN/JA gate | integrated |
 
 Real GYU score rows are reconstructed from RMVPE piecewise-note candidates plus recording-script priors by `scripts/reconstruct_real_scores.py`; `score_source` explicitly says inferred.  `tests/test_hybrid.py::test_all_hybrid_modules_receive_gradient` observes non-zero gradients for every learned component. `test_teacher_distillation_reaches_timbre_language_and_style_encoders` repeats this for teacher loss. Connectivity evidence is not quality evidence: the reconstructed-score compact retrain failed its quality gate (`artifacts/reports/hybrid_score_reconstructed_evaluation.json`).

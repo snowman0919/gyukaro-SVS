@@ -117,7 +117,9 @@ def test_hybrid_path_has_no_baseline_dsp_calls():
 def test_soulx_phrase_backend_builds_one_score_contour():
     score = normalize_score({"language": "ja", "tempo": 120, "notes": [{"pitch": 60, "start": 0, "duration": 1, "lyric": "あ"}, {"pitch": 67, "start": 1, "duration": 1, "lyric": "い"}], "curves": {"pitch": [{"time": 0, "value": 0}, {"time": 1, "value": 0}]}})
     contour = SoulXPhraseRenderer._f0(score, 2)
+    expressive = SoulXPhraseRenderer._f0(score, 2, np.full(25, .1))
     assert contour.shape == (100,) and np.isclose(np.median(contour[:50]), 261.6256, atol=1) and np.isclose(np.median(contour[50:]), 391.9954, atol=1)
+    assert np.median(expressive[:50]) > np.median(contour[:50])
 
 
 def test_quality_worker_waits_for_tagged_response():

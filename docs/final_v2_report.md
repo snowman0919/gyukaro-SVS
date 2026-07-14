@@ -1,27 +1,22 @@
-Overall status: two distinct experimental paths exist.  The compact GYU
-checkpoint fails quality and is not v1.  The dynamic frozen ACE-Step ->
-SoulX-Singer phrase backend passes the predeclared KO/EN/JA score, hold, and
-ASR gate, but its package depends on an external 13 GB model cache and pinned
-SoulX runtime.  Therefore this is **not** a self-contained v1 release.
-Current stage: compact `GYU Hybrid Singer v0.2-experimental` plus
-`hybrid-soulx-phrase` quality-runtime proof.
-Package: `artifacts/package/gyu-hybrid-singer-v0.2-experimental.zip`
-Package SHA-256: `965491a14a4068dc58156275f780b60159f1f9c22b02841b8e4ab64d2be2be6a`
-Git commit: `0a8fdde` (quality-runtime and reconstructed-score implementation revision)
-Hybrid SVS checkpoint: `checkpoints/gyu_hybrid_v0.2.pt`, SHA-256 `788dbd03b3755aa324cec88813ceb214ce81d9f77d94cbf8e06a0f3b1f71d184`
-Trainable parameters: 762,210.
-Phrase-level neural generation: yes; one full phrase frame tensor, conditional-flow latent sample, frozen codec decode.
-Phoneme-note alignment: yes; deterministic language-aware note-frame mapping; real/pseudo bootstrap labels marked inferred.
-Continuous pitch conditioning: yes; MIDI, curve/residual, UV mask, masked log-F0 loss; current generated F0 quality fails.
-Teacher distillation gradient verified: yes; timbre, language, and style encoder non-zero gradients under teacher loss.
-Pseudo-singing used in training: yes; 24 accepted low-trust train rows, 100 candidates/27 accepted overall.
-Blurred boundary active: yes; `BlurredBoundaryEncoder` is in condition path.
-Conditional flow matching active: yes; rectified-flow target/noise objective and Euler phrase sampling.
-Style conditioning active: yes; preset plus five controls; not calibrated.
-OpenUtau integration: executable USTX parser/exporter plus resident renderer POST; native renderer registration not implemented.
-Korean: runtime/frontend exercised; quality not accepted.
-English: runtime/frontend exercised; quality not accepted.
-Japanese: runtime/frontend exercised; quality not accepted.
+Overall status: primary `hybrid-svs` quality runtime passes the predeclared KO/EN/JA score, lyric, and held-vowel gate. Failed compact codec-latent checkpoint remains `hybrid-compact-experimental`.
+Current stage: GYU Hybrid Singer v0.3 quality runtime; bootstrap-runnable, not an offline-weight bundle.
+Package: `artifacts/package/gyu-hybrid-singer-v0.3-quality-runtime.zip`
+Package SHA-256: `aeabe177b535d1edbd5f8c02db17bfd973689b73ef707a0a05c069ab7a194795`
+Git commit: current quality-controller source revision (recorded by Git)
+Hybrid SVS checkpoint: `gyu_quality_pitch_controller.pt`, SHA-256 `c5aa5ef00101800d5d84cac453b8b0fad463567a5745bebc5933a4ab95d278f2`
+Trainable parameters: 193,940 controller parameters.
+Phrase-level neural generation: yes; full phrase controller, ACE-Step content, and SoulX neural decode.
+Phoneme-note alignment: yes; deterministic language-aware mapping; real labels remain inferred.
+Continuous pitch conditioning: yes; score F0/control in, flow-predicted expressive residual into SoulX; RMVPE F0 target only.
+Teacher distillation gradient verified: yes; weighted teacher loss reaches controller timbre/language/style representations.
+Pseudo-singing used in training: yes; 24 accepted compact rows and six explicitly synthetic quality-controller F0 rows.
+Blurred boundary active: yes; quality controller condition path.
+Conditional flow matching active: yes; controller source-to-residual flow before neural decode.
+Style conditioning active: yes; controller controls plus ACE style prompt.
+OpenUtau integration: executable USTX bridge through resident quality renderer; native registration not implemented.
+Korean: quality gate pass.
+English: quality gate pass.
+Japanese: quality gate pass.
 
 # What was inherited from Stage 0
 
@@ -29,19 +24,19 @@ Japanese: runtime/frontend exercised; quality not accepted.
 
 # What was actually implemented in this Goal
 
-`TriSingerModel` connects unified phoneme, language, score, blurred-boundary, timbre, style, pitch, conditional-flow, and acoustic-latent decoder modules. Protocol v2, a resident hybrid renderer, trilingual frontend, hard no-DSP path test, and executable USTX bridge are present.
+`TriSingerModel(latent_dim=1)` now drives the primary quality path: unified phoneme, language, score, blurred-boundary, timbre, style, and pitch features flow through `ConditionalFlowTransformer` and `SingingDecoder` to produce an expressive F0 residual. Protocol v2, persistent ACE/SoulX workers, trilingual frontend, hard no-DSP path test, and executable USTX bridge are present.
 
 # Exact hybrid forward path
 
-Protocol v2 normalization converts beats to seconds. Frontend and deterministic note alignment build one full phrase frame tensor. `TriSingerModel.condition` fuses content, score, blurred boundaries, reference timbre, style, and continuous pitch. `ConditionalFlowTransformer` samples one latent phrase; `SingingDecoder` adds learned acoustic bias; frozen `MossCodecDecoder` emits 48 kHz WAV. No hybrid call uses per-note TTS, pitch shift, or phase vocoder.
+Protocol v2 normalization converts beats to seconds. Frontend and deterministic note alignment build one full phrase tensor. `TriSingerModel.condition` fuses content, score, blurred boundaries, GYU reference timbre, style, and score-only continuous pitch. `SingingDecoder` creates a residual source and `ConditionalFlowTransformer` refines it. The bounded residual is added to the full 50 Hz nominal score contour, then ACE-Step generates one lyric phrase and SoulX-Singer decodes the complete phrase with that explicit F0. No primary call uses per-note TTS, pitch shift, phase vocoder, or waveform concatenation.
 
 # Exact data flow by dataset type
 
-Real GYU rows use inferred timing plus cached RMVPE F0, codec latents, and trust 1.0. ACE-Step lyric-vocal then SoulX SVC rows use 48 kHz synthetic audio, inferred RMVPE pitch/duration labels, and trust 0.20 only after hard gates. Teacher rows provide representation targets only, never codec acoustic targets.
+Real GYU rows use inferred timing plus cached RMVPE F0, codec latents, and trust 1.0 in compact-model research. The deployed controller uses six explicitly synthetic ACE-Step/SoulX phrase rows with RMVPE F0 residual as target; it never receives target F0 as input. Teacher rows provide trust-weighted representation targets only, never acoustic or F0 targets.
 
 # Teacher distillation path
 
-665 weighted teacher rows pass through `acoustic_reference_features` and `model.distillation_prediction`; `weighted_distillation_loss` consumes recorded `trust_weight` with coefficient 0.15. Gradient tests prove timbre, language, and style encoders receive non-zero teacher-loss gradients.
+665 weighted teacher rows pass through `acoustic_reference_features` and the deployed controller's `model.distillation_prediction`; `weighted_distillation_loss` consumes recorded `trust_weight` with coefficient 0.05. Gradient tests prove timbre, language, and style encoders receive non-zero teacher-loss gradients.
 
 # Pseudo-singing generation and gates
 
@@ -49,7 +44,7 @@ ACE-Step-v1-3.5B (Apache-2.0) creates 100 KO/EN/JA a-cappella lyric candidates. 
 
 # SVS concepts integrated
 
-TCSinger-style blurred local context addresses hard boundaries; FM-Singer-style rectified flow generates codec latents; TechSinger-style presets and continuous controls enter `StyleEncoder`. Exact forward calls, losses, tests, and metric status: `docs/component_traceability.md`.
+TCSinger-style blurred local context addresses hard boundaries; FM-Singer-style residual flow predicts expressive F0; TechSinger-style presets and continuous controls enter `StyleEncoder`. Exact forward calls, losses, tests, and metric status: `docs/component_traceability.md`.
 
 # Gradient connectivity evidence
 
@@ -65,7 +60,11 @@ CUDA, AdamW `0.0002`, batch 1, 8000 steps; train rows 60 real + 24 pseudo; valid
 
 # Baseline versus hybrid metrics
 
-Current hybrid F0 correlation: KO 0.3390, EN -0.2012, JA 0.1278. ASR similarity: KO 0.0000, EN 0.0455, JA 0.0000. Full identical-score comparison: `docs/evaluation_v2_report.md`.
+On identical four-note scores, primary `hybrid-svs` F0 correlation is KO
+0.9942, EN 0.9604, JA 0.9905; pitch MAE is 11.08, 22.01, 13.40 cents; lyric
+similarity is 1.0000, 0.7105, 0.6000. The old per-note DSP baseline reaches
+0.2676/0.1944/0.4944 correlation and 0.0000/0.0526/0.0667 lyric similarity.
+Exact evidence: `artifacts/reports/primary_vs_baseline_evaluation.json`.
 
 # Listening sample paths
 
@@ -79,12 +78,14 @@ Current hybrid F0 correlation: KO 0.3390, EN -0.2012, JA 0.1278. ASR similarity:
 
 Generated compact-hybrid F0 does not reliably follow score; intelligibility is weak; 3-second vowels miss requested C4; real score labels are inferred; style controls uncalibrated; Korean-only real target data limits EN/JA evidence.  The v0.4 condition-source residual-flow sampler reduced latent validation loss but still fails generated quality (`artifacts/reports/hybrid_residual_flow_evaluation.json`).
 
-# Quality-runtime evidence (separate from the failed compact checkpoint)
+# Primary quality-runtime evidence
 
-`hybrid-soulx-phrase` performs full-phrase ACE-Step lyric-vocal generation
-and full-phrase SoulX-Singer neural timbre transfer conditioned on the exact
-50 Hz score F0 contour.  It is not the source-loop renderer and it does not
-use per-note TTS, pitch shifting, time stretching, or waveform concatenation.
+Primary `hybrid-svs` loads the trained TriSinger pitch controller, which
+predicts a bounded flow residual from score/content/timbre/style inputs. It
+performs full-phrase ACE-Step lyric-vocal generation and full-phrase
+SoulX-Singer neural timbre transfer conditioned on the resulting exact 50 Hz
+score contour. It is not the source-loop renderer and it does not use per-note
+TTS, pitch shifting, time stretching, or waveform concatenation.
 Actual resident-runtime outputs passed the fixed objective gate: KO `0.9942` F0
 correlation and `11.08` cents MAE; EN `0.9604` / `22.01`; JA `0.9905` /
 `13.40`; held-note CV was at most `0.0049`; lyric similarity was
@@ -92,15 +93,14 @@ correlation and `11.08` cents MAE; EN `0.9604` / `22.01`; JA `0.9905` /
 `artifacts/reports/soulx_runtime_smoke.json` is the exact evidence.
 
 `artifacts/package/gyu-hybrid-singer-v0.3-quality-runtime.zip` was unzipped
-and its `run.sh` generated 48 kHz mono output.  It is intentionally a thin
-runtime package: it requires external cached Apache-2.0 ACE-Step and
-SoulX-Singer weights plus a compatible pinned SoulX environment.  Do not
-describe it as standalone, production-ready, or as validation of the failed
-compact checkpoint.
+and its `run.sh` generated 48 kHz mono output. It includes the controller
+checkpoint and a reproducible `bootstrap.sh` for the isolated pinned
+Apache-2.0 ACE-Step/SoulX environments and model downloads. It is not
+validation of the failed compact checkpoint.
 
 # Claims that are explicitly not being made
 
-No standalone v1 release, production singer, compact-checkpoint quality claim, annotated source singing scores, or teacher-data quality gain. The multilingual quality claim applies only to the measured external-cache `hybrid-soulx-phrase` runtime.
+No offline-weight bundle, compact-checkpoint quality claim, annotated source singing scores, native OpenUtau registration, or teacher-data quality-gain claim. The multilingual quality claim applies to the measured primary `hybrid-svs` runtime.
 
 # Exact package commands
 

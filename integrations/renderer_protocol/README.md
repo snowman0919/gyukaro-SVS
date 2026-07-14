@@ -4,7 +4,7 @@ Quality service:
 
 ```sh
 GYU_SINGER_CACHE=data/cache GYU_SOULX_PYTHON=.venv-soulx/bin/python \
-PYTHONPATH=src python -m gyu_singer.cli --backend hybrid-soulx-phrase serve --port 8765
+PYTHONPATH=src python -m gyu_singer.cli --backend hybrid-svs serve --port 8765
 ```
 
 `GET /health` returns readiness. `GET /model` returns backend, version,

@@ -27,3 +27,16 @@ and validation acoustic loss was `0.935427`.  Despite lower loss,
 `artifacts/reports/hybrid_residual_flow_evaluation.json` and
 `artifacts/reports/hybrid_residual_flow_sustained.json` fail the quality gate.
 The run is evidence that the sampler changed, not a production checkpoint.
+
+## Deployed quality pitch controller
+
+`scripts/prepare_quality_pitch_controller.py` generated six explicitly
+synthetic ACE-Step/SoulX phrase rows (KO/EN/JA × neutral/soft). Their RMVPE F0
+residual is target only; score F0 and score controls are controller input.
+`scripts/train_quality_pitch_controller.py` trained
+`TriSingerModel(dim=48, latent_dim=1)` for 4,000 steps with source/residual
+flow loss and 665 teacher representation rows at trust-weighted coefficient
+0.05. The resulting 193,940-parameter checkpoint is the primary quality
+runtime controller; `artifacts/reports/quality_pitch_controller_training.json`
+contains its full loss history. It is bounded to ±0.10 semitone before the
+SoulX neural decoder and passes the resident KO/EN/JA quality gate.

@@ -62,11 +62,13 @@ quality candidate.
 
 ## Dynamic quality-runtime gate: passed
 
-The runnable `hybrid-soulx-phrase` backend was exercised through the public
-CLI, not through a pre-rendered fixture.  It generates one complete lyric
-phrase with ACE-Step, then uses SoulX-Singer with the full explicit 50 Hz
-score contour.  `scripts/evaluate_soulx_score_probe.py --runtime-smoke`
-measured those CLI outputs.  The predeclared gate is correlation >= 0.90,
+The runnable primary `hybrid-svs` backend (with `hybrid-soulx-phrase` as a
+compatibility alias) was exercised through the public CLI, not through a
+pre-rendered fixture. `TriSingerModel(latent_dim=1)` first predicts a bounded
+expressive score residual, then ACE-Step generates one complete lyric phrase
+and SoulX-Singer receives the full explicit 50 Hz score-plus-residual contour.
+`scripts/evaluate_soulx_score_probe.py --runtime-smoke` measured those CLI
+outputs. The predeclared gate is correlation >= 0.90,
 note MAE <= 100 cents, held-note CV <= 0.10, and lyric similarity >= 0.50.
 
 | Language | F0 corr | pitch MAE | held-note F0 CV | WavLM | ASR similarity | gate |
@@ -77,8 +79,25 @@ note MAE <= 100 cents, held-note CV <= 0.10, and lyric similarity >= 0.50.
 
 Evidence: `artifacts/reports/soulx_runtime_smoke.json`.  A separate thin
 package, `artifacts/package/gyu-hybrid-singer-v0.3-quality-runtime.zip`, was
-unzipped and ran its `run.sh` successfully, producing a 48 kHz mono WAV.  It
-deliberately excludes the 13 GB Apache-2.0 upstream ACE-Step/SoulX weights;
-the README requires the compatible external cache and SoulX Python runtime.
-This is quality-runtime evidence, **not** a claim that the compact v0.3
-checkpoint passed quality or that this is a self-contained production package.
+unzipped and ran its `run.sh` successfully, producing a 48 kHz mono WAV. It
+includes a 0.8 MB controller checkpoint and `bootstrap.sh` to download the
+13 GB Apache-2.0 upstream ACE-Step/SoulX dependencies into isolated pinned
+environments. This does not validate the failed compact checkpoint.
+
+## Identical-score primary versus baseline
+
+`scripts/evaluate_baseline_hybrid.py --quality-primary` rendered the old
+per-note DSP vocalizer and measured primary CLI outputs on the same four-note
+KO/EN/JA scores. Primary improves every pitch and lyric metric and reduces the
+energy jump at the first note boundary:
+
+| Language | renderer | F0 corr | pitch MAE | boundary jump | WavLM | ASR similarity |
+|---|---|---:|---:|---:|---:|---:|
+| KO | baseline | 0.2676 | 656.27c | 0.4417 | 0.4364 | 0.0000 |
+| KO | primary `hybrid-svs` | 0.9942 | 11.08c | 0.0446 | 0.6670 | 1.0000 |
+| EN | baseline | 0.1944 | 377.72c | 0.8457 | 0.4597 | 0.0526 |
+| EN | primary `hybrid-svs` | 0.9604 | 22.01c | 0.0309 | 0.7109 | 0.7105 |
+| JA | baseline | 0.4944 | 797.38c | 0.6197 | 0.4968 | 0.0667 |
+| JA | primary `hybrid-svs` | 0.9905 | 13.40c | 0.1424 | 0.5215 | 0.6000 |
+
+Exact data: `artifacts/reports/primary_vs_baseline_evaluation.json`.

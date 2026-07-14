@@ -35,7 +35,7 @@ class HybridRenderer:
         self.reference_features = acoustic_reference_features(reference_path).to(self.device)
 
     def model_info(self) -> dict:
-        return {"backend": "hybrid-svs", "model_version": "gyu-hybrid-v0.2", "checkpoint": getattr(self.model, "checkpoint_path", "in-memory"), "languages": ["ko", "en", "ja"], "sample_rate": self.sample_rate}
+        return {"backend": "hybrid-compact-experimental", "model_version": "gyu-hybrid-v0.2", "checkpoint": getattr(self.model, "checkpoint_path", "in-memory"), "languages": ["ko", "en", "ja"], "sample_rate": self.sample_rate}
 
     def batch(self, score: dict) -> dict[str, torch.Tensor]:
         score = normalize_score(score)

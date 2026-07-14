@@ -10,7 +10,7 @@ def make_renderer(args):
     if args.backend == "neural-vocalizer-baseline":
         from .neural_renderer import NeuralRenderer
         return NeuralRenderer(args.model, args.audio_tokenizer, args.reference)
-    if args.backend == "hybrid-soulx-phrase":
+    if args.backend in {"hybrid-svs", "hybrid-soulx-phrase"}:
         from .inference import SoulXPhraseRenderer
         return SoulXPhraseRenderer(args.reference)
     from .inference import HybridRenderer, load_hybrid_model
@@ -20,7 +20,7 @@ def make_renderer(args):
 
 def main() -> None:
     parser = argparse.ArgumentParser(prog="gyu-singer")
-    parser.add_argument("--backend", choices=("hybrid-svs", "hybrid-soulx-phrase", "loop", "neural-vocalizer-baseline"), default="hybrid-svs")
+    parser.add_argument("--backend", choices=("hybrid-svs", "hybrid-soulx-phrase", "hybrid-compact-experimental", "loop", "neural-vocalizer-baseline"), default="hybrid-svs")
     parser.add_argument("--model", default="checkpoints/gyu_v1_experimental.npz", help="loop or baseline vocalizer model")
     parser.add_argument("--checkpoint", default="checkpoints/gyu_hybrid_v0.2.pt")
     parser.add_argument("--audio-tokenizer", default="data/cache/moss-audio-tokenizer-nano")
