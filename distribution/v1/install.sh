@@ -65,8 +65,13 @@ fi
 
 chmod +x "$ROOT/serve.sh" "$ROOT/render-example.sh" "$ROOT/launch-openutau.sh"
 if [ "$SKIP_RENDER" -eq 0 ]; then
-  "$ROOT/render-example.sh" "$ROOT/examples/quality_ko.json" "$RUNTIME/install-smoke.wav"
-  "$PY" "$ROOT/verify-install.py" --root "$ROOT" --audio "$RUNTIME/install-smoke.wav"
+  for language in ko en ja; do
+    "$ROOT/render-example.sh" "$ROOT/examples/quality_$language.json" "$RUNTIME/install-smoke-$language.wav"
+  done
+  "$PY" "$ROOT/verify-install.py" --root "$ROOT" \
+    --audio "$RUNTIME/install-smoke-ko.wav" \
+    --audio "$RUNTIME/install-smoke-en.wav" \
+    --audio "$RUNTIME/install-smoke-ja.wav"
 else
   "$PY" "$ROOT/verify-install.py" --root "$ROOT"
 fi

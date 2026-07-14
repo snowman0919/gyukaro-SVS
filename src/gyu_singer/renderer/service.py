@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import io
 import json
+import traceback
 import threading
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
@@ -37,6 +38,7 @@ def build_server(renderer, host: str = "127.0.0.1", port: int = 8765) -> Threadi
             except (ValueError, KeyError, json.JSONDecodeError) as error:
                 self._json({"error": str(error)}, 400)
             except Exception as error:
+                traceback.print_exc()
                 self._json({"error": str(error), "type": type(error).__name__}, 500)
 
         def log_message(self, format: str, *args) -> None: pass

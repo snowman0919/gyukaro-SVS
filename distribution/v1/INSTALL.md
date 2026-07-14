@@ -8,7 +8,7 @@ cd gyu-singer-v1.0
 ./install.sh
 ```
 
-The default flow creates isolated environments, downloads and verifies pinned OmniVoice and SoulX weights, clones the exact OpenUtau source revision, applies the GYU overlay, builds it, and renders `examples/quality_ko.json` as `.runtime/install-smoke.wav`.
+The default flow creates isolated environments, downloads and verifies pinned OmniVoice and SoulX weights, clones the exact OpenUtau source revision, applies the GYU overlay, builds it, and renders KO/EN/JA smoke WAVs under `.runtime/`.
 
 An existing exact development cache can seed an offline/local validation without copying virtual environments:
 

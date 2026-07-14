@@ -20,7 +20,7 @@ def sha(path: Path) -> str:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(); parser.add_argument("--root", default="."); parser.add_argument("--audio")
+    parser = argparse.ArgumentParser(); parser.add_argument("--root", default="."); parser.add_argument("--audio", action="append", default=[])
     args = parser.parse_args(); root = Path(args.root).resolve(); runtime = root / ".runtime"
     manifest = json.loads((root / "model-dependencies.json").read_text())
     for name, expected in manifest["packaged_project_checkpoints"].items():
@@ -31,10 +31,11 @@ def main() -> None:
     if actual_openutau != expected_openutau: raise RuntimeError("OpenUtau revision mismatch")
     dll = runtime / "OpenUtau/OpenUtau/bin/Release/net8.0/OpenUtau.dll"
     if not dll.exists(): raise FileNotFoundError(dll)
-    audio = None
-    if args.audio:
-        info = sf.info(args.audio); audio = {"path": args.audio, "sample_rate": info.samplerate, "channels": info.channels, "seconds": info.duration}
-        if info.samplerate != 48_000 or info.channels != 1 or info.duration < 1: raise RuntimeError(f"invalid smoke audio: {audio}")
+    audio = []
+    for path in args.audio:
+        info = sf.info(path); row = {"path": path, "sample_rate": info.samplerate, "channels": info.channels, "seconds": info.duration}
+        if info.samplerate != 48_000 or info.channels != 1 or info.duration < 1: raise RuntimeError(f"invalid smoke audio: {row}")
+        audio.append(row)
     print(json.dumps({"status": "ok", "openutau": actual_openutau, "checkpoints": len(manifest["packaged_project_checkpoints"]), "audio": audio}, indent=2))
 
 
