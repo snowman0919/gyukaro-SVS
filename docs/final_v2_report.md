@@ -73,7 +73,7 @@ Current hybrid F0 correlation: KO 0.3390, EN -0.2012, JA 0.1278. ASR similarity:
 
 # OpenUtau integration status
 
-`integrations/openutau/bridge.py` reads `.ustx`, selects voice part, converts project ticks and first tempo to protocol v2 seconds, writes JSON, and can POST to resident `/render`. `examples/openutau_smoke.ustx` has been exercised through that full path, producing a 48 kHz mono WAV. Tempo maps, native renderer registration, and editor curves are not implemented.
+`integrations/openutau/bridge.py` reads `.ustx`, selects voice part, converts project ticks and first tempo to protocol v2 seconds, writes JSON, and can POST to resident `/render`. `examples/openutau_smoke.ustx` has been exercised through the `hybrid-soulx-phrase` quality HTTP backend, producing a 48 kHz mono WAV. The HTTP service is resident but invokes pinned ACE-Step/SoulX workers per render. Tempo maps, native renderer registration, and editor curves are not implemented.
 
 # Known failures
 
@@ -99,16 +99,16 @@ compact checkpoint.
 
 # Claims that are explicitly not being made
 
-No v1 release, production singer, quality superiority over baseline, Japanese singing-quality support, annotated source singing scores, or teacher-data quality gain.
+No standalone v1 release, production singer, compact-checkpoint quality claim, annotated source singing scores, or teacher-data quality gain. The multilingual quality claim applies only to the measured external-cache `hybrid-soulx-phrase` runtime.
 
 # Exact package commands
 
 ```sh
-PYTHONPATH=src python scripts/package_v1.py
-rm -rf /tmp/gyu-hybrid-smoke && mkdir /tmp/gyu-hybrid-smoke
-unzip -q artifacts/package/gyu-hybrid-singer-v0.2-experimental.zip -d /tmp/gyu-hybrid-smoke
-cd /tmp/gyu-hybrid-smoke/gyu-hybrid-singer-v0.2-experimental
-PYTHONPATH=runtime python -m gyu_singer.cli --backend hybrid-svs --checkpoint model/gyu_hybrid_v0.2.pt --audio-tokenizer model/moss-audio-tokenizer-nano --reference model/gyu_reference_216.wav render examples/smoke.json --output output.wav
+PYTHONPATH=src python scripts/package_quality_runtime.py
+rm -rf /tmp/gyu-quality-smoke && mkdir /tmp/gyu-quality-smoke
+unzip -q artifacts/package/gyu-hybrid-singer-v0.3-quality-runtime.zip -d /tmp/gyu-quality-smoke
+cd /tmp/gyu-quality-smoke/gyu-hybrid-singer-v0.3-quality-runtime
+GYU_SINGER_CACHE=/path/to/cache GYU_SOULX_PYTHON=/path/to/.venv-soulx/bin/python sh run.sh
 ```
 
 # Highest-value next steps

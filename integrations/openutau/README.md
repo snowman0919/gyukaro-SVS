@@ -4,7 +4,8 @@
 
 ```sh
 python integrations/openutau/bridge.py song.ustx --language ko --output song.json
-gyu-singer serve --port 8765
+GYU_SINGER_CACHE=data/cache GYU_SOULX_PYTHON=.venv-soulx/bin/python \
+  PYTHONPATH=src python -m gyu_singer.cli --backend hybrid-soulx-phrase serve --port 8765
 python integrations/openutau/bridge.py song.ustx --language ko --output song.json --render-url http://127.0.0.1:8765 --wav song.wav
 ```
 
