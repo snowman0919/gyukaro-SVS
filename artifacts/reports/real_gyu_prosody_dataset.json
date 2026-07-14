@@ -1,0 +1,9 @@
+{
+  "rows": 76,
+  "target": "real_gyu_rmvpe_log_f0",
+  "synthetic_rows_primary": false,
+  "target_f0_in_condition": false,
+  "train": 65,
+  "validation": 6,
+  "test": 5
+}

@@ -1,0 +1,25 @@
+{
+  "steps": 400,
+  "real_rows": 76,
+  "teacher_rows": 32,
+  "teacher_role": "low_trust_style_structure_only",
+  "history": [
+    {
+      "step": 100,
+      "loss": 0.011244
+    },
+    {
+      "step": 200,
+      "loss": 0.025443
+    },
+    {
+      "step": 300,
+      "loss": 0.024073
+    },
+    {
+      "step": 400,
+      "loss": 0.13349
+    }
+  ],
+  "checkpoint": "checkpoints/gyu_acoustic_style_adapter_v0.5.pt"
+}
