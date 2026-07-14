@@ -1,4 +1,12 @@
-# Component traceability
+# Compact TriSinger component traceability
+
+This table proves the listed modules participate in the **compact
+`hybrid-svs`** training/inference path.  That checkpoint fails the quality
+gate.  The quality-passing `hybrid-soulx-phrase` runtime instead uses frozen
+ACE-Step and SoulX-Singer workers; it is score-conditioned whole-phrase neural
+generation, but it does not make the compact TriSinger modules part of its
+forward path.  Therefore it does not satisfy the prompt's production-candidate
+component requirement by association.
 
 | Concept | Source inspiration | Project problem | Implementation | Forward call | Loss / supervision | Evidence | Status |
 |---|---|---|---|---|---|---|---|
