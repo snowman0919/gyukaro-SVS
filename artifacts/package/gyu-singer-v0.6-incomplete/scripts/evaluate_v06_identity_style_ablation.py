@@ -7,6 +7,7 @@ import soundfile as sf
 import torch
 from scipy.signal import resample_poly
 from transformers import AutoFeatureExtractor, AutoModelForAudioXVector
+from speechbrain.inference.speaker import EncoderClassifier
 from gyu_singer.inference.v06 import GyuSingerV06Renderer
 
 def audio16(path):
@@ -39,7 +40,14 @@ def main():
         vectors[label] = emb(path); audio = audio16(path); metrics["wavlm_to_gyu"][label] = round(float(np.dot(ref, vectors[label])), 5); metrics["audio_rms"][label] = round(float(np.sqrt(np.mean(audio * audio))), 6)
     for label in paths:
         metrics["pairwise_l2"][label] = round(float(np.sqrt(np.mean((vectors[label] - base) ** 2))), 6)
-    report = {"paths": paths, "metric": "WavLM speaker cosine; same KO score/content/F0", "identity_effect": metrics["pairwise_l2"]["identity_zero"] > 1e-5, "latent_style_effect": metrics["pairwise_l2"]["latent_style_zero"] > 1e-5, "metrics": metrics, "ecapa": "not run: v0.6 gate uses WavLM; add ECAPA when pinned evaluator is available"}
+    ecapa = EncoderClassifier.from_hparams(source="data/cache/spkrec-ecapa-voxceleb", savedir="data/cache/spkrec-ecapa-voxceleb", run_opts={"device": device})
+    def ecapa_emb(path):
+        value = torch.from_numpy(audio16(path)).unsqueeze(0).to(device)
+        with torch.inference_mode(): value = ecapa.encode_batch(value).squeeze().detach().cpu().numpy()
+        return value / max(np.linalg.norm(value), 1e-8)
+    ecapa_ref = ecapa_emb("data/processed/master/216.wav")
+    metrics["ecapa_to_gyu"] = {label: round(float(np.dot(ecapa_ref, ecapa_emb(path))), 5) for label, path in paths.items()}
+    report = {"paths": paths, "metric": "WavLM and ECAPA speaker cosine; same KO score/content/F0", "identity_effect": metrics["pairwise_l2"]["identity_zero"] > 1e-5, "latent_style_effect": metrics["pairwise_l2"]["latent_style_zero"] > 1e-5, "metrics": metrics}
     Path("artifacts/reports/v06_identity_style_ablation.json").write_text(json.dumps(report, indent=2) + "\n")
     Path("docs/soulx_identity_adapter.md").write_text("# v0.6 SoulX identity adapter\n\n" + json.dumps(report, indent=2) + "\n")
     Path("docs/latent_style_adapter.md").write_text("# v0.6 latent acoustic-style adapter\n\n" + json.dumps(report, indent=2) + "\n")

@@ -4,25 +4,29 @@
     "identity_zero": "artifacts/reports/v06_ablation_identity_zero.wav",
     "latent_style_zero": "artifacts/reports/v06_ablation_latent_style_zero.wav"
   },
-  "metric": "WavLM speaker cosine; same KO score/content/F0",
+  "metric": "WavLM and ECAPA speaker cosine; same KO score/content/F0",
   "identity_effect": true,
   "latent_style_effect": true,
   "metrics": {
     "wavlm_to_gyu": {
-      "identity_enabled": 0.67271,
-      "identity_zero": 0.64184,
-      "latent_style_zero": 0.60861
+      "identity_enabled": 0.67877,
+      "identity_zero": 0.6802,
+      "latent_style_zero": 0.67394
     },
     "audio_rms": {
-      "identity_enabled": 0.160169,
-      "identity_zero": 0.176265,
-      "latent_style_zero": 0.177736
+      "identity_enabled": 0.158539,
+      "identity_zero": 0.173439,
+      "latent_style_zero": 0.176352
     },
     "pairwise_l2": {
       "identity_enabled": 0.0,
-      "identity_zero": 0.011542,
-      "latent_style_zero": 0.015061
+      "identity_zero": 0.013392,
+      "latent_style_zero": 0.014001
+    },
+    "ecapa_to_gyu": {
+      "identity_enabled": 0.2002,
+      "identity_zero": 0.28137,
+      "latent_style_zero": 0.2183
     }
-  },
-  "ecapa": "not run: v0.6 gate uses WavLM; add ECAPA when pinned evaluator is available"
+  }
 }
