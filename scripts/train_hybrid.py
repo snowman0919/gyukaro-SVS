@@ -5,9 +5,11 @@ from __future__ import annotations
 import argparse
 import json
 import random
+import time
 from pathlib import Path
 
 import numpy as np
+import soundfile as sf
 import torch
 import torch.nn.functional as F
 
@@ -49,27 +51,43 @@ def batch_from_row(row: dict, device: str, target_length: int | None = None, tea
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--train", default="data/manifests/hybrid_train.jsonl")
+    parser.add_argument("--validation", default="data/manifests/hybrid_valid.jsonl")
     parser.add_argument("--teachers", default="data/manifests/teacher_weighted.jsonl")
     parser.add_argument("--teacher-style-supplement", default="data/manifests/teacher_style_supplement_weighted.jsonl")
     parser.add_argument("--latents", default="data/cache/hybrid_latents")
     parser.add_argument("--steps", type=int, default=160)
     parser.add_argument("--dim", type=int, default=96)
     parser.add_argument("--teacher-loss-weight", type=float, default=0.15)
+    parser.add_argument("--validate-every", type=int, default=200)
     parser.add_argument("--output", default="checkpoints/gyu_hybrid_v0.2.pt")
     parser.add_argument("--report", default="artifacts/reports/hybrid_training.json")
     args = parser.parse_args()
     torch.manual_seed(7); random.seed(7)
     device = "cuda" if torch.cuda.is_available() else "cpu"
-    rows, teachers = read_jsonl(args.train), read_jsonl(args.teachers) + read_jsonl(args.teacher_style_supplement)
+    rows, validation_rows = read_jsonl(args.train), read_jsonl(args.validation)
+    teachers = read_jsonl(args.teachers) + read_jsonl(args.teacher_style_supplement)
     model = TriSingerModel(dim=args.dim).to(device).train()
     optimizer = torch.optim.AdamW(model.parameters(), lr=2e-4)
-    history = []
+    history, validation = [], []
+    started = time.perf_counter()
+    if device == "cuda": torch.cuda.reset_peak_memory_stats()
+
+    @torch.inference_mode()
+    def validate() -> dict:
+        model.eval(); values = []
+        for row in validation_rows:
+            target = torch.load(Path(args.latents) / f"{row['id']}.pt", map_location=device, weights_only=True)[None]
+            batch = batch_from_row(row, device, target.shape[1])
+            output = model(torch.zeros_like(target), torch.full((1,), .5, device=device), batch)
+            values.append(float(flow_matching_loss(output["velocity"], target) + .05 * log_pitch_loss(output["pitch_log_f0"], batch["f0_hz"], batch["voiced"])))
+        model.train()
+        return {"step": step, "acoustic_loss": round(sum(values) / len(values), 6)}
     for step in range(1, args.steps + 1):
         row = rows[(step - 1) % len(rows)]
         target = torch.load(Path(args.latents) / f"{row['id']}.pt", map_location=device, weights_only=True)[None]
         batch = batch_from_row(row, device, target.shape[1])
-        noise, time = torch.randn_like(target), torch.rand(1, device=device)
-        output = model((1 - time[:, None, None]) * noise + time[:, None, None] * target, time, batch)
+        noise, flow_time = torch.randn_like(target), torch.rand(1, device=device)
+        output = model((1 - flow_time[:, None, None]) * noise + flow_time[:, None, None] * target, flow_time, batch)
         acoustic = output["velocity"] + 0.10 * output["acoustic_bias"]
         loss_flow = flow_matching_loss(acoustic, target - noise) * float(row["trust_weight"])
         loss_pitch = log_pitch_loss(output["pitch_log_f0"], batch["f0_hz"], batch["voiced"])
@@ -85,10 +103,13 @@ def main() -> None:
         optimizer.zero_grad(); loss.backward(); torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0); optimizer.step()
         history.append({"step": step, "loss": round(float(loss.detach()), 6), "flow": round(float(loss_flow.detach()), 6), "pitch": round(float(loss_pitch.detach()), 6), "teacher": round(float(loss_teacher.detach()), 6)})
         if step % 20 == 0: print(history[-1])
+        if step % args.validate_every == 0:
+            validation.append(validate()); print(validation[-1])
     Path(args.output).parent.mkdir(parents=True, exist_ok=True)
     torch.save({"model": model.eval().cpu().state_dict(), "model_config": {"dim": args.dim}, "steps": args.steps, "teacher_loss": "weighted_representation_only"}, args.output)
     Path(args.report).parent.mkdir(parents=True, exist_ok=True)
-    Path(args.report).write_text(json.dumps({"device": device, "steps": args.steps, "real_rows": sum(row["phase"] == "C_real_gyu" for row in rows), "pseudo_rows": sum(row["phase"] == "B_pseudo_singing" for row in rows), "teacher_rows": len(teachers), "teacher_loss_weight": args.teacher_loss_weight, "history": history, "checkpoint": args.output}, indent=2) + "\n")
+    report = {"device": device, "steps": args.steps, "optimizer": "AdamW", "learning_rate": 2e-4, "batch_size": 1, "gradient_accumulation": 1, "precision": "torch_default", "trainable_parameters": sum(parameter.numel() for parameter in model.parameters()), "real_rows": sum(row["phase"] == "C_real_gyu" for row in rows), "pseudo_rows": sum(row["phase"] == "B_pseudo_singing" for row in rows), "validation_rows": len(validation_rows), "teacher_rows": len(teachers), "teacher_loss_weight": args.teacher_loss_weight, "trust_weights": sorted({float(row["trust_weight"]) for row in rows}), "train_duration_sec": round(sum(sf.info(row["audio_path"]).duration for row in rows), 3), "wall_clock_sec": round(time.perf_counter() - started, 3), "gpu_peak_memory_bytes": torch.cuda.max_memory_allocated() if device == "cuda" else 0, "history": history, "validation": validation, "checkpoint": args.output}
+    Path(args.report).write_text(json.dumps(report, indent=2) + "\n")
 
 
 if __name__ == "__main__":

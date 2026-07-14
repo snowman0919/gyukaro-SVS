@@ -3,11 +3,13 @@
 from __future__ import annotations
 
 import hashlib
+import json
 import shutil
 from pathlib import Path
 
 
 root = Path("artifacts/package/gyu-hybrid-singer-v0.2-experimental")
+training = json.loads(Path("artifacts/reports/hybrid_training.json").read_text())
 if root.exists(): shutil.rmtree(root)
 for part in ("model", "runtime", "examples", "integrations/openutau", "integrations/renderer_protocol", "config"):
     (root / part).mkdir(parents=True, exist_ok=True)
@@ -21,8 +23,8 @@ for source, target in (("integrations/openutau", "integrations/openutau"), ("int
 (root / "requirements.txt").write_text("numpy\nsoundfile\ntorch\ntransformers\npyyaml\nscipy\ntorchaudio\ntorchcodec\n")
 (root / "install.sh").write_text("#!/bin/sh\nset -eu\npython -m venv --system-site-packages .venv\n.venv/bin/python -m pip install -r requirements.txt\n")
 (root / "run.sh").write_text("#!/bin/sh\nset -eu\ncd \"$(dirname \"$0\")\"\nPYTHONPATH=runtime .venv/bin/python -m gyu_singer.cli --backend hybrid-svs --checkpoint model/gyu_hybrid_v0.2.pt --audio-tokenizer model/moss-audio-tokenizer-nano --reference model/gyu_reference_216.wav render examples/smoke.json --output output.wav\n")
-(root / "README.md").write_text("# GYU Hybrid Singer v0.2-experimental\n\nCompact phrase-level neural SVS runtime. `sh install.sh`, then `sh run.sh`. Checkpoint has 1,200 CFM steps on 60 real anchors, 24 accepted Apache-2.0 ACE-Step/SoulX pseudo-singing acoustic rows at trust 0.20, and 665 weighted teacher rows used only for representation loss. Output quality is poor and multilingual singing is not claimed. This package has no source-loop, per-note TTS, pitch-shift, or phase-vocoder path.\n")
-(root / "MODEL_CARD.md").write_text("## Scope\n\nInput: Korean, English, or Japanese lyric-note protocol-v2 JSON. Model: TriSinger conditional-flow acoustic-latent generator (3.0 MB checkpoint) decoded by frozen Apache-2.0 MOSS audio tokenizer. Training: 60 real train rows, 24 accepted low-trust pseudo-singing rows, 8 validation, 5 test; 665 teacher rows only for trust-weighted representation loss. Pseudo labels are inferred from RMVPE pitch median and duration, not source annotations. Real-anchor score timing is inferred from speech duration, not ground-truth singing notation.\n\nThis is an experimental personalized SVS runtime, not a production-quality multilingual singer. It emits phrase audio, but measured F0 and intelligibility do not yet meet a v1 bar.\n")
+(root / "README.md").write_text(f"# GYU Hybrid Singer v0.2-experimental\n\nCompact phrase-level neural SVS runtime. `sh install.sh`, then `sh run.sh`. Checkpoint has {training['steps']} CFM steps on {training['real_rows']} real anchors, {training['pseudo_rows']} accepted Apache-2.0 ACE-Step/SoulX pseudo-singing acoustic rows at trust 0.20, and {training['teacher_rows']} weighted teacher rows used only for representation loss. Output quality is poor and multilingual singing is not claimed. This package has no source-loop, per-note TTS, pitch-shift, or phase-vocoder path.\n")
+(root / "MODEL_CARD.md").write_text(f"## Scope\n\nInput: Korean, English, or Japanese lyric-note protocol-v2 JSON. Model: TriSinger conditional-flow acoustic-latent generator (3.0 MB checkpoint) decoded by frozen Apache-2.0 MOSS audio tokenizer. Training: {training['real_rows']} real train rows, {training['pseudo_rows']} accepted low-trust pseudo-singing rows, {training['validation_rows']} validation, 5 test; {training['teacher_rows']} teacher rows only for trust-weighted representation loss. Pseudo labels are inferred from RMVPE pitch median and duration, not source annotations. Real-anchor score timing is inferred from speech duration, not ground-truth singing notation.\n\nThis is an experimental personalized SVS runtime, not a production-quality multilingual singer. It emits phrase audio, but measured F0 and intelligibility do not yet meet a v1 bar.\n")
 (root / "LICENSES.md").write_text("GYU recordings: authorized target-speaker data; package redistributes only one authorized 48 kHz reference WAV. MOSS audio tokenizer: upstream Apache-2.0 model card. Runtime dependencies retain their upstream licenses.\n")
 archive = Path("artifacts/package/gyu-hybrid-singer-v0.2-experimental.zip")
 if archive.exists(): archive.unlink()
