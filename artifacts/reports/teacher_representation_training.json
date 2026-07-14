@@ -15,23 +15,23 @@
       32
     ]
   },
-  "loss": "cosine(student_reference, shared_projected_teacher)",
-  "trust_weight": "teacher manifest weight applies at dataset selection; paired extraction rows are frozen evidence",
+  "loss": "trust_weight * cosine(student_reference, shared_projected_teacher)",
+  "trust_weight": "minimum paired manifest trust_weight scales objective",
   "gradient_evidence": [
     {
       "step": 100,
-      "loss": 5.2e-05,
-      "student_grad": 3.525e-05
+      "loss": 1.1e-05,
+      "student_grad": 8.08e-06
     },
     {
       "step": 200,
-      "loss": 4e-06,
-      "student_grad": 1.096e-05
+      "loss": 1e-06,
+      "student_grad": 2.49e-06
     },
     {
       "step": 300,
-      "loss": 1e-06,
-      "student_grad": 5.47e-06
+      "loss": 0.0,
+      "student_grad": 1.47e-06
     }
   ],
   "checkpoint": "checkpoints/gyu_teacher_identity_v0.5.pt",

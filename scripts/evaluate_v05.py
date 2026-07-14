@@ -18,10 +18,10 @@ def main() -> None:
     records = []
     for row in rows:
         residual, duration = controller.predict(row["score"]); residual = residual.cpu().numpy(); f0 = np.load(row["target_f0_path"]); nominal = []
-        notes = row["score"]["notes"]; frames = len(f0); times = np.linspace(0, duration, frames, endpoint=False)
+        notes = row["score"]["notes"]; frames = len(f0); times = np.arange(frames, dtype=np.float32) / 12.5
         for time in times:
             note = next((note for note in notes if note["start"] <= time < note["start"] + note["duration"]), notes[-1]); nominal.append(440 * 2 ** ((note["pitch"] - 69) / 12))
-        nominal = np.asarray(nominal); expressive = nominal * 2 ** (np.interp(np.linspace(0, len(residual) - 1, frames), np.arange(len(residual)), residual) / 12)
+        nominal = np.asarray(nominal); expressive = nominal * 2 ** (np.interp(times, np.linspace(0, duration, len(residual)), residual) / 12)
         voiced = f0 > 1; if_any = int(voiced.sum()) > 2
         corr = float(np.corrcoef(expressive[voiced], f0[voiced])[0, 1]) if if_any else 0.0; mae = float(np.median(np.abs(1200 * np.log2(np.maximum(expressive[voiced], 1) / np.maximum(f0[voiced], 1))))) if if_any else 1200.0
         nominal_mae = float(np.median(np.abs(1200 * np.log2(np.maximum(nominal[voiced], 1) / np.maximum(f0[voiced], 1))))) if if_any else 1200.0

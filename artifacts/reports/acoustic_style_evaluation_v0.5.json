@@ -1,0 +1,37 @@
+{
+  "phrase": "examples/quality_ko.json",
+  "styles": [
+    {
+      "style": "neutral",
+      "spectral_centroid_hz": 1074.52,
+      "rms": 0.159933,
+      "f0_source": "same score and prosody seed"
+    },
+    {
+      "style": "soft",
+      "spectral_centroid_hz": 995.25,
+      "rms": 0.185394,
+      "f0_source": "same score and prosody seed"
+    },
+    {
+      "style": "dark",
+      "spectral_centroid_hz": 1050.03,
+      "rms": 0.17821,
+      "f0_source": "same score and prosody seed"
+    },
+    {
+      "style": "bright",
+      "spectral_centroid_hz": 1005.52,
+      "rms": 0.17673,
+      "f0_source": "same score and prosody seed"
+    },
+    {
+      "style": "energetic",
+      "spectral_centroid_hz": 949.72,
+      "rms": 0.171868,
+      "f0_source": "same score and prosody seed"
+    }
+  ],
+  "style_only_change": true,
+  "interpretation": "audio-path spectral changes are demonstrated; perceptual calibration remains open"
+}

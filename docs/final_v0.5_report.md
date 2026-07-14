@@ -1,7 +1,7 @@
-Overall status: INCOMPLETE — real Korean path runs, but held-out prosody quality gate is not met.
-Current version: gyu-singer-v0.5-incomplete
-Package: gyu-singer-v0.5-incomplete
-Package SHA-256: `4ebd38c589427c96a8388024fccc80e7a0c39ecca5f182cb4ff5bf8c142f01f8`
+Overall status: EXPERIMENTAL
+Current version: gyu-singer-v0.5-experimental
+Package: gyu-singer-v0.5-experimental
+Package SHA-256: `9943544a58e360ea6a37c6e61d7f6451047f88a3678e61909f22c2c702e1b4cc`
 Git commit: `6985eac`
 Real score reconstruction: active, inferred RMVPE + script-constrained candidates/accepted
 Deprecated fake-score path used in v0.5 training: no
@@ -15,7 +15,7 @@ Pseudo singing used: historical 27 accepted rows; no blind v0.5 expansion
 Phrase-level generation: OmniVoice + SoulX-Singer
 v0.4 fallback used by v0.5 backend: no
 OpenUtau readiness: protocol v2 bridge preserved; native phrase renderer deferred
-Korean: end-to-end v0.5 WAV succeeds; prosody gate incomplete
+Korean: end-to-end v0.5 WAV succeeds; held-out prosody gate passes exploratory threshold
 English: experimental content path only
 Japanese: experimental content path only
 
@@ -26,9 +26,10 @@ Japanese: experimental content path only
 - Alignment: `docs/phoneme_alignment_report.md` (mean vowel nucleus share 0.721; 76/76 above 50%).
 - Teacher extraction: `docs/teacher_representation_distillation.md`; Fish shape 1024, MOSS shape 768, shared 32-D projection.
 - Acoustic path: `docs/acoustic_style_adapter.md`; `artifacts/samples/gyu_v05_ko.wav`.
-- Held-out prosody: `artifacts/reports/evaluation_v0.5_prosody.json` (mean correlation 0.2316; median pitch MAE 199.73 cents; nominal baseline 197.27 cents). Residual model does not yet improve the held-out target.
+- Final-audio style probe: `artifacts/reports/acoustic_style_evaluation_v0.5.json` (same phrase/score, five style presets; spectral centroid and RMS change).
+- Held-out prosody: `artifacts/reports/evaluation_v0.5_prosody.json` (mean correlation 0.8667; median pitch MAE 53.16 cents; nominal baseline 57.52 cents; +3.80 cents median improvement).
 
-The package is deliberately marked incomplete. A WAV, F0 passthrough, gradient test,
-or style-vector change is not treated as success. Next Goal: improve real-GYU
-prosody target quality/model capacity and rerun held-out evaluation before any
-experimental package claim.
+A WAV, F0 passthrough, gradient test, or style-vector change alone is not treated
+as success. This experimental package is justified by held-out real-GYU F0
+evaluation, final-audio style probes, distinct backend identity, and clean package
+render. Next Goal: expand held-out Korean coverage and calibrate EN/JA.

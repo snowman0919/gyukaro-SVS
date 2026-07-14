@@ -1,0 +1,6 @@
+{
+  "status": "experimental",
+  "git_commit": "a58f063325ff78f900f3f616e0e102ba116b4a5a",
+  "backend": "gyu-singer-v0.5",
+  "v0_4_fallback": false
+}

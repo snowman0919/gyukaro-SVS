@@ -38,9 +38,15 @@ def main() -> None:
     history = []
     for step in range(1, args.steps + 1):
         row = rows[(step - 1) % len(rows)]
-        batch, _ = condition_batch(row["score"], reference, device)
+        batch, duration = condition_batch(row["score"], reference, device)
         target_f0 = torch.from_numpy(np.load(row["target_f0_path"]).astype("float32")).to(device)
-        target_f0 = torch.nn.functional.interpolate(target_f0[None, None], size=batch["f0_hz"].shape[1], mode="linear", align_corners=False)[0, 0]
+        # Preserve absolute recording time; generic resize would leak timing mismatch into residuals.
+        target_times = torch.arange(target_f0.numel(), device=device, dtype=torch.float32) / 12.5
+        frame_times = torch.linspace(0, duration, batch["f0_hz"].shape[1], device=device)
+        positions = torch.searchsorted(target_times, frame_times).clamp(1, target_f0.numel() - 1)
+        left, right = positions - 1, positions
+        weight = (frame_times - target_times[left]) / (target_times[right] - target_times[left]).clamp_min(1e-6)
+        target_f0 = target_f0[left] * (1 - weight) + target_f0[right] * weight
         voiced = target_f0 > 1
         target = torch.where(voiced, 12 * torch.log2(target_f0.clamp_min(1) / batch["f0_hz"][0]), torch.zeros_like(target_f0)).clamp(-args.max_semitones, args.max_semitones) / args.max_semitones
         target = target[None, :, None]
@@ -63,7 +69,7 @@ def main() -> None:
         optimizer.zero_grad(); loss.backward(); torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0); optimizer.step()
         if step % 100 == 0: history.append({"step": step, "loss": round(float(loss.detach()), 6), "source": round(float(source_loss.detach()), 6), "flow": round(float(flow_loss.detach()), 6), "pitch": round(float(pitch_loss.detach()), 6), "teacher": round(float(teacher_loss.detach()), 6)})
     Path(args.output).parent.mkdir(parents=True, exist_ok=True)
-    torch.save({"model": model.eval().cpu().state_dict(), "model_config": {"dim": args.dim, "latent_dim": 1}, "max_semitones": args.max_semitones, "steps": args.steps, "input": "nominal_score_plus_controls_only", "target": "real_GYU_RMVPE_log_f0_residual", "actual_f0_condition": False}, args.output)
+    torch.save({"model": model.eval().cpu().state_dict(), "model_config": {"dim": args.dim, "latent_dim": 1}, "max_semitones": args.max_semitones, "residual_scale": .25, "steps": args.steps, "input": "nominal_score_plus_controls_only", "target": "real_GYU_RMVPE_log_f0_residual", "actual_f0_condition": False}, args.output)
     Path(args.report).parent.mkdir(parents=True, exist_ok=True)
     Path(args.report).write_text(json.dumps({"steps": args.steps, "dim": args.dim, "max_semitones": args.max_semitones, "rows": len(rows), "teacher_rows": len(teachers) if args.teacher_loss_weight else 0, "teacher_loss_weight": args.teacher_loss_weight, "real_target": True, "actual_f0_condition": False, "history": history}, indent=2) + "\n")
 

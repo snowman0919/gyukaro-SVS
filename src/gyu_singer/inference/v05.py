@@ -32,7 +32,7 @@ class GyuSingerV05Renderer(SoulXPhraseRenderer):
         self.teacher_identity.load_state_dict(saved["model"])
 
     def model_info(self) -> dict:
-        return {"backend": "gyu-singer-v0.5", "model_version": "gyu-singer-v0.5-incomplete", "prosody_checkpoint": "checkpoints/gyu_prosody_v0.5.pt", "acoustic_style_checkpoint": "checkpoints/gyu_acoustic_style_adapter_v0.5.pt", "content": "OmniVoice", "decoder": "SoulX-Singer SVC", "languages": ["ko", "en", "ja"], "sample_rate": self.sample_rate, "v0_4_fallback": False}
+        return {"backend": "gyu-singer-v0.5", "model_version": "gyu-singer-v0.5-experimental", "prosody_checkpoint": "checkpoints/gyu_prosody_v0.5.pt", "acoustic_style_checkpoint": "checkpoints/gyu_acoustic_style_adapter_v0.5.pt", "content": "OmniVoice", "decoder": "SoulX-Singer SVC", "languages": ["ko", "en", "ja"], "sample_rate": self.sample_rate, "v0_4_fallback": False}
 
     def render(self, score: dict) -> np.ndarray:
         score = normalize_score(score); duration = max(note["start"] + note["duration"] for note in score["notes"])

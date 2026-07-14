@@ -39,6 +39,7 @@ class QualityPitchController:
         saved = torch.load(checkpoint, map_location="cpu", weights_only=False)
         self.device = device or ("cuda" if torch.cuda.is_available() else "cpu")
         self.max_semitones = float(saved["max_semitones"])
+        self.residual_scale = float(saved.get("residual_scale", 1.0))
         self.model = TriSingerModel(**saved["model_config"]).to(self.device).eval()
         # v0.4 checkpoints predate the v0.5 teacher-identity branch.
         self.model.load_state_dict(saved["model"], strict=False)
@@ -50,4 +51,4 @@ class QualityPitchController:
         # Production path is score-only supervised pitch head; flow remains acoustic-latent training evidence.
         source = self.model.acoustic_source(batch)
         output = self.model(torch.zeros_like(source), torch.zeros(1, device=self.device), batch)
-        return torch.tanh(output["pitch_residual"][0] / max(self.max_semitones, 1e-6)) * self.max_semitones, duration
+        return torch.tanh(output["pitch_residual"][0] / max(self.max_semitones, 1e-6)) * self.max_semitones * self.residual_scale, duration

@@ -48,11 +48,11 @@ def main() -> None:
     limit = 4; device = "cuda" if torch.cuda.is_available() else "cpu"; manifest = []
     moss = transformers.AutoModel.from_pretrained("data/cache/moss-audio-tokenizer-nano", trust_remote_code=True, local_files_only=True).to(device).eval()
     for row in rows("data/manifests/teacher_moss_local_v15.jsonl", limit):
-        value, shape = extract_moss(row["output_path"], moss); path = Path("data/cache/teacher_representations/moss") / f"{row['id']}.pt"; path.parent.mkdir(parents=True, exist_ok=True); torch.save(value, path); manifest.append({"id": row["id"], "teacher": "moss_local_v15", "representation": "MOSS-Audio-Tokenizer-Nano.encoder_hidden_states", "shape": list(shape), "pooled_shape": list(value.shape), "path": str(path), "revision": "local:data/cache/moss-audio-tokenizer-nano"})
+        value, shape = extract_moss(row["output_path"], moss); path = Path("data/cache/teacher_representations/moss") / f"{row['id']}.pt"; path.parent.mkdir(parents=True, exist_ok=True); torch.save(value, path); manifest.append({"id": row["id"], "teacher": "moss_local_v15", "trust_weight": float(row.get("trust_weight", .2)), "representation": "MOSS-Audio-Tokenizer-Nano.encoder_hidden_states", "shape": list(shape), "pooled_shape": list(value.shape), "path": str(path), "revision": "local:data/cache/moss-audio-tokenizer-nano"})
     del moss
     fish = load_fish()
     for row in rows("data/manifests/teacher_fish_s2_pro.jsonl", limit):
-        value, shape = extract_fish(row["output_path"], fish); path = Path("data/cache/teacher_representations/fish") / f"{row['id']}.pt"; path.parent.mkdir(parents=True, exist_ok=True); torch.save(value, path); manifest.append({"id": row["id"], "teacher": "fish_s2_pro", "representation": "Fish-S2-Pro-DAC.encoder_hidden", "shape": list(shape), "pooled_shape": list(value.shape), "path": str(path), "revision": "local:data/cache/fish-s2-pro"})
+        value, shape = extract_fish(row["output_path"], fish); path = Path("data/cache/teacher_representations/fish") / f"{row['id']}.pt"; path.parent.mkdir(parents=True, exist_ok=True); torch.save(value, path); manifest.append({"id": row["id"], "teacher": "fish_s2_pro", "trust_weight": float(row.get("trust_weight", .2)), "representation": "Fish-S2-Pro-DAC.encoder_hidden", "shape": list(shape), "pooled_shape": list(value.shape), "path": str(path), "revision": "local:data/cache/fish-s2-pro"})
     Path("data/manifests/teacher_internal_representations.jsonl").write_text("".join(json.dumps(row) + "\n" for row in manifest))
     print({"rows": len(manifest), "teachers": sorted({row["teacher"] for row in manifest}), "device": device})
 
