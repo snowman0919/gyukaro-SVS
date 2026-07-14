@@ -1,0 +1,16 @@
+{
+  "version": "v0.5-experimental",
+  "git_commit": "9345cdb",
+  "package": "gyu-singer-v0.5-experimental",
+  "package_sha256": "9943544a58e360ea6a37c6e61d7f6451047f88a3678e61909f22c2c702e1b4cc",
+  "prosody_checkpoint_sha256": "890df0eec75e9402a226b740303774d4b43fb748e8cbf34b104dd8a1d7ccd385",
+  "teacher_identity_checkpoint_sha256": "13187abd032b9a84d79bc77368bba46dec088c27daa92d9683607319a05596ef",
+  "acoustic_style_checkpoint_sha256": "819a1cd71a81d75e78b40a80877737761904d012d1363ba3d3cf718919cb24c8",
+  "reconstructed_score_rows": 76,
+  "paired_internal_teacher_rows": 4,
+  "accepted_pseudo_singing_rows": 27,
+  "backend": "gyu-singer-v0.5",
+  "v0_4_fallback": false,
+  "prosody_metrics": {"correlation_mean": 0.8667, "pitch_mae_cents_median": 53.16, "nominal_mae_cents_median": 57.52},
+  "languages": {"ko": "experimental real-GYU prosody", "en": "identity/content experimental", "ja": "identity/content experimental"}
+}

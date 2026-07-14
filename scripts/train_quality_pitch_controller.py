@@ -69,7 +69,7 @@ def main() -> None:
         optimizer.zero_grad(); loss.backward(); torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0); optimizer.step()
         if step % 100 == 0: history.append({"step": step, "loss": round(float(loss.detach()), 6), "source": round(float(source_loss.detach()), 6), "flow": round(float(flow_loss.detach()), 6), "pitch": round(float(pitch_loss.detach()), 6), "teacher": round(float(teacher_loss.detach()), 6)})
     Path(args.output).parent.mkdir(parents=True, exist_ok=True)
-    torch.save({"model": model.eval().cpu().state_dict(), "model_config": {"dim": args.dim, "latent_dim": 1}, "max_semitones": args.max_semitones, "residual_scale": .25, "steps": args.steps, "input": "nominal_score_plus_controls_only", "target": "real_GYU_RMVPE_log_f0_residual", "actual_f0_condition": False}, args.output)
+    torch.save({"model": model.eval().cpu().state_dict(), "model_config": {"dim": args.dim, "latent_dim": 1}, "max_semitones": args.max_semitones, "residual_scale": .25, "version": "v0.5", "steps": args.steps, "input": "nominal_score_plus_controls_only", "target": "real_GYU_RMVPE_log_f0_residual", "actual_f0_condition": False}, args.output)
     Path(args.report).parent.mkdir(parents=True, exist_ok=True)
     Path(args.report).write_text(json.dumps({"steps": args.steps, "dim": args.dim, "max_semitones": args.max_semitones, "rows": len(rows), "teacher_rows": len(teachers) if args.teacher_loss_weight else 0, "teacher_loss_weight": args.teacher_loss_weight, "real_target": True, "actual_f0_condition": False, "history": history}, indent=2) + "\n")
 

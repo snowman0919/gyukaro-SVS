@@ -1,0 +1,7 @@
+{
+  "rows": 24,
+  "method": "independent PyIN transcription plus script-pattern/spectrogram review",
+  "target_f0_used_for_score": false,
+  "rmvpe_used": "auxiliary visual overlay only",
+  "review_artifacts": "artifacts/reports/manual_score_review"
+}
