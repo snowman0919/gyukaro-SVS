@@ -53,12 +53,14 @@ def test_all_hybrid_modules_receive_gradient():
         assert grad_norm(getattr(model, name)) > 0, name
 
 
-def test_teacher_distillation_reaches_timbre_and_language_encoders():
+def test_teacher_distillation_reaches_timbre_language_and_style_encoders():
     model, batch = TriSingerModel(dim=32), _batch()
+    batch["style_preset"][:] = 4
     loss = weighted_distillation_loss(model.distillation_prediction(batch), torch.ones(1, 160), torch.tensor([0.2]))
     loss.backward()
     assert grad_norm(model.timbre_encoder) > 0
     assert grad_norm(model.language_encoder) > 0
+    assert grad_norm(model.style_encoder) > 0
 
 
 def test_losses_use_pitch_mask_and_teacher_trust():

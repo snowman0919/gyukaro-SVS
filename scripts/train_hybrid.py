@@ -21,6 +21,8 @@ from gyu_singer.model import TriSingerModel
 from gyu_singer.inference.codec import MossCodecDecoder
 
 
+STYLE_PRESETS = {"neutral": 0, "soft": 1, "breathy": 2, "energetic": 3, "dark": 4, "bright": 5, "tense": 6, "vibrato": 7}
+
 def resize(values: torch.Tensor, length: int) -> torch.Tensor:
     return F.interpolate(values[None, None].float(), size=length, mode="linear", align_corners=False)[0, 0]
 
@@ -46,7 +48,7 @@ def batch_from_row(row: dict, device: str, target_length: int | None = None, tea
     return {"phoneme_ids": seq("phoneme_ids", torch.long), "language_ids": seq("language_ids", torch.long), "features": seq("features"),
             "midi": seq("midi"), "note_index": seq("note_index", torch.long), "note_onset": seq("note_onset"), "note_duration": seq("note_duration"), "boundary": seq("boundary"), "f0_hz": seq("f0_hz"),
             "voiced": seq("voiced"), "residual": seq("residual"), "reference_features": acoustic_reference_features(row["audio_path"], strict_sample_rate=not teacher_audio)[None].to(device),
-            "style_preset": torch.zeros(1, dtype=torch.long, device=device), "style_controls": torch.tensor([[0.8, 0, 0, 0, 0]], device=device)}
+            "style_preset": torch.tensor([STYLE_PRESETS.get(row.get("style", "neutral"), 0)], dtype=torch.long, device=device), "style_controls": torch.tensor([[0.8, 0, 0, 0, 0]], device=device)}
 
 
 def main() -> None:
@@ -102,7 +104,7 @@ def main() -> None:
         if args.teacher_loss_weight:
             teacher = teachers[(step - 1) % len(teachers)]
             teacher_features = acoustic_reference_features(teacher["output_path"], strict_sample_rate=False).to(device)[None]
-            teacher_row = {"language": teacher["language"], "text": teacher["text"], "audio_path": teacher["output_path"],
+            teacher_row = {"language": teacher["language"], "text": teacher["text"], "style": teacher.get("style", "neutral"), "audio_path": teacher["output_path"],
                            "score": {"notes": [{"pitch": 60, "start": 0, "duration": max(0.1, float(teacher["duration_sec"])), "lyric": teacher["text"]}]}}
             teacher_batch = batch_from_row(teacher_row, device, 8, teacher_audio=True)
             loss_teacher = weighted_distillation_loss(model.distillation_prediction(teacher_batch), teacher_features, torch.tensor([teacher["trust_weight"]], device=device))

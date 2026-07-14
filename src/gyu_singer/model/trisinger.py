@@ -115,7 +115,8 @@ class TriSingerModel(nn.Module):
 
     def distillation_prediction(self, batch: dict[str, torch.Tensor]) -> torch.Tensor:
         _, timbre, content = self.condition(batch)
-        return self.distillation_head(timbre + content.mean(dim=1))
+        style = self.style_encoder(batch["style_preset"], batch["style_controls"])
+        return self.distillation_head(timbre + content.mean(dim=1) + style)
 
     @torch.no_grad()
     def sample(self, batch: dict[str, torch.Tensor], steps: int = 8) -> torch.Tensor:
