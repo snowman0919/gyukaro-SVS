@@ -1,0 +1,32 @@
+{
+  "rows": 32,
+  "styles": {
+    "dark": 19,
+    "emotional": 13
+  },
+  "objective": "trust-weighted style classification plus identity invariance",
+  "history": [
+    {
+      "step": 100,
+      "loss": 0.041413,
+      "classification": 0.222769
+    },
+    {
+      "step": 200,
+      "loss": 0.011157,
+      "classification": 0.063143
+    },
+    {
+      "step": 300,
+      "loss": 0.004204,
+      "classification": 0.021998
+    },
+    {
+      "step": 400,
+      "loss": 0.002183,
+      "classification": 0.011594
+    }
+  ],
+  "checkpoint": "checkpoints/gyu_latent_adapter_v0.6.pt",
+  "caveat": "teacher speech style evidence; not real-GYU singing supervision"
+}

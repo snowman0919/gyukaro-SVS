@@ -82,7 +82,9 @@ def render(model, config, reference, ref_f0, source_path: str, contour: np.ndarr
         model._gyu_identity = torch.from_numpy(np.load(identity_path).astype(np.float32)).cuda().half() if identity_path else None
         model._gyu_style = torch.from_numpy(np.load(style_path).astype(np.float32)).cuda().half() if style_path else None
     with torch.inference_mode():
-            audio, _ = model.infer(reference, source, torch.from_numpy(ref_f0).unsqueeze(0).cuda(), torch.from_numpy(contour).unsqueeze(0).cuda(), auto_shift=False, pitch_shift=0, n_steps=16, cfg=2.5, use_fp16=True)
+        # Keep ablations causal: identical source/F0 uses identical diffusion noise.
+        torch.manual_seed(21)
+        audio, _ = model.infer(reference, source, torch.from_numpy(ref_f0).unsqueeze(0).cuda(), torch.from_numpy(contour).unsqueeze(0).cuda(), auto_shift=False, pitch_shift=0, n_steps=16, cfg=2.5, use_fp16=True)
     path = Path(output); path.parent.mkdir(parents=True, exist_ok=True)
     sf.write(path, audio.squeeze().float().cpu().numpy(), config.audio.sample_rate)
 

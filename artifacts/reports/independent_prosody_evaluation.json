@@ -765,12 +765,12 @@
     "v0.6_verified_plus_reconstructed_controller": {
       "aggregate": {
         "f0_correlation": 0.6844,
-        "pitch_mae_cents": 58.2721,
+        "pitch_mae_cents": 58.2717,
         "log_f0_rmse": 0.1354,
-        "note_onset_residual_cents": 79.9883,
-        "transition_contour_error_cents": 79.9675,
+        "note_onset_residual_cents": 79.9912,
+        "transition_contour_error_cents": 79.9717,
         "vibrato_rate_error_hz": 0.3992,
-        "vibrato_extent_error_cents": 119.4325
+        "vibrato_extent_error_cents": 119.4333
       },
       "rows": [
         {
@@ -779,24 +779,24 @@
           "pitch_mae_cents": 27.16,
           "log_f0_rmse": 0.2791,
           "note_onset_residual_cents": 33.68,
-          "transition_contour_error_cents": 24.9,
+          "transition_contour_error_cents": 24.89,
           "vibrato_rate_error_hz": 0.3906,
-          "vibrato_extent_error_cents": 858.07
+          "vibrato_extent_error_cents": 858.06
         },
         {
           "id": "gyu_real_000172",
           "f0_correlation": 0.8787,
-          "pitch_mae_cents": 38.56,
+          "pitch_mae_cents": 38.57,
           "log_f0_rmse": 0.09728,
-          "note_onset_residual_cents": 25.96,
-          "transition_contour_error_cents": 27.03,
+          "note_onset_residual_cents": 25.97,
+          "transition_contour_error_cents": 27.02,
           "vibrato_rate_error_hz": 0.6696,
           "vibrato_extent_error_cents": 32.61
         },
         {
           "id": "gyu_real_000173",
           "f0_correlation": 0.2759,
-          "pitch_mae_cents": 53.71,
+          "pitch_mae_cents": 53.72,
           "log_f0_rmse": 0.18321,
           "note_onset_residual_cents": 33.3,
           "transition_contour_error_cents": 33.3,
@@ -808,28 +808,28 @@
           "f0_correlation": 0.7758,
           "pitch_mae_cents": 50.75,
           "log_f0_rmse": 0.12123,
-          "note_onset_residual_cents": 39.89,
-          "transition_contour_error_cents": 39.89,
+          "note_onset_residual_cents": 39.9,
+          "transition_contour_error_cents": 39.9,
           "vibrato_rate_error_hz": 0.5,
-          "vibrato_extent_error_cents": 134.84
+          "vibrato_extent_error_cents": 134.85
         },
         {
           "id": "gyu_real_000175",
           "f0_correlation": 0.8564,
           "pitch_mae_cents": 45.83,
           "log_f0_rmse": 0.09523,
-          "note_onset_residual_cents": 103.42,
+          "note_onset_residual_cents": 103.43,
           "transition_contour_error_cents": 104.5,
           "vibrato_rate_error_hz": 0.5682,
-          "vibrato_extent_error_cents": 41.07
+          "vibrato_extent_error_cents": 41.06
         },
         {
           "id": "gyu_real_000176",
-          "f0_correlation": 0.7383,
-          "pitch_mae_cents": 85.74,
+          "f0_correlation": 0.7384,
+          "pitch_mae_cents": 85.73,
           "log_f0_rmse": 0.0966,
           "note_onset_residual_cents": 65.57,
-          "transition_contour_error_cents": 165.86,
+          "transition_contour_error_cents": 165.88,
           "vibrato_rate_error_hz": 0.4464,
           "vibrato_extent_error_cents": 63.01
         },
@@ -838,17 +838,17 @@
           "f0_correlation": 0.9344,
           "pitch_mae_cents": 42.87,
           "log_f0_rmse": 0.04519,
-          "note_onset_residual_cents": 92.8,
+          "note_onset_residual_cents": 92.79,
           "transition_contour_error_cents": 60.03,
           "vibrato_rate_error_hz": 0.0,
-          "vibrato_extent_error_cents": 10.98
+          "vibrato_extent_error_cents": 10.99
         },
         {
           "id": "gyu_real_000178",
           "f0_correlation": 0.9548,
           "pitch_mae_cents": 57.89,
           "log_f0_rmse": 0.07044,
-          "note_onset_residual_cents": 105.21,
+          "note_onset_residual_cents": 105.22,
           "transition_contour_error_cents": 58.0,
           "vibrato_rate_error_hz": 0.5208,
           "vibrato_extent_error_cents": 60.99
@@ -856,39 +856,39 @@
         {
           "id": "gyu_real_000179",
           "f0_correlation": 0.7264,
-          "pitch_mae_cents": 119.53,
+          "pitch_mae_cents": 119.52,
           "log_f0_rmse": 0.13955,
-          "note_onset_residual_cents": 77.74,
-          "transition_contour_error_cents": 77.74,
+          "note_onset_residual_cents": 77.73,
+          "transition_contour_error_cents": 77.73,
           "vibrato_rate_error_hz": 0.4808,
           "vibrato_extent_error_cents": 409.97
         },
         {
           "id": "gyu_real_000180",
           "f0_correlation": 0.5536,
-          "pitch_mae_cents": 46.27,
-          "log_f0_rmse": 0.18114,
-          "note_onset_residual_cents": 71.88,
-          "transition_contour_error_cents": 81.52,
+          "pitch_mae_cents": 46.29,
+          "log_f0_rmse": 0.18113,
+          "note_onset_residual_cents": 71.87,
+          "transition_contour_error_cents": 81.55,
           "vibrato_rate_error_hz": 0.25,
           "vibrato_extent_error_cents": 20.64
         },
         {
           "id": "gyu_real_000181",
           "f0_correlation": 0.8515,
-          "pitch_mae_cents": 46.66,
+          "pitch_mae_cents": 46.65,
           "log_f0_rmse": 0.11338,
-          "note_onset_residual_cents": 9.45,
+          "note_onset_residual_cents": 9.46,
           "transition_contour_error_cents": 42.06,
           "vibrato_rate_error_hz": 0.0,
-          "vibrato_extent_error_cents": 51.3
+          "vibrato_extent_error_cents": 51.28
         },
         {
           "id": "gyu_real_000182",
           "f0_correlation": 0.9516,
-          "pitch_mae_cents": 39.91,
+          "pitch_mae_cents": 39.89,
           "log_f0_rmse": 0.0481,
-          "note_onset_residual_cents": 22.4,
+          "note_onset_residual_cents": 22.41,
           "transition_contour_error_cents": 17.92,
           "vibrato_rate_error_hz": 0.5,
           "vibrato_extent_error_cents": 49.39
@@ -896,57 +896,57 @@
         {
           "id": "gyu_real_000183",
           "f0_correlation": 0.8932,
-          "pitch_mae_cents": 59.15,
+          "pitch_mae_cents": 59.17,
           "log_f0_rmse": 0.05683,
-          "note_onset_residual_cents": 59.15,
-          "transition_contour_error_cents": 54.1,
+          "note_onset_residual_cents": 59.17,
+          "transition_contour_error_cents": 54.11,
           "vibrato_rate_error_hz": 0.5435,
-          "vibrato_extent_error_cents": 36.15
+          "vibrato_extent_error_cents": 36.16
         },
         {
           "id": "gyu_real_000184",
           "f0_correlation": 0.6466,
-          "pitch_mae_cents": 112.93,
+          "pitch_mae_cents": 112.94,
           "log_f0_rmse": 0.24324,
-          "note_onset_residual_cents": 237.88,
-          "transition_contour_error_cents": 295.33,
+          "note_onset_residual_cents": 237.87,
+          "transition_contour_error_cents": 295.32,
           "vibrato_rate_error_hz": 0.2717,
-          "vibrato_extent_error_cents": 28.9
+          "vibrato_extent_error_cents": 28.92
         },
         {
           "id": "gyu_real_000185",
           "f0_correlation": 0.4121,
-          "pitch_mae_cents": 63.75,
+          "pitch_mae_cents": 63.74,
           "log_f0_rmse": 0.18291,
-          "note_onset_residual_cents": 54.17,
+          "note_onset_residual_cents": 54.18,
           "transition_contour_error_cents": 68.03,
           "vibrato_rate_error_hz": 0.7212,
-          "vibrato_extent_error_cents": 27.2
+          "vibrato_extent_error_cents": 27.22
         },
         {
           "id": "gyu_real_000186",
           "f0_correlation": 0.3603,
-          "pitch_mae_cents": 56.95,
+          "pitch_mae_cents": 56.93,
           "log_f0_rmse": 0.20416,
           "note_onset_residual_cents": 74.71,
-          "transition_contour_error_cents": 50.6,
+          "transition_contour_error_cents": 50.62,
           "vibrato_rate_error_hz": 0.463,
-          "vibrato_extent_error_cents": 12.86
+          "vibrato_extent_error_cents": 12.88
         },
         {
           "id": "gyu_real_000187",
           "f0_correlation": 0.8995,
-          "pitch_mae_cents": 40.35,
+          "pitch_mae_cents": 40.33,
           "log_f0_rmse": 0.08189,
-          "note_onset_residual_cents": 66.8,
-          "transition_contour_error_cents": 100.29,
+          "note_onset_residual_cents": 66.81,
+          "transition_contour_error_cents": 100.3,
           "vibrato_rate_error_hz": 0.0,
-          "vibrato_extent_error_cents": 85.97
+          "vibrato_extent_error_cents": 85.96
         },
         {
           "id": "gyu_real_000188",
           "f0_correlation": -0.3538,
-          "pitch_mae_cents": 80.29,
+          "pitch_mae_cents": 80.3,
           "log_f0_rmse": 0.29653,
           "note_onset_residual_cents": 82.42,
           "transition_contour_error_cents": 82.42,
@@ -956,62 +956,62 @@
         {
           "id": "gyu_real_000189",
           "f0_correlation": 0.8658,
-          "pitch_mae_cents": 46.35,
+          "pitch_mae_cents": 46.36,
           "log_f0_rmse": 0.12909,
-          "note_onset_residual_cents": 76.93,
-          "transition_contour_error_cents": 63.42,
+          "note_onset_residual_cents": 76.95,
+          "transition_contour_error_cents": 63.43,
           "vibrato_rate_error_hz": 0.0,
-          "vibrato_extent_error_cents": 14.44
+          "vibrato_extent_error_cents": 14.43
         },
         {
           "id": "gyu_real_000190",
           "f0_correlation": 0.6618,
-          "pitch_mae_cents": 46.59,
+          "pitch_mae_cents": 46.57,
           "log_f0_rmse": 0.20664,
-          "note_onset_residual_cents": 63.6,
-          "transition_contour_error_cents": 43.34,
+          "note_onset_residual_cents": 63.58,
+          "transition_contour_error_cents": 43.33,
           "vibrato_rate_error_hz": 0.2315,
           "vibrato_extent_error_cents": 21.72
         },
         {
           "id": "gyu_real_000191",
           "f0_correlation": 0.8491,
-          "pitch_mae_cents": 41.26,
+          "pitch_mae_cents": 41.27,
           "log_f0_rmse": 0.12053,
-          "note_onset_residual_cents": 40.5,
-          "transition_contour_error_cents": 61.63,
+          "note_onset_residual_cents": 40.51,
+          "transition_contour_error_cents": 61.65,
           "vibrato_rate_error_hz": 0.431,
           "vibrato_extent_error_cents": 32.33
         },
         {
           "id": "gyu_real_000192",
           "f0_correlation": 0.9301,
-          "pitch_mae_cents": 58.11,
+          "pitch_mae_cents": 58.13,
           "log_f0_rmse": 0.05374,
-          "note_onset_residual_cents": 140.31,
-          "transition_contour_error_cents": 140.31,
+          "note_onset_residual_cents": 140.33,
+          "transition_contour_error_cents": 140.33,
           "vibrato_rate_error_hz": 0.0,
-          "vibrato_extent_error_cents": 29.56
+          "vibrato_extent_error_cents": 29.54
         },
         {
           "id": "gyu_real_000193",
           "f0_correlation": 0.866,
           "pitch_mae_cents": 62.88,
           "log_f0_rmse": 0.12128,
-          "note_onset_residual_cents": 164.06,
-          "transition_contour_error_cents": 164.06,
+          "note_onset_residual_cents": 164.04,
+          "transition_contour_error_cents": 164.04,
           "vibrato_rate_error_hz": 0.2232,
-          "vibrato_extent_error_cents": 66.35
+          "vibrato_extent_error_cents": 66.34
         },
         {
           "id": "gyu_real_000194",
           "f0_correlation": 0.8129,
-          "pitch_mae_cents": 75.04,
+          "pitch_mae_cents": 75.03,
           "log_f0_rmse": 0.08344,
           "note_onset_residual_cents": 177.89,
-          "transition_contour_error_cents": 62.94,
+          "transition_contour_error_cents": 62.96,
           "vibrato_rate_error_hz": 0.7212,
-          "vibrato_extent_error_cents": 56.41
+          "vibrato_extent_error_cents": 56.43
         }
       ]
     }

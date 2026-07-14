@@ -65,7 +65,9 @@ def main() -> None:
             teacher_batch, _ = condition_batch(teacher_score, reference, device)
             teacher_target = acoustic_reference_features(teacher["output_path"], strict_sample_rate=False).to(device)[None]
             teacher_loss = weighted_distillation_loss(model.distillation_prediction(teacher_batch), teacher_target, torch.tensor([teacher["trust_weight"]], device=device))
-        loss = source_loss + flow_loss + pitch_loss + args.teacher_loss_weight * teacher_loss
+        # Trust is part of the supervision contract: verified=1.0, reconstructed rows are lower.
+        sample_weight = torch.tensor(float(row.get("trust_weight", 1.0)), device=device)
+        loss = sample_weight * (source_loss + flow_loss + pitch_loss) + args.teacher_loss_weight * teacher_loss
         optimizer.zero_grad(); loss.backward(); torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0); optimizer.step()
         if step % 100 == 0: history.append({"step": step, "loss": round(float(loss.detach()), 6), "source": round(float(source_loss.detach()), 6), "flow": round(float(flow_loss.detach()), 6), "pitch": round(float(pitch_loss.detach()), 6), "teacher": round(float(teacher_loss.detach()), 6)})
     Path(args.output).parent.mkdir(parents=True, exist_ok=True)

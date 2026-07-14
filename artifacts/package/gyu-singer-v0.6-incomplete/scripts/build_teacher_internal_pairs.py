@@ -7,7 +7,6 @@ Splits are assigned by benchmark id so text/reference combinations cannot leak.
 from __future__ import annotations
 
 import collections
-import hashlib
 import json
 from pathlib import Path
 
@@ -48,9 +47,14 @@ def main() -> None:
             "higgs_trust": trust["higgs_tts3_4b"],
             "cross_teacher_agreement": sum(agreements) / len(agreements),
             "teacher_count": len(agreements),
-            "split": "test" if int(hashlib.sha1(benchmark_id.encode()).hexdigest(), 16) % 10 == 0 else ("validation" if int(hashlib.sha1(benchmark_id.encode()).hexdigest(), 16) % 10 == 1 else "train"),
+            "split": "train",
         }
         rows.append(row)
+    # Stratify deterministic held-out rows by language; benchmark IDs remain disjoint.
+    for language in sorted({r["language"] for r in rows}):
+        language_rows = [r for r in rows if r["language"] == language]
+        for index, row in enumerate(language_rows):
+            row["split"] = "test" if index == 0 else ("validation" if index == 1 else "train")
     DEST.parent.mkdir(parents=True, exist_ok=True)
     DEST.write_text("".join(json.dumps(row, ensure_ascii=False) + "\n" for row in rows))
     print({"rows": len(rows), "languages": dict(collections.Counter(r["language"] for r in rows)),

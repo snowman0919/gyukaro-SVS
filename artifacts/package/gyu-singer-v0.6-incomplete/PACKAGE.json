@@ -2,5 +2,5 @@
   "status": "incomplete",
   "backend": "gyu-singer-v0.6",
   "git_commit": "see repository final report",
-  "reason": "independent prosody gain and clean full-path acceptance remain open"
+  "reason": "prosody, identity, and latent-style quality gates remain open; full path requires pinned model cache"
 }

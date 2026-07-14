@@ -30,6 +30,13 @@ class GyuSingerV06Renderer(GyuSingerV05Renderer):
         self.identity_encoder.load_state_dict(saved["model"])
         self.identity_enabled = True
         self.style_enabled = True
+        self.identity_mode = "student"
+        self.teacher_fish = self.teacher_moss = None
+        fish_path = self.root / "data/cache/teacher_representations/fish/teacher_ko_001.pt"
+        moss_path = self.root / "data/cache/teacher_representations/moss/teacher_ko_001.pt"
+        if fish_path.exists() and moss_path.exists():
+            self.teacher_fish = torch.load(fish_path, weights_only=True).float().flatten().to(self.pitch_controller.device)
+            self.teacher_moss = torch.load(moss_path, weights_only=True).float().flatten().to(self.pitch_controller.device)
 
     def model_info(self) -> dict:
         return {"backend": "gyu-singer-v0.6", "model_version": "gyu-singer-v0.6-experimental", "prosody_checkpoint": "checkpoints/gyu_prosody_v0.6.pt", "identity_checkpoint": "checkpoints/gyu_identity_space_v0.6.pt", "latent_adapter_checkpoint": "checkpoints/gyu_latent_adapter_v0.6.pt", "content": "OmniVoice", "decoder": "SoulX-Singer SVC", "languages": ["ko", "en", "ja"], "sample_rate": self.sample_rate, "v0_4_fallback": False, "per_note_tts": False, "waveform_pitch_shift": False}
@@ -43,13 +50,28 @@ class GyuSingerV06Renderer(GyuSingerV05Renderer):
         vector[8:13] = torch.tensor(controls, device=device)
         return vector
 
+    def _identity_vector(self) -> torch.Tensor:
+        if not self.identity_enabled or self.identity_mode == "none":
+            return torch.zeros(64, device=self.pitch_controller.device)
+        if self.identity_mode == "student":
+            return self.identity_encoder.student(self.reference_features[None])[0]
+        if self.teacher_fish is None or self.teacher_moss is None:
+            raise RuntimeError("teacher ablation requires packaged Fish/MOSS representations")
+        fish = torch.nn.functional.normalize(self.identity_encoder.fish_projection(self.teacher_fish[None]), dim=-1)[0]
+        if self.identity_mode == "fish_only":
+            return fish
+        moss = torch.nn.functional.normalize(self.identity_encoder.moss_projection(self.teacher_moss[None]), dim=-1)[0]
+        if self.identity_mode == "fish_moss":
+            return torch.nn.functional.normalize(fish + moss, dim=-1)
+        raise ValueError(f"unknown identity mode: {self.identity_mode}")
+
     def render(self, score: dict) -> np.ndarray:
         score = normalize_score(score); duration = max(note["start"] + note["duration"] for note in score["notes"])
         strength = float(score["style"]["prosody_strength"])
         expressive = self.pitch_controller.predict(score)[0] * strength
         from .quality_controller import STYLE
         style = score["style"]; preset = torch.tensor(STYLE[style["preset"]], device=self.pitch_controller.device)
-        identity = self.identity_encoder.student(self.reference_features[None])[0] if self.identity_enabled else torch.zeros(64, device=self.pitch_controller.device)
+        identity = self._identity_vector()
         style_vector = self._style_vector(style, self.pitch_controller.device) if self.style_enabled else torch.zeros(64, device=self.pitch_controller.device)
         identity_ref = self.reference_features + .05 * identity.repeat((self.reference_features.shape[0] + identity.shape[0] - 1) // identity.shape[0])[: self.reference_features.shape[0]]
         controls = np.array([.8, 0, 0, 0, 0], dtype="float32")
