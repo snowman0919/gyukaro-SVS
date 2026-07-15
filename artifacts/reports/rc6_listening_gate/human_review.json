@@ -1,0 +1,31 @@
+{
+  "candidate": "gyu-singer-rc6 universal refiner 25%",
+  "review_date": "2026-07-15",
+  "overall_release_suitability": "fail",
+  "final_v1_release_allowed": false,
+  "candidate_frozen": true,
+  "per_case": {
+    "rapid_ko": {
+      "verdict": "fail",
+      "observation": "Speaker identity changes to a different voice, even though that alternate voice is not inherently bad."
+    },
+    "large_interval_ko": {
+      "verdict": "fail",
+      "observation": "Severe tearing and unnatural note connections."
+    },
+    "other_cases": {
+      "verdict": "not_individually_rated",
+      "observation": "Overall review is still a release-blocking fail."
+    }
+  },
+  "findings": [
+    "Phoneme transitions sometimes sound like fades or staccato rather than continuous singing.",
+    "Some syllables are so quiet that they are hard to distinguish from noise.",
+    "Rapid passages can switch to a different speaker identity.",
+    "Metallic and robotic artifacts remain excessive.",
+    "Pitch and rhythm accuracy are insufficient for vocal-synth use.",
+    "Large intervals tear severely and connect unnaturally."
+  ],
+  "quality_target": "Production vocal-synth quality comparable in usability to Kasane Teto; accurate pitch and timing with stable identity and natural note connections.",
+  "status": "human_fail_engineering_resumed"
+}

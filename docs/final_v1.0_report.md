@@ -1,4 +1,4 @@
-Overall status: RC6 objective candidate; HUMAN LISTENING PENDING; final release blocked
+Overall status: RC6 HUMAN LISTENING FAIL; engineering resumed; final release blocked
 Current version: 1.0.0-rc.6-candidate
 Package: artifacts/package/gyu-singer-v1.0.0-rc6-candidate.zip
 Package SHA-256: 041adbd9d26def69335001b64a4404313e3b5ce4dc064d9cd515f62a2eda1dde
@@ -15,9 +15,9 @@ Waveform pitch shifting used: no
 OpenUtau long-form: PASS (136 notes, 17 phrases, 119.982857 seconds)
 OpenUtau edit behavior: PASS (note, lyric, PITD, style, cache invalidation)
 Runtime stress: PASS
-Korean: objective stress rendered; human pending
-English: objective stress rendered; human pending
-Japanese: objective stress rendered; human pending
+Korean: FAIL (phoneme joins, rapid identity drift, interval tearing, pitch/timing)
+English: release blocked by overall human failure
+Japanese: release blocked by overall human failure
 Release recommendation: DO NOT tag or publish v1.0.0
 
 # RC6 artifact-recovery report
@@ -26,6 +26,6 @@ RC4 is preserved exactly. RC5's canonical timing/voicing and safer SoulX policy 
 
 Compared with RC5 across nine files, HF-spike ratio changed from 485.596389 to 458.558778, spectral flux from 0.232432 to 0.23186, sample jump from 0.096265 to 0.093596, voicing from 0.870611 to 0.872033, and pitch MAE from 8.47 to 8.467778 cents. ASR similarity is unchanged at 0.924211; clipping is zero.
 
-Remaining audible defects are unknown until human review. Objective risks include a small aggregate HF-energy increase, persistent English “Sing”/“Sink” ambiguity, sustained-vowel ASR ambiguity, and weak voicing scores for large-interval and phrase-boundary cases.
+Remaining audible defects are confirmed: unnatural phoneme envelopes, low-energy syllables, rapid-case identity drift, metallic/robotic timbre, inadequate pitch/timing, and severe large-interval tearing. These defects show that the current phrase SVC path is not production vocal-synth quality.
 
-Before/after files and the nine final candidate WAVs are in `artifacts/reports/rc6_listening_gate/`. The required next outcome is a per-file human verdict, not a final release.
+Before/after files and the nine failed candidate WAVs are in `artifacts/reports/rc6_listening_gate/`. RC6 is preserved as a failed baseline. The required next outcome is a score-native replacement probe and a clearly better candidate, not a final release.

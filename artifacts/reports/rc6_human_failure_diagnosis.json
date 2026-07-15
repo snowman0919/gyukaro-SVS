@@ -1,0 +1,53 @@
+{
+  "status": "root_cause_isolated_current_svc_path_rejected",
+  "human_release_verdict": "fail",
+  "final_release_allowed": false,
+  "primary_source": "The duration-only OmniVoice phrase and score timeline are reconciled by post-hoc SoulX content-hidden remapping; rapid mode holds one phone-center hidden vector at full strength. This destroys natural within-phone motion and does not provide score-native note/phoneme generation.",
+  "secondary_sources": [
+    "SoulX SVC is seed-sensitive on rapid and large-interval material.",
+    "Explicit F0 conditioning does not force source articulation and note timing to agree.",
+    "The residual acoustic refiner cannot recover missing or wrong content/timbre structure."
+  ],
+  "rapid_decode_sweep": {
+    "variants": 18,
+    "status": "no_strict_improvement",
+    "asr_similarity_range": [
+      0.2857,
+      1.0
+    ],
+    "hf_spike_range": [
+      228.8973,
+      1989.4199
+    ],
+    "voicing_accuracy_range": [
+      0.94,
+      0.96
+    ]
+  },
+  "large_interval_decode_sweep": {
+    "variants": 18,
+    "observed_voiced_ratio_range": [
+      0.55,
+      0.6917
+    ],
+    "target_voiced_ratio_range": [
+      0.9875,
+      0.9875
+    ],
+    "pitch_mae_cents_range": [
+      10.51,
+      126.77
+    ],
+    "asr_similarity_range": [
+      0.0,
+      1.0
+    ]
+  },
+  "rejected_next_actions": [
+    "generic denoising",
+    "another SoulX steps/CFG sweep",
+    "blind whole-system retraining",
+    "stronger post-hoc residual filtering"
+  ],
+  "required_next_probe": "A score-native phrase SVS acoustic path whose phoneme durations, note onsets, voicing and F0 are direct model inputs; validate rapid and large intervals before GYU adaptation."
+}

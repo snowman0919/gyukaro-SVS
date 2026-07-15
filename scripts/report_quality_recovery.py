@@ -31,6 +31,8 @@ def main() -> None:
     runtime = read("artifacts/reports/runtime_rc6_stress.json")
     longform = read("artifacts/reports/longform_rc6_supervised.json")
     openutau = read("artifacts/reports/openutau_rc6/behavior.json")
+    human_review_path = Path("artifacts/reports/rc6_listening_gate/human_review.json")
+    human_review = read(str(human_review_path)) if human_review_path.is_file() else None
     core = read("artifacts/reports/rc5_candidate_core/evaluation.json")["aggregate"]
     production = {
         "A_rc4": core["rc4"],
@@ -56,8 +58,9 @@ def main() -> None:
     else:
         package_name = package_sha = package_commit = "pending"
         package_smoke = "pending"
+    human_failed = bool(human_review and human_review.get("overall_release_suitability") == "fail")
     audit = {
-        "overall": "incomplete_human_listening_pending",
+        "overall": "failed_human_listening_engineering_resumed" if human_failed else "incomplete_human_listening_pending",
         "criteria": [
             {"id": 1, "requirement": "RC4 artifact source isolated", "status": "proven", "evidence": "docs/rc4_artifact_isolation.md"},
             {"id": 2, "requirement": "coherent phoneme/content/F0 timeline", "status": "proven", "evidence": "docs/timing_voicing_fix.md"},
@@ -66,11 +69,11 @@ def main() -> None:
             {"id": 5, "requirement": "singing data covers high-F0 and transitions", "status": "proven", "evidence": "docs/singing_prior_training.md"},
             {"id": 6, "requirement": "refiner uses real pipeline degradation pairs", "status": "proven", "evidence": "artifacts/reports/pipeline_degradation_pairs.json"},
             {"id": 7, "requirement": "GYU adaptation preserves universal prior", "status": "proven_by_rejection", "evidence": "GYU adapter used replay and was disabled after production regression"},
-            {"id": 8, "requirement": "rapid and large-interval cases materially improved", "status": "human_verdict_required", "evidence": "objective metrics are mixed; RC6 listening files 06 and 08"},
+            {"id": 8, "requirement": "rapid and large-interval cases materially improved", "status": "failed" if human_failed else "human_verdict_required", "evidence": "human review reports rapid voice drift and severe interval tearing" if human_failed else "objective metrics are mixed; RC6 listening files 06 and 08"},
             {"id": 9, "requirement": "KO/EN/JA render", "status": "proven", "evidence": "artifacts/reports/rc6_package_smoke.json"},
             {"id": 10, "requirement": "real OpenUtau long-form render", "status": "proven", "evidence": "artifacts/reports/longform_rc6_supervised.json"},
             {"id": 11, "requirement": "exact package clean-install validation", "status": "proven", "evidence": "artifacts/reports/rc6_package_smoke.json"},
-            {"id": 12, "requirement": "explicit human listening pass", "status": "pending", "evidence": "artifacts/reports/rc6_listening_gate/listening_manifest.json"},
+            {"id": 12, "requirement": "explicit human listening pass", "status": "failed" if human_failed else "pending", "evidence": "artifacts/reports/rc6_listening_gate/human_review.json" if human_failed else "artifacts/reports/rc6_listening_gate/listening_manifest.json"},
         ],
     }
     Path("artifacts/reports/goal_completion_audit.json").write_text(json.dumps(audit, indent=2) + "\n")
@@ -113,7 +116,7 @@ Identity preservation at the selected strength: WavLM before/after cosine {fmt(i
     write("docs/final_quality_evaluation.md", f"""
 # RC6 objective quality evaluation
 
-Status: objective candidate; mandatory human listening pending.
+Status: HUMAN LISTENING FAIL; RC6 frozen; engineering resumed.
 
 The actual `gyu-singer-rc6` backend rendered all nine stress cases. Against the fixed RC5 baseline, aggregate changes were: pitch MAE {fmt(changes['pitch_mae_cents'])} cents, voicing accuracy {fmt(changes['voicing_accuracy'])}, HF spike ratio {fmt(changes['hf_spike_p99_over_median'])}, spectral flux p95 {fmt(changes['spectral_flux_p95'])}, sample jump p99.9 {fmt(changes['sample_jump_p999'])}, and ASR similarity {fmt(changes['asr_lyric_similarity'])}. Clipping stayed zero.
 
@@ -123,10 +126,10 @@ Resident stress passed with one unique hash across repeated renders, KO/EN/JA, c
 
 The complete A-F production comparison selected D, the universal 25% refiner. E singing and F GYU adapters were rejected for pitch/voicing regressions. Actual pinned OpenUtau RC6 behavior passed note-pitch, lyric, PITD, style, cache-invalidation, KO/EN/JA, and phrase-render checks.
 
-Listening gate: `artifacts/reports/rc6_listening_gate/`. Each of nine files requires an explicit PASS/FAIL and observation. Final `v1.0.0` remains forbidden until that review passes.
+Listening gate: FAIL. The reviewer reports unnatural fade/staccato phoneme joins, buried syllables, rapid-case voice drift, metallic sound, inadequate score timing/pitch, and severe large-interval tearing. Final `v1.0.0` remains forbidden.
 """)
     write("docs/final_v1.0_report.md", f"""
-Overall status: RC6 objective candidate; HUMAN LISTENING PENDING; final release blocked
+Overall status: RC6 HUMAN LISTENING FAIL; engineering resumed; final release blocked
 Current version: 1.0.0-rc.6-candidate
 Package: {package_name}
 Package SHA-256: {package_sha}
@@ -143,9 +146,9 @@ Waveform pitch shifting used: no
 OpenUtau long-form: PASS ({longform['render_metrics']['notes']} notes, {longform['render_metrics']['phrases']} phrases, {fmt(longform['render_metrics']['duration_seconds'])} seconds)
 OpenUtau edit behavior: {'PASS' if openutau['pass'] else 'FAIL'} (note, lyric, PITD, style, cache invalidation)
 Runtime stress: {'PASS' if runtime['pass'] else 'FAIL'}
-Korean: objective stress rendered; human pending
-English: objective stress rendered; human pending
-Japanese: objective stress rendered; human pending
+Korean: FAIL (phoneme joins, rapid identity drift, interval tearing, pitch/timing)
+English: release blocked by overall human failure
+Japanese: release blocked by overall human failure
 Release recommendation: DO NOT tag or publish v1.0.0
 
 # RC6 artifact-recovery report
@@ -154,9 +157,9 @@ RC4 is preserved exactly. RC5's canonical timing/voicing and safer SoulX policy 
 
 Compared with RC5 across nine files, HF-spike ratio changed from {fmt(rc5['hf_spike_p99_over_median'])} to {fmt(rc6['hf_spike_p99_over_median'])}, spectral flux from {fmt(rc5['spectral_flux_p95'])} to {fmt(rc6['spectral_flux_p95'])}, sample jump from {fmt(rc5['sample_jump_p999'])} to {fmt(rc6['sample_jump_p999'])}, voicing from {fmt(rc5['voicing_accuracy'])} to {fmt(rc6['voicing_accuracy'])}, and pitch MAE from {fmt(rc5['pitch_mae_cents'])} to {fmt(rc6['pitch_mae_cents'])} cents. ASR similarity is unchanged at {fmt(rc6['asr_lyric_similarity'])}; clipping is zero.
 
-Remaining audible defects are unknown until human review. Objective risks include a small aggregate HF-energy increase, persistent English “Sing”/“Sink” ambiguity, sustained-vowel ASR ambiguity, and weak voicing scores for large-interval and phrase-boundary cases.
+Remaining audible defects are confirmed: unnatural phoneme envelopes, low-energy syllables, rapid-case identity drift, metallic/robotic timbre, inadequate pitch/timing, and severe large-interval tearing. These defects show that the current phrase SVC path is not production vocal-synth quality.
 
-Before/after files and the nine final candidate WAVs are in `artifacts/reports/rc6_listening_gate/`. The required next outcome is a per-file human verdict, not a final release.
+Before/after files and the nine failed candidate WAVs are in `artifacts/reports/rc6_listening_gate/`. RC6 is preserved as a failed baseline. The required next outcome is a score-native replacement probe and a clearly better candidate, not a final release.
 """)
 
 

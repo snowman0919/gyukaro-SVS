@@ -1,5 +1,5 @@
 {
-  "overall": "incomplete_human_listening_pending",
+  "overall": "failed_human_listening_engineering_resumed",
   "criteria": [
     {
       "id": 1,
@@ -46,8 +46,8 @@
     {
       "id": 8,
       "requirement": "rapid and large-interval cases materially improved",
-      "status": "human_verdict_required",
-      "evidence": "objective metrics are mixed; RC6 listening files 06 and 08"
+      "status": "failed",
+      "evidence": "human review reports rapid voice drift and severe interval tearing"
     },
     {
       "id": 9,
@@ -70,8 +70,8 @@
     {
       "id": 12,
       "requirement": "explicit human listening pass",
-      "status": "pending",
-      "evidence": "artifacts/reports/rc6_listening_gate/listening_manifest.json"
+      "status": "failed",
+      "evidence": "artifacts/reports/rc6_listening_gate/human_review.json"
     }
   ]
 }
