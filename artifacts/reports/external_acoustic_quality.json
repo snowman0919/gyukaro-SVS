@@ -1,0 +1,29 @@
+{
+  "schema": 1,
+  "archive_checksums": {
+    "data/external/raw/dev_clean.tar.gz": "2c1f5312914890634cc2d15783032ff3",
+    "data/external/raw/VocalSet1-2.zip": "c5e5efab412637fc94972b93c343a2f0"
+  },
+  "vocalset_archive_recovery": "official ZIP central-directory offsets overflow; local zip -FF copy used, selected decoded WAVs validated by libsndfile",
+  "rows": 144,
+  "accepted": 127,
+  "rejected": 17,
+  "by_dataset": {
+    "libritts_r": {
+      "rows": 64,
+      "accepted": 60
+    },
+    "vocalset": {
+      "rows": 80,
+      "accepted": 67
+    }
+  },
+  "by_split": {
+    "train": 71,
+    "validation": 28,
+    "test": 28
+  },
+  "speaker_disjoint_splits": true,
+  "raw_audio_bundled": false,
+  "manifest": "data/external/manifests/acoustic_clean.jsonl"
+}

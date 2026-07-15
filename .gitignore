@@ -5,6 +5,9 @@ data/processed/
 data/teacher/
 data/pseudo_singing/
 data/cache/
+data/external/raw/
+data/external/work/
+artifacts/reports/bigvgan_diagnostic/*.wav
 checkpoints/*
 !checkpoints/.gitkeep
 artifacts/samples/*.wav
