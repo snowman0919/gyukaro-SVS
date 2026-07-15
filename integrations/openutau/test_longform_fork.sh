@@ -8,4 +8,4 @@ here=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 : "${GYU_LONGFORM_METRICS:?set GYU_LONGFORM_METRICS}"
 cp "$here/OpenUtau.Test/GyuSingerLongformIntegrationTest.cs" "$root/OpenUtau.Test/GyuSingerLongformIntegrationTest.cs"
 cp "$here/../../examples/openutau_v10_longform.ustx" "$root/OpenUtau.Test/Files/openutau_v10_longform.ustx"
-"$dotnet" test "$root/OpenUtau.Test/OpenUtau.Test.csproj" -c Release --no-restore --filter FullyQualifiedName~GyuSingerLongformIntegrationTest
+"$dotnet" test "$root/OpenUtau.Test/OpenUtau.Test.csproj" -c Release --filter FullyQualifiedName~GyuSingerLongformIntegrationTest
