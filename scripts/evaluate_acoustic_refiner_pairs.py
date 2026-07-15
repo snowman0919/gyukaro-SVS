@@ -48,7 +48,9 @@ def main() -> None:
         source, target = audio48(row["degraded_input"]), audio48(row["clean_target"])
         variants = {"input": source}
         for stage, refiner in refiners.items():
-            variants[stage] = refiner.process(source)
+            refined = refiner.process(source)
+            for strength in (.25, .5, .75, 1.0):
+                variants[f"{stage}_{round(strength * 100):03d}"] = source + strength * (refined - source)
         for variant, audio in variants.items():
             path = audio_root / f"{row['id']}_{variant}.wav"; sf.write(path, audio, 48000, subtype="PCM_24")
             results.append({"id": row["id"], "dataset": row["dataset"], "domain": row["domain"], "variant": variant, "path": str(path),
@@ -57,7 +59,7 @@ def main() -> None:
     keys = ("target_log_spectral_l1", "target_spectral_convergence", "target_highband_log_l1", "target_envelope_l1", "hf_energy_ratio_p95", "hf_spike_p99_over_median", "spectral_flatness_mean", "spectral_flux_p95", "sample_jump_p999", "clip_fraction", "residual_l1_from_input")
     aggregate = defaultdict(dict)
     for dataset in ("libritts_r", "vocalset", "real_gyu"):
-        for variant in ("input", "universal", "singing", "gyu"):
+        for variant in ("input",) + tuple(f"{stage}_{strength:03d}" for stage in ("universal", "singing", "gyu") for strength in (25, 50, 75, 100)):
             selected = [row for row in results if row["dataset"] == dataset and row["variant"] == variant]
             aggregate[dataset][variant] = {key: round(float(np.mean([row[key] for row in selected])), 6) for key in keys}
     report = {"status": "objective_diagnostic_human_listening_not_performed", "test_rows": len(rows), "aggregate": dict(aggregate), "rows": results,
