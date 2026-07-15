@@ -1,0 +1,19 @@
+{
+  "status": "binarization_pass",
+  "datasets": 21,
+  "vocalset_rows": 1997,
+  "gyu_training_rows": 52,
+  "gyu_independent_rows_excluded": 24,
+  "phonemes": 53,
+  "audio_copy": false,
+  "config": "configs/diffsinger_score_native.yaml",
+  "train_rows": 1940,
+  "validation_rows": 109,
+  "train_hours": 4.589,
+  "validation_minutes": 13.371,
+  "training_smoke": "pass",
+  "smoke_steps": 2,
+  "model_parameters": 69100000,
+  "smoke_checkpoint_sha256": "fa7489b68706424f11ffb56ab552bb613e1cd8dbacc82ac7ff7e411c16b0483f",
+  "diffsinger_revision": "753b7cc622aadf802b3145d7bb8f7df4afa213c4"
+}

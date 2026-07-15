@@ -65,5 +65,6 @@ artifacts/validation/hybrid_residual_flow/
 __pycache__/
 .venv/
 .venv-soulx/
+.venv-diffsinger/
 build/
 *.egg-info/

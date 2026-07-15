@@ -1,0 +1,116 @@
+base_config:
+- configs/acoustic.yaml
+dictionaries:
+  gyu: /home/kotori9/code/gyukaro/data/external/work/diffsinger_score_native/dictionary-gyu.txt
+datasets:
+- raw_data_dir: /home/kotori9/code/gyukaro/data/external/work/diffsinger_score_native/raw/vocalset_female1
+  speaker: vocalset_female1
+  language: gyu
+  test_prefixes: []
+- raw_data_dir: /home/kotori9/code/gyukaro/data/external/work/diffsinger_score_native/raw/vocalset_female2
+  speaker: vocalset_female2
+  language: gyu
+  test_prefixes: []
+- raw_data_dir: /home/kotori9/code/gyukaro/data/external/work/diffsinger_score_native/raw/vocalset_female3
+  speaker: vocalset_female3
+  language: gyu
+  test_prefixes: []
+- raw_data_dir: /home/kotori9/code/gyukaro/data/external/work/diffsinger_score_native/raw/vocalset_female4
+  speaker: vocalset_female4
+  language: gyu
+  test_prefixes: []
+- raw_data_dir: /home/kotori9/code/gyukaro/data/external/work/diffsinger_score_native/raw/vocalset_female5
+  speaker: vocalset_female5
+  language: gyu
+  test_prefixes: []
+- raw_data_dir: /home/kotori9/code/gyukaro/data/external/work/diffsinger_score_native/raw/vocalset_female6
+  speaker: vocalset_female6
+  language: gyu
+  test_prefixes: []
+- raw_data_dir: /home/kotori9/code/gyukaro/data/external/work/diffsinger_score_native/raw/vocalset_female7
+  speaker: vocalset_female7
+  language: gyu
+  test_prefixes: []
+- raw_data_dir: /home/kotori9/code/gyukaro/data/external/work/diffsinger_score_native/raw/vocalset_female8
+  speaker: vocalset_female8
+  language: gyu
+  test_prefixes: []
+- raw_data_dir: /home/kotori9/code/gyukaro/data/external/work/diffsinger_score_native/raw/vocalset_female9
+  speaker: vocalset_female9
+  language: gyu
+  test_prefixes: []
+- raw_data_dir: /home/kotori9/code/gyukaro/data/external/work/diffsinger_score_native/raw/vocalset_male1
+  speaker: vocalset_male1
+  language: gyu
+  test_prefixes: []
+- raw_data_dir: /home/kotori9/code/gyukaro/data/external/work/diffsinger_score_native/raw/vocalset_male10
+  speaker: vocalset_male10
+  language: gyu
+  test_prefixes:
+  - vocalset_
+- raw_data_dir: /home/kotori9/code/gyukaro/data/external/work/diffsinger_score_native/raw/vocalset_male11
+  speaker: vocalset_male11
+  language: gyu
+  test_prefixes: []
+- raw_data_dir: /home/kotori9/code/gyukaro/data/external/work/diffsinger_score_native/raw/vocalset_male2
+  speaker: vocalset_male2
+  language: gyu
+  test_prefixes: []
+- raw_data_dir: /home/kotori9/code/gyukaro/data/external/work/diffsinger_score_native/raw/vocalset_male3
+  speaker: vocalset_male3
+  language: gyu
+  test_prefixes: []
+- raw_data_dir: /home/kotori9/code/gyukaro/data/external/work/diffsinger_score_native/raw/vocalset_male4
+  speaker: vocalset_male4
+  language: gyu
+  test_prefixes: []
+- raw_data_dir: /home/kotori9/code/gyukaro/data/external/work/diffsinger_score_native/raw/vocalset_male5
+  speaker: vocalset_male5
+  language: gyu
+  test_prefixes: []
+- raw_data_dir: /home/kotori9/code/gyukaro/data/external/work/diffsinger_score_native/raw/vocalset_male6
+  speaker: vocalset_male6
+  language: gyu
+  test_prefixes: []
+- raw_data_dir: /home/kotori9/code/gyukaro/data/external/work/diffsinger_score_native/raw/vocalset_male7
+  speaker: vocalset_male7
+  language: gyu
+  test_prefixes: []
+- raw_data_dir: /home/kotori9/code/gyukaro/data/external/work/diffsinger_score_native/raw/vocalset_male8
+  speaker: vocalset_male8
+  language: gyu
+  test_prefixes: []
+- raw_data_dir: /home/kotori9/code/gyukaro/data/external/work/diffsinger_score_native/raw/vocalset_male9
+  speaker: vocalset_male9
+  language: gyu
+  test_prefixes: []
+- raw_data_dir: /home/kotori9/code/gyukaro/data/external/work/diffsinger_score_native/raw/gyu
+  speaker: gyu
+  language: gyu
+  test_prefixes:
+  - gyu_real_000153
+  - gyu_real_000154
+  - gyu_real_000165
+  - gyu_real_000170
+  - gyu_real_000198
+  - gyu_real_000204
+  - gyu_real_000209
+  - gyu_real_000220
+  - gyu_real_000221
+binary_data_dir: /home/kotori9/code/gyukaro/data/external/work/diffsinger_score_native/binary
+use_spk_id: true
+num_spk: 21
+use_lang_id: false
+num_lang: 1
+pe: rmvpe
+pe_ckpt: /home/kotori9/code/gyukaro/data/cache/diffsinger-assets/rmvpe/model.pt
+hnsep: world
+use_energy_embed: false
+use_breathiness_embed: false
+use_voicing_embed: false
+use_tension_embed: false
+vocoder: NsfHifiGAN
+vocoder_ckpt: /home/kotori9/code/gyukaro/data/external/work/diffsinger_score_native/vocoder/model.ckpt
+binarization_args:
+  num_workers: 4
+  shuffle: true
