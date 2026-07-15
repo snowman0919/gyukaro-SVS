@@ -55,6 +55,7 @@ artifacts/package/gyu-singer-v1-experimental/model/gyu_moss_nano_sft/
 artifacts/package/gyu-singer-v1-experimental/model/moss-audio-tokenizer-nano/
 artifacts/package/gyu-singer-v1-experimental/model/gyu_reference.m4a
 artifacts/package/*.zip
+artifacts/package/gyu-singer-v1.0/
 /artifacts/package/gyu-hybrid-singer-v0.2-experimental/
 /artifacts/package/gyu-hybrid-singer-v0.3-quality-runtime/
 artifacts/validation/hybrid_score_reconstructed/

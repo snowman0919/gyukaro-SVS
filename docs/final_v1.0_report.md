@@ -1,8 +1,9 @@
 Overall status: RC6 objective candidate; HUMAN LISTENING PENDING; final release blocked
 Current version: 1.0.0-rc.6-candidate
-Package: pending clean package build
-Package SHA-256: pending
-Git commit: generated from current source; package metadata is authoritative after build
+Package: artifacts/package/gyu-singer-v1.0.0-rc6-candidate.zip
+Package SHA-256: 041adbd9d26def69335001b64a4404313e3b5ce4dc064d9cd515f62a2eda1dde
+Git commit: 780a6e5bda42ac4d4167e38957c1bf8ac96e6ce0
+Clean package install: PASS
 Primary artifact source: RC4 content/score timing mismatch plus all-frame voiced F0
 Secondary artifact sources: low-step/high-CFG decode and hard unedited note steps
 Selected SoulX settings: FP32; standard 32/CFG1.5, rapid 64/CFG2.0, large interval 32/CFG2.0 seed 21

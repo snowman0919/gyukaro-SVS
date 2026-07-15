@@ -1,0 +1,85 @@
+{
+  "status": "pass",
+  "archive": "/home/kotori9/code/gyukaro/artifacts/package/gyu-singer-v1.0.0-rc6-candidate.zip",
+  "archive_sha256": "041adbd9d26def69335001b64a4404313e3b5ce4dc064d9cd515f62a2eda1dde",
+  "source_commit": "780a6e5bda42ac4d4167e38957c1bf8ac96e6ce0",
+  "installed_root": "/tmp/gyu-rc6-clean/gyu-singer-v1.0",
+  "checks": {
+    "archive_sha_manifest": true,
+    "candidate_not_final": true,
+    "backend_rc6": true,
+    "checkpoint_hashes": true,
+    "openutau_revision": true,
+    "multilingual_audio": true
+  },
+  "openutau_revision": "27573ac5c888d927119d5f65a207312d79194b1f",
+  "checkpoints": [
+    {
+      "name": "gyu_prosody_v0.5.pt",
+      "expected_sha256": "bec3cede202fd23eeb72fc2fd17f4912b82e2dbd8e50d1d2c5162491a90042ab",
+      "actual_sha256": "bec3cede202fd23eeb72fc2fd17f4912b82e2dbd8e50d1d2c5162491a90042ab",
+      "pass": true
+    },
+    {
+      "name": "gyu_teacher_identity_v0.5.pt",
+      "expected_sha256": "13187abd032b9a84d79bc77368bba46dec088c27daa92d9683607319a05596ef",
+      "actual_sha256": "13187abd032b9a84d79bc77368bba46dec088c27daa92d9683607319a05596ef",
+      "pass": true
+    },
+    {
+      "name": "gyu_acoustic_style_adapter_v0.5.pt",
+      "expected_sha256": "819a1cd71a81d75e78b40a80877737761904d012d1363ba3d3cf718919cb24c8",
+      "actual_sha256": "819a1cd71a81d75e78b40a80877737761904d012d1363ba3d3cf718919cb24c8",
+      "pass": true
+    },
+    {
+      "name": "gyu_identity_space_v0.6.pt",
+      "expected_sha256": "814047b41c3a5532e7229c3f210394608844ae0417c79fd2c8d532ab2e6f4c66",
+      "actual_sha256": "814047b41c3a5532e7229c3f210394608844ae0417c79fd2c8d532ab2e6f4c66",
+      "pass": true
+    },
+    {
+      "name": "gyu_real_latent_adapters_v0.7.pt",
+      "expected_sha256": "ae9bc2592f666337e443db6a2e0c425bb33e1547153b21d6779c75cd342a8a38",
+      "actual_sha256": "ae9bc2592f666337e443db6a2e0c425bb33e1547153b21d6779c75cd342a8a38",
+      "pass": true
+    },
+    {
+      "name": "acoustic_refiner_universal.pt",
+      "expected_sha256": "9f4d9e08323c48e5175f69c0d219d676ec0b78c2b6746f42c2256499116941b6",
+      "actual_sha256": "9f4d9e08323c48e5175f69c0d219d676ec0b78c2b6746f42c2256499116941b6",
+      "pass": true
+    }
+  ],
+  "audio": [
+    {
+      "language": "ko",
+      "path": "/tmp/gyu-rc6-clean/gyu-singer-v1.0/.runtime/install-smoke-ko.wav",
+      "sha256": "b938aa4152eb16f5af1845409ab54eabcc6e8e1a712285905b4439bec5ddc5df",
+      "sample_rate": 48000,
+      "channels": 1,
+      "seconds": 9.92,
+      "pass": true
+    },
+    {
+      "language": "en",
+      "path": "/tmp/gyu-rc6-clean/gyu-singer-v1.0/.runtime/install-smoke-en.wav",
+      "sha256": "a761ad54e6e3b0485210c9a552bb400bb2082ce9f33a060ee551fad0da08fdb8",
+      "sample_rate": 48000,
+      "channels": 1,
+      "seconds": 9.92,
+      "pass": true
+    },
+    {
+      "language": "ja",
+      "path": "/tmp/gyu-rc6-clean/gyu-singer-v1.0/.runtime/install-smoke-ja.wav",
+      "sha256": "c16eb5e117d0de8e37fb6a093d79d4e775ef5e7b1798f610e0f738a959435323",
+      "sample_rate": 48000,
+      "channels": 1,
+      "seconds": 9.92,
+      "pass": true
+    }
+  ],
+  "installer_completed": true,
+  "final_v1_release_created": false
+}

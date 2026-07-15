@@ -37,8 +37,10 @@ def main() -> None:
         package_name = str(package_archive)
         package_sha = __import__("hashlib").sha256(package_archive.read_bytes()).hexdigest()
         package_commit = package_meta["source_commit"]
+        package_smoke = "PASS" if Path("artifacts/reports/rc6_package_smoke.json").is_file() and read("artifacts/reports/rc6_package_smoke.json")["status"] == "pass" else "pending"
     else:
         package_name = package_sha = package_commit = "pending"
+        package_smoke = "pending"
 
     write("docs/timing_voicing_fix.md", """
 # Timing and voicing fix
@@ -94,6 +96,7 @@ Current version: 1.0.0-rc.6-candidate
 Package: {package_name}
 Package SHA-256: {package_sha}
 Git commit: {package_commit}
+Clean package install: {package_smoke}
 Primary artifact source: RC4 content/score timing mismatch plus all-frame voiced F0
 Secondary artifact sources: low-step/high-CFG decode and hard unedited note steps
 Selected SoulX settings: FP32; standard 32/CFG1.5, rapid 64/CFG2.0, large interval 32/CFG2.0 seed 21
