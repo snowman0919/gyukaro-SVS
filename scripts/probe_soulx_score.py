@@ -134,7 +134,11 @@ def worker(model, config, reference, ref_f0, use_fp16: bool) -> None:
         try:
             request = json.loads(line)
             contour = np.load(request["f0_npy"]).astype(np.float32) if request.get("f0_npy") else None
-            render(model, config, reference, ref_f0, request["source"], contour, request["output"], request.get("identity_npy"), request.get("style_npy"), request.get("latent_output"), int(request.get("n_steps", 16)), float(request.get("cfg", 2.5)), int(request.get("seed", 21)), use_fp16, request.get("content_warp_npy"), float(request.get("content_warp_strength", 1.0)))
+            active_reference, active_ref_f0 = reference, ref_f0
+            if request.get("reference"):
+                active_reference = load_wav(request["reference"], config.audio.sample_rate).cuda()
+                active_ref_f0 = model._gyu_f0_extractor.process(request["reference"], verbose=False)
+            render(model, config, active_reference, active_ref_f0, request["source"], contour, request["output"], request.get("identity_npy"), request.get("style_npy"), request.get("latent_output"), int(request.get("n_steps", 16)), float(request.get("cfg", 2.5)), int(request.get("seed", 21)), use_fp16, request.get("content_warp_npy"), float(request.get("content_warp_strength", 1.0)))
             print(RESULT, json.dumps({"output": request["output"]}), flush=True)
         except Exception as error:
             print(ERROR, str(error), flush=True)
