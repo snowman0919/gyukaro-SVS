@@ -36,8 +36,13 @@ def public_pairs(rows: list[dict], dataset: str, per_speaker: int = 3) -> list[d
     output = []
     for speaker, members in sorted(grouped.items()):
         members.sort(key=lambda row: row["id"])
-        reference = members[0]
-        for source in members[1:1 + per_speaker]:
+        if dataset == "vocalset":
+            reference = next((row for technique in ("excerpts/straight", "long_tones/straight", "long_tones/forte") for row in members if row.get("technique") == technique), members[0])
+            priorities = ("scales/fast_forte", "arpeggios/straight", "scales/vibrato", "long_tones/straight", "scales/breathy", "arpeggios/fast_piano")
+            sources = [row for technique in priorities for row in members if row is not reference and row.get("technique") == technique][:per_speaker]
+        else:
+            reference, sources = members[0], members[1:1 + per_speaker]
+        for source in sources:
             output.append({
                 "id": f"pair_{source['id']}", "dataset": dataset, "domain": source["domain"], "language": source["language"],
                 "speaker": speaker, "source_id": source["id"], "clean_target": source["audio"], "reference": reference["audio"],
