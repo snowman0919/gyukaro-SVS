@@ -15,7 +15,7 @@ done
 
 [ "$(uname -s)" = Linux ] || { echo "v1.0 supports Linux only" >&2; exit 2; }
 case "$(uname -m)" in x86_64|aarch64) ;; *) echo "unsupported architecture: $(uname -m)" >&2; exit 2 ;; esac
-for command in python3 git; do command -v "$command" >/dev/null || { echo "missing command: $command" >&2; exit 2; }; done
+for command in python3 git bash; do command -v "$command" >/dev/null || { echo "missing command: $command" >&2; exit 2; }; done
 python3 -c 'import sys; assert sys.version_info >= (3, 11), "Python 3.11+ required"'
 mkdir -p "$RUNTIME"
 
@@ -47,7 +47,7 @@ else
   command -v curl >/dev/null || { echo "curl is required to install local .NET 8" >&2; exit 2; }
   mkdir -p "$RUNTIME/dotnet"
   curl -fsSL https://dot.net/v1/dotnet-install.sh -o "$RUNTIME/dotnet-install.sh"
-  sh "$RUNTIME/dotnet-install.sh" --channel 8.0 --install-dir "$RUNTIME/dotnet"
+  bash "$RUNTIME/dotnet-install.sh" --channel 8.0 --install-dir "$RUNTIME/dotnet"
   DOTNET=$RUNTIME/dotnet/dotnet
 fi
 "$DOTNET" --version
