@@ -56,7 +56,9 @@ def main() -> None:
     finally:
         renderer.close()
     manifest = {"status": "objective_evaluation_pending", "name": f"{args.backend.upper()} actual-backend acoustic candidate (not a tag or release)",
-                "backend": info, "files": files, "human_review": "pending"}
+                "backend": info, "files": files,
+                "rows": [{"variant": case, "path": row["path"]} for case, row in files.items()],
+                "human_review": "pending"}
     root.mkdir(parents=True, exist_ok=True); (root / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n")
     print(json.dumps({"files": len(files), "backend": info["backend"], "human_review": "pending"}, indent=2))
 

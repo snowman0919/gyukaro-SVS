@@ -12,7 +12,7 @@ from gyu_singer.frontend import FEATURE_SIZE, phonemize
 from gyu_singer.inference.soulx import SoulXPhraseRenderer, _Worker
 from gyu_singer.inference.quality_controller import condition_batch
 from gyu_singer.inference.v08 import GyuSingerV08Renderer
-from gyu_singer.inference.v09 import GyuSingerV09Renderer
+from gyu_singer.inference.v09 import GyuSingerV09Renderer, soften_large_jumps
 from gyu_singer.losses import flow_matching_loss, log_pitch_loss, weighted_distillation_loss
 from gyu_singer.model import TriSingerModel, grad_norm
 from gyu_singer.renderer import build_server
@@ -112,6 +112,35 @@ def test_rc5_decode_policy_matches_human_reviewed_stress_set():
     assert renderer._content_warp_strength(base | {"notes": [{"pitch": 60, "start": 0, "duration": 1}, {"pitch": 72, "start": 1, "duration": 1}]}) == 0
     assert renderer._content_warp_strength(base | {"style": {"preset": "breathy"}}) == 0
     assert renderer._content_warp_strength(base | {"notes": [{"pitch": 60, "start": 0, "duration": 1}, {"pitch": 62, "start": 2, "duration": 1}]}) == 0
+
+
+def test_large_jump_transition_is_local():
+    f0 = np.array([200, 200, 0, 400, 400, 300, 300], dtype="float32")
+    score = {"notes": [
+        {"pitch": 55, "start": 0, "duration": .06},
+        {"pitch": 67, "start": .06, "duration": .04},
+        {"pitch": 62, "start": .1, "duration": .04},
+    ]}
+    softened = soften_large_jumps(f0, score, .04)
+    assert 200 < softened[3] < 400 and np.isclose(softened[4], 400)
+    assert np.array_equal(softened[5:], f0[5:])
+
+
+def test_large_jump_transition_preserves_authoritative_user_pitch(monkeypatch):
+    renderer = GyuSingerV09Renderer.__new__(GyuSingerV09Renderer)
+    f0 = np.array([200, 200, 400, 400], dtype="float32")
+    timeline = [{"f0_hz": float(value)} for value in f0]
+    monkeypatch.setattr(renderer, "_canonical_f0", lambda score, duration, expressive: (f0.copy(), timeline))
+    score = {
+        "notes": [
+            {"pitch": 55, "start": 0, "duration": .04},
+            {"pitch": 67, "start": .04, "duration": .04},
+        ],
+        "curves": {"pitch": [{"time": 0, "value": 0}]},
+    }
+    target, returned_timeline = renderer._target_f0(score, .08, np.zeros(4, dtype="float32"))
+    assert np.array_equal(target, f0)
+    assert returned_timeline == timeline
 
 
 def test_rc5_safety_gain_is_only_applied_above_point_97(monkeypatch):

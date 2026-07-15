@@ -1,0 +1,113 @@
+{
+  "status": "human_listening_pending",
+  "selection": "large_interval_ko",
+  "root_cause": "selected SoulX decode, before either refiner; dominant competing harmonic trajectory appears in the first ascending boundary",
+  "dual_trajectory_gate": {
+    "target_hz": 387.3,
+    "tolerance_hz": 100,
+    "maximum_estimator_disagreement_cents": 100
+  },
+  "rows": [
+    {
+      "variant": "rc7",
+      "strength": 0.5,
+      "path": "artifacts/reports/rc7_listening_gate/08_large_interval_ko.wav",
+      "peak": 0.513037,
+      "rms": 0.045846,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.000544,
+      "hf_energy_ratio_p95": 0.00171,
+      "hf_spike_p99_over_median": 88.7942,
+      "spectral_flatness_mean": 0.000461,
+      "spectral_flux_p95": 0.296949,
+      "spectral_flux_max": 0.469619,
+      "sample_jump_p999": 0.077516,
+      "observed_voiced_ratio": 0.65,
+      "target_voiced_ratio": 0.9875,
+      "voicing_accuracy": 0.6625,
+      "pitch_mae_cents": 15.42,
+      "failure_region": {
+        "path": "artifacts/reports/rc7_listening_gate/08_large_interval_ko.wav",
+        "region_seconds": [
+          0.8,
+          1.6
+        ],
+        "pyin_median_hz": 779.12,
+        "yin_median_hz": 778.977,
+        "estimator_disagreement_p90_cents": 4.371,
+        "pyin_voiced_ratio": 0.8519,
+        "pyin_probability_mean": 0.768,
+        "multi_resolution": {
+          "short": {
+            "spectral_flatness_mean": 6.23e-05,
+            "spectral_instability_p95": 0.003622,
+            "noise_floor_modulation_db_std": 8.2919
+          },
+          "medium": {
+            "spectral_flatness_mean": 6.47e-05,
+            "spectral_instability_p95": 0.004524,
+            "noise_floor_modulation_db_std": 10.8402
+          },
+          "long": {
+            "spectral_flatness_mean": 4.66e-05,
+            "spectral_instability_p95": 0.00856,
+            "noise_floor_modulation_db_std": 16.6638
+          }
+        }
+      },
+      "asr_transcript": " 높이 날아!",
+      "asr_lyric_similarity": 1.0
+    },
+    {
+      "variant": "large_interval_ko",
+      "strength": null,
+      "path": "artifacts/reports/rc8_interval_actual_backend/listening/large_interval_ko.wav",
+      "peak": 0.575191,
+      "rms": 0.046449,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.000821,
+      "hf_energy_ratio_p95": 0.003122,
+      "hf_spike_p99_over_median": 50.7055,
+      "spectral_flatness_mean": 0.00063,
+      "spectral_flux_p95": 0.318035,
+      "spectral_flux_max": 0.529271,
+      "sample_jump_p999": 0.084324,
+      "observed_voiced_ratio": 0.7333,
+      "target_voiced_ratio": 0.9875,
+      "voicing_accuracy": 0.7292,
+      "pitch_mae_cents": 10.55,
+      "failure_region": {
+        "path": "artifacts/reports/rc8_interval_actual_backend/listening/large_interval_ko.wav",
+        "region_seconds": [
+          0.8,
+          1.6
+        ],
+        "pyin_median_hz": 387.316,
+        "yin_median_hz": 317.395,
+        "estimator_disagreement_p90_cents": 4.056,
+        "pyin_voiced_ratio": 0.8519,
+        "pyin_probability_mean": 0.5383,
+        "multi_resolution": {
+          "short": {
+            "spectral_flatness_mean": 5.76e-05,
+            "spectral_instability_p95": 0.004535,
+            "noise_floor_modulation_db_std": 11.0997
+          },
+          "medium": {
+            "spectral_flatness_mean": 7.66e-05,
+            "spectral_instability_p95": 0.006451,
+            "noise_floor_modulation_db_std": 11.9098
+          },
+          "long": {
+            "spectral_flatness_mean": 6.87e-05,
+            "spectral_instability_p95": 0.015057,
+            "noise_floor_modulation_db_std": 17.8791
+          }
+        }
+      },
+      "asr_transcript": " 높이 날아!",
+      "asr_lyric_similarity": 1.0
+    }
+  ],
+  "human_listening_required": true
+}

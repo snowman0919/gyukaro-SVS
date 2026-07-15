@@ -22,7 +22,7 @@ The directory contains nine numbered RC8 files and six RC7-before/RC8-after pair
 
 Overall RC8 suitability: **FAIL — Large Interval only**.
 
-Large Interval retest: an 80 ms score-domain transition candidate passed the objective dual-trajectory gate and awaits listening at `artifacts/reports/rc8_interval_transition/listening/large_interval_transition_4.wav`. It is not yet promoted into the RC8 backend.
+Large Interval retest: an 80 ms score-domain onset ramp passed the objective dual-trajectory gate and is now integrated into the actual RC8 backend when no user PITD curve is present. The actual-backend render at `artifacts/reports/rc8_interval_actual_backend/listening/large_interval_ko.wav` is byte-identical (SHA-256 `63a1e8a77d6de1a501c4f01920fc2c3927c607b233c86cbcc81220c26633c105`) to the selected sweep candidate. The failed RC8 file remains unchanged. Human listening of the new actual-backend file is still required before RC8 can pass.
 
 RC9 OpenUtau work: **blocked by the required RC8 listening verdict, not started**.
 

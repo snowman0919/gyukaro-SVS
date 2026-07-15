@@ -2,6 +2,7 @@
 """Sweep only the large-jump onset transition on the fixed RC8 source."""
 from __future__ import annotations
 
+import argparse
 import hashlib
 import json
 import sys
@@ -18,33 +19,17 @@ sys.path[:0] = [str(ROOT / "src"), str(ROOT / "scripts")]
 
 from gyu_singer.inference.acoustic_refiner import AcousticRefinerRuntime  # noqa: E402
 from gyu_singer.inference.spectral_refiner import SpectralRefinerRuntime  # noqa: E402
-from gyu_singer.inference.v09 import GyuSingerV09Renderer  # noqa: E402
-
-
-def soften_large_jumps(f0: np.ndarray, score: dict, transition_frames: int) -> np.ndarray:
-    output = f0.copy()
-    if transition_frames < 2:
-        return output
-    for previous, note in zip(score["notes"], score["notes"][1:]):
-        if abs(note["pitch"] - previous["pitch"]) < 12:
-            continue
-        onset = round(note["start"] * 50)
-        before = np.flatnonzero(f0[:onset] > 0)
-        after = np.flatnonzero(f0[onset:] > 0)[:transition_frames] + onset
-        if not len(before) or len(after) < 2:
-            continue
-        start = float(f0[before[-1]])
-        alpha = np.arange(1, len(after) + 1, dtype="float32") / len(after)
-        output[after] = np.exp((1 - alpha) * np.log(start) + alpha * np.log(f0[after]))
-    return output
+from gyu_singer.inference.v09 import GyuSingerV09Renderer, soften_large_jumps  # noqa: E402
 
 
 def self_test() -> None:
     f0 = np.array([200, 200, 0, 400, 400, 300, 300], dtype="float32")
     score = {"notes": [
-        {"pitch": 55, "start": 0}, {"pitch": 67, "start": .06}, {"pitch": 62, "start": .1},
+        {"pitch": 55, "start": 0, "duration": .06},
+        {"pitch": 67, "start": .06, "duration": .04},
+        {"pitch": 62, "start": .1, "duration": .04},
     ]}
-    softened = soften_large_jumps(f0, score, 2)
+    softened = soften_large_jumps(f0, score, .04)
     assert 200 < softened[3] < 400 and np.isclose(softened[4], 400)
     assert np.array_equal(softened[5:], f0[5:])
 
@@ -66,7 +51,7 @@ def main() -> None:
     try:
         for frames in (0, 2, 3, 4, 5, 6):
             started = time.perf_counter()
-            contour = soften_large_jumps(base_f0, score, frames)
+            contour = base_f0.copy() if frames == 0 else soften_large_jumps(base_f0, score, frames / 50)
             contour_path = root / f"f0_transition_{frames}.npy"
             np.save(contour_path, contour)
             with tempfile.TemporaryDirectory(prefix="gyu-rc8-interval-") as directory:
@@ -107,5 +92,9 @@ def main() -> None:
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--self-test", action="store_true")
+    args = parser.parse_args()
     self_test()
-    main()
+    if not args.self_test:
+        main()

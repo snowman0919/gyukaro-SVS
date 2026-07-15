@@ -1,0 +1,79 @@
+{
+  "status": "objective_evaluation_pending",
+  "name": "RC8 actual-backend acoustic candidate (not a tag or release)",
+  "backend": {
+    "backend": "gyu-singer-rc8",
+    "model_version": "1.0.0-rc.8-candidate",
+    "prosody_checkpoint": "checkpoints/gyu_prosody_v0.5.pt",
+    "prosody_v0_6_checkpoint": "checkpoints/gyu_prosody_v0.6.pt (experimental baseline; not selected)",
+    "identity_checkpoint": "checkpoints/gyu_identity_space_v0.6.pt",
+    "latent_adapter_checkpoint": "checkpoints/gyu_real_latent_adapters_v0.7.pt",
+    "content": "OmniVoice",
+    "decoder": "SoulX-Singer SVC",
+    "languages": [
+      "ko",
+      "en",
+      "ja"
+    ],
+    "sample_rate": 48000,
+    "v0_4_fallback": false,
+    "per_note_tts": false,
+    "waveform_pitch_shift": false,
+    "latent_training": "actual SoulXSingerSVC.infer_segment.gt_decoder_inp",
+    "identity_style_separable": true,
+    "style_calibration": {
+      "energetic": -0.5,
+      "dark": -2.0
+    },
+    "style_semantics": {
+      "neutral": "neutral",
+      "soft": "relative_style_A_unverified",
+      "breathy": "breathiness_proxy",
+      "energetic": "energy_proxy",
+      "dark": "relative_style_C_unverified",
+      "bright": "relative_style_B_unverified"
+    },
+    "production_prosody": "checkpoints/gyu_prosody_v0.5.pt",
+    "selection_basis": "24-row independent score metrics plus KO/EN/JA causal identity and style ablations",
+    "phase_vocoder_note_control": false,
+    "rc4_preserved_backend": "gyu-singer-v0.8",
+    "canonical_phone_score_timeline": true,
+    "unvoiced_f0_zero": true,
+    "soulx_decode_policy": "measured policy: 32/CFG1.5 standard, 64/CFG2 rapid, 50/CFG2 large interval",
+    "soulx_precision": "fp32",
+    "content_timing": "MMS CTC latent hold for rapid phrases; 0.25 English and measured 0.05 normal-KO latent warp; large-interval content unchanged",
+    "large_interval_transition": "80 ms score-domain onset ramp when PITD is absent",
+    "human_listening_status": "rc5_baseline_passed; rc6_candidate_pending",
+    "release_state": "objective candidate; human listening pending",
+    "final_v1_tagged": false,
+    "acoustic_refiner": "universal residual backbone",
+    "acoustic_refiner_strength": 0.25,
+    "singing_refiner_adapter": "measured but disabled by default: voicing regression",
+    "gyu_refiner_adapter": "measured but disabled by default: no production advantage over universal",
+    "spectral_refiner": "checkpoints/acoustic_refiner_spectral_singing.pt",
+    "spectral_strength": "0.5 base; 1.0 only on >=300 ms stable KO voiced regions; EN/JA and breathy stay 0.5",
+    "english_ay_voiced": true,
+    "japanese_note_lexicon_fixed": true,
+    "normal_ko_ctc_warp_strength": 0.05,
+    "large_interval_steps": 50,
+    "rapid_ko_path_changed": false
+  },
+  "files": {
+    "large_interval_ko": {
+      "path": "artifacts/reports/rc8_interval_actual_backend/listening/large_interval_ko.wav",
+      "score": "examples/review_large_interval_ko.json",
+      "sha256": "63a1e8a77d6de1a501c4f01920fc2c3927c607b233c86cbcc81220c26633c105",
+      "render_seconds": 22.2573,
+      "sample_rate": 48000,
+      "backend": "gyu-singer-rc8",
+      "refiner_strength": 0.25
+    }
+  },
+  "rows": [
+    {
+      "variant": "large_interval_ko",
+      "path": "artifacts/reports/rc8_interval_actual_backend/listening/large_interval_ko.wav"
+    }
+  ],
+  "human_review": "pending"
+}

@@ -14,6 +14,26 @@ from .content_timing import ctc_phone_alignment, latent_content_hold, latent_con
 from .v08 import GyuSingerV08Renderer
 
 
+def soften_large_jumps(f0: np.ndarray, score: dict, duration_seconds: float = .08) -> np.ndarray:
+    """Ramp the first voiced frames after octave-scale jumps; PITD bypasses this."""
+    output = f0.copy()
+    phrase_seconds = max(note["start"] + note["duration"] for note in score["notes"])
+    frame_rate = len(f0) / phrase_seconds
+    transition_frames = max(2, round(duration_seconds * frame_rate))
+    for previous, note in zip(score["notes"], score["notes"][1:]):
+        if abs(note["pitch"] - previous["pitch"]) < 12:
+            continue
+        onset = round(note["start"] * frame_rate)
+        before = np.flatnonzero(f0[:onset] > 0)
+        after = np.flatnonzero(f0[onset:] > 0)[:transition_frames] + onset
+        if not len(before) or len(after) < 2:
+            continue
+        start = float(f0[before[-1]])
+        alpha = np.arange(1, len(after) + 1, dtype="float32") / len(after)
+        output[after] = np.exp((1 - alpha) * np.log(start) + alpha * np.log(f0[after]))
+    return output
+
+
 class GyuSingerV09Renderer(GyuSingerV08Renderer):
     """Post-RC4 canonical-timing and quality-decode path."""
     def __init__(self, reference: str | Path, root: str | Path = "."):
@@ -35,7 +55,11 @@ class GyuSingerV09Renderer(GyuSingerV08Renderer):
         return self.pitch_controller.predict(score, canonical_timing=True)[0]
 
     def _target_f0(self, score: dict, duration: float, expressive: np.ndarray) -> tuple[np.ndarray, list[dict]]:
-        return self._canonical_f0(score, duration, expressive)
+        f0, timeline = self._canonical_f0(score, duration, expressive)
+        if self._large_interval(score) and not score.get("curves", {}).get("pitch"):
+            f0 = soften_large_jumps(f0, score)
+            timeline = [row | {"f0_hz": float(f0[index])} for index, row in enumerate(timeline)]
+        return f0, timeline
 
     @staticmethod
     def _rapid(score: dict) -> bool:
@@ -103,6 +127,7 @@ class GyuSingerV09Renderer(GyuSingerV08Renderer):
             "unvoiced_f0_zero": True,
             "soulx_decode_policy": "measured policy: 32/CFG1.5 standard, 64/CFG2 rapid, 50/CFG2 large interval",
             "soulx_precision": "fp32",
-            "content_timing": "MMS CTC latent hold for rapid phrases; 0.25 English and measured 0.05 normal-KO latent warp; large intervals unchanged",
+            "content_timing": "MMS CTC latent hold for rapid phrases; 0.25 English and measured 0.05 normal-KO latent warp; large-interval content unchanged",
+            "large_interval_transition": "80 ms score-domain onset ramp when PITD is absent",
             "human_listening_status": "candidate4_passed_2026-07-15",
         }
