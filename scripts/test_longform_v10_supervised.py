@@ -65,11 +65,17 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--output", default="artifacts/reports/longform_v10_supervised.json")
     parser.add_argument("--port", type=int, default=8765)
+    parser.add_argument("--backend", default="gyu-singer-v0.8")
+    parser.add_argument("--wav", default="artifacts/reports/longform_v10.wav")
+    parser.add_argument("--metrics", default="artifacts/reports/longform_v10_render_metrics.json")
+    parser.add_argument("--server-log", default="artifacts/reports/longform_v10_server.log")
+    parser.add_argument("--render-log", default="artifacts/reports/longform_v10_render.log")
     args = parser.parse_args()
     root = Path.cwd(); reports = root / "artifacts/reports"; reports.mkdir(parents=True, exist_ok=True)
     home = Path("/tmp/gyu-longform-v10-supervised"); shutil.rmtree(home, ignore_errors=True); home.mkdir()
-    wav = reports / "longform_v10.wav"; metrics = reports / "longform_v10_render_metrics.json"
-    server_log_path = reports / "longform_v10_server.log"; render_log_path = reports / "longform_v10_render.log"
+    wav, metrics = Path(args.wav), Path(args.metrics)
+    server_log_path, render_log_path = Path(args.server_log), Path(args.render_log)
+    for path in (wav, metrics, server_log_path, render_log_path): path.parent.mkdir(parents=True, exist_ok=True)
     env = os.environ | {
         "PYTHONPATH": str(root / "src"), "GYU_SINGER_CACHE": str(root / "data/cache"),
         "GYU_SOULX_PYTHON": str(root / ".venv-soulx/bin/python"), "DOTNET_CLI_TELEMETRY_OPTOUT": "1",
@@ -78,7 +84,7 @@ def main() -> None:
     baseline_gpu = (gpu_total - gpu_free) / 2**20; baseline_system = mem_used_mb()
     server_log = server_log_path.open("w")
     server = subprocess.Popen([
-        sys.executable, "-m", "gyu_singer.cli", "--backend", "gyu-singer-v0.8", "--reference",
+        sys.executable, "-m", "gyu_singer.cli", "--backend", args.backend, "--reference",
         "data/processed/master/216.wav", "serve", "--port", str(args.port),
     ], cwd=root, env=env, stdout=server_log, stderr=subprocess.STDOUT, start_new_session=True)
     render_process: subprocess.Popen | None = None
@@ -124,6 +130,7 @@ def main() -> None:
         "gpu_used_baseline_mb": round(baseline_gpu, 2), "peak_gpu_used_mb": round(max(row["gpu"] for row in samples), 2),
         "gpu_used_growth_mb": round(max(row["gpu"] for row in samples) - baseline_gpu, 2),
         "sample_count": len(samples), "render_metrics": render, "project": "examples/openutau_v10_longform.ustx",
+        "backend": args.backend,
         "wav": str(wav), "render_log": str(render_log_path), "server_log": str(server_log_path),
         "pass": code == 0 and render.get("phrases") == 17 and render.get("failed_phrases") == 0 and render.get("stale_cache_files_after_repeat") == 0,
     }

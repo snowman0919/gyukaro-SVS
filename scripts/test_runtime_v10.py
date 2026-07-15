@@ -54,9 +54,9 @@ def post(url: str, score: dict) -> tuple[str, float]:
     return hashlib.sha256(body).hexdigest(), time.monotonic() - start
 
 
-def start_server(root: Path, port: int, log) -> subprocess.Popen:
+def start_server(root: Path, port: int, log, backend: str) -> subprocess.Popen:
     environment = os.environ | {"PYTHONPATH": str(root / "src")}
-    command = [sys.executable, "-m", "gyu_singer.cli", "--backend", "gyu-singer-v0.8", "--reference", "data/processed/master/216.wav", "serve", "--port", str(port)]
+    command = [sys.executable, "-m", "gyu_singer.cli", "--backend", backend, "--reference", "data/processed/master/216.wav", "serve", "--port", str(port)]
     return subprocess.Popen(command, cwd=root, env=environment, stdout=log, stderr=subprocess.STDOUT, start_new_session=True)
 
 
@@ -73,6 +73,7 @@ def main() -> None:
     parser.add_argument("--root", default=".")
     parser.add_argument("--port", type=int, default=8876)
     parser.add_argument("--repeats", type=int, default=20)
+    parser.add_argument("--backend", default="gyu-singer-v0.8")
     parser.add_argument("--output", default="artifacts/reports/runtime_v10_stress.json")
     args = parser.parse_args()
     root, output = Path(args.root).resolve(), Path(args.output)
@@ -81,7 +82,7 @@ def main() -> None:
     url = f"http://127.0.0.1:{args.port}"
     log_path = output.with_name("runtime_v10_server.log")
     with log_path.open("w") as log:
-        first = start_server(root, args.port, log)
+        first = start_server(root, args.port, log, args.backend)
         try:
             first_health = wait_health(url)
             warmup = post(url, scores["ko"])
@@ -99,7 +100,7 @@ def main() -> None:
             first_children = process_tree(first.pid)
             stop_server(first)
         first_shutdown_clean = all(not Path(f"/proc/{pid}").exists() for pid in first_children)
-        second = start_server(root, args.port, log)
+        second = start_server(root, args.port, log, args.backend)
         try:
             restart_health = wait_health(url)
             restarted = post(url, scores["ko"])
@@ -126,6 +127,7 @@ def main() -> None:
         "concurrent_latency_seconds": [value[1] for value in concurrent_results], "failure_status": failure_status,
         "memory_mb": {"before": memory_before, "after": memory_after, "growth": memory_after - memory_before},
         "health_before": first_health, "health_after_restart": restart_health,
+        "backend": args.backend,
         "checks": checks, "pass": all(checks.values()), "server_log": str(log_path),
     }
     output.write_text(json.dumps(report, indent=2) + "\n")
