@@ -66,3 +66,21 @@ Phrase rebuilding at 800 ms gaps produced 81 inferred-timing chunks from 37 sour
 | Phrase chunks, 300 | 8.70 cents | 0.629 | 144.07 | 0.111 | regression |
 
 Longer chunks improve the high-frequency proxy but do not recover Korean lyrics: rapid output remains `아`, while the 300-step interval case collapses to a sustained `으`. The root defect is therefore not just boundary fragmentation. This branch needs a compatible pretrained Korean lexical singing model; more optimization on the current small inferred corpus is stopped.
+
+## Official Korean MLP Singer and GYU conversion follow-up
+
+Status: the official score-native source passes the bounded Korean source probe; every tested GYU conversion is rejected.
+
+The MIT-licensed official `neosapience/mlp-singer` checkpoint (`7f4621c`) reproduces its Korean sample and directly accepts phonemes, durations, notes, and F0. Increasing onset-consonant allocation to 70 ms (`c6`) gave 0.900 aggregate ASR similarity on the independent rapid and large-interval stress scores, 18.70-cent pitch MAE, and far fewer high-frequency spikes than RC6. This proves that score-native phoneme timing addresses the usability defect. It is still a generic CSD singer, not GYU.
+
+Full and projection-only adaptation on 43 inferred-score GYU training phrases forgot lyrics. A 10% weight blend improved WavLM similarity by less than 0.01 and reduced ECAPA similarity, so it was not accepted. Converting the unadapted source through SoulX reduced ASR similarity from 0.900 to 0.383.
+
+As a final bounded identity-conversion test, RVC v2 48k was trained on 518 segments (19.52 minutes) derived from 66 real GYU recordings. No independent verified-score row was used and no source recording was denoised, dereverberated, or modified. The continuation loaded the epoch-5 generator but reset the discriminator and optimizer, so it is labeled `e5_plus15`, not continuous e20.
+
+| Probe | ASR similarity | Pitch MAE | Voicing | HF spike | WavLM GYU | ECAPA GYU | Decision |
+|---|---:|---:|---:|---:|---:|---:|---|
+| Score-native source c6 | 0.900 | 18.70 | 0.878 | 258.13 | 0.701 | 0.133 | generic source only |
+| RVC e5 | 0.259 | 19.93 | 0.958 | 661.13 | 0.751 | 0.200 | reject: lyrics collapse |
+| RVC e5 + 15 | 0.444 | 20.41 | 0.953 | 1161.82 | 0.774 | 0.186 | reject: lyrics and HF regress |
+
+The measurable identity gain does not compensate for semantic destruction or metallic-artifact growth. SoulX and RVC are therefore both rejected as post-source GYU conversion paths. More optimization on either conversion is stopped; the next viable architecture must preserve the score-native acoustic source and condition identity inside that model or use a compatible pretrained Korean lexical SVS foundation.

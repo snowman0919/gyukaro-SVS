@@ -1,0 +1,9 @@
+{
+  "status": "rvc_training_files_ready",
+  "segments": 518,
+  "version": "v2",
+  "sample_rate": "48k",
+  "f0": true,
+  "feature": "facebook/hubert-base-ls960 Transformers last hidden, 768d",
+  "feature_equivalence": "architecture-compatible probe; not bit-identical fairseq extraction"
+}

@@ -1,0 +1,46 @@
+{
+  "status": "bounded_adaptation_complete_objective_evaluation_pending",
+  "base_model": "neosapience/mlp-singer@7f4621ca04ee5e35c0e0a80b1fed785a55a51891",
+  "base_model_license": "MIT",
+  "score_native": true,
+  "speaker_target": "GYU",
+  "data": {
+    "train_rows": 43,
+    "validation_rows": 5,
+    "training_score_status": "inferred_from_target_f0",
+    "independent_verified_rows_used": 0,
+    "source_audio_modified": false
+  },
+  "pitch_embedding": {
+    "min_note": 36,
+    "num_pitch": 49
+  },
+  "adaptation_mode": "projection",
+  "training": {
+    "batch_size": 16,
+    "learning_rate": 5e-05,
+    "steps": 400,
+    "trainable_parameters": 23120
+  },
+  "history": [
+    {
+      "step": 100,
+      "train_loss": 1.397894,
+      "validation_loss": 1.375743,
+      "checkpoint_sha256": "379ef00249b57dc69083c9c930850713b1c672e1fd428a5550a41ef3f90a6f33"
+    },
+    {
+      "step": 200,
+      "train_loss": 1.29757,
+      "validation_loss": 1.259913,
+      "checkpoint_sha256": "bd5d8a11446020af25b00a4b8ec74e1f1268870dd5ef103e986210046e07e382"
+    },
+    {
+      "step": 400,
+      "train_loss": 1.157046,
+      "validation_loss": 1.23365,
+      "checkpoint_sha256": "3757cfa8ebd9d9160cda174c4ceb137d00e6862edb17cbee58ce463fb9f2daff"
+    }
+  ],
+  "production_integrated": false
+}

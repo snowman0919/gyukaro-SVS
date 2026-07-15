@@ -1,0 +1,29 @@
+{
+  "status": "blend_gate_ready",
+  "base": "official MLP Singer with lossless expanded pitch vocabulary",
+  "adapted": "400-step full GYU adaptation",
+  "training_scores": "inferred; independent verified rows excluded",
+  "rows": [
+    {
+      "strength": 0.0,
+      "checkpoint": "strength_000.pt",
+      "sha256": "c158514a8a208c8b79ba865ad5b976bb2bcf85ec486fbf385f150e55ea6c0a4a"
+    },
+    {
+      "strength": 0.1,
+      "checkpoint": "strength_010.pt",
+      "sha256": "dc1dc6248139201293565b57106930ac865836815e36698199f0facb1045b602"
+    },
+    {
+      "strength": 0.25,
+      "checkpoint": "strength_025.pt",
+      "sha256": "0567ab2570c75dd33b438567013998495dc1c96447e52fde48390b58fc5d618c"
+    },
+    {
+      "strength": 0.5,
+      "checkpoint": "strength_050.pt",
+      "sha256": "8a3c5250dc0f9bb4b7609c6a9b6a48b1f62350c950e4d9a945a718e041b36734"
+    }
+  ],
+  "production_integrated": false
+}

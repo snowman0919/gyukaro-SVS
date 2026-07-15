@@ -1,0 +1,32 @@
+{
+  "status": "diagnostic_inputs_ready",
+  "model": "neosapience/mlp-singer official pretrained checkpoint",
+  "model_license": "MIT",
+  "model_revision": "7f4621ca04ee5e35c0e0a80b1fed785a55a51891",
+  "score_native": true,
+  "identity": "generic CSD singer; not GYU",
+  "rows": [
+    {
+      "case": "rapid_ko",
+      "lyrics": "빠르게노래하자아",
+      "transpose_semitones": 0,
+      "pitch_range": [
+        60,
+        67
+      ],
+      "timing_source": "independent stress score",
+      "soulx_target_f0": "artifacts/reports/mlp_singer_korean_probe/f0/rapid_ko.npy"
+    },
+    {
+      "case": "large_interval_ko",
+      "lyrics": "높이날아",
+      "transpose_semitones": -2,
+      "pitch_range": [
+        53,
+        77
+      ],
+      "timing_source": "independent stress score",
+      "soulx_target_f0": "artifacts/reports/mlp_singer_korean_probe/f0/large_interval_ko.npy"
+    }
+  ]
+}

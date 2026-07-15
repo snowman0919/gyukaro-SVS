@@ -1,0 +1,12 @@
+{
+  "status": "rvc_timbre_probe_data_ready",
+  "rows": 66,
+  "duration_minutes": 23.371,
+  "active_voice_minutes": 9.926,
+  "source": "original lossless-derived PCM masters; no denoise or dereverb",
+  "independent_verified_score_rows_used": 0,
+  "source_recordings_modified": false,
+  "model": "RVC v2 48k f0",
+  "model_revision": "7ef19867780cf703841ebafb565a4e47d1ea86ff",
+  "model_license": "MIT"
+}
