@@ -1,0 +1,66 @@
+{
+  "status": "objective_and_human_evaluation_pending",
+  "fixed_conditions": {
+    "steps": 50,
+    "cfg": 2.0,
+    "seed": 21,
+    "precision": "fp32"
+  },
+  "change": "large jumps only; score and user pitch remain authoritative",
+  "rows": [
+    {
+      "variant": "transition_0",
+      "transition_frames": 0,
+      "transition_ms": 0,
+      "path": "artifacts/reports/rc8_interval_transition/listening/large_interval_transition_0.wav",
+      "f0_path": "artifacts/reports/rc8_interval_transition/f0_transition_0.npy",
+      "sha256": "076402f1f3420e7ca0d0359c3cdfdf72f806f2a20671728098585ce484b4ae26",
+      "render_seconds": 21.662
+    },
+    {
+      "variant": "transition_2",
+      "transition_frames": 2,
+      "transition_ms": 40,
+      "path": "artifacts/reports/rc8_interval_transition/listening/large_interval_transition_2.wav",
+      "f0_path": "artifacts/reports/rc8_interval_transition/f0_transition_2.npy",
+      "sha256": "2b805894688e53100de73cf0911960046a703ab681d1f6e67063c588cbccfd49",
+      "render_seconds": 11.561
+    },
+    {
+      "variant": "transition_3",
+      "transition_frames": 3,
+      "transition_ms": 60,
+      "path": "artifacts/reports/rc8_interval_transition/listening/large_interval_transition_3.wav",
+      "f0_path": "artifacts/reports/rc8_interval_transition/f0_transition_3.npy",
+      "sha256": "5f1606ac73a36165c97cd5f5d97e47f0e4a645a3d9bad919ad83a4fb8de16073",
+      "render_seconds": 11.596
+    },
+    {
+      "variant": "transition_4",
+      "transition_frames": 4,
+      "transition_ms": 80,
+      "path": "artifacts/reports/rc8_interval_transition/listening/large_interval_transition_4.wav",
+      "f0_path": "artifacts/reports/rc8_interval_transition/f0_transition_4.npy",
+      "sha256": "63a1e8a77d6de1a501c4f01920fc2c3927c607b233c86cbcc81220c26633c105",
+      "render_seconds": 11.57
+    },
+    {
+      "variant": "transition_5",
+      "transition_frames": 5,
+      "transition_ms": 100,
+      "path": "artifacts/reports/rc8_interval_transition/listening/large_interval_transition_5.wav",
+      "f0_path": "artifacts/reports/rc8_interval_transition/f0_transition_5.npy",
+      "sha256": "6372c0304f34d013fc9004d04c57fc1187d61308faf45cdd87fd2336caba3f5b",
+      "render_seconds": 11.587
+    },
+    {
+      "variant": "transition_6",
+      "transition_frames": 6,
+      "transition_ms": 120,
+      "path": "artifacts/reports/rc8_interval_transition/listening/large_interval_transition_6.wav",
+      "f0_path": "artifacts/reports/rc8_interval_transition/f0_transition_6.npy",
+      "sha256": "3583418d45820fcb229dd8cafeee1d3e9f56b565f7ae4ea90dc25945ed4780c0",
+      "render_seconds": 11.623
+    }
+  ]
+}

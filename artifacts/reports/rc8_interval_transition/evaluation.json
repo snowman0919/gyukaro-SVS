@@ -1,0 +1,363 @@
+{
+  "status": "human_listening_pending",
+  "selection": "transition_4",
+  "root_cause": "selected SoulX decode, before either refiner; dominant competing harmonic trajectory appears in the first ascending boundary",
+  "dual_trajectory_gate": {
+    "target_hz": 387.3,
+    "tolerance_hz": 100,
+    "maximum_estimator_disagreement_cents": 100
+  },
+  "rows": [
+    {
+      "variant": "rc7",
+      "strength": 0.5,
+      "path": "artifacts/reports/rc7_listening_gate/08_large_interval_ko.wav",
+      "peak": 0.513037,
+      "rms": 0.045846,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.000544,
+      "hf_energy_ratio_p95": 0.00171,
+      "hf_spike_p99_over_median": 88.7942,
+      "spectral_flatness_mean": 0.000461,
+      "spectral_flux_p95": 0.296949,
+      "spectral_flux_max": 0.469619,
+      "sample_jump_p999": 0.077516,
+      "observed_voiced_ratio": 0.65,
+      "target_voiced_ratio": 0.9875,
+      "voicing_accuracy": 0.6625,
+      "pitch_mae_cents": 15.42,
+      "failure_region": {
+        "path": "artifacts/reports/rc7_listening_gate/08_large_interval_ko.wav",
+        "region_seconds": [
+          0.8,
+          1.6
+        ],
+        "pyin_median_hz": 779.12,
+        "yin_median_hz": 778.977,
+        "estimator_disagreement_p90_cents": 4.371,
+        "pyin_voiced_ratio": 0.8519,
+        "pyin_probability_mean": 0.768,
+        "multi_resolution": {
+          "short": {
+            "spectral_flatness_mean": 6.23e-05,
+            "spectral_instability_p95": 0.003622,
+            "noise_floor_modulation_db_std": 8.2919
+          },
+          "medium": {
+            "spectral_flatness_mean": 6.47e-05,
+            "spectral_instability_p95": 0.004524,
+            "noise_floor_modulation_db_std": 10.8402
+          },
+          "long": {
+            "spectral_flatness_mean": 4.66e-05,
+            "spectral_instability_p95": 0.00856,
+            "noise_floor_modulation_db_std": 16.6638
+          }
+        }
+      },
+      "asr_transcript": " 높이 날아!",
+      "asr_lyric_similarity": 1.0
+    },
+    {
+      "variant": "transition_0",
+      "strength": null,
+      "path": "artifacts/reports/rc8_interval_transition/listening/large_interval_transition_0.wav",
+      "peak": 0.497665,
+      "rms": 0.045465,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.000532,
+      "hf_energy_ratio_p95": 0.001569,
+      "hf_spike_p99_over_median": 92.5544,
+      "spectral_flatness_mean": 0.000585,
+      "spectral_flux_p95": 0.29414,
+      "spectral_flux_max": 0.543853,
+      "sample_jump_p999": 0.074103,
+      "observed_voiced_ratio": 0.6917,
+      "target_voiced_ratio": 0.9875,
+      "voicing_accuracy": 0.6958,
+      "pitch_mae_cents": 11.41,
+      "failure_region": {
+        "path": "artifacts/reports/rc8_interval_transition/listening/large_interval_transition_0.wav",
+        "region_seconds": [
+          0.8,
+          1.6
+        ],
+        "pyin_median_hz": 387.316,
+        "yin_median_hz": 770.601,
+        "estimator_disagreement_p90_cents": 1203.244,
+        "pyin_voiced_ratio": 0.9259,
+        "pyin_probability_mean": 0.7356,
+        "multi_resolution": {
+          "short": {
+            "spectral_flatness_mean": 2.66e-05,
+            "spectral_instability_p95": 0.002715,
+            "noise_floor_modulation_db_std": 7.3351
+          },
+          "medium": {
+            "spectral_flatness_mean": 4.06e-05,
+            "spectral_instability_p95": 0.002846,
+            "noise_floor_modulation_db_std": 8.2183
+          },
+          "long": {
+            "spectral_flatness_mean": 4.96e-05,
+            "spectral_instability_p95": 0.005747,
+            "noise_floor_modulation_db_std": 12.6531
+          }
+        }
+      },
+      "asr_transcript": " 높이 날아!",
+      "asr_lyric_similarity": 1.0
+    },
+    {
+      "variant": "transition_2",
+      "strength": null,
+      "path": "artifacts/reports/rc8_interval_transition/listening/large_interval_transition_2.wav",
+      "peak": 0.60356,
+      "rms": 0.051041,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.000536,
+      "hf_energy_ratio_p95": 0.001666,
+      "hf_spike_p99_over_median": 70.9543,
+      "spectral_flatness_mean": 0.000566,
+      "spectral_flux_p95": 0.312207,
+      "spectral_flux_max": 0.547607,
+      "sample_jump_p999": 0.073516,
+      "observed_voiced_ratio": 0.7167,
+      "target_voiced_ratio": 0.9875,
+      "voicing_accuracy": 0.7292,
+      "pitch_mae_cents": 11.62,
+      "failure_region": {
+        "path": "artifacts/reports/rc8_interval_transition/listening/large_interval_transition_2.wav",
+        "region_seconds": [
+          0.8,
+          1.6
+        ],
+        "pyin_median_hz": 770.171,
+        "yin_median_hz": 771.879,
+        "estimator_disagreement_p90_cents": 4.538,
+        "pyin_voiced_ratio": 0.8519,
+        "pyin_probability_mean": 0.6567,
+        "multi_resolution": {
+          "short": {
+            "spectral_flatness_mean": 4.95e-05,
+            "spectral_instability_p95": 0.002882,
+            "noise_floor_modulation_db_std": 8.4318
+          },
+          "medium": {
+            "spectral_flatness_mean": 6.04e-05,
+            "spectral_instability_p95": 0.00379,
+            "noise_floor_modulation_db_std": 9.936
+          },
+          "long": {
+            "spectral_flatness_mean": 6.43e-05,
+            "spectral_instability_p95": 0.006339,
+            "noise_floor_modulation_db_std": 15.3792
+          }
+        }
+      },
+      "asr_transcript": " 너 피잖아!",
+      "asr_lyric_similarity": 0.25
+    },
+    {
+      "variant": "transition_3",
+      "strength": null,
+      "path": "artifacts/reports/rc8_interval_transition/listening/large_interval_transition_3.wav",
+      "peak": 0.548023,
+      "rms": 0.048947,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.000652,
+      "hf_energy_ratio_p95": 0.002176,
+      "hf_spike_p99_over_median": 90.6717,
+      "spectral_flatness_mean": 0.000591,
+      "spectral_flux_p95": 0.310659,
+      "spectral_flux_max": 0.531915,
+      "sample_jump_p999": 0.079165,
+      "observed_voiced_ratio": 0.6583,
+      "target_voiced_ratio": 0.9875,
+      "voicing_accuracy": 0.6708,
+      "pitch_mae_cents": 11.57,
+      "failure_region": {
+        "path": "artifacts/reports/rc8_interval_transition/listening/large_interval_transition_3.wav",
+        "region_seconds": [
+          0.8,
+          1.6
+        ],
+        "pyin_median_hz": 386.201,
+        "yin_median_hz": 387.362,
+        "estimator_disagreement_p90_cents": 1206.913,
+        "pyin_voiced_ratio": 0.8889,
+        "pyin_probability_mean": 0.6056,
+        "multi_resolution": {
+          "short": {
+            "spectral_flatness_mean": 9.02e-05,
+            "spectral_instability_p95": 0.003754,
+            "noise_floor_modulation_db_std": 10.4829
+          },
+          "medium": {
+            "spectral_flatness_mean": 0.0001091,
+            "spectral_instability_p95": 0.004522,
+            "noise_floor_modulation_db_std": 12.2418
+          },
+          "long": {
+            "spectral_flatness_mean": 7.62e-05,
+            "spectral_instability_p95": 0.010593,
+            "noise_floor_modulation_db_std": 18.7517
+          }
+        }
+      },
+      "asr_transcript": " 음... 너 피닿아!",
+      "asr_lyric_similarity": 0.2222
+    },
+    {
+      "variant": "transition_4",
+      "strength": null,
+      "path": "artifacts/reports/rc8_interval_transition/listening/large_interval_transition_4.wav",
+      "peak": 0.575191,
+      "rms": 0.046449,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.000821,
+      "hf_energy_ratio_p95": 0.003122,
+      "hf_spike_p99_over_median": 50.7055,
+      "spectral_flatness_mean": 0.00063,
+      "spectral_flux_p95": 0.318035,
+      "spectral_flux_max": 0.529271,
+      "sample_jump_p999": 0.084324,
+      "observed_voiced_ratio": 0.7333,
+      "target_voiced_ratio": 0.9875,
+      "voicing_accuracy": 0.7292,
+      "pitch_mae_cents": 10.55,
+      "failure_region": {
+        "path": "artifacts/reports/rc8_interval_transition/listening/large_interval_transition_4.wav",
+        "region_seconds": [
+          0.8,
+          1.6
+        ],
+        "pyin_median_hz": 387.316,
+        "yin_median_hz": 317.395,
+        "estimator_disagreement_p90_cents": 4.056,
+        "pyin_voiced_ratio": 0.8519,
+        "pyin_probability_mean": 0.5383,
+        "multi_resolution": {
+          "short": {
+            "spectral_flatness_mean": 5.76e-05,
+            "spectral_instability_p95": 0.004535,
+            "noise_floor_modulation_db_std": 11.0997
+          },
+          "medium": {
+            "spectral_flatness_mean": 7.66e-05,
+            "spectral_instability_p95": 0.006451,
+            "noise_floor_modulation_db_std": 11.9098
+          },
+          "long": {
+            "spectral_flatness_mean": 6.87e-05,
+            "spectral_instability_p95": 0.015057,
+            "noise_floor_modulation_db_std": 17.8791
+          }
+        }
+      },
+      "asr_transcript": " 높이 날아!",
+      "asr_lyric_similarity": 1.0
+    },
+    {
+      "variant": "transition_5",
+      "strength": null,
+      "path": "artifacts/reports/rc8_interval_transition/listening/large_interval_transition_5.wav",
+      "peak": 0.56209,
+      "rms": 0.044572,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.000717,
+      "hf_energy_ratio_p95": 0.00316,
+      "hf_spike_p99_over_median": 38.9837,
+      "spectral_flatness_mean": 0.000554,
+      "spectral_flux_p95": 0.330124,
+      "spectral_flux_max": 0.530447,
+      "sample_jump_p999": 0.085107,
+      "observed_voiced_ratio": 0.7833,
+      "target_voiced_ratio": 0.9875,
+      "voicing_accuracy": 0.7792,
+      "pitch_mae_cents": 11.92,
+      "failure_region": {
+        "path": "artifacts/reports/rc8_interval_transition/listening/large_interval_transition_5.wav",
+        "region_seconds": [
+          0.8,
+          1.6
+        ],
+        "pyin_median_hz": 376.315,
+        "yin_median_hz": 243.797,
+        "estimator_disagreement_p90_cents": 4.051,
+        "pyin_voiced_ratio": 0.8889,
+        "pyin_probability_mean": 0.5197,
+        "multi_resolution": {
+          "short": {
+            "spectral_flatness_mean": 5.62e-05,
+            "spectral_instability_p95": 0.00477,
+            "noise_floor_modulation_db_std": 10.9353
+          },
+          "medium": {
+            "spectral_flatness_mean": 7.73e-05,
+            "spectral_instability_p95": 0.006167,
+            "noise_floor_modulation_db_std": 11.6754
+          },
+          "long": {
+            "spectral_flatness_mean": 7.03e-05,
+            "spectral_instability_p95": 0.015987,
+            "noise_floor_modulation_db_std": 17.9239
+          }
+        }
+      },
+      "asr_transcript": " 음... 높이 나라!",
+      "asr_lyric_similarity": 0.4444
+    },
+    {
+      "variant": "transition_6",
+      "strength": null,
+      "path": "artifacts/reports/rc8_interval_transition/listening/large_interval_transition_6.wav",
+      "peak": 0.542084,
+      "rms": 0.043833,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.000754,
+      "hf_energy_ratio_p95": 0.003003,
+      "hf_spike_p99_over_median": 35.8789,
+      "spectral_flatness_mean": 0.000585,
+      "spectral_flux_p95": 0.327481,
+      "spectral_flux_max": 0.511659,
+      "sample_jump_p999": 0.088884,
+      "observed_voiced_ratio": 0.7833,
+      "target_voiced_ratio": 0.9875,
+      "voicing_accuracy": 0.7792,
+      "pitch_mae_cents": 11.72,
+      "failure_region": {
+        "path": "artifacts/reports/rc8_interval_transition/listening/large_interval_transition_6.wav",
+        "region_seconds": [
+          0.8,
+          1.6
+        ],
+        "pyin_median_hz": 339.132,
+        "yin_median_hz": 249.268,
+        "estimator_disagreement_p90_cents": 4.018,
+        "pyin_voiced_ratio": 0.9012,
+        "pyin_probability_mean": 0.4864,
+        "multi_resolution": {
+          "short": {
+            "spectral_flatness_mean": 3.82e-05,
+            "spectral_instability_p95": 0.004806,
+            "noise_floor_modulation_db_std": 10.4485
+          },
+          "medium": {
+            "spectral_flatness_mean": 5.2e-05,
+            "spectral_instability_p95": 0.006204,
+            "noise_floor_modulation_db_std": 10.9983
+          },
+          "long": {
+            "spectral_flatness_mean": 5.75e-05,
+            "spectral_instability_p95": 0.01543,
+            "noise_floor_modulation_db_std": 16.6967
+          }
+        }
+      },
+      "asr_transcript": " 높이 날아!",
+      "asr_lyric_similarity": 1.0
+    }
+  ],
+  "human_listening_required": true
+}

@@ -2,7 +2,7 @@
   "status": "objective_nonregression_human_pending",
   "candidate": "candidate",
   "materially_improved": false,
-  "human_listening": "pending",
+  "human_listening": "8_pass_1_fail_large_interval",
   "baseline": "artifacts/reports/spectral_refiner_stress_s050/manifest.json",
   "aggregate_9": {
     "baseline": {

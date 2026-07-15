@@ -31,21 +31,36 @@ def digest(path: Path) -> str:
 
 def main() -> None:
     OUT.mkdir(parents=True, exist_ok=True)
+    review_path = OUT / "listening_manifest.json"
+    reviews = {}
+    if review_path.is_file():
+        reviews = {
+            row["case"]: (row.get("verdict"), row.get("observation", ""))
+            for row in json.loads(review_path.read_text()).get("files", [])
+        }
     files, listening = {}, []
     for case, (name, score, source_name) in CASES.items():
         source = ROOT / source_name
         target = OUT / name
         shutil.copy2(source, target)
         relative = str(target.relative_to(ROOT))
+        verdict, observation = reviews.get(case, (None, ""))
         row = {
             "case": case, "file": relative, "sha256": digest(target),
-            "verdict": None, "observation": "",
+            "verdict": verdict, "observation": observation,
         }
         listening.append(row)
         files[case] = {
             "path": relative, "score": score, "sha256": row["sha256"],
             "sample_rate": 48_000, "backend": "gyu-singer-rc8",
         }
+
+    verdicts = [row["verdict"] for row in listening]
+    human_review = (
+        "pass" if verdicts and all(value == "PASS" for value in verdicts)
+        else "8_pass_1_fail_large_interval" if verdicts.count("PASS") == 8 and verdicts.count("FAIL") == 1
+        else "pending"
+    )
 
     before_after = []
     for case in COMPARE:
@@ -60,15 +75,19 @@ def main() -> None:
             })
 
     manifest = {
-        "status": "objective_nonregression_human_pending",
+        "status": (
+            "human_pass" if human_review == "pass"
+            else "human_partial_pass_large_interval_failed" if human_review != "pending"
+            else "objective_nonregression_human_pending"
+        ),
         "candidate": "RC8 local-quality candidate; not a tag or release",
         "baseline": "immutable RC7 at ae8944070f3dc38e310b33f29d95f4bcd3c81def",
         "backend": {"backend": "gyu-singer-rc8", "final_v1_tagged": False},
         "objective_evidence": "artifacts/reports/rc8_listening_gate/evaluation.json",
-        "files": files, "human_review": "pending",
+        "files": files, "human_review": human_review,
     }
     listening_manifest = {
-        "status": "human_listening_required",
+        "status": "human_listening_required" if human_review == "pending" else manifest["status"],
         "candidate": manifest["candidate"], "source_baseline": manifest["baseline"],
         "objective_evidence": "artifacts/reports/rc8_listening_gate/evaluation.json",
         "files": listening, "before_after": before_after,
@@ -77,7 +96,7 @@ def main() -> None:
     }
     (OUT / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n")
     (OUT / "listening_manifest.json").write_text(json.dumps(listening_manifest, ensure_ascii=False, indent=2) + "\n")
-    print(json.dumps({"files": len(files), "comparisons": len(before_after), "human_review": "pending"}, indent=2))
+    print(json.dumps({"files": len(files), "comparisons": len(before_after), "human_review": human_review}, indent=2))
 
 
 if __name__ == "__main__":

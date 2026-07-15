@@ -1,5 +1,5 @@
 {
-  "status": "objective_nonregression_human_pending",
+  "status": "human_partial_pass_large_interval_failed",
   "candidate": "RC8 local-quality candidate; not a tag or release",
   "baseline": "immutable RC7 at ae8944070f3dc38e310b33f29d95f4bcd3c81def",
   "backend": {
@@ -72,5 +72,5 @@
       "backend": "gyu-singer-rc8"
     }
   },
-  "human_review": "pending"
+  "human_review": "8_pass_1_fail_large_interval"
 }

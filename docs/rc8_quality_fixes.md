@@ -48,4 +48,6 @@ RC7 and RC8 were evaluated against target F0 rebuilt with the current frontend.
 
 The candidate passes ASR, pitch, voicing, clipping, and identity non-regression. It does not achieve a global 5% HF-spike reduction; English and Japanese local fixes increase that aggregate. Therefore the report status is `objective_nonregression_human_pending`, not “materially improved.” The listening decision is authoritative for the remaining perceptual defects.
 
+Human review passed eight cases and rejected Large Interval. A follow-up score-domain sweep found an 80 ms large-jump onset transition that keeps exact ASR while changing the failure-region pYIN/YIN disagreement from about 1203 to 4 cents. Relative to the failed RC8 interval file, pitch MAE improves from 11.41 to 10.55 cents, voicing from 0.6958 to 0.7292, and HF spike p99/median from 92.55 to 50.71. This candidate remains listening-pending and is not yet part of the backend.
+
 Validation: 49 tests passed; dataset validation passed for 132 recordings (`106..237`, mono 48 kHz, corrupt 0). The nine-file actual-backend render is the RC8 runtime smoke. No RC8 package is created before human acceptance; clean package validation belongs to RC9.
