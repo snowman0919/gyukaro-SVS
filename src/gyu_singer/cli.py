@@ -28,6 +28,9 @@ def make_renderer(args):
     if args.backend == "gyu-singer-rc5":
         from .inference.rc5 import GyuSingerRC5Renderer
         return GyuSingerRC5Renderer(args.reference)
+    if args.backend == "gyu-singer-rc6":
+        from .inference.rc6 import GyuSingerRC6Renderer
+        return GyuSingerRC6Renderer(args.reference)
     from .inference import HybridRenderer, load_hybrid_model
     from .inference.codec import MossCodecDecoder
     return HybridRenderer(load_hybrid_model(args.checkpoint), MossCodecDecoder(args.audio_tokenizer), args.reference)
@@ -35,7 +38,7 @@ def make_renderer(args):
 
 def main() -> None:
     parser = argparse.ArgumentParser(prog="gyu-singer")
-    parser.add_argument("--backend", choices=("hybrid-svs", "hybrid-soulx-phrase", "orchestration-v0.4", "gyu-singer-v0.5", "gyu-singer-v0.6", "gyu-singer-v0.7", "gyu-singer-v0.8", "gyu-singer-rc5", "hybrid-compact-experimental", "loop", "neural-vocalizer-baseline"), default="hybrid-svs")
+    parser.add_argument("--backend", choices=("hybrid-svs", "hybrid-soulx-phrase", "orchestration-v0.4", "gyu-singer-v0.5", "gyu-singer-v0.6", "gyu-singer-v0.7", "gyu-singer-v0.8", "gyu-singer-rc5", "gyu-singer-rc6", "hybrid-compact-experimental", "loop", "neural-vocalizer-baseline"), default="hybrid-svs")
     parser.add_argument("--model", default="checkpoints/gyu_v1_experimental.npz", help="loop or baseline vocalizer model")
     parser.add_argument("--checkpoint", default="checkpoints/gyu_hybrid_v0.2.pt")
     parser.add_argument("--audio-tokenizer", default="data/cache/moss-audio-tokenizer-nano")
