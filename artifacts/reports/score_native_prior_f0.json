@@ -1,0 +1,9 @@
+{
+  "status": "pass",
+  "rows": 1997,
+  "extractor": "SoulX RMVPE",
+  "sample_rate": 44100,
+  "hop_size": 512,
+  "mean_voiced_ratio": 0.8733,
+  "labels_are_inferred": true
+}

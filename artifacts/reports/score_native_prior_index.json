@@ -1,0 +1,10 @@
+{
+  "status": "index_ready_audio_not_extracted",
+  "rows": 1997,
+  "speakers": 20,
+  "categories": 20,
+  "uncompressed_gib": 1.385,
+  "labels": "vowels inferred from official filenames; pitch/F0 must be measured after extraction",
+  "lexical_excerpts_used": false,
+  "raw_audio_bundled": false
+}
