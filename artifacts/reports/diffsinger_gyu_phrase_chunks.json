@@ -1,0 +1,26 @@
+{
+  "status": "real_gyu_phrase_chunks_ready",
+  "source_rows": 37,
+  "chunks": 81,
+  "train_chunks": 67,
+  "validation_chunks": 14,
+  "duration_minutes": 4.742,
+  "median_chunk_seconds": 3.454,
+  "subsecond_chunks": 12,
+  "gap_split_seconds": 0.8,
+  "max_chunk_seconds": 6.0,
+  "minimum_chunk_seconds": 0.6,
+  "independent_score_rows_included": false,
+  "labels": "inferred singing-aware CTC timing",
+  "source_recordings_modified": false,
+  "vocabulary_remap": {
+    "old_vocabulary": 58,
+    "new_vocabulary": 50,
+    "new_token_initialization": {},
+    "shared_embedding_max_abs_error": 0.0,
+    "checkpoint": "data/cache/diffsinger/checkpoints/gyu_score_native_gyu_phrase_vocab.ckpt",
+    "checkpoint_sha256": "de2bcfe679459d26d57d6d52fd60226867fa6d9a4b40319dd6f3d6fb22e13a40"
+  },
+  "manifest": "data/manifests/diffsinger_gyu_phrase_chunks.jsonl",
+  "config": "configs/diffsinger_gyu_phrase_chunks.yaml"
+}

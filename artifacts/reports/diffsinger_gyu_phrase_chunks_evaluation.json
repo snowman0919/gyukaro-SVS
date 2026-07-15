@@ -1,0 +1,56 @@
+{
+  "status": "objective_reject_phrase_chunks_insufficient",
+  "human_listening": "not_requested_objective_reject",
+  "training_data": {
+    "rows": 81,
+    "minutes": 4.742,
+    "median_seconds": 3.454,
+    "split_gap_seconds": 0.8,
+    "alignment": "inferred",
+    "independent_score_rows_used": false
+  },
+  "aggregate": {
+    "rc6": {
+      "pitch_mae_cents": 20.635,
+      "voicing_accuracy": 0.8021,
+      "hf_spike_p99_over_median": 703.8106,
+      "spectral_flux_p95": 0.283661,
+      "sample_jump_p999": 0.092058,
+      "asr_lyric_similarity": 0.96665
+    },
+    "gyulex100": {
+      "pitch_mae_cents": 6.78,
+      "voicing_accuracy": 0.693,
+      "hf_spike_p99_over_median": 126.7586,
+      "spectral_flux_p95": 0.343059,
+      "sample_jump_p999": 0.082501,
+      "asr_lyric_similarity": 0.2222
+    },
+    "phrase100": {
+      "pitch_mae_cents": 8.26,
+      "voicing_accuracy": 0.70865,
+      "hf_spike_p99_over_median": 119.01015,
+      "spectral_flux_p95": 0.372313,
+      "sample_jump_p999": 0.065249,
+      "asr_lyric_similarity": 0.2222
+    },
+    "phrase200": {
+      "pitch_mae_cents": 7.815,
+      "voicing_accuracy": 0.69495,
+      "hf_spike_p99_over_median": 132.96265,
+      "spectral_flux_p95": 0.365551,
+      "sample_jump_p999": 0.076334,
+      "asr_lyric_similarity": 0.3111
+    },
+    "phrase300": {
+      "pitch_mae_cents": 8.695,
+      "voicing_accuracy": 0.62885,
+      "hf_spike_p99_over_median": 144.07315,
+      "spectral_flux_p95": 0.365949,
+      "sample_jump_p999": 0.080246,
+      "asr_lyric_similarity": 0.1111
+    }
+  },
+  "selected_candidate": "phrase200",
+  "decision": "Longer coarticulated chunks alone do not recover stable Korean lyrics; do not integrate these checkpoints."
+}

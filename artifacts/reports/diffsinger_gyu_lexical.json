@@ -1,0 +1,26 @@
+{
+  "status": "lexical_real_gyu_subset_ready",
+  "source_segments": 730,
+  "selected_segments": 243,
+  "selected_sources": 41,
+  "train_segments": 188,
+  "validation_segments": 55,
+  "selected_minutes": 4.299,
+  "excluded_segments": 487,
+  "excluded_minutes": 4.391,
+  "excluded_reason": "recording exercise or low-diversity repeated syllable source",
+  "independent_score_rows_included": false,
+  "labels": "inferred singing-aware CTC timing",
+  "source_recordings_modified": false,
+  "learning_rate": 5e-06,
+  "vocabulary_remap": {
+    "old_vocabulary": 58,
+    "new_vocabulary": 51,
+    "new_token_initialization": {},
+    "shared_embedding_max_abs_error": 0.0,
+    "checkpoint": "data/cache/diffsinger/checkpoints/gyu_score_native_gyu_lexical_vocab.ckpt",
+    "checkpoint_sha256": "06ea85f6541088f64c184f8e1e6eb13fe6ebafcdffa4291514c1b894c049251e"
+  },
+  "manifest": "data/manifests/diffsinger_gyu_lexical.jsonl",
+  "config": "configs/diffsinger_gyu_lexical.yaml"
+}

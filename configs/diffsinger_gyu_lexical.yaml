@@ -1,0 +1,101 @@
+base_config:
+- configs/acoustic.yaml
+dictionaries:
+  gyu: /home/kotori9/code/gyukaro/data/external/work/diffsinger_score_native/dictionary-gyu-lexical.txt
+datasets:
+- raw_data_dir: /home/kotori9/code/gyukaro/data/external/work/diffsinger_score_native/raw/gyu_lexical_segmented
+  speaker: gyu
+  language: gyu
+  spk_id: 20
+  test_prefixes:
+  - gyu_real_000140_seg00
+  - gyu_real_000140_seg01
+  - gyu_real_000140_seg02
+  - gyu_real_000140_seg03
+  - gyu_real_000140_seg04
+  - gyu_real_000140_seg05
+  - gyu_real_000140_seg06
+  - gyu_real_000145_seg00
+  - gyu_real_000145_seg01
+  - gyu_real_000145_seg02
+  - gyu_real_000145_seg03
+  - gyu_real_000145_seg04
+  - gyu_real_000145_seg05
+  - gyu_real_000145_seg06
+  - gyu_real_000145_seg07
+  - gyu_real_000145_seg08
+  - gyu_real_000154_seg00
+  - gyu_real_000165_seg00
+  - gyu_real_000165_seg01
+  - gyu_real_000198_seg00
+  - gyu_real_000204_seg00
+  - gyu_real_000204_seg01
+  - gyu_real_000204_seg02
+  - gyu_real_000204_seg03
+  - gyu_real_000209_seg00
+  - gyu_real_000209_seg01
+  - gyu_real_000209_seg02
+  - gyu_real_000209_seg03
+  - gyu_real_000209_seg04
+  - gyu_real_000209_seg05
+  - gyu_real_000220_seg00
+  - gyu_real_000220_seg01
+  - gyu_real_000220_seg02
+  - gyu_real_000220_seg03
+  - gyu_real_000220_seg04
+  - gyu_real_000220_seg05
+  - gyu_real_000220_seg06
+  - gyu_real_000220_seg07
+  - gyu_real_000220_seg08
+  - gyu_real_000221_seg00
+  - gyu_real_000221_seg01
+  - gyu_real_000221_seg02
+  - gyu_real_000221_seg03
+  - gyu_real_000221_seg04
+  - gyu_real_000221_seg05
+  - gyu_real_000221_seg06
+  - gyu_real_000221_seg07
+  - gyu_real_000221_seg08
+  - gyu_real_000221_seg09
+  - gyu_real_000221_seg10
+  - gyu_real_000221_seg11
+  - gyu_real_000221_seg12
+  - gyu_real_000221_seg13
+  - gyu_real_000221_seg14
+  - gyu_real_000221_seg15
+binary_data_dir: /home/kotori9/code/gyukaro/data/external/work/diffsinger_score_native/binary_gyu_lexical
+use_spk_id: true
+num_spk: 21
+use_lang_id: false
+num_lang: 1
+pe: rmvpe
+pe_ckpt: /home/kotori9/code/gyukaro/data/cache/diffsinger-assets/rmvpe/model.pt
+hnsep: world
+use_energy_embed: false
+use_breathiness_embed: false
+use_voicing_embed: false
+use_tension_embed: false
+vocoder: NsfHifiGAN
+vocoder_ckpt: /home/kotori9/code/gyukaro/data/external/work/diffsinger_score_native/vocoder_exported/model.ckpt
+binarization_args:
+  num_workers: 4
+  shuffle: true
+finetune_enabled: true
+finetune_ckpt_path: /home/kotori9/code/gyukaro/data/cache/diffsinger/checkpoints/gyu_score_native_gyu_lexical_vocab.ckpt
+finetune_ignored_params: []
+finetune_strict_shapes: true
+freezing_enabled: true
+frozen_params:
+- model.fs2.stretch_embed
+- model.fs2.stretch_embed_rnn
+- model.fs2.dur_embed
+- model.fs2.pitch_embed
+max_updates: 300
+val_check_interval: 100
+num_valid_plots: 0
+val_with_vocoder: false
+max_batch_frames: 20000
+max_batch_size: 8
+num_ckpt_keep: 3
+optimizer_args:
+  lr: 5.0e-06

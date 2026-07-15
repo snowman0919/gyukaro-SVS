@@ -48,3 +48,21 @@ The existing CC BY 4.0 VocalSet archive also contains 38 `Row Your Boat` recordi
 | VocalSet lexical 300 | 50.99 cents | 0.451 | 132.32 | 0.000 | collapse; reject |
 
 The lexical recordings are technically usable, but English consonant supervision does not supply a Korean lexical singing prior. This closes the generic-English-transfer branch without changing RC6 or requesting human review.
+
+## Real-GYU adaptation and phrase-chunk follow-up
+
+Status: rejected; neither checkpoint family is an RC candidate.
+
+The 730-segment real-GYU corpus over-samples recording exercises: 475 rows come from blocks A/B, while the strict lexical subset retains 243 rows (4.299 minutes). A low-rate second-stage adaptation after the Zeroth replay prior and a GYU-only lexical adaptation both preserved score pitch but emitted repeated vowels or syllables. The lexical data also exposed a segmentation defect: 131 of 243 rows were shorter than one second because a 250 ms gap threshold split coarticulation context.
+
+Phrase rebuilding at 800 ms gaps produced 81 inferred-timing chunks from 37 source recordings (4.742 minutes, 3.454-second median). All 24 independent-score rows remained excluded and original recordings were unchanged.
+
+| Probe | Pitch MAE | Voicing | HF spike | ASR similarity | Decision |
+|---|---:|---:|---:|---:|---|
+| Zeroth then all-GYU, 100 | 6.85 cents | 0.692 | 209.52 | 0.000 | repetition collapse |
+| Lexical GYU, 100 | 6.78 cents | 0.693 | 126.76 | 0.222 | vowel collapse |
+| Phrase chunks, 100 | 8.26 cents | 0.709 | 119.01 | 0.222 | vowel collapse |
+| Phrase chunks, 200 | 7.82 cents | 0.695 | 132.96 | 0.311 | objective reject |
+| Phrase chunks, 300 | 8.70 cents | 0.629 | 144.07 | 0.111 | regression |
+
+Longer chunks improve the high-frequency proxy but do not recover Korean lyrics: rapid output remains `아`, while the 300-step interval case collapses to a sustained `으`. The root defect is therefore not just boundary fragmentation. This branch needs a compatible pretrained Korean lexical singing model; more optimization on the current small inferred corpus is stopped.

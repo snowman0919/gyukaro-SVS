@@ -55,6 +55,9 @@ def main() -> None:
         **{f"allseg{step}": ROOT / f"data/cache/diffsinger/checkpoints/gyu_score_native_all_segmented/model_ckpt_steps_{step}.ckpt" for step in (200, 400)},
         **{f"gyuadapt{step}": ROOT / f"data/cache/diffsinger/checkpoints/gyu_score_native_gyu_adapt/model_ckpt_steps_{step}.ckpt" for step in (100, 200, 300)},
         **{f"lexical{step}": ROOT / f"data/cache/diffsinger/checkpoints/gyu_score_native_vocalset_lexical/model_ckpt_steps_{step}.ckpt" for step in (100, 200, 300)},
+        **{f"twostage{step}": ROOT / f"data/cache/diffsinger/checkpoints/gyu_score_native_zeroth_gyu_adapt/model_ckpt_steps_{step}.ckpt" for step in (100, 200, 300)},
+        **{f"gyulex{step}": ROOT / f"data/cache/diffsinger/checkpoints/gyu_score_native_gyu_lexical/model_ckpt_steps_{step}.ckpt" for step in (100, 200, 300)},
+        **{f"phrase{step}": ROOT / f"data/cache/diffsinger/checkpoints/gyu_score_native_gyu_phrase_chunks/model_ckpt_steps_{step}.ckpt" for step in (100, 200, 300)},
     }
     targets = {
         case: np.array(json.loads((root / f"{case}.ds").read_text())[0]["f0_seq"].split(), dtype=np.float32)
@@ -110,7 +113,7 @@ def main() -> None:
         for model in ("rc6", *checkpoints)
     }
     candidate = max(
-        tuple(model for model in checkpoints if model.startswith(("prior", "acoustic", "zeroth", "replay", "text", "segmented", "allseg", "gyuadapt", "lexical"))),
+        tuple(model for model in checkpoints if model.startswith(("prior", "acoustic", "zeroth", "replay", "text", "segmented", "allseg", "gyuadapt", "lexical", "twostage", "gyulex", "phrase"))),
         key=lambda model: (
             aggregate[model]["asr_lyric_similarity"],
             aggregate[model]["voicing_accuracy"],
@@ -143,6 +146,9 @@ def main() -> None:
             "allseg200": 0.25150, "allseg400": 0.22856,
             "gyuadapt100": 0.23699, "gyuadapt200": 0.23334, "gyuadapt300": 0.20713,
             "lexical100": 0.255342, "lexical200": 0.211553, "lexical300": 0.211924,
+            "twostage100": 0.260722, "twostage200": 0.252005, "twostage300": 0.256777,
+            "gyulex100": 0.201801, "gyulex200": 0.191747, "gyulex300": 0.172804,
+            "phrase100": 0.195004, "phrase200": 0.279518, "phrase300": 0.205754,
         },
         "validation_loss_warning": "Diffusion validation loss varied materially across identical initial checkpoints; objective stress renders select the candidate.",
         "checkpoint_sha256": {
@@ -175,6 +181,85 @@ def main() -> None:
     }
     (ROOT / "artifacts/reports/diffsinger_vocalset_lexical_evaluation.json").write_text(
         json.dumps(lexical, ensure_ascii=False, indent=2) + "\n"
+    )
+    two_stage = {
+        "status": "objective_reject_repetition_collapse",
+        "human_listening": "not_requested_objective_reject",
+        "training_order": [
+            "Zeroth Korean speech acoustic prior with VocalSet/GYU replay",
+            "730 inferred-timing real-GYU singing segments at 2e-6 learning rate",
+        ],
+        "aggregate": {
+            model: aggregate[model]
+            for model in ("rc6", "gyuadapt100", "twostage100", "twostage200", "twostage300")
+        },
+        "decision": (
+            "The two-stage prior retains score pitch but emits repeated syllables instead of lyrics. "
+            "The 730-segment corpus over-samples recording exercises; filter to lexical phrases "
+            "before any further direct-model adaptation."
+        ),
+    }
+    (ROOT / "artifacts/reports/diffsinger_zeroth_gyu_adapt_evaluation.json").write_text(
+        json.dumps(two_stage, ensure_ascii=False, indent=2) + "\n"
+    )
+    gyu_lexical = {
+        "status": "objective_reject_isolated_syllable_training",
+        "human_listening": "not_requested_objective_reject",
+        "training_data": "243 lexical-filtered real-GYU segments; inferred timing",
+        "aggregate": {
+            model: aggregate[model]
+            for model in ("rc6", "gyuadapt100", "gyulex100", "gyulex200", "gyulex300")
+        },
+        "decision": (
+            "Filtering recording exercises reduces high-frequency spikes but does not restore lyrics. "
+            "Most retained segments are still isolated syllables split at 250 ms gaps; rebuild "
+            "multi-syllable phrase chunks before further adaptation."
+        ),
+    }
+    (ROOT / "artifacts/reports/diffsinger_gyu_lexical_evaluation.json").write_text(
+        json.dumps(gyu_lexical, ensure_ascii=False, indent=2) + "\n"
+    )
+    phrase_chunks = {
+        "status": "objective_probe_pending",
+        "human_listening": "pending_objective_gate",
+        "training_data": {
+            "rows": 81,
+            "minutes": 4.742,
+            "median_seconds": 3.454,
+            "split_gap_seconds": 0.8,
+            "alignment": "inferred",
+            "independent_score_rows_used": False,
+        },
+        "aggregate": {
+            model: aggregate[model]
+            for model in ("rc6", "gyulex100", "phrase100", "phrase200", "phrase300")
+        },
+    }
+    phrase_candidate = max(
+        ("phrase100", "phrase200", "phrase300"),
+        key=lambda model: (
+            aggregate[model]["asr_lyric_similarity"],
+            aggregate[model]["voicing_accuracy"],
+            -aggregate[model]["pitch_mae_cents"],
+        ),
+    )
+    phrase_eligible = (
+        aggregate[phrase_candidate]["pitch_mae_cents"] <= 100
+        and aggregate[phrase_candidate]["voicing_accuracy"] >= 0.8
+        and aggregate[phrase_candidate]["asr_lyric_similarity"] >= 0.8
+    )
+    phrase_chunks |= {
+        "status": "objective_probe_pass_human_pending" if phrase_eligible else "objective_reject_phrase_chunks_insufficient",
+        "human_listening": "pending" if phrase_eligible else "not_requested_objective_reject",
+        "selected_candidate": phrase_candidate,
+        "decision": (
+            "Phrase chunks pass the objective gate; conduct listening before integration."
+            if phrase_eligible else
+            "Longer coarticulated chunks alone do not recover stable Korean lyrics; do not integrate these checkpoints."
+        ),
+    }
+    (ROOT / "artifacts/reports/diffsinger_gyu_phrase_chunks_evaluation.json").write_text(
+        json.dumps(phrase_chunks, ensure_ascii=False, indent=2) + "\n"
     )
     print(json.dumps({"status": report["status"], "aggregate": aggregate}, ensure_ascii=False, indent=2))
 

@@ -1,0 +1,19 @@
+{
+  "status": "two_stage_gyu_singing_adaptation_ready",
+  "source": "data/cache/diffsinger/checkpoints/gyu_score_native_zeroth_replay/model_ckpt_steps_300.ckpt",
+  "source_sha256": "457150c66801ce2a0bff9705c2def110f86b6dad2ede688710e90585a979fd7a",
+  "checkpoint": "data/cache/diffsinger/checkpoints/gyu_score_native_zeroth_gyu_adapt_vocab.ckpt",
+  "checkpoint_sha256": "51388a2cd367a6f69e3197ff9e83d25c2a33d67fe907b4b65fbf3b03c7fa939d",
+  "shared_text_embedding_max_abs_error": 0.0,
+  "gyu_speaker_embedding_max_abs_error": 0.0,
+  "dropped_speakers": [
+    "zeroth_187",
+    "zeroth_191",
+    "zeroth_201",
+    "zeroth_214"
+  ],
+  "training_data": "730 inferred-timing real-GYU contiguous singing segments",
+  "learning_rate": 2e-06,
+  "max_updates": 300,
+  "config": "configs/diffsinger_zeroth_gyu_adapt.yaml"
+}
