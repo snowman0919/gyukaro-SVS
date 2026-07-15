@@ -30,6 +30,21 @@ def main() -> None:
     identity = read("artifacts/reports/refiner_identity_evaluation.json")["aggregate"]
     runtime = read("artifacts/reports/runtime_rc6_stress.json")
     longform = read("artifacts/reports/longform_rc6_supervised.json")
+    openutau = read("artifacts/reports/openutau_rc6/behavior.json")
+    core = read("artifacts/reports/rc5_candidate_core/evaluation.json")["aggregate"]
+    production = {
+        "A_rc4": core["rc4"],
+        "B_timing_voicing_only": core["fixed_full"],
+        "C_safer_soulx_rc5": read("artifacts/reports/rc5_stress_candidate4/evaluation.json")["core_4"],
+        "D_universal_025": read("data/external/work/production_paths/D_universal/evaluation.json")["core_4"],
+        "E_singing_025": read("data/external/work/production_paths/E_singing/evaluation.json")["core_4"],
+        "F_gyu_025": read("artifacts/reports/refiner_rc_candidate/evaluation.json")["core_4"],
+    }
+    Path("artifacts/reports/production_path_comparison.json").write_text(json.dumps({
+        "status": "measured_human_selection_pending", "scope": "same four stress projects",
+        "paths": production, "selected": "D_universal_025",
+        "selection_reason": "best balance: lower HF spikes and jumps than C without E/F pitch or voicing regressions",
+    }, indent=2) + "\n")
     package_archive = Path("artifacts/package/gyu-singer-v1.0.0-rc6-candidate.zip")
     package_root = Path("artifacts/package/gyu-singer-v1.0")
     if package_archive.is_file() and (package_root / "PACKAGE.json").is_file():
@@ -41,6 +56,24 @@ def main() -> None:
     else:
         package_name = package_sha = package_commit = "pending"
         package_smoke = "pending"
+    audit = {
+        "overall": "incomplete_human_listening_pending",
+        "criteria": [
+            {"id": 1, "requirement": "RC4 artifact source isolated", "status": "proven", "evidence": "docs/rc4_artifact_isolation.md"},
+            {"id": 2, "requirement": "coherent phoneme/content/F0 timeline", "status": "proven", "evidence": "docs/timing_voicing_fix.md"},
+            {"id": 3, "requirement": "unvoiced regions do not receive continuous F0", "status": "proven", "evidence": "canonical timeline tests and RC6 stress metrics"},
+            {"id": 4, "requirement": "public speech license and quality validation", "status": "proven", "evidence": "data/external/DATASET_LICENSES.md; artifacts/reports/external_acoustic_quality.json"},
+            {"id": 5, "requirement": "singing data covers high-F0 and transitions", "status": "proven", "evidence": "docs/singing_prior_training.md"},
+            {"id": 6, "requirement": "refiner uses real pipeline degradation pairs", "status": "proven", "evidence": "artifacts/reports/pipeline_degradation_pairs.json"},
+            {"id": 7, "requirement": "GYU adaptation preserves universal prior", "status": "proven_by_rejection", "evidence": "GYU adapter used replay and was disabled after production regression"},
+            {"id": 8, "requirement": "rapid and large-interval cases materially improved", "status": "human_verdict_required", "evidence": "objective metrics are mixed; RC6 listening files 06 and 08"},
+            {"id": 9, "requirement": "KO/EN/JA render", "status": "proven", "evidence": "artifacts/reports/rc6_package_smoke.json"},
+            {"id": 10, "requirement": "real OpenUtau long-form render", "status": "proven", "evidence": "artifacts/reports/longform_rc6_supervised.json"},
+            {"id": 11, "requirement": "exact package clean-install validation", "status": "proven", "evidence": "artifacts/reports/rc6_package_smoke.json"},
+            {"id": 12, "requirement": "explicit human listening pass", "status": "pending", "evidence": "artifacts/reports/rc6_listening_gate/listening_manifest.json"},
+        ],
+    }
+    Path("artifacts/reports/goal_completion_audit.json").write_text(json.dumps(audit, indent=2) + "\n")
 
     write("docs/timing_voicing_fix.md", """
 # Timing and voicing fix
@@ -88,6 +121,8 @@ The selected universal refiner lowers HF spikes and waveform jumps and slightly 
 
 Resident stress passed with one unique hash across repeated renders, KO/EN/JA, concurrency, invalid-request recovery, restart, clean shutdown, and steady-state memory checks. The maintained OpenUtau overlay rendered {longform['render_metrics']['notes']} notes in {longform['render_metrics']['phrases']} phrases over {fmt(longform['render_metrics']['duration_seconds'])} seconds with zero failed phrases.
 
+The complete A-F production comparison selected D, the universal 25% refiner. E singing and F GYU adapters were rejected for pitch/voicing regressions. Actual pinned OpenUtau RC6 behavior passed note-pitch, lyric, PITD, style, cache-invalidation, KO/EN/JA, and phrase-render checks.
+
 Listening gate: `artifacts/reports/rc6_listening_gate/`. Each of nine files requires an explicit PASS/FAIL and observation. Final `v1.0.0` remains forbidden until that review passes.
 """)
     write("docs/final_v1.0_report.md", f"""
@@ -106,6 +141,7 @@ Phrase-level generation: yes
 Per-note TTS used: no
 Waveform pitch shifting used: no
 OpenUtau long-form: PASS ({longform['render_metrics']['notes']} notes, {longform['render_metrics']['phrases']} phrases, {fmt(longform['render_metrics']['duration_seconds'])} seconds)
+OpenUtau edit behavior: {'PASS' if openutau['pass'] else 'FAIL'} (note, lyric, PITD, style, cache invalidation)
 Runtime stress: {'PASS' if runtime['pass'] else 'FAIL'}
 Korean: objective stress rendered; human pending
 English: objective stress rendered; human pending

@@ -1,0 +1,80 @@
+{
+  "status": "measured_human_selection_pending",
+  "scope": "same four stress projects",
+  "paths": {
+    "A_rc4": {
+      "pitch_mae_cents": 8.085,
+      "voicing_accuracy": 0.919225,
+      "observed_voiced_ratio": 0.919225,
+      "hf_energy_ratio_p95": 0.004031,
+      "hf_spike_p99_over_median": 1104.50955,
+      "spectral_flatness_mean": 0.000106,
+      "spectral_flux_p95": 0.257399,
+      "sample_jump_p999": 0.149059,
+      "clip_fraction": 0.0,
+      "asr_lyric_similarity": 0.97305
+    },
+    "B_timing_voicing_only": {
+      "pitch_mae_cents": 9.22,
+      "voicing_accuracy": 0.832525,
+      "observed_voiced_ratio": 0.83005,
+      "hf_energy_ratio_p95": 0.007697,
+      "hf_spike_p99_over_median": 1146.448875,
+      "spectral_flatness_mean": 0.001006,
+      "spectral_flux_p95": 0.282632,
+      "sample_jump_p999": 0.125736,
+      "clip_fraction": 0.0,
+      "asr_lyric_similarity": 0.68555
+    },
+    "C_safer_soulx_rc5": {
+      "pitch_mae_cents": 9.8925,
+      "voicing_accuracy": 0.86825,
+      "hf_energy_ratio_p95": 0.004753,
+      "hf_spike_p99_over_median": 935.376725,
+      "spectral_flatness_mean": 0.000204,
+      "spectral_flux_p95": 0.239364,
+      "sample_jump_p999": 0.112736,
+      "clip_fraction": 0.0,
+      "asr_lyric_similarity": 0.948525,
+      "asr_lyric_coverage": 0.942425
+    },
+    "D_universal_025": {
+      "pitch_mae_cents": 9.7525,
+      "voicing_accuracy": 0.8688,
+      "hf_energy_ratio_p95": 0.004918,
+      "hf_spike_p99_over_median": 887.695075,
+      "spectral_flatness_mean": 0.000209,
+      "spectral_flux_p95": 0.239427,
+      "sample_jump_p999": 0.110066,
+      "clip_fraction": 0.0,
+      "asr_lyric_similarity": 0.948525,
+      "asr_lyric_coverage": 0.942425
+    },
+    "E_singing_025": {
+      "pitch_mae_cents": 9.8025,
+      "voicing_accuracy": 0.853325,
+      "hf_energy_ratio_p95": 0.005797,
+      "hf_spike_p99_over_median": 832.00355,
+      "spectral_flatness_mean": 0.000245,
+      "spectral_flux_p95": 0.241789,
+      "sample_jump_p999": 0.109936,
+      "clip_fraction": 0.0,
+      "asr_lyric_similarity": 0.96,
+      "asr_lyric_coverage": 0.942425
+    },
+    "F_gyu_025": {
+      "pitch_mae_cents": 9.6375,
+      "voicing_accuracy": 0.859925,
+      "hf_energy_ratio_p95": 0.005484,
+      "hf_spike_p99_over_median": 852.848775,
+      "spectral_flatness_mean": 0.000226,
+      "spectral_flux_p95": 0.244152,
+      "sample_jump_p999": 0.109781,
+      "clip_fraction": 0.0,
+      "asr_lyric_similarity": 0.96,
+      "asr_lyric_coverage": 0.942425
+    }
+  },
+  "selected": "D_universal_025",
+  "selection_reason": "best balance: lower HF spikes and jumps than C without E/F pitch or voicing regressions"
+}

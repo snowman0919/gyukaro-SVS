@@ -13,6 +13,7 @@ Phrase-level generation: yes
 Per-note TTS used: no
 Waveform pitch shifting used: no
 OpenUtau long-form: PASS (136 notes, 17 phrases, 119.982857 seconds)
+OpenUtau edit behavior: PASS (note, lyric, PITD, style, cache invalidation)
 Runtime stress: PASS
 Korean: objective stress rendered; human pending
 English: objective stress rendered; human pending

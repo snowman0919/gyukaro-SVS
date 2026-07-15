@@ -1,0 +1,77 @@
+{
+  "overall": "incomplete_human_listening_pending",
+  "criteria": [
+    {
+      "id": 1,
+      "requirement": "RC4 artifact source isolated",
+      "status": "proven",
+      "evidence": "docs/rc4_artifact_isolation.md"
+    },
+    {
+      "id": 2,
+      "requirement": "coherent phoneme/content/F0 timeline",
+      "status": "proven",
+      "evidence": "docs/timing_voicing_fix.md"
+    },
+    {
+      "id": 3,
+      "requirement": "unvoiced regions do not receive continuous F0",
+      "status": "proven",
+      "evidence": "canonical timeline tests and RC6 stress metrics"
+    },
+    {
+      "id": 4,
+      "requirement": "public speech license and quality validation",
+      "status": "proven",
+      "evidence": "data/external/DATASET_LICENSES.md; artifacts/reports/external_acoustic_quality.json"
+    },
+    {
+      "id": 5,
+      "requirement": "singing data covers high-F0 and transitions",
+      "status": "proven",
+      "evidence": "docs/singing_prior_training.md"
+    },
+    {
+      "id": 6,
+      "requirement": "refiner uses real pipeline degradation pairs",
+      "status": "proven",
+      "evidence": "artifacts/reports/pipeline_degradation_pairs.json"
+    },
+    {
+      "id": 7,
+      "requirement": "GYU adaptation preserves universal prior",
+      "status": "proven_by_rejection",
+      "evidence": "GYU adapter used replay and was disabled after production regression"
+    },
+    {
+      "id": 8,
+      "requirement": "rapid and large-interval cases materially improved",
+      "status": "human_verdict_required",
+      "evidence": "objective metrics are mixed; RC6 listening files 06 and 08"
+    },
+    {
+      "id": 9,
+      "requirement": "KO/EN/JA render",
+      "status": "proven",
+      "evidence": "artifacts/reports/rc6_package_smoke.json"
+    },
+    {
+      "id": 10,
+      "requirement": "real OpenUtau long-form render",
+      "status": "proven",
+      "evidence": "artifacts/reports/longform_rc6_supervised.json"
+    },
+    {
+      "id": 11,
+      "requirement": "exact package clean-install validation",
+      "status": "proven",
+      "evidence": "artifacts/reports/rc6_package_smoke.json"
+    },
+    {
+      "id": 12,
+      "requirement": "explicit human listening pass",
+      "status": "pending",
+      "evidence": "artifacts/reports/rc6_listening_gate/listening_manifest.json"
+    }
+  ]
+}
