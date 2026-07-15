@@ -60,10 +60,11 @@ def main() -> None:
             })
 
     manifest = {
-        "status": "objective_evaluation_pending",
+        "status": "objective_nonregression_human_pending",
         "candidate": "RC8 local-quality candidate; not a tag or release",
         "baseline": "immutable RC7 at ae8944070f3dc38e310b33f29d95f4bcd3c81def",
         "backend": {"backend": "gyu-singer-rc8", "final_v1_tagged": False},
+        "objective_evidence": "artifacts/reports/rc8_listening_gate/evaluation.json",
         "files": files, "human_review": "pending",
     }
     listening_manifest = {
