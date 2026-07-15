@@ -1,0 +1,21 @@
+{
+  "rows": 78,
+  "domains": {
+    "speech": 24,
+    "singing": 54
+  },
+  "datasets": {
+    "libritts_r": 24,
+    "vocalset": 30,
+    "real_gyu": 24
+  },
+  "splits": {
+    "train": 44,
+    "validation": 17,
+    "test": 17
+  },
+  "pipeline_git_commit": "2ab21ffb3dd8da1a073acbd3d7adf4f25afcb1ac",
+  "soulx_revision": "81aeb3ae772c70093c3de74dc23c92d983801ae4",
+  "real_pipeline_degradation_only": true,
+  "random_noise_used": false
+}
