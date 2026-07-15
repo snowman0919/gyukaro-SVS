@@ -73,8 +73,8 @@ def main() -> None:
     args = parser.parse_args()
     root = Path.cwd(); reports = root / "artifacts/reports"; reports.mkdir(parents=True, exist_ok=True)
     home = Path("/tmp/gyu-longform-v10-supervised"); shutil.rmtree(home, ignore_errors=True); home.mkdir()
-    wav, metrics = Path(args.wav), Path(args.metrics)
-    server_log_path, render_log_path = Path(args.server_log), Path(args.render_log)
+    wav, metrics = Path(args.wav).resolve(), Path(args.metrics).resolve()
+    server_log_path, render_log_path = Path(args.server_log).resolve(), Path(args.render_log).resolve()
     for path in (wav, metrics, server_log_path, render_log_path): path.parent.mkdir(parents=True, exist_ok=True)
     env = os.environ | {
         "PYTHONPATH": str(root / "src"), "GYU_SINGER_CACHE": str(root / "data/cache"),
