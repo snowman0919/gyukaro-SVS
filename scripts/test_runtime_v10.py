@@ -85,7 +85,7 @@ def main() -> None:
         first = start_server(root, args.port, log, args.backend)
         try:
             first_health = wait_health(url)
-            warmup = post(url, scores["ko"])
+            warmup = {language: post(url, score) for language, score in scores.items()}
             memory_before = memory_mb(first.pid)
             repeated = [post(url, scores["ko"]) for _ in range(args.repeats)]
             multilingual = {language: post(url, score) for language, score in scores.items()}
@@ -122,7 +122,7 @@ def main() -> None:
     }
     report = {
         "repeats": args.repeats, "repeat_unique_sha256": len(set(hashes)),
-        "warmup_seconds": warmup[1], "repeat_latency_seconds": {"min": min(latencies), "mean": sum(latencies) / len(latencies), "max": max(latencies)},
+        "warmup_seconds": {language: value[1] for language, value in warmup.items()}, "repeat_latency_seconds": {"min": min(latencies), "mean": sum(latencies) / len(latencies), "max": max(latencies)},
         "multilingual": {key: {"sha256": value[0], "seconds": value[1]} for key, value in multilingual.items()},
         "concurrent_latency_seconds": [value[1] for value in concurrent_results], "failure_status": failure_status,
         "memory_mb": {"before": memory_before, "after": memory_after, "growth": memory_after - memory_before},
