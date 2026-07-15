@@ -63,7 +63,8 @@ def spectral_loss(output: torch.Tensor, target: torch.Tensor) -> tuple[torch.Ten
 def stage_rows(rows: list[dict], stage: str, split: str) -> tuple[list[dict], list[dict]]:
     primary_dataset = {"universal": "libritts_r", "singing": "vocalset", "gyu": "real_gyu"}[stage]
     primary = [row for row in rows if row["dataset"] == primary_dataset and row["split"] == split]
-    replay = [] if stage == "universal" else [row for row in rows if row["dataset"] != primary_dataset and row["split"] == split]
+    replay_datasets = {"universal": set(), "singing": {"libritts_r"}, "gyu": {"libritts_r", "vocalset"}}[stage]
+    replay = [row for row in rows if row["dataset"] in replay_datasets and row["split"] == split]
     return primary, replay
 
 
