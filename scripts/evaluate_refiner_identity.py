@@ -35,7 +35,7 @@ def main() -> None:
         return normalized(first), normalized(second)
     reference = embed("data/processed/master/216.wav")
     before = json.loads(Path("artifacts/reports/rc5_stress_candidate4/manifest.json").read_text())
-    after = json.loads(Path("artifacts/reports/refiner_rc_candidate/manifest.json").read_text())
+    after = json.loads(Path("artifacts/reports/rc6_backend_candidate/manifest.json").read_text())
     rows = []
     for case in before["files"]:
         baseline, candidate = embed(before["files"][case]["path"]), embed(after["files"][case]["path"])
