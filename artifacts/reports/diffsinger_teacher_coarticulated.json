@@ -1,0 +1,35 @@
+{
+  "status": "coarticulated_teacher_prior_ready",
+  "teacher_rows": 60,
+  "unique_texts": 30,
+  "teacher_distribution": {
+    "fish": 30,
+    "moss": 30
+  },
+  "old_teacher_pause_ratio": 0.831603,
+  "new_teacher_pause_ratio": 0.142237,
+  "real_gyu_rows": 52,
+  "independent_score_rows_included": false,
+  "teacher_speech_is_real_gyu_singing": false,
+  "maximum_bridged_ctc_blank_seconds": 0.45,
+  "label_status": "inferred",
+  "maximum_training_steps": 1200,
+  "continuation_gate": "stop unless rapid and interval stress ASR improves",
+  "manifest": "data/manifests/diffsinger_teacher_coarticulated.jsonl",
+  "config": "configs/diffsinger_teacher_coarticulated.yaml",
+  "vocabulary_remap": {
+    "old_vocabulary": 56,
+    "new_vocabulary": 57,
+    "new_token_initialization": {
+      "ko_coda_17": "mean:ko_coda",
+      "ko_coda_2": "mean:ko_coda",
+      "ko_nucleus_11": "mean:ko_nucleus",
+      "ko_nucleus_17": "mean:ko_nucleus",
+      "ko_onset_10": "mean:ko_onset",
+      "ko_onset_15": "mean:ko_onset"
+    },
+    "shared_embedding_max_abs_error": 0.0,
+    "checkpoint": "data/cache/diffsinger/checkpoints/gyu_score_native_teacher_coarticulated_vocab.ckpt",
+    "checkpoint_sha256": "e179d63e647f06b38c6904141795cdb9f60ce58d6cdab09cc5926cbec3a3d6c8"
+  }
+}

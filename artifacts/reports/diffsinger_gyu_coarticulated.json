@@ -1,0 +1,24 @@
+{
+  "status": "coarticulated_training_rows_ready",
+  "rows": 52,
+  "train_rows": 43,
+  "validation_rows": 9,
+  "duration_minutes": 6.093,
+  "independent_score_rows_included": false,
+  "source_recordings_modified": false,
+  "label_status": "inferred",
+  "previous_manifest_uncovered_duration_ratio_mean": 0.649282,
+  "previous_binarized_sp_duration_ratio": 0.623801,
+  "new_sp_duration_ratio": 0.105781,
+  "maximum_bridged_ctc_blank_seconds": 0.8,
+  "manifest": "data/manifests/diffsinger_gyu_coarticulated.jsonl",
+  "config": "configs/diffsinger_gyu_coarticulated.yaml",
+  "vocabulary_remap": {
+    "old_vocabulary": 56,
+    "new_vocabulary": 51,
+    "new_token_initialization": {},
+    "shared_embedding_max_abs_error": 0.0,
+    "checkpoint": "data/cache/diffsinger/checkpoints/gyu_score_native_coarticulated_vocab.ckpt",
+    "checkpoint_sha256": "40d374fcbd3ada5f6e222738e734f0656107f76a05b357fa47d7ee4399bbf0e7"
+  }
+}

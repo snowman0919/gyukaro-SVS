@@ -123,3 +123,69 @@ These controls isolate two facts: canonical F0 fixes pitch/voicing conditioning,
 Four native-Korean phone layouts were tested against the official SoulX score/melody path. Best stress ASR similarity was 0.25; grouped and exact three-phone timing did not repair the unsupported Korean content representation. These adapters are rejected and never enter the runtime.
 
 FM-Singer revision `7245cca4d0a43280f2c4a3aab8a17ed75ba89529` was evaluated with its official generator checkpoint. The checkpoint uses a +12-semitone note-label convention. Exact score timing plus that convention reached 46.3-cent pitch MAE, 0.890 voicing accuracy, and a 31.5 HF-spike proxy, but only 0.610 mean ASR and 0.286 worst-case ASR on the large-interval phrase. Preserving predicted phone proportions or correcting F0 internally did not pass. A bounded sweep of all 19 AMS embeddings found only AMS14 usable. FM-Singer is rejected technically and remains evaluation-only because checkpoint redistribution rights were not established.
+
+## CTC-blank coarticulation correction
+
+Status: the labeling defect is fixed in an isolated training branch; the acoustic candidate is objectively rejected.
+
+The previous DiffSinger binarization expanded inferred MMS-CTC blank gaps into `SP`. Those pauses occupied 62.3801% of the training duration and directly encoded the fade-in/fade-out and staccato behavior reported by listening. A reproducible coarticulation transform now bridges inferred blank gaps up to 800 ms while retaining real phrase boundaries. It reduces the pause ratio to 10.5781%, preserves full duration coverage, excludes all independent verified-score rows, and leaves the original recordings unchanged. The resulting 52-row corpus contains 6.093 minutes of inferred training audio.
+
+Bounded 400/500/600-step adaptations were tested on the independent rapid and large-interval stress scores:
+
+| Probe | ASR similarity | Pitch MAE | Voicing | HF spike | WavLM GYU | ECAPA GYU | Decision |
+|---|---:|---:|---:|---:|---:|---:|---|
+| RC6 | 0.967 | 20.64 cents | 0.802 | 703.81 | 0.553 | 0.104 | human-failed baseline |
+| Direct pilot 4000 | 0.225 | 31.28 cents | 0.669 | 156.66 | 0.604 | 0.123 | vowel collapse |
+| Coarticulation 400 | 0.271 | 35.19 cents | 0.515 | 88.81 | 0.777 | 0.068 | reject |
+| Coarticulation 500 | 0.271 | 24.95 cents | 0.509 | 95.89 | 0.763 | 0.083 | reject |
+| Coarticulation 600 | 0.148 | 25.74 cents | 0.488 | 95.30 | 0.751 | 0.076 | regression |
+
+The rapid output transcribes as `아이고 아이고`; the large-interval output remains mostly `아`. Correcting false silence reduces the metallic-spike proxy but does not recover Korean lyrics or stable voicing. The pause labeling bug is real, but it is not the only cause. This checkpoint is not integrated and no human release review is requested.
+
+Regenerate with `python scripts/prepare_diffsinger_gyu_coarticulated.py`; evaluate with `python scripts/evaluate_diffsinger_coarticulated.py` after rendering the bounded checkpoints.
+
+## MeloTTS Korean lexical-prior control
+
+Status: rejected before adaptation; it is neither score-native nor an explicit-F0 model.
+
+The official MIT-licensed `myshell-ai/MeloTTS-Korean` checkpoint (`0207e5a`) and repository (`2091453`) were inspected as a Korean lexical acoustic prior. The 44.1 kHz VITS2 path exposes duration attention, so a bounded probe compared its own predicted durations with exact score-phone durations. BERT conditioning was zeroed only for this interface probe; no claim is made that this is the full official text frontend.
+
+| Probe | ASR similarity | Pitch MAE | Voicing | HF spike | Decision |
+|---|---:|---:|---:|---:|---|
+| Predicted duration | 0.467 | 992.34 cents | 0.598 | 349.14 | speech prior only |
+| Exact score duration | 0.133 | 1769.29 cents | 0.578 | 283.77 | reject |
+
+The rapid predicted-duration control retained the lyric at 0.933 ASR, proving that the checkpoint has a Korean lexical prior. Forcing score duration destroyed that advantage, and the architecture has no explicit score-F0 control. Training a pitch adapter after the lexical interface already failed would be blind whole-path retraining, so it is not attempted. MeloTTS does not enter production or an RC.
+
+Regenerate with `python scripts/render_melo_score_probe.py`; evaluate with `python scripts/evaluate_melo_score_probe.py`.
+
+## Coarticulated Fish/MOSS teacher continuation
+
+Status: false-pause supervision repaired; acoustic continuation rejected.
+
+The original 60-row Fish/MOSS Korean teacher prior was also contaminated by inferred CTC blanks: `SP` occupied 83.1603% of its duration. The same source-preserving coarticulation rule reduced this to 14.2237%. It was combined with the 52 real-GYU coarticulated rows, yielding 93 training rows/523.62 seconds and 19 validation rows/109.26 seconds. The teacher recordings remain low-trust speech priors, not real GYU singing; all independent verified-score rows were excluded.
+
+| Probe | ASR similarity | Pitch MAE | Voicing | HF spike | WavLM GYU | ECAPA GYU | Decision |
+|---|---:|---:|---:|---:|---:|---:|---|
+| RC6 | 0.967 | 20.64 cents | 0.802 | 703.81 | 0.553 | 0.104 | human-failed baseline |
+| Teacher coart. 500 | 0.311 | 6.15 cents | 0.647 | 125.01 | 0.759 | 0.080 | vowel collapse |
+| Teacher coart. 900 | 0.200 | 9.85 cents | 0.701 | 130.09 | 0.762 | 0.112 | unrelated rapid lyric |
+| Teacher coart. 1200 | 0.300 | 7.24 cents | 0.639 | 100.99 | 0.787 | 0.140 | vowel collapse |
+
+At 500 steps both stress phrases transcribe as `아`; the bounded continuation emits `태어난다`/`태아` for rapid and still `아` for the large interval. Lower validation loss and cleaner spectra therefore do not represent Korean lexical singing. The branch stops at 1,200 steps and is not integrated or sent for listening review.
+
+Regenerate labels with `python scripts/prepare_diffsinger_teacher_coarticulated.py`; evaluate rendered 400/500/600/900/1200 checkpoints with `python scripts/evaluate_diffsinger_teacher_coarticulated.py`.
+
+## Seed-VC conversion control
+
+Status: technically and legally rejected; evaluation only.
+
+Official Seed-VC 44.1 kHz F0-conditioned SVC (`51383ef`, model revision `257283f`) was tested after the same generic score-native Korean source. Its declared license is GPL-3.0, but the model card does not document training-data provenance; the source checkpoint also inherits the non-commercial CSD conflict. It cannot enter a redistributable production package.
+
+| Probe | ASR similarity | Pitch MAE | Voicing | HF spike | WavLM GYU | ECAPA GYU | Decision |
+|---|---:|---:|---:|---:|---:|---:|---|
+| Score-native source | 0.900 | 118.07 cents | 0.878 | 258.13 | 0.701 | 0.133 | generic/CSD control |
+| Seed 30 steps, CFG 0.7 | 0.689 | 120.88 cents | 0.918 | 1898.52 | 0.760 | 0.279 | reject |
+| Seed 50 steps, CFG 0.3 | 0.622 | 117.94 cents | 0.910 | 3752.87 | 0.741 | 0.189 | reject |
+
+The rapid 30-step file retains lyrics, but the large-interval phrase collapses and high-frequency spikes increase by more than 7×. Reproduce with `python scripts/render_seed_vc_score_probe.py`; evaluate with `python scripts/evaluate_seed_vc_score_probe.py`.

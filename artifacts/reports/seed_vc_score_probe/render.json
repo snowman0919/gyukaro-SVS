@@ -1,0 +1,44 @@
+{
+  "status": "rendered_evaluation_only",
+  "repository_revision": "51383efd921027683c89e5348211d93ff12ac2a8",
+  "model_revision": "257283f9f41585055e8f858fba4fd044e5caed6e",
+  "model_sha256": "42aef93ffe65857c840d270252fa040f7ba04514945ec460f3ac1ac2a96de684",
+  "declared_license": "GPL-3.0",
+  "training_data_provenance_documented": false,
+  "score_source_is_csd_noncommercial": true,
+  "production_integration_allowed": false,
+  "outputs": [
+    {
+      "case": "rapid_ko",
+      "path": "artifacts/reports/seed_vc_score_probe/listening/vc_rapid_ko_c6_generated_e2e_192_1.0_30_0.7.wav",
+      "reference": "data/processed/master/192.wav",
+      "steps": 30,
+      "cfg": 0.7,
+      "sha256": "1909105627b6476219456f216786bbeaa39cd21e872bec27f4d97cffdaef0929"
+    },
+    {
+      "case": "rapid_ko",
+      "path": "artifacts/reports/seed_vc_score_probe/listening/vc_rapid_ko_c6_generated_e2e_gyu_real_000146_1.0_50_0.3.wav",
+      "reference": "data/external/work/diffsinger_score_native/raw/gyu_coarticulated/wavs/gyu_real_000146.wav",
+      "steps": 50,
+      "cfg": 0.3,
+      "sha256": "7a674ddd5f35bb46bb8c6a01bfa33a70b3ca51a119cbc19d986b7041acd3d6f8"
+    },
+    {
+      "case": "large_interval_ko",
+      "path": "artifacts/reports/seed_vc_score_probe/listening/vc_large_interval_ko_c6_generated_e2e_192_1.0_30_0.7.wav",
+      "reference": "data/processed/master/192.wav",
+      "steps": 30,
+      "cfg": 0.7,
+      "sha256": "36b53d3073543cf0cf781e148b0e9297ec44a8508af76173bdc4c7fb5d3e4bb5"
+    },
+    {
+      "case": "large_interval_ko",
+      "path": "artifacts/reports/seed_vc_score_probe/listening/vc_large_interval_ko_c6_generated_e2e_gyu_real_000146_1.0_50_0.3.wav",
+      "reference": "data/external/work/diffsinger_score_native/raw/gyu_coarticulated/wavs/gyu_real_000146.wav",
+      "steps": 50,
+      "cfg": 0.3,
+      "sha256": "faa210437c001af3c1e4271406f3d659e209bb94892f5fc26326d864a5642eed"
+    }
+  ]
+}

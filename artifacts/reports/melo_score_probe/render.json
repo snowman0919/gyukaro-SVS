@@ -1,0 +1,42 @@
+{
+  "status": "diagnostic_render_complete",
+  "model": "myshell-ai/MeloTTS-Korean",
+  "model_revision": "0207e5a",
+  "repository_revision": "209145371cff8fc3bd60d7be902ea69cbdb7965a",
+  "license": "MIT",
+  "checkpoint_sha256": "48e3ff3fd0b5348e095f0468e60ae727507564100f58142ef3a922ead6e0a4d0",
+  "score_native": false,
+  "exact_duration_control": true,
+  "explicit_f0_control": false,
+  "bert_conditioning": "zeroed_for_bounded_interface_probe",
+  "rows": [
+    {
+      "case": "rapid_ko",
+      "mode": "predicted_duration",
+      "path": "artifacts/reports/melo_score_probe/listening/rapid_ko_predicted_duration.wav",
+      "sample_rate": 44100,
+      "duration_seconds": 1.4628571428571429
+    },
+    {
+      "case": "rapid_ko",
+      "mode": "exact_duration",
+      "path": "artifacts/reports/melo_score_probe/listening/rapid_ko_exact_duration.wav",
+      "sample_rate": 44100,
+      "duration_seconds": 1.9969160997732427
+    },
+    {
+      "case": "large_interval_ko",
+      "mode": "predicted_duration",
+      "path": "artifacts/reports/melo_score_probe/listening/large_interval_ko_predicted_duration.wav",
+      "sample_rate": 44100,
+      "duration_seconds": 0.9868480725623583
+    },
+    {
+      "case": "large_interval_ko",
+      "mode": "exact_duration",
+      "path": "artifacts/reports/melo_score_probe/listening/large_interval_ko_exact_duration.wav",
+      "sample_rate": 44100,
+      "duration_seconds": 4.783310657596372
+    }
+  ]
+}
