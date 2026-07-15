@@ -31,11 +31,11 @@ def main() -> None:
         started = time.perf_counter(); refined = refiner.process(mono); timings.append(time.perf_counter() - started)
         output = mono + args.strength * (refined - mono); peak = float(np.max(np.abs(output))); output *= min(1.0, .97 / max(peak, 1e-8))
         path = listening / f"{case}.wav"; sf.write(path, output, 48000, subtype="PCM_24")
-        files[case] = row | {"path": str(path), "source_rc5_path": row["path"], "acoustic_refiner": str(args.checkpoint), "refiner_stage": "universal+singing+GYU", "refiner_strength": args.strength}
+        files[case] = row | {"path": str(path), "source_rc5_path": row["path"], "acoustic_refiner": str(args.checkpoint), "refiner_stage": refiner.mode, "refiner_strength": args.strength}
         print(case, flush=True)
     report = {"status": "objective_evaluation_pending", "name": "post-RC5 acoustic-refiner candidate (not a tag or release)",
               "source_baseline": str(args.source), "checkpoint": str(args.checkpoint), "strength": args.strength,
-              "selection_basis": "held-out real-GYU sweep: 0.25 improved log spectral/highband/envelope distance and HF spike/sample jump; human listening pending",
+              "selection_basis": "held-out paired strength sweep; human listening pending",
               "mean_refiner_seconds": round(float(np.mean(timings)), 4), "files": files, "human_review": "pending"}
     args.output.mkdir(parents=True, exist_ok=True); (args.output / "manifest.json").write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n")
     print(json.dumps({key: report[key] for key in ("status", "checkpoint", "strength", "mean_refiner_seconds")}, indent=2))
