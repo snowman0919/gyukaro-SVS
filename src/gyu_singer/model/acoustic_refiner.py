@@ -39,7 +39,7 @@ class RefinerBlock(nn.Module):
 
 class VocalAcousticRefiner(nn.Module):
     """Identity-initialized refiner; output cannot exceed a bounded correction."""
-    def __init__(self, channels: int = 32, blocks: int = 9, adapter_rank: int = 8, max_residual: float = .12):
+    def __init__(self, channels: int = 32, blocks: int = 9, adapter_rank: int = 8, max_residual: float = .08):
         super().__init__()
         self.config = {"channels": channels, "blocks": blocks, "adapter_rank": adapter_rank, "max_residual": max_residual}
         self.max_residual = max_residual
@@ -54,7 +54,12 @@ class VocalAcousticRefiner(nn.Module):
         hidden = self.input(audio)
         for block in self.blocks:
             hidden = block(hidden, mode)
-        correction = self.max_residual * torch.tanh(self.output(hidden))
+        # Do not synthesize a learned floor in silence. The slow envelope keeps
+        # voiced/unvoiced attacks intact while suppressing corrections where the
+        # input has no acoustic evidence to refine.
+        activity = torch.nn.functional.avg_pool1d(audio.abs(), 481, stride=1, padding=240)
+        gate = (activity / .02).clamp(0, 1)
+        correction = self.max_residual * gate * torch.tanh(self.output(hidden))
         return (audio + correction).clamp(-1, 1).squeeze(1)
 
     def train_stage(self, stage: str) -> int:
@@ -68,4 +73,3 @@ class VocalAcousticRefiner(nn.Module):
             else:
                 raise ValueError(stage)
         return sum(parameter.numel() for parameter in self.parameters() if parameter.requires_grad)
-
