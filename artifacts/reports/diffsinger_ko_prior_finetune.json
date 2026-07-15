@@ -1,0 +1,48 @@
+{
+  "status": "vocabulary_remapped_text_path_finetune_ready",
+  "source_checkpoint": "data/cache/diffsinger/checkpoints/gyu_score_native_pilot_best_4000.ckpt",
+  "source_checkpoint_sha256": "1a575eaf08d0e748fc79e58ab3d137685172ebb5f04f0b042776887891630839",
+  "remapped_checkpoint": "data/cache/diffsinger/checkpoints/gyu_score_native_pilot_best_4000_ko_vocab.ckpt",
+  "remapped_checkpoint_sha256": "2c739460f97fd218a5eb6a229d59003a6175936174da46cac4e875c9e6009fd7",
+  "old_vocabulary": 56,
+  "new_vocabulary": 57,
+  "shared_embedding_max_abs_error": 0.0,
+  "new_token_initialization": {
+    "ko_coda_17": [
+      "ko_onset_7"
+    ],
+    "ko_coda_2": [
+      "ko_onset_1"
+    ],
+    "ko_nucleus_11": [
+      "ko_nucleus_10",
+      "ko_nucleus_1"
+    ],
+    "ko_nucleus_17": [
+      "ko_nucleus_13",
+      "ko_nucleus_5"
+    ],
+    "ko_onset_10": [
+      "ko_onset_9"
+    ],
+    "ko_onset_15": [
+      "ko_onset_0"
+    ]
+  },
+  "trainable_scope": [
+    "model.fs2.txt_embed",
+    "model.fs2.encoder"
+  ],
+  "frozen_scope": [
+    "model.fs2.stretch_embed",
+    "model.fs2.stretch_embed_rnn",
+    "model.fs2.dur_embed",
+    "model.fs2.pitch_embed",
+    "model.fs2.spk_embed",
+    "model.aux_decoder",
+    "model.diffusion"
+  ],
+  "max_updates": 500,
+  "learning_rate": 0.0001,
+  "config": "configs/diffsinger_ko_prior_finetune.yaml"
+}

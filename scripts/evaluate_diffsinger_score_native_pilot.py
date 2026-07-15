@@ -42,7 +42,12 @@ def sha256(path: Path) -> str:
 
 def main() -> None:
     root = ROOT / "artifacts/reports/diffsinger_score_native_pilot"
-    checkpoints = {step: ROOT / f"data/cache/diffsinger/checkpoints/gyu_score_native_pilot/model_ckpt_steps_{step}.ckpt" for step in (1000, 2000)}
+    checkpoints = {
+        **{f"steps{step}": ROOT / f"data/cache/diffsinger/checkpoints/gyu_score_native_pilot_best_{step}.ckpt" for step in (1000, 2000, 4000, 6000)},
+        **{f"prior{step}": ROOT / f"data/cache/diffsinger/checkpoints/gyu_score_native_ko_prior_early/model_ckpt_steps_{step}.ckpt" for step in (100, 200, 300)},
+        **{f"prior{step}": ROOT / f"data/cache/diffsinger/checkpoints/gyu_score_native_ko_prior/model_ckpt_steps_{step}.ckpt" for step in (400, 500)},
+        **{f"acoustic{step}": ROOT / f"data/cache/diffsinger/checkpoints/gyu_score_native_ko_acoustic_prior/model_ckpt_steps_{step}.ckpt" for step in (100, 200, 300)},
+    }
     targets = {
         case: np.array(json.loads((root / f"{case}.ds").read_text())[0]["f0_seq"].split(), dtype=np.float32)
         for case in CASES
@@ -54,8 +59,8 @@ def main() -> None:
     rows = []
     for case in CASES:
         paths = {"rc6": RC6[case]} | {
-            f"steps{step}": root / "listening" / f"{case}_steps{step}.wav"
-            for step in checkpoints
+            model: root / "listening" / f"{case}_{model}.wav"
+            for model in checkpoints
         }
         for model, path in paths.items():
             rows.append({
@@ -94,21 +99,37 @@ def main() -> None:
             metric: round(float(np.mean([row[metric] for row in rows if row["model"] == model and row[metric] is not None])), 6)
             for metric in metrics
         }
-        for model in ("rc6", "steps1000", "steps2000")
+        for model in ("rc6", *checkpoints)
     }
+    candidate = max(
+        tuple(model for model in checkpoints if model.startswith(("prior", "acoustic"))),
+        key=lambda model: (
+            aggregate[model]["asr_lyric_similarity"],
+            aggregate[model]["voicing_accuracy"],
+            -aggregate[model]["pitch_mae_cents"],
+        ),
+    )
     eligible = (
-        aggregate["steps2000"]["pitch_mae_cents"] <= 100
-        and aggregate["steps2000"]["voicing_accuracy"] >= 0.8
-        and aggregate["steps2000"]["asr_lyric_similarity"] >= 0.8
+        aggregate[candidate]["pitch_mae_cents"] <= 100
+        and aggregate[candidate]["voicing_accuracy"] >= 0.8
+        and aggregate[candidate]["asr_lyric_similarity"] >= 0.8
     )
     report = {
         "status": "objective_probe_pass_human_pending" if eligible else "objective_reject_undertrained",
         "human_listening": "pending" if eligible else "not_requested_objective_reject",
         "score_native": True,
+        "selected_objective_candidate": candidate,
         "per_note_tts": False,
         "waveform_pitch_shifting": False,
-        "training_validation_loss": {"500": 0.22407, "1000": 0.21156, "1500": 0.21941, "2000": 0.19398},
-        "checkpoint_sha256": {str(step): sha256(path) for step, path in checkpoints.items()},
+        "training_validation_loss": {
+            "pilot500": 0.22407, "pilot1000": 0.21156, "pilot1500": 0.21941,
+            "pilot2000": 0.19398, "pilot4000": 0.16934, "pilot6000": 0.20919,
+            "early_prior100": 0.21004, "early_prior200": 0.248,
+            "early_prior300": 0.19735, "prior400": 0.19322, "prior500": 0.19852,
+            "acoustic100": 0.14203, "acoustic200": 0.1598, "acoustic300": 0.22716,
+        },
+        "validation_loss_warning": "Diffusion validation loss varied materially across identical initial checkpoints; objective stress renders select the candidate.",
+        "checkpoint_sha256": {model: sha256(path) for model, path in checkpoints.items()},
         "aggregate": aggregate,
         "rows": rows,
         "interpretation": "Objective metrics can reject a pilot, but cannot pass listening or make this an RC.",

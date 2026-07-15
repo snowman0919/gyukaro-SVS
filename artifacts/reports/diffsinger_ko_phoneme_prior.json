@@ -1,0 +1,31 @@
+{
+  "status": "inferred_prior_ready_for_binarization",
+  "candidates": 60,
+  "accepted": 60,
+  "teacher_rows": {
+    "fish": 30,
+    "moss": 30
+  },
+  "ctc_threshold": -3.0,
+  "ctc_score_mean": -1.0456,
+  "phonemes_added": [
+    "ko_coda_17",
+    "ko_coda_2",
+    "ko_nucleus_11",
+    "ko_nucleus_17",
+    "ko_onset_10",
+    "ko_onset_15"
+  ],
+  "vocalset_only_phonemes_removed": [
+    "a",
+    "e",
+    "i",
+    "o",
+    "u"
+  ],
+  "training_role": "phoneme content prior only; teacher speech is not real GYU singing",
+  "speaker_id_policy": "GYU-reference teacher speech shares frozen GYU conditioning; singing decoder adaptation remains separate",
+  "semantic_split": "IDs 026-030 held out for both teachers",
+  "audio_copy": false,
+  "config": "configs/diffsinger_ko_phoneme_prior.yaml"
+}

@@ -1,0 +1,56 @@
+base_config:
+- configs/acoustic.yaml
+dictionaries:
+  gyu: /home/kotori9/code/gyukaro/data/external/work/diffsinger_score_native/dictionary-gyu-ko-prior.txt
+datasets:
+- raw_data_dir: /home/kotori9/code/gyukaro/data/external/work/diffsinger_score_native/raw/gyu
+  speaker: gyu
+  language: gyu
+  test_prefixes:
+  - gyu_real_000153
+  - gyu_real_000154
+  - gyu_real_000165
+  - gyu_real_000170
+  - gyu_real_000198
+  - gyu_real_000204
+  - gyu_real_000209
+  - gyu_real_000220
+  - gyu_real_000221
+  spk_id: 20
+- raw_data_dir: /home/kotori9/code/gyukaro/data/external/work/diffsinger_score_native/raw/ko_phoneme_prior_fish
+  speaker: gyu
+  spk_id: 20
+  language: gyu
+  test_prefixes:
+  - teacher_v06_ko_026
+  - teacher_v06_ko_027
+  - teacher_v06_ko_028
+  - teacher_v06_ko_029
+  - teacher_v06_ko_030
+- raw_data_dir: /home/kotori9/code/gyukaro/data/external/work/diffsinger_score_native/raw/ko_phoneme_prior_moss
+  speaker: gyu
+  spk_id: 20
+  language: gyu
+  test_prefixes:
+  - teacher_v06_ko_026
+  - teacher_v06_ko_027
+  - teacher_v06_ko_028
+  - teacher_v06_ko_029
+  - teacher_v06_ko_030
+binary_data_dir: /home/kotori9/code/gyukaro/data/external/work/diffsinger_score_native/binary_ko_prior_gyu
+use_spk_id: true
+num_spk: 21
+use_lang_id: false
+num_lang: 1
+pe: rmvpe
+pe_ckpt: /home/kotori9/code/gyukaro/data/cache/diffsinger-assets/rmvpe/model.pt
+hnsep: world
+use_energy_embed: false
+use_breathiness_embed: false
+use_voicing_embed: false
+use_tension_embed: false
+vocoder: NsfHifiGAN
+vocoder_ckpt: /home/kotori9/code/gyukaro/data/external/work/diffsinger_score_native/vocoder_exported/model.ckpt
+binarization_args:
+  num_workers: 4
+  shuffle: true
