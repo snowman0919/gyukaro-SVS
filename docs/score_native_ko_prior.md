@@ -33,3 +33,18 @@ The real-GYU phrase labels exposed a separate defect: 62.38% of their duration w
 | GYU-only adaptation 100 | 6.27 cents | 0.730 | 181.93 | 0.311 | reject |
 
 Rapid Korean still transcribes as `아`, and large-interval Korean loses consonants. More steps consistently reduce voicing and lyric retention. The direct path therefore lacks a compatible score-native lexical singing prior; speech data, non-lexical VocalSet vowels, and additional optimization do not substitute for one. GTSinger and CSD were not downloaded because their non-commercial/ShareAlike terms are incompatible with the intended redistributable production checkpoint.
+
+## VocalSet lexical-singing follow-up
+
+Status: valid generic prior data, rejected Korean transfer probe.
+
+The existing CC BY 4.0 VocalSet archive also contains 38 `Row Your Boat` recordings with real public-domain lyrics. Straight and vibrato performances were MMS-CTC aligned, split into 76 phrase rows (20 singers, 8.365 minutes), and separated by singer into 62 training and 14 validation rows. Timings remain explicitly inferred. The pilot replayed all 730 GYU segments, kept score-control layers frozen, and used a `1e-5` learning rate.
+
+| Probe | Pitch MAE | Voicing | HF spike | ASR similarity | Decision |
+|---|---:|---:|---:|---:|---|
+| GYU-only adaptation 100 | 6.27 cents | 0.730 | 181.93 | 0.311 | prior best; reject |
+| VocalSet lexical 100 | 9.00 cents | 0.719 | 193.20 | 0.311 | no transfer; reject |
+| VocalSet lexical 200 | 60.84 cents | 0.486 | 186.68 | 0.111 | collapse; reject |
+| VocalSet lexical 300 | 50.99 cents | 0.451 | 132.32 | 0.000 | collapse; reject |
+
+The lexical recordings are technically usable, but English consonant supervision does not supply a Korean lexical singing prior. This closes the generic-English-transfer branch without changing RC6 or requesting human review.

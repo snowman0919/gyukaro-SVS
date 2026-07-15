@@ -57,10 +57,20 @@ def remap_vocabulary(source: Path, old_dictionary: Path, new_dictionary: Path, t
             continue
         category = token.rsplit("_", 1)[0]
         sources = [value for value in old_tokens if value.startswith(category + "_")]
+        initialization = category
+        if token.startswith("en_"):
+            vowel = token.removeprefix("en_") in {
+                "aa", "ae", "ah", "ao", "aw", "ay", "eh", "er", "ey",
+                "ih", "iy", "ow", "oy", "uh", "uw",
+            }
+            sources = [value for value in old_tokens if value in {"a", "e", "i", "o", "u"}] if vowel else [
+                value for value in old_tokens if value.startswith("ko_onset_")
+            ]
+            initialization = "nonlexical_vowels" if vowel else "ko_onset"
         if not sources:
             raise RuntimeError(f"no same-category embedding source for {token}")
         new_embedding[index] = old_embedding[[old_ids[value] for value in sources]].mean(dim=0)
-        initialized[token] = f"mean:{category}"
+        initialized[token] = f"mean:{initialization}"
     state[key] = new_embedding
     target.parent.mkdir(parents=True, exist_ok=True)
     torch.save({"state_dict": state, "category": checkpoint.get("category")}, target)

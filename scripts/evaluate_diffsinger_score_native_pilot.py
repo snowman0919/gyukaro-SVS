@@ -54,6 +54,7 @@ def main() -> None:
         **{f"segmented{step}": ROOT / f"data/cache/diffsinger/checkpoints/gyu_score_native_segmented/model_ckpt_steps_{step}.ckpt" for step in (200, 400, 600)},
         **{f"allseg{step}": ROOT / f"data/cache/diffsinger/checkpoints/gyu_score_native_all_segmented/model_ckpt_steps_{step}.ckpt" for step in (200, 400)},
         **{f"gyuadapt{step}": ROOT / f"data/cache/diffsinger/checkpoints/gyu_score_native_gyu_adapt/model_ckpt_steps_{step}.ckpt" for step in (100, 200, 300)},
+        **{f"lexical{step}": ROOT / f"data/cache/diffsinger/checkpoints/gyu_score_native_vocalset_lexical/model_ckpt_steps_{step}.ckpt" for step in (100, 200, 300)},
     }
     targets = {
         case: np.array(json.loads((root / f"{case}.ds").read_text())[0]["f0_seq"].split(), dtype=np.float32)
@@ -109,7 +110,7 @@ def main() -> None:
         for model in ("rc6", *checkpoints)
     }
     candidate = max(
-        tuple(model for model in checkpoints if model.startswith(("prior", "acoustic", "zeroth", "replay", "text", "segmented", "allseg", "gyuadapt"))),
+        tuple(model for model in checkpoints if model.startswith(("prior", "acoustic", "zeroth", "replay", "text", "segmented", "allseg", "gyuadapt", "lexical"))),
         key=lambda model: (
             aggregate[model]["asr_lyric_similarity"],
             aggregate[model]["voicing_accuracy"],
@@ -141,6 +142,7 @@ def main() -> None:
             "segmented200": 0.17748, "segmented400": 0.19848, "segmented600": 0.20261,
             "allseg200": 0.25150, "allseg400": 0.22856,
             "gyuadapt100": 0.23699, "gyuadapt200": 0.23334, "gyuadapt300": 0.20713,
+            "lexical100": 0.255342, "lexical200": 0.211553, "lexical300": 0.211924,
         },
         "validation_loss_warning": "Diffusion validation loss varied materially across identical initial checkpoints; objective stress renders select the candidate.",
         "checkpoint_sha256": {
@@ -152,6 +154,28 @@ def main() -> None:
         "interpretation": "Objective metrics can reject a pilot, but cannot pass listening or make this an RC.",
     }
     (root / "evaluation.json").write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n")
+    lexical = {
+        "status": "objective_reject_no_korean_lexical_transfer",
+        "human_listening": "not_requested_objective_reject",
+        "training_data": {
+            "vocalset_lexical_rows": 76,
+            "vocalset_lexical_minutes": 8.365,
+            "gyu_segment_rows": 730,
+            "license": "CC BY 4.0",
+        },
+        "aggregate": {
+            model: aggregate[model]
+            for model in ("rc6", "gyuadapt100", "lexical100", "lexical200", "lexical300")
+        },
+        "decision": (
+            "The public-domain English lexical singing prior is valid training data, "
+            "but does not transfer Korean consonant identity or voicing to the GYU stress set. "
+            "Do not integrate these checkpoints into the runtime."
+        ),
+    }
+    (ROOT / "artifacts/reports/diffsinger_vocalset_lexical_evaluation.json").write_text(
+        json.dumps(lexical, ensure_ascii=False, indent=2) + "\n"
+    )
     print(json.dumps({"status": report["status"], "aggregate": aggregate}, ensure_ascii=False, indent=2))
 
 

@@ -1,0 +1,43 @@
+{
+  "status": "compatible_lexical_singing_prior_ready",
+  "rows": 76,
+  "speakers": 20,
+  "train_rows": 62,
+  "validation_rows": 14,
+  "duration_minutes": 8.365,
+  "license": "CC BY 4.0",
+  "lyrics": "known public-domain Row Your Boat lyrics",
+  "timing": "MMS CTC inferred",
+  "remap": {
+    "old_vocabulary": 63,
+    "new_vocabulary": 78,
+    "new_token_initialization": {
+      "en_ah": "mean:nonlexical_vowels",
+      "en_ao": "mean:nonlexical_vowels",
+      "en_aw": "mean:nonlexical_vowels",
+      "en_b": "mean:ko_onset",
+      "en_d": "mean:ko_onset",
+      "en_dh": "mean:ko_onset",
+      "en_eh": "mean:nonlexical_vowels",
+      "en_er": "mean:nonlexical_vowels",
+      "en_f": "mean:ko_onset",
+      "en_g": "mean:ko_onset",
+      "en_ih": "mean:nonlexical_vowels",
+      "en_iy": "mean:nonlexical_vowels",
+      "en_l": "mean:ko_onset",
+      "en_m": "mean:ko_onset",
+      "en_n": "mean:ko_onset",
+      "en_ow": "mean:nonlexical_vowels",
+      "en_r": "mean:ko_onset",
+      "en_s": "mean:ko_onset",
+      "en_t": "mean:ko_onset",
+      "en_z": "mean:ko_onset"
+    },
+    "shared_embedding_max_abs_error": 0.0,
+    "checkpoint": "data/cache/diffsinger/checkpoints/gyu_score_native_vocalset_lexical_vocab.ckpt",
+    "checkpoint_sha256": "0f20f4b9450a9068a0d2cbe838028c88a14e13b7f45100ffceda07073364bc14"
+  },
+  "ctc_score_mean": -0.8104,
+  "ctc_score_min": -0.9172,
+  "config": "configs/diffsinger_vocalset_lexical.yaml"
+}
