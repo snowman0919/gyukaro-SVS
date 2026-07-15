@@ -76,7 +76,10 @@ class GyuSingerV06Renderer(GyuSingerV05Renderer):
     def _target_f0(self, score: dict, duration: float, expressive: np.ndarray) -> tuple[np.ndarray, list[dict] | None]:
         return self._f0(score, duration, expressive), None
 
-    def _decoder_options(self) -> dict:
+    def _decoder_options(self, score: dict | None = None) -> dict:
+        return {}
+
+    def _content_options(self, score: dict, content: Path, target_f0: np.ndarray, temp: Path) -> dict:
         return {}
 
     def render(self, score: dict) -> np.ndarray:
@@ -101,7 +104,7 @@ class GyuSingerV06Renderer(GyuSingerV05Renderer):
             content_audio = adapt_waveform(content_audio, content_rate, self.acoustic_adapter, identity_ref, torch.from_numpy(controls).to(self.pitch_controller.device), preset, style["acoustic_style_strength"])
             sf.write(content, content_audio, content_rate, subtype="PCM_16")
             info = sf.info(content); target_f0, _ = self._target_f0(score, info.frames / info.samplerate, expressive.cpu().numpy()); np.save(contour, target_f0)
-            self.soulx.request({"source": str(content), "f0_npy": str(contour), "output": str(output), "identity_npy": str(identity_path) if self.identity_enabled and self.identity_mode != "none" else None, "style_npy": str(style_path) if self.style_enabled else None} | self._decoder_options())
+            self.soulx.request({"source": str(content), "f0_npy": str(contour), "output": str(output), "identity_npy": str(identity_path) if self.identity_enabled and self.identity_mode != "none" else None, "style_npy": str(style_path) if self.style_enabled else None} | self._decoder_options(score) | self._content_options(score, content, target_f0, temp))
             audio, rate = sf.read(output, dtype="float32", always_2d=True)
         mono = audio.mean(axis=1)
         from scipy.signal import resample_poly

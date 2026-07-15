@@ -1,0 +1,77 @@
+{
+  "decision": "pass",
+  "reviewer": "project owner via Codex task",
+  "recorded_date": "2026-07-15",
+  "scope": "candidate4 nine-case stress set and matched RC4 before/after clips",
+  "files": [
+    {
+      "path": "artifacts/reports/rc5_stress_candidate4/listening/en.wav",
+      "sha256": "3472ddcdd6dcf02d1e1184c13b0451afa7dbe83aadae86cead6d7493ec47c9c8"
+    },
+    {
+      "path": "artifacts/reports/rc5_stress_candidate4/listening/ja.wav",
+      "sha256": "ab4261b1a16dba1ccebf3d1b9ca2a308c3e5cc3a4d3f1d7aa79e365772039642"
+    },
+    {
+      "path": "artifacts/reports/rc5_stress_candidate4/listening/ko_breathy.wav",
+      "sha256": "b9ad03d0726bdd14bf0812e0e454f77b64330f23e45b3dd9b5b69f56c13392e0"
+    },
+    {
+      "path": "artifacts/reports/rc5_stress_candidate4/listening/ko_energetic.wav",
+      "sha256": "322df593e3fda779d81597dd2dc69ef5c797a56028f0fb44c6f9ab188bef8928"
+    },
+    {
+      "path": "artifacts/reports/rc5_stress_candidate4/listening/ko_neutral.wav",
+      "sha256": "d5d002bd1645eb13a3bfdc0cf425a9c1d0a5cab3bee66529b1d86bce60dcb5ff"
+    },
+    {
+      "path": "artifacts/reports/rc5_stress_candidate4/listening/large_interval_ko.wav",
+      "sha256": "ee6a12ad862f32007832b4b1ec42dbb5c4dc10df3fbaface0bd50b806cf4bf64"
+    },
+    {
+      "path": "artifacts/reports/rc5_stress_candidate4/listening/phrase_boundary.wav",
+      "sha256": "af9ab6a95a5717b90657419563442a68ac1641d30daee67cb18e900856fd12f6"
+    },
+    {
+      "path": "artifacts/reports/rc5_stress_candidate4/listening/rapid_ko.wav",
+      "sha256": "d7e978e0cf4f2241d9819dac5076ce3134259351bce9fc479ca444e575af4703"
+    },
+    {
+      "path": "artifacts/reports/rc5_stress_candidate4/listening/sustained_ko.wav",
+      "sha256": "9598417a5141275d648c14d7011374060b06f6a9ade36a812b1205d5f5dbec52"
+    },
+    {
+      "path": "artifacts/reports/rc5_stress_candidate4/before_after/en_RC4.wav",
+      "sha256": "51fe18e2283447da8fe911d1ec05020ec42cbbde5ab03b16fc1dc9e296f12901"
+    },
+    {
+      "path": "artifacts/reports/rc5_stress_candidate4/before_after/en_candidate4.wav",
+      "sha256": "cfa67d9b116dd465d4b2fbad971b7aac1e2f4514eb581aee734ce64cc0f9eaa2"
+    },
+    {
+      "path": "artifacts/reports/rc5_stress_candidate4/before_after/ko_neutral_RC4.wav",
+      "sha256": "b1022e790c9d444c0e7fee7710a8a48d8daa7e02c5cfc2ffabca2fd4d3cafda6"
+    },
+    {
+      "path": "artifacts/reports/rc5_stress_candidate4/before_after/ko_neutral_candidate4.wav",
+      "sha256": "8d4b32ad8fa643411df739de8286543709c9a132ce1b83db93837b92ba09b562"
+    },
+    {
+      "path": "artifacts/reports/rc5_stress_candidate4/before_after/large_interval_ko_RC4.wav",
+      "sha256": "6adcf0088fc1094ed627fcc0eecef264290b941b03b719ce925310dc12d9499e"
+    },
+    {
+      "path": "artifacts/reports/rc5_stress_candidate4/before_after/large_interval_ko_candidate4.wav",
+      "sha256": "ee6a12ad862f32007832b4b1ec42dbb5c4dc10df3fbaface0bd50b806cf4bf64"
+    },
+    {
+      "path": "artifacts/reports/rc5_stress_candidate4/before_after/rapid_ko_RC4.wav",
+      "sha256": "6f18509f9ff18af49eb23a65822ff777d8f35a157b642d4eec61847442a6cb50"
+    },
+    {
+      "path": "artifacts/reports/rc5_stress_candidate4/before_after/rapid_ko_candidate4.wav",
+      "sha256": "d7e978e0cf4f2241d9819dac5076ce3134259351bce9fc479ca444e575af4703"
+    }
+  ],
+  "final_v1_authorized": false
+}

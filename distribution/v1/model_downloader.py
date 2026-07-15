@@ -7,6 +7,7 @@ import hashlib
 import json
 import shutil
 import subprocess
+import urllib.request
 from pathlib import Path
 
 
@@ -25,6 +26,7 @@ def source_path(cache: Path, item: dict) -> Path:
         "SoulX-Singer source": cache / "soulx-singer",
         "SoulX-Singer checkpoint": cache / "soulx-singer/pretrained_models/SoulX-Singer",
         "SoulX preprocessing checkpoint": cache / "soulx-singer/pretrained_models/SoulX-Singer-Preprocess",
+        "MMS forced alignment checkpoint": cache / "torch/hub/checkpoints",
     }
     return mapping[item["name"]]
 
@@ -51,6 +53,16 @@ def install_huggingface(item: dict, target: Path, offline: Path | None) -> None:
     elif not target.exists() or not all((target / name).exists() for name in item.get("checksums", {})):
         from huggingface_hub import snapshot_download
         snapshot_download(repo_id=item["repository"], revision=item["revision"], local_dir=target)
+
+
+def install_url(item: dict, target: Path, offline: Path | None) -> None:
+    target.mkdir(parents=True, exist_ok=True)
+    name = next(iter(item["checksums"]))
+    destination = target / name
+    if offline:
+        shutil.copy2(source_path(offline, item) / name, destination)
+    elif not destination.exists():
+        urllib.request.urlretrieve(item["url"], destination)
 
 
 def verify(items: list[dict], runtime: Path) -> None:
@@ -85,7 +97,7 @@ def main() -> None:
     if not args.verify_only:
         for item in items:
             target = runtime / item["install_path"]
-            (install_git if item["kind"] == "git" else install_huggingface)(item, target, offline)
+            {"git": install_git, "huggingface": install_huggingface, "url": install_url}[item["kind"]](item, target, offline)
     verify(items, runtime)
     print(json.dumps({"status": "ok", "verified": [item["name"] for item in items], "runtime": str(runtime)}, indent=2))
 

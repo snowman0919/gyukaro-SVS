@@ -1,5 +1,5 @@
 {
-  "status": "candidate_human_listening_pending",
+  "status": "human_listening_pass",
   "name": "RC5 audio-quality candidate 4 (not a tag or release)",
   "decoder_policy": {
     "ko_en": "FP32 32/CFG1.5",
@@ -89,5 +89,6 @@
       "score": "examples/review_phrase_boundary_ko.json",
       "style": "neutral"
     }
-  }
+  },
+  "human_review": "artifacts/reports/rc5_stress_candidate4/human_review.json"
 }

@@ -1,6 +1,14 @@
 # Changelog
 
-## v1.0.0
+## v1.0.0-rc.5
+
+- Fix all-frame voiced F0 using canonical phoneme/note voicing; silence and unvoiced consonants now receive F0=0.
+- Add MMS CTC latent timing correction for rapid Korean and English content.
+- Select FP32 SoulX decode settings from identical-condition stress sweeps.
+- Record human PASS for nine stress phrases and matched RC4 comparisons.
+- Preserve `gyu-singer-v0.8` and tag `v1.0.0-rc.4` as failed audio-quality baseline.
+
+## v1.0.0 release preparation
 
 - Automated pinned model, runtime, and OpenUtau installation.
 - Native multi-note OpenUtau phrase renderer with authoritative editor pitch and expressions.

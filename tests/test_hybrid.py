@@ -11,6 +11,8 @@ from gyu_singer.alignment import build_phrase_frames
 from gyu_singer.frontend import FEATURE_SIZE, phonemize
 from gyu_singer.inference.soulx import SoulXPhraseRenderer, _Worker
 from gyu_singer.inference.quality_controller import condition_batch
+from gyu_singer.inference.v08 import GyuSingerV08Renderer
+from gyu_singer.inference.v09 import GyuSingerV09Renderer
 from gyu_singer.losses import flow_matching_loss, log_pitch_loss, weighted_distillation_loss
 from gyu_singer.model import TriSingerModel, grad_norm
 from gyu_singer.renderer import build_server
@@ -83,6 +85,20 @@ def test_rc4_legacy_condition_remains_explicitly_callable():
     legacy, _ = condition_batch(score, torch.zeros(160), "cpu")
     canonical, _ = condition_batch(score, torch.zeros(160), "cpu", canonical_timing=True)
     assert torch.all(legacy["voiced"] == 1) and torch.any(canonical["voiced"] == 0)
+
+
+def test_rc5_decode_policy_matches_human_reviewed_stress_set():
+    renderer = GyuSingerV09Renderer.__new__(GyuSingerV09Renderer)
+    base = {"language": "ko", "style": {"preset": "neutral"}, "notes": [{"pitch": 60, "start": 0, "duration": 1}]}
+    assert renderer._decoder_options(base) == {"n_steps": 32, "cfg": 1.5, "seed": 21}
+    assert renderer._decoder_options(base | {"notes": [{"pitch": 60, "start": 0, "duration": .25}]})["n_steps"] == 64
+    assert renderer._decoder_options(base | {"notes": [{"pitch": 60, "start": 0, "duration": 1}, {"pitch": 72, "start": 1, "duration": 1}]}) == {"n_steps": 32, "cfg": 2.0, "seed": 21}
+
+
+def test_rc5_safety_gain_is_only_applied_above_point_97(monkeypatch):
+    renderer = GyuSingerV09Renderer.__new__(GyuSingerV09Renderer)
+    monkeypatch.setattr(GyuSingerV08Renderer, "render", lambda self, score: np.array([-.5, 1.0], np.float32))
+    assert np.isclose(np.max(np.abs(renderer.render({}))), .97)
 
 
 def test_blurred_boundary_and_pitch_conditions_change_phrase_condition():

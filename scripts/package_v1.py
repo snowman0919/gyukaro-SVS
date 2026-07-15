@@ -49,12 +49,14 @@ def main() -> None:
     for example in EXAMPLES: copy(Path("examples") / example, root / "examples" / example)
     for path in Path("distribution/v1").iterdir(): copy(path, root / path.name)
     for report in EVIDENCE: copy(Path("artifacts/reports") / report, root / "evidence" / report)
-    copy(Path("artifacts/reports/listening_v10"), root / "listening")
+    copy(Path("artifacts/reports/rc5_stress_candidate4"), root / "evidence/rc5_stress_candidate4")
+    copy(Path("docs/rc5_audio_quality_candidate.md"), root / "evidence/rc5_audio_quality_candidate.md")
+    copy(Path("artifacts/reports/rc5_stress_candidate4/listening"), root / "listening")
 
     commit = subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip()
     metadata = {
-        "version": "1.0.0", "release_state": "release candidate", "source_commit": commit,
-        "backend": "gyu-singer-v0.8", "openutau_revision": "27573ac5c888d927119d5f65a207312d79194b1f",
+        "version": "1.0.0-rc.5", "release_state": "release candidate; human listening passed", "source_commit": commit,
+        "backend": "gyu-singer-rc5", "openutau_revision": "27573ac5c888d927119d5f65a207312d79194b1f",
         "package_root": NAME, "per_note_tts": False, "waveform_pitch_shifting": False,
         "training_teachers_required_at_inference": False,
     }

@@ -1,6 +1,6 @@
 {
-  "status": "objective_candidate_human_pending",
-  "human_listening": "pending",
+  "status": "objective_pass_human_pass",
+  "human_listening": "pass",
   "aggregate_9": {
     "pitch_mae_cents": 8.47,
     "voicing_accuracy": 0.870611,

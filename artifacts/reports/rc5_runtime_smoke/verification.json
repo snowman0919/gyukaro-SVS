@@ -1,0 +1,35 @@
+{
+  "status": "pass",
+  "backend": "gyu-singer-rc5",
+  "comparison": "byte-for-byte against human-approved candidate4",
+  "rows": [
+    {
+      "case": "ko",
+      "runtime": "artifacts/reports/rc5_runtime_smoke/ko.wav",
+      "approved": "artifacts/reports/rc5_stress_candidate4/listening/ko_neutral.wav",
+      "sha256": "d5d002bd1645eb13a3bfdc0cf425a9c1d0a5cab3bee66529b1d86bce60dcb5ff",
+      "exact_match": true
+    },
+    {
+      "case": "en",
+      "runtime": "artifacts/reports/rc5_runtime_smoke/en.wav",
+      "approved": "artifacts/reports/rc5_stress_candidate4/listening/en.wav",
+      "sha256": "3472ddcdd6dcf02d1e1184c13b0451afa7dbe83aadae86cead6d7493ec47c9c8",
+      "exact_match": true
+    },
+    {
+      "case": "rapid_ko",
+      "runtime": "artifacts/reports/rc5_runtime_smoke/rapid_ko.wav",
+      "approved": "artifacts/reports/rc5_stress_candidate4/listening/rapid_ko.wav",
+      "sha256": "d7e978e0cf4f2241d9819dac5076ce3134259351bce9fc479ca444e575af4703",
+      "exact_match": true
+    },
+    {
+      "case": "large_interval_ko",
+      "runtime": "artifacts/reports/rc5_runtime_smoke/large_interval_ko.wav",
+      "approved": "artifacts/reports/rc5_stress_candidate4/listening/large_interval_ko.wav",
+      "sha256": "ee6a12ad862f32007832b4b1ec42dbb5c4dc10df3fbaface0bd50b806cf4bf64",
+      "exact_match": true
+    }
+  ]
+}

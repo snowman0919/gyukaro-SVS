@@ -1,5 +1,5 @@
 {
-  "backend": "gyu-singer-v0.8",
+  "backend": "gyu-singer-rc5",
   "resident_host": "127.0.0.1",
   "resident_port": 8765,
   "openutau_renderer": "GYU-SINGER",
