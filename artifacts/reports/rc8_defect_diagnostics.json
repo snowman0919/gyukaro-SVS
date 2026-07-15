@@ -1,0 +1,3187 @@
+{
+  "status": "diagnosed_no_fix_selected",
+  "rc7_source_commit": "ae8944070f3dc38e310b33f29d95f4bcd3c81def",
+  "fft_definitions": {
+    "short": {
+      "n_fft": 256,
+      "hop": 64,
+      "window_ms": 5.333
+    },
+    "medium": {
+      "n_fft": 1024,
+      "hop": 256,
+      "window_ms": 21.333
+    },
+    "long": {
+      "n_fft": 4096,
+      "hop": 1024,
+      "window_ms": 85.333
+    }
+  },
+  "groups": {
+    "sustained_noise": [
+      "sustained_ko"
+    ],
+    "english_transition": [
+      "en"
+    ],
+    "korean_overconnection": [
+      "ko_neutral",
+      "phrase_boundary",
+      "rapid_ko"
+    ],
+    "japanese_weak_phoneme": [
+      "ja"
+    ],
+    "large_interval": [
+      "large_interval_ko"
+    ]
+  },
+  "ablation": {
+    "B_no_new_spectral": "artifacts/reports/rc6_backend_candidate/manifest.json",
+    "D_lower_025": "artifacts/reports/spectral_refiner_stress_s025/manifest.json",
+    "A_C_rc7_current_050": "artifacts/reports/spectral_refiner_stress_s050/manifest.json",
+    "D_higher_100": "artifacts/reports/spectral_refiner_stress_s100/manifest.json"
+  },
+  "rows": [
+    {
+      "variant": "B_no_new_spectral",
+      "group": "sustained_noise",
+      "case": "sustained_ko",
+      "path": "artifacts/reports/rc6_backend_candidate/listening/sustained_ko.wav",
+      "duration": 6.0,
+      "harmonic_to_noise_proxy_db": 27.9845,
+      "multi_resolution": {
+        "short": {
+          "spectral_flatness_mean": 8.6e-06,
+          "spectral_instability_p95": 0.031056,
+          "noise_floor_modulation_db_std": 5.5918
+        },
+        "medium": {
+          "spectral_flatness_mean": 2.1e-06,
+          "spectral_instability_p95": 0.015208,
+          "noise_floor_modulation_db_std": 5.0547
+        },
+        "long": {
+          "spectral_flatness_mean": 1.1e-06,
+          "spectral_instability_p95": 0.029238,
+          "noise_floor_modulation_db_std": 5.3622
+        }
+      },
+      "phones": {
+        "timeline_source": "score_timed_frontend_inferred",
+        "phone_count": 1,
+        "weak_phone_count": 0,
+        "voicing_mismatch_count": 0,
+        "weak_phones": [],
+        "voicing_mismatches": []
+      }
+    },
+    {
+      "variant": "B_no_new_spectral",
+      "group": "english_transition",
+      "case": "en",
+      "path": "artifacts/reports/rc6_backend_candidate/listening/en.wav",
+      "duration": 9.92,
+      "harmonic_to_noise_proxy_db": 15.69,
+      "multi_resolution": {
+        "short": {
+          "spectral_flatness_mean": 2.06e-05,
+          "spectral_instability_p95": 0.058427,
+          "noise_floor_modulation_db_std": 16.633
+        },
+        "medium": {
+          "spectral_flatness_mean": 9.1e-06,
+          "spectral_instability_p95": 0.057343,
+          "noise_floor_modulation_db_std": 15.8195
+        },
+        "long": {
+          "spectral_flatness_mean": 6.7e-06,
+          "spectral_instability_p95": 0.126301,
+          "noise_floor_modulation_db_std": 15.1248
+        }
+      },
+      "phones": {
+        "timeline_source": "score_timed_frontend_inferred",
+        "phone_count": 31,
+        "weak_phone_count": 3,
+        "voicing_mismatch_count": 5,
+        "weak_phones": [
+          {
+            "phoneme": "en_s",
+            "voicing": "unvoiced_consonant",
+            "start": 0.0,
+            "end": 0.06,
+            "rms_to_phrase_median": 0.0311,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 0.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "en_f",
+            "voicing": "unvoiced_consonant",
+            "start": 4.95,
+            "end": 5.01,
+            "rms_to_phrase_median": 0.1118,
+            "unexpected_silence_fraction": 0.5,
+            "voiced_fraction": 0.5,
+            "voicing_match": 0.5
+          },
+          {
+            "phoneme": "en_t",
+            "voicing": "unvoiced_consonant",
+            "start": 9.86,
+            "end": 9.92,
+            "rms_to_phrase_median": 0.0369,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          }
+        ],
+        "voicing_mismatches": [
+          {
+            "phoneme": "en_t",
+            "voicing": "unvoiced_consonant",
+            "start": 1.677,
+            "end": 1.736,
+            "rms_to_phrase_median": 0.9612,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "en_p",
+            "voicing": "unvoiced_consonant",
+            "start": 3.633,
+            "end": 3.673,
+            "rms_to_phrase_median": 3.7303,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "en_s",
+            "voicing": "unvoiced_consonant",
+            "start": 4.291,
+            "end": 4.351,
+            "rms_to_phrase_median": 0.3068,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "en_k",
+            "voicing": "unvoiced_consonant",
+            "start": 4.351,
+            "end": 4.411,
+            "rms_to_phrase_median": 0.2915,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "en_t",
+            "voicing": "unvoiced_consonant",
+            "start": 9.86,
+            "end": 9.92,
+            "rms_to_phrase_median": 0.0369,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          }
+        ]
+      }
+    },
+    {
+      "variant": "B_no_new_spectral",
+      "group": "korean_overconnection",
+      "case": "ko_neutral",
+      "path": "artifacts/reports/rc6_backend_candidate/listening/ko_neutral.wav",
+      "duration": 9.92,
+      "harmonic_to_noise_proxy_db": 12.8001,
+      "multi_resolution": {
+        "short": {
+          "spectral_flatness_mean": 1.19e-05,
+          "spectral_instability_p95": 0.047425,
+          "noise_floor_modulation_db_std": 15.0008
+        },
+        "medium": {
+          "spectral_flatness_mean": 6e-06,
+          "spectral_instability_p95": 0.057033,
+          "noise_floor_modulation_db_std": 13.253
+        },
+        "long": {
+          "spectral_flatness_mean": 5.2e-06,
+          "spectral_instability_p95": 0.105569,
+          "noise_floor_modulation_db_std": 12.3952
+        }
+      },
+      "phones": {
+        "timeline_source": "score_timed_frontend_inferred",
+        "phone_count": 34,
+        "weak_phone_count": 9,
+        "voicing_mismatch_count": 10,
+        "weak_phones": [
+          {
+            "phoneme": "ko_onset_18",
+            "voicing": "unvoiced_consonant",
+            "start": 0.0,
+            "end": 0.06,
+            "rms_to_phrase_median": 0.0062,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 0.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ko_nucleus_0",
+            "voicing": "vowel",
+            "start": 0.06,
+            "end": 0.778,
+            "rms_to_phrase_median": 0.0606,
+            "unexpected_silence_fraction": 0.8889,
+            "voiced_fraction": 0.6111,
+            "voicing_match": 0.6111
+          },
+          {
+            "phoneme": "ko_onset_2",
+            "voicing": "voiced_consonant",
+            "start": 3.493,
+            "end": 3.553,
+            "rms_to_phrase_median": 0.1058,
+            "unexpected_silence_fraction": 0.3333,
+            "voiced_fraction": 1.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ko_nucleus_8",
+            "voicing": "vowel",
+            "start": 3.553,
+            "end": 3.992,
+            "rms_to_phrase_median": 0.1179,
+            "unexpected_silence_fraction": 0.6818,
+            "voiced_fraction": 1.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ko_onset_12",
+            "voicing": "unvoiced_consonant",
+            "start": 4.95,
+            "end": 5.01,
+            "rms_to_phrase_median": 0.1889,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_coda_1",
+            "voicing": "unvoiced_consonant",
+            "start": 5.509,
+            "end": 5.569,
+            "rms_to_phrase_median": 0.0712,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_coda_4",
+            "voicing": "voiced_consonant",
+            "start": 6.128,
+            "end": 6.188,
+            "rms_to_phrase_median": 0.077,
+            "unexpected_silence_fraction": 0.6667,
+            "voiced_fraction": 1.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ko_onset_7",
+            "voicing": "unvoiced_consonant",
+            "start": 6.188,
+            "end": 6.247,
+            "rms_to_phrase_median": 0.0487,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_coda_8",
+            "voicing": "voiced_consonant",
+            "start": 7.365,
+            "end": 7.425,
+            "rms_to_phrase_median": 0.0816,
+            "unexpected_silence_fraction": 0.6667,
+            "voiced_fraction": 1.0,
+            "voicing_match": 1.0
+          }
+        ],
+        "voicing_mismatches": [
+          {
+            "phoneme": "ko_onset_2",
+            "voicing": "voiced_consonant",
+            "start": 0.778,
+            "end": 0.838,
+            "rms_to_phrase_median": 0.4021,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 0.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_coda_8",
+            "voicing": "voiced_consonant",
+            "start": 2.415,
+            "end": 2.475,
+            "rms_to_phrase_median": 1.1101,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 0.3333,
+            "voicing_match": 0.3333
+          },
+          {
+            "phoneme": "ko_onset_18",
+            "voicing": "unvoiced_consonant",
+            "start": 3.014,
+            "end": 3.074,
+            "rms_to_phrase_median": 1.2401,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_onset_18",
+            "voicing": "unvoiced_consonant",
+            "start": 4.471,
+            "end": 4.531,
+            "rms_to_phrase_median": 1.6076,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_onset_12",
+            "voicing": "unvoiced_consonant",
+            "start": 4.95,
+            "end": 5.01,
+            "rms_to_phrase_median": 0.1889,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_coda_1",
+            "voicing": "unvoiced_consonant",
+            "start": 5.509,
+            "end": 5.569,
+            "rms_to_phrase_median": 0.0712,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_onset_7",
+            "voicing": "unvoiced_consonant",
+            "start": 6.188,
+            "end": 6.247,
+            "rms_to_phrase_median": 0.0487,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_coda_23",
+            "voicing": "unvoiced_consonant",
+            "start": 6.746,
+            "end": 6.806,
+            "rms_to_phrase_median": 0.3196,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 0.6667,
+            "voicing_match": 0.3333
+          },
+          {
+            "phoneme": "ko_onset_4",
+            "voicing": "unvoiced_consonant",
+            "start": 7.425,
+            "end": 7.485,
+            "rms_to_phrase_median": 0.5743,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_onset_0",
+            "voicing": "unvoiced_consonant",
+            "start": 9.082,
+            "end": 9.142,
+            "rms_to_phrase_median": 1.3476,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          }
+        ]
+      }
+    },
+    {
+      "variant": "B_no_new_spectral",
+      "group": "korean_overconnection",
+      "case": "phrase_boundary",
+      "path": "artifacts/reports/rc6_backend_candidate/listening/phrase_boundary.wav",
+      "duration": 3.68,
+      "harmonic_to_noise_proxy_db": 7.881,
+      "multi_resolution": {
+        "short": {
+          "spectral_flatness_mean": 4.25e-05,
+          "spectral_instability_p95": 0.02565,
+          "noise_floor_modulation_db_std": 11.2118
+        },
+        "medium": {
+          "spectral_flatness_mean": 4.36e-05,
+          "spectral_instability_p95": 0.02433,
+          "noise_floor_modulation_db_std": 10.4758
+        },
+        "long": {
+          "spectral_flatness_mean": 5.32e-05,
+          "spectral_instability_p95": 0.059859,
+          "noise_floor_modulation_db_std": 11.2009
+        }
+      },
+      "phones": {
+        "timeline_source": "score_timed_frontend_inferred",
+        "phone_count": 9,
+        "weak_phone_count": 0,
+        "voicing_mismatch_count": 3,
+        "weak_phones": [],
+        "voicing_mismatches": [
+          {
+            "phoneme": "ko_coda_23",
+            "voicing": "unvoiced_consonant",
+            "start": 0.736,
+            "end": 0.796,
+            "rms_to_phrase_median": 10.0419,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 0.6667,
+            "voicing_match": 0.3333
+          },
+          {
+            "phoneme": "ko_nucleus_18",
+            "voicing": "vowel",
+            "start": 0.855,
+            "end": 1.532,
+            "rms_to_phrase_median": 11.1365,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 0.4412,
+            "voicing_match": 0.4412
+          },
+          {
+            "phoneme": "ko_coda_8",
+            "voicing": "voiced_consonant",
+            "start": 1.532,
+            "end": 1.591,
+            "rms_to_phrase_median": 0.361,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 0.0,
+            "voicing_match": 0.0
+          }
+        ]
+      }
+    },
+    {
+      "variant": "B_no_new_spectral",
+      "group": "korean_overconnection",
+      "case": "rapid_ko",
+      "path": "artifacts/reports/rc6_backend_candidate/listening/rapid_ko.wav",
+      "duration": 2.0,
+      "harmonic_to_noise_proxy_db": 14.1413,
+      "multi_resolution": {
+        "short": {
+          "spectral_flatness_mean": 3.27e-05,
+          "spectral_instability_p95": 0.050907,
+          "noise_floor_modulation_db_std": 8.8921
+        },
+        "medium": {
+          "spectral_flatness_mean": 2.01e-05,
+          "spectral_instability_p95": 0.044735,
+          "noise_floor_modulation_db_std": 7.1963
+        },
+        "long": {
+          "spectral_flatness_mean": 1.21e-05,
+          "spectral_instability_p95": 0.086696,
+          "noise_floor_modulation_db_std": 5.6702
+        }
+      },
+      "phones": {
+        "timeline_source": "score_timed_frontend_inferred",
+        "phone_count": 15,
+        "weak_phone_count": 3,
+        "voicing_mismatch_count": 1,
+        "weak_phones": [
+          {
+            "phoneme": "ko_onset_8",
+            "voicing": "unvoiced_consonant",
+            "start": 0.0,
+            "end": 0.06,
+            "rms_to_phrase_median": 0.0246,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 0.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ko_onset_0",
+            "voicing": "unvoiced_consonant",
+            "start": 0.5,
+            "end": 0.56,
+            "rms_to_phrase_median": 0.0612,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_onset_12",
+            "voicing": "unvoiced_consonant",
+            "start": 1.5,
+            "end": 1.56,
+            "rms_to_phrase_median": 0.0725,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 0.3333,
+            "voicing_match": 0.6667
+          }
+        ],
+        "voicing_mismatches": [
+          {
+            "phoneme": "ko_onset_0",
+            "voicing": "unvoiced_consonant",
+            "start": 0.5,
+            "end": 0.56,
+            "rms_to_phrase_median": 0.0612,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          }
+        ]
+      }
+    },
+    {
+      "variant": "B_no_new_spectral",
+      "group": "japanese_weak_phoneme",
+      "case": "ja",
+      "path": "artifacts/reports/rc6_backend_candidate/listening/ja.wav",
+      "duration": 9.92,
+      "harmonic_to_noise_proxy_db": 17.4684,
+      "multi_resolution": {
+        "short": {
+          "spectral_flatness_mean": 1e-05,
+          "spectral_instability_p95": 0.042083,
+          "noise_floor_modulation_db_std": 15.2728
+        },
+        "medium": {
+          "spectral_flatness_mean": 1.45e-05,
+          "spectral_instability_p95": 0.040616,
+          "noise_floor_modulation_db_std": 13.6942
+        },
+        "long": {
+          "spectral_flatness_mean": 2.04e-05,
+          "spectral_instability_p95": 0.079906,
+          "noise_floor_modulation_db_std": 12.854
+        }
+      },
+      "phones": {
+        "timeline_source": "score_timed_frontend_inferred",
+        "phone_count": 32,
+        "weak_phone_count": 6,
+        "voicing_mismatch_count": 6,
+        "weak_phones": [
+          {
+            "phoneme": "ja_s",
+            "voicing": "unvoiced_consonant",
+            "start": 0.0,
+            "end": 0.06,
+            "rms_to_phrase_median": 0.0089,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 0.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ja_o",
+            "voicing": "vowel",
+            "start": 0.06,
+            "end": 0.419,
+            "rms_to_phrase_median": 0.0337,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 0.8889,
+            "voicing_match": 0.8889
+          },
+          {
+            "phoneme": "ja_r",
+            "voicing": "voiced_consonant",
+            "start": 0.419,
+            "end": 0.479,
+            "rms_to_phrase_median": 0.0433,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ja_a",
+            "voicing": "vowel",
+            "start": 0.479,
+            "end": 0.838,
+            "rms_to_phrase_median": 0.0619,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ja_h",
+            "voicing": "unvoiced_consonant",
+            "start": 0.838,
+            "end": 0.898,
+            "rms_to_phrase_median": 0.0834,
+            "unexpected_silence_fraction": 0.6667,
+            "voiced_fraction": 0.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ja_a",
+            "voicing": "vowel",
+            "start": 6.567,
+            "end": 6.826,
+            "rms_to_phrase_median": 0.2075,
+            "unexpected_silence_fraction": 0.4615,
+            "voiced_fraction": 1.0,
+            "voicing_match": 1.0
+          }
+        ],
+        "voicing_mismatches": [
+          {
+            "phoneme": "ja_k",
+            "voicing": "unvoiced_consonant",
+            "start": 1.697,
+            "end": 1.756,
+            "rms_to_phrase_median": 1.5466,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ja_t",
+            "voicing": "unvoiced_consonant",
+            "start": 3.074,
+            "end": 3.134,
+            "rms_to_phrase_median": 0.6838,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ja_ch",
+            "voicing": "unvoiced_consonant",
+            "start": 4.95,
+            "end": 5.01,
+            "rms_to_phrase_median": 0.8673,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ja_s",
+            "voicing": "unvoiced_consonant",
+            "start": 5.549,
+            "end": 5.589,
+            "rms_to_phrase_median": 1.8569,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ja_h",
+            "voicing": "unvoiced_consonant",
+            "start": 6.188,
+            "end": 6.247,
+            "rms_to_phrase_median": 1.5598,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ja_k",
+            "voicing": "unvoiced_consonant",
+            "start": 6.507,
+            "end": 6.567,
+            "rms_to_phrase_median": 1.4119,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          }
+        ]
+      }
+    },
+    {
+      "variant": "B_no_new_spectral",
+      "group": "large_interval",
+      "case": "large_interval_ko",
+      "path": "artifacts/reports/rc6_backend_candidate/listening/large_interval_ko.wav",
+      "duration": 4.8,
+      "harmonic_to_noise_proxy_db": 5.6756,
+      "multi_resolution": {
+        "short": {
+          "spectral_flatness_mean": 1.72e-05,
+          "spectral_instability_p95": 0.046707,
+          "noise_floor_modulation_db_std": 14.746
+        },
+        "medium": {
+          "spectral_flatness_mean": 2.1e-05,
+          "spectral_instability_p95": 0.063849,
+          "noise_floor_modulation_db_std": 13.9159
+        },
+        "long": {
+          "spectral_flatness_mean": 2.03e-05,
+          "spectral_instability_p95": 0.125546,
+          "noise_floor_modulation_db_std": 14.6482
+        }
+      },
+      "phones": {
+        "timeline_source": "score_timed_frontend_inferred",
+        "phone_count": 8,
+        "weak_phone_count": 1,
+        "voicing_mismatch_count": 2,
+        "weak_phones": [
+          {
+            "phoneme": "ko_onset_2",
+            "voicing": "voiced_consonant",
+            "start": 0.0,
+            "end": 0.06,
+            "rms_to_phrase_median": 0.0868,
+            "unexpected_silence_fraction": 0.6667,
+            "voiced_fraction": 0.0,
+            "voicing_match": 0.0
+          }
+        ],
+        "voicing_mismatches": [
+          {
+            "phoneme": "ko_onset_2",
+            "voicing": "voiced_consonant",
+            "start": 0.0,
+            "end": 0.06,
+            "rms_to_phrase_median": 0.0868,
+            "unexpected_silence_fraction": 0.6667,
+            "voiced_fraction": 0.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_coda_26",
+            "voicing": "unvoiced_consonant",
+            "start": 1.14,
+            "end": 1.2,
+            "rms_to_phrase_median": 0.389,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          }
+        ]
+      }
+    },
+    {
+      "variant": "D_lower_025",
+      "group": "sustained_noise",
+      "case": "sustained_ko",
+      "path": "artifacts/reports/spectral_refiner_stress_s025/listening/sustained_ko.wav",
+      "duration": 6.0,
+      "harmonic_to_noise_proxy_db": 27.9231,
+      "multi_resolution": {
+        "short": {
+          "spectral_flatness_mean": 9.3e-06,
+          "spectral_instability_p95": 0.030283,
+          "noise_floor_modulation_db_std": 5.4746
+        },
+        "medium": {
+          "spectral_flatness_mean": 2.3e-06,
+          "spectral_instability_p95": 0.014684,
+          "noise_floor_modulation_db_std": 4.8544
+        },
+        "long": {
+          "spectral_flatness_mean": 1.1e-06,
+          "spectral_instability_p95": 0.028359,
+          "noise_floor_modulation_db_std": 5.1846
+        }
+      },
+      "phones": {
+        "timeline_source": "score_timed_frontend_inferred",
+        "phone_count": 1,
+        "weak_phone_count": 0,
+        "voicing_mismatch_count": 0,
+        "weak_phones": [],
+        "voicing_mismatches": []
+      }
+    },
+    {
+      "variant": "D_lower_025",
+      "group": "english_transition",
+      "case": "en",
+      "path": "artifacts/reports/spectral_refiner_stress_s025/listening/en.wav",
+      "duration": 9.92,
+      "harmonic_to_noise_proxy_db": 15.831,
+      "multi_resolution": {
+        "short": {
+          "spectral_flatness_mean": 2.22e-05,
+          "spectral_instability_p95": 0.056762,
+          "noise_floor_modulation_db_std": 16.3179
+        },
+        "medium": {
+          "spectral_flatness_mean": 9.8e-06,
+          "spectral_instability_p95": 0.055596,
+          "noise_floor_modulation_db_std": 15.203
+        },
+        "long": {
+          "spectral_flatness_mean": 7.2e-06,
+          "spectral_instability_p95": 0.118075,
+          "noise_floor_modulation_db_std": 14.4831
+        }
+      },
+      "phones": {
+        "timeline_source": "score_timed_frontend_inferred",
+        "phone_count": 31,
+        "weak_phone_count": 3,
+        "voicing_mismatch_count": 5,
+        "weak_phones": [
+          {
+            "phoneme": "en_s",
+            "voicing": "unvoiced_consonant",
+            "start": 0.0,
+            "end": 0.06,
+            "rms_to_phrase_median": 0.0324,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 0.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "en_f",
+            "voicing": "unvoiced_consonant",
+            "start": 4.95,
+            "end": 5.01,
+            "rms_to_phrase_median": 0.1147,
+            "unexpected_silence_fraction": 0.5,
+            "voiced_fraction": 0.5,
+            "voicing_match": 0.5
+          },
+          {
+            "phoneme": "en_t",
+            "voicing": "unvoiced_consonant",
+            "start": 9.86,
+            "end": 9.92,
+            "rms_to_phrase_median": 0.0385,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          }
+        ],
+        "voicing_mismatches": [
+          {
+            "phoneme": "en_t",
+            "voicing": "unvoiced_consonant",
+            "start": 1.677,
+            "end": 1.736,
+            "rms_to_phrase_median": 0.9422,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "en_p",
+            "voicing": "unvoiced_consonant",
+            "start": 3.633,
+            "end": 3.673,
+            "rms_to_phrase_median": 3.6407,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "en_s",
+            "voicing": "unvoiced_consonant",
+            "start": 4.291,
+            "end": 4.351,
+            "rms_to_phrase_median": 0.3205,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "en_k",
+            "voicing": "unvoiced_consonant",
+            "start": 4.351,
+            "end": 4.411,
+            "rms_to_phrase_median": 0.3049,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "en_t",
+            "voicing": "unvoiced_consonant",
+            "start": 9.86,
+            "end": 9.92,
+            "rms_to_phrase_median": 0.0385,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          }
+        ]
+      }
+    },
+    {
+      "variant": "D_lower_025",
+      "group": "korean_overconnection",
+      "case": "ko_neutral",
+      "path": "artifacts/reports/spectral_refiner_stress_s025/listening/ko_neutral.wav",
+      "duration": 9.92,
+      "harmonic_to_noise_proxy_db": 13.1839,
+      "multi_resolution": {
+        "short": {
+          "spectral_flatness_mean": 1.28e-05,
+          "spectral_instability_p95": 0.046331,
+          "noise_floor_modulation_db_std": 14.7685
+        },
+        "medium": {
+          "spectral_flatness_mean": 6.3e-06,
+          "spectral_instability_p95": 0.055137,
+          "noise_floor_modulation_db_std": 12.8491
+        },
+        "long": {
+          "spectral_flatness_mean": 5.5e-06,
+          "spectral_instability_p95": 0.102018,
+          "noise_floor_modulation_db_std": 11.9991
+        }
+      },
+      "phones": {
+        "timeline_source": "score_timed_frontend_inferred",
+        "phone_count": 34,
+        "weak_phone_count": 9,
+        "voicing_mismatch_count": 10,
+        "weak_phones": [
+          {
+            "phoneme": "ko_onset_18",
+            "voicing": "unvoiced_consonant",
+            "start": 0.0,
+            "end": 0.06,
+            "rms_to_phrase_median": 0.0067,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 0.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ko_nucleus_0",
+            "voicing": "vowel",
+            "start": 0.06,
+            "end": 0.778,
+            "rms_to_phrase_median": 0.0642,
+            "unexpected_silence_fraction": 0.8889,
+            "voiced_fraction": 0.6389,
+            "voicing_match": 0.6389
+          },
+          {
+            "phoneme": "ko_onset_2",
+            "voicing": "voiced_consonant",
+            "start": 3.493,
+            "end": 3.553,
+            "rms_to_phrase_median": 0.113,
+            "unexpected_silence_fraction": 0.3333,
+            "voiced_fraction": 1.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ko_nucleus_8",
+            "voicing": "vowel",
+            "start": 3.553,
+            "end": 3.992,
+            "rms_to_phrase_median": 0.1267,
+            "unexpected_silence_fraction": 0.6364,
+            "voiced_fraction": 1.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ko_onset_12",
+            "voicing": "unvoiced_consonant",
+            "start": 4.95,
+            "end": 5.01,
+            "rms_to_phrase_median": 0.1862,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_coda_1",
+            "voicing": "unvoiced_consonant",
+            "start": 5.509,
+            "end": 5.569,
+            "rms_to_phrase_median": 0.0762,
+            "unexpected_silence_fraction": 0.6667,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_coda_4",
+            "voicing": "voiced_consonant",
+            "start": 6.128,
+            "end": 6.188,
+            "rms_to_phrase_median": 0.0783,
+            "unexpected_silence_fraction": 0.6667,
+            "voiced_fraction": 1.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ko_onset_7",
+            "voicing": "unvoiced_consonant",
+            "start": 6.188,
+            "end": 6.247,
+            "rms_to_phrase_median": 0.0503,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_coda_8",
+            "voicing": "voiced_consonant",
+            "start": 7.365,
+            "end": 7.425,
+            "rms_to_phrase_median": 0.085,
+            "unexpected_silence_fraction": 0.6667,
+            "voiced_fraction": 1.0,
+            "voicing_match": 1.0
+          }
+        ],
+        "voicing_mismatches": [
+          {
+            "phoneme": "ko_onset_2",
+            "voicing": "voiced_consonant",
+            "start": 0.778,
+            "end": 0.838,
+            "rms_to_phrase_median": 0.3855,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 0.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_coda_8",
+            "voicing": "voiced_consonant",
+            "start": 2.415,
+            "end": 2.475,
+            "rms_to_phrase_median": 1.0471,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 0.3333,
+            "voicing_match": 0.3333
+          },
+          {
+            "phoneme": "ko_onset_18",
+            "voicing": "unvoiced_consonant",
+            "start": 3.014,
+            "end": 3.074,
+            "rms_to_phrase_median": 1.1897,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_onset_18",
+            "voicing": "unvoiced_consonant",
+            "start": 4.471,
+            "end": 4.531,
+            "rms_to_phrase_median": 1.5134,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_onset_12",
+            "voicing": "unvoiced_consonant",
+            "start": 4.95,
+            "end": 5.01,
+            "rms_to_phrase_median": 0.1862,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_coda_1",
+            "voicing": "unvoiced_consonant",
+            "start": 5.509,
+            "end": 5.569,
+            "rms_to_phrase_median": 0.0762,
+            "unexpected_silence_fraction": 0.6667,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_onset_7",
+            "voicing": "unvoiced_consonant",
+            "start": 6.188,
+            "end": 6.247,
+            "rms_to_phrase_median": 0.0503,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_coda_23",
+            "voicing": "unvoiced_consonant",
+            "start": 6.746,
+            "end": 6.806,
+            "rms_to_phrase_median": 0.3171,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 0.6667,
+            "voicing_match": 0.3333
+          },
+          {
+            "phoneme": "ko_onset_4",
+            "voicing": "unvoiced_consonant",
+            "start": 7.425,
+            "end": 7.485,
+            "rms_to_phrase_median": 0.5422,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 0.6667,
+            "voicing_match": 0.3333
+          },
+          {
+            "phoneme": "ko_onset_0",
+            "voicing": "unvoiced_consonant",
+            "start": 9.082,
+            "end": 9.142,
+            "rms_to_phrase_median": 1.2569,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          }
+        ]
+      }
+    },
+    {
+      "variant": "D_lower_025",
+      "group": "korean_overconnection",
+      "case": "phrase_boundary",
+      "path": "artifacts/reports/spectral_refiner_stress_s025/listening/phrase_boundary.wav",
+      "duration": 3.68,
+      "harmonic_to_noise_proxy_db": 7.9164,
+      "multi_resolution": {
+        "short": {
+          "spectral_flatness_mean": 4.4e-05,
+          "spectral_instability_p95": 0.024377,
+          "noise_floor_modulation_db_std": 10.6714
+        },
+        "medium": {
+          "spectral_flatness_mean": 4.48e-05,
+          "spectral_instability_p95": 0.023028,
+          "noise_floor_modulation_db_std": 9.8847
+        },
+        "long": {
+          "spectral_flatness_mean": 5.45e-05,
+          "spectral_instability_p95": 0.056839,
+          "noise_floor_modulation_db_std": 10.5982
+        }
+      },
+      "phones": {
+        "timeline_source": "score_timed_frontend_inferred",
+        "phone_count": 9,
+        "weak_phone_count": 0,
+        "voicing_mismatch_count": 3,
+        "weak_phones": [],
+        "voicing_mismatches": [
+          {
+            "phoneme": "ko_coda_23",
+            "voicing": "unvoiced_consonant",
+            "start": 0.736,
+            "end": 0.796,
+            "rms_to_phrase_median": 9.3328,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 0.6667,
+            "voicing_match": 0.3333
+          },
+          {
+            "phoneme": "ko_nucleus_18",
+            "voicing": "vowel",
+            "start": 0.855,
+            "end": 1.532,
+            "rms_to_phrase_median": 10.0858,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 0.4412,
+            "voicing_match": 0.4412
+          },
+          {
+            "phoneme": "ko_coda_8",
+            "voicing": "voiced_consonant",
+            "start": 1.532,
+            "end": 1.591,
+            "rms_to_phrase_median": 0.3611,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 0.0,
+            "voicing_match": 0.0
+          }
+        ]
+      }
+    },
+    {
+      "variant": "D_lower_025",
+      "group": "korean_overconnection",
+      "case": "rapid_ko",
+      "path": "artifacts/reports/spectral_refiner_stress_s025/listening/rapid_ko.wav",
+      "duration": 2.0,
+      "harmonic_to_noise_proxy_db": 14.303,
+      "multi_resolution": {
+        "short": {
+          "spectral_flatness_mean": 3.47e-05,
+          "spectral_instability_p95": 0.049915,
+          "noise_floor_modulation_db_std": 8.767
+        },
+        "medium": {
+          "spectral_flatness_mean": 2.12e-05,
+          "spectral_instability_p95": 0.043352,
+          "noise_floor_modulation_db_std": 7.0172
+        },
+        "long": {
+          "spectral_flatness_mean": 1.31e-05,
+          "spectral_instability_p95": 0.083754,
+          "noise_floor_modulation_db_std": 5.6046
+        }
+      },
+      "phones": {
+        "timeline_source": "score_timed_frontend_inferred",
+        "phone_count": 15,
+        "weak_phone_count": 3,
+        "voicing_mismatch_count": 1,
+        "weak_phones": [
+          {
+            "phoneme": "ko_onset_8",
+            "voicing": "unvoiced_consonant",
+            "start": 0.0,
+            "end": 0.06,
+            "rms_to_phrase_median": 0.0267,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 0.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ko_onset_0",
+            "voicing": "unvoiced_consonant",
+            "start": 0.5,
+            "end": 0.56,
+            "rms_to_phrase_median": 0.0659,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_onset_12",
+            "voicing": "unvoiced_consonant",
+            "start": 1.5,
+            "end": 1.56,
+            "rms_to_phrase_median": 0.0782,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 0.3333,
+            "voicing_match": 0.6667
+          }
+        ],
+        "voicing_mismatches": [
+          {
+            "phoneme": "ko_onset_0",
+            "voicing": "unvoiced_consonant",
+            "start": 0.5,
+            "end": 0.56,
+            "rms_to_phrase_median": 0.0659,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          }
+        ]
+      }
+    },
+    {
+      "variant": "D_lower_025",
+      "group": "japanese_weak_phoneme",
+      "case": "ja",
+      "path": "artifacts/reports/spectral_refiner_stress_s025/listening/ja.wav",
+      "duration": 9.92,
+      "harmonic_to_noise_proxy_db": 17.7925,
+      "multi_resolution": {
+        "short": {
+          "spectral_flatness_mean": 1.04e-05,
+          "spectral_instability_p95": 0.04062,
+          "noise_floor_modulation_db_std": 14.8056
+        },
+        "medium": {
+          "spectral_flatness_mean": 1.46e-05,
+          "spectral_instability_p95": 0.038645,
+          "noise_floor_modulation_db_std": 13.0659
+        },
+        "long": {
+          "spectral_flatness_mean": 2.05e-05,
+          "spectral_instability_p95": 0.077173,
+          "noise_floor_modulation_db_std": 12.2437
+        }
+      },
+      "phones": {
+        "timeline_source": "score_timed_frontend_inferred",
+        "phone_count": 32,
+        "weak_phone_count": 6,
+        "voicing_mismatch_count": 6,
+        "weak_phones": [
+          {
+            "phoneme": "ja_s",
+            "voicing": "unvoiced_consonant",
+            "start": 0.0,
+            "end": 0.06,
+            "rms_to_phrase_median": 0.0094,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 0.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ja_o",
+            "voicing": "vowel",
+            "start": 0.06,
+            "end": 0.419,
+            "rms_to_phrase_median": 0.0356,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 0.8889,
+            "voicing_match": 0.8889
+          },
+          {
+            "phoneme": "ja_r",
+            "voicing": "voiced_consonant",
+            "start": 0.419,
+            "end": 0.479,
+            "rms_to_phrase_median": 0.0457,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ja_a",
+            "voicing": "vowel",
+            "start": 0.479,
+            "end": 0.838,
+            "rms_to_phrase_median": 0.0654,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ja_h",
+            "voicing": "unvoiced_consonant",
+            "start": 0.838,
+            "end": 0.898,
+            "rms_to_phrase_median": 0.0862,
+            "unexpected_silence_fraction": 0.6667,
+            "voiced_fraction": 0.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ja_a",
+            "voicing": "vowel",
+            "start": 6.567,
+            "end": 6.826,
+            "rms_to_phrase_median": 0.2086,
+            "unexpected_silence_fraction": 0.4615,
+            "voiced_fraction": 0.9231,
+            "voicing_match": 0.9231
+          }
+        ],
+        "voicing_mismatches": [
+          {
+            "phoneme": "ja_k",
+            "voicing": "unvoiced_consonant",
+            "start": 1.697,
+            "end": 1.756,
+            "rms_to_phrase_median": 1.4992,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ja_t",
+            "voicing": "unvoiced_consonant",
+            "start": 3.074,
+            "end": 3.134,
+            "rms_to_phrase_median": 0.7239,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ja_ch",
+            "voicing": "unvoiced_consonant",
+            "start": 4.95,
+            "end": 5.01,
+            "rms_to_phrase_median": 0.8124,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ja_s",
+            "voicing": "unvoiced_consonant",
+            "start": 5.549,
+            "end": 5.589,
+            "rms_to_phrase_median": 1.8085,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ja_h",
+            "voicing": "unvoiced_consonant",
+            "start": 6.188,
+            "end": 6.247,
+            "rms_to_phrase_median": 1.585,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ja_k",
+            "voicing": "unvoiced_consonant",
+            "start": 6.507,
+            "end": 6.567,
+            "rms_to_phrase_median": 1.3214,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          }
+        ]
+      }
+    },
+    {
+      "variant": "D_lower_025",
+      "group": "large_interval",
+      "case": "large_interval_ko",
+      "path": "artifacts/reports/spectral_refiner_stress_s025/listening/large_interval_ko.wav",
+      "duration": 4.8,
+      "harmonic_to_noise_proxy_db": 5.956,
+      "multi_resolution": {
+        "short": {
+          "spectral_flatness_mean": 1.8e-05,
+          "spectral_instability_p95": 0.043978,
+          "noise_floor_modulation_db_std": 14.1569
+        },
+        "medium": {
+          "spectral_flatness_mean": 2.15e-05,
+          "spectral_instability_p95": 0.060398,
+          "noise_floor_modulation_db_std": 13.2874
+        },
+        "long": {
+          "spectral_flatness_mean": 2.08e-05,
+          "spectral_instability_p95": 0.119033,
+          "noise_floor_modulation_db_std": 13.9991
+        }
+      },
+      "phones": {
+        "timeline_source": "score_timed_frontend_inferred",
+        "phone_count": 8,
+        "weak_phone_count": 1,
+        "voicing_mismatch_count": 2,
+        "weak_phones": [
+          {
+            "phoneme": "ko_onset_2",
+            "voicing": "voiced_consonant",
+            "start": 0.0,
+            "end": 0.06,
+            "rms_to_phrase_median": 0.0887,
+            "unexpected_silence_fraction": 0.6667,
+            "voiced_fraction": 0.0,
+            "voicing_match": 0.0
+          }
+        ],
+        "voicing_mismatches": [
+          {
+            "phoneme": "ko_onset_2",
+            "voicing": "voiced_consonant",
+            "start": 0.0,
+            "end": 0.06,
+            "rms_to_phrase_median": 0.0887,
+            "unexpected_silence_fraction": 0.6667,
+            "voiced_fraction": 0.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_coda_26",
+            "voicing": "unvoiced_consonant",
+            "start": 1.14,
+            "end": 1.2,
+            "rms_to_phrase_median": 0.396,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          }
+        ]
+      }
+    },
+    {
+      "variant": "A_C_rc7_current_050",
+      "group": "sustained_noise",
+      "case": "sustained_ko",
+      "path": "artifacts/reports/spectral_refiner_stress_s050/listening/sustained_ko.wav",
+      "duration": 6.0,
+      "harmonic_to_noise_proxy_db": 27.8154,
+      "multi_resolution": {
+        "short": {
+          "spectral_flatness_mean": 1.05e-05,
+          "spectral_instability_p95": 0.029456,
+          "noise_floor_modulation_db_std": 5.4604
+        },
+        "medium": {
+          "spectral_flatness_mean": 2.8e-06,
+          "spectral_instability_p95": 0.014095,
+          "noise_floor_modulation_db_std": 4.859
+        },
+        "long": {
+          "spectral_flatness_mean": 1.6e-06,
+          "spectral_instability_p95": 0.027457,
+          "noise_floor_modulation_db_std": 5.3123
+        }
+      },
+      "phones": {
+        "timeline_source": "score_timed_frontend_inferred",
+        "phone_count": 1,
+        "weak_phone_count": 0,
+        "voicing_mismatch_count": 0,
+        "weak_phones": [],
+        "voicing_mismatches": []
+      }
+    },
+    {
+      "variant": "A_C_rc7_current_050",
+      "group": "english_transition",
+      "case": "en",
+      "path": "artifacts/reports/spectral_refiner_stress_s050/listening/en.wav",
+      "duration": 9.92,
+      "harmonic_to_noise_proxy_db": 15.9897,
+      "multi_resolution": {
+        "short": {
+          "spectral_flatness_mean": 2.4e-05,
+          "spectral_instability_p95": 0.055138,
+          "noise_floor_modulation_db_std": 16.3291
+        },
+        "medium": {
+          "spectral_flatness_mean": 1.06e-05,
+          "spectral_instability_p95": 0.053309,
+          "noise_floor_modulation_db_std": 15.1994
+        },
+        "long": {
+          "spectral_flatness_mean": 7.7e-06,
+          "spectral_instability_p95": 0.110652,
+          "noise_floor_modulation_db_std": 14.4518
+        }
+      },
+      "phones": {
+        "timeline_source": "score_timed_frontend_inferred",
+        "phone_count": 31,
+        "weak_phone_count": 3,
+        "voicing_mismatch_count": 5,
+        "weak_phones": [
+          {
+            "phoneme": "en_s",
+            "voicing": "unvoiced_consonant",
+            "start": 0.0,
+            "end": 0.06,
+            "rms_to_phrase_median": 0.0339,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 0.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "en_f",
+            "voicing": "unvoiced_consonant",
+            "start": 4.95,
+            "end": 5.01,
+            "rms_to_phrase_median": 0.1178,
+            "unexpected_silence_fraction": 0.5,
+            "voiced_fraction": 0.5,
+            "voicing_match": 0.5
+          },
+          {
+            "phoneme": "en_t",
+            "voicing": "unvoiced_consonant",
+            "start": 9.86,
+            "end": 9.92,
+            "rms_to_phrase_median": 0.0402,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          }
+        ],
+        "voicing_mismatches": [
+          {
+            "phoneme": "en_t",
+            "voicing": "unvoiced_consonant",
+            "start": 1.677,
+            "end": 1.736,
+            "rms_to_phrase_median": 0.9213,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "en_p",
+            "voicing": "unvoiced_consonant",
+            "start": 3.633,
+            "end": 3.673,
+            "rms_to_phrase_median": 3.5557,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "en_s",
+            "voicing": "unvoiced_consonant",
+            "start": 4.291,
+            "end": 4.351,
+            "rms_to_phrase_median": 0.3353,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "en_k",
+            "voicing": "unvoiced_consonant",
+            "start": 4.351,
+            "end": 4.411,
+            "rms_to_phrase_median": 0.3192,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "en_t",
+            "voicing": "unvoiced_consonant",
+            "start": 9.86,
+            "end": 9.92,
+            "rms_to_phrase_median": 0.0402,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          }
+        ]
+      }
+    },
+    {
+      "variant": "A_C_rc7_current_050",
+      "group": "korean_overconnection",
+      "case": "ko_neutral",
+      "path": "artifacts/reports/spectral_refiner_stress_s050/listening/ko_neutral.wav",
+      "duration": 9.92,
+      "harmonic_to_noise_proxy_db": 13.6687,
+      "multi_resolution": {
+        "short": {
+          "spectral_flatness_mean": 1.4e-05,
+          "spectral_instability_p95": 0.04518,
+          "noise_floor_modulation_db_std": 14.7694
+        },
+        "medium": {
+          "spectral_flatness_mean": 6.8e-06,
+          "spectral_instability_p95": 0.052959,
+          "noise_floor_modulation_db_std": 12.8359
+        },
+        "long": {
+          "spectral_flatness_mean": 5.9e-06,
+          "spectral_instability_p95": 0.098238,
+          "noise_floor_modulation_db_std": 11.9522
+        }
+      },
+      "phones": {
+        "timeline_source": "score_timed_frontend_inferred",
+        "phone_count": 34,
+        "weak_phone_count": 9,
+        "voicing_mismatch_count": 10,
+        "weak_phones": [
+          {
+            "phoneme": "ko_onset_18",
+            "voicing": "unvoiced_consonant",
+            "start": 0.0,
+            "end": 0.06,
+            "rms_to_phrase_median": 0.0072,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 0.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ko_nucleus_0",
+            "voicing": "vowel",
+            "start": 0.06,
+            "end": 0.778,
+            "rms_to_phrase_median": 0.0684,
+            "unexpected_silence_fraction": 0.8611,
+            "voiced_fraction": 0.6389,
+            "voicing_match": 0.6389
+          },
+          {
+            "phoneme": "ko_onset_2",
+            "voicing": "voiced_consonant",
+            "start": 3.493,
+            "end": 3.553,
+            "rms_to_phrase_median": 0.1214,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ko_nucleus_8",
+            "voicing": "vowel",
+            "start": 3.553,
+            "end": 3.992,
+            "rms_to_phrase_median": 0.1369,
+            "unexpected_silence_fraction": 0.6364,
+            "voiced_fraction": 1.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ko_onset_12",
+            "voicing": "unvoiced_consonant",
+            "start": 4.95,
+            "end": 5.01,
+            "rms_to_phrase_median": 0.1834,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_coda_1",
+            "voicing": "unvoiced_consonant",
+            "start": 5.509,
+            "end": 5.569,
+            "rms_to_phrase_median": 0.0819,
+            "unexpected_silence_fraction": 0.6667,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_coda_4",
+            "voicing": "voiced_consonant",
+            "start": 6.128,
+            "end": 6.188,
+            "rms_to_phrase_median": 0.0799,
+            "unexpected_silence_fraction": 0.6667,
+            "voiced_fraction": 1.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ko_onset_7",
+            "voicing": "unvoiced_consonant",
+            "start": 6.188,
+            "end": 6.247,
+            "rms_to_phrase_median": 0.0522,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_coda_8",
+            "voicing": "voiced_consonant",
+            "start": 7.365,
+            "end": 7.425,
+            "rms_to_phrase_median": 0.0889,
+            "unexpected_silence_fraction": 0.6667,
+            "voiced_fraction": 1.0,
+            "voicing_match": 1.0
+          }
+        ],
+        "voicing_mismatches": [
+          {
+            "phoneme": "ko_onset_2",
+            "voicing": "voiced_consonant",
+            "start": 0.778,
+            "end": 0.838,
+            "rms_to_phrase_median": 0.367,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 0.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_coda_8",
+            "voicing": "voiced_consonant",
+            "start": 2.415,
+            "end": 2.475,
+            "rms_to_phrase_median": 0.9753,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 0.3333,
+            "voicing_match": 0.3333
+          },
+          {
+            "phoneme": "ko_onset_18",
+            "voicing": "unvoiced_consonant",
+            "start": 3.014,
+            "end": 3.074,
+            "rms_to_phrase_median": 1.1334,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_onset_18",
+            "voicing": "unvoiced_consonant",
+            "start": 4.471,
+            "end": 4.531,
+            "rms_to_phrase_median": 1.4055,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_onset_12",
+            "voicing": "unvoiced_consonant",
+            "start": 4.95,
+            "end": 5.01,
+            "rms_to_phrase_median": 0.1834,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_coda_1",
+            "voicing": "unvoiced_consonant",
+            "start": 5.509,
+            "end": 5.569,
+            "rms_to_phrase_median": 0.0819,
+            "unexpected_silence_fraction": 0.6667,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_onset_7",
+            "voicing": "unvoiced_consonant",
+            "start": 6.188,
+            "end": 6.247,
+            "rms_to_phrase_median": 0.0522,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_coda_23",
+            "voicing": "unvoiced_consonant",
+            "start": 6.746,
+            "end": 6.806,
+            "rms_to_phrase_median": 0.3145,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 0.6667,
+            "voicing_match": 0.3333
+          },
+          {
+            "phoneme": "ko_onset_4",
+            "voicing": "unvoiced_consonant",
+            "start": 7.425,
+            "end": 7.485,
+            "rms_to_phrase_median": 0.5058,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 0.6667,
+            "voicing_match": 0.3333
+          },
+          {
+            "phoneme": "ko_onset_0",
+            "voicing": "unvoiced_consonant",
+            "start": 9.082,
+            "end": 9.142,
+            "rms_to_phrase_median": 1.1527,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          }
+        ]
+      }
+    },
+    {
+      "variant": "A_C_rc7_current_050",
+      "group": "korean_overconnection",
+      "case": "phrase_boundary",
+      "path": "artifacts/reports/spectral_refiner_stress_s050/listening/phrase_boundary.wav",
+      "duration": 3.68,
+      "harmonic_to_noise_proxy_db": 7.9667,
+      "multi_resolution": {
+        "short": {
+          "spectral_flatness_mean": 4.52e-05,
+          "spectral_instability_p95": 0.023379,
+          "noise_floor_modulation_db_std": 10.6325
+        },
+        "medium": {
+          "spectral_flatness_mean": 4.58e-05,
+          "spectral_instability_p95": 0.021515,
+          "noise_floor_modulation_db_std": 9.8503
+        },
+        "long": {
+          "spectral_flatness_mean": 5.57e-05,
+          "spectral_instability_p95": 0.053615,
+          "noise_floor_modulation_db_std": 10.5582
+        }
+      },
+      "phones": {
+        "timeline_source": "score_timed_frontend_inferred",
+        "phone_count": 9,
+        "weak_phone_count": 0,
+        "voicing_mismatch_count": 3,
+        "weak_phones": [],
+        "voicing_mismatches": [
+          {
+            "phoneme": "ko_coda_23",
+            "voicing": "unvoiced_consonant",
+            "start": 0.736,
+            "end": 0.796,
+            "rms_to_phrase_median": 8.6188,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 0.6667,
+            "voicing_match": 0.3333
+          },
+          {
+            "phoneme": "ko_nucleus_18",
+            "voicing": "vowel",
+            "start": 0.855,
+            "end": 1.532,
+            "rms_to_phrase_median": 9.0294,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 0.4412,
+            "voicing_match": 0.4412
+          },
+          {
+            "phoneme": "ko_coda_8",
+            "voicing": "voiced_consonant",
+            "start": 1.532,
+            "end": 1.591,
+            "rms_to_phrase_median": 0.3611,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 0.0,
+            "voicing_match": 0.0
+          }
+        ]
+      }
+    },
+    {
+      "variant": "A_C_rc7_current_050",
+      "group": "korean_overconnection",
+      "case": "rapid_ko",
+      "path": "artifacts/reports/spectral_refiner_stress_s050/listening/rapid_ko.wav",
+      "duration": 2.0,
+      "harmonic_to_noise_proxy_db": 14.4895,
+      "multi_resolution": {
+        "short": {
+          "spectral_flatness_mean": 3.71e-05,
+          "spectral_instability_p95": 0.04923,
+          "noise_floor_modulation_db_std": 8.767
+        },
+        "medium": {
+          "spectral_flatness_mean": 2.26e-05,
+          "spectral_instability_p95": 0.041834,
+          "noise_floor_modulation_db_std": 7.0792
+        },
+        "long": {
+          "spectral_flatness_mean": 1.42e-05,
+          "spectral_instability_p95": 0.080549,
+          "noise_floor_modulation_db_std": 5.7151
+        }
+      },
+      "phones": {
+        "timeline_source": "score_timed_frontend_inferred",
+        "phone_count": 15,
+        "weak_phone_count": 3,
+        "voicing_mismatch_count": 1,
+        "weak_phones": [
+          {
+            "phoneme": "ko_onset_8",
+            "voicing": "unvoiced_consonant",
+            "start": 0.0,
+            "end": 0.06,
+            "rms_to_phrase_median": 0.0292,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 0.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ko_onset_0",
+            "voicing": "unvoiced_consonant",
+            "start": 0.5,
+            "end": 0.56,
+            "rms_to_phrase_median": 0.0714,
+            "unexpected_silence_fraction": 0.6667,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_onset_12",
+            "voicing": "unvoiced_consonant",
+            "start": 1.5,
+            "end": 1.56,
+            "rms_to_phrase_median": 0.0847,
+            "unexpected_silence_fraction": 0.6667,
+            "voiced_fraction": 0.3333,
+            "voicing_match": 0.6667
+          }
+        ],
+        "voicing_mismatches": [
+          {
+            "phoneme": "ko_onset_0",
+            "voicing": "unvoiced_consonant",
+            "start": 0.5,
+            "end": 0.56,
+            "rms_to_phrase_median": 0.0714,
+            "unexpected_silence_fraction": 0.6667,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          }
+        ]
+      }
+    },
+    {
+      "variant": "A_C_rc7_current_050",
+      "group": "japanese_weak_phoneme",
+      "case": "ja",
+      "path": "artifacts/reports/spectral_refiner_stress_s050/listening/ja.wav",
+      "duration": 9.92,
+      "harmonic_to_noise_proxy_db": 18.1916,
+      "multi_resolution": {
+        "short": {
+          "spectral_flatness_mean": 1.08e-05,
+          "spectral_instability_p95": 0.039358,
+          "noise_floor_modulation_db_std": 14.8163
+        },
+        "medium": {
+          "spectral_flatness_mean": 1.48e-05,
+          "spectral_instability_p95": 0.036227,
+          "noise_floor_modulation_db_std": 13.0574
+        },
+        "long": {
+          "spectral_flatness_mean": 2.05e-05,
+          "spectral_instability_p95": 0.073636,
+          "noise_floor_modulation_db_std": 12.1979
+        }
+      },
+      "phones": {
+        "timeline_source": "score_timed_frontend_inferred",
+        "phone_count": 32,
+        "weak_phone_count": 6,
+        "voicing_mismatch_count": 6,
+        "weak_phones": [
+          {
+            "phoneme": "ja_s",
+            "voicing": "unvoiced_consonant",
+            "start": 0.0,
+            "end": 0.06,
+            "rms_to_phrase_median": 0.01,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 0.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ja_o",
+            "voicing": "vowel",
+            "start": 0.06,
+            "end": 0.419,
+            "rms_to_phrase_median": 0.0378,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 0.8889,
+            "voicing_match": 0.8889
+          },
+          {
+            "phoneme": "ja_r",
+            "voicing": "voiced_consonant",
+            "start": 0.419,
+            "end": 0.479,
+            "rms_to_phrase_median": 0.0484,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ja_a",
+            "voicing": "vowel",
+            "start": 0.479,
+            "end": 0.838,
+            "rms_to_phrase_median": 0.0693,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ja_h",
+            "voicing": "unvoiced_consonant",
+            "start": 0.838,
+            "end": 0.898,
+            "rms_to_phrase_median": 0.0895,
+            "unexpected_silence_fraction": 0.6667,
+            "voiced_fraction": 0.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ja_a",
+            "voicing": "vowel",
+            "start": 6.567,
+            "end": 6.826,
+            "rms_to_phrase_median": 0.21,
+            "unexpected_silence_fraction": 0.4615,
+            "voiced_fraction": 0.9231,
+            "voicing_match": 0.9231
+          }
+        ],
+        "voicing_mismatches": [
+          {
+            "phoneme": "ja_k",
+            "voicing": "unvoiced_consonant",
+            "start": 1.697,
+            "end": 1.756,
+            "rms_to_phrase_median": 1.4482,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ja_t",
+            "voicing": "unvoiced_consonant",
+            "start": 3.074,
+            "end": 3.134,
+            "rms_to_phrase_median": 0.7703,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ja_ch",
+            "voicing": "unvoiced_consonant",
+            "start": 4.95,
+            "end": 5.01,
+            "rms_to_phrase_median": 0.7525,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ja_s",
+            "voicing": "unvoiced_consonant",
+            "start": 5.549,
+            "end": 5.589,
+            "rms_to_phrase_median": 1.7603,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ja_h",
+            "voicing": "unvoiced_consonant",
+            "start": 6.188,
+            "end": 6.247,
+            "rms_to_phrase_median": 1.6147,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ja_k",
+            "voicing": "unvoiced_consonant",
+            "start": 6.507,
+            "end": 6.567,
+            "rms_to_phrase_median": 1.2207,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          }
+        ]
+      }
+    },
+    {
+      "variant": "A_C_rc7_current_050",
+      "group": "large_interval",
+      "case": "large_interval_ko",
+      "path": "artifacts/reports/spectral_refiner_stress_s050/listening/large_interval_ko.wav",
+      "duration": 4.8,
+      "harmonic_to_noise_proxy_db": 6.3057,
+      "multi_resolution": {
+        "short": {
+          "spectral_flatness_mean": 1.87e-05,
+          "spectral_instability_p95": 0.041502,
+          "noise_floor_modulation_db_std": 14.1587
+        },
+        "medium": {
+          "spectral_flatness_mean": 2.2e-05,
+          "spectral_instability_p95": 0.056301,
+          "noise_floor_modulation_db_std": 13.2868
+        },
+        "long": {
+          "spectral_flatness_mean": 2.13e-05,
+          "spectral_instability_p95": 0.112407,
+          "noise_floor_modulation_db_std": 13.9684
+        }
+      },
+      "phones": {
+        "timeline_source": "score_timed_frontend_inferred",
+        "phone_count": 8,
+        "weak_phone_count": 1,
+        "voicing_mismatch_count": 2,
+        "weak_phones": [
+          {
+            "phoneme": "ko_onset_2",
+            "voicing": "voiced_consonant",
+            "start": 0.0,
+            "end": 0.06,
+            "rms_to_phrase_median": 0.0902,
+            "unexpected_silence_fraction": 0.6667,
+            "voiced_fraction": 0.0,
+            "voicing_match": 0.0
+          }
+        ],
+        "voicing_mismatches": [
+          {
+            "phoneme": "ko_onset_2",
+            "voicing": "voiced_consonant",
+            "start": 0.0,
+            "end": 0.06,
+            "rms_to_phrase_median": 0.0902,
+            "unexpected_silence_fraction": 0.6667,
+            "voiced_fraction": 0.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_coda_26",
+            "voicing": "unvoiced_consonant",
+            "start": 1.14,
+            "end": 1.2,
+            "rms_to_phrase_median": 0.4007,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          }
+        ]
+      }
+    },
+    {
+      "variant": "D_higher_100",
+      "group": "sustained_noise",
+      "case": "sustained_ko",
+      "path": "artifacts/reports/spectral_refiner_stress_s100/listening/sustained_ko.wav",
+      "duration": 6.0,
+      "harmonic_to_noise_proxy_db": 27.3145,
+      "multi_resolution": {
+        "short": {
+          "spectral_flatness_mean": 1.44e-05,
+          "spectral_instability_p95": 0.027622,
+          "noise_floor_modulation_db_std": 5.4516
+        },
+        "medium": {
+          "spectral_flatness_mean": 5e-06,
+          "spectral_instability_p95": 0.012848,
+          "noise_floor_modulation_db_std": 4.902
+        },
+        "long": {
+          "spectral_flatness_mean": 3.5e-06,
+          "spectral_instability_p95": 0.025947,
+          "noise_floor_modulation_db_std": 5.5847
+        }
+      },
+      "phones": {
+        "timeline_source": "score_timed_frontend_inferred",
+        "phone_count": 1,
+        "weak_phone_count": 0,
+        "voicing_mismatch_count": 0,
+        "weak_phones": [],
+        "voicing_mismatches": []
+      }
+    },
+    {
+      "variant": "D_higher_100",
+      "group": "english_transition",
+      "case": "en",
+      "path": "artifacts/reports/spectral_refiner_stress_s100/listening/en.wav",
+      "duration": 9.92,
+      "harmonic_to_noise_proxy_db": 16.4383,
+      "multi_resolution": {
+        "short": {
+          "spectral_flatness_mean": 2.82e-05,
+          "spectral_instability_p95": 0.050491,
+          "noise_floor_modulation_db_std": 16.3709
+        },
+        "medium": {
+          "spectral_flatness_mean": 1.25e-05,
+          "spectral_instability_p95": 0.047043,
+          "noise_floor_modulation_db_std": 15.1778
+        },
+        "long": {
+          "spectral_flatness_mean": 9e-06,
+          "spectral_instability_p95": 0.097476,
+          "noise_floor_modulation_db_std": 14.3768
+        }
+      },
+      "phones": {
+        "timeline_source": "score_timed_frontend_inferred",
+        "phone_count": 31,
+        "weak_phone_count": 3,
+        "voicing_mismatch_count": 5,
+        "weak_phones": [
+          {
+            "phoneme": "en_s",
+            "voicing": "unvoiced_consonant",
+            "start": 0.0,
+            "end": 0.06,
+            "rms_to_phrase_median": 0.038,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 0.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "en_f",
+            "voicing": "unvoiced_consonant",
+            "start": 4.95,
+            "end": 5.01,
+            "rms_to_phrase_median": 0.1277,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 0.5,
+            "voicing_match": 0.5
+          },
+          {
+            "phoneme": "en_t",
+            "voicing": "unvoiced_consonant",
+            "start": 9.86,
+            "end": 9.92,
+            "rms_to_phrase_median": 0.0451,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          }
+        ],
+        "voicing_mismatches": [
+          {
+            "phoneme": "en_t",
+            "voicing": "unvoiced_consonant",
+            "start": 1.677,
+            "end": 1.736,
+            "rms_to_phrase_median": 0.8939,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "en_p",
+            "voicing": "unvoiced_consonant",
+            "start": 3.633,
+            "end": 3.673,
+            "rms_to_phrase_median": 3.4993,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "en_s",
+            "voicing": "unvoiced_consonant",
+            "start": 4.291,
+            "end": 4.351,
+            "rms_to_phrase_median": 0.3773,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "en_k",
+            "voicing": "unvoiced_consonant",
+            "start": 4.351,
+            "end": 4.411,
+            "rms_to_phrase_median": 0.3598,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "en_t",
+            "voicing": "unvoiced_consonant",
+            "start": 9.86,
+            "end": 9.92,
+            "rms_to_phrase_median": 0.0451,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          }
+        ]
+      }
+    },
+    {
+      "variant": "D_higher_100",
+      "group": "korean_overconnection",
+      "case": "ko_neutral",
+      "path": "artifacts/reports/spectral_refiner_stress_s100/listening/ko_neutral.wav",
+      "duration": 9.92,
+      "harmonic_to_noise_proxy_db": 15.0979,
+      "multi_resolution": {
+        "short": {
+          "spectral_flatness_mean": 1.82e-05,
+          "spectral_instability_p95": 0.042088,
+          "noise_floor_modulation_db_std": 14.7947
+        },
+        "medium": {
+          "spectral_flatness_mean": 9.1e-06,
+          "spectral_instability_p95": 0.048814,
+          "noise_floor_modulation_db_std": 12.825
+        },
+        "long": {
+          "spectral_flatness_mean": 7.9e-06,
+          "spectral_instability_p95": 0.090873,
+          "noise_floor_modulation_db_std": 11.9265
+        }
+      },
+      "phones": {
+        "timeline_source": "score_timed_frontend_inferred",
+        "phone_count": 34,
+        "weak_phone_count": 9,
+        "voicing_mismatch_count": 10,
+        "weak_phones": [
+          {
+            "phoneme": "ko_onset_18",
+            "voicing": "unvoiced_consonant",
+            "start": 0.0,
+            "end": 0.06,
+            "rms_to_phrase_median": 0.0086,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 0.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ko_nucleus_0",
+            "voicing": "vowel",
+            "start": 0.06,
+            "end": 0.778,
+            "rms_to_phrase_median": 0.0792,
+            "unexpected_silence_fraction": 0.8611,
+            "voiced_fraction": 0.6389,
+            "voicing_match": 0.6389
+          },
+          {
+            "phoneme": "ko_onset_2",
+            "voicing": "voiced_consonant",
+            "start": 3.493,
+            "end": 3.553,
+            "rms_to_phrase_median": 0.143,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ko_nucleus_8",
+            "voicing": "vowel",
+            "start": 3.553,
+            "end": 3.992,
+            "rms_to_phrase_median": 0.1632,
+            "unexpected_silence_fraction": 0.4545,
+            "voiced_fraction": 1.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ko_onset_12",
+            "voicing": "unvoiced_consonant",
+            "start": 4.95,
+            "end": 5.01,
+            "rms_to_phrase_median": 0.177,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_coda_1",
+            "voicing": "unvoiced_consonant",
+            "start": 5.509,
+            "end": 5.569,
+            "rms_to_phrase_median": 0.0966,
+            "unexpected_silence_fraction": 0.6667,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_coda_4",
+            "voicing": "voiced_consonant",
+            "start": 6.128,
+            "end": 6.188,
+            "rms_to_phrase_median": 0.0843,
+            "unexpected_silence_fraction": 0.6667,
+            "voiced_fraction": 1.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ko_onset_7",
+            "voicing": "unvoiced_consonant",
+            "start": 6.188,
+            "end": 6.247,
+            "rms_to_phrase_median": 0.0572,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_coda_8",
+            "voicing": "voiced_consonant",
+            "start": 7.365,
+            "end": 7.425,
+            "rms_to_phrase_median": 0.0992,
+            "unexpected_silence_fraction": 0.6667,
+            "voiced_fraction": 1.0,
+            "voicing_match": 1.0
+          }
+        ],
+        "voicing_mismatches": [
+          {
+            "phoneme": "ko_onset_2",
+            "voicing": "voiced_consonant",
+            "start": 0.778,
+            "end": 0.838,
+            "rms_to_phrase_median": 0.3241,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 0.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_coda_8",
+            "voicing": "voiced_consonant",
+            "start": 2.415,
+            "end": 2.475,
+            "rms_to_phrase_median": 0.7967,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 0.3333,
+            "voicing_match": 0.3333
+          },
+          {
+            "phoneme": "ko_onset_18",
+            "voicing": "unvoiced_consonant",
+            "start": 3.014,
+            "end": 3.074,
+            "rms_to_phrase_median": 0.9994,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_onset_18",
+            "voicing": "unvoiced_consonant",
+            "start": 4.471,
+            "end": 4.531,
+            "rms_to_phrase_median": 1.1339,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_onset_12",
+            "voicing": "unvoiced_consonant",
+            "start": 4.95,
+            "end": 5.01,
+            "rms_to_phrase_median": 0.177,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_coda_1",
+            "voicing": "unvoiced_consonant",
+            "start": 5.509,
+            "end": 5.569,
+            "rms_to_phrase_median": 0.0966,
+            "unexpected_silence_fraction": 0.6667,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_onset_7",
+            "voicing": "unvoiced_consonant",
+            "start": 6.188,
+            "end": 6.247,
+            "rms_to_phrase_median": 0.0572,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_coda_23",
+            "voicing": "unvoiced_consonant",
+            "start": 6.746,
+            "end": 6.806,
+            "rms_to_phrase_median": 0.3083,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 0.6667,
+            "voicing_match": 0.3333
+          },
+          {
+            "phoneme": "ko_onset_4",
+            "voicing": "unvoiced_consonant",
+            "start": 7.425,
+            "end": 7.485,
+            "rms_to_phrase_median": 0.4163,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 0.6667,
+            "voicing_match": 0.3333
+          },
+          {
+            "phoneme": "ko_onset_0",
+            "voicing": "unvoiced_consonant",
+            "start": 9.082,
+            "end": 9.142,
+            "rms_to_phrase_median": 0.8884,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          }
+        ]
+      }
+    },
+    {
+      "variant": "D_higher_100",
+      "group": "korean_overconnection",
+      "case": "phrase_boundary",
+      "path": "artifacts/reports/spectral_refiner_stress_s100/listening/phrase_boundary.wav",
+      "duration": 3.68,
+      "harmonic_to_noise_proxy_db": 8.0633,
+      "multi_resolution": {
+        "short": {
+          "spectral_flatness_mean": 4.8e-05,
+          "spectral_instability_p95": 0.020679,
+          "noise_floor_modulation_db_std": 10.6697
+        },
+        "medium": {
+          "spectral_flatness_mean": 4.82e-05,
+          "spectral_instability_p95": 0.018345,
+          "noise_floor_modulation_db_std": 9.9009
+        },
+        "long": {
+          "spectral_flatness_mean": 5.86e-05,
+          "spectral_instability_p95": 0.046335,
+          "noise_floor_modulation_db_std": 10.5901
+        }
+      },
+      "phones": {
+        "timeline_source": "score_timed_frontend_inferred",
+        "phone_count": 9,
+        "weak_phone_count": 0,
+        "voicing_mismatch_count": 3,
+        "weak_phones": [],
+        "voicing_mismatches": [
+          {
+            "phoneme": "ko_coda_23",
+            "voicing": "unvoiced_consonant",
+            "start": 0.736,
+            "end": 0.796,
+            "rms_to_phrase_median": 7.1794,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 0.6667,
+            "voicing_match": 0.3333
+          },
+          {
+            "phoneme": "ko_nucleus_18",
+            "voicing": "vowel",
+            "start": 0.855,
+            "end": 1.532,
+            "rms_to_phrase_median": 6.9105,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 0.4412,
+            "voicing_match": 0.4412
+          },
+          {
+            "phoneme": "ko_coda_8",
+            "voicing": "voiced_consonant",
+            "start": 1.532,
+            "end": 1.591,
+            "rms_to_phrase_median": 0.3612,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 0.0,
+            "voicing_match": 0.0
+          }
+        ]
+      }
+    },
+    {
+      "variant": "D_higher_100",
+      "group": "korean_overconnection",
+      "case": "rapid_ko",
+      "path": "artifacts/reports/spectral_refiner_stress_s100/listening/rapid_ko.wav",
+      "duration": 2.0,
+      "harmonic_to_noise_proxy_db": 15.0049,
+      "multi_resolution": {
+        "short": {
+          "spectral_flatness_mean": 4.4e-05,
+          "spectral_instability_p95": 0.047905,
+          "noise_floor_modulation_db_std": 8.8088
+        },
+        "medium": {
+          "spectral_flatness_mean": 2.65e-05,
+          "spectral_instability_p95": 0.038902,
+          "noise_floor_modulation_db_std": 7.2041
+        },
+        "long": {
+          "spectral_flatness_mean": 1.75e-05,
+          "spectral_instability_p95": 0.073029,
+          "noise_floor_modulation_db_std": 5.9437
+        }
+      },
+      "phones": {
+        "timeline_source": "score_timed_frontend_inferred",
+        "phone_count": 15,
+        "weak_phone_count": 3,
+        "voicing_mismatch_count": 1,
+        "weak_phones": [
+          {
+            "phoneme": "ko_onset_8",
+            "voicing": "unvoiced_consonant",
+            "start": 0.0,
+            "end": 0.06,
+            "rms_to_phrase_median": 0.0365,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 0.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ko_onset_0",
+            "voicing": "unvoiced_consonant",
+            "start": 0.5,
+            "end": 0.56,
+            "rms_to_phrase_median": 0.0876,
+            "unexpected_silence_fraction": 0.6667,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_onset_12",
+            "voicing": "unvoiced_consonant",
+            "start": 1.5,
+            "end": 1.56,
+            "rms_to_phrase_median": 0.1041,
+            "unexpected_silence_fraction": 0.3333,
+            "voiced_fraction": 0.3333,
+            "voicing_match": 0.6667
+          }
+        ],
+        "voicing_mismatches": [
+          {
+            "phoneme": "ko_onset_0",
+            "voicing": "unvoiced_consonant",
+            "start": 0.5,
+            "end": 0.56,
+            "rms_to_phrase_median": 0.0876,
+            "unexpected_silence_fraction": 0.6667,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          }
+        ]
+      }
+    },
+    {
+      "variant": "D_higher_100",
+      "group": "japanese_weak_phoneme",
+      "case": "ja",
+      "path": "artifacts/reports/spectral_refiner_stress_s100/listening/ja.wav",
+      "duration": 9.92,
+      "harmonic_to_noise_proxy_db": 19.2884,
+      "multi_resolution": {
+        "short": {
+          "spectral_flatness_mean": 1.23e-05,
+          "spectral_instability_p95": 0.036783,
+          "noise_floor_modulation_db_std": 14.8524
+        },
+        "medium": {
+          "spectral_flatness_mean": 1.56e-05,
+          "spectral_instability_p95": 0.03152,
+          "noise_floor_modulation_db_std": 13.0694
+        },
+        "long": {
+          "spectral_flatness_mean": 2.13e-05,
+          "spectral_instability_p95": 0.062639,
+          "noise_floor_modulation_db_std": 12.1901
+        }
+      },
+      "phones": {
+        "timeline_source": "score_timed_frontend_inferred",
+        "phone_count": 32,
+        "weak_phone_count": 6,
+        "voicing_mismatch_count": 6,
+        "weak_phones": [
+          {
+            "phoneme": "ja_s",
+            "voicing": "unvoiced_consonant",
+            "start": 0.0,
+            "end": 0.06,
+            "rms_to_phrase_median": 0.0111,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 0.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ja_o",
+            "voicing": "vowel",
+            "start": 0.06,
+            "end": 0.419,
+            "rms_to_phrase_median": 0.0421,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 0.8889,
+            "voicing_match": 0.8889
+          },
+          {
+            "phoneme": "ja_r",
+            "voicing": "voiced_consonant",
+            "start": 0.419,
+            "end": 0.479,
+            "rms_to_phrase_median": 0.0537,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ja_a",
+            "voicing": "vowel",
+            "start": 0.479,
+            "end": 0.838,
+            "rms_to_phrase_median": 0.0772,
+            "unexpected_silence_fraction": 0.8333,
+            "voiced_fraction": 1.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ja_h",
+            "voicing": "unvoiced_consonant",
+            "start": 0.838,
+            "end": 0.898,
+            "rms_to_phrase_median": 0.0954,
+            "unexpected_silence_fraction": 0.6667,
+            "voiced_fraction": 0.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ja_a",
+            "voicing": "vowel",
+            "start": 6.567,
+            "end": 6.826,
+            "rms_to_phrase_median": 0.2094,
+            "unexpected_silence_fraction": 0.4615,
+            "voiced_fraction": 0.8462,
+            "voicing_match": 0.8462
+          }
+        ],
+        "voicing_mismatches": [
+          {
+            "phoneme": "ja_k",
+            "voicing": "unvoiced_consonant",
+            "start": 1.697,
+            "end": 1.756,
+            "rms_to_phrase_median": 1.3013,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ja_t",
+            "voicing": "unvoiced_consonant",
+            "start": 3.074,
+            "end": 3.134,
+            "rms_to_phrase_median": 0.8666,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ja_ch",
+            "voicing": "unvoiced_consonant",
+            "start": 4.95,
+            "end": 5.01,
+            "rms_to_phrase_median": 0.6023,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ja_s",
+            "voicing": "unvoiced_consonant",
+            "start": 5.549,
+            "end": 5.589,
+            "rms_to_phrase_median": 1.6317,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ja_h",
+            "voicing": "unvoiced_consonant",
+            "start": 6.188,
+            "end": 6.247,
+            "rms_to_phrase_median": 1.6522,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ja_k",
+            "voicing": "unvoiced_consonant",
+            "start": 6.507,
+            "end": 6.567,
+            "rms_to_phrase_median": 0.9555,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          }
+        ]
+      }
+    },
+    {
+      "variant": "D_higher_100",
+      "group": "large_interval",
+      "case": "large_interval_ko",
+      "path": "artifacts/reports/spectral_refiner_stress_s100/listening/large_interval_ko.wav",
+      "duration": 4.8,
+      "harmonic_to_noise_proxy_db": 7.407,
+      "multi_resolution": {
+        "short": {
+          "spectral_flatness_mean": 2.13e-05,
+          "spectral_instability_p95": 0.035003,
+          "noise_floor_modulation_db_std": 14.2031
+        },
+        "medium": {
+          "spectral_flatness_mean": 2.38e-05,
+          "spectral_instability_p95": 0.046868,
+          "noise_floor_modulation_db_std": 13.3352
+        },
+        "long": {
+          "spectral_flatness_mean": 2.34e-05,
+          "spectral_instability_p95": 0.096404,
+          "noise_floor_modulation_db_std": 14.0234
+        }
+      },
+      "phones": {
+        "timeline_source": "score_timed_frontend_inferred",
+        "phone_count": 8,
+        "weak_phone_count": 1,
+        "voicing_mismatch_count": 2,
+        "weak_phones": [
+          {
+            "phoneme": "ko_onset_2",
+            "voicing": "voiced_consonant",
+            "start": 0.0,
+            "end": 0.06,
+            "rms_to_phrase_median": 0.0943,
+            "unexpected_silence_fraction": 0.6667,
+            "voiced_fraction": 0.0,
+            "voicing_match": 0.0
+          }
+        ],
+        "voicing_mismatches": [
+          {
+            "phoneme": "ko_onset_2",
+            "voicing": "voiced_consonant",
+            "start": 0.0,
+            "end": 0.06,
+            "rms_to_phrase_median": 0.0943,
+            "unexpected_silence_fraction": 0.6667,
+            "voiced_fraction": 0.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_coda_26",
+            "voicing": "unvoiced_consonant",
+            "start": 1.14,
+            "end": 1.2,
+            "rms_to_phrase_median": 0.4155,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          }
+        ]
+      }
+    }
+  ],
+  "large_interval_first_region": {
+    "omnivoice_source": {
+      "path": "artifacts/reports/rc5_isolation/large_interval_ko/A_omnivoice_source.wav",
+      "region_seconds": [
+        0.8,
+        1.6
+      ],
+      "pyin_median_hz": 65.0,
+      "yin_median_hz": 86.419,
+      "estimator_disagreement_p90_cents": 4.091,
+      "pyin_voiced_ratio": 0.2716,
+      "pyin_probability_mean": 0.0099,
+      "multi_resolution": {
+        "short": {
+          "spectral_flatness_mean": 0.0004268,
+          "spectral_instability_p95": 0.000974,
+          "noise_floor_modulation_db_std": 7.1402
+        },
+        "medium": {
+          "spectral_flatness_mean": 0.0004876,
+          "spectral_instability_p95": 0.001519,
+          "noise_floor_modulation_db_std": 9.6384
+        },
+        "long": {
+          "spectral_flatness_mean": 0.0006303,
+          "spectral_instability_p95": 0.002181,
+          "noise_floor_modulation_db_std": 13.2243
+        }
+      }
+    },
+    "soulx_selected_s32_c2_seed21": {
+      "path": "artifacts/reports/rc5_large_interval_decode/s32_c2_seed21.wav",
+      "region_seconds": [
+        0.8,
+        1.6
+      ],
+      "pyin_median_hz": 779.12,
+      "yin_median_hz": 778.969,
+      "estimator_disagreement_p90_cents": 4.627,
+      "pyin_voiced_ratio": 0.8519,
+      "pyin_probability_mean": 0.7687,
+      "multi_resolution": {
+        "short": {
+          "spectral_flatness_mean": 5.74e-05,
+          "spectral_instability_p95": 0.003679,
+          "noise_floor_modulation_db_std": 10.7215
+        },
+        "medium": {
+          "spectral_flatness_mean": 6.21e-05,
+          "spectral_instability_p95": 0.004575,
+          "noise_floor_modulation_db_std": 12.8847
+        },
+        "long": {
+          "spectral_flatness_mean": 4.7e-05,
+          "spectral_instability_p95": 0.00843,
+          "noise_floor_modulation_db_std": 19.1976
+        }
+      }
+    },
+    "soulx_s50_c2_seed21": {
+      "path": "artifacts/reports/rc5_large_interval_decode/s50_c2_seed21.wav",
+      "region_seconds": [
+        0.8,
+        1.6
+      ],
+      "pyin_median_hz": 770.171,
+      "yin_median_hz": 772.534,
+      "estimator_disagreement_p90_cents": 4.49,
+      "pyin_voiced_ratio": 0.8519,
+      "pyin_probability_mean": 0.7362,
+      "multi_resolution": {
+        "short": {
+          "spectral_flatness_mean": 2.7e-05,
+          "spectral_instability_p95": 0.002659,
+          "noise_floor_modulation_db_std": 10.2741
+        },
+        "medium": {
+          "spectral_flatness_mean": 4.39e-05,
+          "spectral_instability_p95": 0.002899,
+          "noise_floor_modulation_db_std": 11.4021
+        },
+        "long": {
+          "spectral_flatness_mean": 5.32e-05,
+          "spectral_instability_p95": 0.005813,
+          "noise_floor_modulation_db_std": 16.707
+        }
+      }
+    },
+    "rc6_waveform_refiner": {
+      "path": "artifacts/reports/rc6_backend_candidate/listening/large_interval_ko.wav",
+      "region_seconds": [
+        0.8,
+        1.6
+      ],
+      "pyin_median_hz": 779.12,
+      "yin_median_hz": 779.051,
+      "estimator_disagreement_p90_cents": 4.407,
+      "pyin_voiced_ratio": 0.8519,
+      "pyin_probability_mean": 0.7675,
+      "multi_resolution": {
+        "short": {
+          "spectral_flatness_mean": 6.23e-05,
+          "spectral_instability_p95": 0.003588,
+          "noise_floor_modulation_db_std": 8.9669
+        },
+        "medium": {
+          "spectral_flatness_mean": 6.45e-05,
+          "spectral_instability_p95": 0.004507,
+          "noise_floor_modulation_db_std": 11.3862
+        },
+        "long": {
+          "spectral_flatness_mean": 4.63e-05,
+          "spectral_instability_p95": 0.008553,
+          "noise_floor_modulation_db_std": 17.2761
+        }
+      }
+    },
+    "spectral_lower_025": {
+      "path": "artifacts/reports/spectral_refiner_stress_s025/listening/large_interval_ko.wav",
+      "region_seconds": [
+        0.8,
+        1.6
+      ],
+      "pyin_median_hz": 779.12,
+      "yin_median_hz": 779.013,
+      "estimator_disagreement_p90_cents": 4.389,
+      "pyin_voiced_ratio": 0.8519,
+      "pyin_probability_mean": 0.7675,
+      "multi_resolution": {
+        "short": {
+          "spectral_flatness_mean": 6.24e-05,
+          "spectral_instability_p95": 0.003605,
+          "noise_floor_modulation_db_std": 8.3041
+        },
+        "medium": {
+          "spectral_flatness_mean": 6.47e-05,
+          "spectral_instability_p95": 0.004514,
+          "noise_floor_modulation_db_std": 10.8639
+        },
+        "long": {
+          "spectral_flatness_mean": 4.65e-05,
+          "spectral_instability_p95": 0.008563,
+          "noise_floor_modulation_db_std": 16.6843
+        }
+      }
+    },
+    "rc7": {
+      "path": "artifacts/reports/rc7_listening_gate/08_large_interval_ko.wav",
+      "region_seconds": [
+        0.8,
+        1.6
+      ],
+      "pyin_median_hz": 779.12,
+      "yin_median_hz": 778.977,
+      "estimator_disagreement_p90_cents": 4.371,
+      "pyin_voiced_ratio": 0.8519,
+      "pyin_probability_mean": 0.768,
+      "multi_resolution": {
+        "short": {
+          "spectral_flatness_mean": 6.23e-05,
+          "spectral_instability_p95": 0.003622,
+          "noise_floor_modulation_db_std": 8.2919
+        },
+        "medium": {
+          "spectral_flatness_mean": 6.47e-05,
+          "spectral_instability_p95": 0.004524,
+          "noise_floor_modulation_db_std": 10.8402
+        },
+        "long": {
+          "spectral_flatness_mean": 4.66e-05,
+          "spectral_instability_p95": 0.00856,
+          "noise_floor_modulation_db_std": 16.6638
+        }
+      }
+    },
+    "spectral_higher_100": {
+      "path": "artifacts/reports/spectral_refiner_stress_s100/listening/large_interval_ko.wav",
+      "region_seconds": [
+        0.8,
+        1.6
+      ],
+      "pyin_median_hz": 779.12,
+      "yin_median_hz": 778.91,
+      "estimator_disagreement_p90_cents": 4.353,
+      "pyin_voiced_ratio": 0.8519,
+      "pyin_probability_mean": 0.7641,
+      "multi_resolution": {
+        "short": {
+          "spectral_flatness_mean": 6.22e-05,
+          "spectral_instability_p95": 0.003624,
+          "noise_floor_modulation_db_std": 8.3108
+        },
+        "medium": {
+          "spectral_flatness_mean": 6.48e-05,
+          "spectral_instability_p95": 0.004543,
+          "noise_floor_modulation_db_std": 10.8529
+        },
+        "long": {
+          "spectral_flatness_mean": 4.67e-05,
+          "spectral_instability_p95": 0.008561,
+          "noise_floor_modulation_db_std": 16.6836
+        }
+      }
+    }
+  },
+  "large_interval_review_plot": "artifacts/reports/rc8_defect_review/large_interval_stages.png",
+  "limitations": [
+    "The frozen stress scores lack editor-supplied phoneme spans; phone timing here is explicitly inferred.",
+    "Japanese low-energy phones are review candidates, not automatic gain targets, because valid devoicing is not labeled.",
+    "A fix is not selected until these measurements and listening agree."
+  ]
+}

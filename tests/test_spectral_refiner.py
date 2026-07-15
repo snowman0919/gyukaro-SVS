@@ -1,5 +1,9 @@
+import numpy as np
 import torch
 
+from gyu_singer.inference.spectral_gate import stationary_gate
+from gyu_singer.inference.rc6 import GyuSingerRC6Renderer
+from gyu_singer.inference.rc8 import GyuSingerRC8Renderer
 from gyu_singer.model import SpectralAcousticRefiner
 
 
@@ -26,3 +30,23 @@ def test_spectral_refiner_stage_freezing():
         parameter.requires_grad == ("singing_adapter" in name)
         for name, parameter in model.named_parameters()
     )
+
+
+def test_stationary_gate_preserves_boundaries_and_finds_sustained_vowel():
+    sustained = {"language": "ko", "notes": [{"pitch": 64, "start": 0, "duration": 3, "lyric": "아"}]}
+    gate = stationary_gate(sustained, 144_000)
+    assert gate.mean() > .8 and gate[:2400].max() < .1
+    interval = {"language": "ko", "notes": [{"pitch": 55, "start": 0, "duration": 1.2, "lyric": "높"}, {"pitch": 67, "start": 1.2, "duration": 1.2, "lyric": "이"}]}
+    gate = stationary_gate(interval, 115_200)
+    onset = round(1.2 * 48_000)
+    assert np.max(gate[onset - 2400:onset + 2400]) < .1
+    assert not gate.any()
+    assert not stationary_gate({"language": "en", "notes": [{"pitch": 64, "start": 0, "duration": 3, "lyric": "ah"}]}, 144_000).any()
+
+
+def test_rc8_uses_base_half_strength_outside_stationary_gate(monkeypatch):
+    renderer = GyuSingerRC8Renderer.__new__(GyuSingerRC8Renderer)
+    renderer.spectral_refiner = type("Refiner", (), {"process": lambda self, audio: audio + .2})()
+    monkeypatch.setattr(GyuSingerRC6Renderer, "render", lambda self, score: np.zeros(1000, dtype="float32"))
+    monkeypatch.setattr("gyu_singer.inference.rc8.stationary_gate", lambda *args: np.zeros(1000, dtype="float32"))
+    assert np.allclose(renderer.render({}), .1)

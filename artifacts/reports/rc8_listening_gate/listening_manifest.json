@@ -1,0 +1,147 @@
+{
+  "status": "human_listening_required",
+  "candidate": "RC8 local-quality candidate; not a tag or release",
+  "source_baseline": "immutable RC7 at ae8944070f3dc38e310b33f29d95f4bcd3c81def",
+  "objective_evidence": "artifacts/reports/rc8_listening_gate/evaluation.json",
+  "files": [
+    {
+      "case": "ko_neutral",
+      "file": "artifacts/reports/rc8_listening_gate/01_ko_neutral.wav",
+      "sha256": "262038a4adeee7b8be2d813581755a79a6fdeb30d00386df08eb48ea9bcf065a",
+      "verdict": null,
+      "observation": ""
+    },
+    {
+      "case": "ko_breathy",
+      "file": "artifacts/reports/rc8_listening_gate/02_ko_breathy.wav",
+      "sha256": "48a03a9b16099f158afab21f3ee54f06e5ebd9fa52998e2938695b7fb22db49b",
+      "verdict": null,
+      "observation": ""
+    },
+    {
+      "case": "ko_energetic",
+      "file": "artifacts/reports/rc8_listening_gate/03_ko_energetic.wav",
+      "sha256": "847cd35243b3bd3dc7b38920c748d946277e0d240dbb3a3690b3562df7ef5425",
+      "verdict": null,
+      "observation": ""
+    },
+    {
+      "case": "en",
+      "file": "artifacts/reports/rc8_listening_gate/04_en.wav",
+      "sha256": "9b8bbb743c44d6318afd60962d3e5aa0daa4e699b62ddd9b28f4e383cb134e0d",
+      "verdict": null,
+      "observation": ""
+    },
+    {
+      "case": "ja",
+      "file": "artifacts/reports/rc8_listening_gate/05_ja.wav",
+      "sha256": "6597eaf2bee9cc8dba35e46e12351e273d9be6aa3058a0b0069f786c5d8a5053",
+      "verdict": null,
+      "observation": ""
+    },
+    {
+      "case": "rapid_ko",
+      "file": "artifacts/reports/rc8_listening_gate/06_rapid_ko.wav",
+      "sha256": "ffd7b6e71b3427d6412d86b8c82f154b7313a8c96199f4da75c0fe5e866aceb1",
+      "verdict": null,
+      "observation": ""
+    },
+    {
+      "case": "sustained_ko",
+      "file": "artifacts/reports/rc8_listening_gate/07_sustained_ko.wav",
+      "sha256": "3f337d50bec86d703631cfe275a75568ee4c609293a54f02aaedcde7889bed96",
+      "verdict": null,
+      "observation": ""
+    },
+    {
+      "case": "large_interval_ko",
+      "file": "artifacts/reports/rc8_listening_gate/08_large_interval_ko.wav",
+      "sha256": "076402f1f3420e7ca0d0359c3cdfdf72f806f2a20671728098585ce484b4ae26",
+      "verdict": null,
+      "observation": ""
+    },
+    {
+      "case": "phrase_boundary",
+      "file": "artifacts/reports/rc8_listening_gate/09_phrase_boundary.wav",
+      "sha256": "61956454388e3c404f090dfea0793b1f339c47b48841e5e7aa5f80325a6619f3",
+      "verdict": null,
+      "observation": ""
+    }
+  ],
+  "before_after": [
+    {
+      "case": "ko_neutral",
+      "label": "RC7_before",
+      "file": "artifacts/reports/rc8_listening_gate/compare_ko_neutral_RC7_before.wav",
+      "sha256": "92eac775dcb78e9e77045ccad4ab92423c53701a16b5280f9d5fd293e3af0cdd"
+    },
+    {
+      "case": "ko_neutral",
+      "label": "RC8_after",
+      "file": "artifacts/reports/rc8_listening_gate/compare_ko_neutral_RC8_after.wav",
+      "sha256": "262038a4adeee7b8be2d813581755a79a6fdeb30d00386df08eb48ea9bcf065a"
+    },
+    {
+      "case": "en",
+      "label": "RC7_before",
+      "file": "artifacts/reports/rc8_listening_gate/compare_en_RC7_before.wav",
+      "sha256": "6aa89bcf51d27fe42561f4359f2e0f7575a51e7f70412a4d3e4482c94f633693"
+    },
+    {
+      "case": "en",
+      "label": "RC8_after",
+      "file": "artifacts/reports/rc8_listening_gate/compare_en_RC8_after.wav",
+      "sha256": "9b8bbb743c44d6318afd60962d3e5aa0daa4e699b62ddd9b28f4e383cb134e0d"
+    },
+    {
+      "case": "ja",
+      "label": "RC7_before",
+      "file": "artifacts/reports/rc8_listening_gate/compare_ja_RC7_before.wav",
+      "sha256": "d283f1611cff2e48bbb4b1a38d4bbf6e638268a9581db7b05610100dd5e2a22f"
+    },
+    {
+      "case": "ja",
+      "label": "RC8_after",
+      "file": "artifacts/reports/rc8_listening_gate/compare_ja_RC8_after.wav",
+      "sha256": "6597eaf2bee9cc8dba35e46e12351e273d9be6aa3058a0b0069f786c5d8a5053"
+    },
+    {
+      "case": "sustained_ko",
+      "label": "RC7_before",
+      "file": "artifacts/reports/rc8_listening_gate/compare_sustained_ko_RC7_before.wav",
+      "sha256": "db44d39e3b4b701f68bf44b0f2ed11600bb7e174b03f6e9710e154593fa34310"
+    },
+    {
+      "case": "sustained_ko",
+      "label": "RC8_after",
+      "file": "artifacts/reports/rc8_listening_gate/compare_sustained_ko_RC8_after.wav",
+      "sha256": "3f337d50bec86d703631cfe275a75568ee4c609293a54f02aaedcde7889bed96"
+    },
+    {
+      "case": "large_interval_ko",
+      "label": "RC7_before",
+      "file": "artifacts/reports/rc8_listening_gate/compare_large_interval_ko_RC7_before.wav",
+      "sha256": "a7e0aa543a3a1a8afc3e7d3d5655953db1b30057e714fe3d1ddd3eca0284b50e"
+    },
+    {
+      "case": "large_interval_ko",
+      "label": "RC8_after",
+      "file": "artifacts/reports/rc8_listening_gate/compare_large_interval_ko_RC8_after.wav",
+      "sha256": "076402f1f3420e7ca0d0359c3cdfdf72f806f2a20671728098585ce484b4ae26"
+    },
+    {
+      "case": "rapid_ko",
+      "label": "RC7_before",
+      "file": "artifacts/reports/rc8_listening_gate/compare_rapid_ko_RC7_before.wav",
+      "sha256": "2774ec3eaefa19c9a024467dfcbdbcc6cde6f9f144956d27856462f4637b8380"
+    },
+    {
+      "case": "rapid_ko",
+      "label": "RC8_after",
+      "file": "artifacts/reports/rc8_listening_gate/compare_rapid_ko_RC8_after.wav",
+      "sha256": "ffd7b6e71b3427d6412d86b8c82f154b7313a8c96199f4da75c0fe5e866aceb1"
+    }
+  ],
+  "required_response": "PASS/FAIL for each of nine files, defect observation, and overall RC8 suitability",
+  "final_v1_release_allowed": false
+}

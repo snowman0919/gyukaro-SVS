@@ -1,0 +1,75 @@
+{
+  "status": "objective_evaluation_pending",
+  "candidate": "RC8 local-quality candidate; not a tag or release",
+  "baseline": "immutable RC7 at ae8944070f3dc38e310b33f29d95f4bcd3c81def",
+  "backend": {
+    "backend": "gyu-singer-rc8",
+    "final_v1_tagged": false
+  },
+  "files": {
+    "ko_neutral": {
+      "path": "artifacts/reports/rc8_listening_gate/01_ko_neutral.wav",
+      "score": "examples/quality_ko.json",
+      "sha256": "262038a4adeee7b8be2d813581755a79a6fdeb30d00386df08eb48ea9bcf065a",
+      "sample_rate": 48000,
+      "backend": "gyu-singer-rc8"
+    },
+    "ko_breathy": {
+      "path": "artifacts/reports/rc8_listening_gate/02_ko_breathy.wav",
+      "score": "artifacts/reports/rc5_stress_candidate/ko_breathy.json",
+      "sha256": "48a03a9b16099f158afab21f3ee54f06e5ebd9fa52998e2938695b7fb22db49b",
+      "sample_rate": 48000,
+      "backend": "gyu-singer-rc8"
+    },
+    "ko_energetic": {
+      "path": "artifacts/reports/rc8_listening_gate/03_ko_energetic.wav",
+      "score": "artifacts/reports/rc5_stress_candidate/ko_energetic.json",
+      "sha256": "847cd35243b3bd3dc7b38920c748d946277e0d240dbb3a3690b3562df7ef5425",
+      "sample_rate": 48000,
+      "backend": "gyu-singer-rc8"
+    },
+    "en": {
+      "path": "artifacts/reports/rc8_listening_gate/04_en.wav",
+      "score": "examples/quality_en.json",
+      "sha256": "9b8bbb743c44d6318afd60962d3e5aa0daa4e699b62ddd9b28f4e383cb134e0d",
+      "sample_rate": 48000,
+      "backend": "gyu-singer-rc8"
+    },
+    "ja": {
+      "path": "artifacts/reports/rc8_listening_gate/05_ja.wav",
+      "score": "examples/quality_ja.json",
+      "sha256": "6597eaf2bee9cc8dba35e46e12351e273d9be6aa3058a0b0069f786c5d8a5053",
+      "sample_rate": 48000,
+      "backend": "gyu-singer-rc8"
+    },
+    "rapid_ko": {
+      "path": "artifacts/reports/rc8_listening_gate/06_rapid_ko.wav",
+      "score": "examples/review_rapid_ko.json",
+      "sha256": "ffd7b6e71b3427d6412d86b8c82f154b7313a8c96199f4da75c0fe5e866aceb1",
+      "sample_rate": 48000,
+      "backend": "gyu-singer-rc8"
+    },
+    "sustained_ko": {
+      "path": "artifacts/reports/rc8_listening_gate/07_sustained_ko.wav",
+      "score": "examples/review_sustain_ko.json",
+      "sha256": "3f337d50bec86d703631cfe275a75568ee4c609293a54f02aaedcde7889bed96",
+      "sample_rate": 48000,
+      "backend": "gyu-singer-rc8"
+    },
+    "large_interval_ko": {
+      "path": "artifacts/reports/rc8_listening_gate/08_large_interval_ko.wav",
+      "score": "examples/review_large_interval_ko.json",
+      "sha256": "076402f1f3420e7ca0d0359c3cdfdf72f806f2a20671728098585ce484b4ae26",
+      "sample_rate": 48000,
+      "backend": "gyu-singer-rc8"
+    },
+    "phrase_boundary": {
+      "path": "artifacts/reports/rc8_listening_gate/09_phrase_boundary.wav",
+      "score": "examples/review_phrase_boundary_ko.json",
+      "sha256": "61956454388e3c404f090dfea0793b1f339c47b48841e5e7aa5f80325a6619f3",
+      "sample_rate": 48000,
+      "backend": "gyu-singer-rc8"
+    }
+  },
+  "human_review": "pending"
+}

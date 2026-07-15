@@ -1,0 +1,1174 @@
+{
+  "status": "human_listening_pending",
+  "selection": "warp_0.1",
+  "selection_warning": "phone spans are score-inferred; listening must confirm reduced overconnection without staccato",
+  "rapid_ko_protected": true,
+  "rows": [
+    {
+      "variant": "rc7",
+      "strength": null,
+      "path": "artifacts/reports/rc7_listening_gate/01_ko_neutral.wav",
+      "peak": 0.559843,
+      "rms": 0.124207,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.000977,
+      "hf_energy_ratio_p95": 0.001689,
+      "hf_spike_p99_over_median": 64.1625,
+      "spectral_flatness_mean": 7.1e-05,
+      "spectral_flux_p95": 0.233736,
+      "spectral_flux_max": 0.504075,
+      "sample_jump_p999": 0.0873,
+      "observed_voiced_ratio": 0.9294,
+      "target_voiced_ratio": 0.9415,
+      "voicing_accuracy": 0.9073,
+      "pitch_mae_cents": 7.64,
+      "phones": {
+        "timeline_source": "score_timed_frontend_inferred",
+        "phone_count": 34,
+        "weak_phone_count": 9,
+        "voicing_mismatch_count": 10,
+        "weak_phones": [
+          {
+            "phoneme": "ko_onset_18",
+            "voicing": "unvoiced_consonant",
+            "start": 0.0,
+            "end": 0.06,
+            "rms_to_phrase_median": 0.0072,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 0.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ko_nucleus_0",
+            "voicing": "vowel",
+            "start": 0.06,
+            "end": 0.778,
+            "rms_to_phrase_median": 0.0684,
+            "unexpected_silence_fraction": 0.8611,
+            "voiced_fraction": 0.6389,
+            "voicing_match": 0.6389
+          },
+          {
+            "phoneme": "ko_onset_2",
+            "voicing": "voiced_consonant",
+            "start": 3.493,
+            "end": 3.553,
+            "rms_to_phrase_median": 0.1214,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ko_nucleus_8",
+            "voicing": "vowel",
+            "start": 3.553,
+            "end": 3.992,
+            "rms_to_phrase_median": 0.1369,
+            "unexpected_silence_fraction": 0.6364,
+            "voiced_fraction": 1.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ko_onset_12",
+            "voicing": "unvoiced_consonant",
+            "start": 4.95,
+            "end": 5.01,
+            "rms_to_phrase_median": 0.1834,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_coda_1",
+            "voicing": "unvoiced_consonant",
+            "start": 5.509,
+            "end": 5.569,
+            "rms_to_phrase_median": 0.0819,
+            "unexpected_silence_fraction": 0.6667,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_coda_4",
+            "voicing": "voiced_consonant",
+            "start": 6.128,
+            "end": 6.188,
+            "rms_to_phrase_median": 0.0799,
+            "unexpected_silence_fraction": 0.6667,
+            "voiced_fraction": 1.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ko_onset_7",
+            "voicing": "unvoiced_consonant",
+            "start": 6.188,
+            "end": 6.247,
+            "rms_to_phrase_median": 0.0522,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_coda_8",
+            "voicing": "voiced_consonant",
+            "start": 7.365,
+            "end": 7.425,
+            "rms_to_phrase_median": 0.0889,
+            "unexpected_silence_fraction": 0.6667,
+            "voiced_fraction": 1.0,
+            "voicing_match": 1.0
+          }
+        ],
+        "voicing_mismatches": [
+          {
+            "phoneme": "ko_onset_2",
+            "voicing": "voiced_consonant",
+            "start": 0.778,
+            "end": 0.838,
+            "rms_to_phrase_median": 0.367,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 0.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_coda_8",
+            "voicing": "voiced_consonant",
+            "start": 2.415,
+            "end": 2.475,
+            "rms_to_phrase_median": 0.9753,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 0.3333,
+            "voicing_match": 0.3333
+          },
+          {
+            "phoneme": "ko_onset_18",
+            "voicing": "unvoiced_consonant",
+            "start": 3.014,
+            "end": 3.074,
+            "rms_to_phrase_median": 1.1334,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_onset_18",
+            "voicing": "unvoiced_consonant",
+            "start": 4.471,
+            "end": 4.531,
+            "rms_to_phrase_median": 1.4055,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_onset_12",
+            "voicing": "unvoiced_consonant",
+            "start": 4.95,
+            "end": 5.01,
+            "rms_to_phrase_median": 0.1834,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_coda_1",
+            "voicing": "unvoiced_consonant",
+            "start": 5.509,
+            "end": 5.569,
+            "rms_to_phrase_median": 0.0819,
+            "unexpected_silence_fraction": 0.6667,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_onset_7",
+            "voicing": "unvoiced_consonant",
+            "start": 6.188,
+            "end": 6.247,
+            "rms_to_phrase_median": 0.0522,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_coda_23",
+            "voicing": "unvoiced_consonant",
+            "start": 6.746,
+            "end": 6.806,
+            "rms_to_phrase_median": 0.3145,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 0.6667,
+            "voicing_match": 0.3333
+          },
+          {
+            "phoneme": "ko_onset_4",
+            "voicing": "unvoiced_consonant",
+            "start": 7.425,
+            "end": 7.485,
+            "rms_to_phrase_median": 0.5058,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 0.6667,
+            "voicing_match": 0.3333
+          },
+          {
+            "phoneme": "ko_onset_0",
+            "voicing": "unvoiced_consonant",
+            "start": 9.082,
+            "end": 9.142,
+            "rms_to_phrase_median": 1.1527,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          }
+        ]
+      },
+      "asr_transcript": " 하늘을 향해 노래해 작은 빛을 따라가",
+      "asr_lyric_similarity": 1.0
+    },
+    {
+      "variant": "warp_0",
+      "strength": 0.0,
+      "path": "artifacts/reports/rc8_ko_timing_sweep/listening/ko_neutral_warp_0.wav",
+      "peak": 0.559838,
+      "rms": 0.124207,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.000977,
+      "hf_energy_ratio_p95": 0.001689,
+      "hf_spike_p99_over_median": 64.1633,
+      "spectral_flatness_mean": 7.1e-05,
+      "spectral_flux_p95": 0.23374,
+      "spectral_flux_max": 0.504074,
+      "sample_jump_p999": 0.087301,
+      "observed_voiced_ratio": 0.9294,
+      "target_voiced_ratio": 0.9415,
+      "voicing_accuracy": 0.9073,
+      "pitch_mae_cents": 7.66,
+      "phones": {
+        "timeline_source": "score_timed_frontend_inferred",
+        "phone_count": 34,
+        "weak_phone_count": 9,
+        "voicing_mismatch_count": 10,
+        "weak_phones": [
+          {
+            "phoneme": "ko_onset_18",
+            "voicing": "unvoiced_consonant",
+            "start": 0.0,
+            "end": 0.06,
+            "rms_to_phrase_median": 0.0072,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 0.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ko_nucleus_0",
+            "voicing": "vowel",
+            "start": 0.06,
+            "end": 0.778,
+            "rms_to_phrase_median": 0.0684,
+            "unexpected_silence_fraction": 0.8611,
+            "voiced_fraction": 0.6389,
+            "voicing_match": 0.6389
+          },
+          {
+            "phoneme": "ko_onset_2",
+            "voicing": "voiced_consonant",
+            "start": 3.493,
+            "end": 3.553,
+            "rms_to_phrase_median": 0.1214,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ko_nucleus_8",
+            "voicing": "vowel",
+            "start": 3.553,
+            "end": 3.992,
+            "rms_to_phrase_median": 0.1369,
+            "unexpected_silence_fraction": 0.6364,
+            "voiced_fraction": 1.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ko_onset_12",
+            "voicing": "unvoiced_consonant",
+            "start": 4.95,
+            "end": 5.01,
+            "rms_to_phrase_median": 0.1834,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_coda_1",
+            "voicing": "unvoiced_consonant",
+            "start": 5.509,
+            "end": 5.569,
+            "rms_to_phrase_median": 0.0819,
+            "unexpected_silence_fraction": 0.6667,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_coda_4",
+            "voicing": "voiced_consonant",
+            "start": 6.128,
+            "end": 6.188,
+            "rms_to_phrase_median": 0.0799,
+            "unexpected_silence_fraction": 0.6667,
+            "voiced_fraction": 1.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ko_onset_7",
+            "voicing": "unvoiced_consonant",
+            "start": 6.188,
+            "end": 6.247,
+            "rms_to_phrase_median": 0.0522,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_coda_8",
+            "voicing": "voiced_consonant",
+            "start": 7.365,
+            "end": 7.425,
+            "rms_to_phrase_median": 0.0889,
+            "unexpected_silence_fraction": 0.6667,
+            "voiced_fraction": 1.0,
+            "voicing_match": 1.0
+          }
+        ],
+        "voicing_mismatches": [
+          {
+            "phoneme": "ko_onset_2",
+            "voicing": "voiced_consonant",
+            "start": 0.778,
+            "end": 0.838,
+            "rms_to_phrase_median": 0.367,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 0.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_coda_8",
+            "voicing": "voiced_consonant",
+            "start": 2.415,
+            "end": 2.475,
+            "rms_to_phrase_median": 0.9753,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 0.3333,
+            "voicing_match": 0.3333
+          },
+          {
+            "phoneme": "ko_onset_18",
+            "voicing": "unvoiced_consonant",
+            "start": 3.014,
+            "end": 3.074,
+            "rms_to_phrase_median": 1.1334,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_onset_18",
+            "voicing": "unvoiced_consonant",
+            "start": 4.471,
+            "end": 4.531,
+            "rms_to_phrase_median": 1.4055,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_onset_12",
+            "voicing": "unvoiced_consonant",
+            "start": 4.95,
+            "end": 5.01,
+            "rms_to_phrase_median": 0.1834,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_coda_1",
+            "voicing": "unvoiced_consonant",
+            "start": 5.509,
+            "end": 5.569,
+            "rms_to_phrase_median": 0.0819,
+            "unexpected_silence_fraction": 0.6667,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_onset_7",
+            "voicing": "unvoiced_consonant",
+            "start": 6.188,
+            "end": 6.247,
+            "rms_to_phrase_median": 0.0522,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_coda_23",
+            "voicing": "unvoiced_consonant",
+            "start": 6.746,
+            "end": 6.806,
+            "rms_to_phrase_median": 0.3145,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 0.6667,
+            "voicing_match": 0.3333
+          },
+          {
+            "phoneme": "ko_onset_4",
+            "voicing": "unvoiced_consonant",
+            "start": 7.425,
+            "end": 7.485,
+            "rms_to_phrase_median": 0.5058,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 0.6667,
+            "voicing_match": 0.3333
+          },
+          {
+            "phoneme": "ko_onset_0",
+            "voicing": "unvoiced_consonant",
+            "start": 9.082,
+            "end": 9.142,
+            "rms_to_phrase_median": 1.1527,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          }
+        ]
+      },
+      "asr_transcript": " 하늘을 향해 노래해 작은 빛을 따라가",
+      "asr_lyric_similarity": 1.0
+    },
+    {
+      "variant": "warp_0.1",
+      "strength": 0.1,
+      "path": "artifacts/reports/rc8_ko_timing_sweep/listening/ko_neutral_warp_0.1.wav",
+      "peak": 0.573634,
+      "rms": 0.128952,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.000576,
+      "hf_energy_ratio_p95": 0.001329,
+      "hf_spike_p99_over_median": 61.011,
+      "spectral_flatness_mean": 5.5e-05,
+      "spectral_flux_p95": 0.219558,
+      "spectral_flux_max": 0.498268,
+      "sample_jump_p999": 0.085936,
+      "observed_voiced_ratio": 0.9496,
+      "target_voiced_ratio": 0.9415,
+      "voicing_accuracy": 0.9355,
+      "pitch_mae_cents": 8.17,
+      "phones": {
+        "timeline_source": "score_timed_frontend_inferred",
+        "phone_count": 34,
+        "weak_phone_count": 9,
+        "voicing_mismatch_count": 7,
+        "weak_phones": [
+          {
+            "phoneme": "ko_onset_18",
+            "voicing": "unvoiced_consonant",
+            "start": 0.0,
+            "end": 0.06,
+            "rms_to_phrase_median": 0.0075,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 0.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ko_nucleus_0",
+            "voicing": "vowel",
+            "start": 0.06,
+            "end": 0.778,
+            "rms_to_phrase_median": 0.0785,
+            "unexpected_silence_fraction": 0.8333,
+            "voiced_fraction": 0.9444,
+            "voicing_match": 0.9444
+          },
+          {
+            "phoneme": "ko_onset_2",
+            "voicing": "voiced_consonant",
+            "start": 3.493,
+            "end": 3.553,
+            "rms_to_phrase_median": 0.1591,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ko_nucleus_8",
+            "voicing": "vowel",
+            "start": 3.553,
+            "end": 3.992,
+            "rms_to_phrase_median": 0.146,
+            "unexpected_silence_fraction": 0.4545,
+            "voiced_fraction": 1.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ko_onset_12",
+            "voicing": "unvoiced_consonant",
+            "start": 4.95,
+            "end": 5.01,
+            "rms_to_phrase_median": 0.1607,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 0.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ko_coda_1",
+            "voicing": "unvoiced_consonant",
+            "start": 5.509,
+            "end": 5.569,
+            "rms_to_phrase_median": 0.0788,
+            "unexpected_silence_fraction": 0.6667,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_coda_4",
+            "voicing": "voiced_consonant",
+            "start": 6.128,
+            "end": 6.188,
+            "rms_to_phrase_median": 0.0976,
+            "unexpected_silence_fraction": 0.6667,
+            "voiced_fraction": 1.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ko_onset_7",
+            "voicing": "unvoiced_consonant",
+            "start": 6.188,
+            "end": 6.247,
+            "rms_to_phrase_median": 0.0542,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_coda_8",
+            "voicing": "voiced_consonant",
+            "start": 7.365,
+            "end": 7.425,
+            "rms_to_phrase_median": 0.108,
+            "unexpected_silence_fraction": 0.3333,
+            "voiced_fraction": 1.0,
+            "voicing_match": 1.0
+          }
+        ],
+        "voicing_mismatches": [
+          {
+            "phoneme": "ko_coda_8",
+            "voicing": "voiced_consonant",
+            "start": 2.415,
+            "end": 2.475,
+            "rms_to_phrase_median": 0.9097,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 0.3333,
+            "voicing_match": 0.3333
+          },
+          {
+            "phoneme": "ko_onset_18",
+            "voicing": "unvoiced_consonant",
+            "start": 3.014,
+            "end": 3.074,
+            "rms_to_phrase_median": 1.1939,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_onset_18",
+            "voicing": "unvoiced_consonant",
+            "start": 4.471,
+            "end": 4.531,
+            "rms_to_phrase_median": 1.3558,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_coda_1",
+            "voicing": "unvoiced_consonant",
+            "start": 5.509,
+            "end": 5.569,
+            "rms_to_phrase_median": 0.0788,
+            "unexpected_silence_fraction": 0.6667,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_onset_7",
+            "voicing": "unvoiced_consonant",
+            "start": 6.188,
+            "end": 6.247,
+            "rms_to_phrase_median": 0.0542,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_coda_23",
+            "voicing": "unvoiced_consonant",
+            "start": 6.746,
+            "end": 6.806,
+            "rms_to_phrase_median": 0.3374,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_onset_4",
+            "voicing": "unvoiced_consonant",
+            "start": 7.425,
+            "end": 7.485,
+            "rms_to_phrase_median": 0.5296,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          }
+        ]
+      },
+      "asr_transcript": " 하늘을 향해 노래해 작은 빛을 따라가",
+      "asr_lyric_similarity": 1.0
+    },
+    {
+      "variant": "warp_0.25",
+      "strength": 0.25,
+      "path": "artifacts/reports/rc8_ko_timing_sweep/listening/ko_neutral_warp_0.25.wav",
+      "peak": 0.565936,
+      "rms": 0.130502,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.000318,
+      "hf_energy_ratio_p95": 0.000853,
+      "hf_spike_p99_over_median": 35.7707,
+      "spectral_flatness_mean": 4.1e-05,
+      "spectral_flux_p95": 0.204516,
+      "spectral_flux_max": 0.518968,
+      "sample_jump_p999": 0.081122,
+      "observed_voiced_ratio": 0.9758,
+      "target_voiced_ratio": 0.9415,
+      "voicing_accuracy": 0.9456,
+      "pitch_mae_cents": 7.63,
+      "phones": {
+        "timeline_source": "score_timed_frontend_inferred",
+        "phone_count": 34,
+        "weak_phone_count": 8,
+        "voicing_mismatch_count": 6,
+        "weak_phones": [
+          {
+            "phoneme": "ko_onset_18",
+            "voicing": "unvoiced_consonant",
+            "start": 0.0,
+            "end": 0.06,
+            "rms_to_phrase_median": 0.0088,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 0.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ko_onset_2",
+            "voicing": "voiced_consonant",
+            "start": 3.493,
+            "end": 3.553,
+            "rms_to_phrase_median": 0.1716,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ko_nucleus_8",
+            "voicing": "vowel",
+            "start": 3.553,
+            "end": 3.992,
+            "rms_to_phrase_median": 0.2237,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ko_onset_12",
+            "voicing": "unvoiced_consonant",
+            "start": 4.95,
+            "end": 5.01,
+            "rms_to_phrase_median": 0.1527,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 0.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ko_coda_1",
+            "voicing": "unvoiced_consonant",
+            "start": 5.509,
+            "end": 5.569,
+            "rms_to_phrase_median": 0.0638,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_coda_4",
+            "voicing": "voiced_consonant",
+            "start": 6.128,
+            "end": 6.188,
+            "rms_to_phrase_median": 0.1229,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ko_onset_7",
+            "voicing": "unvoiced_consonant",
+            "start": 6.188,
+            "end": 6.247,
+            "rms_to_phrase_median": 0.0559,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_coda_23",
+            "voicing": "unvoiced_consonant",
+            "start": 6.746,
+            "end": 6.806,
+            "rms_to_phrase_median": 0.2074,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 0.6667,
+            "voicing_match": 0.3333
+          }
+        ],
+        "voicing_mismatches": [
+          {
+            "phoneme": "ko_onset_18",
+            "voicing": "unvoiced_consonant",
+            "start": 3.014,
+            "end": 3.074,
+            "rms_to_phrase_median": 1.3174,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_onset_18",
+            "voicing": "unvoiced_consonant",
+            "start": 4.471,
+            "end": 4.531,
+            "rms_to_phrase_median": 1.2167,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_coda_1",
+            "voicing": "unvoiced_consonant",
+            "start": 5.509,
+            "end": 5.569,
+            "rms_to_phrase_median": 0.0638,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_onset_7",
+            "voicing": "unvoiced_consonant",
+            "start": 6.188,
+            "end": 6.247,
+            "rms_to_phrase_median": 0.0559,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_coda_23",
+            "voicing": "unvoiced_consonant",
+            "start": 6.746,
+            "end": 6.806,
+            "rms_to_phrase_median": 0.2074,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 0.6667,
+            "voicing_match": 0.3333
+          },
+          {
+            "phoneme": "ko_onset_4",
+            "voicing": "unvoiced_consonant",
+            "start": 7.425,
+            "end": 7.485,
+            "rms_to_phrase_median": 0.5804,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          }
+        ]
+      },
+      "asr_transcript": " 하늘을 향해 노래하자 그 빛을 따라가",
+      "asr_lyric_similarity": 0.8
+    },
+    {
+      "variant": "warp_0.5",
+      "strength": 0.5,
+      "path": "artifacts/reports/rc8_ko_timing_sweep/listening/ko_neutral_warp_0.5.wav",
+      "peak": 0.560917,
+      "rms": 0.130895,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.000292,
+      "hf_energy_ratio_p95": 0.000799,
+      "hf_spike_p99_over_median": 27.0974,
+      "spectral_flatness_mean": 4.3e-05,
+      "spectral_flux_p95": 0.213062,
+      "spectral_flux_max": 0.541837,
+      "sample_jump_p999": 0.077719,
+      "observed_voiced_ratio": 0.9758,
+      "target_voiced_ratio": 0.9415,
+      "voicing_accuracy": 0.9456,
+      "pitch_mae_cents": 8.32,
+      "phones": {
+        "timeline_source": "score_timed_frontend_inferred",
+        "phone_count": 34,
+        "weak_phone_count": 6,
+        "voicing_mismatch_count": 6,
+        "weak_phones": [
+          {
+            "phoneme": "ko_onset_18",
+            "voicing": "unvoiced_consonant",
+            "start": 0.0,
+            "end": 0.06,
+            "rms_to_phrase_median": 0.0155,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 0.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ko_onset_12",
+            "voicing": "unvoiced_consonant",
+            "start": 4.95,
+            "end": 5.01,
+            "rms_to_phrase_median": 0.2105,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 0.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ko_coda_1",
+            "voicing": "unvoiced_consonant",
+            "start": 5.509,
+            "end": 5.569,
+            "rms_to_phrase_median": 0.029,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_coda_4",
+            "voicing": "voiced_consonant",
+            "start": 6.128,
+            "end": 6.188,
+            "rms_to_phrase_median": 0.1854,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ko_onset_7",
+            "voicing": "unvoiced_consonant",
+            "start": 6.188,
+            "end": 6.247,
+            "rms_to_phrase_median": 0.077,
+            "unexpected_silence_fraction": 0.6667,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_coda_23",
+            "voicing": "unvoiced_consonant",
+            "start": 6.746,
+            "end": 6.806,
+            "rms_to_phrase_median": 0.0553,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 0.6667,
+            "voicing_match": 0.3333
+          }
+        ],
+        "voicing_mismatches": [
+          {
+            "phoneme": "ko_onset_18",
+            "voicing": "unvoiced_consonant",
+            "start": 3.014,
+            "end": 3.074,
+            "rms_to_phrase_median": 1.1608,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 0.6667,
+            "voicing_match": 0.3333
+          },
+          {
+            "phoneme": "ko_onset_18",
+            "voicing": "unvoiced_consonant",
+            "start": 4.471,
+            "end": 4.531,
+            "rms_to_phrase_median": 0.9682,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 0.6667,
+            "voicing_match": 0.3333
+          },
+          {
+            "phoneme": "ko_coda_1",
+            "voicing": "unvoiced_consonant",
+            "start": 5.509,
+            "end": 5.569,
+            "rms_to_phrase_median": 0.029,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_onset_7",
+            "voicing": "unvoiced_consonant",
+            "start": 6.188,
+            "end": 6.247,
+            "rms_to_phrase_median": 0.077,
+            "unexpected_silence_fraction": 0.6667,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_coda_23",
+            "voicing": "unvoiced_consonant",
+            "start": 6.746,
+            "end": 6.806,
+            "rms_to_phrase_median": 0.0553,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 0.6667,
+            "voicing_match": 0.3333
+          },
+          {
+            "phoneme": "ko_onset_4",
+            "voicing": "unvoiced_consonant",
+            "start": 7.425,
+            "end": 7.485,
+            "rms_to_phrase_median": 0.7023,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 0.6667,
+            "voicing_match": 0.3333
+          }
+        ]
+      },
+      "asr_transcript": " 아",
+      "asr_lyric_similarity": 0.0
+    },
+    {
+      "variant": "actual_warp_0.05",
+      "strength": null,
+      "path": "artifacts/reports/rc8_ko_warp_005/listening/ko_neutral.wav",
+      "peak": 0.590128,
+      "rms": 0.11057,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.000812,
+      "hf_energy_ratio_p95": 0.001674,
+      "hf_spike_p99_over_median": 49.3774,
+      "spectral_flatness_mean": 6.8e-05,
+      "spectral_flux_p95": 0.226839,
+      "spectral_flux_max": 0.470355,
+      "sample_jump_p999": 0.075245,
+      "observed_voiced_ratio": 0.9234,
+      "target_voiced_ratio": 0.9415,
+      "voicing_accuracy": 0.9093,
+      "pitch_mae_cents": 7.69,
+      "phones": {
+        "timeline_source": "score_timed_frontend_inferred",
+        "phone_count": 34,
+        "weak_phone_count": 9,
+        "voicing_mismatch_count": 9,
+        "weak_phones": [
+          {
+            "phoneme": "ko_onset_18",
+            "voicing": "unvoiced_consonant",
+            "start": 0.0,
+            "end": 0.06,
+            "rms_to_phrase_median": 0.0084,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 0.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ko_nucleus_0",
+            "voicing": "vowel",
+            "start": 0.06,
+            "end": 0.778,
+            "rms_to_phrase_median": 0.0819,
+            "unexpected_silence_fraction": 0.8333,
+            "voiced_fraction": 0.6667,
+            "voicing_match": 0.6667
+          },
+          {
+            "phoneme": "ko_onset_2",
+            "voicing": "voiced_consonant",
+            "start": 3.493,
+            "end": 3.553,
+            "rms_to_phrase_median": 0.1627,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ko_nucleus_8",
+            "voicing": "vowel",
+            "start": 3.553,
+            "end": 3.992,
+            "rms_to_phrase_median": 0.1754,
+            "unexpected_silence_fraction": 0.3636,
+            "voiced_fraction": 1.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ko_onset_12",
+            "voicing": "unvoiced_consonant",
+            "start": 4.95,
+            "end": 5.01,
+            "rms_to_phrase_median": 0.1993,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 0.5,
+            "voicing_match": 0.5
+          },
+          {
+            "phoneme": "ko_coda_1",
+            "voicing": "unvoiced_consonant",
+            "start": 5.509,
+            "end": 5.569,
+            "rms_to_phrase_median": 0.0937,
+            "unexpected_silence_fraction": 0.6667,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_coda_4",
+            "voicing": "voiced_consonant",
+            "start": 6.128,
+            "end": 6.188,
+            "rms_to_phrase_median": 0.1091,
+            "unexpected_silence_fraction": 0.6667,
+            "voiced_fraction": 1.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ko_onset_7",
+            "voicing": "unvoiced_consonant",
+            "start": 6.188,
+            "end": 6.247,
+            "rms_to_phrase_median": 0.0616,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_coda_8",
+            "voicing": "voiced_consonant",
+            "start": 7.365,
+            "end": 7.425,
+            "rms_to_phrase_median": 0.1108,
+            "unexpected_silence_fraction": 0.3333,
+            "voiced_fraction": 1.0,
+            "voicing_match": 1.0
+          }
+        ],
+        "voicing_mismatches": [
+          {
+            "phoneme": "ko_onset_2",
+            "voicing": "voiced_consonant",
+            "start": 0.778,
+            "end": 0.838,
+            "rms_to_phrase_median": 0.2689,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 0.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_coda_8",
+            "voicing": "voiced_consonant",
+            "start": 2.415,
+            "end": 2.475,
+            "rms_to_phrase_median": 1.1495,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 0.3333,
+            "voicing_match": 0.3333
+          },
+          {
+            "phoneme": "ko_onset_18",
+            "voicing": "unvoiced_consonant",
+            "start": 3.014,
+            "end": 3.074,
+            "rms_to_phrase_median": 1.4769,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_onset_18",
+            "voicing": "unvoiced_consonant",
+            "start": 4.471,
+            "end": 4.531,
+            "rms_to_phrase_median": 1.6196,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_coda_1",
+            "voicing": "unvoiced_consonant",
+            "start": 5.509,
+            "end": 5.569,
+            "rms_to_phrase_median": 0.0937,
+            "unexpected_silence_fraction": 0.6667,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_onset_7",
+            "voicing": "unvoiced_consonant",
+            "start": 6.188,
+            "end": 6.247,
+            "rms_to_phrase_median": 0.0616,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_coda_23",
+            "voicing": "unvoiced_consonant",
+            "start": 6.746,
+            "end": 6.806,
+            "rms_to_phrase_median": 0.4007,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ko_onset_4",
+            "voicing": "unvoiced_consonant",
+            "start": 7.425,
+            "end": 7.485,
+            "rms_to_phrase_median": 0.5909,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 0.6667,
+            "voicing_match": 0.3333
+          },
+          {
+            "phoneme": "ko_onset_0",
+            "voicing": "unvoiced_consonant",
+            "start": 9.082,
+            "end": 9.142,
+            "rms_to_phrase_median": 1.2338,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          }
+        ]
+      },
+      "asr_transcript": " 하늘을 향해 노래해 작은 빛을 따라가",
+      "asr_lyric_similarity": 1.0
+    }
+  ]
+}

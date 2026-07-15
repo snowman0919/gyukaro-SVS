@@ -1,0 +1,27 @@
+{
+  "status": "objective_and_human_evaluation_pending",
+  "decoder": {
+    "steps": 50,
+    "cfg": 2.0,
+    "seed": 21
+  },
+  "source": "artifacts/reports/rc5_large_interval_decode/s50_c2_seed21.wav",
+  "waveform_refiner_strength": 0.25,
+  "rows": [
+    {
+      "strength": 0.0,
+      "path": "artifacts/reports/rc8_interval_candidate/listening/large_interval_s50_spectral_0.wav",
+      "sha256": "9eca54e4752e1b26e8de833f426a938baeb86e92ad239ec3310eeda700d6657a"
+    },
+    {
+      "strength": 0.25,
+      "path": "artifacts/reports/rc8_interval_candidate/listening/large_interval_s50_spectral_0.25.wav",
+      "sha256": "6eee27bd88b1380a0e353b8e806112be3453dc26fe629846e3b4798d3830c57f"
+    },
+    {
+      "strength": 0.5,
+      "path": "artifacts/reports/rc8_interval_candidate/listening/large_interval_s50_spectral_0.5.wav",
+      "sha256": "076402f1f3420e7ca0d0359c3cdfdf72f806f2a20671728098585ce484b4ae26"
+    }
+  ]
+}

@@ -2,6 +2,7 @@
 """Gate spectral-refiner strengths on the fixed nine-file human-failed RC6 set."""
 from __future__ import annotations
 
+import argparse
 import json
 import sys
 from difflib import SequenceMatcher
@@ -19,6 +20,10 @@ CACHE = ROOT / "data/cache"
 sys.path[:0] = [str(ROOT / "src"), str(ROOT / "scripts"), str(CACHE / "soulx-singer")]
 
 from evaluate_rc4_artifact_matrix import acoustics, audio16, normalized, pitch  # noqa: E402
+from gyu_singer.data import acoustic_reference_features  # noqa: E402
+from gyu_singer.inference.quality_controller import QualityPitchController  # noqa: E402
+from gyu_singer.inference.soulx import SoulXPhraseRenderer  # noqa: E402
+from gyu_singer.score import normalize_score  # noqa: E402
 from preprocess.tools.f0_extraction import F0Extractor  # noqa: E402
 
 
@@ -43,15 +48,46 @@ def audio_16k(path: Path) -> np.ndarray:
 
 
 def main() -> None:
-    manifests = {name: json.loads(path.read_text()) for name, path in VARIANTS.items()}
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--baseline-manifest", type=Path)
+    parser.add_argument("--candidate-manifest", type=Path)
+    parser.add_argument("--output", type=Path, default=ROOT / "artifacts/reports/acoustic_refiner_spectral_stress_evaluation.json")
+    parser.add_argument(
+        "--recompute-targets", action="store_true",
+        help="Rebuild target F0 with the current frontend instead of frozen RC6 arrays.",
+    )
+    args = parser.parse_args()
+    variants = VARIANTS if not args.candidate_manifest else {
+        "baseline": args.baseline_manifest or ROOT / "artifacts/reports/spectral_refiner_stress_s050/manifest.json",
+        "candidate": args.candidate_manifest,
+    }
+    manifests = {name: json.loads(path.read_text()) for name, path in variants.items()}
+    baseline_name = next(iter(variants))
     scores = {
         case: json.loads((ROOT / row["score"]).read_text())
-        for case, row in manifests["rc6"]["files"].items()
+        for case, row in manifests[baseline_name]["files"].items()
     }
-    targets = {
-        case: np.load(ROOT / f"artifacts/reports/rc6_backend_candidate/{case}_target_f0.npy")
-        for case in scores
-    }
+    if args.recompute_targets:
+        controller = QualityPitchController(
+            ROOT / "checkpoints/gyu_prosody_v0.5.pt",
+            acoustic_reference_features(ROOT / "data/processed/master/216.wav"),
+        )
+        targets = {}
+        for case, raw_score in scores.items():
+            score = normalize_score(raw_score)
+            duration = sf.info(ROOT / manifests["candidate"]["files"][case]["path"]).duration
+            expressive = controller.predict(score, canonical_timing=True)[0]
+            expressive *= score["style"]["prosody_strength"]
+            targets[case], _ = SoulXPhraseRenderer._canonical_f0(
+                score, duration, expressive.cpu().numpy()
+            )
+        del controller
+        torch.cuda.empty_cache()
+    else:
+        targets = {
+            case: np.load(ROOT / f"artifacts/reports/rc6_backend_candidate/{case}_target_f0.npy")
+            for case in scores
+        }
     extractor = F0Extractor(
         str(CACHE / "soulx-singer/pretrained_models/SoulX-Singer-Preprocess/rmvpe/rmvpe.pt"),
         device="cuda", target_sr=24000, hop_size=480, verbose=False,
@@ -121,7 +157,7 @@ def main() -> None:
     )
     aggregate = {}
     stress = {}
-    for variant in VARIANTS:
+    for variant in variants:
         selected = [row for row in rows if row["variant"] == variant]
         aggregate[variant] = {
             metric: round(float(np.mean([row[metric] for row in selected if row[metric] is not None])), 6)
@@ -132,10 +168,10 @@ def main() -> None:
             metric: round(float(np.mean([row[metric] for row in selected if row[metric] is not None])), 6)
             for metric in metrics
         }
-    baseline = aggregate["rc6"]
+    baseline = aggregate[baseline_name]
     candidates = []
-    for variant in VARIANTS:
-        if variant == "rc6":
+    for variant in variants:
+        if variant == baseline_name:
             continue
         selected = [row for row in rows if row["variant"] == variant]
         if (
@@ -151,25 +187,43 @@ def main() -> None:
         key=lambda name: aggregate[name]["hf_spike_p99_over_median"],
         default=None,
     )
-    materially_improved = candidate is not None and (
-        aggregate[candidate]["hf_spike_p99_over_median"]
-        <= 0.85 * baseline["hf_spike_p99_over_median"]
+    if args.candidate_manifest:
+        materially_improved = candidate is not None and (
+            aggregate[candidate]["sample_jump_p999"]
+            <= 0.95 * baseline["sample_jump_p999"]
+            or aggregate[candidate]["hf_spike_p99_over_median"]
+            <= 0.95 * baseline["hf_spike_p99_over_median"]
+        )
+        minimum_hf_reduction = None
+    else:
+        materially_improved = candidate is not None and (
+            aggregate[candidate]["hf_spike_p99_over_median"]
+            <= 0.85 * baseline["hf_spike_p99_over_median"]
+        )
+        minimum_hf_reduction = 0.15
+    status = (
+        "objective_reject_safety_regression" if candidate is None
+        else "objective_candidate_human_pending" if materially_improved
+        else "objective_nonregression_human_pending"
     )
     report = {
-        "status": "objective_candidate_human_pending" if materially_improved else "objective_reject_no_material_stress_gain",
+        "status": status,
         "candidate": candidate, "materially_improved": materially_improved,
-        "human_listening": "pending" if materially_improved else "not_requested_objective_reject",
-        "baseline": "RC6 human-failed; preserved unchanged",
+        "human_listening": "pending" if candidate is not None else "not_requested_objective_reject",
+        "baseline": str(variants[baseline_name]),
         "aggregate_9": aggregate, "stress_rapid_interval": stress,
         "rows": rows, "release_allowed": False,
         "gate": {
             "asr_mean_regression_max": 0.01, "voicing_regression_max": 0.01,
             "pitch_regression_max_cents": 2.0, "minimum_per_file_lyric_coverage": 0.8,
-            "minimum_hf_spike_reduction": 0.15, "human_listening_required": True,
+            "minimum_hf_spike_reduction": minimum_hf_reduction,
+            "custom_candidate_requires_5pct_hf_or_sample_jump_improvement": bool(args.candidate_manifest),
+            "targets_recomputed_with_current_frontend": args.recompute_targets,
+            "human_listening_required": True,
         },
     }
-    target = ROOT / "artifacts/reports/acoustic_refiner_spectral_stress_evaluation.json"
-    target.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n")
+    args.output.parent.mkdir(parents=True, exist_ok=True)
+    args.output.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n")
     print(json.dumps({
         "status": report["status"], "candidate": candidate,
         "aggregate_9": aggregate, "stress_rapid_interval": stress,

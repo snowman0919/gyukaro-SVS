@@ -1,0 +1,197 @@
+{
+  "status": "objective_evaluation_pending",
+  "frozen_rc7_generation_policy": true,
+  "coverage": {
+    "registers": [
+      "low",
+      "mid",
+      "high"
+    ],
+    "dynamics": [
+      "soft",
+      "neutral",
+      "energetic"
+    ],
+    "vibrato": [
+      false,
+      true
+    ]
+  },
+  "spectral_strengths": [
+    0,
+    0.25,
+    0.5,
+    1
+  ],
+  "render_seconds": 101.97,
+  "rows": [
+    {
+      "case": "low_soft_straight",
+      "score": "artifacts/reports/rc8_sustained_set/scores/low_soft_straight.json",
+      "spectral_strength": 0.0,
+      "path": "artifacts/reports/rc8_sustained_set/listening/low_soft_straight_spectral_0.wav",
+      "sha256": "bba9ffe64d15878d2c81aea801179734b1f44359601b81cc23f0a6bb6c7179f9"
+    },
+    {
+      "case": "low_soft_straight",
+      "score": "artifacts/reports/rc8_sustained_set/scores/low_soft_straight.json",
+      "spectral_strength": 0.25,
+      "path": "artifacts/reports/rc8_sustained_set/listening/low_soft_straight_spectral_0.25.wav",
+      "sha256": "9b966f57920cf5db30b677cffa7c5ff3074d94bb50631ad48cfbe0227961fd81"
+    },
+    {
+      "case": "low_soft_straight",
+      "score": "artifacts/reports/rc8_sustained_set/scores/low_soft_straight.json",
+      "spectral_strength": 0.5,
+      "path": "artifacts/reports/rc8_sustained_set/listening/low_soft_straight_spectral_0.5.wav",
+      "sha256": "228586a1192e897634b31bf3340926fb425902fb2da1b6499aa65ae873aaeb13"
+    },
+    {
+      "case": "low_soft_straight",
+      "score": "artifacts/reports/rc8_sustained_set/scores/low_soft_straight.json",
+      "spectral_strength": 1.0,
+      "path": "artifacts/reports/rc8_sustained_set/listening/low_soft_straight_spectral_1.wav",
+      "sha256": "c1453674a1a9b05c9cd32e20154a0b8dfb4cc0b91dccbbe1e6eee465f9c0dd76"
+    },
+    {
+      "case": "mid_neutral_straight",
+      "score": "artifacts/reports/rc8_sustained_set/scores/mid_neutral_straight.json",
+      "spectral_strength": 0.0,
+      "path": "artifacts/reports/rc8_sustained_set/listening/mid_neutral_straight_spectral_0.wav",
+      "sha256": "8892f3d7b80570ec633c4238d4491eb8a1d8d7ff53e03e36ce447eea8b72adec"
+    },
+    {
+      "case": "mid_neutral_straight",
+      "score": "artifacts/reports/rc8_sustained_set/scores/mid_neutral_straight.json",
+      "spectral_strength": 0.25,
+      "path": "artifacts/reports/rc8_sustained_set/listening/mid_neutral_straight_spectral_0.25.wav",
+      "sha256": "24be0f587ce71aceefa8c1e25bd2491259a63b015c6eb263c400c72c64a9202a"
+    },
+    {
+      "case": "mid_neutral_straight",
+      "score": "artifacts/reports/rc8_sustained_set/scores/mid_neutral_straight.json",
+      "spectral_strength": 0.5,
+      "path": "artifacts/reports/rc8_sustained_set/listening/mid_neutral_straight_spectral_0.5.wav",
+      "sha256": "d0215661a98e4f331be35d71adc1589c6debf0b4bb55b6c1ba6433a7c4450e6f"
+    },
+    {
+      "case": "mid_neutral_straight",
+      "score": "artifacts/reports/rc8_sustained_set/scores/mid_neutral_straight.json",
+      "spectral_strength": 1.0,
+      "path": "artifacts/reports/rc8_sustained_set/listening/mid_neutral_straight_spectral_1.wav",
+      "sha256": "ce23e447c925d2d4a4f2637ed5bbf9df63d5c94c1f1f6f7cd229429c0de467dd"
+    },
+    {
+      "case": "high_energetic_straight",
+      "score": "artifacts/reports/rc8_sustained_set/scores/high_energetic_straight.json",
+      "spectral_strength": 0.0,
+      "path": "artifacts/reports/rc8_sustained_set/listening/high_energetic_straight_spectral_0.wav",
+      "sha256": "cd80e0fea0cdb31a3ade6ebda10fde6b34dfb55cd0decf34fa1f6d90a2f9e90a"
+    },
+    {
+      "case": "high_energetic_straight",
+      "score": "artifacts/reports/rc8_sustained_set/scores/high_energetic_straight.json",
+      "spectral_strength": 0.25,
+      "path": "artifacts/reports/rc8_sustained_set/listening/high_energetic_straight_spectral_0.25.wav",
+      "sha256": "e8944bef3955c7d0163f96702b4901292000132da4b4aed2e858cf69b6b4f5f7"
+    },
+    {
+      "case": "high_energetic_straight",
+      "score": "artifacts/reports/rc8_sustained_set/scores/high_energetic_straight.json",
+      "spectral_strength": 0.5,
+      "path": "artifacts/reports/rc8_sustained_set/listening/high_energetic_straight_spectral_0.5.wav",
+      "sha256": "45d466f4f5b6f8ee316e747bcd588063688268ade2474167bb1ff5f1984bccde"
+    },
+    {
+      "case": "high_energetic_straight",
+      "score": "artifacts/reports/rc8_sustained_set/scores/high_energetic_straight.json",
+      "spectral_strength": 1.0,
+      "path": "artifacts/reports/rc8_sustained_set/listening/high_energetic_straight_spectral_1.wav",
+      "sha256": "80359aeb36ec801e48261878f2d111bf1dc9f04d4e25afc569a59d2cdaace244"
+    },
+    {
+      "case": "low_neutral_vibrato",
+      "score": "artifacts/reports/rc8_sustained_set/scores/low_neutral_vibrato.json",
+      "spectral_strength": 0.0,
+      "path": "artifacts/reports/rc8_sustained_set/listening/low_neutral_vibrato_spectral_0.wav",
+      "sha256": "1cfe9fe770c16e4484b18729f5980a6118292b3fa324623d16dfc052eed95a66"
+    },
+    {
+      "case": "low_neutral_vibrato",
+      "score": "artifacts/reports/rc8_sustained_set/scores/low_neutral_vibrato.json",
+      "spectral_strength": 0.25,
+      "path": "artifacts/reports/rc8_sustained_set/listening/low_neutral_vibrato_spectral_0.25.wav",
+      "sha256": "d07dff8563485b72f101182d3223ec72e049318ffd866b45c4de6335735d583e"
+    },
+    {
+      "case": "low_neutral_vibrato",
+      "score": "artifacts/reports/rc8_sustained_set/scores/low_neutral_vibrato.json",
+      "spectral_strength": 0.5,
+      "path": "artifacts/reports/rc8_sustained_set/listening/low_neutral_vibrato_spectral_0.5.wav",
+      "sha256": "6d304ab9056407e99f25d0f032f080ae3390aa76b41cb928aa11a1d9e0295314"
+    },
+    {
+      "case": "low_neutral_vibrato",
+      "score": "artifacts/reports/rc8_sustained_set/scores/low_neutral_vibrato.json",
+      "spectral_strength": 1.0,
+      "path": "artifacts/reports/rc8_sustained_set/listening/low_neutral_vibrato_spectral_1.wav",
+      "sha256": "38029fcc4c2e722f92c54cc4988bf91efe92592cef5df3f33d929187ad335c55"
+    },
+    {
+      "case": "mid_soft_vibrato",
+      "score": "artifacts/reports/rc8_sustained_set/scores/mid_soft_vibrato.json",
+      "spectral_strength": 0.0,
+      "path": "artifacts/reports/rc8_sustained_set/listening/mid_soft_vibrato_spectral_0.wav",
+      "sha256": "17172de18bf82da0ec957b0e24b74e9bd85eca9b1a2bdaa27c30e5f032231a6f"
+    },
+    {
+      "case": "mid_soft_vibrato",
+      "score": "artifacts/reports/rc8_sustained_set/scores/mid_soft_vibrato.json",
+      "spectral_strength": 0.25,
+      "path": "artifacts/reports/rc8_sustained_set/listening/mid_soft_vibrato_spectral_0.25.wav",
+      "sha256": "5e253c0d3753ebe5d1fdf8c183500a8d54b5b1544e566d5dadfd2d9ad4eb4a17"
+    },
+    {
+      "case": "mid_soft_vibrato",
+      "score": "artifacts/reports/rc8_sustained_set/scores/mid_soft_vibrato.json",
+      "spectral_strength": 0.5,
+      "path": "artifacts/reports/rc8_sustained_set/listening/mid_soft_vibrato_spectral_0.5.wav",
+      "sha256": "107fbd4b085bd714d6ea0e27b2b4cfe53a6a4899c829bc18da0128bbac9ad2a0"
+    },
+    {
+      "case": "mid_soft_vibrato",
+      "score": "artifacts/reports/rc8_sustained_set/scores/mid_soft_vibrato.json",
+      "spectral_strength": 1.0,
+      "path": "artifacts/reports/rc8_sustained_set/listening/mid_soft_vibrato_spectral_1.wav",
+      "sha256": "51c666b49d7fd438b91ccdc0d252caab3a6d671a2ef3d70d2bc817a7700d06e0"
+    },
+    {
+      "case": "high_energetic_vibrato",
+      "score": "artifacts/reports/rc8_sustained_set/scores/high_energetic_vibrato.json",
+      "spectral_strength": 0.0,
+      "path": "artifacts/reports/rc8_sustained_set/listening/high_energetic_vibrato_spectral_0.wav",
+      "sha256": "c871f452727148de7944c05559ab0777e2e3e9bd1e7c02f59e79b4e84ac785f3"
+    },
+    {
+      "case": "high_energetic_vibrato",
+      "score": "artifacts/reports/rc8_sustained_set/scores/high_energetic_vibrato.json",
+      "spectral_strength": 0.25,
+      "path": "artifacts/reports/rc8_sustained_set/listening/high_energetic_vibrato_spectral_0.25.wav",
+      "sha256": "938ea25485122e5df40856076cd1104b851e9f40dab454823061624c24dc3dc4"
+    },
+    {
+      "case": "high_energetic_vibrato",
+      "score": "artifacts/reports/rc8_sustained_set/scores/high_energetic_vibrato.json",
+      "spectral_strength": 0.5,
+      "path": "artifacts/reports/rc8_sustained_set/listening/high_energetic_vibrato_spectral_0.5.wav",
+      "sha256": "7655bcd53dca4f5ca9d336cc9afbef650b3bfed86b7b0775b6ffd1e471b18c59"
+    },
+    {
+      "case": "high_energetic_vibrato",
+      "score": "artifacts/reports/rc8_sustained_set/scores/high_energetic_vibrato.json",
+      "spectral_strength": 1.0,
+      "path": "artifacts/reports/rc8_sustained_set/listening/high_energetic_vibrato_spectral_1.wav",
+      "sha256": "c78474eb1d8c85b9309b0165ddfadfc708dd909d23860da8e228262b2ec87c50"
+    }
+  ]
+}

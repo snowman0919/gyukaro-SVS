@@ -18,42 +18,8 @@ sys.path[:0] = [str(ROOT / "src"), str(ROOT / "scripts")]
 from evaluate_acoustic_refiner_pairs import audio48, target_metrics  # noqa: E402
 from evaluate_rc4_artifact_matrix import acoustics  # noqa: E402
 from gyu_singer.inference.acoustic_refiner import AcousticRefinerRuntime  # noqa: E402
-from gyu_singer.model import SpectralAcousticRefiner  # noqa: E402
+from gyu_singer.inference.spectral_refiner import SpectralRefinerRuntime as SpectralRuntime  # noqa: E402
 from train_spectral_refiner import alignment  # noqa: E402
-
-
-class SpectralRuntime:
-    def __init__(self, path: Path):
-        saved = torch.load(path, map_location="cpu", weights_only=False)
-        self.mode = saved["stage"]
-        self.model = SpectralAcousticRefiner(**saved["model_config"])
-        self.model.load_state_dict(saved["model"])
-        self.device = "cuda" if torch.cuda.is_available() else "cpu"
-        self.model.to(self.device).eval()
-
-    def process(self, audio: np.ndarray, chunk: int = 192000, overlap: int = 4096) -> np.ndarray:
-        if len(audio) <= chunk:
-            with torch.inference_mode():
-                return self.model(torch.from_numpy(audio)[None].to(self.device), self.mode)[0].cpu().numpy()
-        step = chunk - overlap
-        output, weights = np.zeros_like(audio), np.zeros_like(audio)
-        for start in range(0, len(audio), step):
-            end = min(len(audio), start + chunk)
-            with torch.inference_mode():
-                value = self.model(
-                    torch.from_numpy(audio[start:end])[None].to(self.device), self.mode
-                )[0].cpu().numpy()
-            window = np.ones(end - start, dtype="float32")
-            fade = min(overlap, len(window) // 2)
-            if start:
-                window[:fade] = np.linspace(0, 1, fade, dtype="float32")
-            if end < len(audio):
-                window[-fade:] = np.linspace(1, 0, fade, dtype="float32")
-            output[start:end] += value * window
-            weights[start:end] += window
-            if end == len(audio):
-                break
-        return output / np.maximum(weights, 1e-6)
 
 
 def aligned(source: np.ndarray, target: np.ndarray) -> tuple[np.ndarray, np.ndarray, int]:

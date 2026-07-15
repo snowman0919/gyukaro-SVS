@@ -1,0 +1,36 @@
+{
+  "status": "objective_and_human_evaluation_pending",
+  "case": "ko_neutral",
+  "protected_rapid_path_changed": false,
+  "source_score_phone_center_offset_seconds": {
+    "median": 0.3751,
+    "p90": 0.6344,
+    "max": 0.7741
+  },
+  "rows": [
+    {
+      "strength": 0.0,
+      "path": "artifacts/reports/rc8_ko_timing_sweep/listening/ko_neutral_warp_0.wav",
+      "sha256": "3cca0d4e466096725935b187f6f74819c77fcae780574418901f0341536e889f",
+      "render_seconds": 20.715
+    },
+    {
+      "strength": 0.1,
+      "path": "artifacts/reports/rc8_ko_timing_sweep/listening/ko_neutral_warp_0.1.wav",
+      "sha256": "10891e161009a45d2b7edfeadd713aa8b2705331cf639fca621c28c9e876a0bd",
+      "render_seconds": 10.79
+    },
+    {
+      "strength": 0.25,
+      "path": "artifacts/reports/rc8_ko_timing_sweep/listening/ko_neutral_warp_0.25.wav",
+      "sha256": "10384668a978352eeaab46ce02dd1910b97c5849fba7fd02a0a81adae8404f59",
+      "render_seconds": 10.855
+    },
+    {
+      "strength": 0.5,
+      "path": "artifacts/reports/rc8_ko_timing_sweep/listening/ko_neutral_warp_0.5.wav",
+      "sha256": "3e7062ba8a6c33f26556738b366498015aca200f30621aed92e2c724fcfccea1",
+      "render_seconds": 10.911
+    }
+  ]
+}

@@ -60,7 +60,7 @@ def phoneme_voicing(symbol: str, features: list[float]) -> str:
     if symbol in _VOICED_CONSONANTS or features[7]:
         return "voiced_consonant"
     if symbol.startswith("en_"):
-        return "vowel" if symbol[3:] in {"aa", "ae", "ah", "ao", "aw", "eh", "er", "ey", "ih", "iy", "ow", "oy", "uh", "uw"} else "unvoiced_consonant"
+        return "vowel" if symbol[3:] in {"aa", "ae", "ah", "ao", "aw", "ay", "eh", "er", "ey", "ih", "iy", "ow", "oy", "uh", "uw"} else "unvoiced_consonant"
     if symbol.startswith("ja_"):
         return "vowel" if symbol[3:] in {"a", "i", "u", "e", "o"} else "unvoiced_consonant"
     return "voiced_consonant"

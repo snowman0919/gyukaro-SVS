@@ -1,0 +1,173 @@
+{
+  "status": "objective_evaluation_pending",
+  "base_strength": 0.5,
+  "stationary_strength": 1.0,
+  "minimum_stationary_seconds": 0.3,
+  "boundary_exclusion_seconds": 0.08,
+  "stress": {
+    "ko_neutral": {
+      "path": "artifacts/reports/rc8_stationary_gate/stress/listening/ko_neutral.wav",
+      "score": "examples/quality_ko.json",
+      "sha256": "149fdbb77cf886e306cbf93485e862c0e10d821c8b12f641ebbbff9e5df5c4d3",
+      "render_seconds": 21.1463,
+      "sample_rate": 48000,
+      "backend": "gyu-singer-rc6",
+      "refiner_strength": 0.5,
+      "source_rc6_path": "artifacts/reports/rc6_backend_candidate/listening/ko_neutral.wav",
+      "spectral_refiner": "checkpoints/acoustic_refiner_spectral_singing.pt",
+      "refiner_stage": "singing",
+      "safety_gain": 1.0,
+      "stationary_gate_mean": 0.7344
+    },
+    "en": {
+      "path": "artifacts/reports/rc8_stationary_gate/stress/listening/en.wav",
+      "score": "examples/quality_en.json",
+      "sha256": "6aa89bcf51d27fe42561f4359f2e0f7575a51e7f70412a4d3e4482c94f633693",
+      "render_seconds": 13.1975,
+      "sample_rate": 48000,
+      "backend": "gyu-singer-rc6",
+      "refiner_strength": 0.5,
+      "source_rc6_path": "artifacts/reports/rc6_backend_candidate/listening/en.wav",
+      "spectral_refiner": "checkpoints/acoustic_refiner_spectral_singing.pt",
+      "refiner_stage": "singing",
+      "safety_gain": 1.0,
+      "stationary_gate_mean": 0.0
+    },
+    "rapid_ko": {
+      "path": "artifacts/reports/rc8_stationary_gate/stress/listening/rapid_ko.wav",
+      "score": "examples/review_rapid_ko.json",
+      "sha256": "2774ec3eaefa19c9a024467dfcbdbcc6cde6f9f144956d27856462f4637b8380",
+      "render_seconds": 12.7241,
+      "sample_rate": 48000,
+      "backend": "gyu-singer-rc6",
+      "refiner_strength": 0.5,
+      "source_rc6_path": "artifacts/reports/rc6_backend_candidate/listening/rapid_ko.wav",
+      "spectral_refiner": "checkpoints/acoustic_refiner_spectral_singing.pt",
+      "refiner_stage": "singing",
+      "safety_gain": 1.0,
+      "stationary_gate_mean": 0.0
+    },
+    "large_interval_ko": {
+      "path": "artifacts/reports/rc8_stationary_gate/stress/listening/large_interval_ko.wav",
+      "score": "examples/review_large_interval_ko.json",
+      "sha256": "ded8b0819184581e02142640ce19d59e21ab9c20e99eed984cb19a358c4ff1d9",
+      "render_seconds": 7.8444,
+      "sample_rate": 48000,
+      "backend": "gyu-singer-rc6",
+      "refiner_strength": 0.5,
+      "source_rc6_path": "artifacts/reports/rc6_backend_candidate/listening/large_interval_ko.wav",
+      "spectral_refiner": "checkpoints/acoustic_refiner_spectral_singing.pt",
+      "refiner_stage": "singing",
+      "safety_gain": 1.0,
+      "stationary_gate_mean": 0.8544
+    },
+    "ko_breathy": {
+      "path": "artifacts/reports/rc8_stationary_gate/stress/listening/ko_breathy.wav",
+      "score": "artifacts/reports/rc5_stress_candidate/ko_breathy.json",
+      "sha256": "21b8ce491b2d036e8791ab497c163f561920a40abe6a226e2063c4db93a06b7a",
+      "render_seconds": 21.8253,
+      "sample_rate": 48000,
+      "backend": "gyu-singer-rc6",
+      "refiner_strength": 0.5,
+      "source_rc6_path": "artifacts/reports/rc6_backend_candidate/listening/ko_breathy.wav",
+      "spectral_refiner": "checkpoints/acoustic_refiner_spectral_singing.pt",
+      "refiner_stage": "singing",
+      "safety_gain": 1.0,
+      "stationary_gate_mean": 0.0
+    },
+    "ko_energetic": {
+      "path": "artifacts/reports/rc8_stationary_gate/stress/listening/ko_energetic.wav",
+      "score": "artifacts/reports/rc5_stress_candidate/ko_energetic.json",
+      "sha256": "1a12ec06243a3a109ed00be709a99debf8ef3b79654540e1ba9f18eabc46eaac",
+      "render_seconds": 21.8124,
+      "sample_rate": 48000,
+      "backend": "gyu-singer-rc6",
+      "refiner_strength": 0.5,
+      "source_rc6_path": "artifacts/reports/rc6_backend_candidate/listening/ko_energetic.wav",
+      "spectral_refiner": "checkpoints/acoustic_refiner_spectral_singing.pt",
+      "refiner_stage": "singing",
+      "safety_gain": 1.0,
+      "stationary_gate_mean": 0.7344
+    },
+    "ja": {
+      "path": "artifacts/reports/rc8_stationary_gate/stress/listening/ja.wav",
+      "score": "examples/quality_ja.json",
+      "sha256": "d283f1611cff2e48bbb4b1a38d4bbf6e638268a9581db7b05610100dd5e2a22f",
+      "render_seconds": 21.8386,
+      "sample_rate": 48000,
+      "backend": "gyu-singer-rc6",
+      "refiner_strength": 0.5,
+      "source_rc6_path": "artifacts/reports/rc6_backend_candidate/listening/ja.wav",
+      "spectral_refiner": "checkpoints/acoustic_refiner_spectral_singing.pt",
+      "refiner_stage": "singing",
+      "safety_gain": 1.0,
+      "stationary_gate_mean": 0.0
+    },
+    "sustained_ko": {
+      "path": "artifacts/reports/rc8_stationary_gate/stress/listening/sustained_ko.wav",
+      "score": "examples/review_sustain_ko.json",
+      "sha256": "76b32b89c920dddb3b7980f38ad5e6bd6d2c250b7878de82ff0292de18655acd",
+      "render_seconds": 16.8943,
+      "sample_rate": 48000,
+      "backend": "gyu-singer-rc6",
+      "refiner_strength": 0.5,
+      "source_rc6_path": "artifacts/reports/rc6_backend_candidate/listening/sustained_ko.wav",
+      "spectral_refiner": "checkpoints/acoustic_refiner_spectral_singing.pt",
+      "refiner_stage": "singing",
+      "safety_gain": 1.0,
+      "stationary_gate_mean": 0.984
+    },
+    "phrase_boundary": {
+      "path": "artifacts/reports/rc8_stationary_gate/stress/listening/phrase_boundary.wav",
+      "score": "examples/review_phrase_boundary_ko.json",
+      "sha256": "3ebfd6605241a0470089283e622000ebae61c767ada67cadfe3201f1b3555e50",
+      "render_seconds": 14.1508,
+      "sample_rate": 48000,
+      "backend": "gyu-singer-rc6",
+      "refiner_strength": 0.5,
+      "source_rc6_path": "artifacts/reports/rc6_backend_candidate/listening/phrase_boundary.wav",
+      "spectral_refiner": "checkpoints/acoustic_refiner_spectral_singing.pt",
+      "refiner_stage": "singing",
+      "safety_gain": 1.0,
+      "stationary_gate_mean": 0.6424
+    }
+  },
+  "sustained": {
+    "high_energetic_straight": {
+      "path": "artifacts/reports/rc8_stationary_gate/sustained/listening/high_energetic_straight.wav",
+      "sha256": "d813d07d8ede3e1bed1ba2388365845fd263b9edd5d85a8b1bdfd43af9739e8b",
+      "stationary_gate_mean": 0.9807,
+      "score": "artifacts/reports/rc8_sustained_set/scores/high_energetic_straight.json"
+    },
+    "high_energetic_vibrato": {
+      "path": "artifacts/reports/rc8_stationary_gate/sustained/listening/high_energetic_vibrato.wav",
+      "sha256": "2ff03d137433a986292a11f34e20d653f93fe0a135e6edb387a926bd5040886e",
+      "stationary_gate_mean": 0.9807,
+      "score": "artifacts/reports/rc8_sustained_set/scores/high_energetic_vibrato.json"
+    },
+    "low_neutral_vibrato": {
+      "path": "artifacts/reports/rc8_stationary_gate/sustained/listening/low_neutral_vibrato.wav",
+      "sha256": "ed1e5ffd4d07dad9bfe7ccfb4da082cdf6869966f04122080c5ec0897ccd4794",
+      "stationary_gate_mean": 0.9807,
+      "score": "artifacts/reports/rc8_sustained_set/scores/low_neutral_vibrato.json"
+    },
+    "low_soft_straight": {
+      "path": "artifacts/reports/rc8_stationary_gate/sustained/listening/low_soft_straight.wav",
+      "sha256": "b412a2a84219519c742345732e53f9f7215d4f37676128673beb47bb8851fca6",
+      "stationary_gate_mean": 0.9807,
+      "score": "artifacts/reports/rc8_sustained_set/scores/low_soft_straight.json"
+    },
+    "mid_neutral_straight": {
+      "path": "artifacts/reports/rc8_stationary_gate/sustained/listening/mid_neutral_straight.wav",
+      "sha256": "753431f7fa86ee40e9a8ef3e98959077a88d1866006e28e74e70fcb12f2f9e9f",
+      "stationary_gate_mean": 0.9807,
+      "score": "artifacts/reports/rc8_sustained_set/scores/mid_neutral_straight.json"
+    },
+    "mid_soft_vibrato": {
+      "path": "artifacts/reports/rc8_stationary_gate/sustained/listening/mid_soft_vibrato.wav",
+      "sha256": "a1354b0263413c9f54127013a3833e8827e98304d29424ebb950b2f9d8675bb3",
+      "stationary_gate_mean": 0.9807,
+      "score": "artifacts/reports/rc8_sustained_set/scores/mid_soft_vibrato.json"
+    }
+  }
+}

@@ -29,6 +29,7 @@ def test_trilingual_frontend_structural_features():
     unknown = phonemize("en", "thing")
     assert all(unknown.inferred) and unknown.symbols == ["en_th", "en_ih", "en_ng"]
     assert phonemize("ja", "光の向こうへ").symbols == ["ja_h", "ja_i", "ja_k", "ja_a", "ja_r", "ja_i", "ja_n", "ja_o", "ja_m", "ja_u", "ja_k", "ja_o", "ja_u", "ja_h", "ja_e"]
+    assert not any("unknown" in symbol for text in ("空へ向かい", "歌おう", "小さな光を", "追う") for symbol in phonemize("ja", text).symbols)
     assert any(row[6] for row in ja.features) and any(row[7] for row in ja.features)
     assert all(ko.word_boundaries[-1:]) and all(en.word_boundaries[-1:])
 
@@ -63,6 +64,18 @@ def test_canonical_timeline_zeros_unvoiced_phones_and_silence():
     assert torch.all(frames.f0_hz[unvoiced] == 0) and torch.all(frames.f0_hz[frames.voiced.bool()] > 0)
 
 
+def test_english_ay_diphthong_remains_voiced():
+    frames = build_phrase_frames(
+        phonemize("en", "light"),
+        [{"pitch": 60, "start": 0, "duration": 1, "lyric": "light"}],
+        frame_hz=50,
+    )
+    ay = next(row for row in frames.phoneme_durations if row["symbol"] == "en_ay")
+    region = slice(ay["start_frame"], ay["start_frame"] + ay["duration_frames"])
+    assert set(frames.voicing_classes[region]) == {"vowel"}
+    assert torch.all(frames.f0_hz[region] > 0)
+
+
 def test_openutau_phone_window_drives_inferred_frontend_split():
     notes = [{"pitch": 60, "start": 0, "duration": .6, "lyric": "하"}]
     frames = build_phrase_frames(phonemize("ko", "하"), notes, frame_hz=50, phoneme_alignment=[{"phoneme": "ha", "start": .04, "duration": .5}])
@@ -92,7 +105,13 @@ def test_rc5_decode_policy_matches_human_reviewed_stress_set():
     base = {"language": "ko", "style": {"preset": "neutral"}, "notes": [{"pitch": 60, "start": 0, "duration": 1}]}
     assert renderer._decoder_options(base) == {"n_steps": 32, "cfg": 1.5, "seed": 21}
     assert renderer._decoder_options(base | {"notes": [{"pitch": 60, "start": 0, "duration": .25}]})["n_steps"] == 64
-    assert renderer._decoder_options(base | {"notes": [{"pitch": 60, "start": 0, "duration": 1}, {"pitch": 72, "start": 1, "duration": 1}]}) == {"n_steps": 32, "cfg": 2.0, "seed": 21}
+    assert renderer._decoder_options(base | {"notes": [{"pitch": 60, "start": 0, "duration": 1}, {"pitch": 72, "start": 1, "duration": 1}]}) == {"n_steps": 50, "cfg": 2.0, "seed": 21}
+    assert renderer._content_warp_strength(base) == .05
+    assert renderer._content_warp_strength(base | {"language": "en"}) == .25
+    assert renderer._content_warp_strength(base | {"notes": [{"pitch": 60, "start": 0, "duration": .25}]}) == 1
+    assert renderer._content_warp_strength(base | {"notes": [{"pitch": 60, "start": 0, "duration": 1}, {"pitch": 72, "start": 1, "duration": 1}]}) == 0
+    assert renderer._content_warp_strength(base | {"style": {"preset": "breathy"}}) == 0
+    assert renderer._content_warp_strength(base | {"notes": [{"pitch": 60, "start": 0, "duration": 1}, {"pitch": 62, "start": 2, "duration": 1}]}) == 0
 
 
 def test_rc5_safety_gain_is_only_applied_above_point_97(monkeypatch):

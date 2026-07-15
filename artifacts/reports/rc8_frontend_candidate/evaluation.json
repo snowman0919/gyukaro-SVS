@@ -1,0 +1,558 @@
+{
+  "status": "human_listening_pending",
+  "gate": {
+    "en": {
+      "pass_objective_non_regression": true,
+      "asr_delta": 0.0581,
+      "pitch_delta_cents": -1.68,
+      "voicing_delta": 0.0242,
+      "weak_phone_delta": 3,
+      "voicing_mismatch_delta": 0
+    },
+    "ja": {
+      "pass_objective_non_regression": true,
+      "asr_delta": 0.0,
+      "pitch_delta_cents": -6.86,
+      "voicing_delta": -0.004,
+      "weak_phone_delta": -1,
+      "voicing_mismatch_delta": -1
+    }
+  },
+  "rows": [
+    {
+      "case": "en",
+      "variant": "rc7",
+      "path": "artifacts/reports/rc7_listening_gate/04_en.wav",
+      "peak": 0.609247,
+      "rms": 0.077894,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.004345,
+      "hf_energy_ratio_p95": 0.006314,
+      "hf_spike_p99_over_median": 1503.2544,
+      "spectral_flatness_mean": 6.3e-05,
+      "spectral_flux_p95": 0.151041,
+      "spectral_flux_max": 0.484467,
+      "sample_jump_p999": 0.111263,
+      "observed_voiced_ratio": 0.9496,
+      "target_voiced_ratio": 0.9577,
+      "voicing_accuracy": 0.9476,
+      "pitch_mae_cents": 8.99,
+      "phones": {
+        "timeline_source": "score_timed_frontend_inferred",
+        "phone_count": 31,
+        "weak_phone_count": 3,
+        "voicing_mismatch_count": 5,
+        "weak_phones": [
+          {
+            "phoneme": "en_s",
+            "voicing": "unvoiced_consonant",
+            "start": 0.0,
+            "end": 0.06,
+            "rms_to_phrase_median": 0.0339,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 0.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "en_f",
+            "voicing": "unvoiced_consonant",
+            "start": 4.95,
+            "end": 5.01,
+            "rms_to_phrase_median": 0.1178,
+            "unexpected_silence_fraction": 0.5,
+            "voiced_fraction": 0.5,
+            "voicing_match": 0.5
+          },
+          {
+            "phoneme": "en_t",
+            "voicing": "unvoiced_consonant",
+            "start": 9.86,
+            "end": 9.92,
+            "rms_to_phrase_median": 0.0402,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          }
+        ],
+        "voicing_mismatches": [
+          {
+            "phoneme": "en_t",
+            "voicing": "unvoiced_consonant",
+            "start": 1.677,
+            "end": 1.736,
+            "rms_to_phrase_median": 0.9213,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "en_p",
+            "voicing": "unvoiced_consonant",
+            "start": 3.633,
+            "end": 3.673,
+            "rms_to_phrase_median": 3.5557,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "en_s",
+            "voicing": "unvoiced_consonant",
+            "start": 4.291,
+            "end": 4.351,
+            "rms_to_phrase_median": 0.3353,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "en_k",
+            "voicing": "unvoiced_consonant",
+            "start": 4.351,
+            "end": 4.411,
+            "rms_to_phrase_median": 0.3192,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "en_t",
+            "voicing": "unvoiced_consonant",
+            "start": 9.86,
+            "end": 9.92,
+            "rms_to_phrase_median": 0.0402,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          }
+        ]
+      },
+      "asr_transcript": " Sink into an open sky Follow the golden lightning",
+      "asr_lyric_similarity": 0.8608
+    },
+    {
+      "case": "en",
+      "variant": "frontend_fixed",
+      "path": "artifacts/reports/rc8_frontend_candidate/listening/en_rc8_frontend_fixed.wav",
+      "peak": 0.614754,
+      "rms": 0.079853,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.004302,
+      "hf_energy_ratio_p95": 0.007359,
+      "hf_spike_p99_over_median": 1640.8127,
+      "spectral_flatness_mean": 0.000114,
+      "spectral_flux_p95": 0.158688,
+      "spectral_flux_max": 0.44795,
+      "sample_jump_p999": 0.116934,
+      "observed_voiced_ratio": 0.9617,
+      "target_voiced_ratio": 0.9577,
+      "voicing_accuracy": 0.9718,
+      "pitch_mae_cents": 7.31,
+      "phones": {
+        "timeline_source": "score_timed_frontend_inferred",
+        "phone_count": 31,
+        "weak_phone_count": 6,
+        "voicing_mismatch_count": 5,
+        "weak_phones": [
+          {
+            "phoneme": "en_s",
+            "voicing": "unvoiced_consonant",
+            "start": 0.0,
+            "end": 0.06,
+            "rms_to_phrase_median": 0.0329,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 0.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "en_n",
+            "voicing": "voiced_consonant",
+            "start": 4.231,
+            "end": 4.291,
+            "rms_to_phrase_median": 0.1351,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "en_s",
+            "voicing": "unvoiced_consonant",
+            "start": 4.291,
+            "end": 4.351,
+            "rms_to_phrase_median": 0.1297,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "en_k",
+            "voicing": "unvoiced_consonant",
+            "start": 4.351,
+            "end": 4.411,
+            "rms_to_phrase_median": 0.0875,
+            "unexpected_silence_fraction": 0.6667,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "en_f",
+            "voicing": "unvoiced_consonant",
+            "start": 4.95,
+            "end": 5.01,
+            "rms_to_phrase_median": 0.1204,
+            "unexpected_silence_fraction": 0.5,
+            "voiced_fraction": 0.5,
+            "voicing_match": 0.5
+          },
+          {
+            "phoneme": "en_t",
+            "voicing": "unvoiced_consonant",
+            "start": 9.86,
+            "end": 9.92,
+            "rms_to_phrase_median": 0.0085,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 0.3333,
+            "voicing_match": 0.6667
+          }
+        ],
+        "voicing_mismatches": [
+          {
+            "phoneme": "en_t",
+            "voicing": "unvoiced_consonant",
+            "start": 1.677,
+            "end": 1.736,
+            "rms_to_phrase_median": 0.9093,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "en_dh",
+            "voicing": "voiced_consonant",
+            "start": 2.475,
+            "end": 2.535,
+            "rms_to_phrase_median": 1.6271,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 0.3333,
+            "voicing_match": 0.3333
+          },
+          {
+            "phoneme": "en_p",
+            "voicing": "unvoiced_consonant",
+            "start": 3.633,
+            "end": 3.673,
+            "rms_to_phrase_median": 2.2529,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "en_s",
+            "voicing": "unvoiced_consonant",
+            "start": 4.291,
+            "end": 4.351,
+            "rms_to_phrase_median": 0.1297,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "en_k",
+            "voicing": "unvoiced_consonant",
+            "start": 4.351,
+            "end": 4.411,
+            "rms_to_phrase_median": 0.0875,
+            "unexpected_silence_fraction": 0.6667,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          }
+        ]
+      },
+      "asr_transcript": " Sink into open sky Follow them golden light",
+      "asr_lyric_similarity": 0.9189
+    },
+    {
+      "case": "ja",
+      "variant": "rc7",
+      "path": "artifacts/reports/rc7_listening_gate/05_ja.wav",
+      "peak": 0.419109,
+      "rms": 0.090951,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.000634,
+      "hf_energy_ratio_p95": 0.001378,
+      "hf_spike_p99_over_median": 135.2201,
+      "spectral_flatness_mean": 8.3e-05,
+      "spectral_flux_p95": 0.220022,
+      "spectral_flux_max": 0.485437,
+      "sample_jump_p999": 0.057865,
+      "observed_voiced_ratio": 0.9556,
+      "target_voiced_ratio": 0.9516,
+      "voicing_accuracy": 0.9153,
+      "pitch_mae_cents": 13.9,
+      "phones": {
+        "timeline_source": "score_timed_frontend_inferred",
+        "phone_count": 32,
+        "weak_phone_count": 6,
+        "voicing_mismatch_count": 6,
+        "weak_phones": [
+          {
+            "phoneme": "ja_s",
+            "voicing": "unvoiced_consonant",
+            "start": 0.0,
+            "end": 0.06,
+            "rms_to_phrase_median": 0.01,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 0.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ja_o",
+            "voicing": "vowel",
+            "start": 0.06,
+            "end": 0.419,
+            "rms_to_phrase_median": 0.0378,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 0.8889,
+            "voicing_match": 0.8889
+          },
+          {
+            "phoneme": "ja_r",
+            "voicing": "voiced_consonant",
+            "start": 0.419,
+            "end": 0.479,
+            "rms_to_phrase_median": 0.0484,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ja_a",
+            "voicing": "vowel",
+            "start": 0.479,
+            "end": 0.838,
+            "rms_to_phrase_median": 0.0693,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ja_h",
+            "voicing": "unvoiced_consonant",
+            "start": 0.838,
+            "end": 0.898,
+            "rms_to_phrase_median": 0.0895,
+            "unexpected_silence_fraction": 0.6667,
+            "voiced_fraction": 0.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ja_a",
+            "voicing": "vowel",
+            "start": 6.567,
+            "end": 6.826,
+            "rms_to_phrase_median": 0.21,
+            "unexpected_silence_fraction": 0.4615,
+            "voiced_fraction": 0.9231,
+            "voicing_match": 0.9231
+          }
+        ],
+        "voicing_mismatches": [
+          {
+            "phoneme": "ja_k",
+            "voicing": "unvoiced_consonant",
+            "start": 1.697,
+            "end": 1.756,
+            "rms_to_phrase_median": 1.4482,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ja_t",
+            "voicing": "unvoiced_consonant",
+            "start": 3.074,
+            "end": 3.134,
+            "rms_to_phrase_median": 0.7703,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ja_ch",
+            "voicing": "unvoiced_consonant",
+            "start": 4.95,
+            "end": 5.01,
+            "rms_to_phrase_median": 0.7525,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ja_s",
+            "voicing": "unvoiced_consonant",
+            "start": 5.549,
+            "end": 5.589,
+            "rms_to_phrase_median": 1.7603,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ja_h",
+            "voicing": "unvoiced_consonant",
+            "start": 6.188,
+            "end": 6.247,
+            "rms_to_phrase_median": 1.6147,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ja_k",
+            "voicing": "unvoiced_consonant",
+            "start": 6.507,
+            "end": 6.567,
+            "rms_to_phrase_median": 1.2207,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          }
+        ]
+      },
+      "asr_transcript": "空へ向かい歌おう小さな光よ",
+      "asr_lyric_similarity": 0.8571
+    },
+    {
+      "case": "ja",
+      "variant": "frontend_fixed",
+      "path": "artifacts/reports/rc8_frontend_candidate/listening/ja_rc8_frontend_fixed.wav",
+      "peak": 0.585012,
+      "rms": 0.095353,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.000923,
+      "hf_energy_ratio_p95": 0.001797,
+      "hf_spike_p99_over_median": 186.6091,
+      "spectral_flatness_mean": 7.8e-05,
+      "spectral_flux_p95": 0.210224,
+      "spectral_flux_max": 0.533829,
+      "sample_jump_p999": 0.078075,
+      "observed_voiced_ratio": 0.9516,
+      "target_voiced_ratio": 0.9516,
+      "voicing_accuracy": 0.9113,
+      "pitch_mae_cents": 7.04,
+      "phones": {
+        "timeline_source": "score_timed_frontend_inferred",
+        "phone_count": 32,
+        "weak_phone_count": 5,
+        "voicing_mismatch_count": 5,
+        "weak_phones": [
+          {
+            "phoneme": "ja_s",
+            "voicing": "unvoiced_consonant",
+            "start": 0.0,
+            "end": 0.06,
+            "rms_to_phrase_median": 0.0113,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 0.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ja_o",
+            "voicing": "vowel",
+            "start": 0.06,
+            "end": 0.419,
+            "rms_to_phrase_median": 0.0495,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 0.7778,
+            "voicing_match": 0.7778
+          },
+          {
+            "phoneme": "ja_r",
+            "voicing": "voiced_consonant",
+            "start": 0.419,
+            "end": 0.479,
+            "rms_to_phrase_median": 0.0504,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ja_a",
+            "voicing": "vowel",
+            "start": 0.479,
+            "end": 0.838,
+            "rms_to_phrase_median": 0.0541,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ja_h",
+            "voicing": "unvoiced_consonant",
+            "start": 0.838,
+            "end": 0.898,
+            "rms_to_phrase_median": 0.0626,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          }
+        ],
+        "voicing_mismatches": [
+          {
+            "phoneme": "ja_h",
+            "voicing": "unvoiced_consonant",
+            "start": 0.838,
+            "end": 0.898,
+            "rms_to_phrase_median": 0.0626,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ja_ch",
+            "voicing": "unvoiced_consonant",
+            "start": 4.95,
+            "end": 5.01,
+            "rms_to_phrase_median": 2.6488,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ja_s",
+            "voicing": "unvoiced_consonant",
+            "start": 5.549,
+            "end": 5.589,
+            "rms_to_phrase_median": 1.6691,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ja_h",
+            "voicing": "unvoiced_consonant",
+            "start": 6.188,
+            "end": 6.247,
+            "rms_to_phrase_median": 1.2108,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ja_k",
+            "voicing": "unvoiced_consonant",
+            "start": 6.507,
+            "end": 6.567,
+            "rms_to_phrase_median": 0.8245,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          }
+        ]
+      },
+      "asr_transcript": "空へ向かい歌おう小さな光よ",
+      "asr_lyric_similarity": 0.8571
+    }
+  ],
+  "human_listening_required": true
+}

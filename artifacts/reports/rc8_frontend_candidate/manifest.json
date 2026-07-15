@@ -1,0 +1,28 @@
+{
+  "status": "objective_and_human_evaluation_pending",
+  "baseline": "frozen RC7 at ae8944070f3dc38e310b33f29d95f4bcd3c81def",
+  "changes": [
+    "English ARPAbet AY classified as voiced",
+    "Japanese score chunks resolved before phoneme timing"
+  ],
+  "spectral_refiner": "checkpoints/acoustic_refiner_spectral_singing.pt",
+  "strength": 0.5,
+  "rows": {
+    "en": {
+      "score": "examples/quality_en.json",
+      "rc6_path": "artifacts/reports/rc8_frontend_candidate/listening/en_rc6_frontend_fixed.wav",
+      "candidate_path": "artifacts/reports/rc8_frontend_candidate/listening/en_rc8_frontend_fixed.wav",
+      "rc6_sha256": "d8cc53ba98b958d33c083e4ddbb420a6efc57094c5d0f485d66a846dae9f52d7",
+      "candidate_sha256": "9b8bbb743c44d6318afd60962d3e5aa0daa4e699b62ddd9b28f4e383cb134e0d",
+      "render_seconds": 24.344
+    },
+    "ja": {
+      "score": "examples/quality_ja.json",
+      "rc6_path": "artifacts/reports/rc8_frontend_candidate/listening/ja_rc6_frontend_fixed.wav",
+      "candidate_path": "artifacts/reports/rc8_frontend_candidate/listening/ja_rc8_frontend_fixed.wav",
+      "rc6_sha256": "7436cbb05351a70d98275049a9662f2190d0a9b743ec26e4b96b548f258de370",
+      "candidate_sha256": "6597eaf2bee9cc8dba35e46e12351e273d9be6aa3058a0b0069f786c5d8a5053",
+      "render_seconds": 22.021
+    }
+  }
+}

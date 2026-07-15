@@ -48,13 +48,33 @@ class GyuSingerV09Renderer(GyuSingerV08Renderer):
 
     def _decoder_options(self, score: dict | None = None) -> dict:
         if score and self._large_interval(score):
-            return {"n_steps": 32, "cfg": 2.0, "seed": 21}
+            return {"n_steps": 50, "cfg": 2.0, "seed": 21}
         if score and not self._rapid(score) and score["language"] in {"ko", "en"} and score["style"]["preset"] == "neutral" and all(note["duration"] < 4 for note in score["notes"]) and all(after["start"] <= before["start"] + before["duration"] + .05 for before, after in zip(score["notes"], score["notes"][1:])):
             return {"n_steps": 32, "cfg": 1.5, "seed": 21}
         return {"n_steps": 64, "cfg": 2.0, "seed": 21}
 
+    @classmethod
+    def _content_warp_strength(cls, score: dict) -> float:
+        if cls._rapid(score):
+            return 1.0
+        if score["language"] == "en":
+            return .25
+        contiguous = all(
+            after["start"] <= before["start"] + before["duration"] + .05
+            for before, after in zip(score["notes"], score["notes"][1:])
+        )
+        if (
+            score["language"] == "ko"
+            and score["style"]["preset"] == "neutral"
+            and not cls._large_interval(score)
+            and contiguous
+        ):
+            return .05
+        return 0.0
+
     def _content_options(self, score: dict, content: Path, target_f0: np.ndarray, temp: Path) -> dict:
-        if score["language"] != "en" and not self._rapid(score):
+        strength = self._content_warp_strength(score)
+        if not strength:
             return {}
         import torchaudio
         if self._ctc is None:
@@ -67,7 +87,7 @@ class GyuSingerV09Renderer(GyuSingerV08Renderer):
         duration = len(mono) / rate
         warp = latent_content_hold(alignment, duration, len(target_f0)) if self._rapid(score) else latent_content_warp(alignment, duration, len(target_f0) / 50, len(target_f0))
         path = temp / "content_warp.npy"; np.save(path, warp)
-        return {"content_warp_npy": str(path), "content_warp_strength": 1.0 if self._rapid(score) else .25}
+        return {"content_warp_npy": str(path), "content_warp_strength": strength}
 
     def render(self, score: dict) -> np.ndarray:
         audio = np.clip(super().render(score), -1, 1)
@@ -81,8 +101,8 @@ class GyuSingerV09Renderer(GyuSingerV08Renderer):
             "rc4_preserved_backend": "gyu-singer-v0.8",
             "canonical_phone_score_timeline": True,
             "unvoiced_f0_zero": True,
-            "soulx_decode_policy": "RC5 measured stress policy: 32/CFG1.5 standard, 64/CFG2 rapid, 32/CFG2 large interval",
+            "soulx_decode_policy": "measured policy: 32/CFG1.5 standard, 64/CFG2 rapid, 50/CFG2 large interval",
             "soulx_precision": "fp32",
-            "content_timing": "MMS CTC latent hold for rapid phrases; 0.25 latent warp for English",
+            "content_timing": "MMS CTC latent hold for rapid phrases; 0.25 English and measured 0.05 normal-KO latent warp; large intervals unchanged",
             "human_listening_status": "candidate4_passed_2026-07-15",
         }

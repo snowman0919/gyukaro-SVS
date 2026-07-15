@@ -2,6 +2,7 @@
 """Render the mandatory stress set through the actual resident RC6 backend."""
 from __future__ import annotations
 
+import argparse
 import hashlib
 import json
 import sys
@@ -25,18 +26,36 @@ def sha(path: Path) -> str:
 
 
 def main() -> None:
-    root = Path("artifacts/reports/rc6_backend_candidate"); listening = root / "listening"; listening.mkdir(parents=True, exist_ok=True)
-    renderer = GyuSingerRC6Renderer("data/processed/master/216.wav"); files = {}
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--backend", choices=("rc6", "rc8"), default="rc6")
+    parser.add_argument("--output", type=Path, default=Path("artifacts/reports/rc6_backend_candidate"))
+    parser.add_argument("--cases", nargs="+", choices=tuple(SCORES))
+    parser.add_argument("--ko-warp", type=float, help="Diagnostic override for non-rapid KO timing warp.")
+    args = parser.parse_args()
+    renderer_class = GyuSingerRC6Renderer
+    if args.backend == "rc8":
+        from gyu_singer.inference.rc8 import GyuSingerRC8Renderer
+        renderer_class = GyuSingerRC8Renderer
+    root = args.output; listening = root / "listening"; listening.mkdir(parents=True, exist_ok=True)
+    renderer = renderer_class("data/processed/master/216.wav"); files = {}
+    if args.ko_warp is not None:
+        original_warp = renderer._content_warp_strength
+        renderer._content_warp_strength = lambda score: (
+            args.ko_warp
+            if score["language"] == "ko" and not renderer._rapid(score)
+            else original_warp(score)
+        )
     try:
         info = renderer.model_info()
-        for case, score in SCORES.items():
+        selected_scores = SCORES if not args.cases else {case: SCORES[case] for case in args.cases}
+        for case, score in selected_scores.items():
             output = listening / f"{case}.wav"; started = time.perf_counter(); renderer.render_file(score, output)
             files[case] = {"path": str(output), "score": score, "sha256": sha(output), "render_seconds": round(time.perf_counter() - started, 4),
                            "sample_rate": 48000, "backend": info["backend"], "refiner_strength": info["acoustic_refiner_strength"]}
             print(case, flush=True)
     finally:
         renderer.close()
-    manifest = {"status": "objective_evaluation_pending", "name": "RC6 actual-backend acoustic candidate (not a tag or release)",
+    manifest = {"status": "objective_evaluation_pending", "name": f"{args.backend.upper()} actual-backend acoustic candidate (not a tag or release)",
                 "backend": info, "files": files, "human_review": "pending"}
     root.mkdir(parents=True, exist_ok=True); (root / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n")
     print(json.dumps({"files": len(files), "backend": info["backend"], "human_review": "pending"}, indent=2))
