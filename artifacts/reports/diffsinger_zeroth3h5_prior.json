@@ -1,0 +1,24 @@
+{
+  "status": "bounded_prior_ready_for_binarization",
+  "dataset": "Zeroth-Korean SLR40",
+  "license": "CC BY 4.0",
+  "official_source": "https://www.openslr.org/40/",
+  "streaming_mirror": "kresnik/zeroth_korean",
+  "mirror_revision": "1fe937899f828af822293d05e086200946088bdf",
+  "rows": 1400,
+  "speakers": [
+    187,
+    191,
+    201,
+    214
+  ],
+  "rows_per_speaker": 350,
+  "train_rows": 1260,
+  "validation_rows": 140,
+  "hours": 3.544,
+  "ctc_score_mean": -1.0695,
+  "training_role": "speech phoneme/acoustic prior only; never real or pseudo singing",
+  "full_corpus_downloaded": false,
+  "acoustic_replay_config": "configs/diffsinger_zeroth3h5_prior.yaml",
+  "text_only_config": "configs/diffsinger_zeroth3h5_text_prior.yaml"
+}

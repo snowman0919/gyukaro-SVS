@@ -12,6 +12,8 @@ Zeroth-Korean contributes a separate 400-row, four-speaker, CC BY 4.0 speech sub
 
 Real-GYU CTC segmentation recovered 730 source-derived acoustic segments without modifying `data/source/` and without using the 24 independent-score evaluation rows. A bounded GYU-only adaptation reached 0.311 ASR similarity, while rapid output still collapsed to `아`. It was rejected before runtime integration. The production backend and RC6 behavior are unchanged.
 
+Scaling the balanced Zeroth prior to 1,400 rows (3.544 hours) made lexical transfer worse at the matched 300-step gate: ASR similarity fell from 0.191 to 0.077 and HF spikes exceeded RC6. The run was stopped at its saved checkpoint; no longer continuation is justified. This is speech supervision only and cannot replace compatible Korean lexical singing supervision.
+
 GTSinger and CSD would provide lexical score-aligned singing, but their verified licenses impose non-commercial/ShareAlike restrictions. They were recorded as excluded in the license registry and were not downloaded. No compatible lexical singing prior has therefore passed the production-data gate.
 
 The public-domain `Row Your Boat` excerpts already present in VocalSet provide a compatible lexical singing subset: 76 speaker-disjoint phrase rows, 8.365 minutes, with inferred MMS CTC timing. Training them jointly with all real-GYU segments did not improve Korean stress lyrics over the GYU-only checkpoint (both peaked at 0.311 ASR similarity); later checkpoints regressed voicing and pitch. The branch is retained as a reproducible negative result, not as an RC model.

@@ -1,0 +1,49 @@
+{
+  "status": "zeroth_acoustic_finetune_ready",
+  "source_checkpoint": "data/cache/diffsinger/checkpoints/gyu_score_native_pilot_best_4000.ckpt",
+  "source_checkpoint_sha256": "1a575eaf08d0e748fc79e58ab3d137685172ebb5f04f0b042776887891630839",
+  "remapped_checkpoint": "data/cache/diffsinger/checkpoints/gyu_score_native_pilot_best_4000_zeroth3h5_vocab.ckpt",
+  "remapped_checkpoint_sha256": "d9c5c9b62a2bf45f3b13d402cd75e033a5ef2889b84f7edde2678c1d32efdab6",
+  "text_remapped_checkpoint": "data/cache/diffsinger/checkpoints/gyu_score_native_pilot_best_4000_zeroth3h5_text_vocab.ckpt",
+  "text_remapped_checkpoint_sha256": "eb24671e8efb269549717e7de5854d6a7b7d1a747f091cdecca8a70afdb33fae",
+  "old_vocabulary": 56,
+  "new_vocabulary": 72,
+  "text_only_vocabulary": 67,
+  "shared_embedding_max_abs_error": 0.0,
+  "existing_speaker_embedding_max_abs_error": 0.0,
+  "new_token_initialization": {
+    "ko_coda_10": "mean:ko_coda",
+    "ko_coda_11": "mean:ko_coda",
+    "ko_coda_15": "mean:ko_coda",
+    "ko_coda_17": "mean:ko_coda",
+    "ko_coda_18": "mean:ko_coda",
+    "ko_coda_2": "mean:ko_coda",
+    "ko_coda_24": "mean:ko_coda",
+    "ko_coda_3": "mean:ko_coda",
+    "ko_coda_5": "mean:ko_coda",
+    "ko_nucleus_11": "mean:ko_nucleus",
+    "ko_nucleus_15": "mean:ko_nucleus",
+    "ko_nucleus_17": "mean:ko_nucleus",
+    "ko_nucleus_3": "mean:ko_nucleus",
+    "ko_onset_10": "mean:ko_onset",
+    "ko_onset_13": "mean:ko_onset",
+    "ko_onset_15": "mean:ko_onset"
+  },
+  "new_speaker_initialization": "mean of 20 generic VocalSet singer embeddings; trainable",
+  "frozen_score_control": [
+    "model.fs2.stretch_embed",
+    "model.fs2.stretch_embed_rnn",
+    "model.fs2.dur_embed",
+    "model.fs2.pitch_embed"
+  ],
+  "trainable_acoustic_path": [
+    "text encoder",
+    "speaker embedding",
+    "aux decoder",
+    "diffusion"
+  ],
+  "max_updates": 1200,
+  "learning_rate": 5e-05,
+  "config": "configs/diffsinger_zeroth3h5_finetune.yaml",
+  "text_only_config": "configs/diffsinger_zeroth3h5_text_finetune.yaml"
+}

@@ -1,0 +1,25 @@
+{
+  "status": "rendered_not_evaluated",
+  "model": "SoulX-Singer score-conditioned model.pt",
+  "soulx_revision": "81aeb3ae772c70093c3de74dc23c92d983801ae4",
+  "checkpoint": "data/cache/soulx-singer/pretrained_models/SoulX-Singer/model.pt",
+  "prompt": "data/external/work/diffsinger_score_native/raw/gyu_phrase_chunks/wavs/gyu_real_000216_phrase00.wav",
+  "prompt_label_status": "inferred_ctc_and_rmvpe_prompt_metadata",
+  "korean_phone_projection": "deterministic approximation onto trained English ARPAbet; not native Korean supervision",
+  "score_native": true,
+  "per_note_tts": false,
+  "waveform_pitch_shifting": false,
+  "steps": 32,
+  "cfg": 2.0,
+  "seed": 42,
+  "rows": [
+    {
+      "case": "rapid_ko",
+      "path": "artifacts/reports/soulx_score_native_ko_probe/listening/rapid_ko_s32_c2.wav"
+    },
+    {
+      "case": "large_interval_ko",
+      "path": "artifacts/reports/soulx_score_native_ko_probe/listening/large_interval_ko_s32_c2.wav"
+    }
+  ]
+}

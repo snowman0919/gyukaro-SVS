@@ -100,3 +100,20 @@ Three adapters were inserted between the frozen MLP Mixer decoder and frozen mel
 The adapter family is therefore closed. It cannot reach GYU identity without sacrificing the score-native source's semantic advantage on this small inferred-score corpus.
 
 The source model itself also cannot be promoted to production. Although its repository distributes code and weights under MIT, its underlying Children's Song Dataset archive is marked `CC BY-NC-SA 4.0` by the actual Zenodo record (`4916302`). The paper footer says CC BY 4.0, but the downloadable artifact's metadata is the governing conservative evidence for this project. CSD replay and derived production weights remain excluded.
+
+## Scaled speech-prior and official SoulX direct controls
+
+Status: rejected; scaling speech and projecting Korean onto SoulX's non-Korean phones do not solve lexical singing.
+
+The same four-speaker Zeroth selection was expanded from 400 to 1,400 unique utterances (3.544 hours; 1,260 train and 140 validation rows). At the saved 300-step replay checkpoint, ASR lyric similarity fell from 0.191 to 0.077 and the HF-spike ratio rose from 248.61 to 881.09. Pitch improved from 7.04 to 5.76 cents, but output text became unrelated speech. No 600/1,200-step continuation was authorized because scale produced no lexical-transfer signal.
+
+The official SoulX `model.pt` score path was then tested directly with note pitch, duration, and phonemes. Korean phones were deterministically approximated with the model's English ARPAbet vocabulary, so this is explicitly not native Korean supervision. A verified real-GYU prompt improved the score-control probe from 0.000 to 0.400 ASR similarity, but large-interval content collapsed. Replacing note-pitch control with canonical 50 Hz language-aware F0 improved pitch from 27.50 to 4.16 cents and voicing from 0.864 to 0.974, while ASR fell to 0.100 and HF spikes remained worse than RC6 (842.55 versus 703.81).
+
+These controls isolate two facts: canonical F0 fixes pitch/voicing conditioning, but neither a larger Korean speech prior nor a non-native phone projection preserves Korean lexical content through the singing decoder. More SoulX step/CFG sweeps on this projection are stopped.
+
+| Probe | ASR similarity | Pitch MAE | Voicing | HF spike | Decision |
+|---|---:|---:|---:|---:|---|
+| Zeroth 1.025 h replay 300 | 0.191 | 7.04 | 0.674 | 248.61 | reject |
+| Zeroth 3.544 h replay 300 | 0.077 | 5.76 | 0.622 | 881.09 | reject |
+| SoulX score + verified prompt | 0.400 | 27.50 | 0.864 | 1638.16 | reject |
+| SoulX melody + canonical voicing | 0.100 | 4.16 | 0.974 | 842.55 | reject |

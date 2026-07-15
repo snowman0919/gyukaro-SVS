@@ -2,6 +2,7 @@
 """Stream a bounded Zeroth-Korean phoneme/acoustic prior for DiffSinger."""
 from __future__ import annotations
 
+import argparse
 import csv
 import io
 import json
@@ -80,8 +81,14 @@ def phone_alignment(text: str, audio: np.ndarray, model, labels, device: str) ->
     }
 
 
-def write_raw(speaker: int, rows: list[dict], speaker_index: int) -> dict:
-    raw = RAW / f"zeroth_{speaker}"
+def write_raw(
+    speaker: int,
+    rows: list[dict],
+    speaker_index: int,
+    label: str,
+    valid_per_speaker: int,
+) -> dict:
+    raw = RAW / f"{label}_{speaker}"
     wavs = raw / "wavs"
     wavs.mkdir(parents=True, exist_ok=True)
     with (raw / "transcriptions.csv").open("w", newline="") as handle:
@@ -95,14 +102,23 @@ def write_raw(speaker: int, rows: list[dict], speaker_index: int) -> dict:
             })
     return {
         "raw_data_dir": str(raw),
-        "speaker": f"zeroth_{speaker}",
+        "speaker": f"{label}_{speaker}",
         "spk_id": 21 + speaker_index,
         "language": "gyu",
-        "test_prefixes": [row["id"] for row in rows[-VALID_PER_SPEAKER:]],
+        "test_prefixes": [row["id"] for row in rows[-valid_per_speaker:]],
     }
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--rows-per-speaker", type=int, default=ROWS_PER_SPEAKER)
+    parser.add_argument("--valid-per-speaker", type=int, default=VALID_PER_SPEAKER)
+    parser.add_argument("--label", default="zeroth")
+    args = parser.parse_args()
+    if not 0 < args.valid_per_speaker < args.rows_per_speaker:
+        parser.error("valid-per-speaker must be between zero and rows-per-speaker")
+    if not re.fullmatch(r"[a-z0-9_]+", args.label):
+        parser.error("label must contain only lowercase letters, digits, and underscores")
     os.environ.setdefault("HF_HOME", str(ROOT / "data/cache/huggingface"))
     device = "cuda" if torch.cuda.is_available() else "cpu"
     bundle = torchaudio.pipelines.MMS_FA
@@ -117,8 +133,8 @@ def main() -> None:
         speaker = int(source["speaker_id"])
         if speaker not in SPEAKER_IDS:
             continue
-        if len(selected[speaker]) >= ROWS_PER_SPEAKER:
-            if all(len(selected[value]) >= ROWS_PER_SPEAKER for value in speaker_order):
+        if len(selected[speaker]) >= args.rows_per_speaker:
+            if all(len(selected[value]) >= args.rows_per_speaker for value in speaker_order):
                 break
             continue
         text = source["text"]
@@ -134,8 +150,8 @@ def main() -> None:
             continue
         if aligned["ctc_mean_log_score"] < MIN_CTC_LOG_SCORE:
             continue
-        identifier = f"zeroth_{source['id']}"
-        wav = RAW / f"zeroth_{speaker}" / "wavs" / f"{identifier}.wav"
+        identifier = f"{args.label}_{source['id']}"
+        wav = RAW / f"{args.label}_{speaker}" / "wavs" / f"{identifier}.wav"
         wav.parent.mkdir(parents=True, exist_ok=True)
         sf.write(wav, audio, 16_000, subtype="PCM_16")
         selected[speaker].append({
@@ -145,22 +161,24 @@ def main() -> None:
             "text": text,
             "audio_path": str(wav.relative_to(ROOT)),
             "duration_seconds": len(audio) / 16_000,
-            "split": "validation" if len(selected[speaker]) >= ROWS_PER_SPEAKER - VALID_PER_SPEAKER else "train",
+            "split": "validation"
+            if len(selected[speaker]) >= args.rows_per_speaker - args.valid_per_speaker
+            else "train",
             "label_status": "inferred_mms_ctc",
             "training_role": "korean_phoneme_acoustic_prior_only_not_singing",
             **aligned,
         })
-        if all(len(selected[value]) >= ROWS_PER_SPEAKER for value in speaker_order):
+        if all(len(selected[value]) >= args.rows_per_speaker for value in speaker_order):
             break
 
-    if any(len(selected[value]) != ROWS_PER_SPEAKER for value in speaker_order):
+    if any(len(selected[value]) != args.rows_per_speaker for value in speaker_order):
         raise RuntimeError("stream ended before the bounded speaker-balanced subset was complete")
     rows = [row for speaker in speaker_order for row in selected[speaker]]
     for index, symbol in enumerate(rows[0]["ph_seq"]):
         if symbol == "SP":
             rows[0]["ph_seq"][index] = "AP"
             break
-    manifest = ROOT / "data/manifests/diffsinger_zeroth_prior.jsonl"
+    manifest = ROOT / f"data/manifests/diffsinger_{args.label}_prior.jsonl"
     manifest.write_text("".join(json.dumps(row, ensure_ascii=False) + "\n" for row in rows))
 
     base = yaml.safe_load((ROOT / "configs/diffsinger_score_native.yaml").read_text())
@@ -168,28 +186,37 @@ def main() -> None:
     old_dictionary = Path(base["dictionaries"]["gyu"])
     old = {line.split("\t", 1)[0] for line in old_dictionary.read_text().splitlines() if line}
     phones = {phone for row in rows for phone in row["ph_seq"]} | old
-    dictionary = WORK / "dictionary-gyu-zeroth.txt"
+    dictionary = WORK / f"dictionary-gyu-{args.label}.txt"
     dictionary.write_text("".join(f"{phone}\t{phone}\n" for phone in sorted(phones - {"AP", "SP"})))
-    text_dictionary = WORK / "dictionary-gyu-zeroth-text.txt"
+    text_dictionary = WORK / f"dictionary-gyu-{args.label}-text.txt"
     text_dictionary.write_text("".join(
         f"{phone}\t{phone}\n" for phone in sorted(phones - {"AP", "SP", "a", "e", "i", "o", "u"})
     ))
-    zeroth = [write_raw(speaker, selected[speaker], index) for index, speaker in enumerate(speaker_order)]
+    zeroth = [
+        write_raw(
+            speaker,
+            selected[speaker],
+            index,
+            args.label,
+            args.valid_per_speaker,
+        )
+        for index, speaker in enumerate(speaker_order)
+    ]
     gyu = base["datasets"][-1]
     gyu["spk_id"] = 20
     base["datasets"] += zeroth
     base["dictionaries"]["gyu"] = str(dictionary)
     base["num_spk"] = 21 + len(SPEAKER_IDS)
-    base["binary_data_dir"] = str(WORK / "binary_zeroth_gyu")
-    config = ROOT / "configs/diffsinger_zeroth_prior.yaml"
+    base["binary_data_dir"] = str(WORK / f"binary_{args.label}_gyu")
+    config = ROOT / f"configs/diffsinger_{args.label}_prior.yaml"
     config.write_text(yaml.safe_dump(base, sort_keys=False))
 
     text["datasets"][-1]["spk_id"] = 20
     text["datasets"] = [text["datasets"][-1], *zeroth]
     text["dictionaries"]["gyu"] = str(text_dictionary)
     text["num_spk"] = 21 + len(SPEAKER_IDS)
-    text["binary_data_dir"] = str(WORK / "binary_zeroth_text")
-    text_config = ROOT / "configs/diffsinger_zeroth_text_prior.yaml"
+    text["binary_data_dir"] = str(WORK / f"binary_{args.label}_text")
+    text_config = ROOT / f"configs/diffsinger_{args.label}_text_prior.yaml"
     text_config.write_text(yaml.safe_dump(text, sort_keys=False))
 
     report = {
@@ -201,7 +228,7 @@ def main() -> None:
         "mirror_revision": REVISION,
         "rows": len(rows),
         "speakers": speaker_order,
-        "rows_per_speaker": ROWS_PER_SPEAKER,
+        "rows_per_speaker": args.rows_per_speaker,
         "train_rows": sum(row["split"] == "train" for row in rows),
         "validation_rows": sum(row["split"] == "validation" for row in rows),
         "hours": round(sum(row["duration_seconds"] for row in rows) / 3600, 3),
@@ -211,7 +238,7 @@ def main() -> None:
         "acoustic_replay_config": str(config.relative_to(ROOT)),
         "text_only_config": str(text_config.relative_to(ROOT)),
     }
-    output = ROOT / "artifacts/reports/diffsinger_zeroth_prior.json"
+    output = ROOT / f"artifacts/reports/diffsinger_{args.label}_prior.json"
     output.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n")
     print(json.dumps(report, ensure_ascii=False, indent=2))
     sys.stdout.flush()

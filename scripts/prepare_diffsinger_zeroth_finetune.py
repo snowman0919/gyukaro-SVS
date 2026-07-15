@@ -2,6 +2,7 @@
 """Remap the 4k singing pilot for bounded Zeroth-Korean acoustic adaptation."""
 from __future__ import annotations
 
+import argparse
 import hashlib
 import json
 from pathlib import Path
@@ -13,8 +14,6 @@ import yaml
 ROOT = Path(__file__).resolve().parents[1]
 WORK = ROOT / "data/external/work/diffsinger_score_native"
 SOURCE = ROOT / "data/cache/diffsinger/checkpoints/gyu_score_native_pilot_best_4000.ckpt"
-TARGET = ROOT / "data/cache/diffsinger/checkpoints/gyu_score_native_pilot_best_4000_zeroth_vocab.ckpt"
-TEXT_TARGET = ROOT / "data/cache/diffsinger/checkpoints/gyu_score_native_pilot_best_4000_zeroth_text_vocab.ckpt"
 
 
 def tokens(path: Path) -> list[str]:
@@ -32,8 +31,19 @@ def sha256(path: Path) -> str:
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--label", default="zeroth")
+    parser.add_argument("--max-updates", type=int, default=300)
+    parser.add_argument("--val-check-interval", type=int, default=100)
+    args = parser.parse_args()
+    target = ROOT / (
+        f"data/cache/diffsinger/checkpoints/gyu_score_native_pilot_best_4000_{args.label}_vocab.ckpt"
+    )
+    text_target = ROOT / (
+        f"data/cache/diffsinger/checkpoints/gyu_score_native_pilot_best_4000_{args.label}_text_vocab.ckpt"
+    )
     old_tokens = tokens(WORK / "dictionary-gyu.txt")
-    new_tokens = tokens(WORK / "dictionary-gyu-zeroth.txt")
+    new_tokens = tokens(WORK / f"dictionary-gyu-{args.label}.txt")
     checkpoint = torch.load(SOURCE, map_location="cpu", weights_only=False)
     state = checkpoint["state_dict"]
 
@@ -64,20 +74,20 @@ def main() -> None:
     new_speakers[21:] = old_speakers[:20].mean(dim=0)
     state[speaker_key] = new_speakers
 
-    TARGET.parent.mkdir(parents=True, exist_ok=True)
-    torch.save({"state_dict": state, "category": checkpoint.get("category")}, TARGET)
+    target.parent.mkdir(parents=True, exist_ok=True)
+    torch.save({"state_dict": state, "category": checkpoint.get("category")}, target)
 
-    text_tokens = tokens(WORK / "dictionary-gyu-zeroth-text.txt")
+    text_tokens = tokens(WORK / f"dictionary-gyu-{args.label}-text.txt")
     text_state = state.copy()
     text_state[text_key] = torch.stack([
         new_text[0], *[new_text[new_ids[token]] for token in text_tokens]
     ])
-    torch.save({"state_dict": text_state, "category": checkpoint.get("category")}, TEXT_TARGET)
+    torch.save({"state_dict": text_state, "category": checkpoint.get("category")}, text_target)
 
-    config = yaml.safe_load((ROOT / "configs/diffsinger_zeroth_prior.yaml").read_text())
+    config = yaml.safe_load((ROOT / f"configs/diffsinger_{args.label}_prior.yaml").read_text())
     config.update({
         "finetune_enabled": True,
-        "finetune_ckpt_path": str(TARGET),
+        "finetune_ckpt_path": str(target),
         "finetune_ignored_params": [],
         "finetune_strict_shapes": True,
         "freezing_enabled": True,
@@ -85,8 +95,8 @@ def main() -> None:
             "model.fs2.stretch_embed", "model.fs2.stretch_embed_rnn",
             "model.fs2.dur_embed", "model.fs2.pitch_embed",
         ],
-        "max_updates": 300,
-        "val_check_interval": 100,
+        "max_updates": args.max_updates,
+        "val_check_interval": args.val_check_interval,
         "num_valid_plots": 0,
         "val_with_vocoder": False,
         "max_batch_frames": 20_000,
@@ -94,13 +104,15 @@ def main() -> None:
         "num_ckpt_keep": 3,
     })
     config.setdefault("optimizer_args", {})["lr"] = 0.00005
-    output_config = ROOT / "configs/diffsinger_zeroth_finetune.yaml"
+    output_config = ROOT / f"configs/diffsinger_{args.label}_finetune.yaml"
     output_config.write_text(yaml.safe_dump(config, sort_keys=False))
 
-    text_config = yaml.safe_load((ROOT / "configs/diffsinger_zeroth_text_prior.yaml").read_text())
+    text_config = yaml.safe_load(
+        (ROOT / f"configs/diffsinger_{args.label}_text_prior.yaml").read_text()
+    )
     text_config.update({
         "finetune_enabled": True,
-        "finetune_ckpt_path": str(TEXT_TARGET),
+        "finetune_ckpt_path": str(text_target),
         "finetune_ignored_params": [],
         "finetune_strict_shapes": True,
         "freezing_enabled": True,
@@ -118,7 +130,7 @@ def main() -> None:
         "num_ckpt_keep": 3,
     })
     text_config.setdefault("optimizer_args", {})["lr"] = 0.0001
-    text_output = ROOT / "configs/diffsinger_zeroth_text_finetune.yaml"
+    text_output = ROOT / f"configs/diffsinger_{args.label}_text_finetune.yaml"
     text_output.write_text(yaml.safe_dump(text_config, sort_keys=False))
 
     shared_error = max(
@@ -130,10 +142,10 @@ def main() -> None:
         "status": "zeroth_acoustic_finetune_ready",
         "source_checkpoint": str(SOURCE.relative_to(ROOT)),
         "source_checkpoint_sha256": sha256(SOURCE),
-        "remapped_checkpoint": str(TARGET.relative_to(ROOT)),
-        "remapped_checkpoint_sha256": sha256(TARGET),
-        "text_remapped_checkpoint": str(TEXT_TARGET.relative_to(ROOT)),
-        "text_remapped_checkpoint_sha256": sha256(TEXT_TARGET),
+        "remapped_checkpoint": str(target.relative_to(ROOT)),
+        "remapped_checkpoint_sha256": sha256(target),
+        "text_remapped_checkpoint": str(text_target.relative_to(ROOT)),
+        "text_remapped_checkpoint_sha256": sha256(text_target),
         "old_vocabulary": len(old_tokens) + 1,
         "new_vocabulary": len(new_tokens) + 1,
         "text_only_vocabulary": len(text_tokens) + 1,
@@ -148,7 +160,7 @@ def main() -> None:
         "config": str(output_config.relative_to(ROOT)),
         "text_only_config": str(text_output.relative_to(ROOT)),
     }
-    path = ROOT / "artifacts/reports/diffsinger_zeroth_finetune.json"
+    path = ROOT / f"artifacts/reports/diffsinger_{args.label}_finetune.json"
     path.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n")
     assert shared_error == 0 and speaker_error == 0
     print(json.dumps(report, ensure_ascii=False, indent=2))

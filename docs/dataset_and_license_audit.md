@@ -16,7 +16,9 @@ Rejected-gate counts: {'asr_text': 3, 'clipping': 2, 'duration': 2, 'level': 1, 
 
 The official VocalSet archive checksum matches Zenodo, but its ZIP offsets overflow. A local `zip -FF` recovery copy is used only to decode selected WAVs, each validated with libsndfile.
 
-Zeroth-Korean contributes a separate bounded 400-utterance (1.025 hour), four-speaker Korean speech prior. MMS-CTC timings are explicitly inferred; these rows are neither singing nor GYU ground truth.
+Zeroth-Korean contributes bounded four-speaker Korean speech controls: 400 utterances (1.025 hours) and a non-duplicated 1,400-utterance scale probe (3.544 hours). MMS-CTC timings are explicitly inferred; these rows are neither singing nor GYU ground truth. The scale probe failed lexical transfer and is retained only as negative evidence.
+
+Two external pretrained SVC candidates were audited but excluded before large downloads. HQ-SVC's repository/checkpoint label is Apache-2.0, while its paper identifies OpenSinger and M4Singer training data; the unresolved non-commercial training-data provenance fails the production checkpoint gate. CopyCat's official model card is PolyForm Noncommercial 1.0.0. Neither model nor derived output enters production training.
 
 The CSD paper footer states CC BY 4.0, but the actual Zenodo record `4916302` reports `cc-by-nc-sa-4.0` for the downloadable 1.85 GB archive. The archive metadata is used as the conservative controlling evidence. CSD data, replay training, and CSD-derived production checkpoints are excluded; an MIT code or model-repository label does not erase this data-license conflict.
 
