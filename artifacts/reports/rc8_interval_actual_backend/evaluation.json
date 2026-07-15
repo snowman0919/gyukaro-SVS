@@ -1,5 +1,5 @@
 {
-  "status": "human_listening_pending",
+  "status": "human_pass",
   "selection": "large_interval_ko",
   "root_cause": "selected SoulX decode, before either refiner; dominant competing harmonic trajectory appears in the first ascending boundary",
   "dual_trajectory_gate": {
@@ -109,5 +109,6 @@
       "asr_lyric_similarity": 1.0
     }
   ],
-  "human_listening_required": true
+  "human_listening_required": true,
+  "human_listening": "PASS"
 }

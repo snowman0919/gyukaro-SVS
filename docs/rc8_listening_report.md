@@ -1,6 +1,6 @@
 # RC8 listening report
 
-Status: eight cases passed human review; Large Interval failed. RC8 is not accepted, and RC9 must not start until the remaining case passes.
+Status: all nine cases passed human review. RC8 is accepted and RC9 may start.
 
 Listening directory: `artifacts/reports/rc8_listening_gate/`
 
@@ -17,13 +17,13 @@ The directory contains nine numbered RC8 files and six RC7-before/RC8-after pair
 | 5 | JA | weak phonemes improved without invalid devoicing | PASS | user accepted |
 | 6 | Rapid KO | no practical regression from accepted RC7 | PASS | user accepted |
 | 7 | Sustained KO | materially less noise without vibrato/harmonic damage | PASS | user accepted |
-| 8 | Large Interval KO | less initial dual-trajectory/mechanical tearing | FAIL | further engineering required |
+| 8 | Large Interval KO | less initial dual-trajectory/mechanical tearing | PASS | fixed actual-backend render accepted by user |
 | 9 | Phrase boundary | no fade/staccato boundary regression | PASS | user accepted |
 
-Overall RC8 suitability: **FAIL — Large Interval only**.
+Overall RC8 suitability: **PASS**.
 
-Large Interval retest: an 80 ms score-domain onset ramp passed the objective dual-trajectory gate and is now integrated into the actual RC8 backend when no user PITD curve is present. The actual-backend render at `artifacts/reports/rc8_interval_actual_backend/listening/large_interval_ko.wav` is byte-identical (SHA-256 `63a1e8a77d6de1a501c4f01920fc2c3927c607b233c86cbcc81220c26633c105`) to the selected sweep candidate. The failed RC8 file remains unchanged. Human listening of the new actual-backend file is still required before RC8 can pass.
+Large Interval retest: an 80 ms score-domain onset ramp passed the objective dual-trajectory gate and is integrated into the actual RC8 backend when no user PITD curve is present. The accepted actual-backend render is `artifacts/reports/rc8_interval_actual_backend/listening/large_interval_ko.wav` (SHA-256 `63a1e8a77d6de1a501c4f01920fc2c3927c607b233c86cbcc81220c26633c105`). The earlier failed RC8 file remains preserved separately.
 
-RC9 OpenUtau work: **blocked by the required RC8 listening verdict, not started**.
+RC9 OpenUtau work: **unblocked after the user PASS on 2026-07-16**.
 
 Final `v1.0.0` tag/release: **not allowed**.

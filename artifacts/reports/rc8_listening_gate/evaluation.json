@@ -1,8 +1,8 @@
 {
-  "status": "objective_nonregression_human_pending",
+  "status": "objective_nonregression_human_pass",
   "candidate": "candidate",
   "materially_improved": false,
-  "human_listening": "8_pass_1_fail_large_interval",
+  "human_listening": "pass",
   "baseline": "artifacts/reports/spectral_refiner_stress_s050/manifest.json",
   "aggregate_9": {
     "baseline": {
@@ -526,5 +526,6 @@
     "custom_candidate_requires_5pct_hf_or_sample_jump_improvement": true,
     "targets_recomputed_with_current_frontend": true,
     "human_listening_required": true
-  }
+  },
+  "large_interval_superseded_by": "artifacts/reports/rc8_interval_actual_backend/evaluation.json"
 }

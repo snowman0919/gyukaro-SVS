@@ -65,12 +65,14 @@ def main() -> None:
         ),
         default=None,
     )
+    previous = json.loads((root / "evaluation.json").read_text()) if (root / "evaluation.json").is_file() else {}
+    human_listening = previous.get("human_listening", "pending")
     report = {
-        "status": "human_listening_pending" if selected else "objective_reject",
+        "status": "human_pass" if selected and human_listening == "PASS" else "human_listening_pending" if selected else "objective_reject",
         "selection": None if not selected else selected["variant"],
         "root_cause": "selected SoulX decode, before either refiner; dominant competing harmonic trajectory appears in the first ascending boundary",
         "dual_trajectory_gate": {"target_hz": 387.3, "tolerance_hz": 100, "maximum_estimator_disagreement_cents": 100},
-        "rows": rows, "human_listening_required": True,
+        "rows": rows, "human_listening_required": True, "human_listening": human_listening,
     }
     (root / "evaluation.json").write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n")
     print(json.dumps({"status": report["status"], "selection": report["selection"], "eligible": [row["variant"] for row in eligible]}, ensure_ascii=False, indent=2))

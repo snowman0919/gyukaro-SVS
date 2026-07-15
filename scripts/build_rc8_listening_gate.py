@@ -18,10 +18,11 @@ CASES = {
     "ja": ("05_ja.wav", "examples/quality_ja.json", "artifacts/reports/rc8_backend_candidate2/listening/ja.wav"),
     "rapid_ko": ("06_rapid_ko.wav", "examples/review_rapid_ko.json", "artifacts/reports/rc8_backend_candidate2/listening/rapid_ko.wav"),
     "sustained_ko": ("07_sustained_ko.wav", "examples/review_sustain_ko.json", "artifacts/reports/rc8_backend_candidate2/listening/sustained_ko.wav"),
-    "large_interval_ko": ("08_large_interval_ko.wav", "examples/review_large_interval_ko.json", "artifacts/reports/rc8_backend_candidate2/listening/large_interval_ko.wav"),
+    "large_interval_ko": ("08_large_interval_ko_fixed.wav", "examples/review_large_interval_ko.json", "artifacts/reports/rc8_interval_actual_backend/listening/large_interval_ko.wav"),
     "phrase_boundary": ("09_phrase_boundary.wav", "examples/review_phrase_boundary_ko.json", "artifacts/reports/rc8_backend_candidate2/listening/phrase_boundary.wav"),
 }
 RC7_NAMES = {case: name for case, (name, _, _) in CASES.items()}
+RC7_NAMES["large_interval_ko"] = "08_large_interval_ko.wav"
 COMPARE = ("ko_neutral", "en", "ja", "sustained_ko", "large_interval_ko", "rapid_ko")
 
 
@@ -84,18 +85,29 @@ def main() -> None:
         "baseline": "immutable RC7 at ae8944070f3dc38e310b33f29d95f4bcd3c81def",
         "backend": {"backend": "gyu-singer-rc8", "final_v1_tagged": False},
         "objective_evidence": "artifacts/reports/rc8_listening_gate/evaluation.json",
+        "large_interval_evidence": "artifacts/reports/rc8_interval_actual_backend/evaluation.json",
         "files": files, "human_review": human_review,
     }
     listening_manifest = {
         "status": "human_listening_required" if human_review == "pending" else manifest["status"],
         "candidate": manifest["candidate"], "source_baseline": manifest["baseline"],
         "objective_evidence": "artifacts/reports/rc8_listening_gate/evaluation.json",
+        "large_interval_evidence": "artifacts/reports/rc8_interval_actual_backend/evaluation.json",
         "files": listening, "before_after": before_after,
         "required_response": "PASS/FAIL for each of nine files, defect observation, and overall RC8 suitability",
         "final_v1_release_allowed": False,
     }
     (OUT / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n")
     (OUT / "listening_manifest.json").write_text(json.dumps(listening_manifest, ensure_ascii=False, indent=2) + "\n")
+    evaluation_path = OUT / "evaluation.json"
+    if human_review == "pass" and evaluation_path.is_file():
+        evaluation = json.loads(evaluation_path.read_text())
+        evaluation |= {
+            "status": "objective_nonregression_human_pass",
+            "human_listening": "pass",
+            "large_interval_superseded_by": "artifacts/reports/rc8_interval_actual_backend/evaluation.json",
+        }
+        evaluation_path.write_text(json.dumps(evaluation, ensure_ascii=False, indent=2) + "\n")
     print(json.dumps({"files": len(files), "comparisons": len(before_after), "human_review": human_review}, indent=2))
 
 

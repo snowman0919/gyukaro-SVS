@@ -1,5 +1,5 @@
 {
-  "status": "objective_evaluation_pending",
+  "status": "human_pass",
   "name": "RC8 actual-backend acoustic candidate (not a tag or release)",
   "backend": {
     "backend": "gyu-singer-rc8",
@@ -75,5 +75,5 @@
       "path": "artifacts/reports/rc8_interval_actual_backend/listening/large_interval_ko.wav"
     }
   ],
-  "human_review": "pending"
+  "human_review": "PASS"
 }

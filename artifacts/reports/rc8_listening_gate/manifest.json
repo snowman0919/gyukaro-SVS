@@ -1,5 +1,5 @@
 {
-  "status": "human_partial_pass_large_interval_failed",
+  "status": "human_pass",
   "candidate": "RC8 local-quality candidate; not a tag or release",
   "baseline": "immutable RC7 at ae8944070f3dc38e310b33f29d95f4bcd3c81def",
   "backend": {
@@ -7,6 +7,7 @@
     "final_v1_tagged": false
   },
   "objective_evidence": "artifacts/reports/rc8_listening_gate/evaluation.json",
+  "large_interval_evidence": "artifacts/reports/rc8_interval_actual_backend/evaluation.json",
   "files": {
     "ko_neutral": {
       "path": "artifacts/reports/rc8_listening_gate/01_ko_neutral.wav",
@@ -58,9 +59,9 @@
       "backend": "gyu-singer-rc8"
     },
     "large_interval_ko": {
-      "path": "artifacts/reports/rc8_listening_gate/08_large_interval_ko.wav",
+      "path": "artifacts/reports/rc8_listening_gate/08_large_interval_ko_fixed.wav",
       "score": "examples/review_large_interval_ko.json",
-      "sha256": "076402f1f3420e7ca0d0359c3cdfdf72f806f2a20671728098585ce484b4ae26",
+      "sha256": "63a1e8a77d6de1a501c4f01920fc2c3927c607b233c86cbcc81220c26633c105",
       "sample_rate": 48000,
       "backend": "gyu-singer-rc8"
     },
@@ -72,5 +73,5 @@
       "backend": "gyu-singer-rc8"
     }
   },
-  "human_review": "8_pass_1_fail_large_interval"
+  "human_review": "pass"
 }
