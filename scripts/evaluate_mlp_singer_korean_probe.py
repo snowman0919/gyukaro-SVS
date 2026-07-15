@@ -56,6 +56,14 @@ def main() -> None:
             case: listening / f"rvc_e5_plus15/{case}.wav" for case in CASES
         },
     }
+    for step, strength in ((100, 100), (400, 100), (1000, 25), (1000, 50), (1000, 100)):
+        model = f"film_{step}_s{strength:03d}"
+        variants[model] = {case: listening / model / f"{case}.wav" for case in CASES}
+    for step in (25, 50, 100):
+        model = f"speaker_film_{step}_s100"
+        variants[model] = {case: listening / model / f"{case}.wav" for case in CASES}
+        model = f"speaker_residual_{step}_s100"
+        variants[model] = {case: listening / model / f"{case}.wav" for case in CASES}
     for step in (100, 200, 400):
         variants[f"full_{step}"] = {
             case: listening / f"gyu_steps{step}/{case}_gyu_generated_e2e.wav" for case in CASES
@@ -194,7 +202,35 @@ def main() -> None:
         ),
         default=None,
     )
-    selected = selected_rvc or selected_blend
+    film_models = tuple(
+        model
+        for model in variants
+        if model.startswith(("film_", "speaker_film_", "speaker_residual_"))
+    )
+    eligible_film = []
+    for model in film_models:
+        model_rows = [row for row in rows if row["model"] == model]
+        if (
+            min(row["asr_lyric_similarity"] for row in model_rows) >= 0.75
+            and min(row["voicing_accuracy"] for row in model_rows) >= 0.8
+            and max(row["pitch_mae_cents"] for row in model_rows) <= 50
+            and aggregate[model]["hf_spike_p99_over_median"]
+            < aggregate["rc6"]["hf_spike_p99_over_median"]
+            and aggregate[model]["wavlm_to_gyu"]
+            >= aggregate["base_c6"]["wavlm_to_gyu"] + 0.01
+            and aggregate[model]["ecapa_to_gyu"]
+            >= aggregate["base_c6"]["ecapa_to_gyu"] + 0.01
+        ):
+            eligible_film.append(model)
+    selected_film = max(
+        eligible_film,
+        key=lambda model: (
+            aggregate[model]["asr_lyric_similarity"],
+            aggregate[model]["wavlm_to_gyu"],
+        ),
+        default=None,
+    )
+    selected = selected_film or selected_rvc or selected_blend
     report = {
         "status": "objective_probe_pass_human_pending" if selected else "score_native_source_pass_gyu_conversion_reject",
         "human_listening": "pending" if selected else "not_requested_objective_reject",

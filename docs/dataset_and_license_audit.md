@@ -18,4 +18,6 @@ The official VocalSet archive checksum matches Zenodo, but its ZIP offsets overf
 
 Zeroth-Korean contributes a separate bounded 400-utterance (1.025 hour), four-speaker Korean speech prior. MMS-CTC timings are explicitly inferred; these rows are neither singing nor GYU ground truth.
 
+The CSD paper footer states CC BY 4.0, but the actual Zenodo record `4916302` reports `cc-by-nc-sa-4.0` for the downloadable 1.85 GB archive. The archive metadata is used as the conservative controlling evidence. CSD data, replay training, and CSD-derived production checkpoints are excluded; an MIT code or model-repository label does not erase this data-license conflict.
+
 Regenerate with `python scripts/build_external_dataset_registry.py`, `python scripts/prepare_external_acoustic_data.py`, then `python scripts/report_external_acoustic_data.py`.

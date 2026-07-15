@@ -84,3 +84,19 @@ As a final bounded identity-conversion test, RVC v2 48k was trained on 518 segme
 | RVC e5 + 15 | 0.444 | 20.41 | 0.953 | 1161.82 | 0.774 | 0.186 | reject: lyrics and HF regress |
 
 The measurable identity gain does not compensate for semantic destruction or metallic-artifact growth. SoulX and RVC are therefore both rejected as post-source GYU conversion paths. More optimization on either conversion is stopped; the next viable architecture must preserve the score-native acoustic source and condition identity inside that model or use a compatible pretrained Korean lexical SVS foundation.
+
+### Bounded latent identity adapters
+
+Three adapters were inserted between the frozen MLP Mixer decoder and frozen mel projection: a 576-parameter FiLM trained on GYU mel L1, the same FiLM trained by frozen WavLM+ECAPA agreement, and a 9.5k-parameter zero-initialized low-rank residual trained by the same dual-speaker objective. All retain the score, phoneme, mixer, projection, and official HiFi-GAN weights.
+
+| Probe | ASR similarity | HF spike | WavLM GYU | ECAPA GYU | Decision |
+|---|---:|---:|---:|---:|---|
+| Score-native source c6 | 0.900 | 258.13 | 0.701 | 0.133 | generic source only |
+| mel-FiLM 100 | 0.842 | 293.92 | 0.672 | 0.140 | reject: no cross-encoder gain |
+| speaker-FiLM 25 | 0.775 | 236.52 | 0.729 | 0.130 | reject: ECAPA and lyrics regress |
+| speaker-residual 25 | 0.775 | 234.63 | 0.729 | 0.131 | reject: ECAPA and lyrics regress |
+| speaker-residual 100 | 0.475 | 248.86 | 0.718 | 0.127 | reject: rapid lyric collapse |
+
+The adapter family is therefore closed. It cannot reach GYU identity without sacrificing the score-native source's semantic advantage on this small inferred-score corpus.
+
+The source model itself also cannot be promoted to production. Although its repository distributes code and weights under MIT, its underlying Children's Song Dataset archive is marked `CC BY-NC-SA 4.0` by the actual Zenodo record (`4916302`). The paper footer says CC BY 4.0, but the downloadable artifact's metadata is the governing conservative evidence for this project. CSD replay and derived production weights remain excluded.

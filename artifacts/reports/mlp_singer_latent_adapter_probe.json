@@ -1,0 +1,94 @@
+{
+  "status": "latent_identity_adapters_rejected",
+  "production_integrated": false,
+  "human_listening_requested": false,
+  "base_model_role": "diagnostic only; CSD archive metadata is CC BY-NC-SA 4.0",
+  "training_data": {
+    "real_gyu_train_rows": 43,
+    "real_gyu_validation_rows": 5,
+    "score_status": "inferred_from_target_f0",
+    "independent_verified_rows_used": 0
+  },
+  "adapters": {
+    "mel_l1_film": {
+      "trainable_parameters": 576,
+      "supervision": "real GYU mel L1 plus temporal dynamics preservation"
+    },
+    "dual_speaker_film": {
+      "trainable_parameters": 576,
+      "supervision": "frozen WavLM and ECAPA plus content-preservation losses"
+    },
+    "dual_speaker_residual": {
+      "trainable_parameters": 9520,
+      "supervision": "frozen WavLM and ECAPA plus content-preservation losses"
+    }
+  },
+  "aggregate": {
+    "base_c6": {
+      "asr_lyric_similarity": 0.9,
+      "pitch_mae_cents": 18.695,
+      "voicing_accuracy": 0.8775,
+      "hf_spike_p99_over_median": 258.12655,
+      "spectral_flux_p95": 0.210085,
+      "sample_jump_p999": 0.023926,
+      "wavlm_to_gyu": 0.700705,
+      "ecapa_to_gyu": 0.1334
+    },
+    "film_100_s100": {
+      "asr_lyric_similarity": 0.84165,
+      "pitch_mae_cents": 23.42,
+      "voicing_accuracy": 0.93415,
+      "hf_spike_p99_over_median": 293.9217,
+      "spectral_flux_p95": 0.260052,
+      "sample_jump_p999": 0.018436,
+      "wavlm_to_gyu": 0.67168,
+      "ecapa_to_gyu": 0.13965
+    },
+    "film_1000_s025": {
+      "asr_lyric_similarity": 0.775,
+      "pitch_mae_cents": 22.125,
+      "voicing_accuracy": 0.93915,
+      "hf_spike_p99_over_median": 255.0538,
+      "spectral_flux_p95": 0.252314,
+      "sample_jump_p999": 0.020405,
+      "wavlm_to_gyu": 0.692585,
+      "ecapa_to_gyu": 0.13495
+    },
+    "speaker_film_25_s100": {
+      "asr_lyric_similarity": 0.775,
+      "pitch_mae_cents": 22.345,
+      "voicing_accuracy": 0.9421,
+      "hf_spike_p99_over_median": 236.5232,
+      "spectral_flux_p95": 0.253466,
+      "sample_jump_p999": 0.024228,
+      "wavlm_to_gyu": 0.72937,
+      "ecapa_to_gyu": 0.13028
+    },
+    "speaker_residual_25_s100": {
+      "asr_lyric_similarity": 0.775,
+      "pitch_mae_cents": 22.88,
+      "voicing_accuracy": 0.9371,
+      "hf_spike_p99_over_median": 234.629,
+      "spectral_flux_p95": 0.258259,
+      "sample_jump_p999": 0.024195,
+      "wavlm_to_gyu": 0.72897,
+      "ecapa_to_gyu": 0.13083
+    },
+    "speaker_residual_100_s100": {
+      "asr_lyric_similarity": 0.475,
+      "pitch_mae_cents": 22.22,
+      "voicing_accuracy": 0.9421,
+      "hf_spike_p99_over_median": 248.85625,
+      "spectral_flux_p95": 0.254192,
+      "sample_jump_p999": 0.024186,
+      "wavlm_to_gyu": 0.718385,
+      "ecapa_to_gyu": 0.126555
+    }
+  },
+  "acceptance": {
+    "selected": null,
+    "required": "per-case ASR >= 0.75 and both WavLM/ECAPA >= base + 0.01"
+  },
+  "finding": "The bounded adapters either reduce lyric retention or fail cross-encoder identity agreement. More MLP-Singer adaptation is stopped.",
+  "release_allowed": false
+}

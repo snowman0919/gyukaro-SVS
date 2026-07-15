@@ -1,0 +1,50 @@
+{
+  "status": "bounded_latent_film_training_complete_objective_evaluation_pending",
+  "base_model": "neosapience/mlp-singer@7f4621ca04ee5e35c0e0a80b1fed785a55a51891",
+  "base_model_license": "MIT",
+  "score_native": true,
+  "speaker_target": "GYU",
+  "data": {
+    "train_rows": 43,
+    "validation_rows": 5,
+    "training_score_status": "inferred_from_target_f0",
+    "independent_verified_rows_used": 0,
+    "source_audio_modified": false
+  },
+  "adapter": {
+    "location": "decoder hidden before frozen mel projection",
+    "type": "bounded global FiLM",
+    "channels": 288,
+    "trainable_parameters": 576,
+    "modulation_limit": 0.3
+  },
+  "frozen": "phoneme embedding, pitch embedding, mixer decoder, mel projection, HiFi-GAN",
+  "objective": "target mel L1 + 0.5 temporal-dynamics preservation + parameter regularization",
+  "history": [
+    {
+      "step": 100,
+      "train_target_loss": 1.71372,
+      "validation_base_loss": 1.907629,
+      "validation_adapted_loss": 1.836726,
+      "validation_dynamics_delta": 0.006807,
+      "checkpoint_sha256": "74921fcc4a88682442b6fbc493ce6fd64a0572e4c7e48900402db672e239b0d2"
+    },
+    {
+      "step": 400,
+      "train_target_loss": 1.583668,
+      "validation_base_loss": 1.907629,
+      "validation_adapted_loss": 1.73369,
+      "validation_dynamics_delta": 0.019361,
+      "checkpoint_sha256": "c554eaee4aeef2cb6d6f68201249147b1265cd973ed22dd32e698a7b2c43dcfe"
+    },
+    {
+      "step": 1000,
+      "train_target_loss": 1.532808,
+      "validation_base_loss": 1.907629,
+      "validation_adapted_loss": 1.689122,
+      "validation_dynamics_delta": 0.025838,
+      "checkpoint_sha256": "317d30c3da9e3052bf30fa8fe974b8a7480504b17046e426eda1deff476e2b1f"
+    }
+  ],
+  "production_integrated": false
+}

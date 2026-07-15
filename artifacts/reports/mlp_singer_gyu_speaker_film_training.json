@@ -1,0 +1,53 @@
+{
+  "status": "bounded_dual_speaker_film_training_complete_objective_evaluation_pending",
+  "score_native": true,
+  "data": {
+    "train_rows": 43,
+    "validation_rows": 5,
+    "training_score_status": "inferred_from_target_f0",
+    "independent_verified_rows_used": 0,
+    "source_audio_modified": false
+  },
+  "adapter": {
+    "location": "decoder hidden before frozen mel projection",
+    "type": "bounded global FiLM",
+    "trainable_parameters": 576,
+    "modulation_limit": 0.15
+  },
+  "speaker_supervision": [
+    "microsoft/wavlm-base-plus-sv",
+    "speechbrain/spkrec-ecapa-voxceleb"
+  ],
+  "target": "real GYU mel reconstructed by the same frozen official HiFi-GAN",
+  "frozen": "score model, mel projection, HiFi-GAN, WavLM, ECAPA",
+  "history": [
+    {
+      "step": 25,
+      "wavlm_loss": 0.51632,
+      "ecapa_loss": 0.909789,
+      "dynamics_loss": 0.001667,
+      "base_mel_distance": 0.001648,
+      "target_mel_distance": 2.078362,
+      "checkpoint_sha256": "d8598e309243fe65bbf12b2eb94c64dc3f2d02cdacb17a17f7654f60af480f5e"
+    },
+    {
+      "step": 50,
+      "wavlm_loss": 0.429387,
+      "ecapa_loss": 0.824257,
+      "dynamics_loss": 0.000836,
+      "base_mel_distance": 0.002248,
+      "target_mel_distance": 1.645278,
+      "checkpoint_sha256": "82bbebef7baf2dcd50cef1830de285d98b2fae3609b5bfdac40e19cbf5c9c592"
+    },
+    {
+      "step": 100,
+      "wavlm_loss": 0.585231,
+      "ecapa_loss": 0.89662,
+      "dynamics_loss": 0.001627,
+      "base_mel_distance": 0.004079,
+      "target_mel_distance": 1.789292,
+      "checkpoint_sha256": "639644d2e9b479d3ebc6a5502903562abb8bf054dff086339b5b7c14b7d8deee"
+    }
+  ],
+  "production_integrated": false
+}
