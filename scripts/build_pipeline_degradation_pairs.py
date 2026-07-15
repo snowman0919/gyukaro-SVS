@@ -98,12 +98,19 @@ def main() -> None:
     parser.add_argument("--manifest", type=Path, default=Path("data/external/manifests/pipeline_degradation_pairs.jsonl"))
     parser.add_argument("--output", type=Path, default=Path("data/external/work/degradation_pairs"))
     parser.add_argument("--limit", type=int)
+    parser.add_argument("--pair-plan", type=Path)
+    parser.add_argument("--report", type=Path, default=Path("artifacts/reports/pipeline_degradation_pairs.json"))
     args = parser.parse_args()
-    clean = read_jsonl(Path("data/external/manifests/acoustic_clean.jsonl"))
-    rows = public_pairs(clean, "libritts_r") + public_pairs(clean, "vocalset") + gyu_pairs(Path("data/manifests/manual_verified_scores.jsonl"))
+    if args.pair_plan:
+        rows = read_jsonl(args.pair_plan)
+    else:
+        clean = read_jsonl(Path("data/external/manifests/acoustic_clean.jsonl"))
+        rows = public_pairs(clean, "libritts_r") + public_pairs(clean, "vocalset") + gyu_pairs(Path("data/manifests/manual_verified_scores.jsonl"))
     if args.limit:
         rows = rows[:args.limit]
-    identity, style = identity_files(args.output / "conditioning")
+    identity = style = None
+    if any(row["identity_adapter"] for row in rows):
+        identity, style = identity_files(args.output / "conditioning")
     root = Path.cwd(); cache = Path(os.environ.get("GYU_SINGER_CACHE", "data/cache")).resolve(); soulx = cache / "soulx-singer"
     command = [str(root / ".venv-soulx/bin/python"), "scripts/probe_soulx_score.py", "--worker", "--precision", "fp32",
                "--reference", str((root / "data/processed/master/216.wav").resolve()), "--model", str(soulx / "pretrained_models/SoulX-Singer/model-svc.pt"),
@@ -119,6 +126,7 @@ def main() -> None:
             if not target.exists():
                 request = {"source": str((root / row["clean_target"]).resolve()), "reference": str((root / row["reference"]).resolve()), "output": str(target.resolve())} | options
                 if row["identity_adapter"]:
+                    assert identity is not None and style is not None
                     request |= {"identity_npy": str(identity.resolve()), "style_npy": str(style.resolve())}
                 worker.request(request); normalize_output(target)
             info = sf.info(target)
@@ -137,7 +145,8 @@ def main() -> None:
     report = {"rows": len(output), "domains": counts, "datasets": {name: sum(row["dataset"] == name for row in output) for name in ("libritts_r", "vocalset", "real_gyu")},
               "splits": {split: sum(row["split"] == split for row in output) for split in ("train", "validation", "test")}, "pipeline_git_commit": commit,
               "soulx_revision": SOULX_REVISION, "real_pipeline_degradation_only": True, "random_noise_used": False}
-    Path("artifacts/reports/pipeline_degradation_pairs.json").write_text(json.dumps(report, indent=2) + "\n")
+    args.report.parent.mkdir(parents=True, exist_ok=True)
+    args.report.write_text(json.dumps(report, indent=2) + "\n")
     print(json.dumps(report, indent=2))
 
 

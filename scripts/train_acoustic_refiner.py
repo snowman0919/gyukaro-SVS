@@ -78,11 +78,16 @@ def main() -> None:
     parser.add_argument("--learning-rate", type=float, default=2e-4)
     parser.add_argument("--seed", type=int, default=194)
     parser.add_argument("--manifest", type=Path, default=Path("data/external/manifests/pipeline_degradation_pairs.jsonl"))
+    parser.add_argument("--replay-manifest", type=Path, action="append", default=[])
     parser.add_argument("--output")
+    parser.add_argument("--report", type=Path)
     args = parser.parse_args()
     random.seed(args.seed); np.random.seed(args.seed); torch.manual_seed(args.seed)
     device = "cuda" if torch.cuda.is_available() else "cpu"
-    rows = load_pairs(args.manifest); primary, replay = stage_rows(rows, args.stage, "train"); validation, _ = stage_rows(rows, args.stage, "validation")
+    rows = load_pairs(args.manifest)
+    for replay_manifest in args.replay_manifest:
+        rows.extend(load_pairs(replay_manifest))
+    primary, replay = stage_rows(rows, args.stage, "train"); validation, _ = stage_rows(rows, args.stage, "validation")
     if args.init:
         saved = torch.load(args.init, map_location="cpu", weights_only=False); model = VocalAcousticRefiner(**saved["model_config"]); model.load_state_dict(saved["model"])
     else:
@@ -117,13 +122,16 @@ def main() -> None:
     payload = {"version": 1, "stage": args.stage, "model_config": model.config, "model": {key: value.cpu() for key, value in model.state_dict().items()},
                "training": {"steps": args.steps, "batch_size": args.batch_size, "crop_samples": args.crop_samples, "learning_rate": args.learning_rate, "seed": args.seed,
                             "trainable_parameters": trainable, "primary_rows": len(primary), "replay_rows": len(replay), "validation_rows": len(validation),
+                            "manifests": [str(args.manifest), *map(str, args.replay_manifest)],
                             "target_loudness": "RMS-matched to degraded input; peak capped at 0.97", "random_noise_augmentation": False,
                             "loss": "three-resolution log-STFT + spectral convergence + envelope L1 + 0.05 residual L1",
                             "wall_clock_sec": round(time.perf_counter() - started, 3), "validation_loss": round(float(np.mean(validation_losses)), 6), "history": history},
                "parent": args.init}
     torch.save(payload, output)
     report = payload["training"] | {"stage": args.stage, "checkpoint": str(output), "total_parameters": sum(parameter.numel() for parameter in model.parameters())}
-    Path(f"artifacts/reports/acoustic_refiner_{args.stage}.json").write_text(json.dumps(report, indent=2) + "\n")
+    report_path = args.report or Path(f"artifacts/reports/acoustic_refiner_{args.stage}.json")
+    report_path.parent.mkdir(parents=True, exist_ok=True)
+    report_path.write_text(json.dumps(report, indent=2) + "\n")
     print(json.dumps(report, indent=2))
 
 

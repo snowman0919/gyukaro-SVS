@@ -1,0 +1,322 @@
+{
+  "steps": 1600,
+  "batch_size": 8,
+  "crop_samples": 32768,
+  "learning_rate": 0.0001,
+  "seed": 194,
+  "trainable_parameters": 4968,
+  "primary_rows": 130,
+  "replay_rows": 27,
+  "validation_rows": 47,
+  "manifests": [
+    "data/external/manifests/pipeline_degradation_pairs_v2.jsonl",
+    "data/external/manifests/pipeline_degradation_pairs_libri_v2.jsonl"
+  ],
+  "target_loudness": "RMS-matched to degraded input; peak capped at 0.97",
+  "random_noise_augmentation": false,
+  "loss": "three-resolution log-STFT + spectral convergence + envelope L1 + 0.05 residual L1",
+  "wall_clock_sec": 155.118,
+  "validation_loss": 2.811581,
+  "history": [
+    {
+      "step": 1,
+      "loss": 3.801736,
+      "residual_l1": 0.0140118,
+      "stft_512": 3.659298,
+      "stft_1024": 3.800033,
+      "stft_2048": 3.918759,
+      "envelope": 0.008339
+    },
+    {
+      "step": 50,
+      "loss": 2.923354,
+      "residual_l1": 0.0248966,
+      "stft_512": 2.796865,
+      "stft_1024": 2.915491,
+      "stft_2048": 3.001326,
+      "envelope": 0.017549
+    },
+    {
+      "step": 100,
+      "loss": 3.122602,
+      "residual_l1": 0.0304281,
+      "stft_512": 3.010664,
+      "stft_1024": 3.11513,
+      "stft_2048": 3.189453,
+      "envelope": 0.015999
+    },
+    {
+      "step": 150,
+      "loss": 3.184238,
+      "residual_l1": 0.0217005,
+      "stft_512": 3.082578,
+      "stft_1024": 3.17166,
+      "stft_2048": 3.24398,
+      "envelope": 0.01708
+    },
+    {
+      "step": 200,
+      "loss": 3.152979,
+      "residual_l1": 0.0291387,
+      "stft_512": 3.063207,
+      "stft_1024": 3.147844,
+      "stft_2048": 3.208891,
+      "envelope": 0.011541
+    },
+    {
+      "step": 250,
+      "loss": 3.190462,
+      "residual_l1": 0.0269661,
+      "stft_512": 3.092538,
+      "stft_1024": 3.196154,
+      "stft_2048": 3.260376,
+      "envelope": 0.006091
+    },
+    {
+      "step": 300,
+      "loss": 2.301437,
+      "residual_l1": 0.0313144,
+      "stft_512": 2.247005,
+      "stft_1024": 2.253354,
+      "stft_2048": 2.307992,
+      "envelope": 0.030421
+    },
+    {
+      "step": 350,
+      "loss": 2.69746,
+      "residual_l1": 0.0331867,
+      "stft_512": 2.644314,
+      "stft_1024": 2.69018,
+      "stft_2048": 2.72038,
+      "envelope": 0.010842
+    },
+    {
+      "step": 400,
+      "loss": 2.834742,
+      "residual_l1": 0.0374249,
+      "stft_512": 2.774621,
+      "stft_1024": 2.833555,
+      "stft_2048": 2.853458,
+      "envelope": 0.012326
+    },
+    {
+      "step": 450,
+      "loss": 2.617691,
+      "residual_l1": 0.0325281,
+      "stft_512": 2.548438,
+      "stft_1024": 2.595284,
+      "stft_2048": 2.631211,
+      "envelope": 0.02442
+    },
+    {
+      "step": 500,
+      "loss": 2.556251,
+      "residual_l1": 0.032715,
+      "stft_512": 2.488343,
+      "stft_1024": 2.53558,
+      "stft_2048": 2.59742,
+      "envelope": 0.014168
+    },
+    {
+      "step": 550,
+      "loss": 2.505858,
+      "residual_l1": 0.0370976,
+      "stft_512": 2.467872,
+      "stft_1024": 2.491173,
+      "stft_2048": 2.515687,
+      "envelope": 0.012425
+    },
+    {
+      "step": 600,
+      "loss": 2.486655,
+      "residual_l1": 0.0424475,
+      "stft_512": 2.436762,
+      "stft_1024": 2.4476,
+      "stft_2048": 2.483926,
+      "envelope": 0.028436
+    },
+    {
+      "step": 650,
+      "loss": 2.363967,
+      "residual_l1": 0.03366,
+      "stft_512": 2.307262,
+      "stft_1024": 2.332912,
+      "stft_2048": 2.354491,
+      "envelope": 0.030729
+    },
+    {
+      "step": 700,
+      "loss": 2.549179,
+      "residual_l1": 0.033063,
+      "stft_512": 2.525721,
+      "stft_1024": 2.524707,
+      "stft_2048": 2.53003,
+      "envelope": 0.020707
+    },
+    {
+      "step": 750,
+      "loss": 2.423866,
+      "residual_l1": 0.0407696,
+      "stft_512": 2.37251,
+      "stft_1024": 2.41154,
+      "stft_2048": 2.43148,
+      "envelope": 0.01665
+    },
+    {
+      "step": 800,
+      "loss": 2.42239,
+      "residual_l1": 0.0406446,
+      "stft_512": 2.337083,
+      "stft_1024": 2.390402,
+      "stft_2048": 2.44064,
+      "envelope": 0.030982
+    },
+    {
+      "step": 850,
+      "loss": 2.073993,
+      "residual_l1": 0.038819,
+      "stft_512": 2.026376,
+      "stft_1024": 2.043838,
+      "stft_2048": 2.069458,
+      "envelope": 0.025495
+    },
+    {
+      "step": 900,
+      "loss": 2.586549,
+      "residual_l1": 0.0442751,
+      "stft_512": 2.564904,
+      "stft_1024": 2.555841,
+      "stft_2048": 2.579776,
+      "envelope": 0.017495
+    },
+    {
+      "step": 950,
+      "loss": 2.345732,
+      "residual_l1": 0.045539,
+      "stft_512": 2.271469,
+      "stft_1024": 2.32743,
+      "stft_2048": 2.362849,
+      "envelope": 0.022873
+    },
+    {
+      "step": 1000,
+      "loss": 2.381761,
+      "residual_l1": 0.0391424,
+      "stft_512": 2.338995,
+      "stft_1024": 2.341987,
+      "stft_2048": 2.370422,
+      "envelope": 0.029336
+    },
+    {
+      "step": 1050,
+      "loss": 3.107673,
+      "residual_l1": 0.0324662,
+      "stft_512": 3.04562,
+      "stft_1024": 3.076108,
+      "stft_2048": 3.112739,
+      "envelope": 0.027894
+    },
+    {
+      "step": 1100,
+      "loss": 2.162173,
+      "residual_l1": 0.0392893,
+      "stft_512": 2.11416,
+      "stft_1024": 2.124928,
+      "stft_2048": 2.162174,
+      "envelope": 0.026454
+    },
+    {
+      "step": 1150,
+      "loss": 2.467086,
+      "residual_l1": 0.0429754,
+      "stft_512": 2.411128,
+      "stft_1024": 2.439282,
+      "stft_2048": 2.471053,
+      "envelope": 0.02445
+    },
+    {
+      "step": 1200,
+      "loss": 2.504663,
+      "residual_l1": 0.0410453,
+      "stft_512": 2.436598,
+      "stft_1024": 2.486821,
+      "stft_2048": 2.518064,
+      "envelope": 0.022116
+    },
+    {
+      "step": 1250,
+      "loss": 2.661222,
+      "residual_l1": 0.0486911,
+      "stft_512": 2.583982,
+      "stft_1024": 2.645568,
+      "stft_2048": 2.667403,
+      "envelope": 0.02647
+    },
+    {
+      "step": 1300,
+      "loss": 2.480127,
+      "residual_l1": 0.0294122,
+      "stft_512": 2.467914,
+      "stft_1024": 2.441512,
+      "stft_2048": 2.466213,
+      "envelope": 0.02011
+    },
+    {
+      "step": 1350,
+      "loss": 1.958744,
+      "residual_l1": 0.0396796,
+      "stft_512": 1.941767,
+      "stft_1024": 1.907778,
+      "stft_2048": 1.936251,
+      "envelope": 0.028161
+    },
+    {
+      "step": 1400,
+      "loss": 2.443646,
+      "residual_l1": 0.0303377,
+      "stft_512": 2.437407,
+      "stft_1024": 2.420072,
+      "stft_2048": 2.439939,
+      "envelope": 0.009657
+    },
+    {
+      "step": 1450,
+      "loss": 2.416375,
+      "residual_l1": 0.0314955,
+      "stft_512": 2.374399,
+      "stft_1024": 2.383824,
+      "stft_2048": 2.420556,
+      "envelope": 0.021874
+    },
+    {
+      "step": 1500,
+      "loss": 2.606884,
+      "residual_l1": 0.0305092,
+      "stft_512": 2.521394,
+      "stft_1024": 2.597785,
+      "stft_2048": 2.640187,
+      "envelope": 0.018903
+    },
+    {
+      "step": 1550,
+      "loss": 2.207742,
+      "residual_l1": 0.0407894,
+      "stft_512": 2.165201,
+      "stft_1024": 2.180401,
+      "stft_2048": 2.207211,
+      "envelope": 0.021432
+    },
+    {
+      "step": 1600,
+      "loss": 2.484931,
+      "residual_l1": 0.0310344,
+      "stft_512": 2.442105,
+      "stft_1024": 2.471928,
+      "stft_2048": 2.487286,
+      "envelope": 0.016273
+    }
+  ],
+  "stage": "singing",
+  "checkpoint": "checkpoints/acoustic_refiner_singing_v2.pt",
+  "total_parameters": 51537
+}

@@ -117,3 +117,9 @@ These controls isolate two facts: canonical F0 fixes pitch/voicing conditioning,
 | Zeroth 3.544 h replay 300 | 0.077 | 5.76 | 0.622 | 881.09 | reject |
 | SoulX score + verified prompt | 0.400 | 27.50 | 0.864 | 1638.16 | reject |
 | SoulX melody + canonical voicing | 0.100 | 4.16 | 0.974 | 842.55 | reject |
+
+## Native-phone SoulX and FM-Singer controls
+
+Four native-Korean phone layouts were tested against the official SoulX score/melody path. Best stress ASR similarity was 0.25; grouped and exact three-phone timing did not repair the unsupported Korean content representation. These adapters are rejected and never enter the runtime.
+
+FM-Singer revision `7245cca4d0a43280f2c4a3aab8a17ed75ba89529` was evaluated with its official generator checkpoint. The checkpoint uses a +12-semitone note-label convention. Exact score timing plus that convention reached 46.3-cent pitch MAE, 0.890 voicing accuracy, and a 31.5 HF-spike proxy, but only 0.610 mean ASR and 0.286 worst-case ASR on the large-interval phrase. Preserving predicted phone proportions or correcting F0 internally did not pass. A bounded sweep of all 19 AMS embeddings found only AMS14 usable. FM-Singer is rejected technically and remains evaluation-only because checkpoint redistribution rights were not established.

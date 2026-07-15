@@ -24,6 +24,7 @@ from gyu_singer.inference.content_timing import roman_phone  # noqa: E402
 from soulxsinger.models.soulxsinger import SoulXSinger  # noqa: E402
 from soulxsinger.utils.data_processor import DataProcessor  # noqa: E402
 from soulxsinger.utils.file_utils import load_config  # noqa: E402
+from soulx_exact_ko_processor import ExactKoreanDataProcessor  # noqa: E402
 
 
 PHONE_MAP = {
@@ -128,7 +129,9 @@ def prompt_metadata(row: dict) -> dict:
     }
 
 
-def target_metadata(case: str) -> dict:
+def target_metadata(
+    case: str, native_korean: bool = False, exact_korean: bool = False
+) -> dict:
     score = json.loads((ROOT / f"examples/review_{case}.json").read_text())
     notes = score["notes"]
     frontend = phonemize("ko", "".join(note["lyric"] for note in notes))
@@ -139,21 +142,74 @@ def target_metadata(case: str) -> dict:
         frame_hz=50,
         phoneme_alignment=score.get("phonemes"),
     )
+    if exact_korean:
+        durations, phones, pitches, types = [], [], [], []
+        cursor = 0.0
+        for note_index, note in enumerate(notes):
+            gap = float(note["start"]) - cursor
+            if gap >= .005:
+                durations.append(gap)
+                phones.append("<SP>")
+                pitches.append(0)
+                types.append(1)
+            rows = [
+                row for row in frames.timeline
+                if row["note_index"] == note_index and row["phoneme"] != "sil"
+            ]
+            runs: list[tuple[str, int]] = []
+            for row in rows:
+                if runs and runs[-1][0] == row["phoneme"]:
+                    runs[-1] = (runs[-1][0], runs[-1][1] + 1)
+                else:
+                    runs.append((row["phoneme"], 1))
+            durations.append(float(note["duration"]))
+            phones.append("koexact:" + "|".join(
+                f"{phone}@{count / 50:.6f}" for phone, count in runs
+            ))
+            pitches.append(int(note["pitch"]))
+            types.append(2)
+            cursor = float(note["start"]) + float(note["duration"])
+    elif native_korean:
+        durations, phones, pitches, types = [], [], [], []
+        cursor = 0.0
+        for note in notes:
+            gap = float(note["start"]) - cursor
+            if gap >= .005:
+                durations.append(gap)
+                phones.append("<SP>")
+                pitches.append(0)
+                types.append(1)
+            symbols = phonemize("ko", note["lyric"]).symbols
+            durations.append(float(note["duration"]))
+            phones.append("en_" + "-".join(symbols))
+            pitches.append(int(note["pitch"]))
+            types.append(2)
+            cursor = float(note["start"]) + float(note["duration"])
+    else:
+        durations = [float(note["duration"]) for note in notes]
+        phones = [syllable_phone(note["lyric"]) for note in notes]
+        pitches = [int(note["pitch"]) for note in notes]
+        types = [2] * len(notes)
     result = {
         "index": case, "language": "English",
         "time": [0, round(max(note["start"] + note["duration"] for note in notes) * 1000)],
-        "duration": " ".join(f'{note["duration"]:.6f}' for note in notes),
+        "duration": " ".join(f"{value:.6f}" for value in durations),
         "text": "".join(note["lyric"] for note in notes),
-        "phoneme": " ".join(syllable_phone(note["lyric"]) for note in notes),
-        "note_pitch": " ".join(str(note["pitch"]) for note in notes),
-        "note_type": " ".join("2" for _ in notes),
+        "phoneme": " ".join(phones),
+        "note_pitch": " ".join(map(str, pitches)),
+        "note_type": " ".join(map(str, types)),
         "f0": " ".join(f"{value:.3f}" for value in frames.f0_hz.tolist()),
-        "label_status": "independent_stress_score_with_arpabet_projection",
+        "label_status": (
+            "independent_stress_score_native_korean_phone_timeline"
+            if native_korean else "independent_stress_score_with_arpabet_projection"
+        ),
     }
     return result
 
 
-def verified_prompt(output: Path) -> tuple[dict, Path]:
+def verified_prompt(
+    output: Path, native_korean: bool = False, exact_korean: bool = False
+) -> tuple[dict, Path]:
     selected = None
     for line in (ROOT / "data/manifests/manual_verified_scores.jsonl").read_text().splitlines():
         row = json.loads(line)
@@ -172,18 +228,43 @@ def verified_prompt(output: Path) -> tuple[dict, Path]:
 
     values = {"duration": [], "phoneme": [], "note_pitch": [], "note_type": []}
     cursor = start
-    for note in notes:
-        gap = note["start"] - cursor
-        if gap >= .005:
-            values["duration"].append(gap)
-            values["phoneme"].append("<SP>")
-            values["note_pitch"].append(0)
-            values["note_type"].append(1)
-        values["duration"].append(note["duration"])
-        values["phoneme"].append(syllable_phone(note["lyric"]))
-        values["note_pitch"].append(note["pitch"])
-        values["note_type"].append(2)
-        cursor = note["start"] + note["duration"]
+    if native_korean:
+        by_syllable: dict[int, list[dict]] = {}
+        for phone in selected["phoneme_alignment"]:
+            by_syllable.setdefault(int(phone["syllable_index"]), []).append(phone)
+        for index, note in enumerate(notes):
+            gap = float(note["start"]) - cursor
+            if gap >= .005:
+                values["duration"].append(gap)
+                values["phoneme"].append("<SP>")
+                values["note_pitch"].append(0)
+                values["note_type"].append(1)
+            phones = by_syllable[index]
+            values["duration"].append(float(note["duration"]))
+            values["phoneme"].append(
+                "koexact:" + "|".join(
+                    f'{phone["symbol"]}@{float(phone["duration"]):.6f}'
+                    for phone in phones
+                )
+                if exact_korean
+                else "en_" + "-".join(phone["symbol"] for phone in phones)
+            )
+            values["note_pitch"].append(note["pitch"])
+            values["note_type"].append(2)
+            cursor = float(note["start"]) + float(note["duration"])
+    else:
+        for note in notes:
+            gap = note["start"] - cursor
+            if gap >= .005:
+                values["duration"].append(gap)
+                values["phoneme"].append("<SP>")
+                values["note_pitch"].append(0)
+                values["note_type"].append(1)
+            values["duration"].append(note["duration"])
+            values["phoneme"].append(syllable_phone(note["lyric"]))
+            values["note_pitch"].append(note["pitch"])
+            values["note_type"].append(2)
+            cursor = note["start"] + note["duration"]
     prompt_f0 = frame_f0(audio.mean(1), rate, int(round((end - start) * 50)))
     return {
         "index": selected["id"], "language": "English", "time": [0, round((end - start) * 1000)],
@@ -193,7 +274,10 @@ def verified_prompt(output: Path) -> tuple[dict, Path]:
         "note_pitch": " ".join(map(str, values["note_pitch"])),
         "note_type": " ".join(map(str, values["note_type"])),
         "f0": " ".join(f"{value:.3f}" for value in prompt_f0),
-        "label_status": "independent_verified_score_plus_reviewed_phoneme_alignment",
+        "label_status": (
+            "independent_verified_score_plus_native_reviewed_phoneme_alignment"
+            if native_korean else "independent_verified_score_plus_reviewed_phoneme_alignment"
+        ),
     }, path
 
 
@@ -204,6 +288,7 @@ def main() -> None:
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--prompt", choices=("verified", "inferred"), default="verified")
     parser.add_argument("--control", choices=("score", "melody"), default="score")
+    parser.add_argument("--ko-adapter")
     args = parser.parse_args()
 
     output = ROOT / "artifacts/reports/soulx_score_native_ko_probe"
@@ -215,17 +300,32 @@ def main() -> None:
     model = SoulXSinger(config).cuda()
     state = torch.load(checkpoint, map_location="cpu", weights_only=False)["state_dict"]
     model.load_state_dict(state, strict=True)
+    adapter = None
+    native_korean = bool(args.ko_adapter)
+    if native_korean:
+        adapter = torch.load(ROOT / args.ko_adapter, map_location="cpu", weights_only=False)
+        ids = {phone: index for index, phone in enumerate(adapter["phones"])}
+        tokens = adapter.get("korean_tokens", adapter["korean_phones"])
+        with torch.no_grad():
+            for row, token in enumerate(tokens):
+                model.note_text_encoder.weight[ids[token]].copy_(adapter["weights"][row])
     model.half().eval()
     model.mel.float()
-    processor = DataProcessor(
+    exact_korean = bool(adapter and "exact" in adapter["version"])
+    processor_class = ExactKoreanDataProcessor if exact_korean else DataProcessor
+    processor = processor_class(
         hop_size=config.audio.hop_size,
         sample_rate=config.audio.sample_rate,
         phoneset_path=str(SOULX / "soulxsinger/utils/phoneme/phone_set.json"),
         device="cuda",
     )
+    if adapter:
+        processor.phone2idx = {phone: index for index, phone in enumerate(adapter["phones"])}
 
     if args.prompt == "verified":
-        prompt_meta, prompt_path = verified_prompt(output)
+        prompt_meta, prompt_path = verified_prompt(
+            output, native_korean=native_korean, exact_korean=exact_korean
+        )
         suffix = "vp"
     else:
         prompt_row = phrase_row()
@@ -233,14 +333,22 @@ def main() -> None:
         prompt_path = ROOT / prompt_row["audio_path"]
         suffix = "ip"
     prompt = processor.process(prompt_meta, str(prompt_path))
-    (output / f"prompt_metadata_{suffix}.json").write_text(
+    adapter_prefix = (
+        "koe" if exact_korean
+        else "kog" if adapter and "grouped" in adapter["version"]
+        else "ko"
+    )
+    adapter_suffix = f"_{adapter_prefix}{adapter['updates']}" if adapter else ""
+    (output / f"prompt_metadata_{suffix}{adapter_suffix}.json").write_text(
         json.dumps([prompt_meta], ensure_ascii=False, indent=2) + "\n"
     )
 
     rows = []
     for case in CASES:
-        target_meta = target_metadata(case)
-        (output / f"{case}_metadata.json").write_text(
+        target_meta = target_metadata(
+            case, native_korean=native_korean, exact_korean=exact_korean
+        )
+        (output / f"{case}_metadata{adapter_suffix}.json").write_text(
             json.dumps([target_meta], ensure_ascii=False, indent=2) + "\n"
         )
         target = processor.process(target_meta)
@@ -251,7 +359,9 @@ def main() -> None:
                 auto_shift=False, pitch_shift=0, n_steps=args.steps,
                 cfg=args.cfg, control=args.control, use_fp16=True,
             )
-        path = listening / f"{case}_{args.control}_s{args.steps}_c{args.cfg:g}_{suffix}.wav"
+        path = listening / (
+            f"{case}_{args.control}_s{args.steps}_c{args.cfg:g}_{suffix}{adapter_suffix}.wav"
+        )
         sf.write(path, audio.squeeze().float().cpu().numpy(), 24000)
         rows.append({"case": case, "path": str(path.relative_to(ROOT))})
 
@@ -267,10 +377,12 @@ def main() -> None:
         "per_note_tts": False,
         "waveform_pitch_shifting": False,
         "control": args.control,
+        "korean_phone_adapter": args.ko_adapter,
+        "native_korean_phone_timeline": native_korean,
         "steps": args.steps, "cfg": args.cfg, "seed": args.seed,
         "rows": rows,
     }
-    (output / f"render_{args.control}_{suffix}.json").write_text(
+    (output / f"render_{args.control}_{suffix}{adapter_suffix}.json").write_text(
         json.dumps(report, ensure_ascii=False, indent=2) + "\n"
     )
     print(json.dumps(report, ensure_ascii=False, indent=2))

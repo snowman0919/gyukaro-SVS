@@ -1,0 +1,29 @@
+{
+  "status": "ready",
+  "rows": 221,
+  "source_rows": 1997,
+  "target_hours": 0.4553,
+  "speakers": 20,
+  "splits": {
+    "test": 44,
+    "validation": 47,
+    "train": 130
+  },
+  "techniques": {
+    "scales/fast_forte": 19,
+    "scales/fast_piano": 18,
+    "scales/straight": 19,
+    "scales/vibrato": 19,
+    "scales/breathy": 17,
+    "scales/belt": 15,
+    "arpeggios/fast_forte": 18,
+    "arpeggios/fast_piano": 20,
+    "arpeggios/straight": 19,
+    "arpeggios/vibrato": 17,
+    "long_tones/straight": 20,
+    "long_tones/forte": 20
+  },
+  "license": "CC-BY-4.0",
+  "speaker_disjoint": true,
+  "random_noise_used": false
+}

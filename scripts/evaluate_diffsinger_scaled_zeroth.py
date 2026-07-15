@@ -58,6 +58,58 @@ VARIANTS = {
         case: ROOT / f"artifacts/reports/soulx_score_native_ko_probe/listening/{case}_melody_s32_c2_vp.wav"
         for case in CASES
     },
+    "soulx_ko_phone25": {
+        case: ROOT / f"artifacts/reports/soulx_score_native_ko_probe/listening/{case}_melody_s32_c2_vp_ko25.wav"
+        for case in CASES
+    },
+    "soulx_ko_phone0": {
+        case: ROOT / f"artifacts/reports/soulx_score_native_ko_probe/listening/{case}_melody_s32_c2_vp_ko0.wav"
+        for case in CASES
+    },
+    "soulx_ko_grouped0": {
+        case: ROOT / f"artifacts/reports/soulx_score_native_ko_probe/listening/{case}_melody_s32_c2_vp_kog0.wav"
+        for case in CASES
+    },
+    "soulx_ko_exact0": {
+        case: ROOT / f"artifacts/reports/soulx_score_native_ko_probe/listening/{case}_melody_s32_c2_vp_koe0.wav"
+        for case in CASES
+    },
+    "fm_singer_official_ams14": {
+        case: ROOT / f"artifacts/reports/fm_singer_score_probe/listening/{case}_official_predicted_duration_ams14.wav"
+        for case in CASES
+    },
+    "fm_singer_exact_ams14": {
+        case: ROOT / f"artifacts/reports/fm_singer_score_probe/listening/{case}_exact_score_duration_ams14.wav"
+        for case in CASES
+    },
+    "fm_singer_score_scaled_ams14": {
+        case: ROOT / f"artifacts/reports/fm_singer_score_probe/listening/{case}_score_scaled_prediction_ams14.wav"
+        for case in CASES
+    },
+    "fm_singer_official_ams14_p12": {
+        case: ROOT / f"artifacts/reports/fm_singer_score_probe/listening/{case}_official_predicted_duration_ams14_p12.wav"
+        for case in CASES
+    },
+    "fm_singer_exact_ams14_p12": {
+        case: ROOT / f"artifacts/reports/fm_singer_score_probe/listening/{case}_exact_score_duration_ams14_p12.wav"
+        for case in CASES
+    },
+    "fm_singer_score_scaled_ams14_p12": {
+        case: ROOT / f"artifacts/reports/fm_singer_score_probe/listening/{case}_score_scaled_prediction_ams14_p12.wav"
+        for case in CASES
+    },
+    "fm_singer_official_ams14_f0x2": {
+        case: ROOT / f"artifacts/reports/fm_singer_score_probe/listening/{case}_official_predicted_duration_ams14_f0x2.wav"
+        for case in CASES
+    },
+    "fm_singer_exact_ams14_f0x2": {
+        case: ROOT / f"artifacts/reports/fm_singer_score_probe/listening/{case}_exact_score_duration_ams14_f0x2.wav"
+        for case in CASES
+    },
+    "fm_singer_score_scaled_ams14_f0x2": {
+        case: ROOT / f"artifacts/reports/fm_singer_score_probe/listening/{case}_score_scaled_prediction_ams14_f0x2.wav"
+        for case in CASES
+    },
 }
 
 
@@ -184,7 +236,7 @@ def main() -> None:
     }
     target = ROOT / "artifacts/reports/diffsinger_zeroth3h5_evaluation.json"
     target.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n")
-    soulx_candidate = "soulx_melody32_verified"
+    soulx_candidate = "soulx_ko_phone25"
     soulx_rows = [row for row in rows if row["model"] == soulx_candidate]
     soulx_eligible = (
         min(row["asr_lyric_similarity"] for row in soulx_rows) >= 0.8
@@ -199,14 +251,19 @@ def main() -> None:
         "eligible": soulx_eligible,
         "candidate": soulx_candidate,
         "model": "official SoulX-Singer score-conditioned model.pt",
-        "control": "canonical 50 Hz voiced F0, direct note duration, and projected phonemes",
-        "korean_phone_projection": "deterministic English ARPAbet approximation; not native Korean supervision",
+        "control": "canonical 50 Hz voiced F0 and direct native-Korean phone duration",
+        "korean_phone_projection": "24,064-value bounded phone embedding learned from real-GYU inferred phrase alignment",
         "score_native": True,
         "per_note_tts": False,
         "waveform_pitch_shifting": False,
         "aggregate": {
             model: aggregate[model]
-            for model in ("rc6", "zeroth1h_replay300", "soulx_score32", "soulx_score32_verified", soulx_candidate)
+            for model in (
+                "rc6", "zeroth1h_replay300", "soulx_score32",
+                "soulx_score32_verified", "soulx_melody32_verified",
+                "soulx_ko_phone0", "soulx_ko_grouped0", "soulx_ko_exact0",
+                soulx_candidate,
+            )
         },
         "rows": soulx_rows,
         "release_allowed": False,
@@ -215,9 +272,52 @@ def main() -> None:
     (ROOT / "artifacts/reports/soulx_score_native_ko_probe/evaluation.json").write_text(
         json.dumps(soulx_report, ensure_ascii=False, indent=2) + "\n"
     )
+    fm_candidate = "fm_singer_score_scaled_ams14_f0x2"
+    fm_rows = [row for row in rows if row["model"] == fm_candidate]
+    fm_eligible = (
+        min(row["asr_lyric_similarity"] for row in fm_rows) >= 0.8
+        and min(row["voicing_accuracy"] for row in fm_rows) >= 0.8
+        and max(row["pitch_mae_cents"] for row in fm_rows) <= 100
+        and aggregate[fm_candidate]["hf_spike_p99_over_median"]
+        < aggregate["rc6"]["hf_spike_p99_over_median"]
+    )
+    fm_report = {
+        "status": (
+            "objective_source_pass_license_unresolved_human_pending"
+            if fm_eligible else "objective_reject_score_native_source"
+        ),
+        "human_listening": "pending" if fm_eligible else "not_requested_objective_reject",
+        "eligible": fm_eligible,
+        "candidate": fm_candidate,
+        "model": "FM-Singer official generator checkpoint, AMS14",
+        "repository_revision": "7245cca4d0a43280f2c4a3aab8a17ed75ba89529",
+        "checkpoint_sha256": "b7b01c46c89de19022d89dbb9084031534684d9a43a8f087aff681877e233427",
+        "checkpoint_license": "unresolved_evaluation_only",
+        "control": "native Korean jamo, MIDI, and exact score duration frames",
+        "score_native": True,
+        "per_note_tts": False,
+        "waveform_pitch_shifting": False,
+        "aggregate": {
+            model: aggregate[model]
+            for model in (
+                "rc6", "fm_singer_official_ams14", "fm_singer_exact_ams14",
+                "fm_singer_score_scaled_ams14", "fm_singer_official_ams14_p12",
+                "fm_singer_exact_ams14_p12", "fm_singer_score_scaled_ams14_p12",
+                "fm_singer_official_ams14_f0x2", "fm_singer_exact_ams14_f0x2",
+                fm_candidate,
+            )
+        },
+        "rows": fm_rows,
+        "release_allowed": False,
+        "interpretation": "Technical source gating does not resolve checkpoint rights or replace human listening.",
+    }
+    (ROOT / "artifacts/reports/fm_singer_score_probe/evaluation.json").write_text(
+        json.dumps(fm_report, ensure_ascii=False, indent=2) + "\n"
+    )
     print(json.dumps({
         "status": report["status"],
         "soulx_status": soulx_report["status"],
+        "fm_singer_status": fm_report["status"],
         "scale_signal_supports_one_more_stage": scale_signal,
         "aggregate": aggregate,
         "transcripts": {f'{row["model"]}:{row["case"]}': row["asr_transcript"] for row in rows},

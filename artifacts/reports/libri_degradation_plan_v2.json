@@ -1,0 +1,12 @@
+{
+  "status": "ready",
+  "rows": 52,
+  "speakers": 8,
+  "splits": {
+    "test": 11,
+    "validation": 14,
+    "train": 27
+  },
+  "license": "CC-BY-4.0",
+  "speaker_disjoint": true
+}

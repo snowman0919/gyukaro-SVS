@@ -20,6 +20,10 @@ Zeroth-Korean contributes bounded four-speaker Korean speech controls: 400 utter
 
 Two external pretrained SVC candidates were audited but excluded before large downloads. HQ-SVC's repository/checkpoint label is Apache-2.0, while its paper identifies OpenSinger and M4Singer training data; the unresolved non-commercial training-data provenance fails the production checkpoint gate. CopyCat's official model card is PolyForm Noncommercial 1.0.0. Neither model nor derived output enters production training.
 
+FM-Singer was audited as a Korean score-native diagnostic. Its code repository is MIT, but the official generator checkpoint is derived from the AI Hub multi-speaker singing corpus and no checkpoint/data redistribution permission was established. The 2.09 GB checkpoint was therefore used only for local evaluation and is not a production or package dependency. The only usable checkpoint speaker, AMS14, failed the large-interval lyric gate; the other bounded AMS speaker embeddings were mostly silent or unusable.
+
 The CSD paper footer states CC BY 4.0, but the actual Zenodo record `4916302` reports `cc-by-nc-sa-4.0` for the downloadable 1.85 GB archive. The archive metadata is used as the conservative controlling evidence. CSD data, replay training, and CSD-derived production checkpoints are excluded; an MIT code or model-repository label does not erase this data-license conflict.
+
+VocalSet scale-up reused the already verified CC BY 4.0 archive. A quality gate selected 221 clips (0.455 h), spanning 20 speaker-disjoint train/validation/test singers and 12 singing techniques. LibriTTS-R scale-up used all 52 non-reference accepted clips across eight speaker-disjoint speakers. Every v2 degradation input is an actual FP32 SoulX reconstruction; random-noise corruption remains unused.
 
 Regenerate with `python scripts/build_external_dataset_registry.py`, `python scripts/prepare_external_acoustic_data.py`, then `python scripts/report_external_acoustic_data.py`.
