@@ -1,0 +1,22 @@
+{
+  "status": "inputs_ready",
+  "score_native": true,
+  "cases": {
+    "rapid_ko": {
+      "score": "examples/review_rapid_ko.json",
+      "input": "artifacts/reports/diffsinger_score_native_pilot/rapid_ko.ds",
+      "seconds": 2.0,
+      "phonemes": 16,
+      "voiced_ratio": 0.88,
+      "timing_labels": "score_timed_inferred_split"
+    },
+    "large_interval_ko": {
+      "score": "examples/review_large_interval_ko.json",
+      "input": "artifacts/reports/diffsinger_score_native_pilot/large_interval_ko.ds",
+      "seconds": 4.8,
+      "phonemes": 10,
+      "voiced_ratio": 0.9875,
+      "timing_labels": "score_timed_inferred_split"
+    }
+  }
+}

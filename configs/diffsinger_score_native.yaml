@@ -110,7 +110,7 @@ use_breathiness_embed: false
 use_voicing_embed: false
 use_tension_embed: false
 vocoder: NsfHifiGAN
-vocoder_ckpt: /home/kotori9/code/gyukaro/data/external/work/diffsinger_score_native/vocoder/model.ckpt
+vocoder_ckpt: /home/kotori9/code/gyukaro/data/external/work/diffsinger_score_native/vocoder_exported/model.ckpt
 binarization_args:
   num_workers: 4
   shuffle: true
