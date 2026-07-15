@@ -16,6 +16,9 @@ artifacts/reports/v07_style_scale_search/
 artifacts/reports/rc5_ace_score_source/
 artifacts/reports/rc5_ace_score_strength/
 artifacts/reports/rc5_candidate_core/
+artifacts/reports/rc5_boundary_isolation/
+artifacts/reports/rc5_boundary_timing/
+artifacts/reports/rc5_boundary_hold/
 artifacts/reports/rc5_content_timing/
 artifacts/reports/rc5_ctc_voicing/
 # Raw matrix renders are reproduced by isolate_rc4_artifacts.py. Commit the
@@ -29,6 +32,7 @@ artifacts/reports/rc5_latent_strength/
 artifacts/reports/rc5_latent_timing/
 artifacts/reports/rc5_large_interval_decode/*.wav
 artifacts/reports/rc5_rapid_ctc32/
+artifacts/reports/rc5_rapid_decode/*.wav
 artifacts/reports/rc5_rapid_hold/
 artifacts/reports/rc5_rapid_warp64_cfg15/
 artifacts/reports/rc5_selected_32/

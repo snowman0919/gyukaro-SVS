@@ -32,9 +32,16 @@ The aggregate HF-energy p95 is slightly higher on the core four (+0.00072), conc
 
 Remaining risks: rapid KO retains elevated HF energy; EN ASR says “Sink” for “Sing”; sustained “아” is transcribed as “아멘” although lyric coverage is complete. Do not publish final v1.0.0. If human listening fails, continue from candidate4 rather than tagging it.
 
+## Follow-up risk probes
+
+- Rapid KO: 18 same-input decoder/seed variants tested with the selected phoneme-hold timing. No setting strictly improved pitch, HF energy, HF spikes, spectral flux, and sample discontinuity together. Existing FP32 64-step/CFG2/seed21 output retained.
+- Phrase boundary: the score gap itself was correct (target and observed both unvoiced). Collapse occurred at the first and last voiced notes. Full CTC hold raised voicing accuracy from 0.614 to 1.000 but reduced lyric coverage to 0.5. Partial hold reduced coverage further. Splitting at the gap preserved lyrics and raised voicing accuracy to 0.881, but HF-energy p95 rose from 0.0064 to 0.6667. All boundary alternatives rejected.
+
+These probes do not change candidate4. Human listening remains the only next acceptance gate.
+
 ## Verification
 
-- full tests: 37 passed;
+- full tests: 38 passed;
 - dataset validation: 132 recordings, 0 corrupt;
 - clean wheel install: pass in an isolated `/tmp` virtual environment;
 - installed KO/EN/JA frontend and internal candidate renderer import: pass;

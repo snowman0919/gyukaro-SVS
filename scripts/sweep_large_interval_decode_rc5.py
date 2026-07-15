@@ -1,26 +1,33 @@
 #!/usr/bin/env python3
-"""Small decoder sweep after the Korean obstruent-voicing correction."""
+"""Small decoder sweep for the remaining RC5 stress cases."""
 
 from __future__ import annotations
 
 import json
 import time
+import argparse
 from pathlib import Path
 
 from gyu_singer.inference.v09 import GyuSingerV09Renderer
 
 
 def main() -> None:
-    root = Path("artifacts/reports/rc5_large_interval_decode")
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--case", choices=("large_interval_ko", "rapid_ko"), default="large_interval_ko")
+    args = parser.parse_args()
+    stem = "large_interval" if args.case == "large_interval_ko" else "rapid"
+    root = Path(f"artifacts/reports/rc5_{stem}_decode")
     root.mkdir(parents=True, exist_ok=True)
     renderer = GyuSingerV09Renderer("data/processed/master/216.wav", root=Path.cwd())
     renderer.omnivoice.close()
     common = {
-        "source": "artifacts/reports/rc5_isolation/large_interval_ko/production_adapted_source.wav",
-        "f0_npy": "artifacts/reports/rc5_candidate_core/large_interval_ko/canonical_f0.npy",
-        "identity_npy": "artifacts/reports/rc5_isolation/large_interval_ko/identity.npy",
-        "style_npy": "artifacts/reports/rc5_isolation/large_interval_ko/style.npy",
+        "source": f"artifacts/reports/rc5_isolation/{args.case}/production_adapted_source.wav",
+        "f0_npy": f"artifacts/reports/rc5_candidate_core/{args.case}/canonical_f0.npy",
+        "identity_npy": f"artifacts/reports/rc5_isolation/{args.case}/identity.npy",
+        "style_npy": f"artifacts/reports/rc5_isolation/{args.case}/style.npy",
     }
+    if args.case == "rapid_ko":
+        common["content_warp_npy"] = "artifacts/reports/rc5_rapid_hold/warp.npy"
     rows = []
     try:
         for steps, cfg in ((32, 1.5), (32, 2.0), (50, 1.5), (50, 2.0), (64, 1.5), (64, 2.0)):
@@ -53,6 +60,7 @@ def main() -> None:
         json.dumps(
             {
                 "status": "rendered_not_selected",
+                "case": args.case,
                 "precision": "fp32",
                 "same_source_f0_identity_style": True,
                 "rows": rows,

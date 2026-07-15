@@ -156,7 +156,6 @@ def main() -> None:
     parser.add_argument("--latent-output")
     parser.add_argument("--n-steps", type=int, default=16)
     parser.add_argument("--cfg", type=float, default=2.5)
-    parser.add_argument("--seed", type=int, default=21)
     parser.add_argument("--precision", choices=("fp16", "fp32"), default="fp16")
     args = parser.parse_args()
     model, config, reference, ref_f0 = initialize(args)

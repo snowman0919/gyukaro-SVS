@@ -6,6 +6,7 @@ from __future__ import annotations
 import json
 import os
 import sys
+import argparse
 from difflib import SequenceMatcher
 from pathlib import Path
 
@@ -22,10 +23,14 @@ from preprocess.tools.f0_extraction import F0Extractor  # noqa: E402
 
 
 def main() -> None:
-    root = Path("artifacts/reports/rc5_large_interval_decode")
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--case", choices=("large_interval_ko", "rapid_ko"), default="large_interval_ko")
+    args = parser.parse_args()
+    stem = "large_interval" if args.case == "large_interval_ko" else "rapid"
+    root = Path(f"artifacts/reports/rc5_{stem}_decode")
     report = json.loads((root / "manifest.json").read_text())
     target = np.load(
-        "artifacts/reports/rc5_candidate_core/large_interval_ko/canonical_f0.npy"
+        f"artifacts/reports/rc5_candidate_core/{args.case}/canonical_f0.npy"
     )
     extractor = F0Extractor(
         str(
@@ -52,7 +57,7 @@ def main() -> None:
         .cuda()
         .eval()
     )
-    expected = normalized("높이 날아")
+    expected = normalized("높이 날아" if args.case == "large_interval_ko" else "빠르게 노래하자")
     for row in rows:
         inputs = processor(
             audio16(Path(row["path"])), sampling_rate=16000, return_tensors="pt"
@@ -77,22 +82,35 @@ def main() -> None:
         for row in rows
         if row["asr_lyric_coverage"] >= 0.8 and row["pitch_mae_cents"] < 30
     ]
-    selected = (
-        min(
-            accepted,
-            key=lambda row: (
-                -row["asr_lyric_similarity"],
-                row["hf_spike_p99_over_median"],
-                row["spectral_flux_p95"],
-            ),
+    baseline = None
+    if args.case == "rapid_ko":
+        stress = json.loads(Path("artifacts/reports/rc5_stress_candidate4/evaluation.json").read_text())
+        baseline = next(row for row in stress["rows"] if row["case"] == args.case)
+        metrics = (
+            "pitch_mae_cents",
+            "hf_energy_ratio_p95",
+            "hf_spike_p99_over_median",
+            "spectral_flux_p95",
+            "sample_jump_p999",
         )
-        if accepted
-        else None
-    )
+        accepted = [
+            row
+            for row in accepted
+            if row["name"] != "s64_c2_seed21"
+            and row["asr_lyric_coverage"] >= baseline["asr_lyric_coverage"]
+            and all(row[name] <= baseline[name] for name in metrics)
+        ]
+    selected = min(accepted, key=lambda row: row["hf_spike_p99_over_median"]) if accepted else None
     result = {
-        "status": "selected_not_human_reviewed" if selected else "no_acceptable_decode",
-        "selection_rule": "coverage>=0.8, pitch_mae<30c; then ASR, HF spike, flux",
+        "status": "selected_not_human_reviewed" if selected else "no_strict_improvement",
+        "case": args.case,
+        "selection_rule": (
+            "coverage>=baseline and no worse on pitch/HF/flux/jump"
+            if args.case == "rapid_ko"
+            else "coverage>=0.8, pitch_mae<30c; then lowest HF spike"
+        ),
         "selected": selected,
+        "baseline": baseline,
         "rows": rows,
     }
     (root / "evaluation.json").write_text(json.dumps(result, indent=2) + "\n")

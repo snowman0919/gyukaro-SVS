@@ -21,12 +21,13 @@ from gyu_singer.inference.v08 import GyuSingerV08Renderer
 from gyu_singer.score import normalize_score
 
 
-CASES = {
+DEFAULT_CASES = {
     "ko_neutral": "examples/quality_ko.json",
     "en": "examples/quality_en.json",
     "rapid_ko": "examples/review_rapid_ko.json",
     "large_interval_ko": "examples/review_large_interval_ko.json",
 }
+CASES = DEFAULT_CASES | {"phrase_boundary": "examples/review_phrase_boundary_ko.json"}
 
 
 def describe(path: Path, seconds: float | None = None) -> dict:
@@ -47,12 +48,14 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--output", default="artifacts/reports/rc5_isolation")
     parser.add_argument("--reference", default="data/processed/master/216.wav")
+    parser.add_argument("--case", choices=tuple(CASES))
     args = parser.parse_args()
     root, output = Path.cwd(), Path(args.output); shutil.rmtree(output, ignore_errors=True); output.mkdir(parents=True)
     renderer = GyuSingerV08Renderer(args.reference, root=root)
     prepared = {}
     try:
-        for case, score_path in CASES.items():
+        selected = {args.case: CASES[args.case]} if args.case else DEFAULT_CASES
+        for case, score_path in selected.items():
             directory = output / case; directory.mkdir()
             score = normalize_score(json.loads(Path(score_path).read_text()))
             duration = max(note["start"] + note["duration"] for note in score["notes"])
