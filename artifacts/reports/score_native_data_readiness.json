@@ -1,0 +1,29 @@
+{
+  "status": "manifest_ready_training_not_authorized_by_data_volume",
+  "rows": 76,
+  "training_rows": 52,
+  "training_minutes": 7.89,
+  "independent_evaluation_rows": 24,
+  "by_split": {
+    "train": {
+      "rows": 43,
+      "minutes": 6.457
+    },
+    "test": {
+      "rows": 4,
+      "minutes": 0.708
+    },
+    "validation": {
+      "rows": 5,
+      "minutes": 0.725
+    },
+    "independent_evaluation": {
+      "rows": 24,
+      "minutes": 1.605
+    }
+  },
+  "target_f0_used_as_prosody_input": false,
+  "real_f0_used_as_acoustic_condition": true,
+  "raw_audio_copied": false,
+  "warning": "Insufficient duration for production-quality acoustic training from scratch; do not package a checkpoint trained only on this manifest."
+}
