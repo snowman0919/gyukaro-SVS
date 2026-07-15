@@ -10,6 +10,7 @@ from pathlib import Path
 def main() -> None:
     registry = json.loads(Path("data/external/dataset_registry.json").read_text())
     report = json.loads(Path("artifacts/reports/external_acoustic_quality.json").read_text())
+    zeroth = json.loads(Path("artifacts/reports/diffsinger_zeroth_prior.json").read_text())
     rows = [json.loads(line) for line in Path(report["manifest"]).read_text().splitlines() if line]
     selected = [dataset for dataset in registry["datasets"] if dataset["status"] == "selected"]
     excluded = [dataset for dataset in registry["datasets"] if dataset["status"] == "excluded"]
@@ -29,6 +30,7 @@ def main() -> None:
         "VocalSet rows are isolated unaccompanied vocals; non-lexical technique clips have no fabricated ASR score. Music-background evidence is therefore source provenance, not a learned classifier.",
         f"Rejected-gate counts: {dict(sorted(failures.items()))}.", "",
         "The official VocalSet archive checksum matches Zenodo, but its ZIP offsets overflow. A local `zip -FF` recovery copy is used only to decode selected WAVs, each validated with libsndfile.", "",
+        f"Zeroth-Korean contributes a separate bounded {zeroth['rows']}-utterance ({zeroth['hours']:.3f} hour), four-speaker Korean speech prior. MMS-CTC timings are explicitly inferred; these rows are neither singing nor GYU ground truth.", "",
         "Regenerate with `python scripts/build_external_dataset_registry.py`, `python scripts/prepare_external_acoustic_data.py`, then `python scripts/report_external_acoustic_data.py`.",
     ]
     Path("docs/dataset_and_license_audit.md").write_text("\n".join(lines) + "\n")

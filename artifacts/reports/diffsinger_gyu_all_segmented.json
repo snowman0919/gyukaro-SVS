@@ -1,0 +1,34 @@
+{
+  "status": "contiguous_real_gyu_segments_ready",
+  "all_usable_recordings": true,
+  "source_rows": 89,
+  "segments": 730,
+  "train_segments": 584,
+  "validation_segments": 146,
+  "duration_minutes": 8.69,
+  "silence_fraction": 0.253286,
+  "previous_full_phrase_silence_fraction": 0.6238,
+  "gap_split_seconds": 0.25,
+  "labels": "inferred; independent-score evaluation rows remain excluded",
+  "source_recordings_modified": false,
+  "manifest": "data/manifests/diffsinger_gyu_all_segmented.jsonl",
+  "prior_config": "configs/diffsinger_gyu_all_segmented_prior.yaml",
+  "finetune_config": "configs/diffsinger_gyu_all_segmented_finetune.yaml",
+  "adaptation_config": "configs/diffsinger_gyu_all_adapt.yaml",
+  "vocabulary_remap": {
+    "old_vocabulary": 56,
+    "new_vocabulary": 63,
+    "new_token_initialization": {
+      "ko_coda_15": "mean:ko_coda",
+      "ko_coda_17": "mean:ko_coda",
+      "ko_nucleus_15": "mean:ko_nucleus",
+      "ko_nucleus_17": "mean:ko_nucleus",
+      "ko_nucleus_3": "mean:ko_nucleus",
+      "ko_onset_10": "mean:ko_onset",
+      "ko_onset_13": "mean:ko_onset"
+    },
+    "shared_embedding_max_abs_error": 0.0,
+    "checkpoint": "data/cache/diffsinger/checkpoints/gyu_score_native_pilot_best_4000_gyu_all_vocab.ckpt",
+    "checkpoint_sha256": "3fc699fb88d8c1c6ea162775249a1def313de987d74d0211eed4a27d45e42dc6"
+  }
+}

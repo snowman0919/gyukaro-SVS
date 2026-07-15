@@ -15,3 +15,21 @@ Sixty existing Korean Fish/MOSS teacher utterances were force-aligned with MMS C
 The text-only adaptation improves pitch stability but does not restore lyrics. Allowing the acoustic decoder to learn the same tiny speech set increases high-frequency spikes and still does not restore lyrics. More training on these 60 synthesized rows is therefore stopped.
 
 The next bounded experiment is a speaker-balanced subset of the CC BY 4.0 Zeroth-Korean corpus, used only for Korean phoneme/acoustic pretraining, followed by real-GYU singing adaptation. Full-corpus download and blind end-to-end retraining remain out of scope. Objective metrics may reject a probe; human listening is still required to accept any future candidate.
+
+## Zeroth and contiguous-GYU follow-up
+
+Status: rejected; none of these checkpoints is an RC candidate.
+
+The bounded Zeroth subset contains 400 unique utterances from four speakers (320 train, 80 validation, 1.025 hours). MMS CTC timings are inferred and Zeroth remains a speech-only phoneme/acoustic prior. Acoustic adaptation without singing replay catastrophically forgot singing. Restoring all 1,955 VocalSet training rows prevented the worst high-frequency collapse, but the best replay result still reached only 0.191 ASR lyric similarity.
+
+The real-GYU phrase labels exposed a separate defect: 62.38% of their duration was `SP`, including 316 gaps of at least 200 ms. Deterministic source-preserving segmentation reduced this to 33.76% over 230 segments. Extending CTC alignment to every usable recording recovered 89 source rows and 730 segments (8.69 minutes, 25.33% `SP`); all 24 independent-score rows remained excluded. Seven unseen Korean tokens were initialized from their same-category embedding mean, while every shared embedding was preserved exactly.
+
+| Probe | Pitch MAE | Voicing | HF spike | ASR similarity | Decision |
+|---|---:|---:|---:|---:|---|
+| RC6 (human failed) | 20.64 cents | 0.802 | 703.81 | 0.967 | baseline only |
+| Zeroth + VocalSet replay 300 | 7.04 cents | 0.674 | 248.61 | 0.191 | reject |
+| 230 contiguous GYU segments 200 | 9.12 cents | 0.714 | 103.15 | 0.291 | reject |
+| 730 all-recording segments 400 | 10.47 cents | 0.651 | 304.59 | 0.300 | reject; discontinuity regression |
+| GYU-only adaptation 100 | 6.27 cents | 0.730 | 181.93 | 0.311 | reject |
+
+Rapid Korean still transcribes as `아`, and large-interval Korean loses consonants. More steps consistently reduce voicing and lyric retention. The direct path therefore lacks a compatible score-native lexical singing prior; speech data, non-lexical VocalSet vowels, and additional optimization do not substitute for one. GTSinger and CSD were not downloaded because their non-commercial/ShareAlike terms are incompatible with the intended redistributable production checkpoint.

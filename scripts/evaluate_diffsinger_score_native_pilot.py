@@ -42,11 +42,18 @@ def sha256(path: Path) -> str:
 
 def main() -> None:
     root = ROOT / "artifacts/reports/diffsinger_score_native_pilot"
+    previous = json.loads((root / "evaluation.json").read_text())
     checkpoints = {
         **{f"steps{step}": ROOT / f"data/cache/diffsinger/checkpoints/gyu_score_native_pilot_best_{step}.ckpt" for step in (1000, 2000, 4000, 6000)},
         **{f"prior{step}": ROOT / f"data/cache/diffsinger/checkpoints/gyu_score_native_ko_prior_early/model_ckpt_steps_{step}.ckpt" for step in (100, 200, 300)},
         **{f"prior{step}": ROOT / f"data/cache/diffsinger/checkpoints/gyu_score_native_ko_prior/model_ckpt_steps_{step}.ckpt" for step in (400, 500)},
         **{f"acoustic{step}": ROOT / f"data/cache/diffsinger/checkpoints/gyu_score_native_ko_acoustic_prior/model_ckpt_steps_{step}.ckpt" for step in (100, 200, 300)},
+        **{f"zeroth{step}": ROOT / f"data/cache/diffsinger/checkpoints/gyu_score_native_zeroth_prior/model_ckpt_steps_{step}.ckpt" for step in (100, 200, 300)},
+        **{f"replay{step}": ROOT / f"data/cache/diffsinger/checkpoints/gyu_score_native_zeroth_replay/model_ckpt_steps_{step}.ckpt" for step in (100, 200, 300, 600)},
+        **{f"text{step}": ROOT / f"data/cache/diffsinger/checkpoints/gyu_score_native_zeroth_text/model_ckpt_steps_{step}.ckpt" for step in (200, 400, 600)},
+        **{f"segmented{step}": ROOT / f"data/cache/diffsinger/checkpoints/gyu_score_native_segmented/model_ckpt_steps_{step}.ckpt" for step in (200, 400, 600)},
+        **{f"allseg{step}": ROOT / f"data/cache/diffsinger/checkpoints/gyu_score_native_all_segmented/model_ckpt_steps_{step}.ckpt" for step in (200, 400)},
+        **{f"gyuadapt{step}": ROOT / f"data/cache/diffsinger/checkpoints/gyu_score_native_gyu_adapt/model_ckpt_steps_{step}.ckpt" for step in (100, 200, 300)},
     }
     targets = {
         case: np.array(json.loads((root / f"{case}.ds").read_text())[0]["f0_seq"].split(), dtype=np.float32)
@@ -74,7 +81,7 @@ def main() -> None:
 
     processor = AutoProcessor.from_pretrained(CACHE / "whisper-large-v3-turbo")
     asr = AutoModelForSpeechSeq2Seq.from_pretrained(
-        CACHE / "whisper-large-v3-turbo", dtype=torch.float16
+        CACHE / "whisper-large-v3-turbo", torch_dtype=torch.float16
     ).cuda().eval()
     for row in rows:
         score = json.loads(CASES[row["case"]].read_text())
@@ -102,7 +109,7 @@ def main() -> None:
         for model in ("rc6", *checkpoints)
     }
     candidate = max(
-        tuple(model for model in checkpoints if model.startswith(("prior", "acoustic"))),
+        tuple(model for model in checkpoints if model.startswith(("prior", "acoustic", "zeroth", "replay", "text", "segmented", "allseg", "gyuadapt"))),
         key=lambda model: (
             aggregate[model]["asr_lyric_similarity"],
             aggregate[model]["voicing_accuracy"],
@@ -127,9 +134,19 @@ def main() -> None:
             "early_prior100": 0.21004, "early_prior200": 0.248,
             "early_prior300": 0.19735, "prior400": 0.19322, "prior500": 0.19852,
             "acoustic100": 0.14203, "acoustic200": 0.1598, "acoustic300": 0.22716,
+            "zeroth100": 0.20216, "zeroth200": 0.17436, "zeroth300": 0.1783,
+            "replay100": 0.21528, "replay200": 0.16625, "replay300": 0.19704,
+            "replay600": 0.16408,
+            "text200": 0.26735, "text400": 0.28097, "text600": 0.26234,
+            "segmented200": 0.17748, "segmented400": 0.19848, "segmented600": 0.20261,
+            "allseg200": 0.25150, "allseg400": 0.22856,
+            "gyuadapt100": 0.23699, "gyuadapt200": 0.23334, "gyuadapt300": 0.20713,
         },
         "validation_loss_warning": "Diffusion validation loss varied materially across identical initial checkpoints; objective stress renders select the candidate.",
-        "checkpoint_sha256": {model: sha256(path) for model, path in checkpoints.items()},
+        "checkpoint_sha256": {
+            model: sha256(path) if path.is_file() else previous["checkpoint_sha256"][model]
+            for model, path in checkpoints.items()
+        },
         "aggregate": aggregate,
         "rows": rows,
         "interpretation": "Objective metrics can reject a pilot, but cannot pass listening or make this an RC.",

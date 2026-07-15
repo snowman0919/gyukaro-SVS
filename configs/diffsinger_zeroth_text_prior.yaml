@@ -1,0 +1,136 @@
+base_config:
+- configs/acoustic.yaml
+dictionaries:
+  gyu: /home/kotori9/code/gyukaro/data/external/work/diffsinger_score_native/dictionary-gyu-zeroth-text.txt
+datasets:
+- raw_data_dir: /home/kotori9/code/gyukaro/data/external/work/diffsinger_score_native/raw/gyu
+  speaker: gyu
+  language: gyu
+  test_prefixes:
+  - gyu_real_000153
+  - gyu_real_000154
+  - gyu_real_000165
+  - gyu_real_000170
+  - gyu_real_000198
+  - gyu_real_000204
+  - gyu_real_000209
+  - gyu_real_000220
+  - gyu_real_000221
+  spk_id: 20
+- raw_data_dir: /home/kotori9/code/gyukaro/data/external/work/diffsinger_score_native/raw/zeroth_187
+  speaker: zeroth_187
+  spk_id: 21
+  language: gyu
+  test_prefixes:
+  - zeroth_187_003_0649
+  - zeroth_187_003_0653
+  - zeroth_187_003_0654
+  - zeroth_187_003_0657
+  - zeroth_187_003_0666
+  - zeroth_187_003_0668
+  - zeroth_187_003_0670
+  - zeroth_187_003_0676
+  - zeroth_187_003_0681
+  - zeroth_187_003_0688
+  - zeroth_187_003_0701
+  - zeroth_187_003_0705
+  - zeroth_187_003_0710
+  - zeroth_187_003_0716
+  - zeroth_187_003_0736
+  - zeroth_187_003_0749
+  - zeroth_187_003_0755
+  - zeroth_187_003_0761
+  - zeroth_187_003_0763
+  - zeroth_187_003_0769
+- raw_data_dir: /home/kotori9/code/gyukaro/data/external/work/diffsinger_score_native/raw/zeroth_191
+  speaker: zeroth_191
+  spk_id: 22
+  language: gyu
+  test_prefixes:
+  - zeroth_191_003_0525
+  - zeroth_191_003_0526
+  - zeroth_191_003_0563
+  - zeroth_191_003_0580
+  - zeroth_191_003_0581
+  - zeroth_191_003_0586
+  - zeroth_191_003_0594
+  - zeroth_191_003_0597
+  - zeroth_191_003_0599
+  - zeroth_191_003_0609
+  - zeroth_191_003_0613
+  - zeroth_191_003_0615
+  - zeroth_191_003_0621
+  - zeroth_191_003_0623
+  - zeroth_191_003_0631
+  - zeroth_191_003_0634
+  - zeroth_191_003_0639
+  - zeroth_191_003_0641
+  - zeroth_191_003_0648
+  - zeroth_191_003_0656
+- raw_data_dir: /home/kotori9/code/gyukaro/data/external/work/diffsinger_score_native/raw/zeroth_201
+  speaker: zeroth_201
+  spk_id: 23
+  language: gyu
+  test_prefixes:
+  - zeroth_201_003_0291
+  - zeroth_201_003_0316
+  - zeroth_201_003_0319
+  - zeroth_201_003_0327
+  - zeroth_201_003_0332
+  - zeroth_201_003_0339
+  - zeroth_201_003_0353
+  - zeroth_201_003_0359
+  - zeroth_201_003_0370
+  - zeroth_201_003_0375
+  - zeroth_201_003_0376
+  - zeroth_201_003_0378
+  - zeroth_201_003_0382
+  - zeroth_201_003_0383
+  - zeroth_201_003_0385
+  - zeroth_201_003_0392
+  - zeroth_201_003_0393
+  - zeroth_201_003_0396
+  - zeroth_201_003_0401
+  - zeroth_201_003_0405
+- raw_data_dir: /home/kotori9/code/gyukaro/data/external/work/diffsinger_score_native/raw/zeroth_214
+  speaker: zeroth_214
+  spk_id: 24
+  language: gyu
+  test_prefixes:
+  - zeroth_214_003_0615
+  - zeroth_214_003_0619
+  - zeroth_214_003_0628
+  - zeroth_214_003_0630
+  - zeroth_214_003_0639
+  - zeroth_214_003_0640
+  - zeroth_214_003_0641
+  - zeroth_214_003_0658
+  - zeroth_214_003_0668
+  - zeroth_214_003_0678
+  - zeroth_214_003_0680
+  - zeroth_214_003_0690
+  - zeroth_214_003_0702
+  - zeroth_214_003_0720
+  - zeroth_214_003_0750
+  - zeroth_214_003_0754
+  - zeroth_214_003_0755
+  - zeroth_214_003_0759
+  - zeroth_214_003_0788
+  - zeroth_214_003_0794
+binary_data_dir: /home/kotori9/code/gyukaro/data/external/work/diffsinger_score_native/binary_zeroth_text
+use_spk_id: true
+num_spk: 25
+use_lang_id: false
+num_lang: 1
+pe: rmvpe
+pe_ckpt: /home/kotori9/code/gyukaro/data/cache/diffsinger-assets/rmvpe/model.pt
+hnsep: world
+use_energy_embed: false
+use_breathiness_embed: false
+use_voicing_embed: false
+use_tension_embed: false
+vocoder: NsfHifiGAN
+vocoder_ckpt: /home/kotori9/code/gyukaro/data/external/work/diffsinger_score_native/vocoder_exported/model.ckpt
+binarization_args:
+  num_workers: 4
+  shuffle: true

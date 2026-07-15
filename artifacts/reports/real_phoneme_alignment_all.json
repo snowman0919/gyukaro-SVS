@@ -1,0 +1,282 @@
+{
+  "status": "all_usable_real_recordings_aligned",
+  "source_recordings": 132,
+  "aligned_rows": 89,
+  "rejected_rows": 43,
+  "independent_rows_excluded": 24,
+  "alignment": "MMS multilingual CTC plus singing vowel-duration prior",
+  "labels": "inferred; acoustic training only; not score ground truth",
+  "rejections": [
+    {
+      "id": "gyu_real_000151",
+      "reasons": [
+        "insufficient_active_voice"
+      ]
+    },
+    {
+      "id": "gyu_real_000153",
+      "reasons": [
+        "insufficient_active_voice"
+      ]
+    },
+    {
+      "id": "gyu_real_000155",
+      "reasons": [
+        "insufficient_active_voice"
+      ]
+    },
+    {
+      "id": "gyu_real_000158",
+      "reasons": [
+        "insufficient_active_voice"
+      ]
+    },
+    {
+      "id": "gyu_real_000159",
+      "reasons": [
+        "insufficient_active_voice"
+      ]
+    },
+    {
+      "id": "gyu_real_000160",
+      "reasons": [
+        "insufficient_active_voice"
+      ]
+    },
+    {
+      "id": "gyu_real_000161",
+      "reasons": [
+        "insufficient_active_voice"
+      ]
+    },
+    {
+      "id": "gyu_real_000163",
+      "reasons": [
+        "insufficient_active_voice"
+      ]
+    },
+    {
+      "id": "gyu_real_000164",
+      "reasons": [
+        "insufficient_active_voice"
+      ]
+    },
+    {
+      "id": "gyu_real_000166",
+      "reasons": [
+        "insufficient_active_voice"
+      ]
+    },
+    {
+      "id": "gyu_real_000167",
+      "reasons": [
+        "insufficient_active_voice"
+      ]
+    },
+    {
+      "id": "gyu_real_000169",
+      "reasons": [
+        "insufficient_active_voice"
+      ]
+    },
+    {
+      "id": "gyu_real_000170",
+      "reasons": [
+        "insufficient_active_voice"
+      ]
+    },
+    {
+      "id": "gyu_real_000171",
+      "reasons": [
+        "independent_evaluation_holdout"
+      ]
+    },
+    {
+      "id": "gyu_real_000172",
+      "reasons": [
+        "independent_evaluation_holdout",
+        "insufficient_active_voice"
+      ]
+    },
+    {
+      "id": "gyu_real_000173",
+      "reasons": [
+        "independent_evaluation_holdout",
+        "insufficient_active_voice"
+      ]
+    },
+    {
+      "id": "gyu_real_000174",
+      "reasons": [
+        "independent_evaluation_holdout",
+        "insufficient_active_voice"
+      ]
+    },
+    {
+      "id": "gyu_real_000175",
+      "reasons": [
+        "independent_evaluation_holdout",
+        "insufficient_active_voice"
+      ]
+    },
+    {
+      "id": "gyu_real_000176",
+      "reasons": [
+        "independent_evaluation_holdout",
+        "insufficient_active_voice"
+      ]
+    },
+    {
+      "id": "gyu_real_000177",
+      "reasons": [
+        "independent_evaluation_holdout"
+      ]
+    },
+    {
+      "id": "gyu_real_000178",
+      "reasons": [
+        "independent_evaluation_holdout",
+        "insufficient_active_voice"
+      ]
+    },
+    {
+      "id": "gyu_real_000179",
+      "reasons": [
+        "independent_evaluation_holdout",
+        "insufficient_active_voice"
+      ]
+    },
+    {
+      "id": "gyu_real_000180",
+      "reasons": [
+        "independent_evaluation_holdout"
+      ]
+    },
+    {
+      "id": "gyu_real_000181",
+      "reasons": [
+        "independent_evaluation_holdout",
+        "insufficient_active_voice"
+      ]
+    },
+    {
+      "id": "gyu_real_000182",
+      "reasons": [
+        "independent_evaluation_holdout",
+        "insufficient_active_voice"
+      ]
+    },
+    {
+      "id": "gyu_real_000183",
+      "reasons": [
+        "independent_evaluation_holdout"
+      ]
+    },
+    {
+      "id": "gyu_real_000184",
+      "reasons": [
+        "independent_evaluation_holdout",
+        "insufficient_active_voice"
+      ]
+    },
+    {
+      "id": "gyu_real_000185",
+      "reasons": [
+        "independent_evaluation_holdout"
+      ]
+    },
+    {
+      "id": "gyu_real_000186",
+      "reasons": [
+        "independent_evaluation_holdout"
+      ]
+    },
+    {
+      "id": "gyu_real_000187",
+      "reasons": [
+        "independent_evaluation_holdout",
+        "insufficient_active_voice"
+      ]
+    },
+    {
+      "id": "gyu_real_000188",
+      "reasons": [
+        "independent_evaluation_holdout",
+        "insufficient_active_voice"
+      ]
+    },
+    {
+      "id": "gyu_real_000189",
+      "reasons": [
+        "independent_evaluation_holdout"
+      ]
+    },
+    {
+      "id": "gyu_real_000190",
+      "reasons": [
+        "independent_evaluation_holdout"
+      ]
+    },
+    {
+      "id": "gyu_real_000191",
+      "reasons": [
+        "independent_evaluation_holdout"
+      ]
+    },
+    {
+      "id": "gyu_real_000192",
+      "reasons": [
+        "independent_evaluation_holdout"
+      ]
+    },
+    {
+      "id": "gyu_real_000193",
+      "reasons": [
+        "independent_evaluation_holdout"
+      ]
+    },
+    {
+      "id": "gyu_real_000194",
+      "reasons": [
+        "independent_evaluation_holdout",
+        "insufficient_active_voice"
+      ]
+    },
+    {
+      "id": "gyu_real_000196",
+      "reasons": [
+        "insufficient_active_voice"
+      ]
+    },
+    {
+      "id": "gyu_real_000200",
+      "reasons": [
+        "insufficient_active_voice"
+      ]
+    },
+    {
+      "id": "gyu_real_000225",
+      "reasons": [
+        "audio_integrity"
+      ]
+    },
+    {
+      "id": "gyu_real_000227",
+      "reasons": [
+        "audio_integrity"
+      ]
+    },
+    {
+      "id": "gyu_real_000234",
+      "reasons": [
+        "insufficient_active_voice"
+      ]
+    },
+    {
+      "id": "gyu_real_000237",
+      "reasons": [
+        "insufficient_active_voice"
+      ]
+    }
+  ]
+}

@@ -24,6 +24,14 @@ DATASETS = [
         "model_distribution": "allowed with attribution; checkpoint may be distributed",
     },
     {
+        "id": "zeroth_korean", "name": "Zeroth-Korean SLR40", "domain": "speech", "languages": ["ko"],
+        "source": "https://www.openslr.org/40/", "license": "CC BY 4.0",
+        "license_evidence": "https://www.openslr.org/40/", "allowed_uses": ["training", "evaluation", "commercial use with attribution"],
+        "redistribution": "CC BY 4.0; raw subset is not bundled", "status": "selected",
+        "selection": "four speakers, 100 utterances each; Korean phoneme/acoustic prior only, not singing",
+        "model_distribution": "allowed with attribution; checkpoint may be distributed",
+    },
+    {
         "id": "emilia", "name": "Emilia original", "domain": "speech", "languages": ["en", "ja", "ko"],
         "source": "https://huggingface.co/datasets/amphion/Emilia-Dataset", "license": "CC BY-NC 4.0 plus gated terms",
         "license_evidence": "https://huggingface.co/datasets/amphion/Emilia-Dataset/blob/main/README.md", "allowed_uses": ["non-commercial research"],
@@ -53,6 +61,13 @@ DATASETS = [
         "selection": "none", "model_distribution": "excluded so production checkpoint is not forced into NC-SA terms",
     },
     {
+        "id": "csd", "name": "Children's Song Dataset", "domain": "singing", "languages": ["ko", "en"],
+        "source": "https://zenodo.org/records/4916302", "license": "CC BY-NC-SA 4.0",
+        "license_evidence": "https://zenodo.org/api/records/4916302", "allowed_uses": ["non-commercial training", "non-commercial evaluation"],
+        "redistribution": "CC BY-NC-SA 4.0 and ShareAlike", "status": "excluded",
+        "selection": "none", "model_distribution": "excluded from the redistributable production checkpoint",
+    },
+    {
         "id": "jvs_music", "name": "JVS-MuSiC", "domain": "singing", "languages": ["ja"],
         "source": "https://sites.google.com/site/shinnosuketakamichi/research-topics/jvs_music", "license": "custom non-commercial research/personal-use terms",
         "license_evidence": "https://sites.google.com/site/shinnosuketakamichi/research-topics/jvs_music", "allowed_uses": ["academic research", "non-commercial research", "personal use"],
@@ -80,7 +95,7 @@ def main() -> None:
     excluded = [d["name"] for d in DATASETS if d["status"] == "excluded"]
     report = "# Dataset and license audit\n\n" + f"Production training selected only {', '.join(selected)} (CC BY 4.0). " + f"Excluded from distributed weights: {', '.join(excluded)}. Emilia-YODAS remains deferred pending item-level provenance review.\n\n" + "No bulk download occurred before this registry was written. Selected raw files stay under ignored `data/external/raw/`; only reproducible manifests and quality metadata are committed.\n"
     Path("docs/dataset_and_license_audit.md").write_text(report)
-    assert len(selected) == 2 and all(d["license"] == "CC BY 4.0" for d in DATASETS if d["status"] == "selected")
+    assert len(selected) == 3 and all(d["license"] == "CC BY 4.0" for d in DATASETS if d["status"] == "selected")
     print(json.dumps({"selected": selected, "excluded": excluded, "registry": str(root / "dataset_registry.json")}, indent=2))
 
 

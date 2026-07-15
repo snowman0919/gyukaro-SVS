@@ -45,6 +45,26 @@
       "model_distribution": "allowed with attribution; checkpoint may be distributed"
     },
     {
+      "id": "zeroth_korean",
+      "name": "Zeroth-Korean SLR40",
+      "domain": "speech",
+      "languages": [
+        "ko"
+      ],
+      "source": "https://www.openslr.org/40/",
+      "license": "CC BY 4.0",
+      "license_evidence": "https://www.openslr.org/40/",
+      "allowed_uses": [
+        "training",
+        "evaluation",
+        "commercial use with attribution"
+      ],
+      "redistribution": "CC BY 4.0; raw subset is not bundled",
+      "status": "selected",
+      "selection": "four speakers, 100 utterances each; Korean phoneme/acoustic prior only, not singing",
+      "model_distribution": "allowed with attribution; checkpoint may be distributed"
+    },
+    {
       "id": "emilia",
       "name": "Emilia original",
       "domain": "speech",
@@ -124,6 +144,26 @@
       "status": "excluded",
       "selection": "none",
       "model_distribution": "excluded so production checkpoint is not forced into NC-SA terms"
+    },
+    {
+      "id": "csd",
+      "name": "Children's Song Dataset",
+      "domain": "singing",
+      "languages": [
+        "ko",
+        "en"
+      ],
+      "source": "https://zenodo.org/records/4916302",
+      "license": "CC BY-NC-SA 4.0",
+      "license_evidence": "https://zenodo.org/api/records/4916302",
+      "allowed_uses": [
+        "non-commercial training",
+        "non-commercial evaluation"
+      ],
+      "redistribution": "CC BY-NC-SA 4.0 and ShareAlike",
+      "status": "excluded",
+      "selection": "none",
+      "model_distribution": "excluded from the redistributable production checkpoint"
     },
     {
       "id": "jvs_music",

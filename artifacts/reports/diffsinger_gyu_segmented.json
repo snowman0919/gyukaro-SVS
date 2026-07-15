@@ -1,0 +1,16 @@
+{
+  "status": "contiguous_real_gyu_segments_ready",
+  "source_rows": 52,
+  "segments": 230,
+  "train_segments": 188,
+  "validation_segments": 42,
+  "duration_minutes": 4.481,
+  "silence_fraction": 0.337626,
+  "previous_full_phrase_silence_fraction": 0.6238,
+  "gap_split_seconds": 0.25,
+  "labels": "inferred; independent-score evaluation rows remain excluded",
+  "source_recordings_modified": false,
+  "manifest": "data/manifests/diffsinger_gyu_segmented.jsonl",
+  "prior_config": "configs/diffsinger_gyu_segmented_prior.yaml",
+  "finetune_config": "configs/diffsinger_gyu_segmented_finetune.yaml"
+}

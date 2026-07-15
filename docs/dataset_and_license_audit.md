@@ -2,8 +2,8 @@
 
 ## License decision
 
-Production experiments select only LibriTTS-R, VocalSet 1.2 (CC BY 4.0).
-Excluded from distributed weights: Emilia original, JVS, GTSinger, JVS-MuSiC, SingNet. Emilia-YODAS is deferred pending item-level provenance review.
+Production experiments select only LibriTTS-R, VocalSet 1.2, Zeroth-Korean SLR40 (CC BY 4.0).
+Excluded from distributed weights: Emilia original, JVS, GTSinger, Children's Song Dataset, JVS-MuSiC, SingNet. Emilia-YODAS is deferred pending item-level provenance review.
 Raw external audio and the repaired local VocalSet archive are ignored and never bundled.
 
 ## Bounded quality-filtered subset
@@ -15,5 +15,7 @@ VocalSet rows are isolated unaccompanied vocals; non-lexical technique clips hav
 Rejected-gate counts: {'asr_text': 3, 'clipping': 2, 'duration': 2, 'level': 1, 'snr_proxy': 6, 'speaker_consistency': 4}.
 
 The official VocalSet archive checksum matches Zenodo, but its ZIP offsets overflow. A local `zip -FF` recovery copy is used only to decode selected WAVs, each validated with libsndfile.
+
+Zeroth-Korean contributes a separate bounded 400-utterance (1.025 hour), four-speaker Korean speech prior. MMS-CTC timings are explicitly inferred; these rows are neither singing nor GYU ground truth.
 
 Regenerate with `python scripts/build_external_dataset_registry.py`, `python scripts/prepare_external_acoustic_data.py`, then `python scripts/report_external_acoustic_data.py`.
