@@ -1,0 +1,113 @@
+{
+  "status": "human_listening_required",
+  "candidate": "RC7 spectral-refiner candidate; not a tag or release",
+  "source_baseline": "RC6 human-failed, preserved byte-for-byte",
+  "checkpoint": "checkpoints/acoustic_refiner_spectral_singing.pt",
+  "strength": 0.5,
+  "objective_evidence": "artifacts/reports/acoustic_refiner_spectral_stress_evaluation.json",
+  "files": [
+    {
+      "case": "ko_neutral",
+      "file": "artifacts/reports/rc7_listening_gate/01_ko_neutral.wav",
+      "sha256": "92eac775dcb78e9e77045ccad4ab92423c53701a16b5280f9d5fd293e3af0cdd",
+      "verdict": null,
+      "observation": ""
+    },
+    {
+      "case": "ko_breathy",
+      "file": "artifacts/reports/rc7_listening_gate/02_ko_breathy.wav",
+      "sha256": "21b8ce491b2d036e8791ab497c163f561920a40abe6a226e2063c4db93a06b7a",
+      "verdict": null,
+      "observation": ""
+    },
+    {
+      "case": "ko_energetic",
+      "file": "artifacts/reports/rc7_listening_gate/03_ko_energetic.wav",
+      "sha256": "62676c9207237d64238dd40837ed88219aa9e3b88f8bbc0d9e54316532cb7b01",
+      "verdict": null,
+      "observation": ""
+    },
+    {
+      "case": "en",
+      "file": "artifacts/reports/rc7_listening_gate/04_en.wav",
+      "sha256": "6aa89bcf51d27fe42561f4359f2e0f7575a51e7f70412a4d3e4482c94f633693",
+      "verdict": null,
+      "observation": ""
+    },
+    {
+      "case": "ja",
+      "file": "artifacts/reports/rc7_listening_gate/05_ja.wav",
+      "sha256": "d283f1611cff2e48bbb4b1a38d4bbf6e638268a9581db7b05610100dd5e2a22f",
+      "verdict": null,
+      "observation": ""
+    },
+    {
+      "case": "rapid_ko",
+      "file": "artifacts/reports/rc7_listening_gate/06_rapid_ko.wav",
+      "sha256": "2774ec3eaefa19c9a024467dfcbdbcc6cde6f9f144956d27856462f4637b8380",
+      "verdict": null,
+      "observation": ""
+    },
+    {
+      "case": "sustained_ko",
+      "file": "artifacts/reports/rc7_listening_gate/07_sustained_ko.wav",
+      "sha256": "db44d39e3b4b701f68bf44b0f2ed11600bb7e174b03f6e9710e154593fa34310",
+      "verdict": null,
+      "observation": ""
+    },
+    {
+      "case": "large_interval_ko",
+      "file": "artifacts/reports/rc7_listening_gate/08_large_interval_ko.wav",
+      "sha256": "a7e0aa543a3a1a8afc3e7d3d5655953db1b30057e714fe3d1ddd3eca0284b50e",
+      "verdict": null,
+      "observation": ""
+    },
+    {
+      "case": "phrase_boundary",
+      "file": "artifacts/reports/rc7_listening_gate/09_phrase_boundary.wav",
+      "sha256": "e158044e7fb5c009a213ecc4ad02104c56c3d5bc3cc22db4a2a0de1d2c594b0b",
+      "verdict": null,
+      "observation": ""
+    }
+  ],
+  "before_after": [
+    {
+      "case": "rapid_ko",
+      "label": "RC6_before",
+      "file": "artifacts/reports/rc7_listening_gate/compare_rapid_ko_RC6_before.wav",
+      "sha256": "b9b27e3a9c7c11ac055d76da56bc9a6633ae14eb06891ae29be4ba1e3597a50a"
+    },
+    {
+      "case": "rapid_ko",
+      "label": "spectral_after",
+      "file": "artifacts/reports/rc7_listening_gate/compare_rapid_ko_spectral_after.wav",
+      "sha256": "2774ec3eaefa19c9a024467dfcbdbcc6cde6f9f144956d27856462f4637b8380"
+    },
+    {
+      "case": "large_interval_ko",
+      "label": "RC6_before",
+      "file": "artifacts/reports/rc7_listening_gate/compare_large_interval_ko_RC6_before.wav",
+      "sha256": "613194452b27ff7ca674574a12efa725d330e51ac4e086a2d8be8b4962ab969a"
+    },
+    {
+      "case": "large_interval_ko",
+      "label": "spectral_after",
+      "file": "artifacts/reports/rc7_listening_gate/compare_large_interval_ko_spectral_after.wav",
+      "sha256": "a7e0aa543a3a1a8afc3e7d3d5655953db1b30057e714fe3d1ddd3eca0284b50e"
+    },
+    {
+      "case": "en",
+      "label": "RC6_before",
+      "file": "artifacts/reports/rc7_listening_gate/compare_en_RC6_before.wav",
+      "sha256": "a761ad54e6e3b0485210c9a552bb400bb2082ce9f33a060ee551fad0da08fdb8"
+    },
+    {
+      "case": "en",
+      "label": "spectral_after",
+      "file": "artifacts/reports/rc7_listening_gate/compare_en_spectral_after.wav",
+      "sha256": "6aa89bcf51d27fe42561f4359f2e0f7575a51e7f70412a4d3e4482c94f633693"
+    }
+  ],
+  "required_response": "PASS/FAIL for each of the nine files, brief observation, and overall release suitability",
+  "final_v1_release_allowed": false
+}

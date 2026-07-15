@@ -25,3 +25,11 @@ Two additional real-GYU controls also failed. A low-rate GYU stage after the spe
 The v2 universal stage used 52 LibriTTS-R degradation pairs (27 train, 14 validation, 11 test) rather than 18 total baseline rows. Its validation loss improved from 1.9485 to 1.8386. The singing stage used 221 VocalSet pairs (130 train, 47 validation, 44 test) plus 27 speech replay rows; only the 4,968-parameter singing adapter was trainable.
 
 On held-out VocalSet speakers, singing-v2 at 25% improved log-spectral L1 from 0.6274 to 0.5873, high-band L1 from 0.5322 to 0.4683, and the HF-spike proxy from 1062 to 334. On the actual nine-file RC stress set, however, 25% reduced ASR and voicing. Reducing strength to 15% preserved ASR but only reduced HF spikes 4.6% while voicing still regressed. This is not a material listening candidate. Both v2 checkpoints remain experimental and the production runtime is unchanged.
+
+## Aligned spectral refiner
+
+The waveform TCN's short receptive field was replaced in an isolated probe by a 180,257-parameter identity-initialized STFT-mask U-Net. Its six bottleneck blocks expose separate 6,576-parameter singing/GYU adapters. It changes magnitude conditioning while retaining source phase, pitch timeline, and waveform length. No random corruption or generic denoising data is used.
+
+Global pair alignment was measured before training. LibriTTS-R p95 absolute lag is 4.5 ms; VocalSet p95 is 50 ms, with one 420 ms outlier. Training applies deterministic 10 ms RMS-envelope correlation within ±500 ms. The universal stage used 27/14/11 speaker-disjoint LibriTTS-R train/validation/test rows and reached validation loss 1.664884, versus 1.8386 for waveform-v2.
+
+On the nine human-failed RC6 files, the selected 50% spectral-singing strength preserves mean ASR exactly at 0.924211, improves pitch MAE 8.4689→8.2411 cents, voicing 0.8720→0.8727, HF spikes 458.56→344.18, sample jumps 0.09360→0.07351, WavLM-to-GYU 0.59999→0.61789, and ECAPA-to-GYU 0.11205→0.11852. This is objective evidence only; the model remains outside production until human review.

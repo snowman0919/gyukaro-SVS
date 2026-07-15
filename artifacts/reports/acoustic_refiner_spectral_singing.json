@@ -1,0 +1,2055 @@
+{
+  "steps": 600,
+  "batch_size": 2,
+  "crop_samples": 65536,
+  "learning_rate": 0.0002,
+  "seed": 196,
+  "trainable_parameters": 6576,
+  "total_parameters": 180257,
+  "primary_rows": 130,
+  "replay_rows": 27,
+  "validation_rows": 47,
+  "manifests": [
+    "data/external/manifests/pipeline_degradation_pairs_libri_v2.jsonl",
+    "data/external/manifests/pipeline_degradation_pairs_v2.jsonl"
+  ],
+  "real_pipeline_degradation_only": true,
+  "random_noise_augmentation": false,
+  "target_alignment": "10 ms RMS envelope cross-correlation within +/-500 ms",
+  "validation_loss": 3.709208,
+  "wall_clock_sec": 14.099,
+  "history": [
+    {
+      "step": 1,
+      "loss": 3.590105,
+      "residual_l1": 0.0055972,
+      "stft_512": 3.397366,
+      "stft_1024": 3.596055,
+      "stft_2048": 3.748909,
+      "envelope": 0.00916
+    },
+    {
+      "step": 50,
+      "loss": 3.48621,
+      "residual_l1": 0.01668,
+      "stft_512": 3.123504,
+      "stft_1024": 3.49933,
+      "stft_2048": 3.761396,
+      "envelope": 0.024299
+    },
+    {
+      "step": 100,
+      "loss": 3.583289,
+      "residual_l1": 0.0157685,
+      "stft_512": 3.394654,
+      "stft_1024": 3.575619,
+      "stft_2048": 3.735092,
+      "envelope": 0.014361
+    },
+    {
+      "step": 150,
+      "loss": 3.421205,
+      "residual_l1": 0.0056979,
+      "stft_512": 3.270013,
+      "stft_1024": 3.407729,
+      "stft_2048": 3.546939,
+      "envelope": 0.012807
+    },
+    {
+      "step": 200,
+      "loss": 1.526418,
+      "residual_l1": 0.0218641,
+      "stft_512": 1.515153,
+      "stft_1024": 1.452738,
+      "stft_2048": 1.493337,
+      "envelope": 0.038686
+    },
+    {
+      "step": 250,
+      "loss": 2.477446,
+      "residual_l1": 0.0207379,
+      "stft_512": 2.37796,
+      "stft_1024": 2.444825,
+      "stft_2048": 2.533778,
+      "envelope": 0.024636
+    },
+    {
+      "step": 300,
+      "loss": 2.674936,
+      "residual_l1": 0.0402045,
+      "stft_512": 2.52138,
+      "stft_1024": 2.632701,
+      "stft_2048": 2.735111,
+      "envelope": 0.043999
+    },
+    {
+      "step": 350,
+      "loss": 2.521912,
+      "residual_l1": 0.0189543,
+      "stft_512": 2.407441,
+      "stft_1024": 2.503069,
+      "stft_2048": 2.594518,
+      "envelope": 0.019668
+    },
+    {
+      "step": 400,
+      "loss": 3.717219,
+      "residual_l1": 0.0052684,
+      "stft_512": 3.578308,
+      "stft_1024": 3.707573,
+      "stft_2048": 3.837197,
+      "envelope": 0.009368
+    },
+    {
+      "step": 450,
+      "loss": 3.537235,
+      "residual_l1": 0.003891,
+      "stft_512": 3.295033,
+      "stft_1024": 3.537596,
+      "stft_2048": 3.753181,
+      "envelope": 0.008515
+    },
+    {
+      "step": 500,
+      "loss": 3.691478,
+      "residual_l1": 0.027486,
+      "stft_512": 3.409894,
+      "stft_1024": 3.664762,
+      "stft_2048": 3.849632,
+      "envelope": 0.049223
+    },
+    {
+      "step": 550,
+      "loss": 3.989564,
+      "residual_l1": 0.0148114,
+      "stft_512": 3.67977,
+      "stft_1024": 3.984912,
+      "stft_2048": 4.263978,
+      "envelope": 0.012899
+    },
+    {
+      "step": 600,
+      "loss": 3.214504,
+      "residual_l1": 0.0079288,
+      "stft_512": 3.017113,
+      "stft_1024": 3.217529,
+      "stft_2048": 3.367431,
+      "envelope": 0.013574
+    }
+  ],
+  "stage": "singing",
+  "checkpoint": "checkpoints/acoustic_refiner_spectral_singing.pt",
+  "alignment": [
+    {
+      "id": "pair_v2_libritts_r_2902_9008_000006_000004",
+      "dataset": "libritts_r",
+      "split": "test",
+      "lag_samples": 0,
+      "correlation": 0.859813
+    },
+    {
+      "id": "pair_v2_libritts_r_2902_9008_000008_000005",
+      "dataset": "libritts_r",
+      "split": "test",
+      "lag_samples": 0,
+      "correlation": 0.901503
+    },
+    {
+      "id": "pair_v2_libritts_r_2902_9008_000048_000001",
+      "dataset": "libritts_r",
+      "split": "test",
+      "lag_samples": 0,
+      "correlation": 0.866096
+    },
+    {
+      "id": "pair_v2_libritts_r_2902_9008_000050_000000",
+      "dataset": "libritts_r",
+      "split": "test",
+      "lag_samples": 0,
+      "correlation": 0.892695
+    },
+    {
+      "id": "pair_v2_libritts_r_2902_9008_000055_000003",
+      "dataset": "libritts_r",
+      "split": "test",
+      "lag_samples": 0,
+      "correlation": 0.826192
+    },
+    {
+      "id": "pair_v2_libritts_r_3576_138058_000018_000001",
+      "dataset": "libritts_r",
+      "split": "validation",
+      "lag_samples": 0,
+      "correlation": 0.883131
+    },
+    {
+      "id": "pair_v2_libritts_r_3576_138058_000019_000003",
+      "dataset": "libritts_r",
+      "split": "validation",
+      "lag_samples": 0,
+      "correlation": 0.80536
+    },
+    {
+      "id": "pair_v2_libritts_r_3576_138058_000033_000000",
+      "dataset": "libritts_r",
+      "split": "validation",
+      "lag_samples": 0,
+      "correlation": 0.770894
+    },
+    {
+      "id": "pair_v2_libritts_r_3576_138058_000037_000000",
+      "dataset": "libritts_r",
+      "split": "validation",
+      "lag_samples": 0,
+      "correlation": 0.790623
+    },
+    {
+      "id": "pair_v2_libritts_r_3576_138058_000044_000001",
+      "dataset": "libritts_r",
+      "split": "validation",
+      "lag_samples": 0,
+      "correlation": 0.774101
+    },
+    {
+      "id": "pair_v2_libritts_r_3576_138058_000046_000000",
+      "dataset": "libritts_r",
+      "split": "validation",
+      "lag_samples": 0,
+      "correlation": 0.801156
+    },
+    {
+      "id": "pair_v2_libritts_r_3576_138058_000048_000000",
+      "dataset": "libritts_r",
+      "split": "validation",
+      "lag_samples": 0,
+      "correlation": 0.81254
+    },
+    {
+      "id": "pair_v2_libritts_r_5536_43358_000020_000000",
+      "dataset": "libritts_r",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.887226
+    },
+    {
+      "id": "pair_v2_libritts_r_5536_43358_000022_000002",
+      "dataset": "libritts_r",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.888218
+    },
+    {
+      "id": "pair_v2_libritts_r_5536_43358_000028_000000",
+      "dataset": "libritts_r",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.855411
+    },
+    {
+      "id": "pair_v2_libritts_r_5536_43359_000009_000000",
+      "dataset": "libritts_r",
+      "split": "train",
+      "lag_samples": 480,
+      "correlation": 0.892652
+    },
+    {
+      "id": "pair_v2_libritts_r_5536_43359_000010_000002",
+      "dataset": "libritts_r",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.881356
+    },
+    {
+      "id": "pair_v2_libritts_r_5536_43359_000021_000005",
+      "dataset": "libritts_r",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.856325
+    },
+    {
+      "id": "pair_v2_libritts_r_5536_43359_000024_000002",
+      "dataset": "libritts_r",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.898266
+    },
+    {
+      "id": "pair_v2_libritts_r_6313_66125_000061_000000",
+      "dataset": "libritts_r",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.878578
+    },
+    {
+      "id": "pair_v2_libritts_r_6313_66129_000018_000000",
+      "dataset": "libritts_r",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.831619
+    },
+    {
+      "id": "pair_v2_libritts_r_6313_66129_000032_000000",
+      "dataset": "libritts_r",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.851986
+    },
+    {
+      "id": "pair_v2_libritts_r_6313_76958_000048_000000",
+      "dataset": "libritts_r",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.891608
+    },
+    {
+      "id": "pair_v2_libritts_r_6313_76958_000054_000000",
+      "dataset": "libritts_r",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.779638
+    },
+    {
+      "id": "pair_v2_libritts_r_6313_76958_000092_000000",
+      "dataset": "libritts_r",
+      "split": "train",
+      "lag_samples": -480,
+      "correlation": 0.879532
+    },
+    {
+      "id": "pair_v2_libritts_r_6319_275224_000011_000003",
+      "dataset": "libritts_r",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.834928
+    },
+    {
+      "id": "pair_v2_libritts_r_6319_275224_000011_000004",
+      "dataset": "libritts_r",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.869994
+    },
+    {
+      "id": "pair_v2_libritts_r_6319_57405_000007_000001",
+      "dataset": "libritts_r",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.853758
+    },
+    {
+      "id": "pair_v2_libritts_r_6319_57405_000019_000000",
+      "dataset": "libritts_r",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.863565
+    },
+    {
+      "id": "pair_v2_libritts_r_6319_64726_000002_000001",
+      "dataset": "libritts_r",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.893547
+    },
+    {
+      "id": "pair_v2_libritts_r_6319_64726_000011_000002",
+      "dataset": "libritts_r",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.87149
+    },
+    {
+      "id": "pair_v2_libritts_r_6319_64726_000015_000011",
+      "dataset": "libritts_r",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.774725
+    },
+    {
+      "id": "pair_v2_libritts_r_7850_281318_000000_000000",
+      "dataset": "libritts_r",
+      "split": "test",
+      "lag_samples": 0,
+      "correlation": 0.899826
+    },
+    {
+      "id": "pair_v2_libritts_r_7850_281318_000001_000006",
+      "dataset": "libritts_r",
+      "split": "test",
+      "lag_samples": 0,
+      "correlation": 0.850168
+    },
+    {
+      "id": "pair_v2_libritts_r_7850_286674_000009_000002",
+      "dataset": "libritts_r",
+      "split": "test",
+      "lag_samples": 0,
+      "correlation": 0.837397
+    },
+    {
+      "id": "pair_v2_libritts_r_7850_286674_000010_000000",
+      "dataset": "libritts_r",
+      "split": "test",
+      "lag_samples": -480,
+      "correlation": 0.849929
+    },
+    {
+      "id": "pair_v2_libritts_r_7850_286674_000015_000002",
+      "dataset": "libritts_r",
+      "split": "test",
+      "lag_samples": 0,
+      "correlation": 0.850263
+    },
+    {
+      "id": "pair_v2_libritts_r_7850_73752_000008_000003",
+      "dataset": "libritts_r",
+      "split": "test",
+      "lag_samples": 0,
+      "correlation": 0.813279
+    },
+    {
+      "id": "pair_v2_libritts_r_7976_105575_000020_000002",
+      "dataset": "libritts_r",
+      "split": "validation",
+      "lag_samples": 0,
+      "correlation": 0.876332
+    },
+    {
+      "id": "pair_v2_libritts_r_7976_110124_000010_000000",
+      "dataset": "libritts_r",
+      "split": "validation",
+      "lag_samples": 0,
+      "correlation": 0.749244
+    },
+    {
+      "id": "pair_v2_libritts_r_7976_110124_000041_000001",
+      "dataset": "libritts_r",
+      "split": "validation",
+      "lag_samples": 0,
+      "correlation": 0.831301
+    },
+    {
+      "id": "pair_v2_libritts_r_7976_110523_000016_000001",
+      "dataset": "libritts_r",
+      "split": "validation",
+      "lag_samples": 0,
+      "correlation": 0.857186
+    },
+    {
+      "id": "pair_v2_libritts_r_7976_110523_000016_000007",
+      "dataset": "libritts_r",
+      "split": "validation",
+      "lag_samples": 0,
+      "correlation": 0.841919
+    },
+    {
+      "id": "pair_v2_libritts_r_7976_110523_000023_000001",
+      "dataset": "libritts_r",
+      "split": "validation",
+      "lag_samples": 0,
+      "correlation": 0.831785
+    },
+    {
+      "id": "pair_v2_libritts_r_7976_110523_000034_000000",
+      "dataset": "libritts_r",
+      "split": "validation",
+      "lag_samples": 0,
+      "correlation": 0.876904
+    },
+    {
+      "id": "pair_v2_libritts_r_8297_275154_000016_000001",
+      "dataset": "libritts_r",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.810073
+    },
+    {
+      "id": "pair_v2_libritts_r_8297_275154_000024_000002",
+      "dataset": "libritts_r",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.865891
+    },
+    {
+      "id": "pair_v2_libritts_r_8297_275154_000024_000008",
+      "dataset": "libritts_r",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.781904
+    },
+    {
+      "id": "pair_v2_libritts_r_8297_275155_000020_000002",
+      "dataset": "libritts_r",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.672158
+    },
+    {
+      "id": "pair_v2_libritts_r_8297_275155_000023_000000",
+      "dataset": "libritts_r",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.783553
+    },
+    {
+      "id": "pair_v2_libritts_r_8297_275155_000028_000000",
+      "dataset": "libritts_r",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.858546
+    },
+    {
+      "id": "pair_v2_libritts_r_8297_275155_000028_000005",
+      "dataset": "libritts_r",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.863476
+    },
+    {
+      "id": "pair_v2_vocalset_f1_scales_f_fast_forte_e",
+      "dataset": "vocalset",
+      "split": "test",
+      "lag_samples": 0,
+      "correlation": 0.877368
+    },
+    {
+      "id": "pair_v2_vocalset_f1_scales_f_fast_piano_e",
+      "dataset": "vocalset",
+      "split": "test",
+      "lag_samples": 5280,
+      "correlation": 0.819626
+    },
+    {
+      "id": "pair_v2_vocalset_f1_scales_straight_e",
+      "dataset": "vocalset",
+      "split": "test",
+      "lag_samples": 0,
+      "correlation": 0.673934
+    },
+    {
+      "id": "pair_v2_vocalset_f1_scales_vibrato_o",
+      "dataset": "vocalset",
+      "split": "test",
+      "lag_samples": -480,
+      "correlation": 0.894449
+    },
+    {
+      "id": "pair_v2_vocalset_f1_scales_breathy_i",
+      "dataset": "vocalset",
+      "split": "test",
+      "lag_samples": 0,
+      "correlation": 0.828555
+    },
+    {
+      "id": "pair_v2_vocalset_f1_scales_belt_i",
+      "dataset": "vocalset",
+      "split": "test",
+      "lag_samples": 2880,
+      "correlation": 0.895505
+    },
+    {
+      "id": "pair_v2_vocalset_f1_arpeggios_c_fast_forte_o",
+      "dataset": "vocalset",
+      "split": "test",
+      "lag_samples": -480,
+      "correlation": 0.921953
+    },
+    {
+      "id": "pair_v2_vocalset_f1_arpeggios_f_fast_piano_e",
+      "dataset": "vocalset",
+      "split": "test",
+      "lag_samples": -480,
+      "correlation": 0.917761
+    },
+    {
+      "id": "pair_v2_vocalset_f1_arpeggios_straight_o",
+      "dataset": "vocalset",
+      "split": "test",
+      "lag_samples": 0,
+      "correlation": 0.857339
+    },
+    {
+      "id": "pair_v2_vocalset_f1_arpeggios_vibrato_a",
+      "dataset": "vocalset",
+      "split": "test",
+      "lag_samples": 480,
+      "correlation": 0.865616
+    },
+    {
+      "id": "pair_v2_vocalset_f1_long_straight_i",
+      "dataset": "vocalset",
+      "split": "test",
+      "lag_samples": 0,
+      "correlation": 0.981405
+    },
+    {
+      "id": "pair_v2_vocalset_f1_long_forte_o",
+      "dataset": "vocalset",
+      "split": "test",
+      "lag_samples": 0,
+      "correlation": 0.913229
+    },
+    {
+      "id": "pair_v2_vocalset_f2_scales_f_fast_forte_a",
+      "dataset": "vocalset",
+      "split": "validation",
+      "lag_samples": 0,
+      "correlation": 0.666114
+    },
+    {
+      "id": "pair_v2_vocalset_f2_scales_c_fast_piano_e",
+      "dataset": "vocalset",
+      "split": "validation",
+      "lag_samples": 5760,
+      "correlation": 0.793564
+    },
+    {
+      "id": "pair_v2_vocalset_f2_scales_straight_u",
+      "dataset": "vocalset",
+      "split": "validation",
+      "lag_samples": 2400,
+      "correlation": 0.833764
+    },
+    {
+      "id": "pair_v2_vocalset_f2_scales_vibrato_u",
+      "dataset": "vocalset",
+      "split": "validation",
+      "lag_samples": 0,
+      "correlation": 0.732825
+    },
+    {
+      "id": "pair_v2_vocalset_f2_scales_breathy_e",
+      "dataset": "vocalset",
+      "split": "validation",
+      "lag_samples": 0,
+      "correlation": 0.708632
+    },
+    {
+      "id": "pair_v2_vocalset_f2_scales_belt_a",
+      "dataset": "vocalset",
+      "split": "validation",
+      "lag_samples": 0,
+      "correlation": 0.75969
+    },
+    {
+      "id": "pair_v2_vocalset_f2_arepggios_c_fast_forte_a",
+      "dataset": "vocalset",
+      "split": "validation",
+      "lag_samples": 0,
+      "correlation": 0.928026
+    },
+    {
+      "id": "pair_v2_vocalset_f2_arepggios_c_fast_piano_e",
+      "dataset": "vocalset",
+      "split": "validation",
+      "lag_samples": 960,
+      "correlation": 0.895205
+    },
+    {
+      "id": "pair_v2_vocalset_f2_arpeggios_straight_i",
+      "dataset": "vocalset",
+      "split": "validation",
+      "lag_samples": 0,
+      "correlation": 0.671664
+    },
+    {
+      "id": "pair_v2_vocalset_f2_arpeggios_vibrato_e",
+      "dataset": "vocalset",
+      "split": "validation",
+      "lag_samples": -1440,
+      "correlation": 0.839096
+    },
+    {
+      "id": "pair_v2_vocalset_f2_long_straight_e",
+      "dataset": "vocalset",
+      "split": "validation",
+      "lag_samples": 0,
+      "correlation": 0.859646
+    },
+    {
+      "id": "pair_v2_vocalset_f2_long_forte_i",
+      "dataset": "vocalset",
+      "split": "validation",
+      "lag_samples": 480,
+      "correlation": 0.686638
+    },
+    {
+      "id": "pair_v2_vocalset_f3_scales_c_fast_forte_a",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 1440,
+      "correlation": 0.816385
+    },
+    {
+      "id": "pair_v2_vocalset_f3_scales_f_fast_piano_u",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.894727
+    },
+    {
+      "id": "pair_v2_vocalset_f3_scales_straight_u",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.935491
+    },
+    {
+      "id": "pair_v2_vocalset_f3_scales_vibrato_u",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.905291
+    },
+    {
+      "id": "pair_v2_vocalset_f3_scales_breathy_o",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.867409
+    },
+    {
+      "id": "pair_v2_vocalset_f3_scales_belt_u",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.88654
+    },
+    {
+      "id": "pair_v2_vocalset_f3_arpeggios_c_fast_forte_i",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.93905
+    },
+    {
+      "id": "pair_v2_vocalset_f3_arpeggios_c_fast_piano_o",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.912799
+    },
+    {
+      "id": "pair_v2_vocalset_f3_arpeggios_straight_a",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 1440,
+      "correlation": 0.730689
+    },
+    {
+      "id": "pair_v2_vocalset_f3_arpeggios_vibrato_e",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.796355
+    },
+    {
+      "id": "pair_v2_vocalset_f3_long_straight_i",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": -480,
+      "correlation": 0.931528
+    },
+    {
+      "id": "pair_v2_vocalset_f3_long_forte_o",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.910372
+    },
+    {
+      "id": "pair_v2_vocalset_f4_scales_c_fast_forte_u",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.885621
+    },
+    {
+      "id": "pair_v2_vocalset_f4_scales_c_fast_piano_i",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 960,
+      "correlation": 0.825568
+    },
+    {
+      "id": "pair_v2_vocalset_scales_straight_e",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 960,
+      "correlation": 0.810023
+    },
+    {
+      "id": "pair_v2_vocalset_f4_scales_vibrato_u",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.875354
+    },
+    {
+      "id": "pair_v2_vocalset_f4_arpeggios_f_fast_forte_i",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 1920,
+      "correlation": 0.857412
+    },
+    {
+      "id": "pair_v2_vocalset_f4_arpeggios_c_fast_piano_o",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.943217
+    },
+    {
+      "id": "pair_v2_vocalset_arpeggios_straight_o",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.855683
+    },
+    {
+      "id": "pair_v2_vocalset_f4_arpeggios_vibrato_e",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 960,
+      "correlation": 0.822548
+    },
+    {
+      "id": "pair_v2_vocalset_f4_long_straight_a",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.977787
+    },
+    {
+      "id": "pair_v2_vocalset_f4_long_forte_o",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": -480,
+      "correlation": 0.928581
+    },
+    {
+      "id": "pair_v2_vocalset_f5_scales_c_fast_forte_o",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.734803
+    },
+    {
+      "id": "pair_v2_vocalset_f5_scales_f_fast_piano_u",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.82533
+    },
+    {
+      "id": "pair_v2_vocalset_f5_scales_straight_o",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.904898
+    },
+    {
+      "id": "pair_v2_vocalset_f5_scales_vibrato_a",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.766115
+    },
+    {
+      "id": "pair_v2_vocalset_f5_scales_breathy_u",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.806993
+    },
+    {
+      "id": "pair_v2_vocalset_f5_scales_belt_e",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.811772
+    },
+    {
+      "id": "pair_v2_vocalset_f5_arpeggios_f_fast_forte_a",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.948545
+    },
+    {
+      "id": "pair_v2_vocalset_f5_arpeggios_c_fast_piano_i",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.90108
+    },
+    {
+      "id": "pair_v2_vocalset_f5_arpeggios_straight_a",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": -3360,
+      "correlation": 0.798168
+    },
+    {
+      "id": "pair_v2_vocalset_f5_arpeggios_vibrato_e",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.800352
+    },
+    {
+      "id": "pair_v2_vocalset_f5_long_straight_e",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 480,
+      "correlation": 0.960293
+    },
+    {
+      "id": "pair_v2_vocalset_f5_long_forte_i",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": -480,
+      "correlation": 0.722187
+    },
+    {
+      "id": "pair_v2_vocalset_f6_scales_c_fast_piano_u",
+      "dataset": "vocalset",
+      "split": "test",
+      "lag_samples": 0,
+      "correlation": 0.86941
+    },
+    {
+      "id": "pair_v2_vocalset_f6_scales_straight_o",
+      "dataset": "vocalset",
+      "split": "test",
+      "lag_samples": 0,
+      "correlation": 0.87821
+    },
+    {
+      "id": "pair_v2_vocalset_f6_scales_vibrato_i",
+      "dataset": "vocalset",
+      "split": "test",
+      "lag_samples": 0,
+      "correlation": 0.91527
+    },
+    {
+      "id": "pair_v2_vocalset_f6_scales_breathy_e",
+      "dataset": "vocalset",
+      "split": "test",
+      "lag_samples": 0,
+      "correlation": 0.914292
+    },
+    {
+      "id": "pair_v2_vocalset_f6_scales_belt_i",
+      "dataset": "vocalset",
+      "split": "test",
+      "lag_samples": 0,
+      "correlation": 0.794498
+    },
+    {
+      "id": "pair_v2_vocalset_f6_arpeggios_f_fast_piano_i",
+      "dataset": "vocalset",
+      "split": "test",
+      "lag_samples": 0,
+      "correlation": 0.903735
+    },
+    {
+      "id": "pair_v2_vocalset_f6_arpeggios_straight_i",
+      "dataset": "vocalset",
+      "split": "test",
+      "lag_samples": 0,
+      "correlation": 0.950014
+    },
+    {
+      "id": "pair_v2_vocalset_f6_arpeggios_vibrato_a",
+      "dataset": "vocalset",
+      "split": "test",
+      "lag_samples": 2400,
+      "correlation": 0.78761
+    },
+    {
+      "id": "pair_v2_vocalset_f6_long_straight_a",
+      "dataset": "vocalset",
+      "split": "test",
+      "lag_samples": 480,
+      "correlation": 0.894057
+    },
+    {
+      "id": "pair_v2_vocalset_f6_long_forte_o",
+      "dataset": "vocalset",
+      "split": "test",
+      "lag_samples": 480,
+      "correlation": 0.777369
+    },
+    {
+      "id": "pair_v2_vocalset_f7_scales_c_fast_forte_o",
+      "dataset": "vocalset",
+      "split": "validation",
+      "lag_samples": 480,
+      "correlation": 0.749065
+    },
+    {
+      "id": "pair_v2_vocalset_f7_scales_c_fast_piano_o",
+      "dataset": "vocalset",
+      "split": "validation",
+      "lag_samples": 7680,
+      "correlation": 0.67252
+    },
+    {
+      "id": "pair_v2_vocalset_f7_scales_straight_i",
+      "dataset": "vocalset",
+      "split": "validation",
+      "lag_samples": 960,
+      "correlation": 0.871874
+    },
+    {
+      "id": "pair_v2_vocalset_f7_scales_vibrato_e",
+      "dataset": "vocalset",
+      "split": "validation",
+      "lag_samples": 0,
+      "correlation": 0.913401
+    },
+    {
+      "id": "pair_v2_vocalset_f7_scales_breathy_e",
+      "dataset": "vocalset",
+      "split": "validation",
+      "lag_samples": 0,
+      "correlation": 0.782875
+    },
+    {
+      "id": "pair_v2_vocalset_f7_scales_belt_e",
+      "dataset": "vocalset",
+      "split": "validation",
+      "lag_samples": 0,
+      "correlation": 0.897463
+    },
+    {
+      "id": "pair_v2_vocalset_f7_arpeggios_f_fast_forte_o",
+      "dataset": "vocalset",
+      "split": "validation",
+      "lag_samples": 0,
+      "correlation": 0.931922
+    },
+    {
+      "id": "pair_v2_vocalset_f7_arpeggios_c_fast_piano_a",
+      "dataset": "vocalset",
+      "split": "validation",
+      "lag_samples": -480,
+      "correlation": 0.905136
+    },
+    {
+      "id": "pair_v2_vocalset_f7_arpeggios_straight_o",
+      "dataset": "vocalset",
+      "split": "validation",
+      "lag_samples": 0,
+      "correlation": 0.809532
+    },
+    {
+      "id": "pair_v2_vocalset_f7_arpeggios_vibrato_o",
+      "dataset": "vocalset",
+      "split": "validation",
+      "lag_samples": 0,
+      "correlation": 0.881976
+    },
+    {
+      "id": "pair_v2_vocalset_f7_long_straight_a",
+      "dataset": "vocalset",
+      "split": "validation",
+      "lag_samples": 0,
+      "correlation": 0.920003
+    },
+    {
+      "id": "pair_v2_vocalset_f7_long_forte_o",
+      "dataset": "vocalset",
+      "split": "validation",
+      "lag_samples": 480,
+      "correlation": 0.917129
+    },
+    {
+      "id": "pair_v2_vocalset_f8_scales_f_fast_forte_u",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 960,
+      "correlation": 0.913642
+    },
+    {
+      "id": "pair_v2_vocalset_f8_scales_f_fast_piano_i",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.867292
+    },
+    {
+      "id": "pair_v2_vocalset_f8_scales_straight_u",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.878287
+    },
+    {
+      "id": "pair_v2_vocalset_f8_scales_breathy_e",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.667611
+    },
+    {
+      "id": "pair_v2_vocalset_f8_scales_belt_e",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.825089
+    },
+    {
+      "id": "pair_v2_vocalset_f8_arpeggios_f_fast_piano_o",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.904861
+    },
+    {
+      "id": "pair_v2_vocalset_f8_arpeggios_vibrato_o",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.737516
+    },
+    {
+      "id": "pair_v2_vocalset_f8_long_straight_o",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.85747
+    },
+    {
+      "id": "pair_v2_vocalset_f8_long_forte_u",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": -960,
+      "correlation": 0.888844
+    },
+    {
+      "id": "pair_v2_vocalset_f9_scales_c_fast_forte_a",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 480,
+      "correlation": 0.844581
+    },
+    {
+      "id": "pair_v2_vocalset_f9_scales_f_fast_piano_o",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": -6720,
+      "correlation": 0.713884
+    },
+    {
+      "id": "pair_v2_vocalset_f9_scales_straight_e",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 20160,
+      "correlation": 0.634105
+    },
+    {
+      "id": "pair_v2_vocalset_f9_scales_vibrato_i",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": -480,
+      "correlation": 0.8036
+    },
+    {
+      "id": "pair_v2_vocalset_f9_scales_breathy_i",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 480,
+      "correlation": 0.731118
+    },
+    {
+      "id": "pair_v2_vocalset_f9_scales_belt_e",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": -1440,
+      "correlation": 0.794818
+    },
+    {
+      "id": "pair_v2_vocalset_f9_arpeggios_c_fast_forte_i",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.841249
+    },
+    {
+      "id": "pair_v2_vocalset_f9_arpeggios_f_fast_piano_i",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.89539
+    },
+    {
+      "id": "pair_v2_vocalset_f9_arpeggios_straight_o",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.709988
+    },
+    {
+      "id": "pair_v2_vocalset_f9_arpeggios_vibrato_i",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 3360,
+      "correlation": 0.740368
+    },
+    {
+      "id": "pair_v2_vocalset_f9_long_straight_u",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.899032
+    },
+    {
+      "id": "pair_v2_vocalset_f9_long_forte_u",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 4320,
+      "correlation": 0.784013
+    },
+    {
+      "id": "pair_v2_vocalset_m1_scales_f_fast_forte_e",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 1440,
+      "correlation": 0.826701
+    },
+    {
+      "id": "pair_v2_vocalset_m1_scales_f_fast_piano_o",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.918687
+    },
+    {
+      "id": "pair_v2_vocalset_m1_scales_straight_a",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.882545
+    },
+    {
+      "id": "pair_v2_vocalset_m1_scales_vibrato_e",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.922122
+    },
+    {
+      "id": "pair_v2_vocalset_m1_scales_breathy_i",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.863275
+    },
+    {
+      "id": "pair_v2_vocalset_m1_scales_belt_e",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 2400,
+      "correlation": 0.894084
+    },
+    {
+      "id": "pair_v2_vocalset_m1_arpeggios_f_fast_forte_i",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.90759
+    },
+    {
+      "id": "pair_v2_vocalset_m1_arpeggios_f_fast_piano_u",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.945155
+    },
+    {
+      "id": "pair_v2_vocalset_m1_arpeggios_straight_o",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.879238
+    },
+    {
+      "id": "pair_v2_vocalset_m1_arpeggios_vibrato_e",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.916527
+    },
+    {
+      "id": "pair_v2_vocalset_m1_long_straight_o",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.977782
+    },
+    {
+      "id": "pair_v2_vocalset_m1_long_forte_o",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.942607
+    },
+    {
+      "id": "pair_v2_vocalset_m10_scales_f_fast_forte_a",
+      "dataset": "vocalset",
+      "split": "test",
+      "lag_samples": 0,
+      "correlation": 0.735088
+    },
+    {
+      "id": "pair_v2_vocalset_scales_c_fast_piano_o",
+      "dataset": "vocalset",
+      "split": "test",
+      "lag_samples": 0,
+      "correlation": 0.843841
+    },
+    {
+      "id": "pair_v2_vocalset_m10_scales_straight_a",
+      "dataset": "vocalset",
+      "split": "test",
+      "lag_samples": 0,
+      "correlation": 0.852743
+    },
+    {
+      "id": "pair_v2_vocalset_m10_scales_vibrato_o",
+      "dataset": "vocalset",
+      "split": "test",
+      "lag_samples": 0,
+      "correlation": 0.786127
+    },
+    {
+      "id": "pair_v2_vocalset_m10_scales_breathy_u",
+      "dataset": "vocalset",
+      "split": "test",
+      "lag_samples": 0,
+      "correlation": 0.888793
+    },
+    {
+      "id": "pair_v2_vocalset_m10_scales_belt_a",
+      "dataset": "vocalset",
+      "split": "test",
+      "lag_samples": 0,
+      "correlation": 0.840054
+    },
+    {
+      "id": "pair_v2_vocalset_m10_arpeggios_f_fast_forte_u",
+      "dataset": "vocalset",
+      "split": "test",
+      "lag_samples": -1440,
+      "correlation": 0.73039
+    },
+    {
+      "id": "pair_v2_vocalset_m10_arpeggios_c_fast_piano_a",
+      "dataset": "vocalset",
+      "split": "test",
+      "lag_samples": 0,
+      "correlation": 0.680771
+    },
+    {
+      "id": "pair_v2_vocalset_m10_arpeggios_straight_e",
+      "dataset": "vocalset",
+      "split": "test",
+      "lag_samples": 480,
+      "correlation": 0.713049
+    },
+    {
+      "id": "pair_v2_vocalset_m10_long_straight_u",
+      "dataset": "vocalset",
+      "split": "test",
+      "lag_samples": 1440,
+      "correlation": 0.416159
+    },
+    {
+      "id": "pair_v2_vocalset_m10_long_forte_o",
+      "dataset": "vocalset",
+      "split": "test",
+      "lag_samples": 960,
+      "correlation": 0.80109
+    },
+    {
+      "id": "pair_v2_vocalset_m11_scales_f_fast_forte_e",
+      "dataset": "vocalset",
+      "split": "validation",
+      "lag_samples": 0,
+      "correlation": 0.817068
+    },
+    {
+      "id": "pair_v2_vocalset_m11_scales_c_fast_piano_o",
+      "dataset": "vocalset",
+      "split": "validation",
+      "lag_samples": 0,
+      "correlation": 0.864261
+    },
+    {
+      "id": "pair_v2_vocalset_m11_scales_straight_e",
+      "dataset": "vocalset",
+      "split": "validation",
+      "lag_samples": 0,
+      "correlation": 0.876225
+    },
+    {
+      "id": "pair_v2_vocalset_m11_scales_vibrato_o",
+      "dataset": "vocalset",
+      "split": "validation",
+      "lag_samples": 0,
+      "correlation": 0.773713
+    },
+    {
+      "id": "pair_v2_vocalset_m11_scales_breathy_o",
+      "dataset": "vocalset",
+      "split": "validation",
+      "lag_samples": 0,
+      "correlation": 0.897591
+    },
+    {
+      "id": "pair_v2_vocalset_m11_scales_belt_a",
+      "dataset": "vocalset",
+      "split": "validation",
+      "lag_samples": 0,
+      "correlation": 0.928629
+    },
+    {
+      "id": "pair_v2_vocalset_m11_arpeggios_c_fast_forte_u",
+      "dataset": "vocalset",
+      "split": "validation",
+      "lag_samples": 0,
+      "correlation": 0.946245
+    },
+    {
+      "id": "pair_v2_vocalset_m11_arpeggios_c_fast_piano_a",
+      "dataset": "vocalset",
+      "split": "validation",
+      "lag_samples": 0,
+      "correlation": 0.83229
+    },
+    {
+      "id": "pair_v2_vocalset_m11_arpeggios_straight_e",
+      "dataset": "vocalset",
+      "split": "validation",
+      "lag_samples": 0,
+      "correlation": 0.925461
+    },
+    {
+      "id": "pair_v2_vocalset_m11_arpeggios_vibrato_a",
+      "dataset": "vocalset",
+      "split": "validation",
+      "lag_samples": 0,
+      "correlation": 0.835655
+    },
+    {
+      "id": "pair_v2_vocalset_m11_long_straight_a",
+      "dataset": "vocalset",
+      "split": "validation",
+      "lag_samples": 0,
+      "correlation": 0.92596
+    },
+    {
+      "id": "pair_v2_vocalset_m11_long_forte_o",
+      "dataset": "vocalset",
+      "split": "validation",
+      "lag_samples": 0,
+      "correlation": 0.858978
+    },
+    {
+      "id": "pair_v2_vocalset_m2_scales_f_fast_forte_o",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.920261
+    },
+    {
+      "id": "pair_v2_vocalset_m2_scales_f_fast_piano_a",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.784846
+    },
+    {
+      "id": "pair_v2_vocalset_m2_scales_straight_u",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.70826
+    },
+    {
+      "id": "pair_v2_vocalset_m2_scales_vibrato_e",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.916101
+    },
+    {
+      "id": "pair_v2_vocalset_m2_scales_belt_u",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.885975
+    },
+    {
+      "id": "pair_v2_vocalset_m2_arpeggios_c_fast_forte_u",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.897321
+    },
+    {
+      "id": "pair_v2_vocalset_m2_arpeggios_c_fast_piano_o",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.869797
+    },
+    {
+      "id": "pair_v2_vocalset_m2_arpeggios_straight_a",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.898905
+    },
+    {
+      "id": "pair_v2_vocalset_m2_arpeggios_vibrato_o",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.891721
+    },
+    {
+      "id": "pair_v2_vocalset_m2_long_straight_i",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.968201
+    },
+    {
+      "id": "pair_v2_vocalset_m2_long_forte_a",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": -480,
+      "correlation": 0.956266
+    },
+    {
+      "id": "pair_v2_vocalset_m3_scales_f_fast_forte_i",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.728014
+    },
+    {
+      "id": "pair_v2_vocalset_m3_scales_c_fast_piano_i",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.8776
+    },
+    {
+      "id": "pair_v2_vocalset_m3_scales_straight_i",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.790817
+    },
+    {
+      "id": "pair_v2_vocalset_m3_scales_vibrato_e",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": -480,
+      "correlation": 0.789264
+    },
+    {
+      "id": "pair_v2_vocalset_m3_scales_breathy_o",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.877042
+    },
+    {
+      "id": "pair_v2_vocalset_m3_scales_belt_o",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.875173
+    },
+    {
+      "id": "pair_v2_vocalset_m3_arpeggios_c_fast_forte_e",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.854696
+    },
+    {
+      "id": "pair_v2_vocalset_m3_arpeggios_f_fast_piano_u",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.738931
+    },
+    {
+      "id": "pair_v2_vocalset_m3_arpeggios_straight_a",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.823387
+    },
+    {
+      "id": "pair_v2_vocalset_m3_long_straight_e",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": -480,
+      "correlation": 0.880931
+    },
+    {
+      "id": "pair_v2_vocalset_m3_long_forte_o",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.806555
+    },
+    {
+      "id": "pair_v2_vocalset_m4_scales_c_fast_forte_i",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 480,
+      "correlation": 0.838393
+    },
+    {
+      "id": "pair_v2_vocalset_m4_scales_f_fast_piano_u",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.857662
+    },
+    {
+      "id": "pair_v2_vocalset_m4_scales_straight_a",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.896058
+    },
+    {
+      "id": "pair_v2_vocalset_m4_scales_vibrato_a",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.844017
+    },
+    {
+      "id": "pair_v2_vocalset_m4_arpeggios_f_fast_forte_i",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.928133
+    },
+    {
+      "id": "pair_v2_vocalset_m4_arpeggios_f_fast_piano_e",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": -480,
+      "correlation": 0.77193
+    },
+    {
+      "id": "pair_v2_vocalset_m4_arpeggios_straight_o",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.864087
+    },
+    {
+      "id": "pair_v2_vocalset_m4_arpeggios_vibrato_o",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 480,
+      "correlation": 0.715034
+    },
+    {
+      "id": "pair_v2_vocalset_m4_long_straight_i",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 1920,
+      "correlation": 0.718035
+    },
+    {
+      "id": "pair_v2_vocalset_m4_long_forte_i",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": -1440,
+      "correlation": 0.832612
+    },
+    {
+      "id": "pair_v2_vocalset_m5_scales_f_fast_forte_i",
+      "dataset": "vocalset",
+      "split": "test",
+      "lag_samples": 0,
+      "correlation": 0.833735
+    },
+    {
+      "id": "pair_v2_vocalset_m5_scales_c_fast_piano_o",
+      "dataset": "vocalset",
+      "split": "test",
+      "lag_samples": 0,
+      "correlation": 0.897545
+    },
+    {
+      "id": "pair_v2_vocalset_m5_scales_straight_o",
+      "dataset": "vocalset",
+      "split": "test",
+      "lag_samples": 0,
+      "correlation": 0.915639
+    },
+    {
+      "id": "pair_v2_vocalset_m5_scales_vibrato_i",
+      "dataset": "vocalset",
+      "split": "test",
+      "lag_samples": 1440,
+      "correlation": 0.717042
+    },
+    {
+      "id": "pair_v2_vocalset_m5_scales_breathy_i",
+      "dataset": "vocalset",
+      "split": "test",
+      "lag_samples": 0,
+      "correlation": 0.866218
+    },
+    {
+      "id": "pair_v2_vocalset_m5_scales_belt_o",
+      "dataset": "vocalset",
+      "split": "test",
+      "lag_samples": 0,
+      "correlation": 0.83814
+    },
+    {
+      "id": "pair_v2_vocalset_m5_arpeggios_c_fast_forte_o",
+      "dataset": "vocalset",
+      "split": "test",
+      "lag_samples": 0,
+      "correlation": 0.93944
+    },
+    {
+      "id": "pair_v2_vocalset_m5_arpeggios_c_fast_piano_o",
+      "dataset": "vocalset",
+      "split": "test",
+      "lag_samples": 0,
+      "correlation": 0.894146
+    },
+    {
+      "id": "pair_v2_vocalset_m5_arpeggios_straight_u",
+      "dataset": "vocalset",
+      "split": "test",
+      "lag_samples": 0,
+      "correlation": 0.788797
+    },
+    {
+      "id": "pair_v2_vocalset_m5_long_straight_o",
+      "dataset": "vocalset",
+      "split": "test",
+      "lag_samples": 0,
+      "correlation": 0.887823
+    },
+    {
+      "id": "pair_v2_vocalset_m5_long_forte_e",
+      "dataset": "vocalset",
+      "split": "test",
+      "lag_samples": 0,
+      "correlation": 0.891476
+    },
+    {
+      "id": "pair_v2_vocalset_m6_scales_c_fast_forte_o",
+      "dataset": "vocalset",
+      "split": "validation",
+      "lag_samples": 480,
+      "correlation": 0.857494
+    },
+    {
+      "id": "pair_v2_vocalset_m6_scales_straight_i",
+      "dataset": "vocalset",
+      "split": "validation",
+      "lag_samples": 960,
+      "correlation": 0.861548
+    },
+    {
+      "id": "pair_v2_vocalset_m6_scales_vibrato_e",
+      "dataset": "vocalset",
+      "split": "validation",
+      "lag_samples": 480,
+      "correlation": 0.826648
+    },
+    {
+      "id": "pair_v2_vocalset_m6_scales_breathy_a",
+      "dataset": "vocalset",
+      "split": "validation",
+      "lag_samples": 0,
+      "correlation": 0.942256
+    },
+    {
+      "id": "pair_v2_vocalset_m6_scales_belt_o",
+      "dataset": "vocalset",
+      "split": "validation",
+      "lag_samples": 0,
+      "correlation": 0.856669
+    },
+    {
+      "id": "pair_v2_vocalset_m6_arpeggios_c_fast_forte_u",
+      "dataset": "vocalset",
+      "split": "validation",
+      "lag_samples": 480,
+      "correlation": 0.879537
+    },
+    {
+      "id": "pair_v2_vocalset_m6_arpeggios_f_fast_piano_u",
+      "dataset": "vocalset",
+      "split": "validation",
+      "lag_samples": 0,
+      "correlation": 0.907047
+    },
+    {
+      "id": "pair_v2_vocalset_m6_arpeggios_straight_a",
+      "dataset": "vocalset",
+      "split": "validation",
+      "lag_samples": 0,
+      "correlation": 0.94675
+    },
+    {
+      "id": "pair_v2_vocalset_m6_arpeggios_vibrato_e",
+      "dataset": "vocalset",
+      "split": "validation",
+      "lag_samples": 0,
+      "correlation": 0.847831
+    },
+    {
+      "id": "pair_v2_vocalset_m6_long_straight_u",
+      "dataset": "vocalset",
+      "split": "validation",
+      "lag_samples": -480,
+      "correlation": 0.936483
+    },
+    {
+      "id": "pair_v2_vocalset_m6_long_forte_u",
+      "dataset": "vocalset",
+      "split": "validation",
+      "lag_samples": 0,
+      "correlation": 0.861978
+    },
+    {
+      "id": "pair_v2_vocalset_m7_scales_f_fast_forte_i",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 480,
+      "correlation": 0.75548
+    },
+    {
+      "id": "pair_v2_vocalset_m7_scales_c_fast_piano_u",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 480,
+      "correlation": 0.776995
+    },
+    {
+      "id": "pair_v2_vocalset_m7_scales_vibrato_a",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.823525
+    },
+    {
+      "id": "pair_v2_vocalset_m7_scales_breathy_o",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.906545
+    },
+    {
+      "id": "pair_v2_vocalset_m7_arpeggios_f_fast_forte_a",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 480,
+      "correlation": 0.91963
+    },
+    {
+      "id": "pair_v2_vocalset_m7_arpeggios_f_fast_piano_i",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.851797
+    },
+    {
+      "id": "pair_v2_vocalset_m7_arpeggios_straight_a",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.849326
+    },
+    {
+      "id": "pair_v2_vocalset_m7_arpeggios_vibrato_a",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.794931
+    },
+    {
+      "id": "pair_v2_vocalset_m7_long_straight_e",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.920816
+    },
+    {
+      "id": "pair_v2_vocalset_m7_long_forte_o",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.824067
+    },
+    {
+      "id": "pair_v2_vocalset_m8_scales_f_fast_forte_o",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.904162
+    },
+    {
+      "id": "pair_v2_vocalset_m8_scales_straight_u",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.839509
+    },
+    {
+      "id": "pair_v2_vocalset_m8_scales_vibrato_o",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.930602
+    },
+    {
+      "id": "pair_v2_vocalset_m8_scales_breathy_i",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.924957
+    },
+    {
+      "id": "pair_v2_vocalset_m8_arpeggios_f_fast_forte_a",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.930597
+    },
+    {
+      "id": "pair_v2_vocalset_m8_arpeggios_c_fast_piano_i",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 480,
+      "correlation": 0.955757
+    },
+    {
+      "id": "pair_v2_vocalset_m8_arpeggios_straight_o",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 480,
+      "correlation": 0.763582
+    },
+    {
+      "id": "pair_v2_vocalset_m8_arpeggios_vibrato_i",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.834806
+    },
+    {
+      "id": "pair_v2_vocalset_m8_long_straight_o",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.941872
+    },
+    {
+      "id": "pair_v2_vocalset_m8_long_forte_a",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.334772
+    },
+    {
+      "id": "pair_v2_vocalset_m9_scales_f_fast_forte_a",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 480,
+      "correlation": 0.845219
+    },
+    {
+      "id": "pair_v2_vocalset_m9_scales_c_fast_piano_i",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.847272
+    },
+    {
+      "id": "pair_v2_vocalset_m9_scales_straight_u",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.844472
+    },
+    {
+      "id": "pair_v2_vocalset_m9_scales_vibrato_u",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.798028
+    },
+    {
+      "id": "pair_v2_vocalset_m9_scales_breathy_a",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.821719
+    },
+    {
+      "id": "pair_v2_vocalset_m9_arpeggios_c_fast_forte_a",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.624259
+    },
+    {
+      "id": "pair_v2_vocalset_m9_arpeggios_f_fast_piano_u",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 480,
+      "correlation": 0.85553
+    },
+    {
+      "id": "pair_v2_vocalset_m9_arpeggios_straight_i",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.790625
+    },
+    {
+      "id": "pair_v2_vocalset_m9_arpeggios_vibrato_i",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 480,
+      "correlation": 0.888655
+    },
+    {
+      "id": "pair_v2_vocalset_m9_long_straight_u",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.917068
+    },
+    {
+      "id": "pair_v2_vocalset_m9_long_forte_a",
+      "dataset": "vocalset",
+      "split": "train",
+      "lag_samples": 0,
+      "correlation": 0.856368
+    }
+  ]
+}
