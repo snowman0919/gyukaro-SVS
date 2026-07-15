@@ -12,7 +12,7 @@ class GyuSingerRC6Renderer(GyuSingerRC5Renderer):
 
     def __init__(self, reference, root="."):
         super().__init__(reference, root=root)
-        self.acoustic_refiner = AcousticRefinerRuntime(self.root / "checkpoints/acoustic_refiner_gyu.pt", device=self.pitch_controller.device)
+        self.acoustic_refiner = AcousticRefinerRuntime(self.root / "checkpoints/acoustic_refiner_universal.pt", device=self.pitch_controller.device)
 
     def render(self, score: dict) -> np.ndarray:
         baseline = super().render(score)
@@ -26,7 +26,9 @@ class GyuSingerRC6Renderer(GyuSingerRC5Renderer):
             "backend": "gyu-singer-rc6",
             "model_version": "1.0.0-rc.6-candidate",
             "release_state": "objective candidate; human listening pending",
-            "acoustic_refiner": "universal + singing + GYU residual adapters",
+            "acoustic_refiner": "universal residual backbone",
             "acoustic_refiner_strength": self.refiner_strength,
+            "singing_refiner_adapter": "measured but disabled by default: voicing regression",
+            "gyu_refiner_adapter": "measured but disabled by default: no production advantage over universal",
             "final_v1_tagged": False,
         }
