@@ -70,10 +70,19 @@ class GyuSingerV06Renderer(GyuSingerV05Renderer):
             return torch.nn.functional.normalize(fish + moss, dim=-1)
         raise ValueError(f"unknown identity mode: {self.identity_mode}")
 
+    def _predict_pitch(self, score: dict) -> torch.Tensor:
+        return self.pitch_controller.predict(score)[0]
+
+    def _target_f0(self, score: dict, duration: float, expressive: np.ndarray) -> tuple[np.ndarray, list[dict] | None]:
+        return self._f0(score, duration, expressive), None
+
+    def _decoder_options(self) -> dict:
+        return {}
+
     def render(self, score: dict) -> np.ndarray:
         score = normalize_score(score); duration = max(note["start"] + note["duration"] for note in score["notes"])
         strength = float(score["style"]["prosody_strength"])
-        expressive = self.pitch_controller.predict(score)[0] * strength
+        expressive = self._predict_pitch(score) * strength
         from .quality_controller import STYLE
         style = score["style"]; preset = torch.tensor(STYLE[self._content_style_preset(style)], device=self.pitch_controller.device)
         identity = self._identity_vector()
@@ -91,8 +100,8 @@ class GyuSingerV06Renderer(GyuSingerV05Renderer):
             content_audio, content_rate = sf.read(content, dtype="float32", always_2d=True); content_audio = content_audio.mean(1)
             content_audio = adapt_waveform(content_audio, content_rate, self.acoustic_adapter, identity_ref, torch.from_numpy(controls).to(self.pitch_controller.device), preset, style["acoustic_style_strength"])
             sf.write(content, content_audio, content_rate, subtype="PCM_16")
-            info = sf.info(content); np.save(contour, self._f0(score, info.frames / info.samplerate, expressive.cpu().numpy()))
-            self.soulx.request({"source": str(content), "f0_npy": str(contour), "output": str(output), "identity_npy": str(identity_path) if self.identity_enabled and self.identity_mode != "none" else None, "style_npy": str(style_path) if self.style_enabled else None})
+            info = sf.info(content); target_f0, _ = self._target_f0(score, info.frames / info.samplerate, expressive.cpu().numpy()); np.save(contour, target_f0)
+            self.soulx.request({"source": str(content), "f0_npy": str(contour), "output": str(output), "identity_npy": str(identity_path) if self.identity_enabled and self.identity_mode != "none" else None, "style_npy": str(style_path) if self.style_enabled else None} | self._decoder_options())
             audio, rate = sf.read(output, dtype="float32", always_2d=True)
         mono = audio.mean(axis=1)
         from scipy.signal import resample_poly

@@ -12,7 +12,9 @@ import numpy as np
 import soundfile as sf
 from scipy.signal import resample_poly
 
+from gyu_singer.alignment import build_phrase_frames
 from gyu_singer.data import acoustic_reference_features
+from gyu_singer.frontend import phonemize
 from gyu_singer.score import normalize_score
 
 from .quality_controller import QualityPitchController
@@ -91,6 +93,36 @@ class SoulXPhraseRenderer:
             active = (times >= note["start"]) & (times < note["start"] + note["duration"])
             values[active] = 440 * 2 ** ((note["pitch"] + (residual[active] if isinstance(residual, np.ndarray) else residual) - 69) / 12)
         return values
+
+    @staticmethod
+    def _canonical_f0(score: dict, duration: float, expressive: np.ndarray | None = None) -> tuple[np.ndarray, list[dict]]:
+        """50 Hz score/phone timeline; silence and unvoiced consonants have zero F0."""
+        text = " ".join(note["lyric"] for note in score["notes"])
+        frames = build_phrase_frames(phonemize(score["language"], text), score["notes"], score["curves"]["pitch"], frame_hz=50, phoneme_alignment=score.get("phonemes"))
+        target_count = max(1, round(duration * 50))
+        source_index = np.linspace(0, len(frames.f0_hz) - 1, target_count)
+        voiced = np.interp(source_index, np.arange(len(frames.voiced)), frames.voiced.numpy()) >= .5
+        f0 = np.interp(source_index, np.arange(len(frames.f0_hz)), frames.f0_hz.numpy()).astype(np.float32)
+        if expressive is not None:
+            residual = np.interp(np.linspace(0, len(expressive) - 1, target_count), np.arange(len(expressive)), expressive)
+            f0[voiced] *= np.power(2.0, residual[voiced] / 12.0).astype(np.float32)
+        # A slur explicitly authorizes a short transition. Non-slurred attacks and
+        # OpenUtau pitch curves remain untouched.
+        if not score["curves"]["pitch"]:
+            nominal = max(note["start"] + note["duration"] for note in score["notes"])
+            for note in score["notes"][1:]:
+                if not note.get("slur", False):
+                    continue
+                onset = round(note["start"] / nominal * duration * 50)
+                end = min(target_count, onset + 3)
+                before = f0[max(0, onset - 1)]
+                if before > 0 and end > onset:
+                    active = f0[onset:end] > 0
+                    f0[onset:end][active] = np.geomspace(before, f0[end - 1], end - onset)[active]
+        f0[~voiced] = 0
+        source_frames = np.rint(source_index).astype(int)
+        timeline = [frames.timeline[index] | {"frame": frame, "time": frame / 50, "f0_hz": float(f0[frame])} for frame, index in enumerate(source_frames)]
+        return f0, timeline
 
     def render(self, score: dict) -> np.ndarray:
         score = normalize_score(score); duration = max(note["start"] + note["duration"] for note in score["notes"])

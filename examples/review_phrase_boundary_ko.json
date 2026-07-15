@@ -1,0 +1,14 @@
+{
+  "protocol": "gyu-renderer-v2",
+  "language": "ko",
+  "tempo": 120,
+  "sample_rate": 48000,
+  "notes": [
+    {"id": "n1", "pitch": 60, "start": 0.0, "duration": 0.8, "lyric": "빛"},
+    {"id": "n2", "pitch": 62, "start": 0.8, "duration": 0.8, "lyric": "을"},
+    {"id": "n3", "pitch": 64, "start": 2.1, "duration": 0.8, "lyric": "따"},
+    {"id": "n4", "pitch": 62, "start": 2.9, "duration": 0.8, "lyric": "라"}
+  ],
+  "curves": {"pitch": [], "dynamics": [], "breathiness": [], "tension": [], "brightness": [], "vibrato": []},
+  "style": {"preset": "neutral", "prosody_strength": 1.0, "acoustic_style_strength": 1.0}
+}

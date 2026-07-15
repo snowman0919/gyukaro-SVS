@@ -14,10 +14,10 @@ from gyu_singer.score import normalize_score
 STYLE = {"neutral": 0, "soft": 1, "breathy": 2, "energetic": 3, "dark": 4, "bright": 5, "tense": 6, "vibrato": 7}
 
 
-def condition_batch(score: dict, reference_features: torch.Tensor, device: str) -> tuple[dict[str, torch.Tensor], float]:
+def condition_batch(score: dict, reference_features: torch.Tensor, device: str, canonical_timing: bool = False) -> tuple[dict[str, torch.Tensor], float]:
     score = normalize_score(score)
     text = " ".join(note["lyric"] for note in score["notes"])
-    frames = build_phrase_frames(phonemize(score["language"], text), score["notes"], score["curves"]["pitch"])
+    frames = build_phrase_frames(phonemize(score["language"], text), score["notes"], score["curves"]["pitch"], phoneme_alignment=score.get("phonemes"), legacy_all_voiced=not canonical_timing)
     controls = score["curves"]
     def mean(name: str, default: float = 0.0) -> float:
         points = controls[name]
@@ -47,8 +47,8 @@ class QualityPitchController:
         self.reference_features = reference_features.float().to(self.device)
 
     @torch.no_grad()
-    def predict(self, score: dict) -> tuple[torch.Tensor, float]:
-        batch, duration = condition_batch(score, self.reference_features, self.device)
+    def predict(self, score: dict, canonical_timing: bool = False) -> tuple[torch.Tensor, float]:
+        batch, duration = condition_batch(score, self.reference_features, self.device, canonical_timing=canonical_timing)
         if self.version in {"v0.5", "v0.6"}:
             # v0.5 real-GYU path: score-only supervised pitch head.
             source = self.model.acoustic_source(batch)

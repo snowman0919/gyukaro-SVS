@@ -1,0 +1,151 @@
+{
+  "status": "rendered_not_selected",
+  "precision": "fp32",
+  "same_source_f0_identity_style": true,
+  "rows": [
+    {
+      "name": "s32_c1.5_seed11",
+      "path": "artifacts/reports/rc5_large_interval_decode/s32_c1.5_seed11.wav",
+      "steps": 32,
+      "cfg": 1.5,
+      "seed": 11,
+      "render_seconds": 17.078
+    },
+    {
+      "name": "s32_c1.5_seed21",
+      "path": "artifacts/reports/rc5_large_interval_decode/s32_c1.5_seed21.wav",
+      "steps": 32,
+      "cfg": 1.5,
+      "seed": 21,
+      "render_seconds": 7.306
+    },
+    {
+      "name": "s32_c1.5_seed37",
+      "path": "artifacts/reports/rc5_large_interval_decode/s32_c1.5_seed37.wav",
+      "steps": 32,
+      "cfg": 1.5,
+      "seed": 37,
+      "render_seconds": 7.316
+    },
+    {
+      "name": "s32_c2_seed11",
+      "path": "artifacts/reports/rc5_large_interval_decode/s32_c2_seed11.wav",
+      "steps": 32,
+      "cfg": 2.0,
+      "seed": 11,
+      "render_seconds": 7.304
+    },
+    {
+      "name": "s32_c2_seed21",
+      "path": "artifacts/reports/rc5_large_interval_decode/s32_c2_seed21.wav",
+      "steps": 32,
+      "cfg": 2.0,
+      "seed": 21,
+      "render_seconds": 7.301
+    },
+    {
+      "name": "s32_c2_seed37",
+      "path": "artifacts/reports/rc5_large_interval_decode/s32_c2_seed37.wav",
+      "steps": 32,
+      "cfg": 2.0,
+      "seed": 37,
+      "render_seconds": 7.326
+    },
+    {
+      "name": "s50_c1.5_seed11",
+      "path": "artifacts/reports/rc5_large_interval_decode/s50_c1.5_seed11.wav",
+      "steps": 50,
+      "cfg": 1.5,
+      "seed": 11,
+      "render_seconds": 11.41
+    },
+    {
+      "name": "s50_c1.5_seed21",
+      "path": "artifacts/reports/rc5_large_interval_decode/s50_c1.5_seed21.wav",
+      "steps": 50,
+      "cfg": 1.5,
+      "seed": 21,
+      "render_seconds": 11.401
+    },
+    {
+      "name": "s50_c1.5_seed37",
+      "path": "artifacts/reports/rc5_large_interval_decode/s50_c1.5_seed37.wav",
+      "steps": 50,
+      "cfg": 1.5,
+      "seed": 37,
+      "render_seconds": 11.44
+    },
+    {
+      "name": "s50_c2_seed11",
+      "path": "artifacts/reports/rc5_large_interval_decode/s50_c2_seed11.wav",
+      "steps": 50,
+      "cfg": 2.0,
+      "seed": 11,
+      "render_seconds": 11.414
+    },
+    {
+      "name": "s50_c2_seed21",
+      "path": "artifacts/reports/rc5_large_interval_decode/s50_c2_seed21.wav",
+      "steps": 50,
+      "cfg": 2.0,
+      "seed": 21,
+      "render_seconds": 11.408
+    },
+    {
+      "name": "s50_c2_seed37",
+      "path": "artifacts/reports/rc5_large_interval_decode/s50_c2_seed37.wav",
+      "steps": 50,
+      "cfg": 2.0,
+      "seed": 37,
+      "render_seconds": 11.439
+    },
+    {
+      "name": "s64_c1.5_seed11",
+      "path": "artifacts/reports/rc5_large_interval_decode/s64_c1.5_seed11.wav",
+      "steps": 64,
+      "cfg": 1.5,
+      "seed": 11,
+      "render_seconds": 14.619
+    },
+    {
+      "name": "s64_c1.5_seed21",
+      "path": "artifacts/reports/rc5_large_interval_decode/s64_c1.5_seed21.wav",
+      "steps": 64,
+      "cfg": 1.5,
+      "seed": 21,
+      "render_seconds": 14.613
+    },
+    {
+      "name": "s64_c1.5_seed37",
+      "path": "artifacts/reports/rc5_large_interval_decode/s64_c1.5_seed37.wav",
+      "steps": 64,
+      "cfg": 1.5,
+      "seed": 37,
+      "render_seconds": 14.615
+    },
+    {
+      "name": "s64_c2_seed11",
+      "path": "artifacts/reports/rc5_large_interval_decode/s64_c2_seed11.wav",
+      "steps": 64,
+      "cfg": 2.0,
+      "seed": 11,
+      "render_seconds": 14.621
+    },
+    {
+      "name": "s64_c2_seed21",
+      "path": "artifacts/reports/rc5_large_interval_decode/s64_c2_seed21.wav",
+      "steps": 64,
+      "cfg": 2.0,
+      "seed": 21,
+      "render_seconds": 14.611
+    },
+    {
+      "name": "s64_c2_seed37",
+      "path": "artifacts/reports/rc5_large_interval_decode/s64_c2_seed37.wav",
+      "steps": 64,
+      "cfg": 2.0,
+      "seed": 37,
+      "render_seconds": 14.609
+    }
+  ]
+}

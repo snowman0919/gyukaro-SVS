@@ -1,5 +1,5 @@
-Overall status: RC4 human listening failed; artifact isolation and repair in progress
-Highest truthful release: failed public v1.0.0 RC4 prerelease; not suitable for final release
+Overall status: RC4 human listening failed; candidate4 passes objective stress gates and awaits human listening
+Highest truthful release: failed public v1.0.0 RC4 prerelease; candidate4 is not tagged or released
 Source commit: `ce7a1e088de0b38777551ba583c993817dc9d020` (validated RC4 source; report changes follow)
 OpenUtau upstream commit: `27573ac5c888d927119d5f65a207312d79194b1f`
 Git tag: `v1.0.0-rc.4`; final `v1.0.0` pending
@@ -23,6 +23,10 @@ Energetic: objective proxy pass; RC4 human quality review failed overall
 Repeated rendering: pass, 20/20 identical hashes; long-form cache rerender 0.104 seconds
 Memory stability: pass; repeated stress growth -1313.66 MiB, long-form peak unified-memory growth 15.40 GiB
 Public release re-download verification: RC4 bytes verified but audio quality failed; final v1.0.0 prohibited
+
+Post-RC4 candidate: `artifacts/reports/rc5_stress_candidate4/`; objective candidate, human pending
+Post-RC4 decoder: measured 32-step/CFG1.5 standard path; 64-step/CFG2 rapid path; 32-step/CFG2 large-interval path
+Post-RC4 core delta vs RC4: HF-spike -15.3%, spectral flux -7.0%, sample jump -24.4%, pitch MAE +1.81 cents, ASR similarity -0.025
 
 ## What changed from v0.9
 
@@ -61,4 +65,4 @@ Linux NVIDIA CUDA is the only release-tested platform. Initial model download is
 
 ## Remaining release steps
 
-Record real human observations for the bundled listening set. Then freeze one final archive, rerun the exact clean install and long-form test if any packaged byte changes, commit and tag that source, publish the same tested bytes, re-download them from GitHub, verify `SHA256SUMS`, install, and smoke render again.
+Listen to `artifacts/reports/rc5_stress_candidate4/listening/` and the matched `before_after/` clips. Only an explicit human pass may promote this engineering candidate into a real RC5. Runtime integration, clean packaging, and the full install/long-form smoke remain intentionally deferred until that pass; final `v1.0.0` remains prohibited.

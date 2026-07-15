@@ -1,0 +1,93 @@
+{
+  "status": "candidate_human_listening_pending",
+  "name": "RC5 audio-quality candidate 4 (not a tag or release)",
+  "decoder_policy": {
+    "ko_en": "FP32 32/CFG1.5",
+    "rapid": "FP32 64/CFG2",
+    "large": "FP32 32/CFG2 seed21"
+  },
+  "timing_policy": {
+    "standard": "canonical",
+    "en": "CTC linear 0.25",
+    "rapid": "CTC phoneme hold"
+  },
+  "files": {
+    "ko_neutral": {
+      "path": "artifacts/reports/rc5_stress_candidate4/listening/ko_neutral.wav",
+      "sample_rate": 48000,
+      "duration": 9.92,
+      "safety_gain": 1.0,
+      "target_f0": "artifacts/reports/rc5_stress_candidate4/ko_neutral_target_f0.npy",
+      "source_candidate": "artifacts/reports/rc5_selected_32/ko_neutral/selected.wav"
+    },
+    "en": {
+      "path": "artifacts/reports/rc5_stress_candidate4/listening/en.wav",
+      "sample_rate": 48000,
+      "duration": 9.92,
+      "safety_gain": 1.0,
+      "target_f0": "artifacts/reports/rc5_stress_candidate4/en_target_f0.npy",
+      "source_candidate": "artifacts/reports/rc5_selected_32/en/selected.wav"
+    },
+    "rapid_ko": {
+      "path": "artifacts/reports/rc5_stress_candidate4/listening/rapid_ko.wav",
+      "sample_rate": 48000,
+      "duration": 2.0,
+      "safety_gain": 1.0,
+      "target_f0": "artifacts/reports/rc5_stress_candidate4/rapid_ko_target_f0.npy",
+      "source_candidate": "artifacts/reports/rc5_rapid_hold/rapid.wav"
+    },
+    "large_interval_ko": {
+      "path": "artifacts/reports/rc5_stress_candidate4/listening/large_interval_ko.wav",
+      "sample_rate": 48000,
+      "duration": 4.8,
+      "safety_gain": 1.0,
+      "target_f0": "artifacts/reports/rc5_stress_candidate4/large_interval_ko_target_f0.npy",
+      "source_candidate": "artifacts/reports/rc5_large_interval_decode/s32_c2_seed21.wav"
+    },
+    "ko_breathy": {
+      "path": "artifacts/reports/rc5_stress_candidate4/listening/ko_breathy.wav",
+      "sample_rate": 48000,
+      "duration": 9.92,
+      "safety_gain": 0.97,
+      "source": "fresh canonical candidate render",
+      "score": "examples/quality_ko.json",
+      "style": "breathy"
+    },
+    "ko_energetic": {
+      "path": "artifacts/reports/rc5_stress_candidate4/listening/ko_energetic.wav",
+      "sample_rate": 48000,
+      "duration": 9.92,
+      "safety_gain": 1.0,
+      "source": "fresh canonical candidate render",
+      "score": "examples/quality_ko.json",
+      "style": "energetic"
+    },
+    "ja": {
+      "path": "artifacts/reports/rc5_stress_candidate4/listening/ja.wav",
+      "sample_rate": 48000,
+      "duration": 9.92,
+      "safety_gain": 1.0,
+      "source": "fresh canonical candidate render",
+      "score": "examples/quality_ja.json",
+      "style": "neutral"
+    },
+    "sustained_ko": {
+      "path": "artifacts/reports/rc5_stress_candidate4/listening/sustained_ko.wav",
+      "sample_rate": 48000,
+      "duration": 6.0,
+      "safety_gain": 1.0,
+      "source": "fresh canonical candidate render",
+      "score": "examples/review_sustain_ko.json",
+      "style": "neutral"
+    },
+    "phrase_boundary": {
+      "path": "artifacts/reports/rc5_stress_candidate4/listening/phrase_boundary.wav",
+      "sample_rate": 48000,
+      "duration": 3.68,
+      "safety_gain": 1.0,
+      "source": "fresh canonical candidate render",
+      "score": "examples/review_phrase_boundary_ko.json",
+      "style": "neutral"
+    }
+  }
+}

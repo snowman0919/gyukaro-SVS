@@ -10,6 +10,7 @@ import torch
 from gyu_singer.alignment import build_phrase_frames
 from gyu_singer.frontend import FEATURE_SIZE, phonemize
 from gyu_singer.inference.soulx import SoulXPhraseRenderer, _Worker
+from gyu_singer.inference.quality_controller import condition_batch
 from gyu_singer.losses import flow_matching_loss, log_pitch_loss, weighted_distillation_loss
 from gyu_singer.model import TriSingerModel, grad_norm
 from gyu_singer.renderer import build_server
@@ -49,6 +50,39 @@ def test_ctc_alignment_overrides_even_phoneme_division():
     frames = build_phrase_frames(front, [{"pitch": 60, "start": 0, "duration": .8, "lyric": "하"}, {"pitch": 64, "start": .8, "duration": .8, "lyric": "늘"}], phoneme_alignment=aligned)
     assert frames.phoneme_durations[1]["duration_frames"] > frames.phoneme_durations[0]["duration_frames"]
     assert frames.phoneme_durations[0]["boundary_type"] == "ctc_forced"
+
+
+def test_canonical_timeline_zeros_unvoiced_phones_and_silence():
+    notes = [{"pitch": 60, "start": .1, "duration": .5, "lyric": "파"}]
+    frames = build_phrase_frames(phonemize("ko", "파"), notes, frame_hz=50)
+    assert frames.voicing_classes[0] == "silence" and frames.f0_hz[0] == 0
+    assert "unvoiced_consonant" in frames.voicing_classes and "vowel" in frames.voicing_classes
+    unvoiced = torch.tensor([kind in {"silence", "unvoiced_consonant"} for kind in frames.voicing_classes])
+    assert torch.all(frames.f0_hz[unvoiced] == 0) and torch.all(frames.f0_hz[frames.voiced.bool()] > 0)
+
+
+def test_openutau_phone_window_drives_inferred_frontend_split():
+    notes = [{"pitch": 60, "start": 0, "duration": .6, "lyric": "하"}]
+    frames = build_phrase_frames(phonemize("ko", "하"), notes, frame_hz=50, phoneme_alignment=[{"phoneme": "ha", "start": .04, "duration": .5}])
+    assert frames.voicing_classes[0] == "silence"
+    assert any(row["boundary_type"] == "openutau_timed_inferred_split" for row in frames.phoneme_durations)
+
+
+def test_korean_obstruent_coda_is_unvoiced():
+    frames = build_phrase_frames(
+        phonemize("ko", "높"),
+        [{"pitch": 60, "start": 0, "duration": 1.0, "lyric": "높"}],
+        frame_hz=50,
+    )
+    assert frames.voicing_classes[-1] == "unvoiced_consonant"
+    assert frames.f0_hz[-1] == 0
+
+
+def test_rc4_legacy_condition_remains_explicitly_callable():
+    score = {"language": "ko", "notes": [{"pitch": 60, "start": 0, "duration": .5, "lyric": "파"}], "curves": {name: [] for name in ("pitch", "dynamics", "breathiness", "tension", "brightness", "vibrato")}, "style": {"preset": "neutral"}}
+    legacy, _ = condition_batch(score, torch.zeros(160), "cpu")
+    canonical, _ = condition_batch(score, torch.zeros(160), "cpu", canonical_timing=True)
+    assert torch.all(legacy["voiced"] == 1) and torch.any(canonical["voiced"] == 0)
 
 
 def test_blurred_boundary_and_pitch_conditions_change_phrase_condition():

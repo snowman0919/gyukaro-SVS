@@ -1,0 +1,65 @@
+# RC5 reference quality audit
+
+```json
+{
+  "status": "audited",
+  "selected_reference": {
+    "path": "data/processed/master/216.wav",
+    "sample_rate": 48000,
+    "channels": 1,
+    "duration_seconds": 20.3930625,
+    "peak": 0.299774169921875,
+    "clip_fraction": 0.0,
+    "dc_offset": -3.5541130927185804e-08,
+    "rms_dbfs": -31.064903900022518,
+    "noise_floor_p10_dbfs": -62.39695100775116,
+    "noise_floor_p20_dbfs": -51.920616313370296,
+    "quiet_frame_max_mains_harmonic_prominence_db": 4.59275391177966,
+    "active_envelope_100ms_correlation_reverb_proxy": 0.08892668953895022
+  },
+  "selected_manifest_row": {
+    "id": "gyu_real_000216",
+    "source_file": "Korea Digital Media High School 216.m4a",
+    "source_index": 216,
+    "pcm_master": "data/processed/master/216.wav",
+    "codec": "alac",
+    "sample_rate": 48000,
+    "channels": 1,
+    "duration_sec": 20.394667,
+    "pcm_format": "s24le",
+    "integrated_loudness_lufs_approx": -31.06,
+    "peak": 0.29977,
+    "rms": 0.02797,
+    "silence_ratio": 0.6144,
+    "active_voice_duration_sec": 7.864,
+    "f0_median_hz": 124.03,
+    "f0_min_hz": 103.67,
+    "f0_max_hz": 738.46,
+    "voiced_frame_ratio": 0.6904,
+    "clipping": false,
+    "corrupt": false,
+    "script_block": "E",
+    "script_item": "unverified_source_order",
+    "alignment_confidence": 0.35,
+    "quality_flags": [
+      "script_text_unverified"
+    ]
+  },
+  "corpus": {
+    "rows": 132,
+    "clipping_rows": 2,
+    "corrupt_rows": 0,
+    "median_peak": 0.20435999999999999,
+    "median_lufs_approx": -31.7
+  },
+  "decision": "retain_original_lossless",
+  "preprocessing": {
+    "denoise_applied": false,
+    "dereverb_applied": false,
+    "uvr_applied": false
+  },
+  "limitations": "background sounds and room character still require listening; proxies do not certify absence"
+}
+```
+
+No source recording was modified. The selected reference has no clipping, a -51.9 dBFS quiet-floor proxy, and no prominent mains harmonic in quiet frames, so the original lossless-derived PCM is retained. Generic denoise, dereverb, and UVR were not applied.

@@ -11,6 +11,30 @@ artifacts/samples/*.wav
 render.wav
 artifacts/reports/asr.*
 artifacts/reports/v07_style_scale_search/
+# Rejected post-RC4 probes are reproducible from scripts; keep only the frozen
+# isolation matrix and current candidate4 listening evidence.
+artifacts/reports/rc5_ace_score_source/
+artifacts/reports/rc5_ace_score_strength/
+artifacts/reports/rc5_candidate_core/
+artifacts/reports/rc5_content_timing/
+artifacts/reports/rc5_ctc_voicing/
+# Raw matrix renders are reproduced by isolate_rc4_artifacts.py. Commit the
+# compact listening matrix and JSON reports only.
+artifacts/reports/rc5_isolation/en/
+artifacts/reports/rc5_isolation/ko_neutral/
+artifacts/reports/rc5_isolation/large_interval_ko/
+artifacts/reports/rc5_isolation/rapid_ko/
+artifacts/reports/rc5_latent_hold/
+artifacts/reports/rc5_latent_strength/
+artifacts/reports/rc5_latent_timing/
+artifacts/reports/rc5_large_interval_decode/*.wav
+artifacts/reports/rc5_rapid_ctc32/
+artifacts/reports/rc5_rapid_hold/
+artifacts/reports/rc5_rapid_warp64_cfg15/
+artifacts/reports/rc5_selected_32/
+artifacts/reports/rc5_stress_candidate/
+artifacts/reports/rc5_stress_candidate2/
+artifacts/reports/rc5_stress_candidate3/
 artifacts/package/gyu-singer-v1-experimental/model/gyu_moss_nano_sft/
 artifacts/package/gyu-singer-v1-experimental/model/moss-audio-tokenizer-nano/
 artifacts/package/gyu-singer-v1-experimental/model/gyu_reference.m4a
@@ -23,3 +47,5 @@ artifacts/validation/hybrid_residual_flow/
 __pycache__/
 .venv/
 .venv-soulx/
+build/
+*.egg-info/
