@@ -1,0 +1,137 @@
+{
+  "status": "objective_evaluation_pending",
+  "name": "RC6 actual-backend acoustic candidate (not a tag or release)",
+  "backend": {
+    "backend": "gyu-singer-rc6",
+    "model_version": "1.0.0-rc.6-candidate",
+    "prosody_checkpoint": "checkpoints/gyu_prosody_v0.5.pt",
+    "prosody_v0_6_checkpoint": "checkpoints/gyu_prosody_v0.6.pt (experimental baseline; not selected)",
+    "identity_checkpoint": "checkpoints/gyu_identity_space_v0.6.pt",
+    "latent_adapter_checkpoint": "checkpoints/gyu_real_latent_adapters_v0.7.pt",
+    "content": "OmniVoice",
+    "decoder": "SoulX-Singer SVC",
+    "languages": [
+      "ko",
+      "en",
+      "ja"
+    ],
+    "sample_rate": 48000,
+    "v0_4_fallback": false,
+    "per_note_tts": false,
+    "waveform_pitch_shift": false,
+    "latent_training": "actual SoulXSingerSVC.infer_segment.gt_decoder_inp",
+    "identity_style_separable": true,
+    "style_calibration": {
+      "energetic": -0.5,
+      "dark": -2.0
+    },
+    "style_semantics": {
+      "neutral": "neutral",
+      "soft": "relative_style_A_unverified",
+      "breathy": "breathiness_proxy",
+      "energetic": "energy_proxy",
+      "dark": "relative_style_C_unverified",
+      "bright": "relative_style_B_unverified"
+    },
+    "production_prosody": "checkpoints/gyu_prosody_v0.5.pt",
+    "selection_basis": "24-row independent score metrics plus KO/EN/JA causal identity and style ablations",
+    "phase_vocoder_note_control": false,
+    "rc4_preserved_backend": "gyu-singer-v0.8",
+    "canonical_phone_score_timeline": true,
+    "unvoiced_f0_zero": true,
+    "soulx_decode_policy": "RC5 measured stress policy: 32/CFG1.5 standard, 64/CFG2 rapid, 32/CFG2 large interval",
+    "soulx_precision": "fp32",
+    "content_timing": "MMS CTC latent hold for rapid phrases; 0.25 latent warp for English",
+    "human_listening_status": "rc5_baseline_passed; rc6_candidate_pending",
+    "release_state": "objective candidate; human listening pending",
+    "final_v1_tagged": false,
+    "acoustic_refiner": "universal residual backbone",
+    "acoustic_refiner_strength": 0.25,
+    "singing_refiner_adapter": "measured but disabled by default: voicing regression",
+    "gyu_refiner_adapter": "measured but disabled by default: no production advantage over universal"
+  },
+  "files": {
+    "ko_neutral": {
+      "path": "artifacts/reports/rc6_backend_candidate/listening/ko_neutral.wav",
+      "score": "examples/quality_ko.json",
+      "sha256": "b938aa4152eb16f5af1845409ab54eabcc6e8e1a712285905b4439bec5ddc5df",
+      "render_seconds": 21.1463,
+      "sample_rate": 48000,
+      "backend": "gyu-singer-rc6",
+      "refiner_strength": 0.25
+    },
+    "en": {
+      "path": "artifacts/reports/rc6_backend_candidate/listening/en.wav",
+      "score": "examples/quality_en.json",
+      "sha256": "a761ad54e6e3b0485210c9a552bb400bb2082ce9f33a060ee551fad0da08fdb8",
+      "render_seconds": 13.1975,
+      "sample_rate": 48000,
+      "backend": "gyu-singer-rc6",
+      "refiner_strength": 0.25
+    },
+    "rapid_ko": {
+      "path": "artifacts/reports/rc6_backend_candidate/listening/rapid_ko.wav",
+      "score": "examples/review_rapid_ko.json",
+      "sha256": "b9b27e3a9c7c11ac055d76da56bc9a6633ae14eb06891ae29be4ba1e3597a50a",
+      "render_seconds": 12.7241,
+      "sample_rate": 48000,
+      "backend": "gyu-singer-rc6",
+      "refiner_strength": 0.25
+    },
+    "large_interval_ko": {
+      "path": "artifacts/reports/rc6_backend_candidate/listening/large_interval_ko.wav",
+      "score": "examples/review_large_interval_ko.json",
+      "sha256": "613194452b27ff7ca674574a12efa725d330e51ac4e086a2d8be8b4962ab969a",
+      "render_seconds": 7.8444,
+      "sample_rate": 48000,
+      "backend": "gyu-singer-rc6",
+      "refiner_strength": 0.25
+    },
+    "ko_breathy": {
+      "path": "artifacts/reports/rc6_backend_candidate/listening/ko_breathy.wav",
+      "score": "artifacts/reports/rc5_stress_candidate/ko_breathy.json",
+      "sha256": "243aa7065e6b1e47be027194a8abadcd12847b5f3acb73e4b501c23e52828d6f",
+      "render_seconds": 21.8253,
+      "sample_rate": 48000,
+      "backend": "gyu-singer-rc6",
+      "refiner_strength": 0.25
+    },
+    "ko_energetic": {
+      "path": "artifacts/reports/rc6_backend_candidate/listening/ko_energetic.wav",
+      "score": "artifacts/reports/rc5_stress_candidate/ko_energetic.json",
+      "sha256": "6fc8728984329fa1d5c0c67c8a6c3d4f9f8ccd1cd03a3d6094390ea684f98f38",
+      "render_seconds": 21.8124,
+      "sample_rate": 48000,
+      "backend": "gyu-singer-rc6",
+      "refiner_strength": 0.25
+    },
+    "ja": {
+      "path": "artifacts/reports/rc6_backend_candidate/listening/ja.wav",
+      "score": "examples/quality_ja.json",
+      "sha256": "c16eb5e117d0de8e37fb6a093d79d4e775ef5e7b1798f610e0f738a959435323",
+      "render_seconds": 21.8386,
+      "sample_rate": 48000,
+      "backend": "gyu-singer-rc6",
+      "refiner_strength": 0.25
+    },
+    "sustained_ko": {
+      "path": "artifacts/reports/rc6_backend_candidate/listening/sustained_ko.wav",
+      "score": "examples/review_sustain_ko.json",
+      "sha256": "196b5143999459527558ed1ee38c6e071b801ba319e8e2552054777720d44eb1",
+      "render_seconds": 16.8943,
+      "sample_rate": 48000,
+      "backend": "gyu-singer-rc6",
+      "refiner_strength": 0.25
+    },
+    "phrase_boundary": {
+      "path": "artifacts/reports/rc6_backend_candidate/listening/phrase_boundary.wav",
+      "score": "examples/review_phrase_boundary_ko.json",
+      "sha256": "0202ef4b1124e50d7980d96dcf643e6bcdbaed09c5f583f889b4dc960951de28",
+      "render_seconds": 14.1508,
+      "sample_rate": 48000,
+      "backend": "gyu-singer-rc6",
+      "refiner_strength": 0.25
+    }
+  },
+  "human_review": "pending"
+}

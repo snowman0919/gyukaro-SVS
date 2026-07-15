@@ -1,0 +1,16 @@
+{
+  "tracks": 3,
+  "parts": 17,
+  "notes": 136,
+  "phrases": 17,
+  "first_render_seconds": 271.3052532,
+  "cached_render_seconds": 0.1125787,
+  "cache_misses": 17,
+  "cache_hits": 17,
+  "stale_cache_files_after_repeat": 0,
+  "failed_phrases": 0,
+  "retries": 0,
+  "sample_rate": 44100,
+  "channels": 2,
+  "duration_seconds": 119.9828571
+}

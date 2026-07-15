@@ -1,0 +1,174 @@
+{
+  "steps": 800,
+  "batch_size": 4,
+  "crop_samples": 32768,
+  "learning_rate": 0.0002,
+  "seed": 194,
+  "trainable_parameters": 4968,
+  "primary_rows": 18,
+  "replay_rows": 12,
+  "validation_rows": 6,
+  "target_loudness": "RMS-matched to degraded input; peak capped at 0.97",
+  "random_noise_augmentation": false,
+  "loss": "three-resolution log-STFT + spectral convergence + envelope L1 + 0.05 residual L1",
+  "wall_clock_sec": 36.961,
+  "validation_loss": 2.795133,
+  "history": [
+    {
+      "step": 1,
+      "loss": 3.445777,
+      "residual_l1": 0.0195076,
+      "stft_512": 3.272548,
+      "stft_1024": 3.438865,
+      "stft_2048": 3.565058,
+      "envelope": 0.019311
+    },
+    {
+      "step": 50,
+      "loss": 3.398023,
+      "residual_l1": 0.0162073,
+      "stft_512": 3.239406,
+      "stft_1024": 3.420199,
+      "stft_2048": 3.504801,
+      "envelope": 0.009077
+    },
+    {
+      "step": 100,
+      "loss": 3.907881,
+      "residual_l1": 0.0244056,
+      "stft_512": 3.725372,
+      "stft_1024": 3.89392,
+      "stft_2048": 4.002233,
+      "envelope": 0.03282
+    },
+    {
+      "step": 150,
+      "loss": 2.794581,
+      "residual_l1": 0.0252306,
+      "stft_512": 2.67433,
+      "stft_1024": 2.791543,
+      "stft_2048": 2.838337,
+      "envelope": 0.025249
+    },
+    {
+      "step": 200,
+      "loss": 3.467387,
+      "residual_l1": 0.031271,
+      "stft_512": 3.324829,
+      "stft_1024": 3.463375,
+      "stft_2048": 3.557909,
+      "envelope": 0.017119
+    },
+    {
+      "step": 250,
+      "loss": 2.993374,
+      "residual_l1": 0.0252751,
+      "stft_512": 2.846495,
+      "stft_1024": 2.986831,
+      "stft_2048": 3.110619,
+      "envelope": 0.010795
+    },
+    {
+      "step": 300,
+      "loss": 3.436631,
+      "residual_l1": 0.0359452,
+      "stft_512": 3.292089,
+      "stft_1024": 3.435029,
+      "stft_2048": 3.514023,
+      "envelope": 0.021121
+    },
+    {
+      "step": 350,
+      "loss": 2.881195,
+      "residual_l1": 0.0371777,
+      "stft_512": 2.794647,
+      "stft_1024": 2.849065,
+      "stft_2048": 2.909208,
+      "envelope": 0.028363
+    },
+    {
+      "step": 400,
+      "loss": 2.403089,
+      "residual_l1": 0.027129,
+      "stft_512": 2.371476,
+      "stft_1024": 2.370413,
+      "stft_2048": 2.417866,
+      "envelope": 0.015147
+    },
+    {
+      "step": 450,
+      "loss": 2.912996,
+      "residual_l1": 0.0315769,
+      "stft_512": 2.882078,
+      "stft_1024": 2.878773,
+      "stft_2048": 2.919739,
+      "envelope": 0.017887
+    },
+    {
+      "step": 500,
+      "loss": 2.870858,
+      "residual_l1": 0.0379859,
+      "stft_512": 2.881826,
+      "stft_1024": 2.811466,
+      "stft_2048": 2.834899,
+      "envelope": 0.026228
+    },
+    {
+      "step": 550,
+      "loss": 2.549267,
+      "residual_l1": 0.0432742,
+      "stft_512": 2.46871,
+      "stft_1024": 2.538843,
+      "stft_2048": 2.570634,
+      "envelope": 0.021041
+    },
+    {
+      "step": 600,
+      "loss": 2.867624,
+      "residual_l1": 0.0479604,
+      "stft_512": 2.782126,
+      "stft_1024": 2.855105,
+      "stft_2048": 2.884976,
+      "envelope": 0.02449
+    },
+    {
+      "step": 650,
+      "loss": 2.512597,
+      "residual_l1": 0.0414525,
+      "stft_512": 2.469577,
+      "stft_1024": 2.489723,
+      "stft_2048": 2.534032,
+      "envelope": 0.012747
+    },
+    {
+      "step": 700,
+      "loss": 3.133791,
+      "residual_l1": 0.040435,
+      "stft_512": 3.077859,
+      "stft_1024": 3.125661,
+      "stft_2048": 3.157678,
+      "envelope": 0.01137
+    },
+    {
+      "step": 750,
+      "loss": 3.216752,
+      "residual_l1": 0.0362907,
+      "stft_512": 3.154238,
+      "stft_1024": 3.207666,
+      "stft_2048": 3.248669,
+      "envelope": 0.011413
+    },
+    {
+      "step": 800,
+      "loss": 3.054448,
+      "residual_l1": 0.0374906,
+      "stft_512": 2.984575,
+      "stft_1024": 3.054944,
+      "stft_2048": 3.090368,
+      "envelope": 0.009278
+    }
+  ],
+  "stage": "singing",
+  "checkpoint": "checkpoints/acoustic_refiner_singing.pt",
+  "total_parameters": 51537
+}

@@ -1,0 +1,174 @@
+{
+  "steps": 800,
+  "batch_size": 4,
+  "crop_samples": 32768,
+  "learning_rate": 0.0002,
+  "seed": 194,
+  "trainable_parameters": 41601,
+  "primary_rows": 12,
+  "replay_rows": 0,
+  "validation_rows": 6,
+  "target_loudness": "RMS-matched to degraded input; peak capped at 0.97",
+  "random_noise_augmentation": false,
+  "loss": "three-resolution log-STFT + spectral convergence + envelope L1 + 0.05 residual L1",
+  "wall_clock_sec": 38.636,
+  "validation_loss": 1.948519,
+  "history": [
+    {
+      "step": 1,
+      "loss": 2.055315,
+      "residual_l1": 1.22e-05,
+      "stft_512": 2.028411,
+      "stft_1024": 1.97745,
+      "stft_2048": 2.012931,
+      "envelope": 0.04905
+    },
+    {
+      "step": 50,
+      "loss": 1.697087,
+      "residual_l1": 0.0255881,
+      "stft_512": 1.613587,
+      "stft_1024": 1.642483,
+      "stft_2048": 1.677359,
+      "envelope": 0.051331
+    },
+    {
+      "step": 100,
+      "loss": 1.555397,
+      "residual_l1": 0.0267538,
+      "stft_512": 1.531361,
+      "stft_1024": 1.500669,
+      "stft_2048": 1.535325,
+      "envelope": 0.031607
+    },
+    {
+      "step": 150,
+      "loss": 1.763132,
+      "residual_l1": 0.0231943,
+      "stft_512": 1.736602,
+      "stft_1024": 1.711754,
+      "stft_2048": 1.744457,
+      "envelope": 0.031034
+    },
+    {
+      "step": 200,
+      "loss": 1.842897,
+      "residual_l1": 0.0272294,
+      "stft_512": 1.817003,
+      "stft_1024": 1.79806,
+      "stft_2048": 1.808444,
+      "envelope": 0.0337
+    },
+    {
+      "step": 250,
+      "loss": 1.692216,
+      "residual_l1": 0.0238987,
+      "stft_512": 1.652882,
+      "stft_1024": 1.620271,
+      "stft_2048": 1.684346,
+      "envelope": 0.038521
+    },
+    {
+      "step": 300,
+      "loss": 1.681348,
+      "residual_l1": 0.024616,
+      "stft_512": 1.618302,
+      "stft_1024": 1.652396,
+      "stft_2048": 1.695324,
+      "envelope": 0.024777
+    },
+    {
+      "step": 350,
+      "loss": 1.375971,
+      "residual_l1": 0.022355,
+      "stft_512": 1.365936,
+      "stft_1024": 1.326524,
+      "stft_2048": 1.362234,
+      "envelope": 0.023288
+    },
+    {
+      "step": 400,
+      "loss": 1.555615,
+      "residual_l1": 0.0201439,
+      "stft_512": 1.52039,
+      "stft_1024": 1.502395,
+      "stft_2048": 1.556911,
+      "envelope": 0.028043
+    },
+    {
+      "step": 450,
+      "loss": 1.58359,
+      "residual_l1": 0.0268961,
+      "stft_512": 1.597532,
+      "stft_1024": 1.500306,
+      "stft_2048": 1.550684,
+      "envelope": 0.032738
+    },
+    {
+      "step": 500,
+      "loss": 1.766844,
+      "residual_l1": 0.020369,
+      "stft_512": 1.737415,
+      "stft_1024": 1.717003,
+      "stft_2048": 1.756019,
+      "envelope": 0.029014
+    },
+    {
+      "step": 550,
+      "loss": 1.75995,
+      "residual_l1": 0.0249763,
+      "stft_512": 1.735695,
+      "stft_1024": 1.699916,
+      "stft_2048": 1.729658,
+      "envelope": 0.036944
+    },
+    {
+      "step": 600,
+      "loss": 1.454272,
+      "residual_l1": 0.0234142,
+      "stft_512": 1.449549,
+      "stft_1024": 1.385608,
+      "stft_2048": 1.441571,
+      "envelope": 0.027526
+    },
+    {
+      "step": 650,
+      "loss": 1.65106,
+      "residual_l1": 0.029893,
+      "stft_512": 1.605994,
+      "stft_1024": 1.586826,
+      "stft_2048": 1.641469,
+      "envelope": 0.038136
+    },
+    {
+      "step": 700,
+      "loss": 1.532055,
+      "residual_l1": 0.0225883,
+      "stft_512": 1.500303,
+      "stft_1024": 1.474031,
+      "stft_2048": 1.524422,
+      "envelope": 0.03134
+    },
+    {
+      "step": 750,
+      "loss": 1.605447,
+      "residual_l1": 0.0202133,
+      "stft_512": 1.591448,
+      "stft_1024": 1.537894,
+      "stft_2048": 1.576818,
+      "envelope": 0.035717
+    },
+    {
+      "step": 800,
+      "loss": 1.704349,
+      "residual_l1": 0.0186459,
+      "stft_512": 1.682739,
+      "stft_1024": 1.666955,
+      "stft_2048": 1.685185,
+      "envelope": 0.025123
+    }
+  ],
+  "stage": "universal",
+  "checkpoint": "checkpoints/acoustic_refiner_universal.pt",
+  "total_parameters": 51537
+}

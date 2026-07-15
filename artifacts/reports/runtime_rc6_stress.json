@@ -1,0 +1,67 @@
+{
+  "repeats": 5,
+  "repeat_unique_sha256": 1,
+  "warmup_seconds": {
+    "ko": 16.12336621095892,
+    "en": 13.789962535956874,
+    "ja": 12.440372128039598
+  },
+  "repeat_latency_seconds": {
+    "min": 6.485000187996775,
+    "mean": 6.502284869411961,
+    "max": 6.526031883084215
+  },
+  "multilingual": {
+    "ko": {
+      "sha256": "384b62089afc21659f12413e7dd230cefb8c1d0559177b1575640490d450edf6",
+      "seconds": 6.5035913969622925
+    },
+    "en": {
+      "sha256": "04f86108dba0b9a0d6687b32c02b2e23ddb5462bb8d5810ee39492caf0bd8a76",
+      "seconds": 13.037106505944394
+    },
+    "ja": {
+      "sha256": "9a298a83578c0eaecf05bcd12959bae2c8b2cdfc414bd86fbbf3fd96f9cb69b0",
+      "seconds": 12.484202304971404
+    }
+  },
+  "concurrent_latency_seconds": [
+    6.499246236984618,
+    12.97696331795305,
+    19.454080241033807,
+    25.93293484696187
+  ],
+  "failure_status": 400,
+  "memory_mb": {
+    "before": 11713.359375,
+    "after": 10423.6015625,
+    "growth": -1289.7578125
+  },
+  "health_before": {
+    "status": "ok",
+    "workers": {
+      "omnivoice": true,
+      "soulx": true
+    }
+  },
+  "health_after_restart": {
+    "status": "ok",
+    "workers": {
+      "omnivoice": true,
+      "soulx": true
+    }
+  },
+  "backend": "gyu-singer-rc6",
+  "checks": {
+    "workers_healthy": true,
+    "twenty_repeats_stable": true,
+    "multilingual_rendered": true,
+    "concurrent_requests_safe": true,
+    "failed_then_valid": true,
+    "restart_stable": true,
+    "shutdown_clean": true,
+    "memory_growth_acceptable": true
+  },
+  "pass": true,
+  "server_log": "artifacts/reports/runtime_v10_server.log"
+}

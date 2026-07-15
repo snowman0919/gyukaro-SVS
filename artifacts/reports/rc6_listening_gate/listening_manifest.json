@@ -1,0 +1,97 @@
+{
+  "status": "human_listening_pending",
+  "candidate": "gyu-singer-rc6 universal refiner 25%",
+  "files": [
+    {
+      "case": "ko_neutral",
+      "file": "artifacts/reports/rc6_listening_gate/01_ko_neutral.wav",
+      "sha256": "b938aa4152eb16f5af1845409ab54eabcc6e8e1a712285905b4439bec5ddc5df",
+      "verdict": null,
+      "observation": ""
+    },
+    {
+      "case": "ko_breathy",
+      "file": "artifacts/reports/rc6_listening_gate/02_ko_breathy.wav",
+      "sha256": "243aa7065e6b1e47be027194a8abadcd12847b5f3acb73e4b501c23e52828d6f",
+      "verdict": null,
+      "observation": ""
+    },
+    {
+      "case": "ko_energetic",
+      "file": "artifacts/reports/rc6_listening_gate/03_ko_energetic.wav",
+      "sha256": "6fc8728984329fa1d5c0c67c8a6c3d4f9f8ccd1cd03a3d6094390ea684f98f38",
+      "verdict": null,
+      "observation": ""
+    },
+    {
+      "case": "en",
+      "file": "artifacts/reports/rc6_listening_gate/04_en.wav",
+      "sha256": "a761ad54e6e3b0485210c9a552bb400bb2082ce9f33a060ee551fad0da08fdb8",
+      "verdict": null,
+      "observation": ""
+    },
+    {
+      "case": "ja",
+      "file": "artifacts/reports/rc6_listening_gate/05_ja.wav",
+      "sha256": "c16eb5e117d0de8e37fb6a093d79d4e775ef5e7b1798f610e0f738a959435323",
+      "verdict": null,
+      "observation": ""
+    },
+    {
+      "case": "rapid_ko",
+      "file": "artifacts/reports/rc6_listening_gate/06_rapid_ko.wav",
+      "sha256": "b9b27e3a9c7c11ac055d76da56bc9a6633ae14eb06891ae29be4ba1e3597a50a",
+      "verdict": null,
+      "observation": ""
+    },
+    {
+      "case": "sustained_ko",
+      "file": "artifacts/reports/rc6_listening_gate/07_sustained_ko.wav",
+      "sha256": "196b5143999459527558ed1ee38c6e071b801ba319e8e2552054777720d44eb1",
+      "verdict": null,
+      "observation": ""
+    },
+    {
+      "case": "large_interval_ko",
+      "file": "artifacts/reports/rc6_listening_gate/08_large_interval_ko.wav",
+      "sha256": "613194452b27ff7ca674574a12efa725d330e51ac4e086a2d8be8b4962ab969a",
+      "verdict": null,
+      "observation": ""
+    },
+    {
+      "case": "phrase_boundary",
+      "file": "artifacts/reports/rc6_listening_gate/09_phrase_boundary.wav",
+      "sha256": "0202ef4b1124e50d7980d96dcf643e6bcdbaed09c5f583f889b4dc960951de28",
+      "verdict": null,
+      "observation": ""
+    }
+  ],
+  "rc4_before_after": [
+    {
+      "case": "ko_neutral",
+      "before": "artifacts/reports/rc6_listening_gate/before_rc4_ko_neutral.wav",
+      "before_sha256": "784b713fdc2103e9a75dd6b60aa474d149aba70d6c06eee44e74d26658b6a269",
+      "after": "artifacts/reports/rc6_listening_gate/after_rc6_ko_neutral.wav",
+      "after_sha256": "b938aa4152eb16f5af1845409ab54eabcc6e8e1a712285905b4439bec5ddc5df"
+    },
+    {
+      "case": "rapid_ko",
+      "before": "artifacts/reports/rc6_listening_gate/before_rc4_rapid_ko.wav",
+      "before_sha256": "31789a3498eb7fca2583d85dd1018aaef571ccdeabf52819ca5ca8f849a2f2cc",
+      "after": "artifacts/reports/rc6_listening_gate/after_rc6_rapid_ko.wav",
+      "after_sha256": "b9b27e3a9c7c11ac055d76da56bc9a6633ae14eb06891ae29be4ba1e3597a50a"
+    },
+    {
+      "case": "large_interval_ko",
+      "before": "artifacts/reports/rc6_listening_gate/before_rc4_large_interval_ko.wav",
+      "before_sha256": "5f86da29359cefda7cae494f99bd0ca7b84b7aac8b0dc8789a9cee1934c0a656",
+      "after": "artifacts/reports/rc6_listening_gate/after_rc6_large_interval_ko.wav",
+      "after_sha256": "613194452b27ff7ca674574a12efa725d330e51ac4e086a2d8be8b4962ab969a"
+    }
+  ],
+  "required_response": {
+    "per_file": "PASS or FAIL plus brief observation",
+    "overall_release_suitability": "PASS or FAIL"
+  },
+  "final_v1_release_allowed": false
+}

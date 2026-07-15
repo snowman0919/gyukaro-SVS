@@ -1,0 +1,97 @@
+{
+  "status": "identity_preservation_diagnostic_not_listening_evidence",
+  "candidate_strength": 0.25,
+  "aggregate": {
+    "wavlm_before_to_gyu": 0.600635,
+    "wavlm_after_to_gyu": 0.599995,
+    "ecapa_before_to_gyu": 0.113921,
+    "ecapa_after_to_gyu": 0.112045,
+    "wavlm_before_after": 0.998206,
+    "ecapa_before_after": 0.997823,
+    "wavlm_to_gyu_delta": -0.00064,
+    "ecapa_to_gyu_delta": -0.001876
+  },
+  "rows": [
+    {
+      "case": "ko_neutral",
+      "wavlm_before_to_gyu": 0.643608,
+      "wavlm_after_to_gyu": 0.65099,
+      "ecapa_before_to_gyu": 0.155817,
+      "ecapa_after_to_gyu": 0.15678,
+      "wavlm_before_after": 0.999733,
+      "ecapa_before_after": 0.999046
+    },
+    {
+      "case": "en",
+      "wavlm_before_to_gyu": 0.6706,
+      "wavlm_after_to_gyu": 0.674631,
+      "ecapa_before_to_gyu": 0.110524,
+      "ecapa_after_to_gyu": 0.109586,
+      "wavlm_before_after": 0.999272,
+      "ecapa_before_after": 0.999366
+    },
+    {
+      "case": "rapid_ko",
+      "wavlm_before_to_gyu": 0.433172,
+      "wavlm_after_to_gyu": 0.429903,
+      "ecapa_before_to_gyu": 0.155696,
+      "ecapa_after_to_gyu": 0.15346,
+      "wavlm_before_after": 0.998988,
+      "ecapa_before_after": 0.998948
+    },
+    {
+      "case": "large_interval_ko",
+      "wavlm_before_to_gyu": 0.706259,
+      "wavlm_after_to_gyu": 0.675484,
+      "ecapa_before_to_gyu": 0.061477,
+      "ecapa_after_to_gyu": 0.054587,
+      "wavlm_before_after": 0.997009,
+      "ecapa_before_after": 0.993926
+    },
+    {
+      "case": "ko_breathy",
+      "wavlm_before_to_gyu": 0.661888,
+      "wavlm_after_to_gyu": 0.658943,
+      "ecapa_before_to_gyu": 0.192174,
+      "ecapa_after_to_gyu": 0.19006,
+      "wavlm_before_after": 0.999809,
+      "ecapa_before_after": 0.999308
+    },
+    {
+      "case": "ko_energetic",
+      "wavlm_before_to_gyu": 0.6513,
+      "wavlm_after_to_gyu": 0.655982,
+      "ecapa_before_to_gyu": 0.165474,
+      "ecapa_after_to_gyu": 0.167609,
+      "wavlm_before_after": 0.999797,
+      "ecapa_before_after": 0.99894
+    },
+    {
+      "case": "ja",
+      "wavlm_before_to_gyu": 0.511844,
+      "wavlm_after_to_gyu": 0.523893,
+      "ecapa_before_to_gyu": 0.032729,
+      "ecapa_after_to_gyu": 0.025676,
+      "wavlm_before_after": 0.999316,
+      "ecapa_before_after": 0.997581
+    },
+    {
+      "case": "sustained_ko",
+      "wavlm_before_to_gyu": 0.330771,
+      "wavlm_after_to_gyu": 0.335765,
+      "ecapa_before_to_gyu": 0.002719,
+      "ecapa_after_to_gyu": 0.007665,
+      "wavlm_before_after": 0.990371,
+      "ecapa_before_after": 0.996645
+    },
+    {
+      "case": "phrase_boundary",
+      "wavlm_before_to_gyu": 0.796269,
+      "wavlm_after_to_gyu": 0.794367,
+      "ecapa_before_to_gyu": 0.148679,
+      "ecapa_after_to_gyu": 0.14298,
+      "wavlm_before_after": 0.999556,
+      "ecapa_before_after": 0.996643
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+# RC6 objective quality evaluation
+
+Status: objective candidate; mandatory human listening pending.
+
+The actual `gyu-singer-rc6` backend rendered all nine stress cases. Against the fixed RC5 baseline, aggregate changes were: pitch MAE -0.002222 cents, voicing accuracy 0.001422, HF spike ratio -27.037611, spectral flux p95 -0.000572, sample jump p99.9 -0.002669, and ASR similarity 0. Clipping stayed zero.
+
+The selected universal refiner lowers HF spikes and waveform jumps and slightly improves voicing. HF energy p95 rises by 0.000115; this is a remaining risk that objective metrics cannot adjudicate perceptually.
+
+Resident stress passed with one unique hash across repeated renders, KO/EN/JA, concurrency, invalid-request recovery, restart, clean shutdown, and steady-state memory checks. The maintained OpenUtau overlay rendered 136 notes in 17 phrases over 119.982857 seconds with zero failed phrases.
+
+Listening gate: `artifacts/reports/rc6_listening_gate/`. Each of nine files requires an explicit PASS/FAIL and observation. Final `v1.0.0` remains forbidden until that review passes.

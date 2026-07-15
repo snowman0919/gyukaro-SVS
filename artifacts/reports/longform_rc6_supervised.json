@@ -1,0 +1,40 @@
+{
+  "environment": {
+    "device": "NVIDIA GB10",
+    "cuda_memory_source": "torch.cuda.mem_get_info; nvidia-smi reports Not Supported on unified-memory GB10"
+  },
+  "render_exit_code": 0,
+  "wall_seconds_including_build": 283.392,
+  "resident_rss_before_render_mb": 1648.04,
+  "peak_resident_process_tree_rss_mb": 10449.55,
+  "peak_openutau_process_tree_rss_mb": 1223.04,
+  "system_used_baseline_mb": 6210.82,
+  "peak_system_used_mb": 23003.54,
+  "system_used_growth_mb": 16792.72,
+  "gpu_used_baseline_mb": 100130.53,
+  "peak_gpu_used_mb": 119025.89,
+  "gpu_used_growth_mb": 18895.36,
+  "sample_count": 1201,
+  "render_metrics": {
+    "tracks": 3,
+    "parts": 17,
+    "notes": 136,
+    "phrases": 17,
+    "first_render_seconds": 271.3052532,
+    "cached_render_seconds": 0.1125787,
+    "cache_misses": 17,
+    "cache_hits": 17,
+    "stale_cache_files_after_repeat": 0,
+    "failed_phrases": 0,
+    "retries": 0,
+    "sample_rate": 44100,
+    "channels": 2,
+    "duration_seconds": 119.9828571
+  },
+  "project": "examples/openutau_v10_longform.ustx",
+  "backend": "gyu-singer-rc6",
+  "wav": "/home/kotori9/code/gyukaro/artifacts/reports/longform_rc6.wav",
+  "render_log": "/home/kotori9/code/gyukaro/artifacts/reports/longform_rc6_render.log",
+  "server_log": "/home/kotori9/code/gyukaro/artifacts/reports/longform_rc6_server.log",
+  "pass": true
+}

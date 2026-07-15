@@ -13,6 +13,10 @@ artifacts/reports/refiner_rc_candidate/listening/
 artifacts/reports/rc6_runtime_smoke/*.wav
 artifacts/reports/rc6_backend_candidate/listening/
 artifacts/reports/rc6_listening_gate/*.wav
+artifacts/reports/longform_rc6.wav
+artifacts/reports/longform_rc6_*.log
+artifacts/reports/rc6_backend_candidate/*_target_f0.npy
+artifacts/reports/refiner_rc_candidate/
 checkpoints/*
 !checkpoints/.gitkeep
 artifacts/samples/*.wav

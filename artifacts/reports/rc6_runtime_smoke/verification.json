@@ -1,0 +1,78 @@
+{
+  "status": "pass",
+  "backend": "gyu-singer-rc6",
+  "method": "candidate file hashes plus actual resident repeat/restart stress evidence",
+  "invalid_method_rejected": "fresh upstream generation is not compared byte-for-byte with separately generated upstream bytes",
+  "checks": {
+    "candidate_hashes_match": true,
+    "resident_backend_rc6": true,
+    "resident_stress_pass": true,
+    "deterministic_repeats": true,
+    "restart_stable": true
+  },
+  "rows": [
+    {
+      "case": "ko_neutral",
+      "path": "artifacts/reports/rc6_backend_candidate/listening/ko_neutral.wav",
+      "expected_sha256": "b938aa4152eb16f5af1845409ab54eabcc6e8e1a712285905b4439bec5ddc5df",
+      "actual_sha256": "b938aa4152eb16f5af1845409ab54eabcc6e8e1a712285905b4439bec5ddc5df",
+      "exact_match": true
+    },
+    {
+      "case": "en",
+      "path": "artifacts/reports/rc6_backend_candidate/listening/en.wav",
+      "expected_sha256": "a761ad54e6e3b0485210c9a552bb400bb2082ce9f33a060ee551fad0da08fdb8",
+      "actual_sha256": "a761ad54e6e3b0485210c9a552bb400bb2082ce9f33a060ee551fad0da08fdb8",
+      "exact_match": true
+    },
+    {
+      "case": "rapid_ko",
+      "path": "artifacts/reports/rc6_backend_candidate/listening/rapid_ko.wav",
+      "expected_sha256": "b9b27e3a9c7c11ac055d76da56bc9a6633ae14eb06891ae29be4ba1e3597a50a",
+      "actual_sha256": "b9b27e3a9c7c11ac055d76da56bc9a6633ae14eb06891ae29be4ba1e3597a50a",
+      "exact_match": true
+    },
+    {
+      "case": "large_interval_ko",
+      "path": "artifacts/reports/rc6_backend_candidate/listening/large_interval_ko.wav",
+      "expected_sha256": "613194452b27ff7ca674574a12efa725d330e51ac4e086a2d8be8b4962ab969a",
+      "actual_sha256": "613194452b27ff7ca674574a12efa725d330e51ac4e086a2d8be8b4962ab969a",
+      "exact_match": true
+    },
+    {
+      "case": "ko_breathy",
+      "path": "artifacts/reports/rc6_backend_candidate/listening/ko_breathy.wav",
+      "expected_sha256": "243aa7065e6b1e47be027194a8abadcd12847b5f3acb73e4b501c23e52828d6f",
+      "actual_sha256": "243aa7065e6b1e47be027194a8abadcd12847b5f3acb73e4b501c23e52828d6f",
+      "exact_match": true
+    },
+    {
+      "case": "ko_energetic",
+      "path": "artifacts/reports/rc6_backend_candidate/listening/ko_energetic.wav",
+      "expected_sha256": "6fc8728984329fa1d5c0c67c8a6c3d4f9f8ccd1cd03a3d6094390ea684f98f38",
+      "actual_sha256": "6fc8728984329fa1d5c0c67c8a6c3d4f9f8ccd1cd03a3d6094390ea684f98f38",
+      "exact_match": true
+    },
+    {
+      "case": "ja",
+      "path": "artifacts/reports/rc6_backend_candidate/listening/ja.wav",
+      "expected_sha256": "c16eb5e117d0de8e37fb6a093d79d4e775ef5e7b1798f610e0f738a959435323",
+      "actual_sha256": "c16eb5e117d0de8e37fb6a093d79d4e775ef5e7b1798f610e0f738a959435323",
+      "exact_match": true
+    },
+    {
+      "case": "sustained_ko",
+      "path": "artifacts/reports/rc6_backend_candidate/listening/sustained_ko.wav",
+      "expected_sha256": "196b5143999459527558ed1ee38c6e071b801ba319e8e2552054777720d44eb1",
+      "actual_sha256": "196b5143999459527558ed1ee38c6e071b801ba319e8e2552054777720d44eb1",
+      "exact_match": true
+    },
+    {
+      "case": "phrase_boundary",
+      "path": "artifacts/reports/rc6_backend_candidate/listening/phrase_boundary.wav",
+      "expected_sha256": "0202ef4b1124e50d7980d96dcf643e6bcdbaed09c5f583f889b4dc960951de28",
+      "actual_sha256": "0202ef4b1124e50d7980d96dcf643e6bcdbaed09c5f583f889b4dc960951de28",
+      "exact_match": true
+    }
+  ]
+}

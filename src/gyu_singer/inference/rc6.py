@@ -26,6 +26,7 @@ class GyuSingerRC6Renderer(GyuSingerRC5Renderer):
             "backend": "gyu-singer-rc6",
             "model_version": "1.0.0-rc.6-candidate",
             "release_state": "objective candidate; human listening pending",
+            "human_listening_status": "rc5_baseline_passed; rc6_candidate_pending",
             "acoustic_refiner": "universal residual backbone",
             "acoustic_refiner_strength": self.refiner_strength,
             "singing_refiner_adapter": "measured but disabled by default: voicing regression",

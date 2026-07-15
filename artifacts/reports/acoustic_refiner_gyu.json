@@ -1,0 +1,138 @@
+{
+  "steps": 600,
+  "batch_size": 4,
+  "crop_samples": 32768,
+  "learning_rate": 0.0001,
+  "seed": 194,
+  "trainable_parameters": 4968,
+  "primary_rows": 14,
+  "replay_rows": 30,
+  "validation_rows": 5,
+  "target_loudness": "RMS-matched to degraded input; peak capped at 0.97",
+  "random_noise_augmentation": false,
+  "loss": "three-resolution log-STFT + spectral convergence + envelope L1 + 0.05 residual L1",
+  "wall_clock_sec": 30.591,
+  "validation_loss": 2.518539,
+  "history": [
+    {
+      "step": 1,
+      "loss": 2.401898,
+      "residual_l1": 0.0253057,
+      "stft_512": 2.327994,
+      "stft_1024": 2.395819,
+      "stft_2048": 2.448999,
+      "envelope": 0.009695
+    },
+    {
+      "step": 50,
+      "loss": 2.505476,
+      "residual_l1": 0.0396496,
+      "stft_512": 2.452844,
+      "stft_1024": 2.494679,
+      "stft_2048": 2.528694,
+      "envelope": 0.011421
+    },
+    {
+      "step": 100,
+      "loss": 2.102905,
+      "residual_l1": 0.0358164,
+      "stft_512": 2.000294,
+      "stft_1024": 2.057383,
+      "stft_2048": 2.122835,
+      "envelope": 0.040943
+    },
+    {
+      "step": 150,
+      "loss": 2.90721,
+      "residual_l1": 0.0186476,
+      "stft_512": 2.834573,
+      "stft_1024": 2.894623,
+      "stft_2048": 2.969175,
+      "envelope": 0.006821
+    },
+    {
+      "step": 200,
+      "loss": 2.344844,
+      "residual_l1": 0.0169619,
+      "stft_512": 2.284229,
+      "stft_1024": 2.340412,
+      "stft_2048": 2.391983,
+      "envelope": 0.005121
+    },
+    {
+      "step": 250,
+      "loss": 2.377654,
+      "residual_l1": 0.0259414,
+      "stft_512": 2.34114,
+      "stft_1024": 2.364955,
+      "stft_2048": 2.406299,
+      "envelope": 0.005559
+    },
+    {
+      "step": 300,
+      "loss": 2.104443,
+      "residual_l1": 0.0352268,
+      "stft_512": 2.062126,
+      "stft_1024": 2.074085,
+      "stft_2048": 2.112479,
+      "envelope": 0.019785
+    },
+    {
+      "step": 350,
+      "loss": 2.857693,
+      "residual_l1": 0.0357681,
+      "stft_512": 2.800465,
+      "stft_1024": 2.837494,
+      "stft_2048": 2.889568,
+      "envelope": 0.013396
+    },
+    {
+      "step": 400,
+      "loss": 2.333032,
+      "residual_l1": 0.0195417,
+      "stft_512": 2.265773,
+      "stft_1024": 2.315687,
+      "stft_2048": 2.39217,
+      "envelope": 0.007511
+    },
+    {
+      "step": 450,
+      "loss": 2.2279,
+      "residual_l1": 0.0172282,
+      "stft_512": 2.188227,
+      "stft_1024": 2.178529,
+      "stft_2048": 2.288051,
+      "envelope": 0.008769
+    },
+    {
+      "step": 500,
+      "loss": 2.541846,
+      "residual_l1": 0.0339756,
+      "stft_512": 2.450696,
+      "stft_1024": 2.522162,
+      "stft_2048": 2.592897,
+      "envelope": 0.018228
+    },
+    {
+      "step": 550,
+      "loss": 2.168567,
+      "residual_l1": 0.0206706,
+      "stft_512": 2.089743,
+      "stft_1024": 2.155932,
+      "stft_2048": 2.238842,
+      "envelope": 0.006028
+    },
+    {
+      "step": 600,
+      "loss": 2.517251,
+      "residual_l1": 0.023157,
+      "stft_512": 2.446681,
+      "stft_1024": 2.504121,
+      "stft_2048": 2.570175,
+      "envelope": 0.009101
+    }
+  ],
+  "stage": "gyu",
+  "checkpoint": "checkpoints/acoustic_refiner_gyu.pt",
+  "total_parameters": 51537
+}
