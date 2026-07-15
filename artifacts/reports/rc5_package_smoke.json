@@ -1,0 +1,35 @@
+{
+  "status": "pass",
+  "release": "v1.0.0-rc.5",
+  "final_v1_published": false,
+  "source_commit": "d94d8b3eac8556332f11fa55756e769d7a31e044",
+  "package": "artifacts/package/gyu-singer-v1.0.0-rc5.zip",
+  "package_sha256": "baffa2a24ae7aa42394d17f176d486643240fdfd8e6fe297c5082b4582e3b7ac",
+  "public_redownload_sha256_match": true,
+  "clean_install": {
+    "path": "/tmp/gyu-rc5-clean/gyu-singer-v1.0",
+    "pinned_dependencies_verified": 6,
+    "openutau_revision": "27573ac5c888d927119d5f65a207312d79194b1f",
+    "openutau_build": "pass",
+    "ko_sha256": "d5d002bd1645eb13a3bfdc0cf425a9c1d0a5cab3bee66529b1d86bce60dcb5ff",
+    "en_sha256": "3472ddcdd6dcf02d1e1184c13b0451afa7dbe83aadae86cead6d7493ec47c9c8",
+    "ja_sha256": "ab4261b1a16dba1ccebf3d1b9ca2a308c3e5cc3a4d3f1d7aa79e365772039642",
+    "approved_candidate_hashes_match": true
+  },
+  "longform": {
+    "actual_xunit_tests": 1,
+    "passed": 1,
+    "tracks": 3,
+    "phrases": 17,
+    "notes": 136,
+    "duration_seconds": 119.9828571,
+    "failed_phrases": 0,
+    "retries": 0,
+    "cache_misses": 17,
+    "cache_hits": 17,
+    "first_render_seconds": 269.7098975,
+    "cached_render_seconds": 0.1173786,
+    "wav_sha256": "9ffdece0351e77af5c110f477bb2da08b27c5909601fe5242132c56a30109976"
+  },
+  "github_prerelease": "https://github.com/snowman0919/gyukaro-SVS/releases/tag/v1.0.0-rc.5"
+}
