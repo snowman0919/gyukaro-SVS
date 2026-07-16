@@ -1,0 +1,38 @@
+{
+  "status": "binarization_pass",
+  "dataset": "GTSinger Japanese soprano neutral Control_Group",
+  "license": "CC BY-NC-SA 4.0",
+  "redistribution": "derived checkpoint/package must remain non-commercial share-alike",
+  "rows": 563,
+  "validation_rows": 73,
+  "duration_hours": 1.787,
+  "fast_rows": 307,
+  "fast_duration_hours": 0.9496,
+  "phones": 47,
+  "speaker": "JA-Soprano-1",
+  "dataset_revision": "4426c862beed558b7e1cb8a4dce7e8c0c83bb208",
+  "official_code_revision": "0619d61d5301c4340db442a15cf3e73e197e9101",
+  "dataset_license_sha256": "3f230608aebb15ce29762809690142e6284940924e9e34b938c5afb7ea4806f0",
+  "alignment": "dataset-provided manual phoneme alignment",
+  "score": "dataset-provided realistic MusicXML; acoustic training uses aligned phones and extracted real F0",
+  "control_policy": "pitch/rate augmented examples keep neutral speaker controls",
+  "architecture": "medium 256-dim 6-layer phoneme encoder and 384-channel auxiliary decoder",
+  "config": "configs/diffsinger_gtsinger_ja.yaml",
+  "decision_rule": "exact rapid lexical/F0/voicing gate before GYU adaptation",
+  "binarized_train_rows": 1960,
+  "binarized_validation_rows": 73,
+  "mean_zero_f0_ratio": 0.3158,
+  "binarized_controls": {
+    "key_shift": [
+      0.0
+    ],
+    "speed": [
+      1.0
+    ]
+  },
+  "source_checkpoint": "data/cache/diffsinger/checkpoints/gtsinger_ja_source/model_ckpt_steps_15000.ckpt",
+  "source_checkpoint_sha256": "dd31b42469ef2caa307799212b30fa44b2f1b7186c2f3a14eae45a2a80a6da8a",
+  "source_checkpoint_step": 15000,
+  "objective_rapid_gate": "source_probe_pass_human_pending",
+  "human_listening": "pending"
+}

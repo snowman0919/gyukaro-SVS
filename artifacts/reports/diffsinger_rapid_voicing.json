@@ -1,0 +1,13 @@
+{
+  "status": "canonical_voicing_applied",
+  "input": "data/external/work/pjs/rapid_repeat.ds",
+  "output": "data/external/work/pjs/rapid_repeat_voiced.ds",
+  "frames": 91,
+  "voiced_ratio_before": 0.989,
+  "voiced_ratio_after": 0.9011,
+  "unvoiced_f0_zero": true,
+  "production_controls": {
+    "gender": 0,
+    "velocity": 1
+  }
+}
