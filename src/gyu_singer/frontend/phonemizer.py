@@ -11,6 +11,7 @@ from pathlib import Path
 LANGUAGE_IDS = {"ko": 0, "en": 1, "ja": 2}
 FEATURE_SIZE = 10  # onset, nucleus, coda, stress, mora, long, geminate, nasal, tense, aspirated
 _JA_WORDS = {
+    "三倍": "さんばい",
     "空から静かな光が降りてくる": "そらからしずかなひかりがふりてくる", "空へ向かい歌おう": "そらへむかいうたおう",
     "風の上を歩こう": "かぜのうえをあるこう", "小さな光を追う": "ちいさなひかりをおう",
     "新しい夢を歌う": "あたらしいゆめをうたう", "光の向こうへ": "ひかりのむこうへ",

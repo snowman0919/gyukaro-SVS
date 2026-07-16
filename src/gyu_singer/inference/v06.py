@@ -82,6 +82,14 @@ class GyuSingerV06Renderer(GyuSingerV05Renderer):
     def _content_options(self, score: dict, content: Path, target_f0: np.ndarray, temp: Path) -> dict:
         return {}
 
+    def _generate_content(self, score: dict, duration: float, content: Path, temp: Path) -> None:
+        self.omnivoice.request({
+            "language": score["language"],
+            "lyrics": "".join(note["lyric"] for note in score["notes"]),
+            "duration": duration,
+            "output": str(content),
+        })
+
     def render(self, score: dict) -> np.ndarray:
         score = normalize_score(score); duration = max(note["start"] + note["duration"] for note in score["notes"])
         strength = float(score["style"]["prosody_strength"])
@@ -99,7 +107,7 @@ class GyuSingerV06Renderer(GyuSingerV05Renderer):
             temp = Path(directory); content, contour, output = temp / "content.wav", temp / "f0.npy", temp / "output.wav"
             identity_path, style_path = temp / "identity.npy", temp / "style.npy"
             np.save(identity_path, identity.detach().cpu().numpy()); np.save(style_path, style_vector.detach().cpu().numpy())
-            self.omnivoice.request({"language": score["language"], "lyrics": "".join(note["lyric"] for note in score["notes"]), "duration": duration, "output": str(content)})
+            self._generate_content(score, duration, content, temp)
             content_audio, content_rate = sf.read(content, dtype="float32", always_2d=True); content_audio = content_audio.mean(1)
             content_audio = adapt_waveform(content_audio, content_rate, self.acoustic_adapter, identity_ref, torch.from_numpy(controls).to(self.pitch_controller.device), preset, style["acoustic_style_strength"])
             sf.write(content, content_audio, content_rate, subtype="PCM_16")

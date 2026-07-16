@@ -1,6 +1,6 @@
 # RC9 OpenUtau song validation
 
-Status: objective gate passed; human listening is pending. No final `v1.0.0` tag or release exists.
+Status: the first RC9 candidate failed human listening. A targeted replacement passes the objective gates and awaits explicit replacement listening. No final `v1.0.0` tag or release exists.
 
 ## Real OpenUtau path
 
@@ -18,7 +18,7 @@ editable USTX
 → 203.72 s stereo WAV
 ```
 
-The export contains 55 parts/phrases, 566 notes, and 566 generated phonemes with zero phoneme errors, failed requests, or retries. Cold render took 712.03 s; a repeat used all 55 cache entries in 0.258 s with no stale files.
+The replacement export contains 55 parts/phrases, 566 notes, and 566 generated phonemes with zero phoneme errors, failed requests, or retries. Cold render took 711.31 s; a repeat used all 55 cache entries in 0.256 s with no stale files.
 
 ## Isolated RC9 correction
 
@@ -28,7 +28,7 @@ The first full-song candidate exposed a real Japanese frontend defect: Katakana 
 
 No phrase stretching or optimized lag is used. Reference metrics use the local two-of-three F0 consensus; score timing/voicing metrics use the exact OpenUtau timeline.
 
-| Metric | first candidate | RC9 candidate |
+| Metric | first candidate | human-failed RC9 candidate |
 |---|---:|---:|
 | reference F0 correlation | 0.9226 | 0.9254 |
 | reference median cents | 20.88 | 12.62 |
@@ -40,6 +40,8 @@ No phrase stretching or optimized lag is used. Reference metrics use the local t
 | score voiced IoU | 0.8882 | 0.8836 |
 | phrase onset median | 40 ms | 40 ms |
 
-All predefined gates pass. Across all 55 phrases, WavLM-to-GYU similarity is mean 0.73519, median 0.79529, and p10 0.46462. Human listening remains authoritative for melody recognizability, rapid-section usability, identity, and metallic artifacts.
+Those values describe the human-failed first RC9 candidate. The targeted replacement measures reference correlation 0.9290, reference p90 112.04 cents, reference gross >600 cents 4.64%, score correlation 0.9549, score p90 50.76 cents, and score gross >600 cents 1.64%. All objective gates pass. WavLM-to-GYU similarity remains non-regressed at mean 0.72939 and median 0.78667.
+
+The replacement causally improves the long five-repeat phrase and the high refrain, but the ending refrain remains byte-identical and defective. The listening directory now includes before/after pairs for all three. Human listening remains mandatory; objective pass alone cannot promote the candidate.
 
 Evidence: `artifacts/reports/openutau_upstream_v10.json`, `reference_song_rc9_runtime.json`, `reference_song_rc9_evaluation.json`, `reference_song_rc9_identity.json`, and `reference_song_rc9_listening_gate.json`.

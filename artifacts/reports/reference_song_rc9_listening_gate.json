@@ -4,6 +4,7 @@
   "required_checks": [
     "same melody and phrase timing",
     "rapid sections usable",
+    "long repeated lyrics retained",
     "GYU identity retained",
     "no severe metallic or sustained artifact"
   ],
@@ -11,7 +12,7 @@
     {
       "case": "full_song",
       "local_audio": "data/external/work/rc9_reference/rc9_listening_gate/01_full_openutau_rc9.wav",
-      "sha256": "27f96314e76a499396b9496bfda3e568c0becf4703d31e64b1dde68768bf4f15"
+      "sha256": "970cf8c56a052d52b356f1a1c5699786ee9557b4a28d7b50c4f095733f8f57ca"
     },
     {
       "case": "dense_rapid_a",
@@ -29,18 +30,54 @@
       "case": "fixed_failure",
       "phrase": 33,
       "local_audio": "data/external/work/rc9_reference/rc9_listening_gate/04_fixed_failure_phrase_33.wav",
-      "sha256": "50e9b50f20e98af085cd33de20acc3f4ba0bdcb286081713dc7d15d6369c0b9a"
+      "sha256": "fe9f2462b02a1f4aeba8c5bfa30832131cacb1d06ad453b67cac33cc6ab3f41f"
     },
     {
       "case": "rapid_refrain",
       "phrase": 40,
       "local_audio": "data/external/work/rc9_reference/rc9_listening_gate/05_rapid_refrain_phrase_40.wav",
-      "sha256": "9709f10dd25e01516571965710dc2b91e3b69256e1b49cceb718a1a6145cfd3f"
+      "sha256": "a969667f1d2cda581661b19475437ccac3e47f60134a48e27e1460463cbe6e2a"
     },
     {
       "case": "ending_rapid",
       "phrase": 53,
       "local_audio": "data/external/work/rc9_reference/rc9_listening_gate/06_ending_rapid_phrase_53.wav",
+      "sha256": "309a0c5e2c4fd8e71b60f83df7461547bc87ddee5e9fbf5134dd173b84678b32"
+    },
+    {
+      "case": "high_refrain_before",
+      "phrase": 40,
+      "local_audio": "data/external/work/rc9_reference/rc9_listening_gate/07_high_refrain_before_phrase_40.wav",
+      "sha256": "9709f10dd25e01516571965710dc2b91e3b69256e1b49cceb718a1a6145cfd3f"
+    },
+    {
+      "case": "high_refrain_after",
+      "phrase": 40,
+      "local_audio": "data/external/work/rc9_reference/rc9_listening_gate/08_high_refrain_after_phrase_40.wav",
+      "sha256": "a969667f1d2cda581661b19475437ccac3e47f60134a48e27e1460463cbe6e2a"
+    },
+    {
+      "case": "long_repetition_before",
+      "phrase": 47,
+      "local_audio": "data/external/work/rc9_reference/rc9_listening_gate/09_long_repetition_before_phrase_47.wav",
+      "sha256": "5dcf3f0ff5e8385b309a24d65ffa84f2a4538bd7ec10c1d9e166cf8c5f9de548"
+    },
+    {
+      "case": "long_repetition_after",
+      "phrase": 47,
+      "local_audio": "data/external/work/rc9_reference/rc9_listening_gate/10_long_repetition_after_phrase_47.wav",
+      "sha256": "ac09f60cc8f33caac8f014c10b72ef9b160d62d9fdae898828b3f72cdc8d875a"
+    },
+    {
+      "case": "ending_refrain_before",
+      "phrase": 53,
+      "local_audio": "data/external/work/rc9_reference/rc9_listening_gate/11_ending_refrain_before_phrase_53.wav",
+      "sha256": "309a0c5e2c4fd8e71b60f83df7461547bc87ddee5e9fbf5134dd173b84678b32"
+    },
+    {
+      "case": "ending_refrain_after",
+      "phrase": 53,
+      "local_audio": "data/external/work/rc9_reference/rc9_listening_gate/12_ending_refrain_after_phrase_53.wav",
       "sha256": "309a0c5e2c4fd8e71b60f83df7461547bc87ddee5e9fbf5134dd173b84678b32"
     }
   ],

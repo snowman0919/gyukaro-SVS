@@ -132,6 +132,27 @@ def test_rc9_personalized_pitch_residual_is_korean_only():
     assert renderer._content_warp_strength(rapid_ja) == 0
 
 
+def test_rc9_chunks_only_long_jump_heavy_japanese_repetitions():
+    score = {
+        "language": "ja",
+        "notes": [
+            {"pitch": 74 if index % 2 == 0 else 60, "start": index * 1.2, "duration": 1.2, "lyric": "息が詰まる"}
+            for index in range(5)
+        ],
+    }
+    chunks = GyuSingerRC9Renderer._semantic_content_chunks(score)
+    assert [lyrics for lyrics, _ in chunks] == ["息が詰まる"] * 5
+    assert [duration for _, duration in chunks] == pytest.approx([1.2] * 5)
+    corrected = GyuSingerRC9Renderer._score_for_voicing(score)
+    assert corrected["notes"][0]["lyric"] == "いきがつまる"
+    assert GyuSingerRC9Renderer._semantic_content_chunks(score | {"language": "ko"}) == []
+    assert GyuSingerRC9Renderer._bypass_post_refiners(score)
+    assert not GyuSingerRC9Renderer._bypass_post_refiners(score | {"language": "ko"})
+    assert not GyuSingerRC9Renderer._bypass_post_refiners({
+        "language": "ja", "notes": [{"pitch": 64}, {"pitch": 69}],
+    })
+
+
 def test_rc5_skips_only_infeasible_optional_ctc_warp(monkeypatch, tmp_path):
     renderer = GyuSingerV09Renderer.__new__(GyuSingerV09Renderer)
     renderer._ctc = (object(), ("-",))
