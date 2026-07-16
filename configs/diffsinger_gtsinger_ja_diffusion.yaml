@@ -1,0 +1,160 @@
+base_config:
+- configs/acoustic.yaml
+dictionaries:
+  gyu: /home/kotori9/code/gyukaro/data/external/work/diffsinger_score_native/dictionary-gtsinger-ja.txt
+datasets:
+- raw_data_dir: /home/kotori9/code/gyukaro/data/external/work/diffsinger_score_native/raw/gtsinger_ja_soprano
+  speaker: gts_ja_soprano
+  spk_id: 0
+  language: gyu
+  test_prefixes:
+  - gtsja0163
+  - gtsja0164
+  - gtsja0165
+  - gtsja0166
+  - gtsja0167
+  - gtsja0168
+  - gtsja0169
+  - gtsja0170
+  - gtsja0171
+  - gtsja0172
+  - gtsja0173
+  - gtsja0174
+  - gtsja0175
+  - gtsja0176
+  - gtsja0177
+  - gtsja0178
+  - gtsja0179
+  - gtsja0180
+  - gtsja0181
+  - gtsja0379
+  - gtsja0380
+  - gtsja0381
+  - gtsja0382
+  - gtsja0383
+  - gtsja0384
+  - gtsja0385
+  - gtsja0386
+  - gtsja0387
+  - gtsja0388
+  - gtsja0389
+  - gtsja0390
+  - gtsja0391
+  - gtsja0392
+  - gtsja0393
+  - gtsja0394
+  - gtsja0395
+  - gtsja0396
+  - gtsja0397
+  - gtsja0398
+  - gtsja0399
+  - gtsja0400
+  - gtsja0401
+  - gtsja0402
+  - gtsja0403
+  - gtsja0404
+  - gtsja0405
+  - gtsja0406
+  - gtsja0407
+  - gtsja0408
+  - gtsja0409
+  - gtsja0410
+  - gtsja0411
+  - gtsja0412
+  - gtsja0413
+  - gtsja0414
+  - gtsja0545
+  - gtsja0546
+  - gtsja0547
+  - gtsja0548
+  - gtsja0549
+  - gtsja0550
+  - gtsja0551
+  - gtsja0552
+  - gtsja0553
+  - gtsja0554
+  - gtsja0555
+  - gtsja0556
+  - gtsja0557
+  - gtsja0558
+  - gtsja0559
+  - gtsja0560
+  - gtsja0561
+  - gtsja0562
+binary_data_dir: /home/kotori9/code/gyukaro/data/external/work/diffsinger_score_native/binary_gtsinger_ja_soprano
+use_spk_id: true
+num_spk: 1
+use_lang_id: false
+num_lang: 1
+pe: rmvpe
+pe_ckpt: /home/kotori9/code/gyukaro/data/cache/diffsinger-assets/rmvpe/model.pt
+hnsep: world
+use_energy_embed: false
+use_breathiness_embed: false
+use_voicing_embed: false
+use_tension_embed: false
+vocoder: NsfHifiGAN
+vocoder_ckpt: /home/kotori9/code/gyukaro/data/external/work/diffsinger_score_native/vocoder_exported/model.ckpt
+binarization_args:
+  num_workers: 4
+  shuffle: true
+finetune_enabled: true
+finetune_ckpt_path: /home/kotori9/code/gyukaro/data/cache/diffsinger/checkpoints/gtsinger_ja_source/model_ckpt_steps_15000.ckpt
+finetune_ignored_params: []
+finetune_strict_shapes: true
+freezing_enabled: true
+frozen_params:
+- model.fs2
+- model.aux_decoder
+max_updates: 2000
+val_check_interval: 250
+num_valid_plots: 0
+val_with_vocoder: false
+max_batch_frames: 16000
+max_batch_size: 6
+num_ckpt_keep: 4
+optimizer_args:
+  lr: 0.0003
+hidden_size: 256
+num_heads: 4
+enc_layers: 6
+backbone_args:
+  num_channels: 512
+  num_layers: 6
+  kernel_size: 15
+  dropout_rate: 0.0
+  use_conditioner_cache: true
+  glu_type: atanglu
+shallow_diffusion_args:
+  train_aux_decoder: false
+  train_diffusion: true
+  aux_decoder_arch: convnext
+  aux_decoder_grad: 0.1
+  aux_decoder_args:
+    num_channels: 384
+    num_layers: 6
+    kernel_size: 7
+    dropout_rate: 0.1
+lambda_aux_mel_loss: 0.0
+binarizer_cls: diffsinger_neutral_augmentation_binarizer.NeutralAugmentationBinarizer
+use_key_shift_embed: true
+use_speed_embed: true
+augmentation_args:
+  random_pitch_shifting:
+    enabled: true
+    range:
+    - -2.0
+    - 12.0
+    scale: 1.0
+  fixed_pitch_shifting:
+    enabled: false
+    targets:
+    - -5.0
+    - 5.0
+    scale: 0.5
+  random_time_stretching:
+    enabled: true
+    range:
+    - 0.95
+    - 4.5
+    scale: 2.0

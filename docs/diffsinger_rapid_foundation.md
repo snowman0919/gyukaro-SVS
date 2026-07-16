@@ -36,3 +36,14 @@ Step 13,000 also passes, so the result is not isolated to one checkpoint. The au
 The original evaluator stretched a 91-frame target across a 92-frame render and therefore interpolated nonzero pitch through zero-F0 consonant boundaries. This produced false octave errors. The corrected evaluator compares the equal 20 ms grids directly, permits only one trailing-frame difference, and rejects larger timing drift. It never time-warps F0 and has regression tests for both cases.
 
 This result authorizes the frozen-source final diffusion experiment. It does not authorize GYU adaptation or packaging until the generated rapid source receives human listening approval. The checkpoint remains a CC BY-NC-SA 4.0 derivative.
+
+## Final diffusion probe
+
+Only the 10,299,008-parameter diffusion path was trained for 2,000 updates; the qualified phoneme encoder and auxiliary decoder stayed frozen. Two final settings pass the same gate:
+
+| setting | lyric NLL | F0 p90 | gross error | voiced ratio | clipping |
+|---|---:|---:|---:|---:|---:|
+| depth 0.4, 20 steps | 2.6113 | 24.55 cents | 0% | 0.9457 | 0 |
+| depth 0.6, 50 steps | 2.5605 | 27.40 cents | 0% | 0.9891 | 0 |
+
+Depth 0.4 / 20 steps is the objective default because it preserves more unvoiced structure and is cheaper. Human comparison against depth 0.6 remains mandatory; neither setting authorizes GYU adaptation, OpenUtau packaging, or release yet. Evidence: `artifacts/reports/diffsinger_gtsinger_ja_diffusion_evaluation.json`.

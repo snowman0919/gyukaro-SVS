@@ -1,0 +1,22 @@
+{
+  "status": "trained_objective_gate_pass_human_pending",
+  "source_checkpoint": "data/cache/diffsinger/checkpoints/gtsinger_ja_source/model_ckpt_steps_15000.ckpt",
+  "source_checkpoint_sha256": "dd31b42469ef2caa307799212b30fa44b2f1b7186c2f3a14eae45a2a80a6da8a",
+  "trainable_path": "model.diffusion only",
+  "frozen_path": [
+    "model.fs2",
+    "model.aux_decoder"
+  ],
+  "diffusion_parameters": 10299008,
+  "max_updates": 2000,
+  "config": "configs/diffsinger_gtsinger_ja_diffusion.yaml",
+  "release_allowed": false,
+  "final_checkpoint": "data/cache/diffsinger/checkpoints/gtsinger_ja_diffusion/model_ckpt_steps_2000.ckpt",
+  "final_checkpoint_sha256": "f4b206639c20dafb329dcd6c1639fcd874955774bbce04b68b47a1a2119775c7",
+  "final_checkpoint_step": 2000,
+  "selected_inference": {
+    "depth": 0.4,
+    "steps": 20
+  },
+  "human_listening": "pending"
+}
