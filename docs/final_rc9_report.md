@@ -1,6 +1,6 @@
 Overall status: RC9 objective pass; human listening pending
 Highest achieved candidate: RC8 accepted; RC9 objective candidate
-Source commit: pending RC9 candidate milestone commit
+Source commit: 284daec764c2b8fdcf9501ec67db023f9f33fd90
 RC7 baseline preserved: yes, commit and artifacts unchanged
 RC8 quality gate: PASS, including final human listening
 Rapid KO: retained unchanged
