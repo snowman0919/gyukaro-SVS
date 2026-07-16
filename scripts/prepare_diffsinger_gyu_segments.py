@@ -58,10 +58,11 @@ def remap_vocabulary(source: Path, old_dictionary: Path, new_dictionary: Path, t
         category = token.rsplit("_", 1)[0]
         sources = [value for value in old_tokens if value.startswith(category + "_")]
         initialization = category
-        if token.startswith("en_"):
-            vowel = token.removeprefix("en_") in {
+        if token.startswith(("en_", "ja_")):
+            symbol = token.split("_", 1)[1]
+            vowel = symbol.lower() in {
                 "aa", "ae", "ah", "ao", "aw", "ay", "eh", "er", "ey",
-                "ih", "iy", "ow", "oy", "uh", "uw",
+                "ih", "iy", "ow", "oy", "uh", "uw", "a", "e", "i", "o", "u",
             }
             sources = [value for value in old_tokens if value in {"a", "e", "i", "o", "u"}] if vowel else [
                 value for value in old_tokens if value.startswith("ko_onset_")

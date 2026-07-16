@@ -1,0 +1,76 @@
+base_config:
+- configs/acoustic.yaml
+dictionaries:
+  gyu: /home/kotori9/code/gyukaro/data/external/work/diffsinger_score_native/dictionary-pjs.txt
+datasets:
+- raw_data_dir: /home/kotori9/code/gyukaro/data/external/work/diffsinger_score_native/raw/pjs
+  speaker: pjs
+  spk_id: 0
+  language: gyu
+  test_prefixes:
+  - pjs091
+  - pjs092
+  - pjs093
+  - pjs094
+  - pjs095
+  - pjs096
+  - pjs097
+  - pjs098
+  - pjs099
+  - pjs100
+binary_data_dir: /home/kotori9/code/gyukaro/data/external/work/diffsinger_score_native/binary_pjs_rapid
+use_spk_id: true
+num_spk: 21
+use_lang_id: false
+num_lang: 1
+pe: rmvpe
+pe_ckpt: /home/kotori9/code/gyukaro/data/cache/diffsinger-assets/rmvpe/model.pt
+hnsep: world
+use_energy_embed: false
+use_breathiness_embed: false
+use_voicing_embed: false
+use_tension_embed: false
+vocoder: NsfHifiGAN
+vocoder_ckpt: /home/kotori9/code/gyukaro/data/external/work/diffsinger_score_native/vocoder_exported/model.ckpt
+binarization_args:
+  num_workers: 4
+  shuffle: true
+finetune_enabled: true
+finetune_ckpt_path: /home/kotori9/code/gyukaro/data/cache/diffsinger/checkpoints/pjs_source/model_ckpt_steps_1000.ckpt
+finetune_ignored_params: []
+finetune_strict_shapes: false
+freezing_enabled: true
+frozen_params:
+- model.fs2.stretch_embed
+- model.fs2.stretch_embed_rnn
+- model.fs2.dur_embed
+- model.fs2.pitch_embed
+max_updates: 1000
+val_check_interval: 200
+num_valid_plots: 0
+val_with_vocoder: false
+max_batch_frames: 20000
+max_batch_size: 8
+num_ckpt_keep: 3
+optimizer_args:
+  lr: 2.0e-05
+use_speed_embed: true
+augmentation_args:
+  random_pitch_shifting:
+    enabled: false
+    range:
+    - -5.0
+    - 5.0
+    scale: 0.75
+  fixed_pitch_shifting:
+    enabled: false
+    targets:
+    - -5.0
+    - 5.0
+    scale: 0.5
+  random_time_stretching:
+    enabled: true
+    range:
+    - 0.95
+    - 4.5
+    scale: 3.0

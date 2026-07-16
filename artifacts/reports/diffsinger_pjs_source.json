@@ -1,0 +1,111 @@
+{
+  "status": "binarization_pass",
+  "rows": 100,
+  "train_rows": 90,
+  "validation_rows": 10,
+  "duration_minutes": 26.857,
+  "audio_sample_rate": 48000,
+  "license": "CC BY-SA 4.0",
+  "source_archive_sha256": "683c00253ee35a62d50de0375bb9d8e003a74338d4ce3495ac3f7ad096abc1ca",
+  "manual_labels_revision": "cc08bead6bf2b06e88608a8ece12555bcc720ec9",
+  "diffsinger_revision": "753b7cc622aadf802b3145d7bb8f7df4afa213c4",
+  "vocabulary_remap": {
+    "old_vocabulary": 56,
+    "new_vocabulary": 40,
+    "new_token_initialization": {
+      "ja_I": "mean:nonlexical_vowels",
+      "ja_N": "mean:ko_onset",
+      "ja_O": "mean:nonlexical_vowels",
+      "ja_U": "mean:nonlexical_vowels",
+      "ja_a": "mean:nonlexical_vowels",
+      "ja_b": "mean:ko_onset",
+      "ja_by": "mean:ko_onset",
+      "ja_ch": "mean:ko_onset",
+      "ja_cl": "mean:ko_onset",
+      "ja_d": "mean:ko_onset",
+      "ja_e": "mean:nonlexical_vowels",
+      "ja_f": "mean:ko_onset",
+      "ja_g": "mean:ko_onset",
+      "ja_gy": "mean:ko_onset",
+      "ja_h": "mean:ko_onset",
+      "ja_hy": "mean:ko_onset",
+      "ja_i": "mean:nonlexical_vowels",
+      "ja_j": "mean:ko_onset",
+      "ja_k": "mean:ko_onset",
+      "ja_ky": "mean:ko_onset",
+      "ja_m": "mean:ko_onset",
+      "ja_my": "mean:ko_onset",
+      "ja_n": "mean:ko_onset",
+      "ja_ny": "mean:ko_onset",
+      "ja_o": "mean:nonlexical_vowels",
+      "ja_p": "mean:ko_onset",
+      "ja_py": "mean:ko_onset",
+      "ja_r": "mean:ko_onset",
+      "ja_ry": "mean:ko_onset",
+      "ja_s": "mean:ko_onset",
+      "ja_sh": "mean:ko_onset",
+      "ja_t": "mean:ko_onset",
+      "ja_ts": "mean:ko_onset",
+      "ja_u": "mean:nonlexical_vowels",
+      "ja_w": "mean:ko_onset",
+      "ja_y": "mean:ko_onset",
+      "ja_z": "mean:ko_onset"
+    },
+    "shared_embedding_max_abs_error": 0.0,
+    "checkpoint": "data/cache/diffsinger/checkpoints/pjs_source_vocab.ckpt",
+    "checkpoint_sha256": "097d25dea83620a700162495040cc9d580cdaedeb35d4f13b2d40dfb44344998"
+  },
+  "config": "configs/diffsinger_pjs_source.yaml",
+  "rapid_augmentation": {
+    "config": "configs/diffsinger_pjs_rapid.yaml",
+    "source_checkpoint_step": 1000,
+    "time_stretch_range": [
+      0.95,
+      4.5
+    ],
+    "augmentation_scale": 3.0,
+    "speed_conditioning": true,
+    "purpose": "bounded probe for measured 20-59 ms rapid Japanese phoneme transitions"
+  },
+  "lexical_focus": {
+    "config": "configs/diffsinger_pjs_lexical.yaml",
+    "source_checkpoint_step": 1000,
+    "trainable_path": "text embedding + phoneme encoder + auxiliary mel decoder",
+    "frozen_path": "diffusion + pitch/duration/stretch/speaker conditioning",
+    "purpose": "measured phoneme-collapse probe after speed/pitch/step isolation failed"
+  },
+  "compact_source": {
+    "config": "configs/diffsinger_pjs_compact.yaml",
+    "trainable_path": "compact phoneme/F0/duration encoder + auxiliary mel decoder",
+    "frozen_path": "untrained diffusion stage during lexical admission",
+    "purpose": "PJS-scale source model after the 69.1M transfer path failed lexical admission"
+  },
+  "compact_stress": {
+    "config": "configs/diffsinger_pjs_compact_stress.yaml",
+    "source_checkpoint_step": 3000,
+    "pitch_shift_range_semitones": [
+      -2.0,
+      12.0
+    ],
+    "time_stretch_range": [
+      0.95,
+      4.5
+    ],
+    "purpose": "measured high-pitch, rapid-transition, and repeated-phrase coverage gaps"
+  },
+  "consonant_focus": {
+    "config": "configs/diffsinger_pjs_consonant.yaml",
+    "source_checkpoint_step": 3000,
+    "consonant_frame_l1_weight": 5.0,
+    "purpose": "measured Japanese consonant deletion after pitch/voicing recovery"
+  },
+  "compact_long": {
+    "config": "configs/diffsinger_pjs_compact_long.yaml",
+    "source_checkpoint_step": 3000,
+    "additional_update_limit": 5000,
+    "purpose": "bounded rapid-OOD continuation after held-out normal Japanese ASR passed 0.5116"
+  },
+  "role": "Japanese lexical score-native source probe; not GYU and not a release model",
+  "binarized_train_rows": 90,
+  "binarized_validation_rows": 10
+}
