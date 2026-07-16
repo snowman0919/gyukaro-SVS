@@ -143,6 +143,12 @@ def test_rc9_chunks_only_long_jump_heavy_japanese_repetitions():
     chunks = GyuSingerRC9Renderer._semantic_content_chunks(score)
     assert [lyrics for lyrics, _ in chunks] == ["息が詰まる"] * 5
     assert [duration for _, duration in chunks] == pytest.approx([1.2] * 5)
+    embedded = score | {"notes": [
+        {"pitch": 60, "start": 0, "duration": 1, "lyric": "前"},
+        *[note | {"start": note["start"] + 1} for note in score["notes"]],
+        {"pitch": 74, "start": 7, "duration": 1, "lyric": "後"},
+    ]}
+    assert "".join(lyrics for lyrics, _ in GyuSingerRC9Renderer._semantic_content_chunks(embedded)) == "前" + "息が詰まる" * 5 + "後"
     corrected = GyuSingerRC9Renderer._score_for_voicing(score)
     assert corrected["notes"][0]["lyric"] == "いきがつまる"
     assert GyuSingerRC9Renderer._semantic_content_chunks(score | {"language": "ko"}) == []
@@ -159,6 +165,20 @@ def test_rc9_chunks_only_long_jump_heavy_japanese_repetitions():
     assert not GyuSingerRC9Renderer._needs_high_rapid_onset_relief(high_stepwise | {
         "notes": high_stepwise["notes"][:6],
     })
+
+
+def test_rc9_long_phrase_context_chunks_preserve_duration_and_no_zero_join():
+    score = normalize_score({
+        "language": "ja", "tempo": 120, "sample_rate": 48000,
+        "notes": [{"pitch": 72, "start": index * .5, "duration": .5, "lyric": "あ"} for index in range(48)],
+        "curves": {"pitch": [{"time": 0, "value": 0}, {"time": 24, "value": 0}]},
+        "style": {"preset": "neutral"},
+    })
+    chunks = GyuSingerRC9Renderer._contextual_subscores(score)
+    audio = [np.ones(round((chunk["context_end"] - chunk["context_start"]) * 48000), dtype="float32") for chunk in chunks]
+    stitched = GyuSingerRC9Renderer._stitch_contextual(chunks, audio)
+    assert len(chunks) == 3 and len(stitched) == 24 * 48000
+    assert np.min(stitched) > .9
 
 
 def test_rc5_skips_only_infeasible_optional_ctc_warp(monkeypatch, tmp_path):

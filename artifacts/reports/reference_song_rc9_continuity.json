@@ -1,0 +1,531 @@
+{
+  "status": "human_listening_pending",
+  "comparison_grid": "same inferred complete-lyric groups; Whisper large-v3-turbo is diagnostic, not human acceptance",
+  "variants": {
+    "baseline": {
+      "audio": "data/external/work/rc9_reference/rc9_listening_gate/01_full_openutau_rc9.wav",
+      "lyrics": {
+        "weighted_similarity": 0.4852,
+        "median_similarity": 0.6,
+        "groups": [
+          {
+            "lines": [
+              1,
+              3
+            ],
+            "similarity": 0.6372,
+            "weight": 72
+          },
+          {
+            "lines": [
+              4,
+              4
+            ],
+            "similarity": 0.3846,
+            "weight": 29
+          },
+          {
+            "lines": [
+              5,
+              9
+            ],
+            "similarity": 0.338,
+            "weight": 98
+          },
+          {
+            "lines": [
+              10,
+              15
+            ],
+            "similarity": 0.3164,
+            "weight": 128
+          },
+          {
+            "lines": [
+              16,
+              18
+            ],
+            "similarity": 0.2424,
+            "weight": 73
+          },
+          {
+            "lines": [
+              19,
+              19
+            ],
+            "similarity": 0.9388,
+            "weight": 25
+          },
+          {
+            "lines": [
+              20,
+              20
+            ],
+            "similarity": 0.4444,
+            "weight": 13
+          },
+          {
+            "lines": [
+              21,
+              23
+            ],
+            "similarity": 0.747,
+            "weight": 45
+          },
+          {
+            "lines": [
+              24,
+              25
+            ],
+            "similarity": 0.2222,
+            "weight": 40
+          },
+          {
+            "lines": [
+              26,
+              28
+            ],
+            "similarity": 0.0,
+            "weight": 58
+          },
+          {
+            "lines": [
+              29,
+              29
+            ],
+            "similarity": 1.0,
+            "weight": 23
+          },
+          {
+            "lines": [
+              30,
+              30
+            ],
+            "similarity": 0.6122,
+            "weight": 28
+          },
+          {
+            "lines": [
+              31,
+              31
+            ],
+            "similarity": 0.4255,
+            "weight": 23
+          },
+          {
+            "lines": [
+              32,
+              33
+            ],
+            "similarity": 0.7308,
+            "weight": 50
+          },
+          {
+            "lines": [
+              34,
+              36
+            ],
+            "similarity": 0.4536,
+            "weight": 63
+          },
+          {
+            "lines": [
+              37,
+              37
+            ],
+            "similarity": 0.4,
+            "weight": 28
+          },
+          {
+            "lines": [
+              38,
+              38
+            ],
+            "similarity": 0.0,
+            "weight": 20
+          },
+          {
+            "lines": [
+              39,
+              40
+            ],
+            "similarity": 0.3158,
+            "weight": 47
+          },
+          {
+            "lines": [
+              41,
+              43
+            ],
+            "similarity": 0.4935,
+            "weight": 53
+          },
+          {
+            "lines": [
+              44,
+              44
+            ],
+            "similarity": 0.6667,
+            "weight": 20
+          },
+          {
+            "lines": [
+              45,
+              45
+            ],
+            "similarity": 0.6857,
+            "weight": 20
+          },
+          {
+            "lines": [
+              46,
+              46
+            ],
+            "similarity": 0.1875,
+            "weight": 20
+          },
+          {
+            "lines": [
+              47,
+              47
+            ],
+            "similarity": 0.8889,
+            "weight": 25
+          },
+          {
+            "lines": [
+              48,
+              48
+            ],
+            "similarity": 0.8571,
+            "weight": 20
+          },
+          {
+            "lines": [
+              49,
+              49
+            ],
+            "similarity": 1.0,
+            "weight": 20
+          },
+          {
+            "lines": [
+              50,
+              50
+            ],
+            "similarity": 0.8571,
+            "weight": 20
+          },
+          {
+            "lines": [
+              51,
+              51
+            ],
+            "similarity": 0.8571,
+            "weight": 20
+          },
+          {
+            "lines": [
+              52,
+              52
+            ],
+            "similarity": 0.8,
+            "weight": 15
+          },
+          {
+            "lines": [
+              53,
+              53
+            ],
+            "similarity": 0.6,
+            "weight": 25
+          },
+          {
+            "lines": [
+              54,
+              54
+            ],
+            "similarity": 0.5333,
+            "weight": 20
+          },
+          {
+            "lines": [
+              55,
+              55
+            ],
+            "similarity": 0.9,
+            "weight": 10
+          }
+        ]
+      },
+      "continuity": {
+        "near_contiguous_boundaries": 40,
+        "severe_energy_troughs_below_0_15": 24,
+        "median_boundary_energy_ratio": 0.0447
+      }
+    },
+    "candidate": {
+      "audio": "data/external/work/rc9_reference/openutau_render.wav",
+      "lyrics": {
+        "weighted_similarity": 0.5821,
+        "median_similarity": 0.6122,
+        "groups": [
+          {
+            "lines": [
+              1,
+              3
+            ],
+            "similarity": 0.6406,
+            "weight": 72
+          },
+          {
+            "lines": [
+              4,
+              4
+            ],
+            "similarity": 0.3846,
+            "weight": 29
+          },
+          {
+            "lines": [
+              5,
+              9
+            ],
+            "similarity": 0.4868,
+            "weight": 98
+          },
+          {
+            "lines": [
+              10,
+              15
+            ],
+            "similarity": 0.6049,
+            "weight": 128
+          },
+          {
+            "lines": [
+              16,
+              18
+            ],
+            "similarity": 0.2615,
+            "weight": 73
+          },
+          {
+            "lines": [
+              19,
+              19
+            ],
+            "similarity": 0.9388,
+            "weight": 25
+          },
+          {
+            "lines": [
+              20,
+              20
+            ],
+            "similarity": 0.4444,
+            "weight": 13
+          },
+          {
+            "lines": [
+              21,
+              23
+            ],
+            "similarity": 0.8941,
+            "weight": 45
+          },
+          {
+            "lines": [
+              24,
+              25
+            ],
+            "similarity": 0.7692,
+            "weight": 40
+          },
+          {
+            "lines": [
+              26,
+              28
+            ],
+            "similarity": 0.5432,
+            "weight": 58
+          },
+          {
+            "lines": [
+              29,
+              29
+            ],
+            "similarity": 1.0,
+            "weight": 23
+          },
+          {
+            "lines": [
+              30,
+              30
+            ],
+            "similarity": 0.6122,
+            "weight": 28
+          },
+          {
+            "lines": [
+              31,
+              31
+            ],
+            "similarity": 0.4255,
+            "weight": 23
+          },
+          {
+            "lines": [
+              32,
+              33
+            ],
+            "similarity": 0.5205,
+            "weight": 50
+          },
+          {
+            "lines": [
+              34,
+              36
+            ],
+            "similarity": 0.4231,
+            "weight": 63
+          },
+          {
+            "lines": [
+              37,
+              37
+            ],
+            "similarity": 0.4,
+            "weight": 28
+          },
+          {
+            "lines": [
+              38,
+              38
+            ],
+            "similarity": 0.0,
+            "weight": 20
+          },
+          {
+            "lines": [
+              39,
+              40
+            ],
+            "similarity": 0.3684,
+            "weight": 47
+          },
+          {
+            "lines": [
+              41,
+              43
+            ],
+            "similarity": 0.6506,
+            "weight": 53
+          },
+          {
+            "lines": [
+              44,
+              44
+            ],
+            "similarity": 0.6667,
+            "weight": 20
+          },
+          {
+            "lines": [
+              45,
+              45
+            ],
+            "similarity": 0.6857,
+            "weight": 20
+          },
+          {
+            "lines": [
+              46,
+              46
+            ],
+            "similarity": 0.1875,
+            "weight": 20
+          },
+          {
+            "lines": [
+              47,
+              47
+            ],
+            "similarity": 0.8889,
+            "weight": 25
+          },
+          {
+            "lines": [
+              48,
+              48
+            ],
+            "similarity": 0.8571,
+            "weight": 20
+          },
+          {
+            "lines": [
+              49,
+              49
+            ],
+            "similarity": 1.0,
+            "weight": 20
+          },
+          {
+            "lines": [
+              50,
+              50
+            ],
+            "similarity": 0.8571,
+            "weight": 20
+          },
+          {
+            "lines": [
+              51,
+              51
+            ],
+            "similarity": 0.8571,
+            "weight": 20
+          },
+          {
+            "lines": [
+              52,
+              52
+            ],
+            "similarity": 0.8,
+            "weight": 15
+          },
+          {
+            "lines": [
+              53,
+              53
+            ],
+            "similarity": 0.6,
+            "weight": 25
+          },
+          {
+            "lines": [
+              54,
+              54
+            ],
+            "similarity": 0.5333,
+            "weight": 20
+          },
+          {
+            "lines": [
+              55,
+              55
+            ],
+            "similarity": 0.9,
+            "weight": 10
+          }
+        ]
+      },
+      "continuity": {
+        "near_contiguous_boundaries": 40,
+        "severe_energy_troughs_below_0_15": 18,
+        "median_boundary_energy_ratio": 0.2276
+      }
+    }
+  },
+  "copyright": "local evaluation audio and lyrics excluded from Git and package"
+}
