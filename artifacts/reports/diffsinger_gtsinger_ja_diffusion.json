@@ -1,5 +1,5 @@
 {
-  "status": "trained_objective_gate_pass_human_pending",
+  "status": "trained_candidate_rejected",
   "source_checkpoint": "data/cache/diffsinger/checkpoints/gtsinger_ja_source/model_ckpt_steps_15000.ckpt",
   "source_checkpoint_sha256": "dd31b42469ef2caa307799212b30fa44b2f1b7186c2f3a14eae45a2a80a6da8a",
   "trainable_path": "model.diffusion only",
@@ -14,9 +14,8 @@
   "final_checkpoint": "data/cache/diffsinger/checkpoints/gtsinger_ja_diffusion/model_ckpt_steps_2000.ckpt",
   "final_checkpoint_sha256": "f4b206639c20dafb329dcd6c1639fcd874955774bbce04b68b47a1a2119775c7",
   "final_checkpoint_step": 2000,
-  "selected_inference": {
-    "depth": 0.4,
-    "steps": 20
-  },
-  "human_listening": "pending"
+  "selected_inference": null,
+  "human_listening": "fail_excessive_pitch_and_unintelligible",
+  "objective_gate": "source_probe_reject",
+  "rejection_reason": "Free Whisper transcripts are unrelated; the target/reference F0 and duration do not align."
 }

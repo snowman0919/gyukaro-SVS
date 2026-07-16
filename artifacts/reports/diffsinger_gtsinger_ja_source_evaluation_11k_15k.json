@@ -1,19 +1,53 @@
 {
-  "status": "source_probe_pass_human_pending",
-  "selected": "step15000",
+  "status": "source_probe_reject",
+  "selected": null,
+  "best_diagnostic_candidate": "step15000",
   "gate": {
-    "asr_lyric_similarity_min": "invalid_for_this_reference",
-    "teacher_forced_lyric_nll_max": 2.6147,
+    "asr_lyric_similarity_min": 0.8,
+    "teacher_forced_lyric_nll": "diagnostic_only_never_a_pass_substitute",
     "pitch_p90_abs_cents_max": 100,
     "gross_error_over_600_cents_max": 0.05,
     "observed_voiced_ratio_min": 0.8,
+    "observed_voiced_ratio_max": 0.97,
     "clip_fraction": 0
   },
   "reference_calibration": {
     "used": true,
     "free_asr_similarity": 0.0741,
     "teacher_forced_lyric_nll": 2.4902,
-    "free_asr_gate_valid": false
+    "free_asr_reference_pass": false,
+    "waveform_analysis": {
+      "audio_path": "data/external/work/pjs/reference_gate/original_line43.wav",
+      "duration_seconds": 2.3499,
+      "free_asr_transcript": "息の目を止めて",
+      "f0": {
+        "hz_p05": 108.54,
+        "hz_median": 118.94,
+        "hz_p95": 513.48,
+        "midi_p05": 44.77,
+        "midi_median": 46.35,
+        "midi_p95": 71.67
+      },
+      "observed_voiced_ratio": 0.9322,
+      "peak": 1.0,
+      "rms": 0.229503,
+      "clip_fraction": 6.206e-05,
+      "hf_energy_ratio_mean": 0.023064,
+      "hf_energy_ratio_p95": 0.091762,
+      "hf_spike_p99_over_median": 15.0762,
+      "spectral_flatness_mean": 0.000657,
+      "spectral_flux_p95": 0.38245,
+      "spectral_flux_max": 0.719719,
+      "sample_jump_p999": 0.34076
+    }
+  },
+  "target_f0": {
+    "hz_p05": 577.99,
+    "hz_median": 666.66,
+    "hz_p95": 772.99,
+    "midi_p05": 73.72,
+    "midi_median": 76.19,
+    "midi_p95": 78.76
   },
   "expected_text_sha256": [
     "0ab240442f187d05eb49626a7113336ce3e3468c00644e0a934cf6f7fbe3e812",
@@ -35,6 +69,14 @@
       "pitch_p90_abs_cents": 57.98,
       "gross_error_over_600_cents": 0.0,
       "observed_voiced_ratio": 0.8804,
+      "f0": {
+        "hz_p05": 581.51,
+        "hz_median": 674.11,
+        "hz_p95": 881.5,
+        "midi_p05": 73.83,
+        "midi_median": 76.39,
+        "midi_p95": 81.03
+      },
       "peak": 0.363289,
       "rms": 0.093153,
       "clip_fraction": 0.0,
@@ -58,6 +100,14 @@
       "pitch_p90_abs_cents": 66.07,
       "gross_error_over_600_cents": 0.0274,
       "observed_voiced_ratio": 0.8696,
+      "f0": {
+        "hz_p05": 581.29,
+        "hz_median": 677.12,
+        "hz_p95": 894.95,
+        "midi_p05": 73.82,
+        "midi_median": 76.46,
+        "midi_p95": 81.29
+      },
       "peak": 0.453728,
       "rms": 0.089642,
       "clip_fraction": 0.0,
@@ -81,6 +131,14 @@
       "pitch_p90_abs_cents": 42.24,
       "gross_error_over_600_cents": 0.0139,
       "observed_voiced_ratio": 0.8587,
+      "f0": {
+        "hz_p05": 582.28,
+        "hz_median": 676.78,
+        "hz_p95": 780.69,
+        "midi_p05": 73.85,
+        "midi_median": 76.45,
+        "midi_p95": 78.93
+      },
       "peak": 0.360747,
       "rms": 0.085569,
       "clip_fraction": 0.0,
@@ -91,7 +149,7 @@
       "spectral_flux_p95": 0.370544,
       "spectral_flux_max": 0.562789,
       "sample_jump_p999": 0.041122,
-      "pass": true
+      "pass": false
     },
     {
       "label": "step14000",
@@ -104,6 +162,14 @@
       "pitch_p90_abs_cents": 116.45,
       "gross_error_over_600_cents": 0.0274,
       "observed_voiced_ratio": 0.8696,
+      "f0": {
+        "hz_p05": 582.93,
+        "hz_median": 684.78,
+        "hz_p95": 886.9,
+        "midi_p05": 73.87,
+        "midi_median": 76.66,
+        "midi_p95": 81.13
+      },
       "peak": 0.47123,
       "rms": 0.090286,
       "clip_fraction": 0.0,
@@ -127,6 +193,14 @@
       "pitch_p90_abs_cents": 35.11,
       "gross_error_over_600_cents": 0.0,
       "observed_voiced_ratio": 0.8913,
+      "f0": {
+        "hz_p05": 581.12,
+        "hz_median": 672.99,
+        "hz_p95": 778.94,
+        "midi_p05": 73.82,
+        "midi_median": 76.36,
+        "midi_p95": 78.89
+      },
       "peak": 0.360089,
       "rms": 0.074636,
       "clip_fraction": 0.0,
@@ -137,10 +211,10 @@
       "spectral_flux_p95": 0.33184,
       "spectral_flux_max": 0.689722,
       "sample_jump_p999": 0.056216,
-      "pass": true
+      "pass": false
     }
   ],
-  "identity_adaptation_allowed": true,
+  "identity_adaptation_allowed": false,
   "release_allowed": false,
-  "interpretation": "The known-correct reference calibrates lexical metrics; human listening is still mandatory."
+  "interpretation": "Every candidate must pass waveform/F0 checks and a free Whisper transcript. Teacher-forced NLL cannot rescue an unintelligible candidate; human listening remains mandatory."
 }

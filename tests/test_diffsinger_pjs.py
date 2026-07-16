@@ -5,7 +5,7 @@ import torch
 
 sys.path.insert(0, str(Path("scripts").resolve()))
 import prepare_diffsinger_gyu_segments as prepare  # noqa: E402
-from evaluate_diffsinger_pjs_rapid import lyric_similarity, passes_gate, pitch_errors  # noqa: E402
+from evaluate_diffsinger_pjs_rapid import f0_summary, lyric_similarity, passes_gate, pitch_errors  # noqa: E402
 from prepare_diffsinger_common_voice_ja import (  # noqa: E402
     ctc_symbols,
     phone_durations,
@@ -78,14 +78,28 @@ def test_rapid_lyric_gate_accepts_kanji_or_katakana_alias():
     assert lyric_similarity(expected, "イキガツマル" * 4) == 1
 
 
-def test_invalid_free_asr_gate_uses_reference_calibrated_nll():
+def test_f0_summary_excludes_unvoiced_frames():
+    summary = f0_summary(torch.tensor([0.0, 440.0, 880.0]).numpy())
+
+    assert summary["hz_median"] == 660.0
+    assert summary["midi_median"] == 75.0
+
+
+def test_invalid_free_asr_cannot_be_rescued_by_teacher_forced_nll():
     row = {"asr_lyric_similarity": 0.1, "teacher_forced_lyric_nll": 2.0,
            "pitch_p90_abs_cents": 50, "gross_error_over_600_cents": 0,
            "observed_voiced_ratio": 0.9, "clip_fraction": 0}
 
-    assert passes_gate(row, asr_gate_valid=False, reference_nll=2.1)
-    assert not passes_gate(row | {"teacher_forced_lyric_nll": 2.3},
-                           asr_gate_valid=False, reference_nll=2.1)
+    assert not passes_gate(row)
+    assert passes_gate(row | {"asr_lyric_similarity": 0.9})
+
+
+def test_nearly_all_voiced_candidate_is_rejected():
+    row = {"asr_lyric_similarity": 0.9, "teacher_forced_lyric_nll": 2.0,
+           "pitch_p90_abs_cents": 50, "gross_error_over_600_cents": 0,
+           "observed_voiced_ratio": 0.99, "clip_fraction": 0}
+
+    assert not passes_gate(row)
 
 
 def test_equal_hop_pitch_gate_crops_one_tail_frame_without_interpolating_unvoiced_boundaries():

@@ -13,6 +13,7 @@ import yaml
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "data/cache/diffsinger/checkpoints/gtsinger_ja_source/model_ckpt_steps_15000.ckpt"
 FINAL = ROOT / "data/cache/diffsinger/checkpoints/gtsinger_ja_diffusion/model_ckpt_steps_2000.ckpt"
+EVALUATION = ROOT / "artifacts/reports/diffsinger_gtsinger_ja_diffusion_evaluation.json"
 
 
 def main() -> None:
@@ -55,13 +56,28 @@ def main() -> None:
     }
     if FINAL.is_file():
         report.update({
-            "status": "trained_objective_gate_pass_human_pending",
+            "status": "trained_unevaluated",
             "final_checkpoint": str(FINAL.relative_to(ROOT)),
             "final_checkpoint_sha256": hashlib.sha256(FINAL.read_bytes()).hexdigest(),
             "final_checkpoint_step": 2_000,
-            "selected_inference": {"depth": 0.4, "steps": 20},
-            "human_listening": "pending",
+            "selected_inference": None,
+            "human_listening": "not_started",
         })
+    if EVALUATION.is_file():
+        evaluation = json.loads(EVALUATION.read_text())
+        accepted = evaluation["status"] == "source_probe_pass_human_pending"
+        report.update({
+            "status": ("trained_objective_gate_pass_human_pending" if accepted
+                       else "trained_candidate_rejected"),
+            "objective_gate": evaluation["status"],
+            "selected_inference": evaluation["selected"],
+            "human_listening": ("pending" if accepted
+                                else "fail_excessive_pitch_and_unintelligible"),
+        })
+        if not accepted:
+            report["rejection_reason"] = (
+                "Free Whisper transcripts are unrelated; the target/reference F0 and duration do not align."
+            )
     output = ROOT / "artifacts/reports/diffsinger_gtsinger_ja_diffusion.json"
     output.write_text(json.dumps(report, indent=2) + "\n")
     print(json.dumps(report, indent=2))

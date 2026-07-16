@@ -33,6 +33,7 @@
   "source_checkpoint": "data/cache/diffsinger/checkpoints/gtsinger_ja_source/model_ckpt_steps_15000.ckpt",
   "source_checkpoint_sha256": "dd31b42469ef2caa307799212b30fa44b2f1b7186c2f3a14eae45a2a80a6da8a",
   "source_checkpoint_step": 15000,
-  "objective_rapid_gate": "source_probe_pass_human_pending",
-  "human_listening": "pending"
+  "objective_rapid_gate": "source_probe_reject",
+  "human_listening": "fail_excessive_pitch_and_unintelligible",
+  "release_allowed": false
 }

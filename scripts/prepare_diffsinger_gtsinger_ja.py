@@ -200,7 +200,11 @@ def write_config(raw: Path, phones: set[str], rows: list[dict], seconds: float) 
     if evaluation.is_file():
         result = json.loads(evaluation.read_text())
         report["objective_rapid_gate"] = result["status"]
-        report["human_listening"] = "pending"
+        report["human_listening"] = (
+            "pending" if result["status"] == "source_probe_pass_human_pending"
+            else "fail_excessive_pitch_and_unintelligible"
+        )
+        report["release_allowed"] = False
     output = ROOT / "artifacts/reports/diffsinger_gtsinger_ja.json"
     output.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n")
     return report

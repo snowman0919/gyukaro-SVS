@@ -38,27 +38,43 @@ def lyric_similarity(expected: list[str], transcript: str) -> float:
     )
 
 
+def f0_summary(values: np.ndarray) -> dict:
+    voiced = np.asarray(values)[np.asarray(values) > 1]
+    if not len(voiced):
+        return {"hz_p05": None, "hz_median": None, "hz_p95": None,
+                "midi_p05": None, "midi_median": None, "midi_p95": None}
+    midi = 69 + 12 * np.log2(voiced / 440)
+    return {
+        "hz_p05": round(float(np.percentile(voiced, 5)), 2),
+        "hz_median": round(float(np.median(voiced)), 2),
+        "hz_p95": round(float(np.percentile(voiced, 95)), 2),
+        "midi_p05": round(float(np.percentile(midi, 5)), 2),
+        "midi_median": round(float(np.median(midi)), 2),
+        "midi_p95": round(float(np.percentile(midi, 95)), 2),
+    }
+
+
 def teacher_forced_nll(processor, model, audio: np.ndarray, expected: list[str]) -> float:
-    inputs = processor(audio=audio, sampling_rate=16_000, return_tensors="pt")
+    inputs = processor(audio=audio, sampling_rate=16_000, return_tensors="pt",
+                       return_attention_mask=True)
     losses = []
     for text in expected:
         labels = processor.tokenizer(text, return_tensors="pt").input_ids.cuda()
         with torch.inference_mode():
-            loss = model(input_features=inputs.input_features.cuda().half(), labels=labels).loss
+            loss = model(input_features=inputs.input_features.cuda().half(),
+                         attention_mask=inputs.attention_mask.cuda(), labels=labels).loss
         losses.append(float(loss))
     return min(losses)
 
 
-def passes_gate(row: dict, *, asr_gate_valid: bool, reference_nll: float | None) -> bool:
-    lyric_pass = (
-        row["asr_lyric_similarity"] >= .8 if asr_gate_valid
-        else reference_nll is not None and row["teacher_forced_lyric_nll"] <= reference_nll * 1.05
-    )
+def passes_gate(row: dict) -> bool:
+    """Require a free transcript; teacher-forced likelihood is diagnostic only."""
     return bool(
-        lyric_pass
+        row["asr_lyric_similarity"] >= .8
         and row["pitch_p90_abs_cents"] <= 100
         and row["gross_error_over_600_cents"] <= .05
         and row["observed_voiced_ratio"] >= .8
+        and row["observed_voiced_ratio"] <= .97
         and row["clip_fraction"] == 0
     )
 
@@ -104,10 +120,12 @@ def main() -> None:
 
     reference_nll = None
     reference_asr_similarity = None
+    reference_metrics = None
     if args.reference_audio is not None:
         reference_path = args.reference_audio if args.reference_audio.is_absolute() else ROOT / args.reference_audio
         reference_audio = audio16(reference_path)
-        reference_inputs = processor(audio=reference_audio, sampling_rate=16_000, return_tensors="pt")
+        reference_inputs = processor(audio=reference_audio, sampling_rate=16_000,
+                                     return_tensors="pt", return_attention_mask=True)
         with torch.inference_mode():
             reference_ids = whisper.generate(
                 reference_inputs.input_features.cuda().half(),
@@ -117,7 +135,14 @@ def main() -> None:
         reference_transcript = processor.batch_decode(reference_ids, skip_special_tokens=True)[0]
         reference_asr_similarity = lyric_similarity(args.expected_text, reference_transcript)
         reference_nll = teacher_forced_nll(processor, whisper, reference_audio, args.expected_text)
-    asr_gate_valid = reference_asr_similarity is None or reference_asr_similarity >= .8
+        reference_f0 = np.asarray(extractor.process(str(reference_path), verbose=False), dtype=np.float32)
+        reference_metrics = {
+            "audio_path": str(reference_path.relative_to(ROOT)),
+            "duration_seconds": round(len(reference_audio) / 16_000, 4),
+            "free_asr_transcript": reference_transcript,
+            "f0": f0_summary(reference_f0),
+            "observed_voiced_ratio": round(float(np.mean(reference_f0 > 1)), 4),
+        } | acoustics(reference_path)
 
     rows = []
     for value in args.candidate:
@@ -125,7 +150,8 @@ def main() -> None:
         path = Path(raw_path)
         if not path.is_absolute():
             path = ROOT / path
-        inputs = processor(audio=audio16(path), sampling_rate=16_000, return_tensors="pt")
+        inputs = processor(audio=audio16(path), sampling_rate=16_000, return_tensors="pt",
+                           return_attention_mask=True)
         with torch.inference_mode():
             ids = whisper.generate(
                 inputs.input_features.cuda().half(),
@@ -149,25 +175,24 @@ def main() -> None:
             "pitch_p90_abs_cents": round(float(np.percentile(cents, 90)), 2),
             "gross_error_over_600_cents": round(float(np.mean(cents > 600)), 4),
             "observed_voiced_ratio": round(float(np.mean(observed > 1)), 4),
+            "f0": f0_summary(observed),
         } | acoustics(path)
-        metrics["pass"] = passes_gate(
-            metrics, asr_gate_valid=asr_gate_valid, reference_nll=reference_nll
-        )
+        metrics["pass"] = passes_gate(metrics)
         rows.append(metrics)
 
     candidate = max(rows, key=lambda row: (row["pass"], row["asr_lyric_similarity"],
                                            -row["pitch_p90_abs_cents"]))
     report = {
         "status": "source_probe_pass_human_pending" if candidate["pass"] else "source_probe_reject",
-        "selected": candidate["label"],
+        "selected": candidate["label"] if candidate["pass"] else None,
+        "best_diagnostic_candidate": candidate["label"],
         "gate": {
-            "asr_lyric_similarity_min": .8 if asr_gate_valid else "invalid_for_this_reference",
-            "teacher_forced_lyric_nll_max": (
-                round(reference_nll * 1.05, 4) if reference_nll is not None else None
-            ),
+            "asr_lyric_similarity_min": .8,
+            "teacher_forced_lyric_nll": "diagnostic_only_never_a_pass_substitute",
             "pitch_p90_abs_cents_max": 100,
             "gross_error_over_600_cents_max": .05,
             "observed_voiced_ratio_min": .8,
+            "observed_voiced_ratio_max": .97,
             "clip_fraction": 0,
         },
         "reference_calibration": {
@@ -176,8 +201,12 @@ def main() -> None:
                                     if reference_asr_similarity is not None else None),
             "teacher_forced_lyric_nll": (round(reference_nll, 4)
                                          if reference_nll is not None else None),
-            "free_asr_gate_valid": asr_gate_valid,
+            "free_asr_reference_pass": (
+                reference_asr_similarity is not None and reference_asr_similarity >= .8
+            ),
+            "waveform_analysis": reference_metrics,
         },
+        "target_f0": f0_summary(target),
         "expected_text_sha256": [
             hashlib.sha256(normalized(value).encode("utf-8")).hexdigest()
             for value in args.expected_text
@@ -186,7 +215,10 @@ def main() -> None:
         "rows": rows,
         "identity_adaptation_allowed": bool(candidate["pass"]),
         "release_allowed": False,
-        "interpretation": "The known-correct reference calibrates lexical metrics; human listening is still mandatory.",
+        "interpretation": (
+            "Every candidate must pass waveform/F0 checks and a free Whisper transcript. "
+            "Teacher-forced NLL cannot rescue an unintelligible candidate; human listening remains mandatory."
+        ),
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n")
