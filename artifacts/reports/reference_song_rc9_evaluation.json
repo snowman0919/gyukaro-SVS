@@ -3,25 +3,25 @@
   "alignment": "fixed OpenUtau absolute phrase positions at 50 Hz; no per-phrase time stretching and no optimized lag; timing/voicing use the OpenUtau score while reference-pitch metrics use two-of-three estimator consensus",
   "overall": {
     "reference_pitch": {
-      "f0_correlation": 0.929,
-      "pitch_median_abs_cents": 12.56,
-      "pitch_p90_abs_cents": 112.04,
-      "gross_error_over_200_cents": 0.0767,
-      "gross_error_over_600_cents": 0.0464,
-      "reference_voiced_recall": 0.8735,
-      "rendered_voiced_precision": 0.6553
+      "f0_correlation": 0.9283,
+      "pitch_median_abs_cents": 12.69,
+      "pitch_p90_abs_cents": 116.87,
+      "gross_error_over_200_cents": 0.0775,
+      "gross_error_over_600_cents": 0.0472,
+      "reference_voiced_recall": 0.8733,
+      "rendered_voiced_precision": 0.6552
     },
     "score_pitch": {
-      "f0_correlation": 0.9549,
-      "pitch_median_abs_cents": 10.41,
-      "pitch_p90_abs_cents": 50.76,
+      "f0_correlation": 0.9548,
+      "pitch_median_abs_cents": 10.42,
+      "pitch_p90_abs_cents": 52.03,
       "gross_error_over_200_cents": 0.0298,
       "gross_error_over_600_cents": 0.0164,
-      "reference_voiced_recall": 0.9083,
+      "reference_voiced_recall": 0.9081,
       "rendered_voiced_precision": 0.9657
     },
-    "score_voicing_accuracy": 0.8924,
-    "score_voiced_iou": 0.8799,
+    "score_voicing_accuracy": 0.8923,
+    "score_voiced_iou": 0.8798,
     "phrase_onset_abs_error_median_ms": 40.0,
     "phrase_onset_abs_error_p90_ms": 200.0
   },
@@ -876,7 +876,7 @@
       "offset_error_ms": 0.0,
       "reference_pitch": {
         "f0_correlation": 0.9502,
-        "pitch_median_abs_cents": 9.03,
+        "pitch_median_abs_cents": 9.02,
         "pitch_p90_abs_cents": 63.19,
         "gross_error_over_200_cents": 0.03,
         "gross_error_over_600_cents": 0.02,
@@ -1137,7 +1137,7 @@
       "reference_pitch": {
         "f0_correlation": 0.9375,
         "pitch_median_abs_cents": 8.62,
-        "pitch_p90_abs_cents": 36.2,
+        "pitch_p90_abs_cents": 36.21,
         "gross_error_over_200_cents": 0.0395,
         "gross_error_over_600_cents": 0.0132,
         "reference_voiced_recall": 0.9383,
@@ -1240,7 +1240,7 @@
       "offset_error_ms": 0.0,
       "reference_pitch": {
         "f0_correlation": 0.8539,
-        "pitch_median_abs_cents": 8.85,
+        "pitch_median_abs_cents": 8.86,
         "pitch_p90_abs_cents": 582.99,
         "gross_error_over_200_cents": 0.1338,
         "gross_error_over_600_cents": 0.0915,
@@ -1327,7 +1327,7 @@
       },
       "score_pitch": {
         "f0_correlation": 0.9979,
-        "pitch_median_abs_cents": 9.97,
+        "pitch_median_abs_cents": 9.96,
         "pitch_p90_abs_cents": 40.0,
         "gross_error_over_200_cents": 0.0118,
         "gross_error_over_600_cents": 0.0,
@@ -1345,7 +1345,7 @@
       "reference_pitch": {
         "f0_correlation": 0.8277,
         "pitch_median_abs_cents": 17.05,
-        "pitch_p90_abs_cents": 549.81,
+        "pitch_p90_abs_cents": 549.82,
         "gross_error_over_200_cents": 0.2059,
         "gross_error_over_600_cents": 0.1029,
         "reference_voiced_recall": 0.9577,
@@ -1370,8 +1370,8 @@
       "offset_error_ms": -20.0,
       "reference_pitch": {
         "f0_correlation": 0.9756,
-        "pitch_median_abs_cents": 12.45,
-        "pitch_p90_abs_cents": 141.45,
+        "pitch_median_abs_cents": 12.47,
+        "pitch_p90_abs_cents": 141.76,
         "gross_error_over_200_cents": 0.0727,
         "gross_error_over_600_cents": 0.0364,
         "reference_voiced_recall": 0.9735,
@@ -1379,8 +1379,8 @@
       },
       "score_pitch": {
         "f0_correlation": 0.9925,
-        "pitch_median_abs_cents": 12.63,
-        "pitch_p90_abs_cents": 102.49,
+        "pitch_median_abs_cents": 12.64,
+        "pitch_p90_abs_cents": 102.54,
         "gross_error_over_200_cents": 0.0288,
         "gross_error_over_600_cents": 0.0144,
         "reference_voiced_recall": 0.9456,
@@ -1395,22 +1395,22 @@
       "onset_error_ms": 200.0,
       "offset_error_ms": 0.0,
       "reference_pitch": {
-        "f0_correlation": 0.831,
-        "pitch_median_abs_cents": 12.98,
-        "pitch_p90_abs_cents": 55.72,
-        "gross_error_over_200_cents": 0.0678,
-        "gross_error_over_600_cents": 0.0169,
+        "f0_correlation": 0.7683,
+        "pitch_median_abs_cents": 17.08,
+        "pitch_p90_abs_cents": 191.66,
+        "gross_error_over_200_cents": 0.1017,
+        "gross_error_over_600_cents": 0.0508,
         "reference_voiced_recall": 0.8741,
         "rendered_voiced_precision": 0.8806
       },
       "score_pitch": {
-        "f0_correlation": 0.9715,
-        "pitch_median_abs_cents": 11.65,
-        "pitch_p90_abs_cents": 35.63,
-        "gross_error_over_200_cents": 0.016,
+        "f0_correlation": 0.9522,
+        "pitch_median_abs_cents": 13.42,
+        "pitch_p90_abs_cents": 100.79,
+        "gross_error_over_200_cents": 0.0163,
         "gross_error_over_600_cents": 0.0,
-        "reference_voiced_recall": 0.8929,
-        "rendered_voiced_precision": 0.9328
+        "reference_voiced_recall": 0.8786,
+        "rendered_voiced_precision": 0.9179
       }
     },
     {
@@ -1418,25 +1418,25 @@
       "language": "ja",
       "start_seconds": 198.58,
       "duration_seconds": 2.66,
-      "onset_error_ms": 40.0,
+      "onset_error_ms": 0.0,
       "offset_error_ms": 0.0,
       "reference_pitch": {
-        "f0_correlation": 0.6701,
-        "pitch_median_abs_cents": 6.69,
-        "pitch_p90_abs_cents": 29.45,
-        "gross_error_over_200_cents": 0.0413,
-        "gross_error_over_600_cents": 0.0331,
-        "reference_voiced_recall": 0.9453,
-        "rendered_voiced_precision": 0.968
+        "f0_correlation": 0.6585,
+        "pitch_median_abs_cents": 6.6,
+        "pitch_p90_abs_cents": 30.29,
+        "gross_error_over_200_cents": 0.0417,
+        "gross_error_over_600_cents": 0.0333,
+        "reference_voiced_recall": 0.9375,
+        "rendered_voiced_precision": 0.9677
       },
       "score_pitch": {
-        "f0_correlation": 0.8255,
-        "pitch_median_abs_cents": 7.35,
-        "pitch_p90_abs_cents": 30.68,
-        "gross_error_over_200_cents": 0.0168,
-        "gross_error_over_600_cents": 0.0168,
-        "reference_voiced_recall": 0.9597,
-        "rendered_voiced_precision": 0.952
+        "f0_correlation": 0.8264,
+        "pitch_median_abs_cents": 7.14,
+        "pitch_p90_abs_cents": 35.22,
+        "gross_error_over_200_cents": 0.0167,
+        "gross_error_over_600_cents": 0.0167,
+        "reference_voiced_recall": 0.9677,
+        "rendered_voiced_precision": 0.9677
       }
     },
     {
@@ -1447,8 +1447,8 @@
       "onset_error_ms": 400.0,
       "offset_error_ms": -80.0,
       "reference_pitch": {
-        "f0_correlation": 0.5999,
-        "pitch_median_abs_cents": 5.83,
+        "f0_correlation": 0.5997,
+        "pitch_median_abs_cents": 5.86,
         "pitch_p90_abs_cents": 21.59,
         "gross_error_over_200_cents": 0.026,
         "gross_error_over_600_cents": 0.0,
@@ -1456,9 +1456,9 @@
         "rendered_voiced_precision": 0.875
       },
       "score_pitch": {
-        "f0_correlation": 0.9514,
-        "pitch_median_abs_cents": 5.63,
-        "pitch_p90_abs_cents": 25.55,
+        "f0_correlation": 0.9513,
+        "pitch_median_abs_cents": 5.64,
+        "pitch_p90_abs_cents": 25.57,
         "gross_error_over_200_cents": 0.0,
         "gross_error_over_600_cents": 0.0,
         "reference_voiced_recall": 0.7288,

@@ -18,7 +18,7 @@ editable USTX
 → 203.72 s stereo WAV
 ```
 
-The replacement export contains 55 parts/phrases, 566 notes, and 566 generated phonemes with zero phoneme errors, failed requests, or retries. Cold render took 711.31 s; a repeat used all 55 cache entries in 0.256 s with no stale files.
+The replacement export contains 55 parts/phrases, 566 notes, and 566 generated phonemes with zero phoneme errors, failed requests, or retries. Cold render took 713.35 s; a repeat used all 55 cache entries in 0.254 s with no stale files.
 
 ## Isolated RC9 correction
 
@@ -40,8 +40,8 @@ No phrase stretching or optimized lag is used. Reference metrics use the local t
 | score voiced IoU | 0.8882 | 0.8836 |
 | phrase onset median | 40 ms | 40 ms |
 
-Those values describe the human-failed first RC9 candidate. The targeted replacement measures reference correlation 0.9290, reference p90 112.04 cents, reference gross >600 cents 4.64%, score correlation 0.9549, score p90 50.76 cents, and score gross >600 cents 1.64%. All objective gates pass. WavLM-to-GYU similarity remains non-regressed at mean 0.72939 and median 0.78667.
+Those values describe the human-failed first RC9 candidate. The targeted replacement measures reference correlation 0.9283, reference p90 116.87 cents, reference gross >600 cents 4.72%, score correlation 0.9548, score p90 52.03 cents, and score gross >600 cents 1.64%. All objective gates pass. WavLM-to-GYU similarity remains non-regressed at mean 0.72839 and median 0.78667.
 
-The replacement causally improves the long five-repeat phrase and the high refrain, but the ending refrain remains byte-identical and defective. The listening directory now includes before/after pairs for all three. Human listening remains mandatory; objective pass alone cannot promote the candidate.
+The replacement causally improves the long five-repeat phrase and the high refrain. A one-frame high-onset conditioning relief also improves the ending diction proxy from 0.30 to 0.60 without violating the 150-cent phrase p90 gate. The listening directory includes before/after pairs for all three. Human listening remains mandatory; objective pass alone cannot promote the candidate.
 
 Evidence: `artifacts/reports/openutau_upstream_v10.json`, `reference_song_rc9_runtime.json`, `reference_song_rc9_evaluation.json`, `reference_song_rc9_identity.json`, and `reference_song_rc9_listening_gate.json`.

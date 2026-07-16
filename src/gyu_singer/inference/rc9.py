@@ -75,8 +75,28 @@ class GyuSingerRC9Renderer(GyuSingerRC8Renderer):
             notes.append(note | {"lyric": lyric})
         return score | {"notes": notes}
 
+    @classmethod
+    def _needs_high_rapid_onset_relief(cls, score: dict) -> bool:
+        pitches = [float(note["pitch"]) for note in score["notes"]]
+        duration = max(float(note["start"]) + float(note["duration"]) for note in score["notes"])
+        return (
+            score["language"] == "ja" and duration >= 2.5 and cls._rapid(score)
+            and min(pitches) >= 70
+            and max((abs(after - before) for before, after in zip(pitches, pitches[1:])), default=0) <= 3
+        )
+
     def _target_f0(self, score: dict, duration: float, expressive: np.ndarray) -> tuple[np.ndarray, list[dict]]:
-        return super()._target_f0(self._score_for_voicing(score), duration, expressive)
+        f0, timeline = super()._target_f0(self._score_for_voicing(score), duration, expressive)
+        if self._needs_high_rapid_onset_relief(score):
+            phrase_duration = max(float(note["start"]) + float(note["duration"]) for note in score["notes"])
+            for note in score["notes"]:
+                onset = round(float(note["start"]) / phrase_duration * duration * 50)
+                voiced = np.flatnonzero(f0[onset:onset + 5] > 1)
+                if len(voiced):
+                    frame = onset + int(voiced[0])
+                    f0[frame] = np.exp(.05 * np.log(120.0) + .95 * np.log(f0[frame]))
+            timeline = [row | {"f0_hz": float(f0[index])} for index, row in enumerate(timeline)]
+        return f0, timeline
 
     @staticmethod
     def _bypass_post_refiners(score: dict) -> bool:
@@ -113,6 +133,7 @@ class GyuSingerRC9Renderer(GyuSingerRC8Renderer):
             "personalized_prosody": "Korean only; EN/JA use nominal score plus user PITD",
             "rapid_japanese_content_warp": "disabled after local full-song isolation",
             "japanese_content_timing": "score-timed word chunks for long jump-heavy exact repetitions",
+            "high_rapid_japanese_onsets": "single-frame 5% conditioning relief toward 120 Hz for >=2.5 s stepwise high phrases",
             "japanese_post_refiners": "disabled only for >=MIDI80 or >=12-semitone jumps after causal diction isolation; latent identity/style retained",
             "release_state": "OpenUtau song candidate; human listening pending",
             "final_v1_tagged": False,

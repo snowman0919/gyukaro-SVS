@@ -1,16 +1,16 @@
 Overall status: previous RC9 candidate HUMAN FAIL; replacement objective PASS; human listening pending
 Highest achieved candidate: RC8 accepted; replacement RC9 remains a listening candidate
-Source commit: bc93ff1624c1d7b2fb33545ecf1c4283dc093f91
+Source commit: pending onset-fix commit
 RC7 baseline preserved: yes
 RC8 quality gate: PASS and callable unchanged
 Previous human listening: FAIL on repeated words, alignment, rapid/high phrases
 Primary artifact source: SoulX content/F0 mismatch on long repeated lyrics with large jumps
 Secondary artifact source: waveform refiners on high or large-jump Japanese phrases
 OpenUtau full render: PASS technically, 55/55 phrases, zero failures and retries
-Score F0: correlation 0.9549 / p90 50.76 cents / gross >600 cents 1.64%
-Reference F0: correlation 0.9290 / p90 112.04 cents / gross >600 cents 4.64%, PASS
-GYU identity: non-regression PASS, WavLM mean 0.72939 / median 0.78667
-Remaining audible risk: short ending refrain unchanged
+Score F0: correlation 0.9548 / p90 52.03 cents / gross >600 cents 1.64%
+Reference F0: correlation 0.9283 / p90 116.87 cents / gross >600 cents 4.72%, PASS
+GYU identity: non-regression PASS, WavLM mean 0.72839 / median 0.78667
+Remaining audible risk: ending repetition count and tail retention require listening
 Clean package: blocked until replacement human listening PASS
 Final v1.0.0 tag: prohibited
 
@@ -20,9 +20,9 @@ The reported repetition is not a conventional autoregressive loop: OmniVoice use
 
 The high refrain exposed a separate causal defect. Latent identity/style ON versus OFF did not change lyric retention, while enabling the two waveform refiners reduced ASR similarity from 0.5333 to zero. RC9 now bypasses those refiners only for Japanese phrases at or above MIDI 80 or with a 12-semitone jump. RC8 remains unchanged.
 
-Broad chunking was rejected: it damaged short refrains and a four-repeat phrase whose failed baseline transcript was already exact. Decoder steps/CFG and OmniVoice steps/guidance sweeps also failed to repair the ending refrain. That region is byte-identical before and after and remains an explicit listening risk.
+Broad chunking was rejected: it damaged short refrains and a four-repeat phrase whose failed baseline transcript was already exact. Decoder steps/CFG, OmniVoice steps/guidance, unvoiced waveform mixing, and latent-adapter disable also failed to repair the ending refrain. A single 20 ms score-only onset relief improved kana-normalized diction similarity from 0.30 to 0.60 while keeping production pitch p90 at 125.34 cents. The ending before/after files are no longer identical, but complete repetition count and tail retention still require listening.
 
-The replacement OpenUtau render completed all 55 phrases without failures or retries. After limiting the Japanese reading correction to the verified five-repeat repair, all objective gates pass: reference gross >600 cents is 4.64%, score p90 is 50.76 cents, score gross >600 cents is 1.64%, and WavLM identity mean is 0.72939.
+The replacement OpenUtau render completed all 55 phrases without failures or retries. All objective gates pass: reference gross >600 cents is 4.72%, score p90 is 52.03 cents, score gross >600 cents is 1.64%, and WavLM identity mean is 0.72839.
 
 This does not erase the previous human FAIL. The replacement requires explicit listening of the new full song and the before/after pairs. Until that passes, RC9 is not achieved or packageable. No final tag or package was created.
 

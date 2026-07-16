@@ -151,6 +151,14 @@ def test_rc9_chunks_only_long_jump_heavy_japanese_repetitions():
     assert not GyuSingerRC9Renderer._bypass_post_refiners({
         "language": "ja", "notes": [{"pitch": 64}, {"pitch": 69}],
     })
+    high_stepwise = {
+        "language": "ja",
+        "notes": [{"pitch": 72 + index % 3, "start": index * .25, "duration": .25} for index in range(12)],
+    }
+    assert GyuSingerRC9Renderer._needs_high_rapid_onset_relief(high_stepwise)
+    assert not GyuSingerRC9Renderer._needs_high_rapid_onset_relief(high_stepwise | {
+        "notes": high_stepwise["notes"][:6],
+    })
 
 
 def test_rc5_skips_only_infeasible_optional_ctc_warp(monkeypatch, tmp_path):

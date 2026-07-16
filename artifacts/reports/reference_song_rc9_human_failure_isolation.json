@@ -34,12 +34,20 @@
       "latent_off_refiners_on_asr_similarity": 0.0,
       "latent_on_refiners_off_asr_similarity": 0.5333,
       "latent_off_refiners_off_asr_similarity": 0.5333
+    },
+    "ending_refrain_phrase_53": {
+      "failed_full_path_asr_similarity_kana_normalized": 0.3,
+      "candidate_full_path_asr_similarity_kana_normalized": 0.6,
+      "failed_pitch_p90_cents": 31.66,
+      "candidate_pitch_p90_cents": 125.34,
+      "candidate_gross_over_600_cents": 0.0522
     }
   },
   "changes": [
     "RC9-only score-timed semantic chunks for five-or-more exact Japanese repetitions lasting at least six seconds with large jumps",
     "phrase-local Japanese readings and physically voiced/unvoiced F0 masking only on the verified five-repeat repair",
     "waveform refiner bypass only for Japanese phrases at or above MIDI 80 or with 12-semitone jumps",
+    "single-frame 5 percent score-only onset conditioning relief for long high rapid stepwise Japanese phrases",
     "RC8 behavior remains unchanged"
   ],
   "rejected_changes": [
@@ -47,21 +55,23 @@
     "short rapid phrase chunking: reduced lyric retention",
     "four-repeat long phrase chunking: reduced a previously correct phrase from 1.0 to 0.375 ASR similarity",
     "SoulX 32/50/64-step and CFG 1.5/2.0 sweep: did not fix the ending refrain",
-    "OmniVoice 32/64-step and guidance 2.0/2.5/3.0 sweep: did not restore the omitted repetition"
+    "OmniVoice 32/64-step and guidance 2.0/2.5/3.0 sweep: did not restore the omitted repetition",
+    "unvoiced source-waveform mixing: did not improve ending diction",
+    "latent identity/style disable: did not change ending diction"
   ],
   "full_openutau_candidate": {
     "phrases": 55,
     "failed_phrases": 0,
     "retries": 0,
-    "score_f0_correlation": 0.9549,
-    "score_pitch_p90_cents": 50.76,
+    "score_f0_correlation": 0.9548,
+    "score_pitch_p90_cents": 52.03,
     "score_gross_over_600_cents": 0.0164,
-    "reference_gross_over_600_cents": 0.0464,
+    "reference_gross_over_600_cents": 0.0472,
     "objective_status": "pass; human listening remains mandatory",
-    "wavlm_identity_mean": 0.72939,
+    "wavlm_identity_mean": 0.72839,
     "wavlm_identity_median": 0.78667
   },
-  "remaining_defect": "The short ending refrain is unchanged; decoder and source-parameter sweeps did not fix it.",
+  "remaining_defect": "Ending diction improved, but complete repetition-count and tail retention still require human listening.",
   "listening_report": "artifacts/reports/reference_song_rc9_listening_gate.json",
   "final_v1_tagged": false,
   "package_built": false

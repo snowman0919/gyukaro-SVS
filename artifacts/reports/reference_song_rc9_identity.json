@@ -3,10 +3,10 @@
   "reference": "data/processed/master/216.wav",
   "summary": {
     "phrases": 55,
-    "wavlm_mean": 0.72939,
+    "wavlm_mean": 0.72839,
     "wavlm_median": 0.78667,
     "wavlm_p10": 0.46462,
-    "ecapa_mean": 0.16338,
+    "ecapa_mean": 0.16254,
     "ecapa_median": 0.15493
   },
   "phrases": [
@@ -319,14 +319,14 @@
     {
       "phrase": 52,
       "language": "ja",
-      "wavlm_to_gyu": 0.89068,
+      "wavlm_to_gyu": 0.89072,
       "ecapa_to_gyu": 0.29752
     },
     {
       "phrase": 53,
       "language": "ja",
-      "wavlm_to_gyu": 0.5526,
-      "ecapa_to_gyu": 0.11789
+      "wavlm_to_gyu": 0.49789,
+      "ecapa_to_gyu": 0.0714
     },
     {
       "phrase": 54,

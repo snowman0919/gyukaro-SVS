@@ -12,7 +12,7 @@
     {
       "case": "full_song",
       "local_audio": "data/external/work/rc9_reference/rc9_listening_gate/01_full_openutau_rc9.wav",
-      "sha256": "970cf8c56a052d52b356f1a1c5699786ee9557b4a28d7b50c4f095733f8f57ca"
+      "sha256": "76af64b854a6b00b718f21560248183bda383654f9d332aca39d8c7ada9bf060"
     },
     {
       "case": "dense_rapid_a",
@@ -42,7 +42,7 @@
       "case": "ending_rapid",
       "phrase": 53,
       "local_audio": "data/external/work/rc9_reference/rc9_listening_gate/06_ending_rapid_phrase_53.wav",
-      "sha256": "309a0c5e2c4fd8e71b60f83df7461547bc87ddee5e9fbf5134dd173b84678b32"
+      "sha256": "2baa481b15c416f908bc8af69a0e0c910e5491ed34b4edc67dc4bd7a33ae694a"
     },
     {
       "case": "high_refrain_before",
@@ -78,7 +78,7 @@
       "case": "ending_refrain_after",
       "phrase": 53,
       "local_audio": "data/external/work/rc9_reference/rc9_listening_gate/12_ending_refrain_after_phrase_53.wav",
-      "sha256": "309a0c5e2c4fd8e71b60f83df7461547bc87ddee5e9fbf5134dd173b84678b32"
+      "sha256": "2baa481b15c416f908bc8af69a0e0c910e5491ed34b4edc67dc4bd7a33ae694a"
     }
   ],
   "copyright": "local evaluation derivatives; excluded from Git and package"
