@@ -1,0 +1,346 @@
+{
+  "status": "identity_nonregression_pass_human_pending",
+  "reference": "data/processed/master/216.wav",
+  "summary": {
+    "phrases": 55,
+    "wavlm_mean": 0.73519,
+    "wavlm_median": 0.79529,
+    "wavlm_p10": 0.46462,
+    "ecapa_mean": 0.16495,
+    "ecapa_median": 0.15493
+  },
+  "phrases": [
+    {
+      "phrase": 1,
+      "language": "ja",
+      "wavlm_to_gyu": 0.74166,
+      "ecapa_to_gyu": 0.15493
+    },
+    {
+      "phrase": 2,
+      "language": "ja",
+      "wavlm_to_gyu": 0.87461,
+      "ecapa_to_gyu": 0.18004
+    },
+    {
+      "phrase": 3,
+      "language": "ja",
+      "wavlm_to_gyu": 0.88884,
+      "ecapa_to_gyu": 0.37518
+    },
+    {
+      "phrase": 4,
+      "language": "ja",
+      "wavlm_to_gyu": 0.7738,
+      "ecapa_to_gyu": 0.06259
+    },
+    {
+      "phrase": 5,
+      "language": "ja",
+      "wavlm_to_gyu": 0.81807,
+      "ecapa_to_gyu": 0.19075
+    },
+    {
+      "phrase": 6,
+      "language": "ja",
+      "wavlm_to_gyu": 0.8517,
+      "ecapa_to_gyu": 0.2188
+    },
+    {
+      "phrase": 7,
+      "language": "ja",
+      "wavlm_to_gyu": 0.86337,
+      "ecapa_to_gyu": 0.33012
+    },
+    {
+      "phrase": 8,
+      "language": "ja",
+      "wavlm_to_gyu": 0.85851,
+      "ecapa_to_gyu": 0.36018
+    },
+    {
+      "phrase": 9,
+      "language": "ja",
+      "wavlm_to_gyu": 0.87401,
+      "ecapa_to_gyu": 0.2379
+    },
+    {
+      "phrase": 10,
+      "language": "ja",
+      "wavlm_to_gyu": 0.86149,
+      "ecapa_to_gyu": 0.22064
+    },
+    {
+      "phrase": 11,
+      "language": "ja",
+      "wavlm_to_gyu": 0.74523,
+      "ecapa_to_gyu": 0.2732
+    },
+    {
+      "phrase": 12,
+      "language": "ja",
+      "wavlm_to_gyu": 0.78365,
+      "ecapa_to_gyu": 0.2817
+    },
+    {
+      "phrase": 13,
+      "language": "ja",
+      "wavlm_to_gyu": 0.66558,
+      "ecapa_to_gyu": 0.14831
+    },
+    {
+      "phrase": 14,
+      "language": "ja",
+      "wavlm_to_gyu": 0.78667,
+      "ecapa_to_gyu": 0.19069
+    },
+    {
+      "phrase": 15,
+      "language": "ja",
+      "wavlm_to_gyu": 0.9042,
+      "ecapa_to_gyu": 0.16073
+    },
+    {
+      "phrase": 16,
+      "language": "ja",
+      "wavlm_to_gyu": 0.69988,
+      "ecapa_to_gyu": 0.26421
+    },
+    {
+      "phrase": 17,
+      "language": "ja",
+      "wavlm_to_gyu": 0.872,
+      "ecapa_to_gyu": 0.16649
+    },
+    {
+      "phrase": 18,
+      "language": "ja",
+      "wavlm_to_gyu": 0.45716,
+      "ecapa_to_gyu": 0.08275
+    },
+    {
+      "phrase": 19,
+      "language": "ja",
+      "wavlm_to_gyu": 0.73398,
+      "ecapa_to_gyu": 0.07219
+    },
+    {
+      "phrase": 20,
+      "language": "ja",
+      "wavlm_to_gyu": 0.83973,
+      "ecapa_to_gyu": 0.07724
+    },
+    {
+      "phrase": 21,
+      "language": "ja",
+      "wavlm_to_gyu": 0.81985,
+      "ecapa_to_gyu": 0.17771
+    },
+    {
+      "phrase": 22,
+      "language": "ja",
+      "wavlm_to_gyu": 0.43031,
+      "ecapa_to_gyu": 0.00409
+    },
+    {
+      "phrase": 23,
+      "language": "ja",
+      "wavlm_to_gyu": 0.81328,
+      "ecapa_to_gyu": 0.11374
+    },
+    {
+      "phrase": 24,
+      "language": "ja",
+      "wavlm_to_gyu": 0.7619,
+      "ecapa_to_gyu": 0.23862
+    },
+    {
+      "phrase": 25,
+      "language": "ja",
+      "wavlm_to_gyu": 0.81813,
+      "ecapa_to_gyu": 0.23782
+    },
+    {
+      "phrase": 26,
+      "language": "ja",
+      "wavlm_to_gyu": 0.88908,
+      "ecapa_to_gyu": 0.31993
+    },
+    {
+      "phrase": 27,
+      "language": "ja",
+      "wavlm_to_gyu": 0.32332,
+      "ecapa_to_gyu": 0.01041
+    },
+    {
+      "phrase": 28,
+      "language": "ja",
+      "wavlm_to_gyu": 0.42268,
+      "ecapa_to_gyu": -0.05742
+    },
+    {
+      "phrase": 29,
+      "language": "ja",
+      "wavlm_to_gyu": 0.71117,
+      "ecapa_to_gyu": 0.08476
+    },
+    {
+      "phrase": 30,
+      "language": "ja",
+      "wavlm_to_gyu": 0.52556,
+      "ecapa_to_gyu": -0.02541
+    },
+    {
+      "phrase": 31,
+      "language": "ja",
+      "wavlm_to_gyu": 0.84167,
+      "ecapa_to_gyu": 0.08714
+    },
+    {
+      "phrase": 32,
+      "language": "ja",
+      "wavlm_to_gyu": 0.89602,
+      "ecapa_to_gyu": 0.35658
+    },
+    {
+      "phrase": 33,
+      "language": "ja",
+      "wavlm_to_gyu": 0.77882,
+      "ecapa_to_gyu": 0.1296
+    },
+    {
+      "phrase": 34,
+      "language": "ja",
+      "wavlm_to_gyu": 0.79529,
+      "ecapa_to_gyu": 0.02586
+    },
+    {
+      "phrase": 35,
+      "language": "ja",
+      "wavlm_to_gyu": 0.70566,
+      "ecapa_to_gyu": 0.11023
+    },
+    {
+      "phrase": 36,
+      "language": "ja",
+      "wavlm_to_gyu": 0.87282,
+      "ecapa_to_gyu": 0.23924
+    },
+    {
+      "phrase": 37,
+      "language": "ja",
+      "wavlm_to_gyu": 0.83154,
+      "ecapa_to_gyu": 0.23415
+    },
+    {
+      "phrase": 38,
+      "language": "ja",
+      "wavlm_to_gyu": 0.80801,
+      "ecapa_to_gyu": 0.13762
+    },
+    {
+      "phrase": 39,
+      "language": "ja",
+      "wavlm_to_gyu": 0.6202,
+      "ecapa_to_gyu": 0.04719
+    },
+    {
+      "phrase": 40,
+      "language": "ja",
+      "wavlm_to_gyu": 0.57173,
+      "ecapa_to_gyu": 0.03303
+    },
+    {
+      "phrase": 41,
+      "language": "ja",
+      "wavlm_to_gyu": 0.33209,
+      "ecapa_to_gyu": 0.01507
+    },
+    {
+      "phrase": 42,
+      "language": "ja",
+      "wavlm_to_gyu": 0.82168,
+      "ecapa_to_gyu": 0.10226
+    },
+    {
+      "phrase": 43,
+      "language": "ja",
+      "wavlm_to_gyu": 0.60386,
+      "ecapa_to_gyu": 0.07384
+    },
+    {
+      "phrase": 44,
+      "language": "ja",
+      "wavlm_to_gyu": 0.65927,
+      "ecapa_to_gyu": 0.09899
+    },
+    {
+      "phrase": 45,
+      "language": "ja",
+      "wavlm_to_gyu": 0.5426,
+      "ecapa_to_gyu": 0.03174
+    },
+    {
+      "phrase": 46,
+      "language": "ja",
+      "wavlm_to_gyu": 0.26332,
+      "ecapa_to_gyu": 0.10399
+    },
+    {
+      "phrase": 47,
+      "language": "ja",
+      "wavlm_to_gyu": 0.86669,
+      "ecapa_to_gyu": 0.29773
+    },
+    {
+      "phrase": 48,
+      "language": "ja",
+      "wavlm_to_gyu": 0.8998,
+      "ecapa_to_gyu": 0.2126
+    },
+    {
+      "phrase": 49,
+      "language": "ja",
+      "wavlm_to_gyu": 0.89217,
+      "ecapa_to_gyu": 0.18906
+    },
+    {
+      "phrase": 50,
+      "language": "ja",
+      "wavlm_to_gyu": 0.91706,
+      "ecapa_to_gyu": 0.41376
+    },
+    {
+      "phrase": 51,
+      "language": "ja",
+      "wavlm_to_gyu": 0.89648,
+      "ecapa_to_gyu": 0.54065
+    },
+    {
+      "phrase": 52,
+      "language": "ja",
+      "wavlm_to_gyu": 0.89612,
+      "ecapa_to_gyu": 0.29945
+    },
+    {
+      "phrase": 53,
+      "language": "ja",
+      "wavlm_to_gyu": 0.5526,
+      "ecapa_to_gyu": 0.11789
+    },
+    {
+      "phrase": 54,
+      "language": "ja",
+      "wavlm_to_gyu": 0.47582,
+      "ecapa_to_gyu": 0.00957
+    },
+    {
+      "phrase": 55,
+      "language": "ja",
+      "wavlm_to_gyu": 0.68463,
+      "ecapa_to_gyu": 0.01202
+    }
+  ],
+  "human_listening_required": true,
+  "copyright": "local song render excluded from Git and package; report contains metrics only"
+}

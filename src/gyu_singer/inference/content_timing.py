@@ -13,6 +13,10 @@ _KO_VOWEL = ["a", "ae", "ya", "yae", "eo", "e", "yeo", "ye", "o", "wa", "wae", "
 _KO_CODA = ["", "g", "kk", "gs", "n", "nj", "nh", "d", "l", "lg", "lm", "lb", "ls", "lt", "lp", "lh", "m", "b", "bs", "s", "ss", "ng", "j", "ch", "k", "t", "p", "h"]
 
 
+class CTCAlignmentUnavailable(RuntimeError):
+    """The generated phrase has too few CTC frames for the score phones."""
+
+
 def roman_phone(symbol: str) -> str:
     if symbol.startswith("ko_onset_"):
         return _KO_ONSET[int(symbol.rsplit("_", 1)[1])]
@@ -47,6 +51,13 @@ def ctc_phone_alignment(audio: torch.Tensor, sample_rate: int, score: dict, mode
     with torch.inference_mode():
         emission, _ = model(audio[None])
     token_ids = torch.tensor([[dictionary[char] for char in characters]], device=emission.device)
+    repeated = sum(before == after for before, after in zip(characters, characters[1:]))
+    required_frames = len(characters) + repeated
+    if required_frames > emission.shape[1]:
+        raise CTCAlignmentUnavailable(
+            f"MMS CTC needs at least {required_frames} frames for {len(characters)} targets, "
+            f"but generated content has {emission.shape[1]}"
+        )
     import torchaudio
     alignment, scores = torchaudio.functional.forced_align(emission.log_softmax(-1), token_ids)
     spans = torchaudio.functional.merge_tokens(alignment[0], scores[0])

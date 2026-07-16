@@ -1,0 +1,287 @@
+{
+  "status": "local_editable_project_built_openutau_validation_pending",
+  "project": "data/external/work/rc9_reference/nonbreath_oblige_gyu_rc9.ustx",
+  "project_sha256": "0ae28333753d197346e6945c3f88d8c58eed2745ced9321890ead131927f1de1",
+  "distribution": "local evaluation only; project and lyrics excluded from Git and package",
+  "score_labels": "inferred from two-of-three F0 consensus; not manual ground truth",
+  "tempo_bpm": 151.999081,
+  "parts": 55,
+  "notes": 566,
+  "lyrics_lines": 55,
+  "generated_phonemes": "OpenUtau ValidateFull pending",
+  "pitch_curve_points": 6200,
+  "vibrato_notes": 17,
+  "phrase_boundaries": [
+    {
+      "previous_part": 1,
+      "tick": 14057,
+      "gap_seconds": 0.0
+    },
+    {
+      "previous_part": 2,
+      "tick": 17681,
+      "gap_seconds": 0.0206
+    },
+    {
+      "previous_part": 3,
+      "tick": 20623,
+      "gap_seconds": 0.0
+    },
+    {
+      "previous_part": 4,
+      "tick": 25244,
+      "gap_seconds": 0.0403
+    },
+    {
+      "previous_part": 5,
+      "tick": 27554,
+      "gap_seconds": 0.0
+    },
+    {
+      "previous_part": 6,
+      "tick": 29208,
+      "gap_seconds": 0.0
+    },
+    {
+      "previous_part": 7,
+      "tick": 31519,
+      "gap_seconds": 0.0
+    },
+    {
+      "previous_part": 8,
+      "tick": 33124,
+      "gap_seconds": 0.0
+    },
+    {
+      "previous_part": 9,
+      "tick": 36164,
+      "gap_seconds": 0.0
+    },
+    {
+      "previous_part": 10,
+      "tick": 40128,
+      "gap_seconds": 0.0
+    },
+    {
+      "previous_part": 11,
+      "tick": 41563,
+      "gap_seconds": 0.0
+    },
+    {
+      "previous_part": 12,
+      "tick": 42973,
+      "gap_seconds": 0.0
+    },
+    {
+      "previous_part": 13,
+      "tick": 45186,
+      "gap_seconds": 0.0197
+    },
+    {
+      "previous_part": 14,
+      "tick": 47253,
+      "gap_seconds": 0.0197
+    },
+    {
+      "previous_part": 15,
+      "tick": 49491,
+      "gap_seconds": 0.06
+    },
+    {
+      "previous_part": 16,
+      "tick": 51947,
+      "gap_seconds": 0.0197
+    },
+    {
+      "previous_part": 17,
+      "tick": 55279,
+      "gap_seconds": 0.0
+    },
+    {
+      "previous_part": 18,
+      "tick": 61821,
+      "gap_seconds": 0.0403
+    },
+    {
+      "previous_part": 19,
+      "tick": 67512,
+      "gap_seconds": 0.0
+    },
+    {
+      "previous_part": 20,
+      "tick": 72789,
+      "gap_seconds": 0.1201
+    },
+    {
+      "previous_part": 21,
+      "tick": 75610,
+      "gap_seconds": 0.0
+    },
+    {
+      "previous_part": 22,
+      "tick": 78553,
+      "gap_seconds": 0.0
+    },
+    {
+      "previous_part": 23,
+      "tick": 82809,
+      "gap_seconds": 0.0403
+    },
+    {
+      "previous_part": 24,
+      "tick": 86676,
+      "gap_seconds": 0.0
+    },
+    {
+      "previous_part": 25,
+      "tick": 89667,
+      "gap_seconds": 0.0197
+    },
+    {
+      "previous_part": 26,
+      "tick": 97085,
+      "gap_seconds": 0.0
+    },
+    {
+      "previous_part": 27,
+      "tick": 98836,
+      "gap_seconds": 0.0
+    },
+    {
+      "previous_part": 28,
+      "tick": 103311,
+      "gap_seconds": 0.1406
+    },
+    {
+      "previous_part": 29,
+      "tick": 120237,
+      "gap_seconds": 0.94
+    },
+    {
+      "previous_part": 30,
+      "tick": 125296,
+      "gap_seconds": 0.5798
+    },
+    {
+      "previous_part": 31,
+      "tick": 131084,
+      "gap_seconds": 0.2599
+    },
+    {
+      "previous_part": 32,
+      "tick": 137067,
+      "gap_seconds": 0.0
+    },
+    {
+      "previous_part": 33,
+      "tick": 144411,
+      "gap_seconds": 0.0
+    },
+    {
+      "previous_part": 34,
+      "tick": 147111,
+      "gap_seconds": 0.1003
+    },
+    {
+      "previous_part": 35,
+      "tick": 150321,
+      "gap_seconds": 0.0197
+    },
+    {
+      "previous_part": 36,
+      "tick": 154334,
+      "gap_seconds": 0.0
+    },
+    {
+      "previous_part": 37,
+      "tick": 162019,
+      "gap_seconds": 0.1998
+    },
+    {
+      "previous_part": 38,
+      "tick": 166105,
+      "gap_seconds": 0.2607
+    },
+    {
+      "previous_part": 39,
+      "tick": 169266,
+      "gap_seconds": 0.0
+    },
+    {
+      "previous_part": 40,
+      "tick": 173644,
+      "gap_seconds": 0.5
+    },
+    {
+      "previous_part": 41,
+      "tick": 175857,
+      "gap_seconds": 0.0
+    },
+    {
+      "previous_part": 42,
+      "tick": 177389,
+      "gap_seconds": 0.1201
+    },
+    {
+      "previous_part": 43,
+      "tick": 181450,
+      "gap_seconds": 0.9794
+    },
+    {
+      "previous_part": 44,
+      "tick": 185025,
+      "gap_seconds": 0.0
+    },
+    {
+      "previous_part": 45,
+      "tick": 191640,
+      "gap_seconds": 2.1998
+    },
+    {
+      "previous_part": 46,
+      "tick": 193951,
+      "gap_seconds": 0.0798
+    },
+    {
+      "previous_part": 47,
+      "tick": 203411,
+      "gap_seconds": 0.0
+    },
+    {
+      "previous_part": 48,
+      "tick": 210440,
+      "gap_seconds": 0.8199
+    },
+    {
+      "previous_part": 49,
+      "tick": 221213,
+      "gap_seconds": 0.3199
+    },
+    {
+      "previous_part": 50,
+      "tick": 227926,
+      "gap_seconds": 0.1003
+    },
+    {
+      "previous_part": 51,
+      "tick": 234225,
+      "gap_seconds": 0.1003
+    },
+    {
+      "previous_part": 52,
+      "tick": 237800,
+      "gap_seconds": 0.0
+    },
+    {
+      "previous_part": 53,
+      "tick": 241472,
+      "gap_seconds": 0.0
+    },
+    {
+      "previous_part": 54,
+      "tick": 244706,
+      "gap_seconds": 0.0
+    }
+  ],
+  "duration_seconds": 203.72
+}

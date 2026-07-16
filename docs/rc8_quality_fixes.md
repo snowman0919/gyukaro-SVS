@@ -1,6 +1,6 @@
 # RC8 local quality candidate
 
-Status: objective non-regression passed; human listening pending. RC8 is not accepted and RC9 has not started.
+Status: objective non-regression and the final human listening gate passed. RC8 is accepted; RC9 has started.
 
 ## Scope and preserved baseline
 
@@ -26,9 +26,9 @@ The repository had no prior SR/MR definition for this gate. RC8 defines three ex
 - medium: FFT 1024, hop 256, 21.33 ms window for phoneme/formant behavior;
 - long: FFT 4096, hop 1024, 85.33 ms window for sustained harmonic stability.
 
-On six sustained cases, strength 0.5 to the stationary-gated equivalent of strength 1.0 changed HNR proxy 22.63 to 23.41 dB, short/medium/long instability 0.02046/0.01316/0.03392 to 0.01866/0.01183/0.03095, and sample jump 0.03030 to 0.02231. Pitch MAE stayed 7.93 cents; voicing changed 0.9733 to 0.9707. This small voicing decrease is why human listening remains mandatory.
+On six sustained cases, strength 0.5 to the stationary-gated equivalent of strength 1.0 changed HNR proxy 22.63 to 23.41 dB, short/medium/long instability 0.02046/0.01316/0.03392 to 0.01866/0.01183/0.03095, and sample jump 0.03030 to 0.02231. Pitch MAE stayed 7.93 cents; voicing changed 0.9733 to 0.9707. This small voicing decrease was included in the subsequent mandatory listening review.
 
-In the Large Interval failure region, RC7 to the selected 50-step candidate changed pitch MAE 15.42 to 11.41 cents, voiced accuracy 0.6625 to 0.6958, long-window instability 0.00856 to 0.00575, and long-window noise modulation 16.66 to 12.65 dB. The primary pYIN track changed from the erroneous 779 Hz trajectory to 387 Hz. A second estimator still disagrees by roughly an octave, so the mechanical defect cannot be declared fixed without listening.
+In the Large Interval failure region, RC7 to the selected 50-step candidate changed pitch MAE 15.42 to 11.41 cents, voiced accuracy 0.6625 to 0.6958, long-window instability 0.00856 to 0.00575, and long-window noise modulation 16.66 to 12.65 dB. The primary pYIN track changed from the erroneous 779 Hz trajectory to 387 Hz. A second estimator initially disagreed by roughly an octave, so the first candidate was rejected pending listening and a score-domain retest.
 
 ## Nine-file objective gate
 
@@ -48,6 +48,6 @@ RC7 and RC8 were evaluated against target F0 rebuilt with the current frontend.
 
 The candidate passes ASR, pitch, voicing, clipping, and identity non-regression. It does not achieve a global 5% HF-spike reduction; English and Japanese local fixes increase that aggregate. Therefore the report status is `objective_nonregression_human_pending`, not “materially improved.” The listening decision is authoritative for the remaining perceptual defects.
 
-Human review passed eight cases and rejected Large Interval. A follow-up score-domain sweep found an 80 ms large-jump onset transition that keeps exact ASR while changing the failure-region pYIN/YIN disagreement from about 1203 to 4 cents. Relative to the failed RC8 interval file, pitch MAE improves from 11.41 to 10.55 cents, voicing from 0.6958 to 0.7292, and HF spike p99/median from 92.55 to 50.71. This candidate remains listening-pending and is not yet part of the backend.
+Human review passed eight cases and rejected the first Large Interval candidate. A follow-up score-domain sweep found an 80 ms large-jump onset transition that keeps exact ASR while changing the failure-region pYIN/YIN disagreement from about 1203 to 4 cents. Relative to the failed RC8 interval file, pitch MAE improves from 11.41 to 10.55 cents, voicing from 0.6958 to 0.7292, and HF spike p99/median from 92.55 to 50.71. The actual-backend retest then passed listening and the bounded transition is integrated.
 
-Validation: 49 tests passed; dataset validation passed for 132 recordings (`106..237`, mono 48 kHz, corrupt 0). The nine-file actual-backend render is the RC8 runtime smoke. No RC8 package is created before human acceptance; clean package validation belongs to RC9.
+Validation: 49 tests passed; dataset validation passed for 132 recordings (`106..237`, mono 48 kHz, corrupt 0). The nine-file actual-backend render is the RC8 runtime smoke. Clean package validation belongs to RC9.

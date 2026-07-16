@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import unicodedata
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -101,14 +102,20 @@ def _english(text: str) -> list[tuple]:
 
 def _japanese(text: str) -> list[tuple]:
     units = []
+    text = unicodedata.normalize("NFKC", text)
     for source, reading in _JA_WORDS.items(): text = text.replace(source, reading)
+    text = "".join(chr(ord(char) - 0x60) if "ァ" <= char <= "ヶ" else char for char in text)
     index = 0
     while index < len(text):
         char = text[index]
-        if char.isspace() or char in "。、，,.!?！？":
+        if char.isspace() or char in "。、，,.!?！？・:：;；…":
             if units:
                 units[-1] = (*units[-1][:-2], True, units[-1][-1])
             index += 1; continue
+        if char.isascii() and char.isalpha():
+            end = index + 1
+            while end < len(text) and text[end].isascii() and text[end].isalpha(): end += 1
+            units.extend(_english(text[index:end])); index = end; continue
         if char == "ー":
             units.append(_unit("ja_long", "ja", (4, 5), True, False)); index += 1; continue
         if char == "っ":
@@ -117,7 +124,9 @@ def _japanese(text: str) -> list[tuple]:
             units.append(_unit("ja_n", "ja", (4, 7), True, False)); index += 1; continue
         mora = _JA_DIGRAPHS.get(text[index:index + 2]) or _JA_KANA.get(char)
         if not mora:
-            units.append(_unit(f"ja_unknown_{char}", "ja", 4, True, False, True)); index += 1; continue
+            # Unknown CJK readings stay explicitly inferred, but a whole note must
+            # not become unvoiced merely because no bundled kana reading exists.
+            units.append(_unit(f"ja_unknown_{char}", "ja", (1, 4), True, False, True)); index += 1; continue
         for phone_index, phone in enumerate(mora):
             units.append(_unit(f"ja_{phone}", "ja", 4 if phone_index == len(mora) - 1 else 0, phone_index == len(mora) - 1, False))
         index += 2 if text[index:index + 2] in _JA_DIGRAPHS else 1

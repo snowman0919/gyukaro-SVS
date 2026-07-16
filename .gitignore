@@ -7,6 +7,9 @@ data/pseudo_singing/
 data/cache/
 data/external/raw/
 data/external/work/
+/{original}*.mp3
+/{MR}*.mp3
+/lyrics.txt
 artifacts/reports/bigvgan_diagnostic/*.wav
 artifacts/reports/acoustic_refiner_pair_evaluation/audio/
 artifacts/reports/refiner_rc_candidate/listening/
@@ -57,6 +60,7 @@ artifacts/package/gyu-singer-v1-experimental/model/moss-audio-tokenizer-nano/
 artifacts/package/gyu-singer-v1-experimental/model/gyu_reference.m4a
 artifacts/package/*.zip
 artifacts/package/gyu-singer-v1.0/
+artifacts/package/gyu-singer-rc9/
 /artifacts/package/gyu-hybrid-singer-v0.2-experimental/
 /artifacts/package/gyu-hybrid-singer-v0.3-quality-runtime/
 artifacts/validation/hybrid_score_reconstructed/

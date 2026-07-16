@@ -10,7 +10,7 @@ import torch
 from scipy.signal import resample_poly
 
 from .soulx import _Worker
-from .content_timing import ctc_phone_alignment, latent_content_hold, latent_content_warp
+from .content_timing import CTCAlignmentUnavailable, ctc_phone_alignment, latent_content_hold, latent_content_warp
 from .v08 import GyuSingerV08Renderer
 
 
@@ -107,7 +107,10 @@ class GyuSingerV09Renderer(GyuSingerV08Renderer):
         audio, rate = sf.read(content, dtype="float32", always_2d=True)
         mono = audio.mean(1)
         aligned = resample_poly(mono, 16_000, rate).astype("float32") if rate != 16_000 else mono
-        alignment = ctc_phone_alignment(torch.from_numpy(aligned), 16_000, score, *self._ctc)
+        try:
+            alignment = ctc_phone_alignment(torch.from_numpy(aligned), 16_000, score, *self._ctc)
+        except CTCAlignmentUnavailable:
+            return {}
         duration = len(mono) / rate
         warp = latent_content_hold(alignment, duration, len(target_f0)) if self._rapid(score) else latent_content_warp(alignment, duration, len(target_f0) / 50, len(target_f0))
         path = temp / "content_warp.npy"; np.save(path, warp)

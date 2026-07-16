@@ -1,0 +1,48 @@
+{
+  "status": "objective_pass_human_listening_pending",
+  "backend": "gyu-singer-rc9",
+  "required_checks": [
+    "same melody and phrase timing",
+    "rapid sections usable",
+    "GYU identity retained",
+    "no severe metallic or sustained artifact"
+  ],
+  "files": [
+    {
+      "case": "full_song",
+      "local_audio": "data/external/work/rc9_reference/rc9_listening_gate/01_full_openutau_rc9.wav",
+      "sha256": "27f96314e76a499396b9496bfda3e568c0becf4703d31e64b1dde68768bf4f15"
+    },
+    {
+      "case": "dense_rapid_a",
+      "phrase": 12,
+      "local_audio": "data/external/work/rc9_reference/rc9_listening_gate/02_dense_rapid_a_phrase_12.wav",
+      "sha256": "7291d67631c7cd5fbdc1acb06aa6b37852db4afe61328185aa6f96f8b5fb94c7"
+    },
+    {
+      "case": "dense_rapid_b",
+      "phrase": 14,
+      "local_audio": "data/external/work/rc9_reference/rc9_listening_gate/03_dense_rapid_b_phrase_14.wav",
+      "sha256": "d88b1f9ec43210a007a6840afa7573e2ee3756019c6934bcde0e0d496b1903cd"
+    },
+    {
+      "case": "fixed_failure",
+      "phrase": 33,
+      "local_audio": "data/external/work/rc9_reference/rc9_listening_gate/04_fixed_failure_phrase_33.wav",
+      "sha256": "50e9b50f20e98af085cd33de20acc3f4ba0bdcb286081713dc7d15d6369c0b9a"
+    },
+    {
+      "case": "rapid_refrain",
+      "phrase": 40,
+      "local_audio": "data/external/work/rc9_reference/rc9_listening_gate/05_rapid_refrain_phrase_40.wav",
+      "sha256": "9709f10dd25e01516571965710dc2b91e3b69256e1b49cceb718a1a6145cfd3f"
+    },
+    {
+      "case": "ending_rapid",
+      "phrase": 53,
+      "local_audio": "data/external/work/rc9_reference/rc9_listening_gate/06_ending_rapid_phrase_53.wav",
+      "sha256": "309a0c5e2c4fd8e71b60f83df7461547bc87ddee5e9fbf5134dd173b84678b32"
+    }
+  ],
+  "copyright": "local evaluation derivatives; excluded from Git and package"
+}

@@ -1,0 +1,41 @@
+{
+  "status": "pass",
+  "openutau": {
+    "repository": "https://github.com/stakira/OpenUtau.git",
+    "commit": "27573ac5c888d927119d5f65a207312d79194b1f",
+    "path": "/tmp/OpenUtau-rc9-fresh"
+  },
+  "backend": "gyu-singer-rc9",
+  "wall_seconds_including_build": 715.451,
+  "resident_rss_before_render_mb": 1738.36,
+  "peak_resident_process_tree_rss_mb": 9201.14,
+  "peak_openutau_process_tree_rss_mb": 870.5,
+  "system_used_baseline_mb": 6752.86,
+  "peak_system_used_mb": 22659.46,
+  "gpu_used_baseline_mb": 93517.11,
+  "peak_gpu_used_mb": 109444.57,
+  "render_exit_code": 0,
+  "render_metrics": {
+    "tracks": 1,
+    "parts": 55,
+    "notes": 566,
+    "phonemes": 566,
+    "phrases": 55,
+    "phoneme_errors": 0,
+    "validate_only": false,
+    "first_render_seconds": 712.0333639,
+    "cached_render_seconds": 0.2583868,
+    "cache_misses": 55,
+    "cache_hits": 55,
+    "stale_cache_files_after_repeat": 0,
+    "failed_phrases": 0,
+    "retries": 0,
+    "sample_rate": 44100,
+    "channels": 2,
+    "duration_seconds": 203.7196825
+  },
+  "local_project": "data/external/work/rc9_reference/nonbreath_oblige_gyu_rc9.ustx",
+  "local_wav": "data/external/work/rc9_reference/openutau_render.wav",
+  "local_phrase_requests": "data/external/work/rc9_reference/openutau_phrase_requests.json",
+  "copyright": "project and rendered song remain local-only and are excluded from package"
+}

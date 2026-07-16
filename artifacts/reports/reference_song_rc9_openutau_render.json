@@ -1,0 +1,19 @@
+{
+  "tracks": 1,
+  "parts": 55,
+  "notes": 566,
+  "phonemes": 566,
+  "phrases": 55,
+  "phoneme_errors": 0,
+  "validate_only": false,
+  "first_render_seconds": 712.0333639,
+  "cached_render_seconds": 0.2583868,
+  "cache_misses": 55,
+  "cache_hits": 55,
+  "stale_cache_files_after_repeat": 0,
+  "failed_phrases": 0,
+  "retries": 0,
+  "sample_rate": 44100,
+  "channels": 2,
+  "duration_seconds": 203.7196825
+}

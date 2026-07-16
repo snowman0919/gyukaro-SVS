@@ -1,0 +1,85 @@
+{
+  "status": "local_reference_analyzed_score_review_pending",
+  "copyright": "user-provided evaluation material; source audio and derived stems excluded from Git and package",
+  "sources": {
+    "mix": {
+      "local_path": "{original}ピノキオピー - ノンブレス・オブリージュ feat. 初音ミク ⧸ Non-breath oblige.mp3",
+      "sha256": "0092128a4bf58b5e31a4152a49263b8e8b6feadf72d9595b840d98b3f47bb4af",
+      "duration": 208.469
+    },
+    "instrumental": {
+      "local_path": "{MR}ノンブレス・オブリージュ【off vocal】.mp3",
+      "sha256": "9d8e6149d91a8fc0f25062f3166389224511c5979d63abd57b6ad455ded96c88",
+      "duration": 208.596
+    },
+    "lyrics": {
+      "local_path": "lyrics.txt",
+      "sha256": "3e320d41e727cb98efe8cfeee8cc4eb23326815e3b3ba37a0033d849adcb6c54"
+    }
+  },
+  "audio": {
+    "sample_rate": 48000,
+    "aligned_duration": 208.469,
+    "instrumental_sample_lag": -4584,
+    "instrumental_offset_seconds": -0.0955
+  },
+  "separation": {
+    "method": "aligned provided-off-vocal complex STFT subtraction",
+    "n_fft": 4096,
+    "hop": 1024,
+    "frame_gain_median": 1.113535,
+    "frame_gain_p05_p95": [
+      0.7,
+      1.3
+    ],
+    "median_frequency_coherence": 0.086755,
+    "residual_to_mix_rms": 0.741575,
+    "local_vocal_estimate": "data/external/work/rc9_reference/vocal_estimate.wav",
+    "human_review": "pending"
+  },
+  "fft_definitions": {
+    "short": {
+      "n_fft": 512,
+      "hop": 128,
+      "window_ms": 10.667,
+      "spectral_flatness_mean": 0.0004214,
+      "spectral_instability_p95": 0.188735
+    },
+    "medium": {
+      "n_fft": 2048,
+      "hop": 512,
+      "window_ms": 42.667,
+      "spectral_flatness_mean": 0.0003603,
+      "spectral_instability_p95": 0.284725
+    },
+    "long": {
+      "n_fft": 8192,
+      "hop": 2048,
+      "window_ms": 170.667,
+      "spectral_flatness_mean": 0.0004093,
+      "spectral_instability_p95": 0.414432
+    }
+  },
+  "tempo": {
+    "bpm_estimate": 151.999081,
+    "median_beat_period_seconds": 0.394739,
+    "beat_count": 414
+  },
+  "pitch": {
+    "rmvpe_frames": 10424,
+    "rmvpe_voiced_ratio": 0.888047,
+    "pyin_frames": 10424,
+    "pyin_voiced_ratio": 0.540292,
+    "agreement_frames": 5149,
+    "agreement_median_cents": 59.103,
+    "agreement_p90_cents": 2785.606,
+    "two_of_three_consensus_frames": 6237,
+    "three_way_consensus_frames": 2381,
+    "consensus_voiced_ratio": 0.598331
+  },
+  "note_candidates": {
+    "count": 566,
+    "local_path": "data/external/work/rc9_reference/note_candidates.json",
+    "method": "50 Hz residual-RMVPE/original-mix-RMVPE/pYIN two-of-three <=100 cents, 180 ms median filter, piecewise semitone runs, >=60 ms"
+  }
+}

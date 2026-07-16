@@ -10,9 +10,11 @@ import torch
 from gyu_singer.alignment import build_phrase_frames
 from gyu_singer.frontend import FEATURE_SIZE, phonemize
 from gyu_singer.inference.soulx import SoulXPhraseRenderer, _Worker
+from gyu_singer.inference.content_timing import CTCAlignmentUnavailable
 from gyu_singer.inference.quality_controller import condition_batch
 from gyu_singer.inference.v08 import GyuSingerV08Renderer
 from gyu_singer.inference.v09 import GyuSingerV09Renderer, soften_large_jumps
+from gyu_singer.inference.rc9 import GyuSingerRC9Renderer
 from gyu_singer.losses import flow_matching_loss, log_pitch_loss, weighted_distillation_loss
 from gyu_singer.model import TriSingerModel, grad_norm
 from gyu_singer.renderer import build_server
@@ -30,6 +32,12 @@ def test_trilingual_frontend_structural_features():
     assert all(unknown.inferred) and unknown.symbols == ["en_th", "en_ih", "en_ng"]
     assert phonemize("ja", "光の向こうへ").symbols == ["ja_h", "ja_i", "ja_k", "ja_a", "ja_r", "ja_i", "ja_n", "ja_o", "ja_m", "ja_u", "ja_k", "ja_o", "ja_u", "ja_h", "ja_e"]
     assert not any("unknown" in symbol for text in ("空へ向かい", "歌おう", "小さな光を", "追う") for symbol in phonemize("ja", text).symbols)
+    katakana = phonemize("ja", "ノンブレス・オブリージュ")
+    assert not any("unknown" in symbol for symbol in katakana.symbols)
+    mixed = phonemize("ja", "I love you息")
+    assert any(symbol.startswith("en_") for symbol in mixed.symbols)
+    unknown = mixed.symbols.index("ja_unknown_息")
+    assert mixed.inferred[unknown] and mixed.features[unknown][1] == 1
     assert any(row[6] for row in ja.features) and any(row[7] for row in ja.features)
     assert all(ko.word_boundaries[-1:]) and all(en.word_boundaries[-1:])
 
@@ -112,6 +120,33 @@ def test_rc5_decode_policy_matches_human_reviewed_stress_set():
     assert renderer._content_warp_strength(base | {"notes": [{"pitch": 60, "start": 0, "duration": 1}, {"pitch": 72, "start": 1, "duration": 1}]}) == 0
     assert renderer._content_warp_strength(base | {"style": {"preset": "breathy"}}) == 0
     assert renderer._content_warp_strength(base | {"notes": [{"pitch": 60, "start": 0, "duration": 1}, {"pitch": 62, "start": 2, "duration": 1}]}) == 0
+
+
+def test_rc9_personalized_pitch_residual_is_korean_only():
+    renderer = GyuSingerRC9Renderer.__new__(GyuSingerRC9Renderer)
+    renderer.pitch_controller = type("Controller", (), {"predict": lambda self, score, canonical_timing: (torch.ones(4),)})()
+    assert torch.equal(renderer._predict_pitch({"language": "ko"}), torch.ones(4))
+    assert torch.equal(renderer._predict_pitch({"language": "ja"}), torch.zeros(4))
+    assert torch.equal(renderer._predict_pitch({"language": "en"}), torch.zeros(4))
+    rapid_ja = {"language": "ja", "notes": [{"pitch": 60, "start": 0, "duration": .25}]}
+    assert renderer._content_warp_strength(rapid_ja) == 0
+
+
+def test_rc5_skips_only_infeasible_optional_ctc_warp(monkeypatch, tmp_path):
+    renderer = GyuSingerV09Renderer.__new__(GyuSingerV09Renderer)
+    renderer._ctc = (object(), ("-",))
+    content = tmp_path / "content.wav"
+    import soundfile as sf
+    sf.write(content, np.zeros(1600, np.float32), 16_000)
+    monkeypatch.setattr(
+        "gyu_singer.inference.v09.ctc_phone_alignment",
+        lambda *args: (_ for _ in ()).throw(CTCAlignmentUnavailable("too dense")),
+    )
+    score = {
+        "language": "ja", "style": {"preset": "neutral"},
+        "notes": [{"pitch": 60, "start": 0, "duration": .2, "lyric": "あ"}],
+    }
+    assert renderer._content_options(score, content, np.ones(10), tmp_path) == {}
 
 
 def test_large_jump_transition_is_local():
