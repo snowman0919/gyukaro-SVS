@@ -1,6 +1,6 @@
 Overall status: previous RC9 candidate HUMAN FAIL; replacement objective PASS; human listening pending
 Highest achieved candidate: RC8 accepted; replacement RC9 remains a listening candidate
-Source commit: pending candidate commit
+Source commit: bc93ff1624c1d7b2fb33545ecf1c4283dc093f91
 RC7 baseline preserved: yes
 RC8 quality gate: PASS and callable unchanged
 Previous human listening: FAIL on repeated words, alignment, rapid/high phrases
