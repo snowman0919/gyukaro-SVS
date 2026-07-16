@@ -12,6 +12,10 @@ from prepare_diffsinger_common_voice_ja import (  # noqa: E402
     resize_speaker_embedding,
 )
 from build_diffsinger_rapid_chunks import split_row  # noqa: E402
+from build_diffsinger_independent_rapid import build_ds_row, parse_ust, select_phrase  # noqa: E402
+from audit_diffsinger_reference_pitch import analyze as audit_reference_pitch  # noqa: E402
+from analyze_diffsinger_rapid_coverage import analyze as analyze_rapid_coverage  # noqa: E402
+from prepare_diffsinger_gtsinger_rapid_curriculum import curriculum  # noqa: E402
 from diffsinger_neutral_augmentation_binarizer import (  # noqa: E402
     apply_phoneme_voicing,
     neutralize_controls,
@@ -76,6 +80,123 @@ def test_rapid_lyric_gate_accepts_kanji_or_katakana_alias():
     expected = ["息が詰まる" * 4, "イキガツマル" * 4]
 
     assert lyric_similarity(expected, "イキガツマル" * 4) == 1
+
+
+def test_independent_ust_preserves_source_pitch_without_audited_shift(tmp_path):
+    ust = tmp_path / "score.ust"
+    blocks = [
+        "[#SETTING]\nTempo=148.00\n",
+        *[
+            f"[#{index:04d}]\nLength={180 if lyric == 'ま' else 60 if lyric == 'る' else 120}\n"
+            f"Lyric={lyric}\nNoteNum=72\n"
+            for index, lyric in enumerate(("い", "き", "が", "つ", "ま", "る") * 4)
+        ],
+        "[#TRACKEND]\n",
+    ]
+    ust.write_text("".join(blocks), encoding="cp932")
+
+    settings, notes = parse_ust(ust)
+    row, metadata = build_ds_row(select_phrase(notes), float(settings["Tempo"]))
+
+    voiced = [float(value) for value in row["f0_seq"].split() if float(value) > 1]
+    assert metadata["duration_seconds"] == 2.4324
+    assert metadata["source_ust_midi_min"] == metadata["source_ust_midi_max"] == 72
+    assert metadata["render_midi_min"] == metadata["render_midi_max"] == 72
+    assert "ts_ja ɨ_ja" in row["ph_seq"]
+    assert max(abs(value - 523.251) for value in voiced) < 0.001
+
+
+def test_independent_ust_applies_audited_octave_correction():
+    notes = [
+        {"position": index * 120, "length": 120, "lyric": lyric, "tone": 72}
+        for index, lyric in enumerate(("い", "き", "が", "つ", "ま", "る") * 4)
+    ]
+
+    row, metadata = build_ds_row(notes, 148, phone_scheme="pjs", semitone_shift=-12)
+
+    voiced = [float(value) for value in row["f0_seq"].split() if float(value) > 1]
+    assert metadata["source_ust_midi_min"] == 72
+    assert metadata["render_midi_min"] == metadata["render_midi_max"] == 60
+    assert metadata["semitone_shift"] == -12
+    assert max(abs(value - 261.626) for value in voiced) < 0.001
+
+
+def test_reference_pitch_audit_distinguishes_fundamental_from_strong_second_harmonic(tmp_path):
+    import numpy as np
+    import soundfile as sf
+
+    rate = 44_100
+    time = np.arange(rate * 2) / rate
+    audio = (
+        .15 * np.sin(2 * np.pi * 261.625565 * time)
+        + .5 * np.sin(2 * np.pi * 523.251131 * time)
+        + .2 * np.sin(2 * np.pi * 784.876696 * time)
+    ).astype("float32")
+    path = tmp_path / "strong_second_harmonic.wav"
+    sf.write(path, audio, rate)
+
+    report = audit_reference_pitch(path, 261.625565, 523.251131)
+
+    assert report["status"] == "lower_octave_supported"
+    assert report["yin"]["lower_candidate_error_cents"] < 100
+
+
+def test_rapid_coverage_counts_only_uninterrupted_six_mora_windows():
+    row = {
+        "language": "Japanese", "singer": "JA-Soprano-1", "pace": "fast",
+        "item_name": "Japanese#JA-Soprano-1#x#song#Control_Group#0000",
+        "txt": ["い", "き", "が", "つ", "ま", "る", "<AP>", "い"],
+        "word_durs": [.1, .1, .1, .1, .1, .1, .05, .1],
+        "ph": ["i_ja", "k_ja", "i_ja", "ɡ_ja", "a_ja", "ts_ja", "ɨ_ja",
+               "m_ja", "a_ja", "ɾ_ja", "ɯ_ja", "<AP>", "i_ja"],
+        "ph_durs": [.1] * 11 + [.05, .1],
+    }
+    report = analyze_rapid_coverage([row])
+    assert report["windows_at_least_as_fast_as_target"] == 1
+    assert report["rows_with_target_speed_windows"] == 1
+    assert report["exact_target_phone_sequence_occurrences"] == 1
+
+
+def test_independent_rapid_onset_scale_preserves_score_duration_and_pitch(tmp_path):
+    notes = [
+        {"position": index * 120, "length": 120, "lyric": lyric, "tone": 72}
+        for index, lyric in enumerate(("い", "き", "が", "つ", "ま", "る") * 4)
+    ]
+    base, base_meta = build_ds_row(notes, 148, onset_scale=1)
+    short, short_meta = build_ds_row(notes, 148, onset_scale=.5)
+
+    assert abs(sum(map(float, base["ph_dur"].split()))
+               - sum(map(float, short["ph_dur"].split()))) < 1e-6
+    assert {float(value) for value in short["f0_seq"].split()} <= {0.0, 523.251}
+    assert base_meta["duration_seconds"] == short_meta["duration_seconds"]
+
+
+def test_independent_rapid_supports_native_pjs_phone_scheme():
+    notes = [
+        {"position": index * 120, "length": 120, "lyric": lyric, "tone": 72}
+        for index, lyric in enumerate(("い", "き", "が", "つ", "ま", "る") * 4)
+    ]
+    row, metadata = build_ds_row(notes, 148, phone_scheme="pjs")
+
+    assert "ja_i ja_k ja_i ja_g ja_a ja_ts ja_u ja_m ja_a ja_r ja_u" in row["ph_seq"]
+    assert metadata["phone_scheme"] == "pjs"
+
+
+def test_rapid_curriculum_separates_fast_validation_from_training():
+    rows = []
+    for index in range(120):
+        duration = .5 if index < 4 else .7 + index / 100
+        rows.append({
+            "txt": list("あいうえおか"), "word_durs": [duration / 6] * 6,
+            "ph": ["a_ja"], "ph_durs": [duration],
+        })
+    groups = curriculum(rows)
+    training = {value[1] for key in ("exact", "near", "anchors") for value in groups[key]}
+    validation = {value[1] for value in groups["validation"]}
+
+    assert len(groups["exact"]) == 4
+    assert len(groups["validation"]) == 8
+    assert training.isdisjoint(validation)
 
 
 def test_f0_summary_excludes_unvoiced_frames():

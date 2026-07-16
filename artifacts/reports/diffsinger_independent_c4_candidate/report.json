@@ -1,0 +1,47 @@
+{
+  "status": "objective_gate_pass_human_listening_pending",
+  "supersedes": [
+    "data/external/work/gtsinger/diffusion_sweep/step2000_d040_s20.wav",
+    "data/external/work/gtsinger/diffusion_sweep/step2000_d060_s50.wav"
+  ],
+  "superseded_reason": "The old probes used an octave-high 666/523 Hz score and failed free Whisper transcription.",
+  "candidate": "artifacts/reports/diffsinger_independent_c4_candidate/listening/rapid_ja_c4_source15000.wav",
+  "audio_sha256": "29140f875093f412245c9a4141c3af7067de8457d96255c08d90feee2d57aa35",
+  "sample_rate": 44100,
+  "channels": 1,
+  "duration_seconds": 2.438095,
+  "score": {
+    "source_ust_midi": 72,
+    "audited_render_midi": 60,
+    "semitone_correction": -12,
+    "target_f0_hz": 261.63,
+    "evidence": "User listening plus original-clip RMVPE/YIN and a 261/523/786/1045 Hz harmonic series identify 523 Hz as the second harmonic."
+  },
+  "free_whisper": {
+    "model": "whisper-large-v3-turbo",
+    "language": "ja",
+    "prompt_or_teacher_forcing_used": false,
+    "transcript": "息が詰まる 息が詰まる 息が詰まる 息が詰まる",
+    "normalized_lyric_similarity": 1.0
+  },
+  "waveform": {
+    "observed_f0_median_hz": 261.31,
+    "observed_f0_median_midi": 59.98,
+    "pitch_p90_abs_cents": 35.83,
+    "observed_voiced_ratio": 0.8934,
+    "peak": 0.404428,
+    "rms": 0.086933,
+    "clip_fraction": 0.0,
+    "hf_energy_ratio_mean": 0.031842,
+    "hf_energy_ratio_p95": 0.180911,
+    "spectral_flatness_mean": 0.006028,
+    "spectral_flux_p95": 0.325166,
+    "sample_jump_p999": 0.055864
+  },
+  "visuals": {
+    "waveform": "artifacts/reports/diffsinger_independent_c4_candidate/waveform.png",
+    "spectrogram": "artifacts/reports/diffsinger_independent_c4_candidate/spectrogram.png"
+  },
+  "release_allowed": false,
+  "next_gate": "Human listening must confirm intelligibility and naturalness before this source model can replace a production path."
+}

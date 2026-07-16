@@ -1,0 +1,94 @@
+base_config:
+- configs/acoustic.yaml
+dictionaries:
+  gyu: /home/kotori9/code/gyukaro/data/external/work/diffsinger_score_native/dictionary-gtsinger-ja.txt
+datasets:
+- raw_data_dir: /home/kotori9/code/gyukaro/data/external/work/diffsinger_score_native/raw/gtsinger_ja_rapid_curriculum
+  speaker: gts_ja_soprano
+  spk_id: 0
+  language: gyu
+  test_prefixes:
+  - validation_gtsja0340_00
+  - validation_gtsja0144_00
+  - validation_gtsja0323_00
+  - validation_gtsja0131_00
+  - validation_gtsja0337_00
+  - validation_gtsja0358_00
+  - validation_gtsja0543_00
+  - validation_gtsja0474_00
+binary_data_dir: /home/kotori9/code/gyukaro/data/external/work/diffsinger_score_native/binary_gtsinger_ja_rapid_curriculum
+use_spk_id: true
+num_spk: 1
+use_lang_id: false
+num_lang: 1
+pe: rmvpe
+pe_ckpt: /home/kotori9/code/gyukaro/data/cache/diffsinger-assets/rmvpe/model.pt
+hnsep: world
+use_energy_embed: false
+use_breathiness_embed: false
+use_voicing_embed: false
+use_tension_embed: false
+vocoder: NsfHifiGAN
+vocoder_ckpt: /home/kotori9/code/gyukaro/data/external/work/diffsinger_score_native/vocoder_exported/model.ckpt
+binarization_args:
+  num_workers: 4
+  shuffle: true
+finetune_enabled: true
+finetune_ckpt_path: /home/kotori9/code/gyukaro/data/cache/diffsinger/checkpoints/gtsinger_ja_source/model_ckpt_steps_15000.ckpt
+finetune_ignored_params: []
+finetune_strict_shapes: true
+freezing_enabled: true
+frozen_params:
+- model.diffusion
+max_updates: 1200
+val_check_interval: 200
+num_valid_plots: 0
+val_with_vocoder: false
+max_batch_frames: 16000
+max_batch_size: 6
+num_ckpt_keep: 6
+optimizer_args:
+  lr: 2.0e-05
+hidden_size: 256
+num_heads: 4
+enc_layers: 6
+backbone_args:
+  num_channels: 512
+  num_layers: 6
+  kernel_size: 15
+  dropout_rate: 0.0
+  use_conditioner_cache: true
+  glu_type: atanglu
+shallow_diffusion_args:
+  train_aux_decoder: true
+  train_diffusion: false
+  aux_decoder_arch: convnext
+  aux_decoder_grad: 0.1
+  aux_decoder_args:
+    num_channels: 384
+    num_layers: 6
+    kernel_size: 7
+    dropout_rate: 0.1
+lambda_aux_mel_loss: 1.0
+binarizer_cls: diffsinger_neutral_augmentation_binarizer.NeutralAugmentationBinarizer
+use_key_shift_embed: true
+use_speed_embed: true
+augmentation_args:
+  random_pitch_shifting:
+    enabled: true
+    range:
+    - -2.0
+    - 5.0
+    scale: 0.5
+  fixed_pitch_shifting:
+    enabled: false
+    targets:
+    - -5.0
+    - 5.0
+    scale: 0.5
+  random_time_stretching:
+    enabled: false
+    range:
+    - 0.95
+    - 1.05
+    scale: 1.0

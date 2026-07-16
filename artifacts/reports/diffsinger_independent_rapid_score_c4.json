@@ -1,0 +1,32 @@
+{
+  "status": "independent_score_ready_audio_alignment_pending",
+  "source": {
+    "kind": "third_party_ust_local_evaluation_only",
+    "sha256": "7a339c5adb28c0bdd8afbdc8be04d313d1d3299d0d5a966d7f6d6621db4f52cf",
+    "public_page": "https://bowlroll.net/file/255852",
+    "redistribution": "prohibited_by_source_readme"
+  },
+  "score_independent_from_target_f0": true,
+  "score_method": "independent community transcription",
+  "phoneme_timing": "inferred onset split within UST note timing",
+  "tempo_bpm": 148.0,
+  "output": "data/external/work/pjs/independent_rapid_c4.ds",
+  "metadata": {
+    "start_tick": 103200,
+    "start_seconds": 87.1622,
+    "duration_seconds": 2.4324,
+    "notes": 24,
+    "phonemes": 44,
+    "frames": 122,
+    "source_ust_midi_min": 72,
+    "source_ust_midi_max": 72,
+    "render_midi_min": 60,
+    "render_midi_max": 60,
+    "semitone_shift": -12,
+    "nominal_f0_hz": 261.63,
+    "voiced_ratio": 0.8689,
+    "onset_scale": 1.0,
+    "phone_scheme": "pjs"
+  },
+  "release_allowed": false
+}

@@ -1,0 +1,24 @@
+{
+  "status": "rapid_curriculum_ready_for_binarization",
+  "source": "GTSinger Japanese soprano manual phoneme alignments (CC BY-NC-SA 4.0)",
+  "target_phrase_audio_used_for_training": false,
+  "unique_exact_speed_rows": 4,
+  "unique_near_speed_rows": 40,
+  "unique_anchor_rows": 64,
+  "unique_validation_rows": 8,
+  "training_entries_after_explicit_oversampling": 176,
+  "validation_entries": 8,
+  "oversampling": {
+    "exact_speed": 8,
+    "near_speed": 2,
+    "anchors": 1
+  },
+  "foundation_checkpoint": "data/cache/diffsinger/checkpoints/gtsinger_ja_source/model_ckpt_steps_15000.ckpt",
+  "trainable_path": "phoneme/F0 encoder and auxiliary acoustic decoder",
+  "frozen_path": "diffusion decoder",
+  "learning_rate": 2e-05,
+  "max_updates": 1200,
+  "config": "configs/diffsinger_gtsinger_ja_rapid_curriculum.yaml",
+  "decision_rule": "waveform, free Japanese Whisper, pitch and human listening gate",
+  "release_allowed": false
+}

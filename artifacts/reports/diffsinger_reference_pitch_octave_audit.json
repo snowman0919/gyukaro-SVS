@@ -1,0 +1,48 @@
+{
+  "status": "lower_octave_supported",
+  "audio": {
+    "path": "data/external/work/rc9_verified_score/reference_clips/demucs_vocal_87_162.wav",
+    "sha256": "a979abfcfcf8700741961e8c1ddf7e947dec2c9257113b748c9571b279fc86a8",
+    "sample_rate": 44100,
+    "channels": 1,
+    "duration_seconds": 2.432404,
+    "local_evaluation_only": true
+  },
+  "yin": {
+    "p05_hz": 130.16,
+    "median_hz": 259.54,
+    "p95_hz": 521.63,
+    "lower_candidate_error_cents": 13.84,
+    "upper_candidate_error_cents": 1213.84
+  },
+  "candidates": {
+    "lower": {
+      "hz": 261.625565,
+      "normalized_harmonics_1_to_8": [
+        0.3281,
+        1.0,
+        0.2373,
+        0.5666,
+        0.2293,
+        0.6255,
+        0.0612,
+        0.1821
+      ]
+    },
+    "upper": {
+      "hz": 523.251131,
+      "normalized_harmonics_1_to_8": [
+        1.0,
+        0.5666,
+        0.6255,
+        0.1821,
+        0.1615,
+        0.2568,
+        0.1598,
+        0.1431
+      ]
+    },
+    "lower_odd_harmonic_support": 0.8559
+  },
+  "interpretation": "YIN supports the lower candidate and energy at its odd harmonics shows that the upper spectral peak is a second harmonic, not the fundamental."
+}

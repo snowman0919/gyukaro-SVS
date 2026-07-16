@@ -1,0 +1,122 @@
+{
+  "status": "coverage_measured",
+  "corpus": {
+    "rows": 563,
+    "fast_rows": 307,
+    "manual_phoneme_alignment": true
+  },
+  "independent_target": {
+    "moras_per_repeat": 6,
+    "repeat_seconds": 0.6081,
+    "moras_per_second": 9.867,
+    "phone_sequence": [
+      "i_ja",
+      "k_ja",
+      "i_ja",
+      "ɡ_ja",
+      "a_ja",
+      "ts_ja",
+      "ɨ_ja",
+      "m_ja",
+      "a_ja",
+      "ɾ_ja",
+      "ɯ_ja"
+    ]
+  },
+  "six_mora_window_duration_seconds": {
+    "count": 2040,
+    "p05": 1.5119,
+    "median": 2.621,
+    "p95": 4.391
+  },
+  "windows_at_least_as_fast_as_target": 16,
+  "rows_with_target_speed_windows": 4,
+  "target_speed_examples": [
+    {
+      "item_name": "Japanese#JA-Soprano-1#Glissando#时雨#Control_Group#0004",
+      "windows": 1
+    },
+    {
+      "item_name": "Japanese#JA-Soprano-1#Pharyngeal#silly#Control_Group#0006",
+      "windows": 2
+    },
+    {
+      "item_name": "Japanese#JA-Soprano-1#Pharyngeal#この夜を止めてよ#Control_Group#0002",
+      "windows": 1
+    },
+    {
+      "item_name": "Japanese#JA-Soprano-1#Pharyngeal#祈りのメロディ#Control_Group#0006",
+      "windows": 12
+    }
+  ],
+  "exact_target_phone_sequence_occurrences": 0,
+  "target_bigram_occurrences": {
+    "i_ja k_ja": 156,
+    "k_ja i_ja": 14,
+    "i_ja ɡ_ja": 56,
+    "ɡ_ja a_ja": 173,
+    "a_ja ts_ja": 18,
+    "ts_ja ɨ_ja": 83,
+    "ɨ_ja m_ja": 26,
+    "m_ja a_ja": 174,
+    "a_ja ɾ_ja": 289,
+    "ɾ_ja ɯ_ja": 322
+  },
+  "target_phone_duration_seconds": {
+    "a_ja": {
+      "count": 3248,
+      "p05": 0.03,
+      "median": 0.241,
+      "p95": 0.8973
+    },
+    "i_ja": {
+      "count": 2425,
+      "p05": 0.03,
+      "median": 0.24,
+      "p95": 0.8
+    },
+    "k_ja": {
+      "count": 1216,
+      "p05": 0.03,
+      "median": 0.08,
+      "p95": 0.2422
+    },
+    "m_ja": {
+      "count": 633,
+      "p05": 0.03,
+      "median": 0.08,
+      "p95": 0.4
+    },
+    "ts_ja": {
+      "count": 180,
+      "p05": 0.03,
+      "median": 0.12,
+      "p95": 0.19
+    },
+    "ɡ_ja": {
+      "count": 259,
+      "p05": 0.03,
+      "median": 0.09,
+      "p95": 0.5432
+    },
+    "ɨ_ja": {
+      "count": 315,
+      "p05": 0.03,
+      "median": 0.16,
+      "p95": 0.523
+    },
+    "ɯ_ja": {
+      "count": 1105,
+      "p05": 0.03,
+      "median": 0.2,
+      "p95": 0.8694
+    },
+    "ɾ_ja": {
+      "count": 890,
+      "p05": 0.03,
+      "median": 0.05,
+      "p95": 0.1965
+    }
+  },
+  "interpretation": "Some timing coverage exists; inspect exact phone-transition coverage before training."
+}
