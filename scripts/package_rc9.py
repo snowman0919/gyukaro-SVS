@@ -22,6 +22,21 @@ REPORTS = [
 ]
 
 
+def audited_audio_evidence(evaluation: dict) -> bool:
+    required = {
+        "free_stt_present_for_every_phrase", "free_stt_mean_at_least_0_75",
+        "free_stt_p10_at_least_0_50", "waveform_has_no_clipping",
+        "waveform_peak_below_0_99",
+    }
+    gates = evaluation.get("gates", {})
+    return (
+        all(gates.get(name) is True for name in required)
+        and bool(evaluation.get("waveform_analysis"))
+        and bool(evaluation.get("phrases"))
+        and all("free_asr_transcript_sha256" in row for row in evaluation["phrases"])
+    )
+
+
 def main() -> None:
     package_dir = Path("artifacts/package")
     root = package_dir / NAME
@@ -33,6 +48,8 @@ def main() -> None:
     identity = json.loads(Path("artifacts/reports/reference_song_rc9_identity.json").read_text())
     if evaluation["status"] != "objective_pass_human_listening_pending" or identity["status"] != "identity_nonregression_pass_human_pending":
         raise RuntimeError("RC9 objective song or identity gate has not passed")
+    if not audited_audio_evidence(evaluation):
+        raise RuntimeError("RC9 requires per-phrase free STT and waveform audit evidence")
     if "Overall status: RC9 achieved" not in Path("docs/final_rc9_report.md").read_text():
         raise RuntimeError("human listening acceptance is not recorded in docs/final_rc9_report.md")
 

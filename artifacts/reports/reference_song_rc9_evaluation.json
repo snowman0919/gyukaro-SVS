@@ -1,5 +1,5 @@
 {
-  "status": "objective_pass_human_listening_pending",
+  "status": "objective_fail",
   "alignment": "fixed OpenUtau absolute phrase positions at 50 Hz; no per-phrase time stretching and no optimized lag; timing/voicing use the OpenUtau score while reference-pitch metrics use two-of-three estimator consensus",
   "overall": {
     "reference_pitch": {
@@ -23,7 +23,9 @@
     "score_voicing_accuracy": 0.9031,
     "score_voiced_iou": 0.8918,
     "phrase_onset_abs_error_median_ms": 40.0,
-    "phrase_onset_abs_error_p90_ms": 200.0
+    "phrase_onset_abs_error_p90_ms": 200.0,
+    "free_asr_similarity_mean": 0.6093,
+    "free_asr_similarity_p10": 0.3333
   },
   "gates": {
     "reference_f0_correlation_at_least_0_80": true,
@@ -32,7 +34,12 @@
     "reference_gross_600_below_5_percent": true,
     "score_pitch_p90_below_150_cents": true,
     "score_voiced_iou_at_least_0_75": true,
-    "phrase_onset_median_below_60_ms": true
+    "phrase_onset_median_below_60_ms": true,
+    "free_stt_present_for_every_phrase": true,
+    "free_stt_mean_at_least_0_75": false,
+    "free_stt_p10_at_least_0_50": false,
+    "waveform_has_no_clipping": true,
+    "waveform_peak_below_0_99": true
   },
   "phrases": [
     {
@@ -59,7 +66,16 @@
         "gross_error_over_600_cents": 0.0263,
         "reference_voiced_recall": 0.9344,
         "rendered_voiced_precision": 0.9293
-      }
+      },
+      "expected_lyric_characters": 72,
+      "free_asr_similarity": 0.6406,
+      "waveform": {
+        "peak": 0.486206,
+        "rms": 0.063208,
+        "clip_fraction": 0.0
+      },
+      "free_asr_transcript_sha256": "51c1daac46cef8298030a285e8838f29f1e81f387587b1ebb2a2826dffaf41a0",
+      "free_asr_transcript_characters": 56
     },
     {
       "phrase": 2,
@@ -85,7 +101,16 @@
         "gross_error_over_600_cents": 0.0211,
         "reference_voiced_recall": 0.8875,
         "rendered_voiced_precision": 0.9161
-      }
+      },
+      "expected_lyric_characters": 29,
+      "free_asr_similarity": 0.4151,
+      "waveform": {
+        "peak": 0.26121,
+        "rms": 0.03816,
+        "clip_fraction": 0.0
+      },
+      "free_asr_transcript_sha256": "a663ab438ffd2194e83993856f574851a009bd826d4646c3875ede6387bfcff4",
+      "free_asr_transcript_characters": 24
     },
     {
       "phrase": 3,
@@ -111,7 +136,16 @@
         "gross_error_over_600_cents": 0.0128,
         "reference_voiced_recall": 0.9726,
         "rendered_voiced_precision": 0.956
-      }
+      },
+      "expected_lyric_characters": 98,
+      "free_asr_similarity": 0.4868,
+      "waveform": {
+        "peak": 0.525684,
+        "rms": 0.070068,
+        "clip_fraction": 0.0
+      },
+      "free_asr_transcript_sha256": "3ac28aa3e690ff5f1b01d2d0047385c17a3c198fb1ae8bd8a84b48881ab7da0b",
+      "free_asr_transcript_characters": 54
     },
     {
       "phrase": 4,
@@ -137,7 +171,16 @@
         "gross_error_over_600_cents": 0.0408,
         "reference_voiced_recall": 0.8929,
         "rendered_voiced_precision": 0.9085
-      }
+      },
+      "expected_lyric_characters": 128,
+      "free_asr_similarity": 0.6146,
+      "waveform": {
+        "peak": 0.449469,
+        "rms": 0.050962,
+        "clip_fraction": 0.0
+      },
+      "free_asr_transcript_sha256": "3c1f855ab86a6363341c8b224908ad153c6de210d52c3c090921e54ae32ed730",
+      "free_asr_transcript_characters": 77
     },
     {
       "phrase": 5,
@@ -163,7 +206,16 @@
         "gross_error_over_600_cents": 0.0179,
         "reference_voiced_recall": 0.9372,
         "rendered_voiced_precision": 0.9803
-      }
+      },
+      "expected_lyric_characters": 73,
+      "free_asr_similarity": 0.2615,
+      "waveform": {
+        "peak": 0.469558,
+        "rms": 0.067656,
+        "clip_fraction": 0.0
+      },
+      "free_asr_transcript_sha256": "e257b634ed1471799f83662e1a5381e49651327de96c9edea91511b2c0256e50",
+      "free_asr_transcript_characters": 57
     },
     {
       "phrase": 6,
@@ -189,7 +241,16 @@
         "gross_error_over_600_cents": 0.0641,
         "reference_voiced_recall": 0.8254,
         "rendered_voiced_precision": 0.9231
-      }
+      },
+      "expected_lyric_characters": 25,
+      "free_asr_similarity": 0.9388,
+      "waveform": {
+        "peak": 0.498134,
+        "rms": 0.054521,
+        "clip_fraction": 0.0
+      },
+      "free_asr_transcript_sha256": "24b2bf7f4d87a7565c38401f996635b32f8e8146884096ac353fb8eca1be1e7c",
+      "free_asr_transcript_characters": 24
     },
     {
       "phrase": 7,
@@ -215,7 +276,16 @@
         "gross_error_over_600_cents": 0.0,
         "reference_voiced_recall": 0.9898,
         "rendered_voiced_precision": 0.9701
-      }
+      },
+      "expected_lyric_characters": 13,
+      "free_asr_similarity": 0.5926,
+      "waveform": {
+        "peak": 0.3604,
+        "rms": 0.045625,
+        "clip_fraction": 0.0
+      },
+      "free_asr_transcript_sha256": "bc94c81212604e8524f3adef6e2906663938addf7dbfd3082b0db82316867481",
+      "free_asr_transcript_characters": 14
     },
     {
       "phrase": 8,
@@ -241,7 +311,16 @@
         "gross_error_over_600_cents": 0.0027,
         "reference_voiced_recall": 0.9492,
         "rendered_voiced_precision": 0.9868
-      }
+      },
+      "expected_lyric_characters": 45,
+      "free_asr_similarity": 0.8941,
+      "waveform": {
+        "peak": 0.696132,
+        "rms": 0.082322,
+        "clip_fraction": 0.0
+      },
+      "free_asr_transcript_sha256": "859a48a4428eb1195b3621c20d80160f6eb9bb2283f4d28750ebfc855b9b5ec0",
+      "free_asr_transcript_characters": 40
     },
     {
       "phrase": 9,
@@ -267,7 +346,16 @@
         "gross_error_over_600_cents": 0.0,
         "reference_voiced_recall": 0.9393,
         "rendered_voiced_precision": 1.0
-      }
+      },
+      "expected_lyric_characters": 40,
+      "free_asr_similarity": 0.7692,
+      "waveform": {
+        "peak": 0.483764,
+        "rms": 0.074638,
+        "clip_fraction": 0.0
+      },
+      "free_asr_transcript_sha256": "3dc2bb9a8f9f91cf247eeb56c5fba33b2ba1aad51a82d513c052c73cbfc35912",
+      "free_asr_transcript_characters": 25
     },
     {
       "phrase": 10,
@@ -293,7 +381,16 @@
         "gross_error_over_600_cents": 0.0133,
         "reference_voiced_recall": 0.8414,
         "rendered_voiced_precision": 0.9741
-      }
+      },
+      "expected_lyric_characters": 58,
+      "free_asr_similarity": 0.5432,
+      "waveform": {
+        "peak": 0.646572,
+        "rms": 0.087813,
+        "clip_fraction": 0.0
+      },
+      "free_asr_transcript_sha256": "91dd4c32953facb58ca5267527a8e7dd4f4b23c9e1880ff68949d4311f60fda5",
+      "free_asr_transcript_characters": 23
     },
     {
       "phrase": 11,
@@ -319,7 +416,16 @@
         "gross_error_over_600_cents": 0.0016,
         "reference_voiced_recall": 0.9889,
         "rendered_voiced_precision": 0.9781
-      }
+      },
+      "expected_lyric_characters": 23,
+      "free_asr_similarity": 1.0,
+      "waveform": {
+        "peak": 0.641057,
+        "rms": 0.089452,
+        "clip_fraction": 0.0
+      },
+      "free_asr_transcript_sha256": "af181344de0d43f14b48b083718336bb89a415d41eb56a559ef25f9be19b43aa",
+      "free_asr_transcript_characters": 23
     },
     {
       "phrase": 12,
@@ -345,7 +451,16 @@
         "gross_error_over_600_cents": 0.0583,
         "reference_voiced_recall": 0.7692,
         "rendered_voiced_precision": 0.9023
-      }
+      },
+      "expected_lyric_characters": 28,
+      "free_asr_similarity": 0.6122,
+      "waveform": {
+        "peak": 0.680839,
+        "rms": 0.06609,
+        "clip_fraction": 0.0
+      },
+      "free_asr_transcript_sha256": "7112549b85310c142a64217a81c9a14e307124a41965dc973a4337e77a4fd739",
+      "free_asr_transcript_characters": 21
     },
     {
       "phrase": 13,
@@ -371,7 +486,16 @@
         "gross_error_over_600_cents": 0.0199,
         "reference_voiced_recall": 0.922,
         "rendered_voiced_precision": 0.971
-      }
+      },
+      "expected_lyric_characters": 23,
+      "free_asr_similarity": 0.4255,
+      "waveform": {
+        "peak": 0.497906,
+        "rms": 0.075842,
+        "clip_fraction": 0.0
+      },
+      "free_asr_transcript_sha256": "726f58c3d492c3eb028f2e4004e191ba5f52ca0f597eb2340c64d54ce3e147fc",
+      "free_asr_transcript_characters": 24
     },
     {
       "phrase": 14,
@@ -397,7 +521,16 @@
         "gross_error_over_600_cents": 0.0198,
         "reference_voiced_recall": 0.9655,
         "rendered_voiced_precision": 0.9825
-      }
+      },
+      "expected_lyric_characters": 50,
+      "free_asr_similarity": 0.5205,
+      "waveform": {
+        "peak": 0.695916,
+        "rms": 0.125754,
+        "clip_fraction": 0.0
+      },
+      "free_asr_transcript_sha256": "9a96c8f1d2dd51e0ec9370f9d287b0d6a15df656c11b11544f20ca2f9ce17191",
+      "free_asr_transcript_characters": 23
     },
     {
       "phrase": 15,
@@ -423,7 +556,16 @@
         "gross_error_over_600_cents": 0.0138,
         "reference_voiced_recall": 0.9503,
         "rendered_voiced_precision": 0.9503
-      }
+      },
+      "expected_lyric_characters": 63,
+      "free_asr_similarity": 0.4231,
+      "waveform": {
+        "peak": 0.672469,
+        "rms": 0.069045,
+        "clip_fraction": 0.0
+      },
+      "free_asr_transcript_sha256": "a0c6578d71fd4b64c4d9841adb483d956839c70c33776c0d7879e60e0a81267e",
+      "free_asr_transcript_characters": 41
     },
     {
       "phrase": 16,
@@ -449,7 +591,16 @@
         "gross_error_over_600_cents": 0.0101,
         "reference_voiced_recall": 0.99,
         "rendered_voiced_precision": 0.9867
-      }
+      },
+      "expected_lyric_characters": 28,
+      "free_asr_similarity": 0.4444,
+      "waveform": {
+        "peak": 0.629213,
+        "rms": 0.085031,
+        "clip_fraction": 0.0
+      },
+      "free_asr_transcript_sha256": "83e03c74730f8d41c3276c4123a0c842ede77126a6fc0ad7dcb466d4ab3b9ff6",
+      "free_asr_transcript_characters": 26
     },
     {
       "phrase": 17,
@@ -475,7 +626,16 @@
         "gross_error_over_600_cents": 0.0,
         "reference_voiced_recall": 0.9592,
         "rendered_voiced_precision": 0.993
-      }
+      },
+      "expected_lyric_characters": 20,
+      "free_asr_similarity": 0.0488,
+      "waveform": {
+        "peak": 0.328176,
+        "rms": 0.06006,
+        "clip_fraction": 0.0
+      },
+      "free_asr_transcript_sha256": "c1aecfb458ebc7f4d8c45eacf0a56630e1166a77591f36579c4ef6bf649a9d0a",
+      "free_asr_transcript_characters": 21
     },
     {
       "phrase": 18,
@@ -501,7 +661,16 @@
         "gross_error_over_600_cents": 0.0422,
         "reference_voiced_recall": 0.8943,
         "rendered_voiced_precision": 0.9331
-      }
+      },
+      "expected_lyric_characters": 47,
+      "free_asr_similarity": 0.3733,
+      "waveform": {
+        "peak": 0.700424,
+        "rms": 0.08848,
+        "clip_fraction": 0.0
+      },
+      "free_asr_transcript_sha256": "cf1d3a786333f276fcfe554a23e4252caf3a12498e9f7f3cc504fb56fe376f94",
+      "free_asr_transcript_characters": 28
     },
     {
       "phrase": 19,
@@ -527,7 +696,16 @@
         "gross_error_over_600_cents": 0.0202,
         "reference_voiced_recall": 0.9537,
         "rendered_voiced_precision": 0.9763
-      }
+      },
+      "expected_lyric_characters": 53,
+      "free_asr_similarity": 0.6506,
+      "waveform": {
+        "peak": 0.61982,
+        "rms": 0.083044,
+        "clip_fraction": 0.0
+      },
+      "free_asr_transcript_sha256": "d4c8b98b0948bef1c05106cab1cdf07f3f099e603bf5d2d721001680e1346117",
+      "free_asr_transcript_characters": 30
     },
     {
       "phrase": 20,
@@ -553,7 +731,16 @@
         "gross_error_over_600_cents": 0.0,
         "reference_voiced_recall": 0.932,
         "rendered_voiced_precision": 1.0
-      }
+      },
+      "expected_lyric_characters": 20,
+      "free_asr_similarity": 0.6667,
+      "waveform": {
+        "peak": 0.404594,
+        "rms": 0.061714,
+        "clip_fraction": 0.0
+      },
+      "free_asr_transcript_sha256": "8218d076ac8ea806ff6739e10ca7ef1c56f82b5a53e8c353bb91f13dadecdcde",
+      "free_asr_transcript_characters": 10
     },
     {
       "phrase": 21,
@@ -579,7 +766,16 @@
         "gross_error_over_600_cents": 0.007,
         "reference_voiced_recall": 0.8765,
         "rendered_voiced_precision": 1.0
-      }
+      },
+      "expected_lyric_characters": 20,
+      "free_asr_similarity": 0.6857,
+      "waveform": {
+        "peak": 0.441703,
+        "rms": 0.071927,
+        "clip_fraction": 0.0
+      },
+      "free_asr_transcript_sha256": "c018cd3291483c411fe07a38f9a7af5a7296ea6d64a7b230b1f823b77eb34e8a",
+      "free_asr_transcript_characters": 15
     },
     {
       "phrase": 22,
@@ -605,7 +801,16 @@
         "gross_error_over_600_cents": 0.0,
         "reference_voiced_recall": 0.8556,
         "rendered_voiced_precision": 0.9872
-      }
+      },
+      "expected_lyric_characters": 20,
+      "free_asr_similarity": 0.125,
+      "waveform": {
+        "peak": 0.224822,
+        "rms": 0.040391,
+        "clip_fraction": 0.0
+      },
+      "free_asr_transcript_sha256": "a1bb6c11fb948a30b833903b42725008c2ef93a19bda1c7b6858988125fc85c6",
+      "free_asr_transcript_characters": 12
     },
     {
       "phrase": 23,
@@ -631,7 +836,16 @@
         "gross_error_over_600_cents": 0.0174,
         "reference_voiced_recall": 0.8843,
         "rendered_voiced_precision": 1.0
-      }
+      },
+      "expected_lyric_characters": 25,
+      "free_asr_similarity": 0.3333,
+      "waveform": {
+        "peak": 0.501737,
+        "rms": 0.059448,
+        "clip_fraction": 0.0
+      },
+      "free_asr_transcript_sha256": "fff60b45f4198beeb7187240f574341f476ad6542e6f11f4b54063aaaf483b88",
+      "free_asr_transcript_characters": 5
     },
     {
       "phrase": 24,
@@ -657,7 +871,16 @@
         "gross_error_over_600_cents": 0.0195,
         "reference_voiced_recall": 0.83,
         "rendered_voiced_precision": 0.9951
-      }
+      },
+      "expected_lyric_characters": 20,
+      "free_asr_similarity": 0.8571,
+      "waveform": {
+        "peak": 0.357052,
+        "rms": 0.061346,
+        "clip_fraction": 0.0
+      },
+      "free_asr_transcript_sha256": "a2cd0a8aa5d0d29c12623439185a031d1eeb6421fcd21336d47e6ba39aeedf70",
+      "free_asr_transcript_characters": 15
     },
     {
       "phrase": 25,
@@ -683,7 +906,16 @@
         "gross_error_over_600_cents": 0.0027,
         "reference_voiced_recall": 0.8735,
         "rendered_voiced_precision": 1.0
-      }
+      },
+      "expected_lyric_characters": 20,
+      "free_asr_similarity": 1.0,
+      "waveform": {
+        "peak": 0.633323,
+        "rms": 0.083928,
+        "clip_fraction": 0.0
+      },
+      "free_asr_transcript_sha256": "dc7ade9f02dd3dcc494ec5282ef78e95b07cd4d7b9b26940168075ed10095403",
+      "free_asr_transcript_characters": 20
     },
     {
       "phrase": 26,
@@ -709,7 +941,16 @@
         "gross_error_over_600_cents": 0.0,
         "reference_voiced_recall": 0.9407,
         "rendered_voiced_precision": 1.0
-      }
+      },
+      "expected_lyric_characters": 20,
+      "free_asr_similarity": 0.8571,
+      "waveform": {
+        "peak": 0.387017,
+        "rms": 0.048856,
+        "clip_fraction": 0.0
+      },
+      "free_asr_transcript_sha256": "a2cd0a8aa5d0d29c12623439185a031d1eeb6421fcd21336d47e6ba39aeedf70",
+      "free_asr_transcript_characters": 15
     },
     {
       "phrase": 27,
@@ -735,7 +976,16 @@
         "gross_error_over_600_cents": 0.0407,
         "reference_voiced_recall": 0.8701,
         "rendered_voiced_precision": 1.0
-      }
+      },
+      "expected_lyric_characters": 20,
+      "free_asr_similarity": 0.8571,
+      "waveform": {
+        "peak": 0.535456,
+        "rms": 0.062416,
+        "clip_fraction": 0.0
+      },
+      "free_asr_transcript_sha256": "a2cd0a8aa5d0d29c12623439185a031d1eeb6421fcd21336d47e6ba39aeedf70",
+      "free_asr_transcript_characters": 15
     },
     {
       "phrase": 28,
@@ -761,7 +1011,16 @@
         "gross_error_over_600_cents": 0.0144,
         "reference_voiced_recall": 0.9456,
         "rendered_voiced_precision": 1.0
-      }
+      },
+      "expected_lyric_characters": 15,
+      "free_asr_similarity": 0.8,
+      "waveform": {
+        "peak": 0.378367,
+        "rms": 0.052558,
+        "clip_fraction": 0.0
+      },
+      "free_asr_transcript_sha256": "acd4b5910d3b4a32216f78b39fbf6ba5dd643cec4c2a72e89293e9619b89bbf5",
+      "free_asr_transcript_characters": 10
     },
     {
       "phrase": 29,
@@ -787,7 +1046,16 @@
         "gross_error_over_600_cents": 0.0,
         "reference_voiced_recall": 0.8786,
         "rendered_voiced_precision": 0.9179
-      }
+      },
+      "expected_lyric_characters": 25,
+      "free_asr_similarity": 0.6,
+      "waveform": {
+        "peak": 0.525839,
+        "rms": 0.068536,
+        "clip_fraction": 0.0
+      },
+      "free_asr_transcript_sha256": "2a3d907a0659397a387b2e8e998919aacff203c5806dcb2944b9e068125f5c82",
+      "free_asr_transcript_characters": 15
     },
     {
       "phrase": 30,
@@ -813,7 +1081,16 @@
         "gross_error_over_600_cents": 0.0167,
         "reference_voiced_recall": 0.9677,
         "rendered_voiced_precision": 0.9677
-      }
+      },
+      "expected_lyric_characters": 20,
+      "free_asr_similarity": 0.5517,
+      "waveform": {
+        "peak": 0.243605,
+        "rms": 0.0429,
+        "clip_fraction": 0.0
+      },
+      "free_asr_transcript_sha256": "ece89446bf517226168ed3e60f2c7a12d32d0ce2cf381d12d53320e093c4f9f2",
+      "free_asr_transcript_characters": 9
     },
     {
       "phrase": 31,
@@ -839,9 +1116,31 @@
         "gross_error_over_600_cents": 0.0,
         "reference_voiced_recall": 0.7458,
         "rendered_voiced_precision": 0.9778
-      }
+      },
+      "expected_lyric_characters": 10,
+      "free_asr_similarity": 0.9,
+      "waveform": {
+        "peak": 0.209568,
+        "rms": 0.04201,
+        "clip_fraction": 0.0
+      },
+      "free_asr_transcript_sha256": "1f23850511312615cbe3228b85d62b02f165765d33680e2c8d7615f7b989d591",
+      "free_asr_transcript_characters": 10
     }
   ],
+  "waveform_analysis": {
+    "peak": 0.699598,
+    "rms": 0.071764,
+    "clip_fraction": 0.0,
+    "hf_energy_ratio_mean": 0.063968,
+    "hf_energy_ratio_p95": 0.666665,
+    "hf_spike_p99_over_median": 6023.7285,
+    "spectral_flatness_mean": 0.08378,
+    "spectral_flux_p95": 0.306493,
+    "spectral_flux_max": 0.678681,
+    "sample_jump_p999": 0.093694
+  },
   "local_audio": "data/external/work/rc9_reference/openutau_render.wav",
-  "copyright": "local evaluation audio excluded from Git and package"
+  "copyright": "local evaluation audio excluded from Git and package",
+  "transcript_policy": "raw free-STT text remains local; package/report contain hashes, lengths, and similarities only"
 }

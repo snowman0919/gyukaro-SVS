@@ -29,6 +29,10 @@ def main() -> None:
     source = WORK / "openutau_render.wav"
     project = yaml.safe_load((WORK / "nonbreath_oblige_gyu_rc9.ustx").read_text())
     requests = json.loads((WORK / "openutau_phrase_requests.json").read_text())
+    if max(CASES | COMPARISONS) > len(requests):
+        raise RuntimeError(
+            f"stale listening map: needs phrase {max(CASES | COMPARISONS)}, project has {len(requests)}"
+        )
     output = WORK / "rc9_listening_gate"
     shutil.rmtree(output, ignore_errors=True)
     output.mkdir(parents=True)
