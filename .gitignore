@@ -70,5 +70,6 @@ __pycache__/
 .venv/
 .venv-soulx/
 .venv-diffsinger/
+.worktrees/
 build/
 *.egg-info/
