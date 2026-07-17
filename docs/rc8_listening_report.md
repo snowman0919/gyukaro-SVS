@@ -46,3 +46,16 @@ EN decoder A/B (same OmniVoice source, F0, identity, style, CTC warp, and seed):
 - alternative: `artifacts/reports/rc8_en_decode_sweep/listening/s32_c2.wav`
 
 Free Whisper favors the alternative, but waveform diagnostics are mixed. Human review should select neither unless the transition improvement outweighs its increased noise and discontinuity.
+
+## JA duplicate-span diagnostic listening files
+
+Status: **machine reject; do not request promotion listening.**
+
+Directories:
+
+- `artifacts/reports/rc8_ja_duplicate_span/quality_ja/listening/`
+- `artifacts/reports/rc8_ja_duplicate_span/heldout_ja/listening/`
+
+Each contains `current_rc8.wav`, `global_ctc_025.wav`, `chunked_single_decode.wav`, and `duplicate_span_candidate.wav`. The duplicate candidate is byte-identical to current RC8 because both JA alignments failed the bounded CTC confidence gate; no source interval was removed. Held-out Whisper remains the repeated `新しい歌を風に乗せて新しい歌を風に乗せて届ける` at similarity `0.7222`. Chunking reaches only `0.8966` and materially worsens HF spike, sample jump, and voicing. A is rejected and not integrated.
+
+Direct waveform/STFT review images are `quality_ja/waveform_multires_stft.png` and `heldout_ja/waveform_multires_stft.png` under the same report directory. Human listening remains required for a future RC8 candidate, but these files cannot approve RC8 or authorize RC9/OpenUtau work.

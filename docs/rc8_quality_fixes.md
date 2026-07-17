@@ -27,6 +27,25 @@ Candidate 3 remains `objective_nonregression_human_pending`, not accepted RC8. S
 
 The EN sweep now preserves the production CTC content warp; its `s32_c1.5` WAV is byte-identical to candidate 3. Direct pre/post measurements show the SoulX output, not the refiners, is the main HF source (`2217.1755` before versus `1640.8127` after). `s32_c2` corrects free Whisper `them` to `the`, reduces the HF-spike proxy by 13.5%, reduces spectral flux by 7.1%, and slightly improves both speaker metrics. It also lowers HNR by 0.99 dB, raises flatness by 25%, raises sample discontinuity by 8.0%, and lowers voicing accuracy by 1.21 points. It is therefore a human A/B candidate, not a selected runtime change.
 
+## Japanese duplicate-span probe (2026-07-18)
+
+Status: **A rejected; diagnostic function is not connected to RC8.**
+
+The held-out Japanese failure was reproduced before SoulX. Free Whisper on the full OmniVoice source returned `新しい歌を風に乗せて 新しい歌を風に乗せて届ける` (similarity `0.7222`). The bounded CTC probe required unknown ratio `<=0.10`, high-confidence target-phone coverage `>=0.85`, monotonic alignment, anchor log score `>=-2.0`, gap ratio `>=2.5`, and at least `0.50 s` unmatched excess. Held-out CTC was monotonic but had unknown ratio `0.2632` and coverage `0.6831`; quality JA had unknown ratio `0` but coverage `0.6036`. No source interval therefore qualified for removal. Both duplicate candidates fully fell back and are byte-identical to current RC8.
+
+Identical F0, identity, style, decoder settings, and seed were used for the four approved paths. Each final file was directly analyzed with RMVPE, free Whisper, waveform metrics, short/medium/long STFT, WavLM, and ECAPA.
+
+| held-out path | Whisper transcript | similarity | pitch MAE | voicing | HF spike | jump | WavLM | ECAPA |
+|---|---|---:|---:|---:|---:|---:|---:|---:|
+| current RC8 | `新しい歌を風に乗せて新しい歌を風に乗せて届ける` | 0.7222 | 7.78 | 0.9189 | 1182.2560 | 0.075792 | 0.78279 | 0.21006 |
+| global CTC 0.25 | same repeated phrase | 0.7222 | 7.27 | 0.9234 | 717.2484 | 0.083566 | 0.77626 | 0.25531 |
+| chunked content, one SoulX decode | `新しい歌を風に乗せて届ける届ける` | 0.8966 | 7.88 | 0.8831 | 2195.0386 | 0.086425 | 0.82205 | 0.23699 |
+| duplicate-span candidate | full fallback; same as current | 0.7222 | 7.78 | 0.9189 | 1182.2560 | 0.075792 | 0.78279 | 0.21006 |
+
+The grouped source improves text coverage but misses the `0.90` gate and more than doubles the HF-spike proxy while reducing voicing. Global warp does not remove the repetition. The normal quality phrase remains protected: the candidate SHA equals current RC8, while global warp reduces lyric similarity from `0.8571` to `0.7857` and chunking raises HF spike from `186.6091` to `579.8170` with a large WavLM drop.
+
+Evidence and WAVs: `artifacts/reports/rc8_ja_duplicate_span/evaluation.json`, `artifacts/reports/rc8_ja_duplicate_span/quality_ja/`, and `artifacts/reports/rc8_ja_duplicate_span/heldout_ja/`. The two `waveform_multires_stft.png` files contain waveform plus FFT-256/1024/4096 comparisons. All nine existing RC8 candidate WAV hashes still match their manifest. A is not promoted, RC8 remains human-pending, and RC9 remains unauthorized.
+
 ## Scope and preserved baseline
 
 RC7 remains frozen at `ae8944070f3dc38e310b33f29d95f4bcd3c81def`; its WAVs and checkpoint hashes are recorded in `docs/rc7_baseline.md`. RC8 writes only new artifacts and retains phrase-level SoulX decoding, 48 kHz PCM-24 output, the RC7 base spectral correction at strength 0.5, and the protected Rapid KO 64-step/CFG 2.0 policy. It uses no per-note TTS, waveform pitch shifting, or phase-vocoder note control.

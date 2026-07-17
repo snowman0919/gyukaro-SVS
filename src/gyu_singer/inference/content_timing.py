@@ -111,6 +111,65 @@ def latent_content_warp(alignment: dict, source_duration: float, target_duration
     return np.clip(mapped / max(source_duration, 1e-6), 0, 1).astype(np.float32)
 
 
+def duplicate_span_content_warp(alignment: dict, source_duration: float, target_duration: float, frames: int) -> tuple[np.ndarray | None, dict]:
+    """Skip only high-confidence CTC source gaps; otherwise request full fallback."""
+    phones = alignment.get("phones", [])
+    thresholds = {"max_unknown_ratio": .1, "min_target_coverage": .85, "min_log_score": -2.0, "min_gap_ratio": 2.5, "min_excess_seconds": .5}
+    evidence = {"status": "fallback", "phone_count": len(phones), "thresholds": thresholds, "removed_source_spans": []}
+    if not phones or frames < 1 or source_duration <= 0 or target_duration <= 0:
+        return None, evidence | {"fallback_reason": "invalid_input"}
+    unknown = np.array(["unknown" in row["symbol"] for row in phones])
+    scores = np.array([row.get("ctc_mean_log_score", -np.inf) for row in phones], dtype=float)
+    target_start = np.array([row["target_start"] for row in phones], dtype=float)
+    target_end = np.array([row["target_end"] for row in phones], dtype=float)
+    source_start = np.array([row["source_start"] for row in phones], dtype=float)
+    source_end = np.array([row["source_end"] for row in phones], dtype=float)
+    target_centers = (target_start + target_end) / 2
+    source_centers = (source_start + source_end) / 2
+    confident = ~unknown & (scores >= thresholds["min_log_score"])
+    durations = np.maximum(target_end - target_start, 0)
+    evidence |= {
+        "unknown_ratio": float(np.mean(unknown)),
+        "target_phoneme_coverage": float(np.sum(durations[confident]) / max(np.sum(durations), 1e-8)),
+        "monotonic": bool(
+            np.all(target_end >= target_start) and np.all(source_end >= source_start)
+            and np.all(np.diff(target_centers) > 0) and np.all(np.diff(source_centers) > 0)
+        ),
+    }
+    if evidence["unknown_ratio"] > thresholds["max_unknown_ratio"]:
+        return None, evidence | {"fallback_reason": "unknown_ratio"}
+    if evidence["target_phoneme_coverage"] < thresholds["min_target_coverage"]:
+        return None, evidence | {"fallback_reason": "target_coverage"}
+    if not evidence["monotonic"]:
+        return None, evidence | {"fallback_reason": "non_monotonic"}
+    anchors = np.flatnonzero(confident)
+    scale = source_duration / target_duration
+    for left, right in zip(anchors, anchors[1:]):
+        target_gap = (target_centers[right] - target_centers[left]) * scale
+        source_gap = source_centers[right] - source_centers[left]
+        excess = source_gap - target_gap
+        ratio = source_gap / max(target_gap, 1e-8)
+        if ratio < thresholds["min_gap_ratio"] or excess < thresholds["min_excess_seconds"]:
+            continue
+        start = source_centers[left] + target_gap / 2
+        end = source_centers[right] - target_gap / 2
+        evidence["removed_source_spans"].append({
+            "start": float(start), "end": float(end), "duration": float(end - start),
+            "left_phone": phones[left]["symbol"], "right_phone": phones[right]["symbol"],
+            "left_log_score": float(scores[left]), "right_log_score": float(scores[right]),
+            "source_target_gap_ratio": float(ratio),
+            "method": "inferred_high_confidence_ctc_unmatched_gap",
+        })
+    if not evidence["removed_source_spans"]:
+        return None, evidence | {"fallback_reason": "no_duplicate_span"}
+    mapped = np.interp(np.arange(frames) / 50, np.r_[0.0, target_centers, target_duration], np.r_[0.0, source_centers, source_duration])
+    for span in evidence["removed_source_spans"]:
+        midpoint = (span["start"] + span["end"]) / 2
+        mapped[(mapped > span["start"]) & (mapped < midpoint)] = span["start"]
+        mapped[(mapped >= midpoint) & (mapped < span["end"])] = span["end"]
+    return np.clip(mapped / source_duration, 0, 1).astype(np.float32), evidence | {"status": "accepted"}
+
+
 def latent_content_hold(alignment: dict, source_duration: float, frames: int) -> np.ndarray:
     """Hold a stable CTC phone-center hidden through each score phone window."""
     mapped = np.full(frames, np.nan, np.float32)

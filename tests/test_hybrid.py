@@ -10,7 +10,7 @@ import torch
 from gyu_singer.alignment import build_phrase_frames
 from gyu_singer.frontend import FEATURE_SIZE, phonemize
 from gyu_singer.inference.soulx import SoulXPhraseRenderer, _Worker
-from gyu_singer.inference.content_timing import CTCAlignmentUnavailable
+from gyu_singer.inference.content_timing import CTCAlignmentUnavailable, duplicate_span_content_warp
 from gyu_singer.inference.quality_controller import condition_batch
 from gyu_singer.inference.v08 import GyuSingerV08Renderer
 from gyu_singer.inference.v09 import GyuSingerV09Renderer, soften_large_jumps
@@ -196,6 +196,51 @@ def test_rc5_skips_only_infeasible_optional_ctc_warp(monkeypatch, tmp_path):
         "notes": [{"pitch": 60, "start": 0, "duration": .2, "lyric": "あ"}],
     }
     assert renderer._content_options(score, content, np.ones(10), tmp_path) == {}
+
+
+def _duplicate_alignment(source_centers=(.5, 1.5, 6.0, 6.2), symbols=None):
+    symbols = symbols or ("ja_a", "ja_i", "ja_u", "ja_e")
+    return {"phones": [
+        {
+            "symbol": symbol,
+            "target_start": index,
+            "target_end": index + 1,
+            "source_start": center - .1,
+            "source_end": center + .1,
+            "ctc_mean_log_score": -.5,
+        }
+        for index, (center, symbol) in enumerate(zip(source_centers, symbols))
+    ]}
+
+
+def test_duplicate_span_warp_skips_high_confidence_source_excess_monotonically():
+    warp, evidence = duplicate_span_content_warp(_duplicate_alignment(), 6.5, 4.0, 200)
+    assert warp is not None and np.all(np.diff(warp) >= 0)
+    assert evidence["status"] == "accepted"
+    assert len(evidence["removed_source_spans"]) == 1
+    assert evidence["removed_source_spans"][0]["duration"] >= .5
+    assert np.max(np.diff(warp)) > .1
+
+
+def test_duplicate_span_warp_rejects_unknown_heavy_alignment():
+    warp, evidence = duplicate_span_content_warp(
+        _duplicate_alignment(symbols=("ja_unknown_新", "ja_i", "ja_u", "ja_e")), 6.5, 4.0, 200,
+    )
+    assert warp is None and evidence["fallback_reason"] == "unknown_ratio"
+
+
+def test_duplicate_span_warp_rejects_non_monotonic_alignment():
+    warp, evidence = duplicate_span_content_warp(
+        _duplicate_alignment(source_centers=(.5, 1.5, 1.0, 6.0)), 6.5, 4.0, 200,
+    )
+    assert warp is None and evidence["fallback_reason"] == "non_monotonic"
+
+
+def test_duplicate_span_warp_does_not_invent_span_for_normal_alignment():
+    warp, evidence = duplicate_span_content_warp(
+        _duplicate_alignment(source_centers=(.5, 1.5, 2.5, 3.5)), 4.0, 4.0, 200,
+    )
+    assert warp is None and evidence["fallback_reason"] == "no_duplicate_span"
 
 
 def test_large_jump_transition_is_local():
