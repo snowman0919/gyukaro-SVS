@@ -68,6 +68,30 @@ def remap_vocabulary(source: Path, old_dictionary: Path, new_dictionary: Path, t
                 value for value in old_tokens if value.startswith("ko_onset_")
             ]
             initialization = "nonlexical_vowels" if vowel else "ko_onset"
+            if not sources:
+                prefix = token.split("_", 1)[0] + "_"
+                same_language = [value for value in old_tokens if value.startswith(prefix)]
+                if vowel:
+                    sources = [value for value in same_language if value.split("_", 1)[1].lower() in {
+                        "a", "e", "i", "o", "u", "aa", "ae", "ah", "ao", "eh", "er",
+                        "ih", "iy", "ow", "uh", "uw",
+                    }]
+                else:
+                    sources = [value for value in same_language if value.split("_", 1)[1].lower() not in {
+                        "a", "e", "i", "o", "u", "aa", "ae", "ah", "ao", "eh", "er",
+                        "ih", "iy", "ow", "uh", "uw",
+                    }]
+                initialization = f"{prefix.rstrip('_')}_{'vowel' if vowel else 'consonant'}"
+        if not sources:
+            vowel = token.startswith("ko_nucleus_")
+            if not vowel:
+                symbol = token.split("_", 1)[1] if token.startswith(("en_", "ja_")) else token.rsplit("_", 1)[0]
+                vowel = symbol[:1].lower() in "aeiouɨɯ"
+            sources = [value for value in old_tokens if value not in {"AP", "SP"} and (
+                value.startswith("ko_nucleus_")
+                or (value.rsplit("_", 1)[0][:1].lower() in "aeiouɨɯ")
+            ) == vowel]
+            initialization = f"cross_language_{'vowel' if vowel else 'consonant'}"
         if not sources:
             raise RuntimeError(f"no same-category embedding source for {token}")
         new_embedding[index] = old_embedding[[old_ids[value] for value in sources]].mean(dim=0)
