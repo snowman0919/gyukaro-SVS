@@ -34,6 +34,7 @@ from preprocess.tools.f0_extraction import F0Extractor  # noqa: E402
 
 CASES = {
     "sustained_ko": "examples/review_sustain_ko.json",
+    "en": "examples/quality_en.json",
     "ja": "examples/quality_ja.json",
 }
 
@@ -91,6 +92,7 @@ def main() -> None:
         sf.write(content, content_audio, content_rate, subtype="PCM_16")
         source_duration = len(content_audio) / content_rate
         target_f0, timeline = renderer._canonical_f0(score, source_duration, expressive.cpu().numpy())
+        content_options = renderer._content_options(score, content, target_f0, output)
         np.save(contour, target_f0)
         np.save(identity_path, identity.detach().cpu().numpy())
         np.save(style_path, style_vector.detach().cpu().numpy())
@@ -108,6 +110,7 @@ def main() -> None:
                         "source": str(content), "f0_npy": str(contour),
                         "identity_npy": str(identity_path), "style_npy": str(style_path),
                         "n_steps": steps, "cfg": cfg, "seed": 21, "output": str(raw_path),
+                        **content_options,
                     })
                 rows.append({
                     "variant": label, "n_steps": steps, "cfg": cfg,

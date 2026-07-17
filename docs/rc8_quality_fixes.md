@@ -23,6 +23,10 @@ The actual `gyu-singer-rc8` backend then rendered all nine cases into `artifacts
 
 Candidate 3 remains `objective_nonregression_human_pending`, not accepted RC8. Sustained noise proxies improved, but aggregate HF spikes, discontinuity, and identity still do not establish material improvement. EN and JA preserve or improve Whisper/F0 while retaining artifact trade-offs; Large Interval improves F0/voicing/HF but loses speaker similarity. Human listening is mandatory before any promotion, and RC9 remains unauthorized.
 
+### English decoder isolation
+
+The EN sweep now preserves the production CTC content warp; its `s32_c1.5` WAV is byte-identical to candidate 3. Direct pre/post measurements show the SoulX output, not the refiners, is the main HF source (`2217.1755` before versus `1640.8127` after). `s32_c2` corrects free Whisper `them` to `the`, reduces the HF-spike proxy by 13.5%, reduces spectral flux by 7.1%, and slightly improves both speaker metrics. It also lowers HNR by 0.99 dB, raises flatness by 25%, raises sample discontinuity by 8.0%, and lowers voicing accuracy by 1.21 points. It is therefore a human A/B candidate, not a selected runtime change.
+
 ## Scope and preserved baseline
 
 RC7 remains frozen at `ae8944070f3dc38e310b33f29d95f4bcd3c81def`; its WAVs and checkpoint hashes are recorded in `docs/rc7_baseline.md`. RC8 writes only new artifacts and retains phrase-level SoulX decoding, 48 kHz PCM-24 output, the RC7 base spectral correction at strength 0.5, and the protected Rapid KO 64-step/CFG 2.0 policy. It uses no per-note TTS, waveform pitch shifting, or phase-vocoder note control.

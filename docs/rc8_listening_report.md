@@ -39,3 +39,10 @@ Directory: `artifacts/reports/rc8_candidate3_full/listening/`
 The nine files were rendered through one actual `gyu-singer-rc8` resident path. Free Whisper transcripts were preserved for every case; the aggregate waveform/RMVPE result is recorded in `artifacts/reports/rc8_candidate3_full/evaluation.json`. This candidate replaces the rejected stronger stationary spectral gate with a bounded `64 steps / CFG 1.5` policy only for long neutral Korean notes.
 
 Listen to all nine files against the frozen RC7 files. Pay particular attention to sustained noise, EN and JA transitions, Large Interval tearing/identity, and protected Rapid KO. No human verdict has been inferred from machine metrics.
+
+EN decoder A/B (same OmniVoice source, F0, identity, style, CTC warp, and seed):
+
+- current: `artifacts/reports/rc8_en_decode_sweep/listening/s32_c1.5.wav`
+- alternative: `artifacts/reports/rc8_en_decode_sweep/listening/s32_c2.wav`
+
+Free Whisper favors the alternative, but waveform diagnostics are mixed. Human review should select neither unless the transition improvement outweighs its increased noise and discontinuity.
