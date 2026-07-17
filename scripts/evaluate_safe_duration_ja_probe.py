@@ -40,7 +40,7 @@ if __name__ == "__main__":
     from probe_rc8_ja_duplicate_span import plot_case  # noqa: E402
 
     expected = "新しい歌を風に乗せて届ける"
-    paths = {
+    primary_paths = {
         "current_fp16_raw": report_root / "current_fp16_raw.wav",
         "candidate_fp16_raw": report_root / "candidate_fp16_raw.wav",
         "current_fp16_refined": report_root / "current_fp16_refined.wav",
@@ -50,6 +50,11 @@ if __name__ == "__main__":
         "current_fp32_refined": report_root / "current_fp32_refined.wav",
         "candidate_fp32_refined": report_root / "candidate_fp32_refined.wav",
     }
+    multiseed_paths = {
+        f"{variant}_fp32_seed{seed}_{stage}": report_root / f"{variant}_fp32_seed{seed}_{stage}.wav"
+        for seed in (7, 42) for stage in ("raw", "refined") for variant in ("current", "candidate")
+    }
+    paths = primary_paths | multiseed_paths
     target_f0 = np.load(root / "artifacts/reports/rc8_ja_duplicate_span/heldout_ja/target_f0.npy")
     f0 = F0Extractor(
         str(cache / "soulx-singer/pretrained_models/SoulX-Singer-Preprocess/rmvpe/rmvpe.pt"),
@@ -63,7 +68,7 @@ if __name__ == "__main__":
     del f0
 
     whisper_rows = {}
-    for name in ("whisper_early_gate.json", "whisper_refined_gate.json", "whisper_fp32_gate.json"):
+    for name in ("whisper_early_gate.json", "whisper_refined_gate.json", "whisper_fp32_gate.json", "whisper_multiseed_gate.json"):
         whisper_rows |= {row["file"]: row for row in json.loads((report_root / name).read_text())["rows"]}
     for name, path in paths.items():
         transcript = whisper_rows[path.name]["transcript"]
@@ -107,9 +112,26 @@ if __name__ == "__main__":
         row for row in collapse["rows"]
         if row["case"] == "heldout_full" and row["duration"] in {6.6, 8.9}
     ]
-    pair_gates = {
-        precision: candidate_gates(rows[f"current_{precision}"], rows[f"candidate_{precision}"])
-        for precision in ("fp16_raw", "fp16_refined", "fp32_raw", "fp32_refined")
+    pairs = {
+        label: (f"current_{label}", f"candidate_{label}")
+        for label in (
+            "fp16_raw", "fp16_refined", "fp32_raw", "fp32_refined",
+            "fp32_seed7_raw", "fp32_seed7_refined", "fp32_seed42_raw", "fp32_seed42_refined",
+        )
+    }
+    pair_gates = {label: candidate_gates(rows[current], rows[candidate]) for label, (current, candidate) in pairs.items()}
+    summary_metrics = (
+        "asr_lyric_similarity", "pitch_mae_cents", "voicing_accuracy",
+        "hf_spike_p99_over_median", "sample_jump_p999", "wavlm_to_gyu", "ecapa_to_gyu",
+    )
+    refined_by_seed = {
+        str(seed): {
+            variant: {metric: rows[
+                f"{variant}_fp32_refined" if seed == 21 else f"{variant}_fp32_seed{seed}_refined"
+            ][metric] for metric in summary_metrics}
+            for variant in ("current", "candidate")
+        }
+        for seed in (7, 21, 42)
     }
     baseline = json.loads((root / "artifacts/reports/rc8_candidate3_full/manifest.json").read_text())
     regression = {}
@@ -117,7 +139,13 @@ if __name__ == "__main__":
         path = Path(item["path"])
         actual = hashlib.sha256(path.read_bytes()).hexdigest()
         regression[case] = {"expected": item["sha256"], "actual": actual, "unchanged": actual == item["sha256"]}
-    plot = plot_case(report_root, paths)
+    plot = plot_case(report_root, primary_paths)
+    multiseed_dir = report_root / "multiseed"
+    multiseed_dir.mkdir(exist_ok=True)
+    multiseed_plot = plot_case(multiseed_dir, {
+        name: path for name, path in paths.items()
+        if name in {"current_fp32_refined", "candidate_fp32_refined"} or "refined" in name and "seed" in name
+    })
     report = {
         "status": "diagnostic_candidate_human_pending" if all(all(gates.values()) for gates in pair_gates.values()) else "diagnostic_reject",
         "runtime_integrated": False,
@@ -136,17 +164,21 @@ if __name__ == "__main__":
             "mapping": "CTC-aligned safe 6.6 s latent -> monotonic 8.9 s score timeline; padded carrier is not final WAV stitching",
         },
         "decoder": {
-            "precision": ["fp16 diagnostic", "fp32 production recheck"], "n_steps": 64, "cfg": 2.0, "seed": 21,
+            "precision": ["fp16 diagnostic", "fp32 production recheck"], "n_steps": 64, "cfg": 2.0, "seeds": [7, 21, 42],
             "refiners": "unchanged RC8 acoustic 0.25 then spectral 0.5",
         },
         "rows": rows,
+        "multiseed_refined_summary": refined_by_seed,
         "waveform_multires_stft": plot,
+        "waveform_multiseed_refined_stft": multiseed_plot,
         "existing_9_file_regression": regression,
         "gates": {
             **pair_gates,
             "quality_ja_nonregression": regression["ja"]["unchanged"],
             "existing_9_file_runtime_unchanged": all(item["unchanged"] for item in regression.values()),
-            "production_fp32_and_refiners_verified": all(pair_gates["fp32_raw"].values()) and all(pair_gates["fp32_refined"].values()),
+            "production_fp32_and_refiners_verified": all(
+                all(gates.values()) for name, gates in pair_gates.items() if name.startswith("fp32")
+            ),
         },
         "constraints": {
             "phrase_level_soulx_decode": True,
@@ -154,7 +186,7 @@ if __name__ == "__main__":
             "final_wav_chunk_stitching": False,
             "waveform_pitch_shift": False,
         },
-        "next_step": "human-listen current_fp32_refined.wav versus candidate_fp32_refined.wav; do not propose runtime integration without an explicit pass",
+        "next_step": "reject this route and review the content/SoulX identity architecture before another replacement attempt",
     }
     (report_root / "evaluation.json").write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n")
     print(json.dumps({"status": report["status"], "gates": report["gates"]}, ensure_ascii=False, indent=2))
