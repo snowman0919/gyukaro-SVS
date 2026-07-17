@@ -1,0 +1,129 @@
+{
+  "status": "source_probe_reject",
+  "selected": null,
+  "best_diagnostic_candidate": "directgyu00",
+  "gate": {
+    "asr_lyric_similarity_min": 0.8,
+    "teacher_forced_lyric_nll": "diagnostic_only_never_a_pass_substitute",
+    "pitch_p90_abs_cents_max": 100,
+    "gross_error_over_600_cents_max": 0.05,
+    "observed_voiced_ratio_min": 0.8,
+    "observed_voiced_ratio_max": 0.97,
+    "clip_fraction": 0,
+    "hf_spike_p99_over_reference_max": 2.0
+  },
+  "reference_calibration": {
+    "used": true,
+    "free_asr_similarity": 1.0,
+    "teacher_forced_lyric_nll": 1.3965,
+    "free_asr_reference_pass": true,
+    "waveform_analysis": {
+      "audio_path": "data/external/raw/gtsinger-lfs/Japanese/JA-Soprano-1/Glissando/风になる/Control_Group/0002.wav",
+      "duration_seconds": 9.5411,
+      "free_asr_transcript": "僕がいるいつの日も 星空を眺めている 一人きりの夜",
+      "f0": {
+        "hz_p05": 194.38,
+        "hz_median": 242.48,
+        "hz_p95": 310.95,
+        "midi_p05": 54.86,
+        "midi_median": 58.68,
+        "midi_p95": 62.99
+      },
+      "observed_voiced_ratio": 0.8326,
+      "peak": 0.336639,
+      "rms": 0.095152,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.012668,
+      "hf_energy_ratio_p95": 0.030813,
+      "hf_spike_p99_over_median": 1563.2307,
+      "spectral_flatness_mean": 0.003157,
+      "spectral_flux_p95": 0.365084,
+      "spectral_flux_max": 0.852888,
+      "sample_jump_p999": 0.029695
+    }
+  },
+  "target_f0": {
+    "hz_p05": 194.38,
+    "hz_median": 242.48,
+    "hz_p95": 310.95,
+    "midi_p05": 54.86,
+    "midi_median": 58.68,
+    "midi_p95": 62.99
+  },
+  "expected_text_sha256": [
+    "979593dfa9dff0a2ef79f1ee022d103d82a8571de043e76de40496bacd9a1810"
+  ],
+  "expected_text_characters": [
+    23
+  ],
+  "rows": [
+    {
+      "label": "directgyu00",
+      "audio_path": "artifacts/reports/diffsinger_gtsinger_heldout_set/listening/gtsja0165_directgyu00.wav",
+      "audio_sha256": "55ff9d5c0e38669efe95dd10e6186bf2163bf196baed7a077d82fda4734b9e04",
+      "asr_transcript": "ご視聴ありがとうございました",
+      "asr_lyric_similarity": 0.1081,
+      "teacher_forced_lyric_nll": 5.4727,
+      "pitch_median_abs_cents": 18.81,
+      "pitch_p90_abs_cents": 64.62,
+      "gross_error_over_600_cents": 0.0256,
+      "observed_voiced_ratio": 0.5439,
+      "f0": {
+        "hz_p05": 148.09,
+        "hz_median": 232.22,
+        "hz_p95": 301.58,
+        "midi_p05": 50.15,
+        "midi_median": 57.94,
+        "midi_p95": 62.46
+      },
+      "peak": 0.51639,
+      "rms": 0.024106,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.000607,
+      "hf_energy_ratio_p95": 0.00186,
+      "hf_spike_p99_over_median": 10.4825,
+      "spectral_flatness_mean": 0.000959,
+      "spectral_flux_p95": 0.310883,
+      "spectral_flux_max": 0.515418,
+      "sample_jump_p999": 0.017397,
+      "pass": false,
+      "identity_similarity": {
+        "reference_count": 5,
+        "wavlm": {
+          "values": {
+            "data/processed/master/212.wav": 0.46011,
+            "data/processed/master/215.wav": 0.56278,
+            "data/processed/master/216.wav": 0.53472,
+            "data/processed/master/219.wav": 0.5456,
+            "data/processed/master/220.wav": 0.49343
+          },
+          "mean": 0.51933,
+          "min": 0.46011,
+          "max": 0.56278
+        },
+        "ecapa": {
+          "values": {
+            "data/processed/master/212.wav": -0.03653,
+            "data/processed/master/215.wav": 0.10125,
+            "data/processed/master/216.wav": 0.02338,
+            "data/processed/master/219.wav": 0.0102,
+            "data/processed/master/220.wav": 0.02692
+          },
+          "mean": 0.02504,
+          "min": -0.03653,
+          "max": 0.10125
+        }
+      }
+    }
+  ],
+  "identity_reference_paths": [
+    "data/processed/master/212.wav",
+    "data/processed/master/215.wav",
+    "data/processed/master/216.wav",
+    "data/processed/master/219.wav",
+    "data/processed/master/220.wav"
+  ],
+  "identity_adaptation_allowed": false,
+  "release_allowed": false,
+  "interpretation": "Every candidate must pass waveform/F0 checks and a free Whisper transcript. Teacher-forced NLL cannot rescue an unintelligible candidate; human listening remains mandatory."
+}

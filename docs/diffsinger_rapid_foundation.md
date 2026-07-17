@@ -84,3 +84,21 @@ Authoritative reports:
 - `artifacts/reports/diffsinger_gtsinger_heldout_set/evaluation_gtsja0380.json`
 
 No human listening pass is claimed. This batch isolates the current failure to the tenor/GYU adaptation path rather than score timing or the qualified soprano acoustic foundation. It does not authorize RC8, OpenUtau packaging, or release.
+
+## Identity-checkpoint freeze-contract defect
+
+Checkpoint comparison found a concrete adaptation defect. The selected tenor-500 checkpoint had changed 137 tensors, including about 7.88 million encoder and 8.15 million auxiliary-decoder parameters. The earlier single rapid phrase happened to pass, but the five-phrase gate exposed the resulting lexical and HF instability.
+
+The older soprano-based `gtsinger_ja_gyu_identity` checkpoint had a separate freeze-contract violation. Its report claimed that only the GYU speaker row and Korean text rows were trained, but step 100 also changed eight stretch-embedding/RNN tensors (about 918 thousand parameters) plus the shared AP/SP text rows. With GYU weight set to exactly zero, Whisper returned `ご視聴ありがとうございました` at `0.1081` similarity and the voiced ratio fell to `0.5439`. The failure therefore existed before speaker interpolation.
+
+The remapped initial checkpoint was not the cause: under the combined dictionary its 100% soprano render was byte-for-byte identical to the qualified foundation. A strict checkpoint compositor now starts from that initial checkpoint and copies only `ko_*` text rows and GYU speaker row 1 from an adapted checkpoint. It reports every other tensor that changed in the adapted input. The strict 0% control again matches the foundation WAV exactly at SHA-256 `6330a6e2ed6d99a56c126522d0a87d91e0e12303257cd8bdfb63d3af1489c5cf`.
+
+On `gtsja0165`, strict 5%, 10%, and 20% GYU mixtures preserve STT similarity `0.8372`, F0 p90 `34.18` to `34.69` cents, no clipping, and HF spikes below the matching source. However, their five-reference WavLM means remain `0.51078` to `0.51231` and ECAPA means decline from `0.08363` to `0.08122`. The safe GYU speaker row therefore has no meaningful identity benefit. The corrupted checkpoint is rejected, while the strict checkpoint is a diagnostic non-regression control only—not a GYU singer candidate.
+
+Evidence:
+
+- `artifacts/reports/diffsinger_gtsinger_heldout_set/diagnostic_directgyu_control_gtsja0165.json`
+- `artifacts/reports/diffsinger_gtsinger_heldout_set/diagnostic_directgyu_gtsja0165.json`
+- `artifacts/reports/diffsinger_gtsinger_heldout_set/diagnostic_strict_gtsja0165.json`
+
+This fix removes a false source of machine-like timbre but does not meet the identity goal. RC8, human acceptance, and OpenUtau packaging remain blocked on a non-destructive identity mechanism that improves both WavLM and ECAPA across the full five-phrase set.
