@@ -1,0 +1,14 @@
+{
+  "status": "ready_for_binarization",
+  "source_checkpoint": "data/cache/diffsinger/checkpoints/gtsinger_ja_gyu_identity_v2/model_ckpt_steps_300.ckpt",
+  "initial_checkpoint": "data/cache/diffsinger/checkpoints/gtsinger_ja_gyu_acoustic_projection_init.ckpt",
+  "real_gyu_phrase_rows": 81,
+  "real_gyu_duration_minutes": 4.742,
+  "trainable_acoustic_projection_parameters": 344192,
+  "speaker_embedding_row": 20,
+  "labels": "inferred singing-aware phoneme alignment; target F0 is never an inference condition",
+  "source_recordings_modified": false,
+  "japanese_encoder_frozen": true,
+  "release_allowed": false,
+  "config": "configs/diffsinger_gtsinger_ja_gyu_acoustic_projection.yaml"
+}

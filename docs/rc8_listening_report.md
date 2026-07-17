@@ -1,6 +1,8 @@
 # RC8 listening report
 
-Status: all nine cases passed human review. RC8 is accepted and RC9 may start.
+Status: **superseded — later human review failed; RC8 is not accepted.**
+
+This file preserves the historical nine-case decision, but it is no longer authoritative. The later user report of excessive pitch and unintelligibility overrides it, and the fresh machine re-audit does not establish material improvement. Any future promotion requires a new listening decision on files that have first passed free Whisper, RMVPE F0/voicing, and waveform/spectral analysis.
 
 Listening directory: `artifacts/reports/rc8_listening_gate/`
 
@@ -20,10 +22,10 @@ The directory contains nine numbered RC8 files and six RC7-before/RC8-after pair
 | 8 | Large Interval KO | less initial dual-trajectory/mechanical tearing | PASS | fixed actual-backend render accepted by user |
 | 9 | Phrase boundary | no fade/staccato boundary regression | PASS | user accepted |
 
-Overall RC8 suitability: **PASS**.
+Historical RC8 suitability: **PASS at the time; subsequently invalidated**.
 
 Large Interval retest: an 80 ms score-domain onset ramp passed the objective dual-trajectory gate and is integrated into the actual RC8 backend when no user PITD curve is present. The accepted actual-backend render is `artifacts/reports/rc8_interval_actual_backend/listening/large_interval_ko.wav` (SHA-256 `63a1e8a77d6de1a501c4f01920fc2c3927c607b233c86cbcc81220c26633c105`). The earlier failed RC8 file remains preserved separately.
 
-RC9 OpenUtau work: **unblocked after the user PASS on 2026-07-16**.
+RC9 OpenUtau work: **not authorized for release by this historical pass**.
 
 Final `v1.0.0` tag/release: **not allowed**.

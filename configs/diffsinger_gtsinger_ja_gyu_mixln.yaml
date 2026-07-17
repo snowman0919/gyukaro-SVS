@@ -1,0 +1,294 @@
+K_step: 400
+K_step_infer: 400
+T_start: 0.4
+T_start_infer: 0.4
+accumulate_grad_batches: 1
+allow_unused_phonemes: true
+audio_num_mel_bins: 128
+audio_sample_rate: 44100
+augmentation_args:
+  fixed_pitch_shifting:
+    enabled: false
+    scale: 0.5
+    targets:
+    - -5.0
+    - 5.0
+  random_pitch_shifting:
+    enabled: false
+    range:
+    - -2.0
+    - 2.0
+    scale: 1.0
+  random_time_stretching:
+    enabled: false
+    range:
+    - 0.95
+    - 1.05
+    scale: 1.0
+backbone_args:
+  dropout_rate: 0.0
+  glu_type: atanglu
+  kernel_size: 15
+  num_channels: 512
+  num_layers: 6
+  use_conditioner_cache: true
+backbone_type: lynxnet2
+base_config: []
+binarization_args:
+  num_workers: 4
+  shuffle: true
+binarizer_cls: diffsinger_neutral_augmentation_binarizer.NeutralAugmentationBinarizer
+binary_data_dir: /home/kotori9/code/gyukaro/data/external/work/diffsinger_score_native/binary_gtsinger_ja_gyu_mixln
+breathiness_smooth_width: 0.06
+clip_grad_norm: 1
+dataloader_prefetch_factor: 2
+dataset_size_key: lengths
+datasets:
+- raw_data_dir: /home/kotori9/code/gyukaro/data/external/work/diffsinger_score_native/raw/gtsinger_ja_soprano
+  speaker: gts_ja_soprano
+  spk_id: 0
+  language: gyu
+  test_prefixes:
+  - gtsja0163
+  - gtsja0164
+  - gtsja0165
+  - gtsja0166
+  - gtsja0167
+  - gtsja0168
+  - gtsja0169
+  - gtsja0170
+  - gtsja0171
+  - gtsja0172
+  - gtsja0173
+  - gtsja0174
+  - gtsja0175
+  - gtsja0176
+  - gtsja0177
+  - gtsja0178
+  - gtsja0179
+  - gtsja0180
+  - gtsja0181
+  - gtsja0379
+  - gtsja0380
+  - gtsja0381
+  - gtsja0382
+  - gtsja0383
+  - gtsja0384
+  - gtsja0385
+  - gtsja0386
+  - gtsja0387
+  - gtsja0388
+  - gtsja0389
+  - gtsja0390
+  - gtsja0391
+  - gtsja0392
+  - gtsja0393
+  - gtsja0394
+  - gtsja0395
+  - gtsja0396
+  - gtsja0397
+  - gtsja0398
+  - gtsja0399
+  - gtsja0400
+  - gtsja0401
+  - gtsja0402
+  - gtsja0403
+  - gtsja0404
+  - gtsja0405
+  - gtsja0406
+  - gtsja0407
+  - gtsja0408
+  - gtsja0409
+  - gtsja0410
+  - gtsja0411
+  - gtsja0412
+  - gtsja0413
+  - gtsja0414
+  - gtsja0545
+  - gtsja0546
+  - gtsja0547
+  - gtsja0548
+  - gtsja0549
+  - gtsja0550
+  - gtsja0551
+  - gtsja0552
+  - gtsja0553
+  - gtsja0554
+  - gtsja0555
+  - gtsja0556
+  - gtsja0557
+  - gtsja0558
+  - gtsja0559
+  - gtsja0560
+  - gtsja0561
+  - gtsja0562
+- raw_data_dir: /home/kotori9/code/gyukaro/data/external/work/diffsinger_score_native/raw/gyu_phrase_chunks
+  speaker: gyu
+  spk_id: 20
+  language: gyu
+  test_prefixes:
+  - gyu_real_000154_phrase00
+  - gyu_real_000165_phrase00
+  - gyu_real_000198_phrase00
+  - gyu_real_000204_phrase00
+  - gyu_real_000209_phrase00
+  - gyu_real_000209_phrase01
+  - gyu_real_000220_phrase00
+  - gyu_real_000220_phrase01
+  - gyu_real_000220_phrase02
+  - gyu_real_000221_phrase00
+  - gyu_real_000221_phrase01
+  - gyu_real_000221_phrase02
+  - gyu_real_000221_phrase03
+  - gyu_real_000221_phrase04
+dictionaries:
+  gyu: /home/kotori9/code/gyukaro/data/external/work/diffsinger_score_native/dictionary-gtsinger-ja-gyu.txt
+diff_accelerator: ddim
+diff_speedup: 10
+diffusion_type: reflow
+dropout: 0.1
+ds_workers: 4
+enc_ffn_kernel_size: 3
+enc_layers: 6
+energy_smooth_width: 0.06
+extra_phonemes: []
+f0_max: 1100
+f0_min: 65
+ffn_act: gelu
+fft_size: 2048
+finetune_ckpt_path: /home/kotori9/code/gyukaro/data/cache/diffsinger/checkpoints/gtsinger_ja_gyu_mixln_init.ckpt
+finetune_enabled: true
+finetune_ignored_params: []
+finetune_strict_shapes: true
+fmax: 16000
+fmin: 40
+freezing_enabled: true
+frozen_params:
+- model.fs2.txt_embed
+- model.fs2.dur_embed
+- model.fs2.pitch_embed
+- model.fs2.key_shift_embed
+- model.fs2.speed_embed
+- model.fs2.stretch_embed
+- model.fs2.stretch_embed_rnn
+- model.fs2.encoder.layer_norm
+- model.aux_decoder
+- model.diffusion
+- model.fs2.encoder.layers.0.op.self_attn
+- model.fs2.encoder.layers.0.op.ffn
+- model.fs2.encoder.layers.1.op.self_attn
+- model.fs2.encoder.layers.1.op.ffn
+- model.fs2.encoder.layers.1.op.layer_norm1
+- model.fs2.encoder.layers.1.op.layer_norm2
+- model.fs2.encoder.layers.2.op.self_attn
+- model.fs2.encoder.layers.2.op.ffn
+- model.fs2.encoder.layers.3.op.self_attn
+- model.fs2.encoder.layers.3.op.ffn
+- model.fs2.encoder.layers.3.op.layer_norm1
+- model.fs2.encoder.layers.3.op.layer_norm2
+- model.fs2.encoder.layers.4.op.self_attn
+- model.fs2.encoder.layers.4.op.ffn
+- model.fs2.encoder.layers.4.op.layer_norm1
+- model.fs2.encoder.layers.4.op.layer_norm2
+- model.fs2.encoder.layers.5.op.self_attn
+- model.fs2.encoder.layers.5.op.ffn
+- model.fs2.encoder.layers.5.op.layer_norm1
+- model.fs2.encoder.layers.5.op.layer_norm2
+hidden_size: 256
+hnsep: world
+hnsep_ckpt: checkpoints/vr/model.pt
+hop_size: 512
+lambda_aux_mel_loss: 1.0
+log_interval: 100
+lr_scheduler_args:
+  gamma: 0.8
+  scheduler_cls: torch.optim.lr_scheduler.StepLR
+  step_size: 5000
+main_loss_log_norm: false
+main_loss_type: l2
+max_batch_frames: 20000
+max_batch_size: 8
+max_beta: 0.02
+max_updates: 600
+max_val_batch_frames: 60000
+max_val_batch_size: 1
+mel_base: e
+mel_vmax: 4.0
+mel_vmin: -14.0
+merged_phoneme_groups: []
+mix_ln_layer:
+- 0
+- 2
+nccl_p2p: true
+num_ckpt_keep: 3
+num_heads: 4
+num_lang: 1
+num_sanity_val_steps: 1
+num_spk: 21
+num_valid_plots: 0
+optimizer_args:
+  optimizer_cls: torch.optim.AdamW
+  lr: 1.0e-05
+  betas:
+  - 0.9
+  - 0.98
+  weight_decay: 0
+pe: rmvpe
+pe_ckpt: /home/kotori9/code/gyukaro/data/cache/diffsinger-assets/rmvpe/model.pt
+permanent_ckpt_interval: 10000
+permanent_ckpt_start: 60000
+pl_trainer_accelerator: auto
+pl_trainer_devices: auto
+pl_trainer_num_nodes: 1
+pl_trainer_precision: 16-mixed
+pl_trainer_strategy:
+  find_unused_parameters: false
+  name: auto
+  process_group_backend: nccl
+rel_pos: true
+rope_interleaved: false
+sampler_frame_count_grid: 6
+sampling_algorithm: euler
+sampling_steps: 20
+schedule_type: linear
+shallow_diffusion_args:
+  aux_decoder_arch: convnext
+  aux_decoder_args:
+    dropout_rate: 0.1
+    kernel_size: 7
+    num_channels: 384
+    num_layers: 6
+  aux_decoder_grad: 0.1
+  train_aux_decoder: true
+  train_diffusion: false
+  val_gt_start: false
+sort_by_len: true
+spec_max:
+- 0
+spec_min:
+- -12
+task_cls: training.acoustic_task.AcousticTask
+tension_smooth_width: 0.06
+time_scale_factor: 1000
+timesteps: 1000
+use_breathiness_embed: false
+use_energy_embed: false
+use_key_shift_embed: true
+use_lang_id: false
+use_mix_ln: true
+use_pos_embed: true
+use_rope: true
+use_shallow_diffusion: true
+use_speed_embed: true
+use_spk_id: true
+use_stretch_embed: true
+use_tension_embed: false
+use_variance_scaling: true
+use_voicing_embed: false
+val_check_interval: 200
+val_with_vocoder: false
+vocoder: NsfHifiGAN
+vocoder_ckpt: /home/kotori9/code/gyukaro/data/external/work/diffsinger_score_native/vocoder_exported/model.ckpt
+voicing_smooth_width: 0.06
+win_size: 2048
+work_dir: checkpoints/gtsinger_ja_gyu_identity_v2

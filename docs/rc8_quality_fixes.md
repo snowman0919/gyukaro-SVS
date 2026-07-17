@@ -1,6 +1,8 @@
 # RC8 local quality candidate
 
-Status: objective non-regression and the final human listening gate passed. RC8 is accepted; RC9 has started.
+Status: **historical candidate invalidated by later human review; reaccreditation required.**
+
+The pass recorded below reflects the review available at that time. A later listening review reported excessive pitch and unintelligible output, so it is not a current release authorization. A fresh waveform/RMVPE/free-Whisper re-audit also classifies RC8 only as `objective_nonregression_human_pending`: aggregate high-frequency spikes and transition discontinuities regress, while WavLM and ECAPA identity scores do not improve. RC8 therefore remains comparison evidence, not an accepted release baseline.
 
 ## Scope and preserved baseline
 

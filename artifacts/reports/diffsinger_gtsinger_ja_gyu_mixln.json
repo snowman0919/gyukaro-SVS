@@ -1,0 +1,18 @@
+{
+  "status": "ready_for_binarization",
+  "source_checkpoint": "data/cache/diffsinger/checkpoints/gtsinger_ja_gyu_identity_init.ckpt",
+  "initial_checkpoint": "data/cache/diffsinger/checkpoints/gtsinger_ja_gyu_mixln_init.ckpt",
+  "real_gyu_phrase_rows": 81,
+  "real_gyu_duration_minutes": 4.742,
+  "japanese_replay_dataset": "/home/kotori9/code/gyukaro/data/external/work/diffsinger_score_native/raw/gtsinger_ja_soprano",
+  "mixln_layers": [
+    0,
+    2
+  ],
+  "mixln_parameters": 526336,
+  "speaker_embedding_parameters": 5376,
+  "labels": "GYU labels inferred singing-aware; Japanese replay preserves the lexical backbone",
+  "source_recordings_modified": false,
+  "release_allowed": false,
+  "config": "configs/diffsinger_gtsinger_ja_gyu_mixln.yaml"
+}

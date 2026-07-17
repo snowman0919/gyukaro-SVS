@@ -50,3 +50,11 @@ Only the 10,299,008-parameter diffusion path was trained for 2,000 updates; the 
 | depth 0.6, 50 steps | unrelated phrase | 0.0645 | 672.68 Hz | 0.9891 |
 
 Neither is a default or adaptation input. Human listening also rejected both as excessively high and unintelligible. Evidence: `artifacts/reports/diffsinger_gtsinger_ja_diffusion_evaluation.json`.
+
+## Bounded GYU LayerNorm adaptation probe
+
+A final acoustic-projection-only adaptation was tested first and rejected: free-Whisper lyric similarity fell from `1.0` to `0.4` at every 100/200/300-step checkpoint, while WavLM-to-GYU also declined by step 300. This shows that globally rewriting the output projection damages Japanese lexical acoustics rather than safely transferring identity. Evidence: `artifacts/reports/diffsinger_gtsinger_gyu_acoustic_projection/evaluation.json`.
+
+A later native DiffSinger probe adapted only speaker-conditioned LayerNorm affine parameters while replaying the Japanese foundation corpus. On the independent rapid C4 phrase, every 200/400/600-step render produced the exact free-Whisper transcript and kept RMVPE pitch p90 error near 36 cents with no clipping. It still failed the identity requirement: the best GYU-conditioned row changed WavLM-to-GYU only from `0.63353` to `0.63382`; ECAPA changed from `0.06300` to `0.07022`. This is not a meaningful GYU identity transfer, so the candidate is rejected despite its lexical and pitch accuracy. Evidence: `artifacts/reports/diffsinger_gtsinger_gyu_mixln/evaluation.json`.
+
+This separates the two problems: the earlier depth-0.4/0.6 files were high and unintelligible because they combined a median-666 Hz score with an unqualified diffusion path; the corrected C4 foundation can be intelligible and score-accurate, but the available 4.742 minutes of inferred-label GYU phrase supervision is not sufficient to turn it into a verified GYU voice through this bounded adapter.
