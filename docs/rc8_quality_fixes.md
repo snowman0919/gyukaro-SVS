@@ -46,6 +46,12 @@ The grouped source improves text coverage but misses the `0.90` gate and more th
 
 Evidence and WAVs: `artifacts/reports/rc8_ja_duplicate_span/evaluation.json`, `artifacts/reports/rc8_ja_duplicate_span/quality_ja/`, and `artifacts/reports/rc8_ja_duplicate_span/heldout_ja/`. The two `waveform_multires_stft.png` files contain waveform plus FFT-256/1024/4096 comparisons. All nine existing RC8 candidate WAV hashes still match their manifest. A is not promoted, RC8 remains human-pending, and RC9 remains unauthorized.
 
+### OmniVoice duration-collapse grid
+
+After A failed, a fixed-seed 20-row grid varied five Japanese text lengths over `2.2/4.4/6.6/8.9 s`. Every source was checked with free Whisper, waveform metrics, and FFT-256/1024/4096 plots. At `<=0.5 s/character`, repetition occurred in `0/7` rows and mean lyric similarity was `0.9220`; at `>1.0 s/character`, repetition occurred in `5/7` and mean similarity fell to `0.7128`. The exact held-out text is correct at 4.4 and 6.6 seconds but repeats its prefix at 8.9 seconds (`0.7222`). `届ける` is correct at 2.2 seconds, repeats twice at 4.4, and repeats three times plus an unrelated token at 8.9.
+
+Duration per character is therefore a strong risk factor, not a sufficient deterministic cause: one medium phrase fails at 6.6 seconds but not 8.9. A duration threshold cannot safely repair production. Evidence: `artifacts/reports/omnivoice_ja_duration_collapse/evaluation.json` and the corresponding listening/STFT files. This result permits investigation of a score-conditioned content replacement, but does not select or integrate one.
+
 ## Scope and preserved baseline
 
 RC7 remains frozen at `ae8944070f3dc38e310b33f29d95f4bcd3c81def`; its WAVs and checkpoint hashes are recorded in `docs/rc7_baseline.md`. RC8 writes only new artifacts and retains phrase-level SoulX decoding, 48 kHz PCM-24 output, the RC7 base spectral correction at strength 0.5, and the protected Rapid KO 64-step/CFG 2.0 policy. It uses no per-note TTS, waveform pitch shifting, or phase-vocoder note control.
