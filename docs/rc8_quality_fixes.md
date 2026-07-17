@@ -52,6 +52,14 @@ After A failed, a fixed-seed 20-row grid varied five Japanese text lengths over 
 
 Duration per character is therefore a strong risk factor, not a sufficient deterministic cause: one medium phrase fails at 6.6 seconds but not 8.9. A duration threshold cannot safely repair production. Evidence: `artifacts/reports/omnivoice_ja_duration_collapse/evaluation.json` and the corresponding listening/STFT files. This result permits investigation of a score-conditioned content replacement, but does not select or integrate one.
 
+### DiffSinger JA content-source replacement probe
+
+The cached GTSinger JA DiffSinger checkpoint was then tested as a content source only, with inferred phoneme timing forced into the existing score and one final SoulX phrase decode. This is not an RC8 runtime integration, and the checkpoint's CC BY-NC-SA 4.0 derivation is not release-compatible with the current package.
+
+The held-out DiffSinger source removed the repeated prefix and reached free-Whisper similarity `0.9231`, but the identical-condition SoulX result fell to `0.8889`. The normal quality phrase regressed from current RC8 final similarity `0.8571` to `0.5714`; HF spike and sample-jump gates also failed. Pitch, voicing, identity, and all existing nine-file SHA checks passed, but those safety results do not offset the lexical and waveform failures. The candidate is rejected and is not callable from any renderer.
+
+Evidence: `artifacts/reports/diffsinger_ja_content_source/evaluation.json`, including source/final transcripts, inferred phoneme timing, RMVPE, voicing, HF/sample-jump, WavLM/ECAPA, final WAV paths, and waveform plus FFT-256/1024/4096 plots.
+
 ## Scope and preserved baseline
 
 RC7 remains frozen at `ae8944070f3dc38e310b33f29d95f4bcd3c81def`; its WAVs and checkpoint hashes are recorded in `docs/rc7_baseline.md`. RC8 writes only new artifacts and retains phrase-level SoulX decoding, 48 kHz PCM-24 output, the RC7 base spectral correction at strength 0.5, and the protected Rapid KO 64-step/CFG 2.0 policy. It uses no per-note TTS, waveform pitch shifting, or phase-vocoder note control.
