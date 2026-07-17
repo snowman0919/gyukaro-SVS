@@ -64,6 +64,14 @@ Evidence: `artifacts/reports/diffsinger_ja_content_source/evaluation.json`, incl
 
 The next cached replacement was ACE-Step v1 3.5B at revision `1bee4c9`, using fixed seed 101 and the requested phrase durations. It failed before SoulX: quality JA transcribed as `そう愛うたおう 小さな光を` (similarity `0.5185`) and held-out JA as `あたたしい歌を風に乗せて届ける` (`0.8571`). Neither meets the `0.90` source gate, so no final SoulX decode or runtime experiment was performed. Both source WAVs were still checked for clipping, discontinuity, HF behavior, and FFT-256/1024/4096 structure. Evidence: `artifacts/reports/ace_step_ja_content_source/source_evaluation.json` and `waveform_multires_stft.png`.
 
+### Safe-duration OmniVoice latent-remap diagnostic
+
+This diagnostic keeps OmniVoice and SoulX but generates the held-out lyric at the measured safe `6.6 s` duration, where free Whisper is exact, then monotonically maps its CTC-aligned content latent onto the `8.9 s` score timeline. The carrier is silence-padded only so SoulX produces the requested duration; the final output is still one phrase-level SoulX decode. There is no per-note TTS, final-WAV stitching, or waveform pitch shift. Diagnostic kana gives CTC unknown ratio `0`, high-confidence target-phone coverage `0.993258`, monotonic alignment, and mean log score `-0.981389`.
+
+An initial same-worker fp16 check passed, so both paths were rerun in one fp32 worker at 64 steps, CFG 2.0, seed 21 and then passed through the unchanged RC8 refiners. The fp32 refined current path retained the repeated Whisper transcript and similarity `0.7222`; the candidate transcribed exactly at `1.0000`. Candidate versus current changed pitch MAE `7.80 -> 7.96` cents, voicing `0.9189 -> 0.9483`, HF spike `1182.3512 -> 147.2314`, sample jump `0.075793 -> 0.071247`, WavLM `0.78275 -> 0.87831`, and ECAPA `0.21008 -> 0.26717`. Waveform and FFT-256/1024/4096 plots were regenerated from both raw and unchanged-RC8-refined WAVs. All nine frozen RC8 file hashes still match.
+
+Status is `diagnostic_candidate_human_pending`. The path is not connected to RC8, quality JA and Rapid are untouched, and the diagnostic is not a release approval. Human listening of the fp32 refined A/B is mandatory before any runtime proposal. Evidence and actual WAVs: `artifacts/reports/omnivoice_safe_duration_ja/evaluation.json` and `artifacts/reports/omnivoice_safe_duration_ja/`.
+
 ## Scope and preserved baseline
 
 RC7 remains frozen at `ae8944070f3dc38e310b33f29d95f4bcd3c81def`; its WAVs and checkpoint hashes are recorded in `docs/rc7_baseline.md`. RC8 writes only new artifacts and retains phrase-level SoulX decoding, 48 kHz PCM-24 output, the RC7 base spectral correction at strength 0.5, and the protected Rapid KO 64-step/CFG 2.0 policy. It uses no per-note TTS, waveform pitch shifting, or phase-vocoder note control.
