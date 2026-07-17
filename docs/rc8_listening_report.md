@@ -29,3 +29,13 @@ Large Interval retest: an 80 ms score-domain onset ramp passed the objective dua
 RC9 OpenUtau work: **not authorized for release by this historical pass**.
 
 Final `v1.0.0` tag/release: **not allowed**.
+
+## Candidate 3 listening request
+
+Status: **machine gate complete; human listening pending.**
+
+Directory: `artifacts/reports/rc8_candidate3_full/listening/`
+
+The nine files were rendered through one actual `gyu-singer-rc8` resident path. Free Whisper transcripts were preserved for every case; the aggregate waveform/RMVPE result is recorded in `artifacts/reports/rc8_candidate3_full/evaluation.json`. This candidate replaces the rejected stronger stationary spectral gate with a bounded `64 steps / CFG 1.5` policy only for long neutral Korean notes.
+
+Listen to all nine files against the frozen RC7 files. Pay particular attention to sustained noise, EN and JA transitions, Large Interval tearing/identity, and protected Rapid KO. No human verdict has been inferred from machine metrics.

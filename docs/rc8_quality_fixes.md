@@ -4,6 +4,25 @@ Status: **historical candidate invalidated by later human review; reaccreditatio
 
 The pass recorded below reflects the review available at that time. A later listening review reported excessive pitch and unintelligible output, so it is not a current release authorization. A fresh waveform/RMVPE/free-Whisper re-audit also classifies RC8 only as `objective_nonregression_human_pending`: aggregate high-frequency spikes and transition discontinuities regress, while WavLM and ECAPA identity scores do not improve. RC8 therefore remains comparison evidence, not an accepted release baseline.
 
+## Candidate 3 re-audit (2026-07-18)
+
+The stronger stationary spectral correction was removed. Direct reconstruction of the frozen RC7 sustained file matched within `1.2e-7`, but temporal gain-mask smoothing did not reduce noise-floor modulation at short, medium, or long FFT resolution. A fixed-input SoulX sweep instead isolated CFG as the useful variable: on the neutral sustained case, `64 steps / CFG 1.5` retained the free-Whisper transcript and changed HNR by `+1.03 dB`, HF-energy p95 by `-29%`, and HF spike p99/median by `-34%` relative to `64 / 2.0`. The setting is limited to neutral Korean notes at least 2.5 seconds long; Rapid and Large Interval retain their previous policies.
+
+The actual `gyu-singer-rc8` backend then rendered all nine cases into `artifacts/reports/rc8_candidate3_full/listening/`. Every file was analyzed directly with waveform/spectral metrics, RMVPE, free Whisper large-v3-turbo, WavLM, and ECAPA. The run is deterministic: an independent KO-neutral rerender has the same SHA-256 as the nine-file run.
+
+| Metric | frozen RC7 | candidate 3 |
+|---|---:|---:|
+| Whisper lyric similarity | 0.924211 | 0.930667 |
+| Pitch MAE, cents | 9.097778 | 7.686667 |
+| Voicing accuracy | 0.868011 | 0.879822 |
+| HF spike p99/median | 344.181322 | 362.179067 |
+| Spectral flux p95 | 0.229099 | 0.230331 |
+| Sample jump p99.9 | 0.073507 | 0.077264 |
+| WavLM-to-GYU | 0.617891 | 0.612911 |
+| ECAPA-to-GYU | 0.118516 | 0.114609 |
+
+Candidate 3 remains `objective_nonregression_human_pending`, not accepted RC8. Sustained noise proxies improved, but aggregate HF spikes, discontinuity, and identity still do not establish material improvement. EN and JA preserve or improve Whisper/F0 while retaining artifact trade-offs; Large Interval improves F0/voicing/HF but loses speaker similarity. Human listening is mandatory before any promotion, and RC9 remains unauthorized.
+
 ## Scope and preserved baseline
 
 RC7 remains frozen at `ae8944070f3dc38e310b33f29d95f4bcd3c81def`; its WAVs and checkpoint hashes are recorded in `docs/rc7_baseline.md`. RC8 writes only new artifacts and retains phrase-level SoulX decoding, 48 kHz PCM-24 output, the RC7 base spectral correction at strength 0.5, and the protected Rapid KO 64-step/CFG 2.0 policy. It uses no per-note TTS, waveform pitch shifting, or phase-vocoder note control.
