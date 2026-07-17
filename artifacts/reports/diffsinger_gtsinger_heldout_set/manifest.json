@@ -1,0 +1,53 @@
+{
+  "status": "evaluation_input_only",
+  "rows": [
+    {
+      "id": "gtsja0165",
+      "expected_text": "僕がいるいつの日も星空を眺めている一人きりの夜",
+      "source_audio_path": "data/external/raw/gtsinger-lfs/Japanese/JA-Soprano-1/Glissando/风になる/Control_Group/0002.wav",
+      "ds_path": "data/external/work/gtsinger/heldout_eval/gtsja0165.ds",
+      "alignment_status": "dataset_provided_manual",
+      "target_f0_source": "rmvpe",
+      "source_whisper_upper_bound": "must_be_recomputed_by_evaluator"
+    },
+    {
+      "id": "gtsja0172",
+      "expected_text": "手をかざしてもう一度忘れないよすぐそばに君がいるいつの日も",
+      "source_audio_path": "data/external/raw/gtsinger-lfs/Japanese/JA-Soprano-1/Glissando/风になる/Control_Group/0009.wav",
+      "ds_path": "data/external/work/gtsinger/heldout_eval/gtsja0172.ds",
+      "alignment_status": "dataset_provided_manual",
+      "target_f0_source": "rmvpe",
+      "source_whisper_upper_bound": "must_be_recomputed_by_evaluator"
+    },
+    {
+      "id": "gtsja0174",
+      "expected_text": "この胸に抱きしめて君のため僕は今春風に吹かれてる",
+      "source_audio_path": "data/external/raw/gtsinger-lfs/Japanese/JA-Soprano-1/Glissando/风になる/Control_Group/0011.wav",
+      "ds_path": "data/external/work/gtsinger/heldout_eval/gtsja0174.ds",
+      "alignment_status": "dataset_provided_manual",
+      "target_f0_source": "rmvpe",
+      "source_whisper_upper_bound": "must_be_recomputed_by_evaluator"
+    },
+    {
+      "id": "gtsja0379",
+      "expected_text": "何も見えない何も",
+      "source_audio_path": "data/external/raw/gtsinger-lfs/Japanese/JA-Soprano-1/Mixed_Voice_and_Falsetto/行かないで/Control_Group/0000.wav",
+      "ds_path": "data/external/work/gtsinger/heldout_eval/gtsja0379.ds",
+      "alignment_status": "dataset_provided_manual",
+      "target_f0_source": "rmvpe",
+      "source_whisper_upper_bound": "must_be_recomputed_by_evaluator"
+    },
+    {
+      "id": "gtsja0380",
+      "expected_text": "ずっと泣いてただけど",
+      "source_audio_path": "data/external/raw/gtsinger-lfs/Japanese/JA-Soprano-1/Mixed_Voice_and_Falsetto/行かないで/Control_Group/0001.wav",
+      "ds_path": "data/external/work/gtsinger/heldout_eval/gtsja0380.ds",
+      "alignment_status": "dataset_provided_manual",
+      "target_f0_source": "rmvpe",
+      "source_whisper_upper_bound": "must_be_recomputed_by_evaluator"
+    }
+  ],
+  "license": "CC BY-NC-SA 4.0",
+  "source_audio_committed": false,
+  "release_allowed": false
+}

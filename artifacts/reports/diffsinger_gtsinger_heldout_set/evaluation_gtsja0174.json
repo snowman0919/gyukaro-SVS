@@ -1,0 +1,245 @@
+{
+  "status": "source_probe_reject",
+  "selected": null,
+  "best_diagnostic_candidate": "tenor",
+  "gate": {
+    "asr_lyric_similarity_min": 0.8,
+    "teacher_forced_lyric_nll": "diagnostic_only_never_a_pass_substitute",
+    "pitch_p90_abs_cents_max": 100,
+    "gross_error_over_600_cents_max": 0.05,
+    "observed_voiced_ratio_min": 0.8,
+    "observed_voiced_ratio_max": 0.97,
+    "clip_fraction": 0,
+    "hf_spike_p99_over_reference_max": 2.0
+  },
+  "reference_calibration": {
+    "used": true,
+    "free_asr_similarity": 1.0,
+    "teacher_forced_lyric_nll": 1.1836,
+    "free_asr_reference_pass": true,
+    "waveform_analysis": {
+      "audio_path": "data/external/raw/gtsinger-lfs/Japanese/JA-Soprano-1/Glissando/风になる/Control_Group/0011.wav",
+      "duration_seconds": 11.322,
+      "free_asr_transcript": "この胸に抱きしめて 君のため僕は今 春風に吹かれてる",
+      "f0": {
+        "hz_p05": 239.89,
+        "hz_median": 292.66,
+        "hz_p95": 356.79,
+        "midi_p05": 58.5,
+        "midi_median": 61.94,
+        "midi_p95": 65.37
+      },
+      "observed_voiced_ratio": 0.8131,
+      "peak": 0.385468,
+      "rms": 0.0905,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.005048,
+      "hf_energy_ratio_p95": 0.012841,
+      "hf_spike_p99_over_median": 507.0867,
+      "spectral_flatness_mean": 0.00256,
+      "spectral_flux_p95": 0.362416,
+      "spectral_flux_max": 0.860724,
+      "sample_jump_p999": 0.035553
+    }
+  },
+  "target_f0": {
+    "hz_p05": 239.89,
+    "hz_median": 292.66,
+    "hz_p95": 356.79,
+    "midi_p05": 58.5,
+    "midi_median": 61.94,
+    "midi_p95": 65.37
+  },
+  "expected_text_sha256": [
+    "34c4be797ce69c076648442a5450701f7858aeffa2cac6de85f7781a186729b4"
+  ],
+  "expected_text_characters": [
+    24
+  ],
+  "rows": [
+    {
+      "label": "soprano",
+      "audio_path": "artifacts/reports/diffsinger_gtsinger_heldout_set/listening/gtsja0174_soprano.wav",
+      "audio_sha256": "2da735f4c361b7c6edf873569b28f4bdd339498bf734984e495c6509dbaf72b0",
+      "asr_transcript": "この胸に抱きしめて君のためを僕は今春風に引かれてる",
+      "asr_lyric_similarity": 0.9388,
+      "teacher_forced_lyric_nll": 1.4863,
+      "pitch_median_abs_cents": 1.74,
+      "pitch_p90_abs_cents": 15.09,
+      "gross_error_over_600_cents": 0.0048,
+      "observed_voiced_ratio": 0.7319,
+      "f0": {
+        "hz_p05": 239.37,
+        "hz_median": 291.84,
+        "hz_p95": 358.72,
+        "midi_p05": 58.46,
+        "midi_median": 61.89,
+        "midi_p95": 65.46
+      },
+      "peak": 0.396785,
+      "rms": 0.091002,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.022972,
+      "hf_energy_ratio_p95": 0.124175,
+      "hf_spike_p99_over_median": 337.1061,
+      "spectral_flatness_mean": 0.00919,
+      "spectral_flux_p95": 0.322132,
+      "spectral_flux_max": 0.732655,
+      "sample_jump_p999": 0.057509,
+      "pass": false,
+      "identity_similarity": {
+        "reference_count": 5,
+        "wavlm": {
+          "values": {
+            "data/processed/master/212.wav": 0.4772,
+            "data/processed/master/215.wav": 0.63465,
+            "data/processed/master/216.wav": 0.54101,
+            "data/processed/master/219.wav": 0.59683,
+            "data/processed/master/220.wav": 0.49201
+          },
+          "mean": 0.54834,
+          "min": 0.4772,
+          "max": 0.63465
+        },
+        "ecapa": {
+          "values": {
+            "data/processed/master/212.wav": 0.0016,
+            "data/processed/master/215.wav": 0.17835,
+            "data/processed/master/216.wav": 0.06527,
+            "data/processed/master/219.wav": 0.12066,
+            "data/processed/master/220.wav": 0.06111
+          },
+          "mean": 0.0854,
+          "min": 0.0016,
+          "max": 0.17835
+        }
+      }
+    },
+    {
+      "label": "tenor",
+      "audio_path": "artifacts/reports/diffsinger_gtsinger_heldout_set/listening/gtsja0174_tenor.wav",
+      "audio_sha256": "106de57d62659036d6ec54c58c2e3102f6451e577f1d7bed60d6f53856991c27",
+      "asr_transcript": "この胸に抱きしめて君のため僕は今春風に浮かれてる",
+      "asr_lyric_similarity": 0.9583,
+      "teacher_forced_lyric_nll": 1.3691,
+      "pitch_median_abs_cents": 1.73,
+      "pitch_p90_abs_cents": 15.19,
+      "gross_error_over_600_cents": 0.0,
+      "observed_voiced_ratio": 0.7513,
+      "f0": {
+        "hz_p05": 239.05,
+        "hz_median": 290.81,
+        "hz_p95": 359.18,
+        "midi_p05": 58.44,
+        "midi_median": 61.83,
+        "midi_p95": 65.49
+      },
+      "peak": 0.458403,
+      "rms": 0.079721,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.011819,
+      "hf_energy_ratio_p95": 0.046978,
+      "hf_spike_p99_over_median": 625.1799,
+      "spectral_flatness_mean": 0.00554,
+      "spectral_flux_p95": 0.262063,
+      "spectral_flux_max": 0.6504,
+      "sample_jump_p999": 0.0505,
+      "pass": false,
+      "identity_similarity": {
+        "reference_count": 5,
+        "wavlm": {
+          "values": {
+            "data/processed/master/212.wav": 0.72049,
+            "data/processed/master/215.wav": 0.86203,
+            "data/processed/master/216.wav": 0.75898,
+            "data/processed/master/219.wav": 0.83063,
+            "data/processed/master/220.wav": 0.74314
+          },
+          "mean": 0.78305,
+          "min": 0.72049,
+          "max": 0.86203
+        },
+        "ecapa": {
+          "values": {
+            "data/processed/master/212.wav": 0.12548,
+            "data/processed/master/215.wav": 0.3799,
+            "data/processed/master/216.wav": 0.13913,
+            "data/processed/master/219.wav": 0.22579,
+            "data/processed/master/220.wav": 0.15708
+          },
+          "mean": 0.20548,
+          "min": 0.12548,
+          "max": 0.3799
+        }
+      }
+    },
+    {
+      "label": "mix20",
+      "audio_path": "artifacts/reports/diffsinger_gtsinger_heldout_set/listening/gtsja0174_mix20.wav",
+      "audio_sha256": "a60991c93a67d75fcf2312afcdc6e7fb5f92f27f84ec92782496404b61d73254",
+      "asr_transcript": "この胸に抱きしめ 君のため僕は今春風に見られる",
+      "asr_lyric_similarity": 0.8696,
+      "teacher_forced_lyric_nll": 1.4355,
+      "pitch_median_abs_cents": 1.8,
+      "pitch_p90_abs_cents": 18.27,
+      "gross_error_over_600_cents": 0.0,
+      "observed_voiced_ratio": 0.7566,
+      "f0": {
+        "hz_p05": 237.49,
+        "hz_median": 290.62,
+        "hz_p95": 359.69,
+        "midi_p05": 58.32,
+        "midi_median": 61.82,
+        "midi_p95": 65.51
+      },
+      "peak": 0.415359,
+      "rms": 0.077467,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.011483,
+      "hf_energy_ratio_p95": 0.045122,
+      "hf_spike_p99_over_median": 641.5466,
+      "spectral_flatness_mean": 0.005379,
+      "spectral_flux_p95": 0.262758,
+      "spectral_flux_max": 0.687357,
+      "sample_jump_p999": 0.046571,
+      "pass": false,
+      "identity_similarity": {
+        "reference_count": 5,
+        "wavlm": {
+          "values": {
+            "data/processed/master/212.wav": 0.73426,
+            "data/processed/master/215.wav": 0.87852,
+            "data/processed/master/216.wav": 0.77314,
+            "data/processed/master/219.wav": 0.84289,
+            "data/processed/master/220.wav": 0.75374
+          },
+          "mean": 0.79651,
+          "min": 0.73426,
+          "max": 0.87852
+        },
+        "ecapa": {
+          "values": {
+            "data/processed/master/212.wav": 0.1352,
+            "data/processed/master/215.wav": 0.39437,
+            "data/processed/master/216.wav": 0.14319,
+            "data/processed/master/219.wav": 0.24457,
+            "data/processed/master/220.wav": 0.16082
+          },
+          "mean": 0.21563,
+          "min": 0.1352,
+          "max": 0.39437
+        }
+      }
+    }
+  ],
+  "identity_reference_paths": [
+    "data/processed/master/212.wav",
+    "data/processed/master/215.wav",
+    "data/processed/master/216.wav",
+    "data/processed/master/219.wav",
+    "data/processed/master/220.wav"
+  ],
+  "identity_adaptation_allowed": false,
+  "release_allowed": false,
+  "interpretation": "Every candidate must pass waveform/F0 checks and a free Whisper transcript. Teacher-forced NLL cannot rescue an unintelligible candidate; human listening remains mandatory."
+}

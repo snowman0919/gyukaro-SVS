@@ -1,0 +1,245 @@
+{
+  "status": "source_probe_reject",
+  "selected": null,
+  "best_diagnostic_candidate": "soprano",
+  "gate": {
+    "asr_lyric_similarity_min": 0.8,
+    "teacher_forced_lyric_nll": "diagnostic_only_never_a_pass_substitute",
+    "pitch_p90_abs_cents_max": 100,
+    "gross_error_over_600_cents_max": 0.05,
+    "observed_voiced_ratio_min": 0.8,
+    "observed_voiced_ratio_max": 0.97,
+    "clip_fraction": 0,
+    "hf_spike_p99_over_reference_max": 2.0
+  },
+  "reference_calibration": {
+    "used": true,
+    "free_asr_similarity": 1.0,
+    "teacher_forced_lyric_nll": 3.7344,
+    "free_asr_reference_pass": true,
+    "waveform_analysis": {
+      "audio_path": "data/external/raw/gtsinger-lfs/Japanese/JA-Soprano-1/Mixed_Voice_and_Falsetto/行かないで/Control_Group/0001.wav",
+      "duration_seconds": 15.965,
+      "free_asr_transcript": "ずっと泣いてただけど",
+      "f0": {
+        "hz_p05": 192.73,
+        "hz_median": 239.63,
+        "hz_p95": 346.17,
+        "midi_p05": 54.71,
+        "midi_median": 58.48,
+        "midi_p95": 64.85
+      },
+      "observed_voiced_ratio": 0.637,
+      "peak": 0.470642,
+      "rms": 0.135918,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.002661,
+      "hf_energy_ratio_p95": 0.007754,
+      "hf_spike_p99_over_median": 54.0432,
+      "spectral_flatness_mean": 0.002097,
+      "spectral_flux_p95": 0.488479,
+      "spectral_flux_max": 0.910567,
+      "sample_jump_p999": 0.098104
+    }
+  },
+  "target_f0": {
+    "hz_p05": 192.73,
+    "hz_median": 239.63,
+    "hz_p95": 346.17,
+    "midi_p05": 54.71,
+    "midi_median": 58.48,
+    "midi_p95": 64.85
+  },
+  "expected_text_sha256": [
+    "7d5e630fd821c17fc36bcc702d395fe896252d6beecce600f43369b1c844ddb7"
+  ],
+  "expected_text_characters": [
+    10
+  ],
+  "rows": [
+    {
+      "label": "soprano",
+      "audio_path": "artifacts/reports/diffsinger_gtsinger_heldout_set/listening/gtsja0380_soprano.wav",
+      "audio_sha256": "4f1947e5bb581d2b071be2bb006291b97629a6e45e900cb1ea7e7ee48f891426",
+      "asr_transcript": "ずっと 泣いてただけど",
+      "asr_lyric_similarity": 1.0,
+      "teacher_forced_lyric_nll": 4.0195,
+      "pitch_median_abs_cents": 1.59,
+      "pitch_p90_abs_cents": 6.54,
+      "gross_error_over_600_cents": 0.0088,
+      "observed_voiced_ratio": 0.5845,
+      "f0": {
+        "hz_p05": 192.16,
+        "hz_median": 239.63,
+        "hz_p95": 347.62,
+        "midi_p05": 54.66,
+        "midi_median": 58.48,
+        "midi_p95": 64.92
+      },
+      "peak": 0.56271,
+      "rms": 0.099004,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.011328,
+      "hf_energy_ratio_p95": 0.043152,
+      "hf_spike_p99_over_median": 57.8006,
+      "spectral_flatness_mean": 0.014178,
+      "spectral_flux_p95": 0.466749,
+      "spectral_flux_max": 0.745008,
+      "sample_jump_p999": 0.04974,
+      "pass": false,
+      "identity_similarity": {
+        "reference_count": 5,
+        "wavlm": {
+          "values": {
+            "data/processed/master/212.wav": 0.4953,
+            "data/processed/master/215.wav": 0.61783,
+            "data/processed/master/216.wav": 0.56952,
+            "data/processed/master/219.wav": 0.58557,
+            "data/processed/master/220.wav": 0.50737
+          },
+          "mean": 0.55512,
+          "min": 0.4953,
+          "max": 0.61783
+        },
+        "ecapa": {
+          "values": {
+            "data/processed/master/212.wav": 0.12315,
+            "data/processed/master/215.wav": 0.24602,
+            "data/processed/master/216.wav": 0.16745,
+            "data/processed/master/219.wav": 0.16601,
+            "data/processed/master/220.wav": 0.18149
+          },
+          "mean": 0.17682,
+          "min": 0.12315,
+          "max": 0.24602
+        }
+      }
+    },
+    {
+      "label": "tenor",
+      "audio_path": "artifacts/reports/diffsinger_gtsinger_heldout_set/listening/gtsja0380_tenor.wav",
+      "audio_sha256": "eb8489fb576e0c38b88d8bbf40f7de179f0d8a78932fe633a591aa8fead21725",
+      "asr_transcript": "ドゥー ドゥー ドゥー ドゥー ドゥー ドゥー ドゥー",
+      "asr_lyric_similarity": 0.0,
+      "teacher_forced_lyric_nll": 5.832,
+      "pitch_median_abs_cents": 1.26,
+      "pitch_p90_abs_cents": 4.94,
+      "gross_error_over_600_cents": 0.0022,
+      "observed_voiced_ratio": 0.6758,
+      "f0": {
+        "hz_p05": 192.07,
+        "hz_median": 242.88,
+        "hz_p95": 351.66,
+        "midi_p05": 54.65,
+        "midi_median": 58.71,
+        "midi_p95": 65.12
+      },
+      "peak": 0.504314,
+      "rms": 0.086132,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.00611,
+      "hf_energy_ratio_p95": 0.034228,
+      "hf_spike_p99_over_median": 154.7375,
+      "spectral_flatness_mean": 0.004416,
+      "spectral_flux_p95": 0.246319,
+      "spectral_flux_max": 0.686704,
+      "sample_jump_p999": 0.062639,
+      "pass": false,
+      "identity_similarity": {
+        "reference_count": 5,
+        "wavlm": {
+          "values": {
+            "data/processed/master/212.wav": 0.47807,
+            "data/processed/master/215.wav": 0.6672,
+            "data/processed/master/216.wav": 0.52832,
+            "data/processed/master/219.wav": 0.63207,
+            "data/processed/master/220.wav": 0.51324
+          },
+          "mean": 0.56378,
+          "min": 0.47807,
+          "max": 0.6672
+        },
+        "ecapa": {
+          "values": {
+            "data/processed/master/212.wav": 0.09672,
+            "data/processed/master/215.wav": 0.3652,
+            "data/processed/master/216.wav": 0.09055,
+            "data/processed/master/219.wav": 0.23164,
+            "data/processed/master/220.wav": 0.11059
+          },
+          "mean": 0.17894,
+          "min": 0.09055,
+          "max": 0.3652
+        }
+      }
+    },
+    {
+      "label": "mix20",
+      "audio_path": "artifacts/reports/diffsinger_gtsinger_heldout_set/listening/gtsja0380_mix20.wav",
+      "audio_sha256": "3a5bc13ca530e981d3aa0993629827e2b1a6c4450121d605cd9e1832553d4a3e",
+      "asr_transcript": "とー、なきてたー、なー、いーだー",
+      "asr_lyric_similarity": 0.4444,
+      "teacher_forced_lyric_nll": 5.7812,
+      "pitch_median_abs_cents": 1.31,
+      "pitch_p90_abs_cents": 6.79,
+      "gross_error_over_600_cents": 0.0088,
+      "observed_voiced_ratio": 0.6521,
+      "f0": {
+        "hz_p05": 86.99,
+        "hz_median": 239.44,
+        "hz_p95": 351.66,
+        "midi_p05": 40.94,
+        "midi_median": 58.47,
+        "midi_p95": 65.12
+      },
+      "peak": 0.446845,
+      "rms": 0.085906,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.00583,
+      "hf_energy_ratio_p95": 0.0314,
+      "hf_spike_p99_over_median": 160.4912,
+      "spectral_flatness_mean": 0.00428,
+      "spectral_flux_p95": 0.249765,
+      "spectral_flux_max": 0.678588,
+      "sample_jump_p999": 0.059851,
+      "pass": false,
+      "identity_similarity": {
+        "reference_count": 5,
+        "wavlm": {
+          "values": {
+            "data/processed/master/212.wav": 0.4541,
+            "data/processed/master/215.wav": 0.64195,
+            "data/processed/master/216.wav": 0.50757,
+            "data/processed/master/219.wav": 0.60467,
+            "data/processed/master/220.wav": 0.48743
+          },
+          "mean": 0.53914,
+          "min": 0.4541,
+          "max": 0.64195
+        },
+        "ecapa": {
+          "values": {
+            "data/processed/master/212.wav": 0.10804,
+            "data/processed/master/215.wav": 0.38781,
+            "data/processed/master/216.wav": 0.10548,
+            "data/processed/master/219.wav": 0.24514,
+            "data/processed/master/220.wav": 0.12303
+          },
+          "mean": 0.1939,
+          "min": 0.10548,
+          "max": 0.38781
+        }
+      }
+    }
+  ],
+  "identity_reference_paths": [
+    "data/processed/master/212.wav",
+    "data/processed/master/215.wav",
+    "data/processed/master/216.wav",
+    "data/processed/master/219.wav",
+    "data/processed/master/220.wav"
+  ],
+  "identity_adaptation_allowed": false,
+  "release_allowed": false,
+  "interpretation": "Every candidate must pass waveform/F0 checks and a free Whisper transcript. Teacher-forced NLL cannot rescue an unintelligible candidate; human listening remains mandatory."
+}
