@@ -60,6 +60,10 @@ The held-out DiffSinger source removed the repeated prefix and reached free-Whis
 
 Evidence: `artifacts/reports/diffsinger_ja_content_source/evaluation.json`, including source/final transcripts, inferred phoneme timing, RMVPE, voicing, HF/sample-jump, WavLM/ECAPA, final WAV paths, and waveform plus FFT-256/1024/4096 plots.
 
+### ACE-Step JA content-source replacement probe
+
+The next cached replacement was ACE-Step v1 3.5B at revision `1bee4c9`, using fixed seed 101 and the requested phrase durations. It failed before SoulX: quality JA transcribed as `そう愛うたおう 小さな光を` (similarity `0.5185`) and held-out JA as `あたたしい歌を風に乗せて届ける` (`0.8571`). Neither meets the `0.90` source gate, so no final SoulX decode or runtime experiment was performed. Both source WAVs were still checked for clipping, discontinuity, HF behavior, and FFT-256/1024/4096 structure. Evidence: `artifacts/reports/ace_step_ja_content_source/source_evaluation.json` and `waveform_multires_stft.png`.
+
 ## Scope and preserved baseline
 
 RC7 remains frozen at `ae8944070f3dc38e310b33f29d95f4bcd3c81def`; its WAVs and checkpoint hashes are recorded in `docs/rc7_baseline.md`. RC8 writes only new artifacts and retains phrase-level SoulX decoding, 48 kHz PCM-24 output, the RC7 base spectral correction at strength 0.5, and the protected Rapid KO 64-step/CFG 2.0 policy. It uses no per-note TTS, waveform pitch shifting, or phase-vocoder note control.
