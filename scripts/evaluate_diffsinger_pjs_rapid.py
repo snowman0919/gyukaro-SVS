@@ -67,8 +67,11 @@ def teacher_forced_nll(processor, model, audio: np.ndarray, expected: list[str])
     return min(losses)
 
 
-def passes_gate(row: dict) -> bool:
+def passes_gate(row: dict, reference: dict | None = None) -> bool:
     """Require a free transcript; teacher-forced likelihood is diagnostic only."""
+    spike_ok = reference is None or (
+        row["hf_spike_p99_over_median"] <= 2 * reference["hf_spike_p99_over_median"]
+    )
     return bool(
         row["asr_lyric_similarity"] >= .8
         and row["pitch_p90_abs_cents"] <= 100
@@ -76,6 +79,7 @@ def passes_gate(row: dict) -> bool:
         and row["observed_voiced_ratio"] >= .8
         and row["observed_voiced_ratio"] <= .97
         and row["clip_fraction"] == 0
+        and spike_ok
     )
 
 
@@ -95,6 +99,36 @@ def pitch_errors(target: np.ndarray, observed: np.ndarray, *, max_frame_delta: i
     return np.abs(1200 * np.log2(observed[both] / target[both]))
 
 
+def _stats(values: dict[str, float]) -> dict:
+    data = list(values.values())
+    return {
+        "values": values,
+        "mean": round(float(np.mean(data)), 5),
+        "min": min(data),
+        "max": max(data),
+    }
+
+
+def similarity_summary(
+    references: dict[str, tuple[np.ndarray, np.ndarray]],
+    current: tuple[np.ndarray, np.ndarray],
+) -> dict:
+    """Keep per-reference speaker evidence instead of hiding its distribution."""
+    wavlm = {
+        name: round(float(np.dot(value[0], current[0])), 5)
+        for name, value in references.items()
+    }
+    ecapa = {
+        name: round(float(np.dot(value[1], current[1])), 5)
+        for name, value in references.items()
+    }
+    return {
+        "reference_count": len(references),
+        "wavlm": _stats(wavlm),
+        "ecapa": _stats(ecapa),
+    }
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--ds", type=Path, required=True)
@@ -104,6 +138,8 @@ def main() -> None:
                         help="LABEL=/absolute/or/repository/path.wav")
     parser.add_argument("--reference-audio", type=Path,
                         help="Known-correct lyric audio used to calibrate the ASR/NLL gate")
+    parser.add_argument("--identity-reference", action="append", type=Path, default=[],
+                        help="Repeat for each real target-speaker reference")
     parser.add_argument("--output", type=Path,
                         default=ROOT / "artifacts/reports/diffsinger_pjs_rapid_evaluation.json")
     args = parser.parse_args()
@@ -177,11 +213,60 @@ def main() -> None:
             "observed_voiced_ratio": round(float(np.mean(observed > 1)), 4),
             "f0": f0_summary(observed),
         } | acoustics(path)
-        metrics["pass"] = passes_gate(metrics)
+        metrics["pass"] = passes_gate(metrics, reference_metrics)
         rows.append(metrics)
 
-    candidate = max(rows, key=lambda row: (row["pass"], row["asr_lyric_similarity"],
-                                           -row["pitch_p90_abs_cents"]))
+    identity_reference_paths = []
+    if args.identity_reference:
+        from speechbrain.inference.speaker import EncoderClassifier
+        from transformers import AutoFeatureExtractor, AutoModelForAudioXVector
+
+        del whisper
+        torch.cuda.empty_cache()
+        feature_extractor = AutoFeatureExtractor.from_pretrained(CACHE / "wavlm-base-plus-sv")
+        wavlm = AutoModelForAudioXVector.from_pretrained(
+            CACHE / "wavlm-base-plus-sv"
+        ).cuda().eval()
+        ecapa = EncoderClassifier.from_hparams(
+            source=str(CACHE / "spkrec-ecapa-voxceleb"),
+            savedir=str(CACHE / "spkrec-ecapa-voxceleb"),
+            run_opts={"device": "cuda:0"},
+        )
+
+        def speaker(path: Path) -> tuple[np.ndarray, np.ndarray]:
+            audio = audio16(path)
+            values = feature_extractor(audio, sampling_rate=16_000, return_tensors="pt")
+            with torch.inference_mode():
+                first = wavlm(
+                    **{key: value.cuda() for key, value in values.items()}
+                ).embeddings
+                second = ecapa.encode_batch(torch.from_numpy(audio).unsqueeze(0).cuda())
+            first = torch.nn.functional.normalize(first, dim=-1).squeeze().cpu().numpy()
+            second = second.squeeze().cpu().numpy()
+            second /= max(np.linalg.norm(second), 1e-8)
+            return first, second
+
+        references = {}
+        for raw_path in args.identity_reference:
+            path = raw_path if raw_path.is_absolute() else ROOT / raw_path
+            name = str(path.relative_to(ROOT))
+            identity_reference_paths.append(name)
+            references[name] = speaker(path)
+        for row in rows:
+            row["identity_similarity"] = similarity_summary(
+                references, speaker(ROOT / row["audio_path"])
+            )
+
+    def candidate_key(row: dict) -> tuple:
+        identity = row.get("identity_similarity")
+        wavlm_mean = identity["wavlm"]["mean"] if identity and row["pass"] else -1.0
+        ecapa_mean = identity["ecapa"]["mean"] if identity and row["pass"] else -1.0
+        return (
+            row["pass"], wavlm_mean, ecapa_mean,
+            row["asr_lyric_similarity"], -row["pitch_p90_abs_cents"],
+        )
+
+    candidate = max(rows, key=candidate_key)
     report = {
         "status": "source_probe_pass_human_pending" if candidate["pass"] else "source_probe_reject",
         "selected": candidate["label"] if candidate["pass"] else None,
@@ -194,6 +279,7 @@ def main() -> None:
             "observed_voiced_ratio_min": .8,
             "observed_voiced_ratio_max": .97,
             "clip_fraction": 0,
+            "hf_spike_p99_over_reference_max": 2.0,
         },
         "reference_calibration": {
             "used": args.reference_audio is not None,
@@ -213,6 +299,7 @@ def main() -> None:
         ],
         "expected_text_characters": [len(normalized(value)) for value in args.expected_text],
         "rows": rows,
+        "identity_reference_paths": identity_reference_paths,
         "identity_adaptation_allowed": bool(candidate["pass"]),
         "release_allowed": False,
         "interpretation": (

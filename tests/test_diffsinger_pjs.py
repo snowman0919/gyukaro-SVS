@@ -223,6 +223,17 @@ def test_nearly_all_voiced_candidate_is_rejected():
     assert not passes_gate(row)
 
 
+def test_reference_relative_hf_spike_gate():
+    row = {
+        "asr_lyric_similarity": 1.0, "pitch_p90_abs_cents": 40,
+        "gross_error_over_600_cents": 0, "observed_voiced_ratio": .9,
+        "clip_fraction": 0, "hf_spike_p99_over_median": 3000,
+    }
+
+    assert passes_gate(row)
+    assert not passes_gate(row, {"hf_spike_p99_over_median": 1000})
+
+
 def test_equal_hop_pitch_gate_crops_one_tail_frame_without_interpolating_unvoiced_boundaries():
     target = torch.tensor([440.0, 0.0, 660.0]).numpy()
     observed = torch.tensor([440.0, 0.0, 660.0, 0.0]).numpy()
