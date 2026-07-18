@@ -1,0 +1,249 @@
+{
+  "status": "source_probe_pass_human_pending",
+  "selected": "soprano",
+  "best_diagnostic_candidate": "soprano",
+  "gate": {
+    "asr_lyric_similarity_min": 0.8,
+    "teacher_forced_lyric_nll": "diagnostic_only_never_a_pass_substitute",
+    "pitch_p90_abs_cents_max": 100,
+    "gross_error_over_600_cents_max": 0.05,
+    "observed_voiced_ratio_min": 0.8,
+    "observed_voiced_ratio_max": 0.97,
+    "voicing_accuracy_min_when_target_grid_available": 0.8,
+    "clip_fraction": 0,
+    "hf_spike_p99_over_reference_max": 2.0
+  },
+  "reference_calibration": {
+    "used": true,
+    "free_asr_similarity": 1.0,
+    "teacher_forced_lyric_nll": 1.3965,
+    "free_asr_reference_pass": true,
+    "waveform_analysis": {
+      "audio_path": "data/external/raw/gtsinger-lfs/Japanese/JA-Soprano-1/Glissando/风になる/Control_Group/0002.wav",
+      "duration_seconds": 9.5411,
+      "free_asr_transcript": "僕がいるいつの日も 星空を眺めている 一人きりの夜",
+      "f0": {
+        "hz_p05": 194.38,
+        "hz_median": 242.48,
+        "hz_p95": 310.95,
+        "midi_p05": 54.86,
+        "midi_median": 58.68,
+        "midi_p95": 62.99
+      },
+      "observed_voiced_ratio": 0.8326,
+      "peak": 0.336639,
+      "rms": 0.095152,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.012668,
+      "hf_energy_ratio_p95": 0.030813,
+      "hf_spike_p99_over_median": 1563.2307,
+      "spectral_flatness_mean": 0.003157,
+      "spectral_flux_p95": 0.365084,
+      "spectral_flux_max": 0.852888,
+      "sample_jump_p999": 0.029695
+    }
+  },
+  "target_f0": {
+    "hz_p05": 194.38,
+    "hz_median": 242.48,
+    "hz_p95": 310.95,
+    "midi_p05": 54.86,
+    "midi_median": 58.68,
+    "midi_p95": 62.99
+  },
+  "expected_text_sha256": [
+    "979593dfa9dff0a2ef79f1ee022d103d82a8571de043e76de40496bacd9a1810"
+  ],
+  "expected_text_characters": [
+    23
+  ],
+  "rows": [
+    {
+      "label": "soprano",
+      "audio_path": "artifacts/reports/diffsinger_gtsinger_heldout_set/listening/gtsja0165_soprano.wav",
+      "audio_sha256": "6330a6e2ed6d99a56c126522d0a87d91e0e12303257cd8bdfb63d3af1489c5cf",
+      "asr_transcript": "僕がいるいつの日も静を眺める一人きりの音",
+      "asr_lyric_similarity": 0.8372,
+      "teacher_forced_lyric_nll": 2.1504,
+      "pitch_median_abs_cents": 2.51,
+      "pitch_p90_abs_cents": 33.12,
+      "gross_error_over_600_cents": 0.0172,
+      "observed_voiced_ratio": 0.7427,
+      "voicing_accuracy": 0.8808,
+      "f0": {
+        "hz_p05": 195.07,
+        "hz_median": 247.39,
+        "hz_p95": 337.82,
+        "midi_p05": 54.92,
+        "midi_median": 59.03,
+        "midi_p95": 64.42
+      },
+      "peak": 0.391113,
+      "rms": 0.079877,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.035054,
+      "hf_energy_ratio_p95": 0.124182,
+      "hf_spike_p99_over_median": 982.9326,
+      "spectral_flatness_mean": 0.007509,
+      "spectral_flux_p95": 0.344324,
+      "spectral_flux_max": 0.819157,
+      "sample_jump_p999": 0.076811,
+      "pass": true,
+      "identity_similarity": {
+        "reference_count": 5,
+        "wavlm": {
+          "values": {
+            "data/processed/master/212.wav": 0.43341,
+            "data/processed/master/215.wav": 0.59923,
+            "data/processed/master/216.wav": 0.50198,
+            "data/processed/master/219.wav": 0.56554,
+            "data/processed/master/220.wav": 0.45921
+          },
+          "mean": 0.51187,
+          "min": 0.43341,
+          "max": 0.59923
+        },
+        "ecapa": {
+          "values": {
+            "data/processed/master/212.wav": 0.0166,
+            "data/processed/master/215.wav": 0.18724,
+            "data/processed/master/216.wav": 0.06247,
+            "data/processed/master/219.wav": 0.09736,
+            "data/processed/master/220.wav": 0.05876
+          },
+          "mean": 0.08449,
+          "min": 0.0166,
+          "max": 0.18724
+        }
+      }
+    },
+    {
+      "label": "tenor",
+      "audio_path": "artifacts/reports/diffsinger_gtsinger_heldout_set/listening/gtsja0165_tenor.wav",
+      "audio_sha256": "ec40aa9c3cbdc608c9d89d67338e47263037b98f637a64f5751f5595230a8243",
+      "asr_transcript": "僕がいるいつも今失調なごメール一人きりなんか",
+      "asr_lyric_similarity": 0.5,
+      "teacher_forced_lyric_nll": 2.7246,
+      "pitch_median_abs_cents": 2.18,
+      "pitch_p90_abs_cents": 28.38,
+      "gross_error_over_600_cents": 0.0059,
+      "observed_voiced_ratio": 0.7364,
+      "voicing_accuracy": 0.8536,
+      "f0": {
+        "hz_p05": 210.69,
+        "hz_median": 249.52,
+        "hz_p95": 312.26,
+        "midi_p05": 56.25,
+        "midi_median": 59.18,
+        "midi_p95": 63.06
+      },
+      "peak": 0.451901,
+      "rms": 0.077254,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.026992,
+      "hf_energy_ratio_p95": 0.066023,
+      "hf_spike_p99_over_median": 3471.9678,
+      "spectral_flatness_mean": 0.006378,
+      "spectral_flux_p95": 0.26934,
+      "spectral_flux_max": 0.716751,
+      "sample_jump_p999": 0.041163,
+      "pass": false,
+      "identity_similarity": {
+        "reference_count": 5,
+        "wavlm": {
+          "values": {
+            "data/processed/master/212.wav": 0.81051,
+            "data/processed/master/215.wav": 0.90252,
+            "data/processed/master/216.wav": 0.8393,
+            "data/processed/master/219.wav": 0.87402,
+            "data/processed/master/220.wav": 0.81643
+          },
+          "mean": 0.84856,
+          "min": 0.81051,
+          "max": 0.90252
+        },
+        "ecapa": {
+          "values": {
+            "data/processed/master/212.wav": 0.18104,
+            "data/processed/master/215.wav": 0.43825,
+            "data/processed/master/216.wav": 0.18193,
+            "data/processed/master/219.wav": 0.33642,
+            "data/processed/master/220.wav": 0.20967
+          },
+          "mean": 0.26946,
+          "min": 0.18104,
+          "max": 0.43825
+        }
+      }
+    },
+    {
+      "label": "mix20",
+      "audio_path": "artifacts/reports/diffsinger_gtsinger_heldout_set/listening/gtsja0165_mix20.wav",
+      "audio_sha256": "2fc927d94937443205f4f6b0a55f8c491c22d8834ba21fdfe33395f7e849259b",
+      "asr_transcript": "僕がいるいつも日も失調なガメール一人きりの",
+      "asr_lyric_similarity": 0.6047,
+      "teacher_forced_lyric_nll": 2.5605,
+      "pitch_median_abs_cents": 2.52,
+      "pitch_p90_abs_cents": 34.73,
+      "gross_error_over_600_cents": 0.0088,
+      "observed_voiced_ratio": 0.7385,
+      "voicing_accuracy": 0.8515,
+      "f0": {
+        "hz_p05": 210.19,
+        "hz_median": 250.88,
+        "hz_p95": 321.77,
+        "midi_p05": 56.21,
+        "midi_median": 59.27,
+        "midi_p95": 63.58
+      },
+      "peak": 0.42521,
+      "rms": 0.07613,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.026721,
+      "hf_energy_ratio_p95": 0.064286,
+      "hf_spike_p99_over_median": 3992.0012,
+      "spectral_flatness_mean": 0.006208,
+      "spectral_flux_p95": 0.275808,
+      "spectral_flux_max": 0.701045,
+      "sample_jump_p999": 0.037159,
+      "pass": false,
+      "identity_similarity": {
+        "reference_count": 5,
+        "wavlm": {
+          "values": {
+            "data/processed/master/212.wav": 0.82297,
+            "data/processed/master/215.wav": 0.90128,
+            "data/processed/master/216.wav": 0.85194,
+            "data/processed/master/219.wav": 0.87537,
+            "data/processed/master/220.wav": 0.82795
+          },
+          "mean": 0.8559,
+          "min": 0.82297,
+          "max": 0.90128
+        },
+        "ecapa": {
+          "values": {
+            "data/processed/master/212.wav": 0.16224,
+            "data/processed/master/215.wav": 0.40459,
+            "data/processed/master/216.wav": 0.15009,
+            "data/processed/master/219.wav": 0.31216,
+            "data/processed/master/220.wav": 0.17819
+          },
+          "mean": 0.24145,
+          "min": 0.15009,
+          "max": 0.40459
+        }
+      }
+    }
+  ],
+  "identity_reference_paths": [
+    "data/processed/master/212.wav",
+    "data/processed/master/215.wav",
+    "data/processed/master/216.wav",
+    "data/processed/master/219.wav",
+    "data/processed/master/220.wav"
+  ],
+  "identity_adaptation_allowed": true,
+  "release_allowed": false,
+  "interpretation": "Every candidate must pass waveform/F0 checks and a free Whisper transcript. Teacher-forced NLL cannot rescue an unintelligible candidate; human listening remains mandatory."
+}

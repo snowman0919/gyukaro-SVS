@@ -1,0 +1,80 @@
+{
+  "status": "feasibility_pass",
+  "feasibility_pass": true,
+  "grad_steps": 4,
+  "total_steps": 64,
+  "cfg": 1.5,
+  "seed": 21,
+  "crop": {
+    "source": "artifacts/reports/rc8_sustained_decode_sweep/omnivoice_source.wav",
+    "start_seconds": 0.3,
+    "duration_seconds": 3.0
+  },
+  "baseline": {
+    "identity_off_repeat_max_abs": 0.0,
+    "current_v07_candidate_max_abs": 0.0,
+    "current_v07_candidate_mean_abs": 0.0,
+    "allclose_atol": 1e-05,
+    "allclose_rtol": 0.0001
+  },
+  "losses": {
+    "wavlm_speaker": 0.8600780963897705,
+    "ecapa_speaker": 0.9445267915725708,
+    "waveform": 0.004759881179779768,
+    "stft_256": 0.20054090023040771,
+    "stft_1024": 0.19847778975963593,
+    "stft_4096": 0.22586819529533386,
+    "pitch_period": 0.0037669986486434937,
+    "content": 0.00047929721768014133,
+    "adapter_output": 0.002227914286777377,
+    "gate": 0.0,
+    "parameter_drift": 0.0,
+    "total": 1.872300386428833
+  },
+  "loss_weights": {
+    "wavlm_speaker": 1.0,
+    "ecapa_speaker": 1.0,
+    "waveform": 1.0,
+    "stft_256": 0.1,
+    "stft_1024": 0.1,
+    "stft_4096": 0.1,
+    "pitch_period": 0.1,
+    "content": 0.1,
+    "adapter_output": 0.01,
+    "gate": 0.01,
+    "parameter_drift": 0.01
+  },
+  "gradient_audit": {
+    "adapter_gradient_norm": 0.0016519470373168588,
+    "adapter_gradient_finite": true,
+    "adapter_gradient_nonzero": true,
+    "unexpected_frozen_gradients": [],
+    "pass": true
+  },
+  "relative_parameter_drift": 0.0,
+  "runtime_seconds": 11.1632,
+  "peak_cuda_allocated_bytes": 20653921280,
+  "peak_cuda_reserved_bytes": 21070086144,
+  "gates": {
+    "identity_off_reproduced": true,
+    "initial_v07_match": true,
+    "finite_audio": true,
+    "finite_losses": true,
+    "adapter_gradient": true,
+    "no_frozen_gradients": true,
+    "no_parameter_update": true
+  },
+  "paths": {
+    "identity_off": "artifacts/reports/truncated_identity_feasibility/k4/identity_off.wav",
+    "current_v07": "artifacts/reports/truncated_identity_feasibility/k4/current_v07.wav",
+    "truncated": "artifacts/reports/truncated_identity_feasibility/k4/truncated.wav"
+  },
+  "revisions": {
+    "git": "79d1abf05799248728086b59eea63d72ec64d191",
+    "soulx": "81aeb3ae772c70093c3de74dc23c92d983801ae4",
+    "adapter": "checkpoints/gyu_real_latent_adapters_v0.7.pt"
+  },
+  "wavlm_legacy_weight_norm_restored": true,
+  "optimizer_steps": 0,
+  "runtime_integration": false
+}

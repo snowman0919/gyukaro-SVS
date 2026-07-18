@@ -44,9 +44,23 @@ def test_stationary_gate_preserves_boundaries_and_finds_sustained_vowel():
     assert not stationary_gate({"language": "en", "notes": [{"pitch": 64, "start": 0, "duration": 3, "lyric": "ah"}]}, 144_000).any()
 
 
-def test_rc8_uses_base_half_strength_outside_stationary_gate(monkeypatch):
+def test_rc8_uses_fixed_half_spectral_strength(monkeypatch):
     renderer = GyuSingerRC8Renderer.__new__(GyuSingerRC8Renderer)
     renderer.spectral_refiner = type("Refiner", (), {"process": lambda self, audio: audio + .2})()
     monkeypatch.setattr(GyuSingerRC6Renderer, "render", lambda self, score: np.zeros(1000, dtype="float32"))
-    monkeypatch.setattr("gyu_singer.inference.rc8.stationary_gate", lambda *args: np.zeros(1000, dtype="float32"))
     assert np.allclose(renderer.render({}), .1)
+
+
+def test_rc8_uses_low_cfg_only_for_long_stable_notes():
+    renderer = GyuSingerRC8Renderer.__new__(GyuSingerRC8Renderer)
+    base = {"language": "ko", "style": {"preset": "neutral"}}
+    sustained = base | {"notes": [{"pitch": 64, "start": 0, "duration": 5}]}
+    rapid = base | {"notes": [{"pitch": 64, "start": 0, "duration": .25}]}
+    interval = base | {"notes": [
+        {"pitch": 55, "start": 0, "duration": 1.2},
+        {"pitch": 67, "start": 1.2, "duration": 1.2},
+    ]}
+
+    assert renderer._decoder_options(sustained) == {"n_steps": 64, "cfg": 1.5, "seed": 21}
+    assert renderer._decoder_options(rapid) == {"n_steps": 64, "cfg": 2.0, "seed": 21}
+    assert renderer._decoder_options(interval) == {"n_steps": 50, "cfg": 2.0, "seed": 21}

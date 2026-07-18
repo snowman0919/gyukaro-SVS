@@ -1,0 +1,249 @@
+{
+  "status": "source_probe_pass_human_pending",
+  "selected": "tenor",
+  "best_diagnostic_candidate": "tenor",
+  "gate": {
+    "asr_lyric_similarity_min": 0.8,
+    "teacher_forced_lyric_nll": "diagnostic_only_never_a_pass_substitute",
+    "pitch_p90_abs_cents_max": 100,
+    "gross_error_over_600_cents_max": 0.05,
+    "observed_voiced_ratio_min": 0.8,
+    "observed_voiced_ratio_max": 0.97,
+    "voicing_accuracy_min_when_target_grid_available": 0.8,
+    "clip_fraction": 0,
+    "hf_spike_p99_over_reference_max": 2.0
+  },
+  "reference_calibration": {
+    "used": true,
+    "free_asr_similarity": 1.0,
+    "teacher_forced_lyric_nll": 2.7988,
+    "free_asr_reference_pass": true,
+    "waveform_analysis": {
+      "audio_path": "data/external/raw/gtsinger-lfs/Japanese/JA-Soprano-1/Mixed_Voice_and_Falsetto/行かないで/Control_Group/0000.wav",
+      "duration_seconds": 14.663,
+      "free_asr_transcript": "何も見えない何も",
+      "f0": {
+        "hz_p05": 165.49,
+        "hz_median": 238.49,
+        "hz_p95": 246.64,
+        "midi_p05": 52.07,
+        "midi_median": 58.4,
+        "midi_p95": 58.98
+      },
+      "observed_voiced_ratio": 0.5041,
+      "peak": 0.476196,
+      "rms": 0.13292,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.002825,
+      "hf_energy_ratio_p95": 0.004493,
+      "hf_spike_p99_over_median": 88.8471,
+      "spectral_flatness_mean": 0.00191,
+      "spectral_flux_p95": 0.581721,
+      "spectral_flux_max": 0.925124,
+      "sample_jump_p999": 0.065313
+    }
+  },
+  "target_f0": {
+    "hz_p05": 165.49,
+    "hz_median": 238.49,
+    "hz_p95": 246.64,
+    "midi_p05": 52.07,
+    "midi_median": 58.4,
+    "midi_p95": 58.98
+  },
+  "expected_text_sha256": [
+    "5214b5140051867d3f040ca3869ceb8618d5baff65a7b3eb9f3a6ae9e86cccc1"
+  ],
+  "expected_text_characters": [
+    8
+  ],
+  "rows": [
+    {
+      "label": "soprano",
+      "audio_path": "artifacts/reports/diffsinger_gtsinger_heldout_set/listening/gtsja0379_soprano.wav",
+      "audio_sha256": "206cb524ffcbeac3c8ac263c2a0eca5713ddc1b3c64db7d8a4da66defa93ce86",
+      "asr_transcript": "何も見えない何も",
+      "asr_lyric_similarity": 1.0,
+      "teacher_forced_lyric_nll": 2.8535,
+      "pitch_median_abs_cents": 1.32,
+      "pitch_p90_abs_cents": 4.41,
+      "gross_error_over_600_cents": 0.0,
+      "observed_voiced_ratio": 0.5368,
+      "voicing_accuracy": 0.9619,
+      "f0": {
+        "hz_p05": 139.75,
+        "hz_median": 237.61,
+        "hz_p95": 248.26,
+        "midi_p05": 48.78,
+        "midi_median": 58.33,
+        "midi_p95": 59.09
+      },
+      "peak": 0.342347,
+      "rms": 0.089657,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.011725,
+      "hf_energy_ratio_p95": 0.051641,
+      "hf_spike_p99_over_median": 75.6682,
+      "spectral_flatness_mean": 0.01597,
+      "spectral_flux_p95": 0.473726,
+      "spectral_flux_max": 0.830356,
+      "sample_jump_p999": 0.018999,
+      "pass": true,
+      "identity_similarity": {
+        "reference_count": 5,
+        "wavlm": {
+          "values": {
+            "data/processed/master/212.wav": 0.40467,
+            "data/processed/master/215.wav": 0.58629,
+            "data/processed/master/216.wav": 0.49339,
+            "data/processed/master/219.wav": 0.54632,
+            "data/processed/master/220.wav": 0.44029
+          },
+          "mean": 0.49419,
+          "min": 0.40467,
+          "max": 0.58629
+        },
+        "ecapa": {
+          "values": {
+            "data/processed/master/212.wav": -0.01627,
+            "data/processed/master/215.wav": 0.11718,
+            "data/processed/master/216.wav": 0.00055,
+            "data/processed/master/219.wav": 0.05143,
+            "data/processed/master/220.wav": 0.01554
+          },
+          "mean": 0.03369,
+          "min": -0.01627,
+          "max": 0.11718
+        }
+      }
+    },
+    {
+      "label": "tenor",
+      "audio_path": "artifacts/reports/diffsinger_gtsinger_heldout_set/listening/gtsja0379_tenor.wav",
+      "audio_sha256": "2c875e4accb46bc03f40ce22d9b496e148fb7e31c4d8278e8fb2756569176a67",
+      "asr_transcript": "何も見えない何も",
+      "asr_lyric_similarity": 1.0,
+      "teacher_forced_lyric_nll": 3.1934,
+      "pitch_median_abs_cents": 1.25,
+      "pitch_p90_abs_cents": 4.34,
+      "gross_error_over_600_cents": 0.0,
+      "observed_voiced_ratio": 0.6649,
+      "voicing_accuracy": 0.8338,
+      "f0": {
+        "hz_p05": 86.31,
+        "hz_median": 240.12,
+        "hz_p95": 508.28,
+        "midi_p05": 40.8,
+        "midi_median": 58.52,
+        "midi_p95": 71.5
+      },
+      "peak": 0.406741,
+      "rms": 0.083362,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.010383,
+      "hf_energy_ratio_p95": 0.029768,
+      "hf_spike_p99_over_median": 97.1848,
+      "spectral_flatness_mean": 0.007188,
+      "spectral_flux_p95": 0.202537,
+      "spectral_flux_max": 0.493563,
+      "sample_jump_p999": 0.039075,
+      "pass": true,
+      "identity_similarity": {
+        "reference_count": 5,
+        "wavlm": {
+          "values": {
+            "data/processed/master/212.wav": 0.58914,
+            "data/processed/master/215.wav": 0.65991,
+            "data/processed/master/216.wav": 0.62136,
+            "data/processed/master/219.wav": 0.65325,
+            "data/processed/master/220.wav": 0.61843
+          },
+          "mean": 0.62842,
+          "min": 0.58914,
+          "max": 0.65991
+        },
+        "ecapa": {
+          "values": {
+            "data/processed/master/212.wav": 0.08808,
+            "data/processed/master/215.wav": 0.27404,
+            "data/processed/master/216.wav": 0.05375,
+            "data/processed/master/219.wav": 0.2603,
+            "data/processed/master/220.wav": 0.07855
+          },
+          "mean": 0.15094,
+          "min": 0.05375,
+          "max": 0.27404
+        }
+      }
+    },
+    {
+      "label": "mix20",
+      "audio_path": "artifacts/reports/diffsinger_gtsinger_heldout_set/listening/gtsja0379_mix20.wav",
+      "audio_sha256": "3a8b6cf1a23af91a916ff6bd2e6fc87becae075d7a3c3cfd3c549b86d7c63800",
+      "asr_transcript": "なんも見えないなにも",
+      "asr_lyric_similarity": 0.6667,
+      "teacher_forced_lyric_nll": 3.1738,
+      "pitch_median_abs_cents": 1.25,
+      "pitch_p90_abs_cents": 4.1,
+      "gross_error_over_600_cents": 0.0,
+      "observed_voiced_ratio": 0.7044,
+      "voicing_accuracy": 0.7943,
+      "f0": {
+        "hz_p05": 86.02,
+        "hz_median": 239.63,
+        "hz_p95": 441.84,
+        "midi_p05": 40.74,
+        "midi_median": 58.48,
+        "midi_p95": 69.07
+      },
+      "peak": 0.426008,
+      "rms": 0.084041,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.009681,
+      "hf_energy_ratio_p95": 0.028236,
+      "hf_spike_p99_over_median": 110.8245,
+      "spectral_flatness_mean": 0.006943,
+      "spectral_flux_p95": 0.209705,
+      "spectral_flux_max": 0.562122,
+      "sample_jump_p999": 0.041842,
+      "pass": false,
+      "identity_similarity": {
+        "reference_count": 5,
+        "wavlm": {
+          "values": {
+            "data/processed/master/212.wav": 0.56332,
+            "data/processed/master/215.wav": 0.628,
+            "data/processed/master/216.wav": 0.59552,
+            "data/processed/master/219.wav": 0.62153,
+            "data/processed/master/220.wav": 0.59052
+          },
+          "mean": 0.59978,
+          "min": 0.56332,
+          "max": 0.628
+        },
+        "ecapa": {
+          "values": {
+            "data/processed/master/212.wav": 0.09067,
+            "data/processed/master/215.wav": 0.27754,
+            "data/processed/master/216.wav": 0.0528,
+            "data/processed/master/219.wav": 0.2658,
+            "data/processed/master/220.wav": 0.07671
+          },
+          "mean": 0.1527,
+          "min": 0.0528,
+          "max": 0.27754
+        }
+      }
+    }
+  ],
+  "identity_reference_paths": [
+    "data/processed/master/212.wav",
+    "data/processed/master/215.wav",
+    "data/processed/master/216.wav",
+    "data/processed/master/219.wav",
+    "data/processed/master/220.wav"
+  ],
+  "identity_adaptation_allowed": true,
+  "release_allowed": false,
+  "interpretation": "Every candidate must pass waveform/F0 checks and a free Whisper transcript. Teacher-forced NLL cannot rescue an unintelligible candidate; human listening remains mandatory."
+}

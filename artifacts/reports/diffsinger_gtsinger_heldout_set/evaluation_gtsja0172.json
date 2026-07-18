@@ -1,0 +1,249 @@
+{
+  "status": "source_probe_pass_human_pending",
+  "selected": "soprano",
+  "best_diagnostic_candidate": "soprano",
+  "gate": {
+    "asr_lyric_similarity_min": 0.8,
+    "teacher_forced_lyric_nll": "diagnostic_only_never_a_pass_substitute",
+    "pitch_p90_abs_cents_max": 100,
+    "gross_error_over_600_cents_max": 0.05,
+    "observed_voiced_ratio_min": 0.8,
+    "observed_voiced_ratio_max": 0.97,
+    "voicing_accuracy_min_when_target_grid_available": 0.8,
+    "clip_fraction": 0,
+    "hf_spike_p99_over_reference_max": 2.0
+  },
+  "reference_calibration": {
+    "used": true,
+    "free_asr_similarity": 1.0,
+    "teacher_forced_lyric_nll": 1.168,
+    "free_asr_reference_pass": true,
+    "waveform_analysis": {
+      "audio_path": "data/external/raw/gtsinger-lfs/Japanese/JA-Soprano-1/Glissando/风になる/Control_Group/0009.wav",
+      "duration_seconds": 11.112,
+      "free_asr_transcript": "手をかざしてもう一度忘れないよ すぐそばに君がいるいつの日も",
+      "f0": {
+        "hz_p05": 175.74,
+        "hz_median": 236.95,
+        "hz_p95": 341.33,
+        "midi_p05": 53.11,
+        "midi_median": 58.28,
+        "midi_p95": 64.6
+      },
+      "observed_voiced_ratio": 0.7986,
+      "peak": 0.324921,
+      "rms": 0.083303,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.019278,
+      "hf_energy_ratio_p95": 0.104436,
+      "hf_spike_p99_over_median": 2391.8286,
+      "spectral_flatness_mean": 0.002971,
+      "spectral_flux_p95": 0.36688,
+      "spectral_flux_max": 0.838584,
+      "sample_jump_p999": 0.062214
+    }
+  },
+  "target_f0": {
+    "hz_p05": 175.74,
+    "hz_median": 236.95,
+    "hz_p95": 341.33,
+    "midi_p05": 53.11,
+    "midi_median": 58.28,
+    "midi_p95": 64.6
+  },
+  "expected_text_sha256": [
+    "e9e6cc6612d6769e6b77ac7aba2a1e3f3f67b0717d7bc869aec929e310390bb9"
+  ],
+  "expected_text_characters": [
+    29
+  ],
+  "rows": [
+    {
+      "label": "soprano",
+      "audio_path": "artifacts/reports/diffsinger_gtsinger_heldout_set/listening/gtsja0172_soprano.wav",
+      "audio_sha256": "5f09dfbc395a92a22f3fd64e9a9715d62cb9af5b4a417a30de211374d4065553",
+      "asr_transcript": "もう一度 触れないよ すぐそばに君がいる いつの日も",
+      "asr_lyric_similarity": 0.8462,
+      "teacher_forced_lyric_nll": 1.5264,
+      "pitch_median_abs_cents": 1.91,
+      "pitch_p90_abs_cents": 15.36,
+      "gross_error_over_600_cents": 0.0,
+      "observed_voiced_ratio": 0.7289,
+      "voicing_accuracy": 0.8885,
+      "f0": {
+        "hz_p05": 176.93,
+        "hz_median": 236.48,
+        "hz_p95": 342.32,
+        "midi_p05": 53.23,
+        "midi_median": 58.25,
+        "midi_p95": 64.65
+      },
+      "peak": 0.426397,
+      "rms": 0.106118,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.059655,
+      "hf_energy_ratio_p95": 0.554325,
+      "hf_spike_p99_over_median": 1222.4583,
+      "spectral_flatness_mean": 0.008857,
+      "spectral_flux_p95": 0.325184,
+      "spectral_flux_max": 0.78133,
+      "sample_jump_p999": 0.098337,
+      "pass": true,
+      "identity_similarity": {
+        "reference_count": 5,
+        "wavlm": {
+          "values": {
+            "data/processed/master/212.wav": 0.52828,
+            "data/processed/master/215.wav": 0.67012,
+            "data/processed/master/216.wav": 0.58614,
+            "data/processed/master/219.wav": 0.64087,
+            "data/processed/master/220.wav": 0.55022
+          },
+          "mean": 0.59513,
+          "min": 0.52828,
+          "max": 0.67012
+        },
+        "ecapa": {
+          "values": {
+            "data/processed/master/212.wav": 0.04587,
+            "data/processed/master/215.wav": 0.17224,
+            "data/processed/master/216.wav": 0.09706,
+            "data/processed/master/219.wav": 0.12524,
+            "data/processed/master/220.wav": 0.08509
+          },
+          "mean": 0.1051,
+          "min": 0.04587,
+          "max": 0.17224
+        }
+      }
+    },
+    {
+      "label": "tenor",
+      "audio_path": "artifacts/reports/diffsinger_gtsinger_heldout_set/listening/gtsja0172_tenor.wav",
+      "audio_sha256": "6c5ac204ff3d1e627c82600f5b95de2b8e7530b66ab3a972e97a7db77a6df5f7",
+      "asr_transcript": "そしてもう一度 折れないよ すぐ二人 君がいるいつもいいの?",
+      "asr_lyric_similarity": 0.6909,
+      "teacher_forced_lyric_nll": 2.6406,
+      "pitch_median_abs_cents": 1.85,
+      "pitch_p90_abs_cents": 20.42,
+      "gross_error_over_600_cents": 0.0051,
+      "observed_voiced_ratio": 0.7343,
+      "voicing_accuracy": 0.8867,
+      "f0": {
+        "hz_p05": 175.85,
+        "hz_median": 236.84,
+        "hz_p95": 343.2,
+        "midi_p05": 53.12,
+        "midi_median": 58.28,
+        "midi_p95": 64.7
+      },
+      "peak": 0.450879,
+      "rms": 0.082186,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.036829,
+      "hf_energy_ratio_p95": 0.207012,
+      "hf_spike_p99_over_median": 6937.9897,
+      "spectral_flatness_mean": 0.006517,
+      "spectral_flux_p95": 0.257593,
+      "spectral_flux_max": 0.652059,
+      "sample_jump_p999": 0.051473,
+      "pass": false,
+      "identity_similarity": {
+        "reference_count": 5,
+        "wavlm": {
+          "values": {
+            "data/processed/master/212.wav": 0.84977,
+            "data/processed/master/215.wav": 0.93369,
+            "data/processed/master/216.wav": 0.85275,
+            "data/processed/master/219.wav": 0.90748,
+            "data/processed/master/220.wav": 0.85123
+          },
+          "mean": 0.87898,
+          "min": 0.84977,
+          "max": 0.93369
+        },
+        "ecapa": {
+          "values": {
+            "data/processed/master/212.wav": 0.17878,
+            "data/processed/master/215.wav": 0.40305,
+            "data/processed/master/216.wav": 0.18317,
+            "data/processed/master/219.wav": 0.33207,
+            "data/processed/master/220.wav": 0.19609
+          },
+          "mean": 0.25863,
+          "min": 0.17878,
+          "max": 0.40305
+        }
+      }
+    },
+    {
+      "label": "mix20",
+      "audio_path": "artifacts/reports/diffsinger_gtsinger_heldout_set/listening/gtsja0172_mix20.wav",
+      "audio_sha256": "5271ba815ed765cc2d5e4aa982169150c44d6535096ea1a809fe0e4d70ff206a",
+      "asr_transcript": "そしてもう一度 折れないよ すぐそばに君がいるいつもいいの?",
+      "asr_lyric_similarity": 0.7857,
+      "teacher_forced_lyric_nll": 2.4805,
+      "pitch_median_abs_cents": 2.04,
+      "pitch_p90_abs_cents": 22.78,
+      "gross_error_over_600_cents": 0.0076,
+      "observed_voiced_ratio": 0.7307,
+      "voicing_accuracy": 0.8903,
+      "f0": {
+        "hz_p05": 175.81,
+        "hz_median": 236.69,
+        "hz_p95": 342.49,
+        "midi_p05": 53.12,
+        "midi_median": 58.27,
+        "midi_p95": 64.66
+      },
+      "peak": 0.42774,
+      "rms": 0.080291,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.036436,
+      "hf_energy_ratio_p95": 0.209667,
+      "hf_spike_p99_over_median": 7229.6929,
+      "spectral_flatness_mean": 0.006468,
+      "spectral_flux_p95": 0.258459,
+      "spectral_flux_max": 0.672996,
+      "sample_jump_p999": 0.047423,
+      "pass": false,
+      "identity_similarity": {
+        "reference_count": 5,
+        "wavlm": {
+          "values": {
+            "data/processed/master/212.wav": 0.87638,
+            "data/processed/master/215.wav": 0.93737,
+            "data/processed/master/216.wav": 0.87249,
+            "data/processed/master/219.wav": 0.91803,
+            "data/processed/master/220.wav": 0.86991
+          },
+          "mean": 0.89484,
+          "min": 0.86991,
+          "max": 0.93737
+        },
+        "ecapa": {
+          "values": {
+            "data/processed/master/212.wav": 0.17934,
+            "data/processed/master/215.wav": 0.38377,
+            "data/processed/master/216.wav": 0.18363,
+            "data/processed/master/219.wav": 0.32696,
+            "data/processed/master/220.wav": 0.19578
+          },
+          "mean": 0.2539,
+          "min": 0.17934,
+          "max": 0.38377
+        }
+      }
+    }
+  ],
+  "identity_reference_paths": [
+    "data/processed/master/212.wav",
+    "data/processed/master/215.wav",
+    "data/processed/master/216.wav",
+    "data/processed/master/219.wav",
+    "data/processed/master/220.wav"
+  ],
+  "identity_adaptation_allowed": true,
+  "release_allowed": false,
+  "interpretation": "Every candidate must pass waveform/F0 checks and a free Whisper transcript. Teacher-forced NLL cannot rescue an unintelligible candidate; human listening remains mandatory."
+}

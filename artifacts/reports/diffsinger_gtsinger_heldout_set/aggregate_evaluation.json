@@ -1,0 +1,292 @@
+{
+  "status": "qualified_score_native_foundation_only",
+  "foundation": "soprano",
+  "candidates": {
+    "soprano": {
+      "label": "soprano",
+      "status": "qualified_foundation_only",
+      "passed_phrases": 5,
+      "failed_phrases": [],
+      "failures": [],
+      "identity": {
+        "wavlm": 0.54093,
+        "ecapa": 0.0971
+      },
+      "identity_gate_required": false,
+      "identity_gate_pass": true,
+      "metrics": {
+        "lyric_similarity_mean": 0.92444,
+        "lyric_similarity_min": 0.8372,
+        "pitch_p90_max": 33.12,
+        "gross_error_max": 0.0172,
+        "voicing_accuracy_min": 0.8808,
+        "clipping_max": 0.0,
+        "hf_over_source_max": 1.0695258607928473,
+        "sample_jump_max": 0.098337
+      }
+    },
+    "tenor": {
+      "label": "tenor",
+      "status": "reject",
+      "passed_phrases": 0,
+      "failed_phrases": [
+        "gtsja0165",
+        "gtsja0172",
+        "gtsja0174",
+        "gtsja0379",
+        "gtsja0380"
+      ],
+      "failures": [
+        {
+          "phrase": "gtsja0165",
+          "failed_gates": [
+            "lexical",
+            "voicing",
+            "hf_spike"
+          ]
+        },
+        {
+          "phrase": "gtsja0172",
+          "failed_gates": [
+            "lexical",
+            "hf_spike"
+          ]
+        },
+        {
+          "phrase": "gtsja0174",
+          "failed_gates": [
+            "voicing"
+          ]
+        },
+        {
+          "phrase": "gtsja0379",
+          "failed_gates": [
+            "voicing",
+            "sample_jump"
+          ]
+        },
+        {
+          "phrase": "gtsja0380",
+          "failed_gates": [
+            "lexical",
+            "voicing",
+            "hf_spike",
+            "sample_jump"
+          ]
+        }
+      ],
+      "identity": {
+        "wavlm": 0.74056,
+        "ecapa": 0.21269,
+        "versus_baseline": {
+          "wavlm": {
+            "mean": 0.19963,
+            "per_reference": {
+              "data/processed/master/212.wav": 0.22182,
+              "data/processed/master/215.wav": 0.18345,
+              "data/processed/master/216.wav": 0.18173,
+              "data/processed/master/219.wav": 0.19246,
+              "data/processed/master/220.wav": 0.21867
+            },
+            "no_material_reference_collapse": true
+          },
+          "ecapa": {
+            "mean": 0.11559,
+            "per_reference": {
+              "data/processed/master/212.wav": 0.09983,
+              "data/processed/master/215.wav": 0.19188,
+              "data/processed/master/216.wav": 0.05115,
+              "data/processed/master/219.wav": 0.1651,
+              "data/processed/master/220.wav": 0.07
+            },
+            "no_material_reference_collapse": true
+          }
+        },
+        "improved": true
+      },
+      "identity_gate_required": false,
+      "identity_gate_pass": true,
+      "metrics": {
+        "lyric_similarity_mean": 0.62984,
+        "lyric_similarity_min": 0.0,
+        "pitch_p90_max": 28.38,
+        "gross_error_max": 0.0059,
+        "voicing_accuracy_min": 0.816,
+        "clipping_max": 0.0,
+        "hf_over_source_max": 2.9007052177568244,
+        "sample_jump_max": 0.062639
+      }
+    },
+    "mix20": {
+      "label": "mix20",
+      "status": "reject_unqualified_identity_baseline",
+      "passed_phrases": 1,
+      "failed_phrases": [
+        "gtsja0165",
+        "gtsja0172",
+        "gtsja0379",
+        "gtsja0380"
+      ],
+      "failures": [
+        {
+          "phrase": "gtsja0165",
+          "failed_gates": [
+            "lexical",
+            "hf_spike"
+          ]
+        },
+        {
+          "phrase": "gtsja0172",
+          "failed_gates": [
+            "lexical",
+            "hf_spike"
+          ]
+        },
+        {
+          "phrase": "gtsja0379",
+          "failed_gates": [
+            "lexical",
+            "voicing"
+          ]
+        },
+        {
+          "phrase": "gtsja0380",
+          "failed_gates": [
+            "lexical",
+            "hf_spike"
+          ]
+        }
+      ],
+      "identity": {
+        "wavlm": 0.73723,
+        "ecapa": 0.21152,
+        "versus_baseline": {
+          "wavlm": {
+            "mean": -0.00333,
+            "per_reference": {
+              "data/processed/master/212.wav": 0.00061,
+              "data/processed/master/215.wav": -0.00765,
+              "data/processed/master/216.wav": -1e-05,
+              "data/processed/master/219.wav": -0.00699,
+              "data/processed/master/220.wav": -0.00258
+            },
+            "no_material_reference_collapse": true
+          },
+          "ecapa": {
+            "mean": -0.00117,
+            "per_reference": {
+              "data/processed/master/212.wav": 0.00108,
+              "data/processed/master/215.wav": -0.00247,
+              "data/processed/master/216.wav": -0.00267,
+              "data/processed/master/219.wav": 0.00168,
+              "data/processed/master/220.wav": -0.00349
+            },
+            "no_material_reference_collapse": true
+          }
+        },
+        "improved": false
+      },
+      "identity_gate_required": true,
+      "identity_gate_pass": false,
+      "metrics": {
+        "lyric_similarity_mean": 0.67422,
+        "lyric_similarity_min": 0.4444,
+        "pitch_p90_max": 34.73,
+        "gross_error_max": 0.0088,
+        "voicing_accuracy_min": 0.7943,
+        "clipping_max": 0.0,
+        "hf_over_source_max": 3.0226634550653007,
+        "sample_jump_max": 0.059851
+      }
+    }
+  },
+  "seed_stability": {
+    "seeds": [
+      7,
+      21,
+      42
+    ],
+    "phrases": {
+      "gtsja0165": {
+        "sha256": {
+          "7": "d10c01e5808d2ad88c4127b7fd3f0877c1d9ef47548f5b15b40001cabab060e6",
+          "21": "c72f764f8fad607eaf6fa22784d3dabf08a0a8c99fd8b6bb43dc8f8e370ab777",
+          "42": "ad2ff905ebe45aa254583a1fb0c8e8a8cebc30087b3eba0e1da160aa51e7a1c9"
+        },
+        "unique_sha256": 3,
+        "quality_gate": {
+          "7": true,
+          "21": true,
+          "42": true
+        },
+        "all_quality_gates_pass": true
+      },
+      "gtsja0172": {
+        "sha256": {
+          "7": "2f6f5bb66f3f1912f2330425554eed0144ce137d479106166d7eac435e60e6c0",
+          "21": "14e918b8e4fe54f9930ab296b0c867cc0957dfde184ea011a9a48a73739d5c28",
+          "42": "ad920fb9818d7d18ea957022d11a1e2e92a3ea9155146ff028258cb089bbc8b8"
+        },
+        "unique_sha256": 3,
+        "quality_gate": {
+          "7": true,
+          "21": true,
+          "42": true
+        },
+        "all_quality_gates_pass": true
+      },
+      "gtsja0174": {
+        "sha256": {
+          "7": "fac9459c86fee74232531b67751444edcf17f25a5664a7dd1f0c52273b804b4c",
+          "21": "960383f93c74d5623b425f9edbcceb0eb1414af5a073fee8b2a2afa98f2be923",
+          "42": "60722204ee5e658590add60b1afb980cc3262608194a950918a02ef9ad0f05fa"
+        },
+        "unique_sha256": 3,
+        "quality_gate": {
+          "7": true,
+          "21": true,
+          "42": true
+        },
+        "all_quality_gates_pass": true
+      },
+      "gtsja0379": {
+        "sha256": {
+          "7": "5f0f05aa997b620883c8993962dfc805a6a350fb24b13c4ff640f16228b3a45a",
+          "21": "0d7244256f12ba2c225440fe8186dcc2e63edf033d6493359e3254f652138f37",
+          "42": "6eec0e98f306df065911ccc9b6314cff95b2c623989f30f8e49092758954c782"
+        },
+        "unique_sha256": 3,
+        "quality_gate": {
+          "7": true,
+          "21": true,
+          "42": true
+        },
+        "all_quality_gates_pass": true
+      },
+      "gtsja0380": {
+        "sha256": {
+          "7": "4d5089c2859e66ec87d469af87f9c00bf6a5e049961bd9721c83caa4150890fd",
+          "21": "a1586d0ba175747499f2c9d4525228f454cad792316044a29f12d656707c20d7",
+          "42": "2bfbfc8d3a8f0a6367890c3c986bf9f55e695d0c64e42a4184d3550c2b02bcdd"
+        },
+        "unique_sha256": 3,
+        "quality_gate": {
+          "7": true,
+          "21": true,
+          "42": true
+        },
+        "all_quality_gates_pass": true
+      }
+    },
+    "byte_identical": false,
+    "stable": true
+  },
+  "source_upper_bounds_all_pass": true,
+  "identity_adaptation_allowed": false,
+  "new_training_allowed": false,
+  "production_readiness": "FAIL",
+  "rc9_openutau_package_release": "blocked",
+  "v1.0.0": "prohibited",
+  "license": "CC BY-NC-SA 4.0 evaluation only",
+  "runtime_integration": false
+}

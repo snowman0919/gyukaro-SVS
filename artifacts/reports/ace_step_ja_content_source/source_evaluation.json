@@ -1,0 +1,96 @@
+{
+  "status": "source_gate_reject",
+  "model": "ACE-Step-v1-3.5B",
+  "revision": "1bee4c9f5b43e30995f8d4d33b3919197ce1bd68",
+  "license": "Apache-2.0",
+  "seed": 101,
+  "infer_steps": 20,
+  "guidance_scale": 7,
+  "rows": [
+    {
+      "case": "quality_ja",
+      "lyrics": "空へ向かい歌おう小さな光を追う",
+      "path": "artifacts/reports/ace_step_ja_content_source/source/quality_ja.wav",
+      "sha256": "6d97de18e31f745d3382fb133557e16e39f8a52c348d0f90debc96344ee16cdd",
+      "duration_seconds": 9.9381,
+      "whisper_transcript": "そう愛うたおう 小さな光を",
+      "lyric_similarity": 0.5185,
+      "repeated_expected_span": null,
+      "repetition": false,
+      "waveform": {
+        "peak": 0.510101,
+        "rms": 0.09153,
+        "clip_fraction": 0.0,
+        "hf_energy_ratio_mean": 0.043206,
+        "hf_energy_ratio_p95": 0.437738,
+        "hf_spike_p99_over_median": 2814.9175,
+        "spectral_flatness_mean": 0.008912,
+        "spectral_flux_p95": 0.218636,
+        "spectral_flux_max": 0.659701,
+        "sample_jump_p999": 0.055237
+      },
+      "multi_resolution": {
+        "short": {
+          "spectral_flatness_mean": 0.0052201,
+          "spectral_instability_p95": 0.042078,
+          "noise_floor_modulation_db_std": 8.3278
+        },
+        "medium": {
+          "spectral_flatness_mean": 0.0048424,
+          "spectral_instability_p95": 0.065683,
+          "noise_floor_modulation_db_std": 8.1619
+        },
+        "long": {
+          "spectral_flatness_mean": 0.0041118,
+          "spectral_instability_p95": 0.11881,
+          "noise_floor_modulation_db_std": 7.8598
+        }
+      }
+    },
+    {
+      "case": "heldout_ja",
+      "lyrics": "新しい歌を風に乗せて届ける",
+      "path": "artifacts/reports/ace_step_ja_content_source/source/heldout_ja.wav",
+      "sha256": "d768b89248fa713579dfd418cdf0881d7fd1b1d22a478a2a4b42368e9fbf0eb3",
+      "duration_seconds": 8.8236,
+      "whisper_transcript": "あたたしい歌を風に乗せて届ける",
+      "lyric_similarity": 0.8571,
+      "repeated_expected_span": null,
+      "repetition": false,
+      "waveform": {
+        "peak": 0.383682,
+        "rms": 0.066633,
+        "clip_fraction": 0.0,
+        "hf_energy_ratio_mean": 0.031047,
+        "hf_energy_ratio_p95": 0.183663,
+        "hf_spike_p99_over_median": 606.5132,
+        "spectral_flatness_mean": 0.027172,
+        "spectral_flux_p95": 0.341969,
+        "spectral_flux_max": 0.540209,
+        "sample_jump_p999": 0.064209
+      },
+      "multi_resolution": {
+        "short": {
+          "spectral_flatness_mean": 0.0097831,
+          "spectral_instability_p95": 0.052366,
+          "noise_floor_modulation_db_std": 10.1507
+        },
+        "medium": {
+          "spectral_flatness_mean": 0.0086305,
+          "spectral_instability_p95": 0.077522,
+          "noise_floor_modulation_db_std": 9.9988
+        },
+        "long": {
+          "spectral_flatness_mean": 0.0076286,
+          "spectral_instability_p95": 0.139629,
+          "noise_floor_modulation_db_std": 9.8171
+        }
+      }
+    }
+  ],
+  "waveform_multires_stft": "artifacts/reports/ace_step_ja_content_source/waveform_multires_stft.png",
+  "soulx_decode_skipped": true,
+  "runtime_integrated": false,
+  "rc8_human_status": "pending",
+  "rc9_started": false
+}

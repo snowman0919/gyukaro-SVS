@@ -1,0 +1,1833 @@
+{
+  "status": "diagnostic_reject",
+  "runtime_integrated": false,
+  "human_listening": "pending",
+  "scope": "JA non-rapid heldout diagnostic only; quality JA and Rapid JA/KO are not routed",
+  "hypothesis": "avoid OmniVoice repetition collapse by generating an exact shorter phrase, padding only the SoulX carrier, and monotonically remapping content latent to the score timeline",
+  "source_whisper": [
+    {
+      "case": "heldout_full",
+      "lyrics": "新しい歌を風に乗せて届ける",
+      "characters": 13,
+      "duration": 6.6,
+      "seconds_per_character": 0.5077,
+      "path": "artifacts/reports/omnivoice_ja_duration_collapse/listening/heldout_full_6.6s.wav",
+      "sha256": "d988729e581c9ffd4f376060b5e7f079846e464a15e25da82ba8f4a310b622d2",
+      "whisper_transcript": "新しい歌を風に乗せて届ける",
+      "lyric_similarity": 1.0,
+      "observed_expected_length_ratio": 1.0,
+      "repeated_expected_span": null,
+      "waveform": {
+        "peak": 0.500366,
+        "rms": 0.076948,
+        "clip_fraction": 0.0,
+        "hf_energy_ratio_mean": 0.015224,
+        "hf_energy_ratio_p95": 0.034191,
+        "hf_spike_p99_over_median": 3289.782,
+        "spectral_flatness_mean": 0.004372,
+        "spectral_flux_p95": 0.316133,
+        "spectral_flux_max": 0.476088,
+        "sample_jump_p999": 0.069486
+      },
+      "multi_resolution": {
+        "short": {
+          "spectral_flatness_mean": 0.0148252,
+          "spectral_instability_p95": 0.052056,
+          "noise_floor_modulation_db_std": 12.0738
+        },
+        "medium": {
+          "spectral_flatness_mean": 0.0131896,
+          "spectral_instability_p95": 0.11456,
+          "noise_floor_modulation_db_std": 11.262
+        },
+        "long": {
+          "spectral_flatness_mean": 0.0099742,
+          "spectral_instability_p95": 0.197164,
+          "noise_floor_modulation_db_std": 11.9744
+        }
+      }
+    },
+    {
+      "case": "heldout_full",
+      "lyrics": "新しい歌を風に乗せて届ける",
+      "characters": 13,
+      "duration": 8.9,
+      "seconds_per_character": 0.6846,
+      "path": "artifacts/reports/omnivoice_ja_duration_collapse/listening/heldout_full_8.9s.wav",
+      "sha256": "79920a6b99a385220416039ecfe55c7cf984fce02ab61195fdd6c5d084eef39d",
+      "whisper_transcript": "新しい歌を風に乗せて 新しい歌を風に乗せて届ける",
+      "lyric_similarity": 0.7222,
+      "observed_expected_length_ratio": 1.7692,
+      "repeated_expected_span": {
+        "text": "新しい歌を風に乗せて",
+        "expected_count": 1,
+        "observed_count": 2
+      },
+      "waveform": {
+        "peak": 0.500953,
+        "rms": 0.074546,
+        "clip_fraction": 0.0,
+        "hf_energy_ratio_mean": 0.057203,
+        "hf_energy_ratio_p95": 0.21049,
+        "hf_spike_p99_over_median": 5508.2871,
+        "spectral_flatness_mean": 0.054951,
+        "spectral_flux_p95": 0.40959,
+        "spectral_flux_max": 0.908934,
+        "sample_jump_p999": 0.101146
+      },
+      "multi_resolution": {
+        "short": {
+          "spectral_flatness_mean": 0.0110281,
+          "spectral_instability_p95": 0.077962,
+          "noise_floor_modulation_db_std": 36.964
+        },
+        "medium": {
+          "spectral_flatness_mean": 0.0095399,
+          "spectral_instability_p95": 0.154662,
+          "noise_floor_modulation_db_std": 37.4979
+        },
+        "long": {
+          "spectral_flatness_mean": 0.0077912,
+          "spectral_instability_p95": 0.2805,
+          "noise_floor_modulation_db_std": 37.7362
+        }
+      }
+    }
+  ],
+  "ctc_evidence": {
+    "method": "MMS_FA_character_CTC_plus_frontend_phone_grouping",
+    "diagnostic_human_verified_kana": [
+      "あたらしいうたを",
+      "かぜにのせて",
+      "とどけ",
+      "る"
+    ],
+    "unknown_phoneme_ratio": 0.0,
+    "target_phoneme_coverage": 0.993258,
+    "monotonic": true,
+    "mean_log_score": -0.981389,
+    "removed_source_spans": [],
+    "mapping": "CTC-aligned safe 6.6 s latent -> monotonic 8.9 s score timeline; padded carrier is not final WAV stitching"
+  },
+  "decoder": {
+    "precision": [
+      "fp16 diagnostic",
+      "fp32 production recheck"
+    ],
+    "n_steps": 64,
+    "cfg": 2.0,
+    "seeds": [
+      7,
+      21,
+      42
+    ],
+    "refiners": "unchanged RC8 acoustic 0.25 then spectral 0.5"
+  },
+  "rows": {
+    "current_fp16_raw": {
+      "peak": 0.5681,
+      "rms": 0.082906,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.003663,
+      "hf_energy_ratio_p95": 0.010275,
+      "hf_spike_p99_over_median": 1493.5906,
+      "spectral_flatness_mean": 0.0002,
+      "spectral_flux_p95": 0.254079,
+      "spectral_flux_max": 0.520032,
+      "sample_jump_p999": 0.099908,
+      "observed_voiced_ratio": 0.9392,
+      "target_voiced_ratio": 0.9752,
+      "voicing_accuracy": 0.9189,
+      "pitch_mae_cents": 7.32,
+      "path": "artifacts/reports/omnivoice_safe_duration_ja/current_fp16_raw.wav",
+      "duration": 8.88,
+      "harmonic_to_noise_proxy_db": 11.7144,
+      "multi_resolution": {
+        "short": {
+          "spectral_flatness_mean": 1.69e-05,
+          "spectral_instability_p95": 0.048238,
+          "noise_floor_modulation_db_std": 19.4092
+        },
+        "medium": {
+          "spectral_flatness_mean": 9.7e-06,
+          "spectral_instability_p95": 0.044929,
+          "noise_floor_modulation_db_std": 18.5312
+        },
+        "long": {
+          "spectral_flatness_mean": 7.1e-06,
+          "spectral_instability_p95": 0.09741,
+          "noise_floor_modulation_db_std": 18.2129
+        }
+      },
+      "phones": {
+        "timeline_source": "score_timed_frontend_inferred",
+        "phone_count": 19,
+        "weak_phone_count": 5,
+        "voicing_mismatch_count": 2,
+        "weak_phones": [
+          {
+            "phoneme": "ja_i",
+            "voicing": "vowel",
+            "start": 2.654,
+            "end": 3.053,
+            "rms_to_phrase_median": 0.1512,
+            "unexpected_silence_fraction": 0.75,
+            "voiced_fraction": 1.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ja_unknown_乗",
+            "voicing": "vowel",
+            "start": 3.053,
+            "end": 3.472,
+            "rms_to_phrase_median": 0.1063,
+            "unexpected_silence_fraction": 0.3333,
+            "voiced_fraction": 0.8095,
+            "voicing_match": 0.8095
+          },
+          {
+            "phoneme": "ja_s",
+            "voicing": "unvoiced_consonant",
+            "start": 3.472,
+            "end": 3.532,
+            "rms_to_phrase_median": 0.0685,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 0.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ja_e",
+            "voicing": "vowel",
+            "start": 3.532,
+            "end": 3.931,
+            "rms_to_phrase_median": 0.145,
+            "unexpected_silence_fraction": 0.25,
+            "voiced_fraction": 0.65,
+            "voicing_match": 0.65
+          },
+          {
+            "phoneme": "ja_t",
+            "voicing": "unvoiced_consonant",
+            "start": 3.931,
+            "end": 3.991,
+            "rms_to_phrase_median": 0.1221,
+            "unexpected_silence_fraction": 0.3333,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          }
+        ],
+        "voicing_mismatches": [
+          {
+            "phoneme": "ja_sh",
+            "voicing": "unvoiced_consonant",
+            "start": 0.419,
+            "end": 0.479,
+            "rms_to_phrase_median": 0.99,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 0.6667,
+            "voicing_match": 0.3333
+          },
+          {
+            "phoneme": "ja_t",
+            "voicing": "unvoiced_consonant",
+            "start": 3.931,
+            "end": 3.991,
+            "rms_to_phrase_median": 0.1221,
+            "unexpected_silence_fraction": 0.3333,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          }
+        ]
+      },
+      "asr_transcript": "新しい歌を風に乗せて新しい歌を風に乗せて届ける",
+      "asr_lyric_similarity": 0.7222,
+      "repetition_detected": true,
+      "sha256": "7191e2143d4297ab647307158dce1024e241e95fefde7a50cf468454869a981c",
+      "wavlm_to_gyu": 0.80908,
+      "ecapa_to_gyu": 0.2064
+    },
+    "candidate_fp16_raw": {
+      "peak": 0.829091,
+      "rms": 0.109362,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.001043,
+      "hf_energy_ratio_p95": 0.002843,
+      "hf_spike_p99_over_median": 266.4469,
+      "spectral_flatness_mean": 5.8e-05,
+      "spectral_flux_p95": 0.226953,
+      "spectral_flux_max": 0.460119,
+      "sample_jump_p999": 0.086318,
+      "observed_voiced_ratio": 0.9438,
+      "target_voiced_ratio": 0.9843,
+      "voicing_accuracy": 0.9371,
+      "pitch_mae_cents": 7.99,
+      "path": "artifacts/reports/omnivoice_safe_duration_ja/candidate_fp16_raw.wav",
+      "duration": 8.9,
+      "harmonic_to_noise_proxy_db": 9.9084,
+      "multi_resolution": {
+        "short": {
+          "spectral_flatness_mean": 1.29e-05,
+          "spectral_instability_p95": 0.050489,
+          "noise_floor_modulation_db_std": 13.524
+        },
+        "medium": {
+          "spectral_flatness_mean": 5.9e-06,
+          "spectral_instability_p95": 0.046739,
+          "noise_floor_modulation_db_std": 13.4734
+        },
+        "long": {
+          "spectral_flatness_mean": 3.5e-06,
+          "spectral_instability_p95": 0.084648,
+          "noise_floor_modulation_db_std": 11.8004
+        }
+      },
+      "phones": {
+        "timeline_source": "score_timed_frontend_inferred",
+        "phone_count": 19,
+        "weak_phone_count": 0,
+        "voicing_mismatch_count": 1,
+        "weak_phones": [],
+        "voicing_mismatches": [
+          {
+            "phoneme": "ja_k",
+            "voicing": "unvoiced_consonant",
+            "start": 5.48,
+            "end": 5.52,
+            "rms_to_phrase_median": 1.6816,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          }
+        ]
+      },
+      "asr_transcript": "新しい歌を風に乗せて届ける",
+      "asr_lyric_similarity": 1.0,
+      "repetition_detected": false,
+      "sha256": "e3c13163a83630f62782df65306c8422e0194247d28e8b759efd51cc6bc3bac2",
+      "wavlm_to_gyu": 0.87407,
+      "ecapa_to_gyu": 0.25973
+    },
+    "current_fp16_refined": {
+      "peak": 0.44047,
+      "rms": 0.065646,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.003291,
+      "hf_energy_ratio_p95": 0.008261,
+      "hf_spike_p99_over_median": 1162.2229,
+      "spectral_flatness_mean": 0.000224,
+      "spectral_flux_p95": 0.252402,
+      "spectral_flux_max": 0.492817,
+      "sample_jump_p999": 0.07741,
+      "observed_voiced_ratio": 0.9392,
+      "target_voiced_ratio": 0.9752,
+      "voicing_accuracy": 0.9189,
+      "pitch_mae_cents": 7.38,
+      "path": "artifacts/reports/omnivoice_safe_duration_ja/current_fp16_refined.wav",
+      "duration": 8.88,
+      "harmonic_to_noise_proxy_db": 12.2112,
+      "multi_resolution": {
+        "short": {
+          "spectral_flatness_mean": 1.84e-05,
+          "spectral_instability_p95": 0.04577,
+          "noise_floor_modulation_db_std": 18.0538
+        },
+        "medium": {
+          "spectral_flatness_mean": 1.09e-05,
+          "spectral_instability_p95": 0.04093,
+          "noise_floor_modulation_db_std": 16.0666
+        },
+        "long": {
+          "spectral_flatness_mean": 8.2e-06,
+          "spectral_instability_p95": 0.087947,
+          "noise_floor_modulation_db_std": 15.3563
+        }
+      },
+      "phones": {
+        "timeline_source": "score_timed_frontend_inferred",
+        "phone_count": 19,
+        "weak_phone_count": 5,
+        "voicing_mismatch_count": 2,
+        "weak_phones": [
+          {
+            "phoneme": "ja_i",
+            "voicing": "vowel",
+            "start": 2.654,
+            "end": 3.053,
+            "rms_to_phrase_median": 0.1363,
+            "unexpected_silence_fraction": 0.75,
+            "voiced_fraction": 1.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ja_unknown_乗",
+            "voicing": "vowel",
+            "start": 3.053,
+            "end": 3.472,
+            "rms_to_phrase_median": 0.108,
+            "unexpected_silence_fraction": 0.3333,
+            "voiced_fraction": 0.8095,
+            "voicing_match": 0.8095
+          },
+          {
+            "phoneme": "ja_s",
+            "voicing": "unvoiced_consonant",
+            "start": 3.472,
+            "end": 3.532,
+            "rms_to_phrase_median": 0.0696,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 0.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ja_e",
+            "voicing": "vowel",
+            "start": 3.532,
+            "end": 3.931,
+            "rms_to_phrase_median": 0.1465,
+            "unexpected_silence_fraction": 0.25,
+            "voiced_fraction": 0.65,
+            "voicing_match": 0.65
+          },
+          {
+            "phoneme": "ja_t",
+            "voicing": "unvoiced_consonant",
+            "start": 3.931,
+            "end": 3.991,
+            "rms_to_phrase_median": 0.1216,
+            "unexpected_silence_fraction": 0.3333,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          }
+        ],
+        "voicing_mismatches": [
+          {
+            "phoneme": "ja_sh",
+            "voicing": "unvoiced_consonant",
+            "start": 0.419,
+            "end": 0.479,
+            "rms_to_phrase_median": 0.9444,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 0.6667,
+            "voicing_match": 0.3333
+          },
+          {
+            "phoneme": "ja_t",
+            "voicing": "unvoiced_consonant",
+            "start": 3.931,
+            "end": 3.991,
+            "rms_to_phrase_median": 0.1216,
+            "unexpected_silence_fraction": 0.3333,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          }
+        ]
+      },
+      "asr_transcript": "新しい歌を風に乗せて新しい歌を風に乗せて届ける",
+      "asr_lyric_similarity": 0.7222,
+      "repetition_detected": true,
+      "sha256": "f865779dabc0f1f3b1cefbaa4445f09bd628e13842e5d22e4a06419d1b47c142",
+      "wavlm_to_gyu": 0.80346,
+      "ecapa_to_gyu": 0.21456
+    },
+    "candidate_fp16_refined": {
+      "peak": 0.610845,
+      "rms": 0.088561,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.000975,
+      "hf_energy_ratio_p95": 0.002615,
+      "hf_spike_p99_over_median": 144.6023,
+      "spectral_flatness_mean": 7.5e-05,
+      "spectral_flux_p95": 0.221389,
+      "spectral_flux_max": 0.480386,
+      "sample_jump_p999": 0.07114,
+      "observed_voiced_ratio": 0.9483,
+      "target_voiced_ratio": 0.9843,
+      "voicing_accuracy": 0.9416,
+      "pitch_mae_cents": 7.68,
+      "path": "artifacts/reports/omnivoice_safe_duration_ja/candidate_fp16_refined.wav",
+      "duration": 8.9,
+      "harmonic_to_noise_proxy_db": 10.5259,
+      "multi_resolution": {
+        "short": {
+          "spectral_flatness_mean": 1.49e-05,
+          "spectral_instability_p95": 0.048565,
+          "noise_floor_modulation_db_std": 12.9383
+        },
+        "medium": {
+          "spectral_flatness_mean": 7e-06,
+          "spectral_instability_p95": 0.043059,
+          "noise_floor_modulation_db_std": 12.4169
+        },
+        "long": {
+          "spectral_flatness_mean": 4.3e-06,
+          "spectral_instability_p95": 0.079834,
+          "noise_floor_modulation_db_std": 10.8037
+        }
+      },
+      "phones": {
+        "timeline_source": "score_timed_frontend_inferred",
+        "phone_count": 19,
+        "weak_phone_count": 0,
+        "voicing_mismatch_count": 0,
+        "weak_phones": [],
+        "voicing_mismatches": []
+      },
+      "asr_transcript": "新しい歌を風に乗せて届ける",
+      "asr_lyric_similarity": 1.0,
+      "repetition_detected": false,
+      "sha256": "d3371184d8379033752f98dea62bc94be62343b7843c030b4bef7f221378052d",
+      "wavlm_to_gyu": 0.87806,
+      "ecapa_to_gyu": 0.26915
+    },
+    "current_fp32_raw": {
+      "peak": 0.584296,
+      "rms": 0.083056,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.003654,
+      "hf_energy_ratio_p95": 0.010247,
+      "hf_spike_p99_over_median": 1572.9469,
+      "spectral_flatness_mean": 0.000194,
+      "spectral_flux_p95": 0.264831,
+      "spectral_flux_max": 0.498843,
+      "sample_jump_p999": 0.097968,
+      "observed_voiced_ratio": 0.9392,
+      "target_voiced_ratio": 0.9752,
+      "voicing_accuracy": 0.9189,
+      "pitch_mae_cents": 7.55,
+      "path": "artifacts/reports/omnivoice_safe_duration_ja/current_fp32_raw.wav",
+      "duration": 8.88,
+      "harmonic_to_noise_proxy_db": 11.1888,
+      "multi_resolution": {
+        "short": {
+          "spectral_flatness_mean": 1.67e-05,
+          "spectral_instability_p95": 0.048424,
+          "noise_floor_modulation_db_std": 19.3603
+        },
+        "medium": {
+          "spectral_flatness_mean": 9.2e-06,
+          "spectral_instability_p95": 0.044951,
+          "noise_floor_modulation_db_std": 18.4516
+        },
+        "long": {
+          "spectral_flatness_mean": 6.7e-06,
+          "spectral_instability_p95": 0.09691,
+          "noise_floor_modulation_db_std": 18.0781
+        }
+      },
+      "phones": {
+        "timeline_source": "score_timed_frontend_inferred",
+        "phone_count": 19,
+        "weak_phone_count": 5,
+        "voicing_mismatch_count": 2,
+        "weak_phones": [
+          {
+            "phoneme": "ja_i",
+            "voicing": "vowel",
+            "start": 2.654,
+            "end": 3.053,
+            "rms_to_phrase_median": 0.1516,
+            "unexpected_silence_fraction": 0.75,
+            "voiced_fraction": 1.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ja_unknown_乗",
+            "voicing": "vowel",
+            "start": 3.053,
+            "end": 3.472,
+            "rms_to_phrase_median": 0.1093,
+            "unexpected_silence_fraction": 0.3333,
+            "voiced_fraction": 0.8095,
+            "voicing_match": 0.8095
+          },
+          {
+            "phoneme": "ja_s",
+            "voicing": "unvoiced_consonant",
+            "start": 3.472,
+            "end": 3.532,
+            "rms_to_phrase_median": 0.0694,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 0.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ja_e",
+            "voicing": "vowel",
+            "start": 3.532,
+            "end": 3.931,
+            "rms_to_phrase_median": 0.1486,
+            "unexpected_silence_fraction": 0.2,
+            "voiced_fraction": 0.65,
+            "voicing_match": 0.65
+          },
+          {
+            "phoneme": "ja_t",
+            "voicing": "unvoiced_consonant",
+            "start": 3.931,
+            "end": 3.991,
+            "rms_to_phrase_median": 0.1221,
+            "unexpected_silence_fraction": 0.3333,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          }
+        ],
+        "voicing_mismatches": [
+          {
+            "phoneme": "ja_sh",
+            "voicing": "unvoiced_consonant",
+            "start": 0.419,
+            "end": 0.479,
+            "rms_to_phrase_median": 0.9968,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 0.6667,
+            "voicing_match": 0.3333
+          },
+          {
+            "phoneme": "ja_t",
+            "voicing": "unvoiced_consonant",
+            "start": 3.931,
+            "end": 3.991,
+            "rms_to_phrase_median": 0.1221,
+            "unexpected_silence_fraction": 0.3333,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          }
+        ]
+      },
+      "asr_transcript": "新しい歌を風に乗せて新しい歌を風に乗せて届ける",
+      "asr_lyric_similarity": 0.7222,
+      "repetition_detected": true,
+      "sha256": "674d66e7b99a466b9a7f6a90be5eda2696d449710cf7e21564a239734506aa5b",
+      "wavlm_to_gyu": 0.78825,
+      "ecapa_to_gyu": 0.19971
+    },
+    "candidate_fp32_raw": {
+      "peak": 0.829232,
+      "rms": 0.109563,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.001034,
+      "hf_energy_ratio_p95": 0.002923,
+      "hf_spike_p99_over_median": 251.7487,
+      "spectral_flatness_mean": 5.8e-05,
+      "spectral_flux_p95": 0.230784,
+      "spectral_flux_max": 0.479091,
+      "sample_jump_p999": 0.08655,
+      "observed_voiced_ratio": 0.9483,
+      "target_voiced_ratio": 0.9843,
+      "voicing_accuracy": 0.9371,
+      "pitch_mae_cents": 7.98,
+      "path": "artifacts/reports/omnivoice_safe_duration_ja/candidate_fp32_raw.wav",
+      "duration": 8.9,
+      "harmonic_to_noise_proxy_db": 9.9311,
+      "multi_resolution": {
+        "short": {
+          "spectral_flatness_mean": 1.24e-05,
+          "spectral_instability_p95": 0.050556,
+          "noise_floor_modulation_db_std": 13.5206
+        },
+        "medium": {
+          "spectral_flatness_mean": 5.6e-06,
+          "spectral_instability_p95": 0.046638,
+          "noise_floor_modulation_db_std": 13.4379
+        },
+        "long": {
+          "spectral_flatness_mean": 3.4e-06,
+          "spectral_instability_p95": 0.08453,
+          "noise_floor_modulation_db_std": 11.7413
+        }
+      },
+      "phones": {
+        "timeline_source": "score_timed_frontend_inferred",
+        "phone_count": 19,
+        "weak_phone_count": 0,
+        "voicing_mismatch_count": 1,
+        "weak_phones": [],
+        "voicing_mismatches": [
+          {
+            "phoneme": "ja_k",
+            "voicing": "unvoiced_consonant",
+            "start": 5.48,
+            "end": 5.52,
+            "rms_to_phrase_median": 1.7024,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          }
+        ]
+      },
+      "asr_transcript": "新しい歌を風に乗せて届ける",
+      "asr_lyric_similarity": 1.0,
+      "repetition_detected": false,
+      "sha256": "390eb39e05b4a924162d91a275485c1a7c11d458074e0d35ff139dc6a5810b2c",
+      "wavlm_to_gyu": 0.87192,
+      "ecapa_to_gyu": 0.25258
+    },
+    "current_fp32_refined": {
+      "peak": 0.444776,
+      "rms": 0.065785,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.00328,
+      "hf_energy_ratio_p95": 0.008412,
+      "hf_spike_p99_over_median": 1182.3512,
+      "spectral_flatness_mean": 0.000218,
+      "spectral_flux_p95": 0.258573,
+      "spectral_flux_max": 0.497813,
+      "sample_jump_p999": 0.075793,
+      "observed_voiced_ratio": 0.9392,
+      "target_voiced_ratio": 0.9752,
+      "voicing_accuracy": 0.9189,
+      "pitch_mae_cents": 7.8,
+      "path": "artifacts/reports/omnivoice_safe_duration_ja/current_fp32_refined.wav",
+      "duration": 8.88,
+      "harmonic_to_noise_proxy_db": 11.7429,
+      "multi_resolution": {
+        "short": {
+          "spectral_flatness_mean": 1.82e-05,
+          "spectral_instability_p95": 0.046133,
+          "noise_floor_modulation_db_std": 18.037
+        },
+        "medium": {
+          "spectral_flatness_mean": 1.04e-05,
+          "spectral_instability_p95": 0.040626,
+          "noise_floor_modulation_db_std": 16.0417
+        },
+        "long": {
+          "spectral_flatness_mean": 7.8e-06,
+          "spectral_instability_p95": 0.087033,
+          "noise_floor_modulation_db_std": 15.3027
+        }
+      },
+      "phones": {
+        "timeline_source": "score_timed_frontend_inferred",
+        "phone_count": 19,
+        "weak_phone_count": 5,
+        "voicing_mismatch_count": 2,
+        "weak_phones": [
+          {
+            "phoneme": "ja_i",
+            "voicing": "vowel",
+            "start": 2.654,
+            "end": 3.053,
+            "rms_to_phrase_median": 0.1357,
+            "unexpected_silence_fraction": 0.75,
+            "voiced_fraction": 1.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ja_unknown_乗",
+            "voicing": "vowel",
+            "start": 3.053,
+            "end": 3.472,
+            "rms_to_phrase_median": 0.1107,
+            "unexpected_silence_fraction": 0.3333,
+            "voiced_fraction": 0.8095,
+            "voicing_match": 0.8095
+          },
+          {
+            "phoneme": "ja_s",
+            "voicing": "unvoiced_consonant",
+            "start": 3.472,
+            "end": 3.532,
+            "rms_to_phrase_median": 0.0703,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 0.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ja_e",
+            "voicing": "vowel",
+            "start": 3.532,
+            "end": 3.931,
+            "rms_to_phrase_median": 0.1497,
+            "unexpected_silence_fraction": 0.2,
+            "voiced_fraction": 0.65,
+            "voicing_match": 0.65
+          },
+          {
+            "phoneme": "ja_t",
+            "voicing": "unvoiced_consonant",
+            "start": 3.931,
+            "end": 3.991,
+            "rms_to_phrase_median": 0.1213,
+            "unexpected_silence_fraction": 0.3333,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          }
+        ],
+        "voicing_mismatches": [
+          {
+            "phoneme": "ja_sh",
+            "voicing": "unvoiced_consonant",
+            "start": 0.419,
+            "end": 0.479,
+            "rms_to_phrase_median": 0.9486,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 0.6667,
+            "voicing_match": 0.3333
+          },
+          {
+            "phoneme": "ja_t",
+            "voicing": "unvoiced_consonant",
+            "start": 3.931,
+            "end": 3.991,
+            "rms_to_phrase_median": 0.1213,
+            "unexpected_silence_fraction": 0.3333,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          }
+        ]
+      },
+      "asr_transcript": "新しい歌を風に乗せて新しい歌を風に乗せて届ける",
+      "asr_lyric_similarity": 0.7222,
+      "repetition_detected": true,
+      "sha256": "3ddf22ee5ef530248899b5dcc96c74a5937213db27a0fa54fbd55cdc1fd4c403",
+      "wavlm_to_gyu": 0.78275,
+      "ecapa_to_gyu": 0.21008
+    },
+    "candidate_fp32_refined": {
+      "peak": 0.6106,
+      "rms": 0.088691,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.000967,
+      "hf_energy_ratio_p95": 0.002685,
+      "hf_spike_p99_over_median": 147.2314,
+      "spectral_flatness_mean": 7.5e-05,
+      "spectral_flux_p95": 0.225667,
+      "spectral_flux_max": 0.48037,
+      "sample_jump_p999": 0.071247,
+      "observed_voiced_ratio": 0.9551,
+      "target_voiced_ratio": 0.9843,
+      "voicing_accuracy": 0.9483,
+      "pitch_mae_cents": 7.96,
+      "path": "artifacts/reports/omnivoice_safe_duration_ja/candidate_fp32_refined.wav",
+      "duration": 8.9,
+      "harmonic_to_noise_proxy_db": 10.4926,
+      "multi_resolution": {
+        "short": {
+          "spectral_flatness_mean": 1.44e-05,
+          "spectral_instability_p95": 0.048471,
+          "noise_floor_modulation_db_std": 12.9431
+        },
+        "medium": {
+          "spectral_flatness_mean": 6.7e-06,
+          "spectral_instability_p95": 0.04348,
+          "noise_floor_modulation_db_std": 12.4249
+        },
+        "long": {
+          "spectral_flatness_mean": 4.2e-06,
+          "spectral_instability_p95": 0.079172,
+          "noise_floor_modulation_db_std": 10.8082
+        }
+      },
+      "phones": {
+        "timeline_source": "score_timed_frontend_inferred",
+        "phone_count": 19,
+        "weak_phone_count": 0,
+        "voicing_mismatch_count": 0,
+        "weak_phones": [],
+        "voicing_mismatches": []
+      },
+      "asr_transcript": "新しい歌を風に乗せて届ける",
+      "asr_lyric_similarity": 1.0,
+      "repetition_detected": false,
+      "sha256": "c7d24afbb0197f8a96c54a1edc63c9b87f4bea1588741508c653eccad013a341",
+      "wavlm_to_gyu": 0.87831,
+      "ecapa_to_gyu": 0.26717
+    },
+    "current_fp32_seed7_raw": {
+      "peak": 1.000625,
+      "rms": 0.119381,
+      "clip_fraction": 2.35e-06,
+      "hf_energy_ratio_mean": 0.004227,
+      "hf_energy_ratio_p95": 0.012178,
+      "hf_spike_p99_over_median": 1048.6726,
+      "spectral_flatness_mean": 0.000189,
+      "spectral_flux_p95": 0.239209,
+      "spectral_flux_max": 0.495658,
+      "sample_jump_p999": 0.179023,
+      "observed_voiced_ratio": 0.8626,
+      "target_voiced_ratio": 0.9752,
+      "voicing_accuracy": 0.8604,
+      "pitch_mae_cents": 7.94,
+      "path": "artifacts/reports/omnivoice_safe_duration_ja/current_fp32_seed7_raw.wav",
+      "duration": 8.88,
+      "harmonic_to_noise_proxy_db": 9.9955,
+      "multi_resolution": {
+        "short": {
+          "spectral_flatness_mean": 2.57e-05,
+          "spectral_instability_p95": 0.066538,
+          "noise_floor_modulation_db_std": 18.4926
+        },
+        "medium": {
+          "spectral_flatness_mean": 1.15e-05,
+          "spectral_instability_p95": 0.062102,
+          "noise_floor_modulation_db_std": 17.933
+        },
+        "long": {
+          "spectral_flatness_mean": 7.2e-06,
+          "spectral_instability_p95": 0.127164,
+          "noise_floor_modulation_db_std": 18.2404
+        }
+      },
+      "phones": {
+        "timeline_source": "score_timed_frontend_inferred",
+        "phone_count": 19,
+        "weak_phone_count": 3,
+        "voicing_mismatch_count": 4,
+        "weak_phones": [
+          {
+            "phoneme": "ja_unknown_乗",
+            "voicing": "vowel",
+            "start": 3.053,
+            "end": 3.472,
+            "rms_to_phrase_median": 0.1134,
+            "unexpected_silence_fraction": 0.3333,
+            "voiced_fraction": 0.8095,
+            "voicing_match": 0.8095
+          },
+          {
+            "phoneme": "ja_s",
+            "voicing": "unvoiced_consonant",
+            "start": 3.472,
+            "end": 3.532,
+            "rms_to_phrase_median": 0.0915,
+            "unexpected_silence_fraction": 0.6667,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ja_t",
+            "voicing": "unvoiced_consonant",
+            "start": 3.931,
+            "end": 3.991,
+            "rms_to_phrase_median": 0.1599,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 0.6667,
+            "voicing_match": 0.3333
+          }
+        ],
+        "voicing_mismatches": [
+          {
+            "phoneme": "ja_sh",
+            "voicing": "unvoiced_consonant",
+            "start": 0.419,
+            "end": 0.479,
+            "rms_to_phrase_median": 1.285,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ja_s",
+            "voicing": "unvoiced_consonant",
+            "start": 3.472,
+            "end": 3.532,
+            "rms_to_phrase_median": 0.0915,
+            "unexpected_silence_fraction": 0.6667,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ja_t",
+            "voicing": "unvoiced_consonant",
+            "start": 3.931,
+            "end": 3.991,
+            "rms_to_phrase_median": 0.1599,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 0.6667,
+            "voicing_match": 0.3333
+          },
+          {
+            "phoneme": "ja_k",
+            "voicing": "unvoiced_consonant",
+            "start": 5.468,
+            "end": 5.508,
+            "rms_to_phrase_median": 7.2191,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          }
+        ]
+      },
+      "asr_transcript": "新しい歌を風に乗せて新しい歌を風に乗せて届ける",
+      "asr_lyric_similarity": 0.7222,
+      "repetition_detected": true,
+      "sha256": "bfaaca82b4ccdda6df6a66a5d882bc97f05ccaf5db77dc01ff36a491da276ef3",
+      "wavlm_to_gyu": 0.81289,
+      "ecapa_to_gyu": 0.1885
+    },
+    "candidate_fp32_seed7_raw": {
+      "peak": 0.93012,
+      "rms": 0.141803,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.001417,
+      "hf_energy_ratio_p95": 0.003286,
+      "hf_spike_p99_over_median": 352.9695,
+      "spectral_flatness_mean": 3.8e-05,
+      "spectral_flux_p95": 0.256729,
+      "spectral_flux_max": 0.501788,
+      "sample_jump_p999": 0.121075,
+      "observed_voiced_ratio": 0.9798,
+      "target_voiced_ratio": 0.9843,
+      "voicing_accuracy": 0.964,
+      "pitch_mae_cents": 7.24,
+      "path": "artifacts/reports/omnivoice_safe_duration_ja/candidate_fp32_seed7_raw.wav",
+      "duration": 8.9,
+      "harmonic_to_noise_proxy_db": 8.1468,
+      "multi_resolution": {
+        "short": {
+          "spectral_flatness_mean": 1.7e-05,
+          "spectral_instability_p95": 0.058305,
+          "noise_floor_modulation_db_std": 13.5689
+        },
+        "medium": {
+          "spectral_flatness_mean": 6.9e-06,
+          "spectral_instability_p95": 0.060907,
+          "noise_floor_modulation_db_std": 13.2323
+        },
+        "long": {
+          "spectral_flatness_mean": 4.9e-06,
+          "spectral_instability_p95": 0.107478,
+          "noise_floor_modulation_db_std": 11.8485
+        }
+      },
+      "phones": {
+        "timeline_source": "score_timed_frontend_inferred",
+        "phone_count": 19,
+        "weak_phone_count": 0,
+        "voicing_mismatch_count": 1,
+        "weak_phones": [],
+        "voicing_mismatches": [
+          {
+            "phoneme": "ja_k",
+            "voicing": "unvoiced_consonant",
+            "start": 5.48,
+            "end": 5.52,
+            "rms_to_phrase_median": 2.2547,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          }
+        ]
+      },
+      "asr_transcript": "新しい歌を風に乗せて届ける",
+      "asr_lyric_similarity": 1.0,
+      "repetition_detected": false,
+      "sha256": "29ee55a28d035383fdffea52c8c8954c7f242a00f9d60535567b3acff74e9e00",
+      "wavlm_to_gyu": 0.7555,
+      "ecapa_to_gyu": 0.13277
+    },
+    "current_fp32_seed7_refined": {
+      "peak": 0.764015,
+      "rms": 0.091828,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.003827,
+      "hf_energy_ratio_p95": 0.011886,
+      "hf_spike_p99_over_median": 795.6484,
+      "spectral_flatness_mean": 0.000225,
+      "spectral_flux_p95": 0.234543,
+      "spectral_flux_max": 0.497598,
+      "sample_jump_p999": 0.140909,
+      "observed_voiced_ratio": 0.8851,
+      "target_voiced_ratio": 0.9752,
+      "voicing_accuracy": 0.8829,
+      "pitch_mae_cents": 7.78,
+      "path": "artifacts/reports/omnivoice_safe_duration_ja/current_fp32_seed7_refined.wav",
+      "duration": 8.88,
+      "harmonic_to_noise_proxy_db": 10.4227,
+      "multi_resolution": {
+        "short": {
+          "spectral_flatness_mean": 2.95e-05,
+          "spectral_instability_p95": 0.063325,
+          "noise_floor_modulation_db_std": 17.772
+        },
+        "medium": {
+          "spectral_flatness_mean": 1.43e-05,
+          "spectral_instability_p95": 0.056042,
+          "noise_floor_modulation_db_std": 16.4342
+        },
+        "long": {
+          "spectral_flatness_mean": 9.6e-06,
+          "spectral_instability_p95": 0.117302,
+          "noise_floor_modulation_db_std": 16.06
+        }
+      },
+      "phones": {
+        "timeline_source": "score_timed_frontend_inferred",
+        "phone_count": 19,
+        "weak_phone_count": 3,
+        "voicing_mismatch_count": 4,
+        "weak_phones": [
+          {
+            "phoneme": "ja_unknown_乗",
+            "voicing": "vowel",
+            "start": 3.053,
+            "end": 3.472,
+            "rms_to_phrase_median": 0.1221,
+            "unexpected_silence_fraction": 0.1905,
+            "voiced_fraction": 0.8095,
+            "voicing_match": 0.8095
+          },
+          {
+            "phoneme": "ja_s",
+            "voicing": "unvoiced_consonant",
+            "start": 3.472,
+            "end": 3.532,
+            "rms_to_phrase_median": 0.0991,
+            "unexpected_silence_fraction": 0.6667,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ja_t",
+            "voicing": "unvoiced_consonant",
+            "start": 3.931,
+            "end": 3.991,
+            "rms_to_phrase_median": 0.1709,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 0.6667,
+            "voicing_match": 0.3333
+          }
+        ],
+        "voicing_mismatches": [
+          {
+            "phoneme": "ja_sh",
+            "voicing": "unvoiced_consonant",
+            "start": 0.419,
+            "end": 0.479,
+            "rms_to_phrase_median": 1.3287,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ja_s",
+            "voicing": "unvoiced_consonant",
+            "start": 3.472,
+            "end": 3.532,
+            "rms_to_phrase_median": 0.0991,
+            "unexpected_silence_fraction": 0.6667,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ja_t",
+            "voicing": "unvoiced_consonant",
+            "start": 3.931,
+            "end": 3.991,
+            "rms_to_phrase_median": 0.1709,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 0.6667,
+            "voicing_match": 0.3333
+          },
+          {
+            "phoneme": "ja_k",
+            "voicing": "unvoiced_consonant",
+            "start": 5.468,
+            "end": 5.508,
+            "rms_to_phrase_median": 6.2775,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          }
+        ]
+      },
+      "asr_transcript": "新しい歌を風に乗せて新しい歌を風に乗せて届ける",
+      "asr_lyric_similarity": 0.7222,
+      "repetition_detected": true,
+      "sha256": "a21b4b262abab858103ae069e4c1ba82ec973158cdd3fb0d66bb4e784c72c8dd",
+      "wavlm_to_gyu": 0.81089,
+      "ecapa_to_gyu": 0.19798
+    },
+    "candidate_fp32_seed7_refined": {
+      "peak": 0.672311,
+      "rms": 0.109912,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.001361,
+      "hf_energy_ratio_p95": 0.003256,
+      "hf_spike_p99_over_median": 224.6655,
+      "spectral_flatness_mean": 6e-05,
+      "spectral_flux_p95": 0.247081,
+      "spectral_flux_max": 0.506168,
+      "sample_jump_p999": 0.101336,
+      "observed_voiced_ratio": 0.9798,
+      "target_voiced_ratio": 0.9843,
+      "voicing_accuracy": 0.964,
+      "pitch_mae_cents": 7.25,
+      "path": "artifacts/reports/omnivoice_safe_duration_ja/candidate_fp32_seed7_refined.wav",
+      "duration": 8.9,
+      "harmonic_to_noise_proxy_db": 8.4507,
+      "multi_resolution": {
+        "short": {
+          "spectral_flatness_mean": 2.14e-05,
+          "spectral_instability_p95": 0.056351,
+          "noise_floor_modulation_db_std": 13.2068
+        },
+        "medium": {
+          "spectral_flatness_mean": 9.4e-06,
+          "spectral_instability_p95": 0.055986,
+          "noise_floor_modulation_db_std": 12.4289
+        },
+        "long": {
+          "spectral_flatness_mean": 6.8e-06,
+          "spectral_instability_p95": 0.101744,
+          "noise_floor_modulation_db_std": 11.1459
+        }
+      },
+      "phones": {
+        "timeline_source": "score_timed_frontend_inferred",
+        "phone_count": 19,
+        "weak_phone_count": 0,
+        "voicing_mismatch_count": 2,
+        "weak_phones": [],
+        "voicing_mismatches": [
+          {
+            "phoneme": "ja_sh",
+            "voicing": "unvoiced_consonant",
+            "start": 0.42,
+            "end": 0.48,
+            "rms_to_phrase_median": 1.1406,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ja_k",
+            "voicing": "unvoiced_consonant",
+            "start": 5.48,
+            "end": 5.52,
+            "rms_to_phrase_median": 2.0435,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          }
+        ]
+      },
+      "asr_transcript": "新しい歌を風に乗せて届け",
+      "asr_lyric_similarity": 0.96,
+      "repetition_detected": false,
+      "sha256": "993a9831497007b4a4ae4c7347f5398bb410eaa4a695b6e8c83d082611418afd",
+      "wavlm_to_gyu": 0.76298,
+      "ecapa_to_gyu": 0.13816
+    },
+    "current_fp32_seed42_raw": {
+      "peak": 0.693582,
+      "rms": 0.09962,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.005293,
+      "hf_energy_ratio_p95": 0.012392,
+      "hf_spike_p99_over_median": 3312.7683,
+      "spectral_flatness_mean": 0.000346,
+      "spectral_flux_p95": 0.262143,
+      "spectral_flux_max": 0.619646,
+      "sample_jump_p999": 0.094125,
+      "observed_voiced_ratio": 0.8446,
+      "target_voiced_ratio": 0.9752,
+      "voicing_accuracy": 0.8378,
+      "pitch_mae_cents": 8.66,
+      "path": "artifacts/reports/omnivoice_safe_duration_ja/current_fp32_seed42_raw.wav",
+      "duration": 8.88,
+      "harmonic_to_noise_proxy_db": 10.8509,
+      "multi_resolution": {
+        "short": {
+          "spectral_flatness_mean": 2.79e-05,
+          "spectral_instability_p95": 0.047115,
+          "noise_floor_modulation_db_std": 20.9484
+        },
+        "medium": {
+          "spectral_flatness_mean": 1.72e-05,
+          "spectral_instability_p95": 0.045777,
+          "noise_floor_modulation_db_std": 21.2709
+        },
+        "long": {
+          "spectral_flatness_mean": 1.16e-05,
+          "spectral_instability_p95": 0.097073,
+          "noise_floor_modulation_db_std": 21.3613
+        }
+      },
+      "phones": {
+        "timeline_source": "score_timed_frontend_inferred",
+        "phone_count": 19,
+        "weak_phone_count": 5,
+        "voicing_mismatch_count": 4,
+        "weak_phones": [
+          {
+            "phoneme": "ja_unknown_乗",
+            "voicing": "vowel",
+            "start": 3.053,
+            "end": 3.472,
+            "rms_to_phrase_median": 0.1244,
+            "unexpected_silence_fraction": 0.5238,
+            "voiced_fraction": 0.9048,
+            "voicing_match": 0.9048
+          },
+          {
+            "phoneme": "ja_s",
+            "voicing": "unvoiced_consonant",
+            "start": 3.472,
+            "end": 3.532,
+            "rms_to_phrase_median": 0.0617,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ja_e",
+            "voicing": "vowel",
+            "start": 3.532,
+            "end": 3.931,
+            "rms_to_phrase_median": 0.1959,
+            "unexpected_silence_fraction": 0.2,
+            "voiced_fraction": 1.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ja_t",
+            "voicing": "unvoiced_consonant",
+            "start": 3.931,
+            "end": 3.991,
+            "rms_to_phrase_median": 0.1671,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ja_e",
+            "voicing": "vowel",
+            "start": 3.991,
+            "end": 4.39,
+            "rms_to_phrase_median": 0.1517,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 0.85,
+            "voicing_match": 0.85
+          }
+        ],
+        "voicing_mismatches": [
+          {
+            "phoneme": "ja_sh",
+            "voicing": "unvoiced_consonant",
+            "start": 0.419,
+            "end": 0.479,
+            "rms_to_phrase_median": 1.1144,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ja_s",
+            "voicing": "unvoiced_consonant",
+            "start": 3.472,
+            "end": 3.532,
+            "rms_to_phrase_median": 0.0617,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ja_t",
+            "voicing": "unvoiced_consonant",
+            "start": 3.931,
+            "end": 3.991,
+            "rms_to_phrase_median": 0.1671,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ja_k",
+            "voicing": "unvoiced_consonant",
+            "start": 5.468,
+            "end": 5.508,
+            "rms_to_phrase_median": 5.0214,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          }
+        ]
+      },
+      "asr_transcript": "新しい歌を風に乗せて新しい歌を風に乗せて届ける",
+      "asr_lyric_similarity": 0.7222,
+      "repetition_detected": true,
+      "sha256": "c6bc262b9045eda50ee0bd03477397109391871051cd6a8f153465436a4e8254",
+      "wavlm_to_gyu": 0.84735,
+      "ecapa_to_gyu": 0.31659
+    },
+    "candidate_fp32_seed42_raw": {
+      "peak": 0.87395,
+      "rms": 0.108756,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.000571,
+      "hf_energy_ratio_p95": 0.00177,
+      "hf_spike_p99_over_median": 148.9924,
+      "spectral_flatness_mean": 4.3e-05,
+      "spectral_flux_p95": 0.238468,
+      "spectral_flux_max": 0.453705,
+      "sample_jump_p999": 0.067065,
+      "observed_voiced_ratio": 0.9596,
+      "target_voiced_ratio": 0.9843,
+      "voicing_accuracy": 0.9438,
+      "pitch_mae_cents": 6.7,
+      "path": "artifacts/reports/omnivoice_safe_duration_ja/candidate_fp32_seed42_raw.wav",
+      "duration": 8.9,
+      "harmonic_to_noise_proxy_db": 8.8717,
+      "multi_resolution": {
+        "short": {
+          "spectral_flatness_mean": 1.03e-05,
+          "spectral_instability_p95": 0.048302,
+          "noise_floor_modulation_db_std": 13.3324
+        },
+        "medium": {
+          "spectral_flatness_mean": 4.8e-06,
+          "spectral_instability_p95": 0.041101,
+          "noise_floor_modulation_db_std": 13.2488
+        },
+        "long": {
+          "spectral_flatness_mean": 5e-06,
+          "spectral_instability_p95": 0.080263,
+          "noise_floor_modulation_db_std": 11.7611
+        }
+      },
+      "phones": {
+        "timeline_source": "score_timed_frontend_inferred",
+        "phone_count": 19,
+        "weak_phone_count": 0,
+        "voicing_mismatch_count": 1,
+        "weak_phones": [],
+        "voicing_mismatches": [
+          {
+            "phoneme": "ja_k",
+            "voicing": "unvoiced_consonant",
+            "start": 5.48,
+            "end": 5.52,
+            "rms_to_phrase_median": 2.2448,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          }
+        ]
+      },
+      "asr_transcript": "新しい歌を風に乗せて届ける",
+      "asr_lyric_similarity": 1.0,
+      "repetition_detected": false,
+      "sha256": "7d0ae634485dcc1da53873d6bd8ab635a7181fa5324ab4b95c65aeee6b70c816",
+      "wavlm_to_gyu": 0.83051,
+      "ecapa_to_gyu": 0.20762
+    },
+    "current_fp32_seed42_refined": {
+      "peak": 0.522649,
+      "rms": 0.078268,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.004687,
+      "hf_energy_ratio_p95": 0.011083,
+      "hf_spike_p99_over_median": 2705.7646,
+      "spectral_flatness_mean": 0.000379,
+      "spectral_flux_p95": 0.257266,
+      "spectral_flux_max": 0.57025,
+      "sample_jump_p999": 0.071314,
+      "observed_voiced_ratio": 0.8581,
+      "target_voiced_ratio": 0.9752,
+      "voicing_accuracy": 0.8468,
+      "pitch_mae_cents": 8.97,
+      "path": "artifacts/reports/omnivoice_safe_duration_ja/current_fp32_seed42_refined.wav",
+      "duration": 8.88,
+      "harmonic_to_noise_proxy_db": 11.4219,
+      "multi_resolution": {
+        "short": {
+          "spectral_flatness_mean": 2.99e-05,
+          "spectral_instability_p95": 0.044448,
+          "noise_floor_modulation_db_std": 18.209
+        },
+        "medium": {
+          "spectral_flatness_mean": 1.86e-05,
+          "spectral_instability_p95": 0.041517,
+          "noise_floor_modulation_db_std": 16.2433
+        },
+        "long": {
+          "spectral_flatness_mean": 1.28e-05,
+          "spectral_instability_p95": 0.090034,
+          "noise_floor_modulation_db_std": 15.7301
+        }
+      },
+      "phones": {
+        "timeline_source": "score_timed_frontend_inferred",
+        "phone_count": 19,
+        "weak_phone_count": 6,
+        "voicing_mismatch_count": 4,
+        "weak_phones": [
+          {
+            "phoneme": "ja_i",
+            "voicing": "vowel",
+            "start": 2.654,
+            "end": 3.053,
+            "rms_to_phrase_median": 0.231,
+            "unexpected_silence_fraction": 0.7,
+            "voiced_fraction": 1.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ja_unknown_乗",
+            "voicing": "vowel",
+            "start": 3.053,
+            "end": 3.472,
+            "rms_to_phrase_median": 0.1345,
+            "unexpected_silence_fraction": 0.4762,
+            "voiced_fraction": 0.9048,
+            "voicing_match": 0.9048
+          },
+          {
+            "phoneme": "ja_s",
+            "voicing": "unvoiced_consonant",
+            "start": 3.472,
+            "end": 3.532,
+            "rms_to_phrase_median": 0.0672,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ja_e",
+            "voicing": "vowel",
+            "start": 3.532,
+            "end": 3.931,
+            "rms_to_phrase_median": 0.2153,
+            "unexpected_silence_fraction": 0.1,
+            "voiced_fraction": 1.0,
+            "voicing_match": 1.0
+          },
+          {
+            "phoneme": "ja_t",
+            "voicing": "unvoiced_consonant",
+            "start": 3.931,
+            "end": 3.991,
+            "rms_to_phrase_median": 0.1824,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ja_e",
+            "voicing": "vowel",
+            "start": 3.991,
+            "end": 4.39,
+            "rms_to_phrase_median": 0.161,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 0.85,
+            "voicing_match": 0.85
+          }
+        ],
+        "voicing_mismatches": [
+          {
+            "phoneme": "ja_sh",
+            "voicing": "unvoiced_consonant",
+            "start": 0.419,
+            "end": 0.479,
+            "rms_to_phrase_median": 1.1487,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ja_s",
+            "voicing": "unvoiced_consonant",
+            "start": 3.472,
+            "end": 3.532,
+            "rms_to_phrase_median": 0.0672,
+            "unexpected_silence_fraction": 1.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ja_t",
+            "voicing": "unvoiced_consonant",
+            "start": 3.931,
+            "end": 3.991,
+            "rms_to_phrase_median": 0.1824,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          },
+          {
+            "phoneme": "ja_k",
+            "voicing": "unvoiced_consonant",
+            "start": 5.468,
+            "end": 5.508,
+            "rms_to_phrase_median": 4.6092,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          }
+        ]
+      },
+      "asr_transcript": "新しい歌を風に乗せて届ける",
+      "asr_lyric_similarity": 1.0,
+      "repetition_detected": false,
+      "sha256": "665eecdddb4909e6a061efbc27a4077548063626b7fc80db3ff90b43e14afae2",
+      "wavlm_to_gyu": 0.84614,
+      "ecapa_to_gyu": 0.3071
+    },
+    "candidate_fp32_seed42_refined": {
+      "peak": 0.633286,
+      "rms": 0.090346,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.00052,
+      "hf_energy_ratio_p95": 0.001696,
+      "hf_spike_p99_over_median": 83.6997,
+      "spectral_flatness_mean": 5.3e-05,
+      "spectral_flux_p95": 0.233939,
+      "spectral_flux_max": 0.4711,
+      "sample_jump_p999": 0.053875,
+      "observed_voiced_ratio": 0.9596,
+      "target_voiced_ratio": 0.9843,
+      "voicing_accuracy": 0.9438,
+      "pitch_mae_cents": 6.87,
+      "path": "artifacts/reports/omnivoice_safe_duration_ja/candidate_fp32_seed42_refined.wav",
+      "duration": 8.9,
+      "harmonic_to_noise_proxy_db": 9.9645,
+      "multi_resolution": {
+        "short": {
+          "spectral_flatness_mean": 1.1e-05,
+          "spectral_instability_p95": 0.045978,
+          "noise_floor_modulation_db_std": 12.5702
+        },
+        "medium": {
+          "spectral_flatness_mean": 5.2e-06,
+          "spectral_instability_p95": 0.03815,
+          "noise_floor_modulation_db_std": 11.7383
+        },
+        "long": {
+          "spectral_flatness_mean": 5.2e-06,
+          "spectral_instability_p95": 0.075536,
+          "noise_floor_modulation_db_std": 10.267
+        }
+      },
+      "phones": {
+        "timeline_source": "score_timed_frontend_inferred",
+        "phone_count": 19,
+        "weak_phone_count": 0,
+        "voicing_mismatch_count": 1,
+        "weak_phones": [],
+        "voicing_mismatches": [
+          {
+            "phoneme": "ja_k",
+            "voicing": "unvoiced_consonant",
+            "start": 5.48,
+            "end": 5.52,
+            "rms_to_phrase_median": 2.0684,
+            "unexpected_silence_fraction": 0.0,
+            "voiced_fraction": 1.0,
+            "voicing_match": 0.0
+          }
+        ]
+      },
+      "asr_transcript": "新しい歌を風に乗せて、届ける。",
+      "asr_lyric_similarity": 1.0,
+      "repetition_detected": false,
+      "sha256": "54b93b738833f3298c2c74e97ce20c16abe00b1a09af9370c4a6110a0874cf37",
+      "wavlm_to_gyu": 0.83212,
+      "ecapa_to_gyu": 0.21264
+    }
+  },
+  "multiseed_refined_summary": {
+    "7": {
+      "current": {
+        "asr_lyric_similarity": 0.7222,
+        "pitch_mae_cents": 7.78,
+        "voicing_accuracy": 0.8829,
+        "hf_spike_p99_over_median": 795.6484,
+        "sample_jump_p999": 0.140909,
+        "wavlm_to_gyu": 0.81089,
+        "ecapa_to_gyu": 0.19798
+      },
+      "candidate": {
+        "asr_lyric_similarity": 0.96,
+        "pitch_mae_cents": 7.25,
+        "voicing_accuracy": 0.964,
+        "hf_spike_p99_over_median": 224.6655,
+        "sample_jump_p999": 0.101336,
+        "wavlm_to_gyu": 0.76298,
+        "ecapa_to_gyu": 0.13816
+      }
+    },
+    "21": {
+      "current": {
+        "asr_lyric_similarity": 0.7222,
+        "pitch_mae_cents": 7.8,
+        "voicing_accuracy": 0.9189,
+        "hf_spike_p99_over_median": 1182.3512,
+        "sample_jump_p999": 0.075793,
+        "wavlm_to_gyu": 0.78275,
+        "ecapa_to_gyu": 0.21008
+      },
+      "candidate": {
+        "asr_lyric_similarity": 1.0,
+        "pitch_mae_cents": 7.96,
+        "voicing_accuracy": 0.9483,
+        "hf_spike_p99_over_median": 147.2314,
+        "sample_jump_p999": 0.071247,
+        "wavlm_to_gyu": 0.87831,
+        "ecapa_to_gyu": 0.26717
+      }
+    },
+    "42": {
+      "current": {
+        "asr_lyric_similarity": 1.0,
+        "pitch_mae_cents": 8.97,
+        "voicing_accuracy": 0.8468,
+        "hf_spike_p99_over_median": 2705.7646,
+        "sample_jump_p999": 0.071314,
+        "wavlm_to_gyu": 0.84614,
+        "ecapa_to_gyu": 0.3071
+      },
+      "candidate": {
+        "asr_lyric_similarity": 1.0,
+        "pitch_mae_cents": 6.87,
+        "voicing_accuracy": 0.9438,
+        "hf_spike_p99_over_median": 83.6997,
+        "sample_jump_p999": 0.053875,
+        "wavlm_to_gyu": 0.83212,
+        "ecapa_to_gyu": 0.21264
+      }
+    }
+  },
+  "waveform_multires_stft": "artifacts/reports/omnivoice_safe_duration_ja/waveform_multires_stft.png",
+  "waveform_multiseed_refined_stft": "artifacts/reports/omnivoice_safe_duration_ja/multiseed/waveform_multires_stft.png",
+  "existing_9_file_regression": {
+    "ko_neutral": {
+      "expected": "72eee6bfdf1d18765141bdec76d712d1e69d720388c2b1a4fc17f5f9a63439ee",
+      "actual": "72eee6bfdf1d18765141bdec76d712d1e69d720388c2b1a4fc17f5f9a63439ee",
+      "unchanged": true
+    },
+    "en": {
+      "expected": "9b8bbb743c44d6318afd60962d3e5aa0daa4e699b62ddd9b28f4e383cb134e0d",
+      "actual": "9b8bbb743c44d6318afd60962d3e5aa0daa4e699b62ddd9b28f4e383cb134e0d",
+      "unchanged": true
+    },
+    "rapid_ko": {
+      "expected": "ffd7b6e71b3427d6412d86b8c82f154b7313a8c96199f4da75c0fe5e866aceb1",
+      "actual": "ffd7b6e71b3427d6412d86b8c82f154b7313a8c96199f4da75c0fe5e866aceb1",
+      "unchanged": true
+    },
+    "large_interval_ko": {
+      "expected": "63a1e8a77d6de1a501c4f01920fc2c3927c607b233c86cbcc81220c26633c105",
+      "actual": "63a1e8a77d6de1a501c4f01920fc2c3927c607b233c86cbcc81220c26633c105",
+      "unchanged": true
+    },
+    "ko_breathy": {
+      "expected": "48a03a9b16099f158afab21f3ee54f06e5ebd9fa52998e2938695b7fb22db49b",
+      "actual": "48a03a9b16099f158afab21f3ee54f06e5ebd9fa52998e2938695b7fb22db49b",
+      "unchanged": true
+    },
+    "ko_energetic": {
+      "expected": "5573231595e3a5fafdb708667d2b8970446260628095bdcb699f23bd606dc0c6",
+      "actual": "5573231595e3a5fafdb708667d2b8970446260628095bdcb699f23bd606dc0c6",
+      "unchanged": true
+    },
+    "ja": {
+      "expected": "6597eaf2bee9cc8dba35e46e12351e273d9be6aa3058a0b0069f786c5d8a5053",
+      "actual": "6597eaf2bee9cc8dba35e46e12351e273d9be6aa3058a0b0069f786c5d8a5053",
+      "unchanged": true
+    },
+    "sustained_ko": {
+      "expected": "7dc1f594a19751a1f824575b839299ea385c31c45d9a9a8550582a029fd191f2",
+      "actual": "7dc1f594a19751a1f824575b839299ea385c31c45d9a9a8550582a029fd191f2",
+      "unchanged": true
+    },
+    "phrase_boundary": {
+      "expected": "61956454388e3c404f090dfea0793b1f339c47b48841e5e7aa5f80325a6619f3",
+      "actual": "61956454388e3c404f090dfea0793b1f339c47b48841e5e7aa5f80325a6619f3",
+      "unchanged": true
+    }
+  },
+  "gates": {
+    "fp16_raw": {
+      "heldout_lyric_similarity_at_least_090": true,
+      "heldout_repetition_removed": true,
+      "pitch_nonregression": true,
+      "voicing_nonregression": true,
+      "hf_spike_nonregression": true,
+      "sample_jump_nonregression": true,
+      "wavlm_identity_nonregression": true,
+      "ecapa_identity_nonregression": true
+    },
+    "fp16_refined": {
+      "heldout_lyric_similarity_at_least_090": true,
+      "heldout_repetition_removed": true,
+      "pitch_nonregression": true,
+      "voicing_nonregression": true,
+      "hf_spike_nonregression": true,
+      "sample_jump_nonregression": true,
+      "wavlm_identity_nonregression": true,
+      "ecapa_identity_nonregression": true
+    },
+    "fp32_raw": {
+      "heldout_lyric_similarity_at_least_090": true,
+      "heldout_repetition_removed": true,
+      "pitch_nonregression": true,
+      "voicing_nonregression": true,
+      "hf_spike_nonregression": true,
+      "sample_jump_nonregression": true,
+      "wavlm_identity_nonregression": true,
+      "ecapa_identity_nonregression": true
+    },
+    "fp32_refined": {
+      "heldout_lyric_similarity_at_least_090": true,
+      "heldout_repetition_removed": true,
+      "pitch_nonregression": true,
+      "voicing_nonregression": true,
+      "hf_spike_nonregression": true,
+      "sample_jump_nonregression": true,
+      "wavlm_identity_nonregression": true,
+      "ecapa_identity_nonregression": true
+    },
+    "fp32_seed7_raw": {
+      "heldout_lyric_similarity_at_least_090": true,
+      "heldout_repetition_removed": true,
+      "pitch_nonregression": true,
+      "voicing_nonregression": true,
+      "hf_spike_nonregression": true,
+      "sample_jump_nonregression": true,
+      "wavlm_identity_nonregression": false,
+      "ecapa_identity_nonregression": false
+    },
+    "fp32_seed7_refined": {
+      "heldout_lyric_similarity_at_least_090": true,
+      "heldout_repetition_removed": true,
+      "pitch_nonregression": true,
+      "voicing_nonregression": true,
+      "hf_spike_nonregression": true,
+      "sample_jump_nonregression": true,
+      "wavlm_identity_nonregression": false,
+      "ecapa_identity_nonregression": false
+    },
+    "fp32_seed42_raw": {
+      "heldout_lyric_similarity_at_least_090": true,
+      "heldout_repetition_removed": true,
+      "pitch_nonregression": true,
+      "voicing_nonregression": true,
+      "hf_spike_nonregression": true,
+      "sample_jump_nonregression": true,
+      "wavlm_identity_nonregression": true,
+      "ecapa_identity_nonregression": false
+    },
+    "fp32_seed42_refined": {
+      "heldout_lyric_similarity_at_least_090": true,
+      "heldout_repetition_removed": true,
+      "pitch_nonregression": true,
+      "voicing_nonregression": true,
+      "hf_spike_nonregression": true,
+      "sample_jump_nonregression": true,
+      "wavlm_identity_nonregression": true,
+      "ecapa_identity_nonregression": false
+    },
+    "quality_ja_nonregression": true,
+    "existing_9_file_runtime_unchanged": true,
+    "production_fp32_and_refiners_verified": false
+  },
+  "constraints": {
+    "phrase_level_soulx_decode": true,
+    "per_note_tts": false,
+    "final_wav_chunk_stitching": false,
+    "waveform_pitch_shift": false
+  },
+  "next_step": "reject this route and review the content/SoulX identity architecture before another replacement attempt"
+}

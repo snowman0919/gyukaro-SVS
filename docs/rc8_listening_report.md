@@ -29,3 +29,33 @@ Large Interval retest: an 80 ms score-domain onset ramp passed the objective dua
 RC9 OpenUtau work: **not authorized for release by this historical pass**.
 
 Final `v1.0.0` tag/release: **not allowed**.
+
+## Candidate 3 failure-evidence files
+
+Status: **rejected; not human-pending.**
+
+Directory: `artifacts/reports/rc8_candidate3_full/listening/`
+
+The nine files were rendered through one actual `gyu-singer-rc8` resident path. Free Whisper transcripts were preserved for every case; the aggregate waveform/RMVPE result is recorded in `artifacts/reports/rc8_candidate3_full/evaluation.json`. This candidate replaces the rejected stronger stationary spectral gate with a bounded `64 steps / CFG 1.5` policy only for long neutral Korean notes.
+
+The nine files are preserved for confirming the failure modes against frozen RC7. They are not a promotion listening set and cannot authorize RC8.
+
+EN decoder A/B (same OmniVoice source, F0, identity, style, CTC warp, and seed):
+
+- current: `artifacts/reports/rc8_en_decode_sweep/listening/s32_c1.5.wav`
+- alternative: `artifacts/reports/rc8_en_decode_sweep/listening/s32_c2.wav`
+
+Free Whisper favors the alternative, but waveform diagnostics are mixed. Neither decoder setting is selected; the files are diagnostic evidence only.
+
+## JA duplicate-span diagnostic listening files
+
+Status: **machine reject; do not request promotion listening.**
+
+Directories:
+
+- `artifacts/reports/rc8_ja_duplicate_span/quality_ja/listening/`
+- `artifacts/reports/rc8_ja_duplicate_span/heldout_ja/listening/`
+
+Each contains `current_rc8.wav`, `global_ctc_025.wav`, `chunked_single_decode.wav`, and `duplicate_span_candidate.wav`. The duplicate candidate is byte-identical to current RC8 because both JA alignments failed the bounded CTC confidence gate; no source interval was removed. Held-out Whisper remains the repeated `新しい歌を風に乗せて新しい歌を風に乗せて届ける` at similarity `0.7222`. Chunking reaches only `0.8966` and materially worsens HF spike, sample jump, and voicing. A is rejected and not integrated.
+
+Direct waveform/STFT review images are `quality_ja/waveform_multires_stft.png` and `heldout_ja/waveform_multires_stft.png` under the same report directory. These files cannot approve RC8 or authorize RC9/OpenUtau work.

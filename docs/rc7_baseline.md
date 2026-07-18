@@ -1,6 +1,6 @@
 # RC7 baseline
 
-Status: fixed quality baseline; human accepted as clearly better than RC6. This is not `v1.0.0`.
+Status: accepted experimental baseline. This is not production-ready and is not `v1.0.0`.
 
 ## Revisions and runtime
 

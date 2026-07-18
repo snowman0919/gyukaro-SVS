@@ -1,0 +1,245 @@
+{
+  "status": "source_probe_reject",
+  "selected": null,
+  "best_diagnostic_candidate": "strict20",
+  "gate": {
+    "asr_lyric_similarity_min": 0.8,
+    "teacher_forced_lyric_nll": "diagnostic_only_never_a_pass_substitute",
+    "pitch_p90_abs_cents_max": 100,
+    "gross_error_over_600_cents_max": 0.05,
+    "observed_voiced_ratio_min": 0.8,
+    "observed_voiced_ratio_max": 0.97,
+    "clip_fraction": 0,
+    "hf_spike_p99_over_reference_max": 2.0
+  },
+  "reference_calibration": {
+    "used": true,
+    "free_asr_similarity": 1.0,
+    "teacher_forced_lyric_nll": 1.3965,
+    "free_asr_reference_pass": true,
+    "waveform_analysis": {
+      "audio_path": "data/external/raw/gtsinger-lfs/Japanese/JA-Soprano-1/Glissando/风になる/Control_Group/0002.wav",
+      "duration_seconds": 9.5411,
+      "free_asr_transcript": "僕がいるいつの日も 星空を眺めている 一人きりの夜",
+      "f0": {
+        "hz_p05": 194.38,
+        "hz_median": 242.48,
+        "hz_p95": 310.95,
+        "midi_p05": 54.86,
+        "midi_median": 58.68,
+        "midi_p95": 62.99
+      },
+      "observed_voiced_ratio": 0.8326,
+      "peak": 0.336639,
+      "rms": 0.095152,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.012668,
+      "hf_energy_ratio_p95": 0.030813,
+      "hf_spike_p99_over_median": 1563.2307,
+      "spectral_flatness_mean": 0.003157,
+      "spectral_flux_p95": 0.365084,
+      "spectral_flux_max": 0.852888,
+      "sample_jump_p999": 0.029695
+    }
+  },
+  "target_f0": {
+    "hz_p05": 194.38,
+    "hz_median": 242.48,
+    "hz_p95": 310.95,
+    "midi_p05": 54.86,
+    "midi_median": 58.68,
+    "midi_p95": 62.99
+  },
+  "expected_text_sha256": [
+    "979593dfa9dff0a2ef79f1ee022d103d82a8571de043e76de40496bacd9a1810"
+  ],
+  "expected_text_characters": [
+    23
+  ],
+  "rows": [
+    {
+      "label": "strict05",
+      "audio_path": "artifacts/reports/diffsinger_gtsinger_heldout_set/listening/gtsja0165_strict05.wav",
+      "audio_sha256": "cb604cab0532204706622c43023e1c0850eef4033d0b70874d085bc0013d9b98",
+      "asr_transcript": "僕がいるいつの日も静を眺める一人きりの音",
+      "asr_lyric_similarity": 0.8372,
+      "teacher_forced_lyric_nll": 2.166,
+      "pitch_median_abs_cents": 2.52,
+      "pitch_p90_abs_cents": 34.69,
+      "gross_error_over_600_cents": 0.0172,
+      "observed_voiced_ratio": 0.7448,
+      "f0": {
+        "hz_p05": 195.11,
+        "hz_median": 247.17,
+        "hz_p95": 337.4,
+        "midi_p05": 54.92,
+        "midi_median": 59.02,
+        "midi_p95": 64.4
+      },
+      "peak": 0.390583,
+      "rms": 0.079673,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.034991,
+      "hf_energy_ratio_p95": 0.123769,
+      "hf_spike_p99_over_median": 988.1918,
+      "spectral_flatness_mean": 0.007492,
+      "spectral_flux_p95": 0.343875,
+      "spectral_flux_max": 0.822702,
+      "sample_jump_p999": 0.076543,
+      "pass": false,
+      "identity_similarity": {
+        "reference_count": 5,
+        "wavlm": {
+          "values": {
+            "data/processed/master/212.wav": 0.43228,
+            "data/processed/master/215.wav": 0.59817,
+            "data/processed/master/216.wav": 0.50099,
+            "data/processed/master/219.wav": 0.56443,
+            "data/processed/master/220.wav": 0.45804
+          },
+          "mean": 0.51078,
+          "min": 0.43228,
+          "max": 0.59817
+        },
+        "ecapa": {
+          "values": {
+            "data/processed/master/212.wav": 0.01571,
+            "data/processed/master/215.wav": 0.18651,
+            "data/processed/master/216.wav": 0.06118,
+            "data/processed/master/219.wav": 0.09646,
+            "data/processed/master/220.wav": 0.05828
+          },
+          "mean": 0.08363,
+          "min": 0.01571,
+          "max": 0.18651
+        }
+      }
+    },
+    {
+      "label": "strict10",
+      "audio_path": "artifacts/reports/diffsinger_gtsinger_heldout_set/listening/gtsja0165_strict10.wav",
+      "audio_sha256": "2817e9e8495f3ea0fac366ad878cb4286a6340051db7abd2a248c7e60b9063e6",
+      "asr_transcript": "僕がいるいつの日も静を眺める一人きりの人",
+      "asr_lyric_similarity": 0.8372,
+      "teacher_forced_lyric_nll": 2.1582,
+      "pitch_median_abs_cents": 2.52,
+      "pitch_p90_abs_cents": 34.58,
+      "gross_error_over_600_cents": 0.0172,
+      "observed_voiced_ratio": 0.7427,
+      "f0": {
+        "hz_p05": 195.08,
+        "hz_median": 247.37,
+        "hz_p95": 337.74,
+        "midi_p05": 54.92,
+        "midi_median": 59.03,
+        "midi_p95": 64.42
+      },
+      "peak": 0.38994,
+      "rms": 0.079473,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.034901,
+      "hf_energy_ratio_p95": 0.123654,
+      "hf_spike_p99_over_median": 997.7362,
+      "spectral_flatness_mean": 0.007474,
+      "spectral_flux_p95": 0.343507,
+      "spectral_flux_max": 0.825204,
+      "sample_jump_p999": 0.076417,
+      "pass": false,
+      "identity_similarity": {
+        "reference_count": 5,
+        "wavlm": {
+          "values": {
+            "data/processed/master/212.wav": 0.43292,
+            "data/processed/master/215.wav": 0.59891,
+            "data/processed/master/216.wav": 0.5017,
+            "data/processed/master/219.wav": 0.56501,
+            "data/processed/master/220.wav": 0.45857
+          },
+          "mean": 0.51142,
+          "min": 0.43292,
+          "max": 0.59891
+        },
+        "ecapa": {
+          "values": {
+            "data/processed/master/212.wav": 0.01413,
+            "data/processed/master/215.wav": 0.18469,
+            "data/processed/master/216.wav": 0.0596,
+            "data/processed/master/219.wav": 0.09531,
+            "data/processed/master/220.wav": 0.05694
+          },
+          "mean": 0.08213,
+          "min": 0.01413,
+          "max": 0.18469
+        }
+      }
+    },
+    {
+      "label": "strict20",
+      "audio_path": "artifacts/reports/diffsinger_gtsinger_heldout_set/listening/gtsja0165_strict20.wav",
+      "audio_sha256": "e85a8a5b2e87ccf33696238dae07b95e38101073fc11a43949bf565e27558f92",
+      "asr_transcript": "僕がいるいつの日も静を眺める一人きりの人",
+      "asr_lyric_similarity": 0.8372,
+      "teacher_forced_lyric_nll": 2.1465,
+      "pitch_median_abs_cents": 2.53,
+      "pitch_p90_abs_cents": 34.18,
+      "gross_error_over_600_cents": 0.0172,
+      "observed_voiced_ratio": 0.7427,
+      "f0": {
+        "hz_p05": 198.42,
+        "hz_median": 247.33,
+        "hz_p95": 337.67,
+        "midi_p05": 55.21,
+        "midi_median": 59.03,
+        "midi_p95": 64.42
+      },
+      "peak": 0.389126,
+      "rms": 0.079058,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.034768,
+      "hf_energy_ratio_p95": 0.122429,
+      "hf_spike_p99_over_median": 1006.3211,
+      "spectral_flatness_mean": 0.007445,
+      "spectral_flux_p95": 0.350028,
+      "spectral_flux_max": 0.832362,
+      "sample_jump_p999": 0.076054,
+      "pass": false,
+      "identity_similarity": {
+        "reference_count": 5,
+        "wavlm": {
+          "values": {
+            "data/processed/master/212.wav": 0.43366,
+            "data/processed/master/215.wav": 0.59967,
+            "data/processed/master/216.wav": 0.50273,
+            "data/processed/master/219.wav": 0.56588,
+            "data/processed/master/220.wav": 0.4596
+          },
+          "mean": 0.51231,
+          "min": 0.43366,
+          "max": 0.59967
+        },
+        "ecapa": {
+          "values": {
+            "data/processed/master/212.wav": 0.01344,
+            "data/processed/master/215.wav": 0.18378,
+            "data/processed/master/216.wav": 0.05848,
+            "data/processed/master/219.wav": 0.09452,
+            "data/processed/master/220.wav": 0.05586
+          },
+          "mean": 0.08122,
+          "min": 0.01344,
+          "max": 0.18378
+        }
+      }
+    }
+  ],
+  "identity_reference_paths": [
+    "data/processed/master/212.wav",
+    "data/processed/master/215.wav",
+    "data/processed/master/216.wav",
+    "data/processed/master/219.wav",
+    "data/processed/master/220.wav"
+  ],
+  "identity_adaptation_allowed": false,
+  "release_allowed": false,
+  "interpretation": "Every candidate must pass waveform/F0 checks and a free Whisper transcript. Teacher-forced NLL cannot rescue an unintelligible candidate; human listening remains mandatory."
+}
