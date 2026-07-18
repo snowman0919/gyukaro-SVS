@@ -1,0 +1,66 @@
+{
+  "schema": 1,
+  "status": "foundation_source_gate_reject",
+  "training_allowed": false,
+  "dataset": "GTSinger/GTSinger",
+  "dataset_revision": "4426c862beed558b7e1cb8a4dce7e8c0c83bb208",
+  "dataset_license": "CC-BY-NC-SA-4.0",
+  "selection": {
+    "language": "Korean",
+    "singer": "KO-Soprano-2",
+    "group": "Control_Group"
+  },
+  "candidate_rows": 328,
+  "accepted_rows": 88,
+  "rejection_counts": {
+    "whisper": 226,
+    "duration": 50,
+    "clipping": 10
+  },
+  "corpus": {
+    "status": "foundation_source_gate_reject",
+    "counts": {
+      "rows": 88,
+      "duration_seconds": 1028.1910208333334,
+      "fast_rows": 69,
+      "high_register_rows": 40,
+      "sustained_rows": 62,
+      "large_interval_rows": 61
+    },
+    "failed_minimums": [
+      "rows",
+      "duration_seconds"
+    ],
+    "training_allowed": false
+  },
+  "accepted_source_p95": {
+    "hf_spike_p99_over_median": 841.271109008789,
+    "sample_jump_p999": 0.13937015533447264,
+    "waveform_discontinuity_p999": 0.13500289916992184,
+    "stft_spike_fft_256": 0.6800424486398694,
+    "stft_spike_fft_1024": 0.6811795890331268,
+    "stft_spike_fft_4096": 0.5290665030479431
+  },
+  "label_status": "dataset_metadata_plus_measured_whisper_and_target_conditioned_mms_ctc",
+  "human_verified": false,
+  "environment": {
+    "python": "3.11.14",
+    "platform": "Linux-6.17.0-1021-nvidia-aarch64-with-glibc2.39",
+    "torch": "2.11.0+cu130",
+    "cuda_build": "13.0",
+    "cuda_available": true,
+    "gpu": "NVIDIA GB10",
+    "gpu_total_bytes": 128452014080,
+    "system_memory_bytes": 128452014080,
+    "disk_total_bytes": 982819848192,
+    "disk_free_bytes": 23316504576,
+    "diffsinger_revision": "753b7cc622aadf802b3145d7bb8f7df4afa213c4",
+    "versions": {
+      "torchaudio": "2.11.0",
+      "transformers": "5.8.1",
+      "numpy": "2.3.5",
+      "scipy": "1.17.1",
+      "soundfile": "0.13.1"
+    }
+  }
+}

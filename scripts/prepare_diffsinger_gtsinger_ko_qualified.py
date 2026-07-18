@@ -7,11 +7,14 @@ from collections import Counter
 import csv
 from difflib import SequenceMatcher
 import hashlib
+import importlib.metadata
 import json
 import math
 import os
+import platform
 from pathlib import Path
 import re
+import shutil
 import subprocess
 import sys
 
@@ -30,6 +33,7 @@ WORK = ROOT / "data/external/work/gtsinger_ko_source_qualification"
 PROTOCOL = ROOT / "configs/gtsinger_ko_qualified_protocol.json"
 MANIFEST = ROOT / "data/manifests/gtsinger_ko_source_qualified.jsonl"
 SUMMARY = ROOT / "artifacts/reports/gtsinger_ko_source_qualification/summary.json"
+DOCUMENT = ROOT / "docs/gtsinger_ko_qualified_foundation.md"
 CACHE = ROOT / "data/cache"
 
 
@@ -463,6 +467,119 @@ def _p95_baselines(rows: list[dict]) -> dict:
     }
 
 
+def environment_evidence() -> dict:
+    def version(name: str) -> str:
+        try:
+            return importlib.metadata.version(name)
+        except importlib.metadata.PackageNotFoundError:
+            return "not-installed"
+
+    disk = shutil.disk_usage(ROOT)
+    memory_bytes = os.sysconf("SC_PAGE_SIZE") * os.sysconf("SC_PHYS_PAGES")
+    revision = subprocess.run(
+        ["git", "-C", str(CACHE / "diffsinger"), "rev-parse", "HEAD"],
+        check=True,
+        capture_output=True,
+        text=True,
+    ).stdout.strip()
+    return {
+        "python": platform.python_version(),
+        "platform": platform.platform(),
+        "torch": torch.__version__,
+        "cuda_build": torch.version.cuda,
+        "cuda_available": torch.cuda.is_available(),
+        "gpu": torch.cuda.get_device_name(0) if torch.cuda.is_available() else None,
+        "gpu_total_bytes": (
+            torch.cuda.get_device_properties(0).total_memory
+            if torch.cuda.is_available()
+            else None
+        ),
+        "system_memory_bytes": memory_bytes,
+        "disk_total_bytes": disk.total,
+        "disk_free_bytes": disk.free,
+        "diffsinger_revision": revision,
+        "versions": {
+            name: version(name)
+            for name in ("torchaudio", "transformers", "numpy", "scipy", "soundfile")
+        },
+    }
+
+
+def record_environment() -> dict:
+    summary = json.loads(SUMMARY.read_text())
+    summary["environment"] = environment_evidence()
+    SUMMARY.write_text(json.dumps(summary, ensure_ascii=False, indent=2) + "\n")
+    return summary
+
+
+def write_source_report() -> dict:
+    summary = record_environment()
+    if summary["status"] != "foundation_source_gate_reject":
+        raise ValueError("source rejection report requires a rejected source gate")
+    counts = summary["corpus"]["counts"]
+    failed = ", ".join(summary["corpus"]["failed_minimums"])
+    environment = summary["environment"]
+    report = f'''NOT A RELEASE REPORT — FOUNDATION SOURCE REJECTED
+
+# GTSinger Korean source-qualified foundation diagnostic
+
+## Decision
+
+- Conclusion: `foundation_source_gate_reject`
+- Training allowed: false
+- Candidate source rows: {summary["candidate_rows"]}
+- Accepted rows: {summary["accepted_rows"]}
+- Accepted duration: {counts["duration_seconds"]:.6f} seconds ({counts["duration_seconds"] / 60:.3f} minutes)
+- Failed frozen minimums: `{failed}`
+- Binarization, optimizer training, checkpoint selection, rendering, multilingual adaptation, GYU identity adaptation, runtime integration, packaging, and OpenUtau work were not started.
+
+The frozen source gate required at least 200 accepted rows and 1,800 seconds. Only {counts["rows"]} rows and {counts["duration_seconds"]:.3f} seconds passed all row-level evidence. Identity or acoustic training cannot repair source labels that failed qualification, so the mandatory early stop was applied without changing a threshold.
+
+## Frozen source and evidence
+
+- Dataset: `{summary["dataset"]}` at `{summary["dataset_revision"]}`
+- License: `{summary["dataset_license"]}`; local non-commercial experiment only
+- Selection: Korean / KO-Soprano-2 / Control_Group
+- Label status: `{summary["label_status"]}`
+- Human verified: false
+- Accepted compact manifest: `data/manifests/gtsinger_ko_source_qualified.jsonl`
+- Compact summary: `artifacts/reports/gtsinger_ko_source_qualification/summary.json`
+- Full local row evidence: `data/external/work/gtsinger_ko_source_qualification/all_rows.jsonl`
+- Local source cache: `data/external/raw/gtsinger-lfs/`
+- Original project recordings under `data/source/`: unchanged and uncommitted
+
+Row rejection counts: `{json.dumps(summary["rejection_counts"], ensure_ascii=False)}`. Accepted stress coverage was fast={counts["fast_rows"]}, high-register={counts["high_register_rows"]}, sustained={counts["sustained_rows"]}, and large-interval={counts["large_interval_rows"]}; these do not override the failed row-count and duration minimums.
+
+## Environment
+
+- Python {environment["python"]}; PyTorch {environment["torch"]}; CUDA build {environment["cuda_build"]}
+- GPU: {environment["gpu"]}; reported total memory {environment["gpu_total_bytes"]} bytes
+- System memory: {environment["system_memory_bytes"]} bytes
+- Disk at evidence freeze: {environment["disk_free_bytes"]} bytes free of {environment["disk_total_bytes"]}
+- DiffSinger checkout: `{environment["diffsinger_revision"]}`
+- Tools: `{json.dumps(environment["versions"], ensure_ascii=False)}`
+
+## Status boundary
+
+- This is not a trained Korean foundation and not a neural GYU SVS package.
+- No generated WAV is presented as a usable singer.
+- Production renderer, RC7/RC8 decisions, package configuration, and OpenUtau paths remain unchanged.
+- Public release remains unauthorized; GTSinger-derived work is governed by CC BY-NC-SA 4.0.
+
+## Next valid requirement
+
+The next valid path is a new rights-controlled, score-native GYU recording corpus with independently verified lyrics, phonemes, durations, and scores that satisfies the same frozen source minimums. Lowering the gate or training on the rejected rows is not an acceptable workaround.
+'''
+    DOCUMENT.write_text(report)
+    return {
+        "status": summary["status"],
+        "report": str(DOCUMENT.relative_to(ROOT)),
+        "training_started": False,
+        "runtime_modified": False,
+        "package_openutau": "blocked",
+    }
+
+
 def qualify(protocol: dict) -> dict:
     """Measure all selected source rows once and persist compact evidence."""
     import torchaudio
@@ -583,12 +700,14 @@ def main() -> None:
     parser.add_argument("--download", action="store_true")
     parser.add_argument("--qualify", action="store_true")
     parser.add_argument("--prepare", action="store_true")
+    parser.add_argument("--record-environment", action="store_true")
+    parser.add_argument("--report-source", action="store_true")
     args = parser.parse_args()
     protocol = json.loads(PROTOCOL.read_text())
     if args.download:
         download_sources(protocol)
-    if not args.qualify and not args.prepare:
-        parser.error("--qualify or --prepare is required")
+    if not any((args.qualify, args.prepare, args.record_environment, args.report_source)):
+        parser.error("--qualify, --prepare, --record-environment, or --report-source is required")
     if args.qualify:
         summary = qualify(protocol)
         print(json.dumps(summary, ensure_ascii=False, indent=2))
@@ -596,6 +715,10 @@ def main() -> None:
             raise SystemExit(2)
     if args.prepare:
         print(json.dumps(prepare_training(protocol), ensure_ascii=False, indent=2))
+    if args.record_environment and not args.report_source:
+        print(json.dumps(record_environment(), ensure_ascii=False, indent=2))
+    if args.report_source:
+        print(json.dumps(write_source_report(), ensure_ascii=False, indent=2))
 
 
 if __name__ == "__main__":
