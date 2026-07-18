@@ -9,6 +9,7 @@ from torch import nn
 
 SCRIPT = Path("scripts/prepare_truncated_identity_corpus.py")
 TRAIN_SCRIPT = Path("scripts/train_truncated_identity_final_wav.py")
+EVALUATE_SCRIPT = Path("scripts/evaluate_truncated_identity_candidates.py")
 
 
 def load_builder():
@@ -22,6 +23,14 @@ def load_builder():
 def load_trainer():
     assert TRAIN_SCRIPT.exists(), "truncated final-WAV trainer is not implemented"
     spec = importlib.util.spec_from_file_location("truncated_identity_trainer", TRAIN_SCRIPT)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_evaluator():
+    assert EVALUATE_SCRIPT.exists(), "truncated identity evaluator is not implemented"
+    spec = importlib.util.spec_from_file_location("truncated_identity_evaluator", EVALUATE_SCRIPT)
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     return module
@@ -131,3 +140,62 @@ def test_update_safety_rejects_relative_update_and_total_drift():
     too_much_drift = trainer.update_safety(adapter, before, drifted_initial)
     assert too_much_drift["pass"] is False
     assert too_much_drift["reason"] == "relative_drift_limit"
+
+
+def _metric_row(phrase, seed, condition, wavlm, ecapa, protected=False):
+    return {
+        "phrase": phrase, "seed": seed, "condition": condition,
+        "split": "protected" if protected else "heldout",
+        "wavlm_similarity": wavlm, "ecapa_similarity": ecapa,
+        "lyric_similarity": 0.98, "lyric_coverage": 0.98, "repeated_expected_span": None,
+        "omission_detected": False, "pitch_mae_cents": 20.0,
+        "voicing_accuracy": 0.96, "hf_spike_p99_over_median": 100.0,
+        "sample_jump_p999": 0.02, "clipping_samples": 0,
+    }
+
+
+def test_summary_and_candidate_gate_require_all_identity_and_regression_thresholds():
+    evaluator = load_evaluator()
+    rows = []
+    for phrase, protected in (("heldout", False), ("rapid", True)):
+        for seed in (7, 21, 42):
+            rows += [
+                _metric_row(phrase, seed, "identity_off", 0.50, 0.60, protected),
+                _metric_row(phrase, seed, "current_v07", 0.506, 0.606, protected),
+                _metric_row(phrase, seed, "k2", 0.512, 0.612, protected),
+            ]
+    summary = evaluator.summarize([1.0, 2.0, 3.0])
+    assert summary == {"mean": 2.0, "median": 2.0, "minimum": 1.0, "std": pytest.approx(0.8164965809)}
+    result = evaluator.candidate_gates(rows, "k2")
+    assert result["status"] == "human_pending"
+    assert result["phrase_seed_pass_ratio"] == 1.0
+    assert result["heldout_mean_delta_vs_identity_off"] == {
+        "wavlm_similarity": pytest.approx(0.012),
+        "ecapa_similarity": pytest.approx(0.012),
+    }
+    assert result["heldout_mean_delta_vs_current_v07"] == {
+        "wavlm_similarity": pytest.approx(0.006),
+        "ecapa_similarity": pytest.approx(0.006),
+    }
+
+
+def test_candidate_gate_rejects_one_phrase_seed_and_rapid_regression():
+    evaluator = load_evaluator()
+    rows = []
+    for phrase, protected in (("heldout", False), ("rapid", True)):
+        for seed in (7, 21, 42):
+            rows += [
+                _metric_row(phrase, seed, "identity_off", 0.50, 0.60, protected),
+                _metric_row(phrase, seed, "current_v07", 0.506, 0.606, protected),
+                _metric_row(phrase, seed, "k4", 0.512, 0.612, protected),
+            ]
+    bad = next(row for row in rows if row["condition"] == "k4" and row["phrase"] == "rapid" and row["seed"] == 21)
+    bad["lyric_similarity"] = 0.90
+    bad["hf_spike_p99_over_median"] = 120.0
+    result = evaluator.candidate_gates(rows, "k4")
+    assert result["status"] == "diagnostic_reject"
+    assert result["phrase_seed_pass_ratio"] < 1.0
+    assert result["rapid_ko_pass"] is False
+    assert {failure["metric"] for failure in result["individual_failures"]} >= {
+        "lyric_similarity", "hf_spike_p99_over_median",
+    }
