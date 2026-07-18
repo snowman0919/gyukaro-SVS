@@ -1,4 +1,5 @@
 import json
+from importlib import resources
 from pathlib import Path
 import subprocess
 import sys
@@ -136,3 +137,8 @@ def test_runtime_safety_report_is_reproducible():
     )
     assert result.returncode == 0, result.stderr
     assert "PASS production=none identity_training=false" in result.stdout
+
+
+def test_packaged_backend_policy_resource_matches_authoritative_config():
+    packaged = resources.files("gyu_singer").joinpath("backend_registry.json").read_bytes()
+    assert packaged == (ROOT / "configs/backend_registry.json").read_bytes()

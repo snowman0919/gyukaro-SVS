@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "production_approved_backend": null,
+  "allowed_statuses": [
+    "accepted_experimental_baseline",
+    "foundation_only",
+    "candidate_human_pending",
+    "rejected",
+    "blocked",
+    "production_approved"
+  ],
+  "backends": {
+    "hybrid-svs": {"status": "rejected", "project_model": "soulx-phrase-path", "reason": "The OmniVoice-to-SoulX path failed lexical and artifact gates.", "package_allowed": false, "openutau_allowed": false},
+    "hybrid-soulx-phrase": {"status": "rejected", "project_model": "soulx-phrase-path", "reason": "The OmniVoice-to-SoulX path failed lexical and artifact gates.", "package_allowed": false, "openutau_allowed": false},
+    "orchestration-v0.4": {"status": "blocked", "project_model": null, "reason": "Historical comparison backend without production approval.", "package_allowed": false, "openutau_allowed": false},
+    "gyu-singer-v0.5": {"status": "blocked", "project_model": null, "reason": "Historical experimental backend without production approval.", "package_allowed": false, "openutau_allowed": false},
+    "gyu-singer-v0.6": {"status": "blocked", "project_model": null, "reason": "Historical experimental backend without production approval.", "package_allowed": false, "openutau_allowed": false},
+    "gyu-singer-v0.7": {"status": "rejected", "project_model": null, "reason": "The v0.7 identity adapter was rejected for promotion.", "package_allowed": false, "openutau_allowed": false},
+    "gyu-singer-v0.8": {"status": "blocked", "project_model": null, "reason": "Historical experimental backend without production approval.", "package_allowed": false, "openutau_allowed": false},
+    "gyu-singer-rc5": {"status": "blocked", "project_model": null, "reason": "Historical release candidate; current release remains prohibited.", "package_allowed": false, "openutau_allowed": false},
+    "gyu-singer-rc6": {"status": "blocked", "project_model": null, "reason": "Historical release candidate; current release remains prohibited.", "package_allowed": false, "openutau_allowed": false},
+    "gyu-singer-rc8": {"status": "rejected", "project_model": "rc8-candidate-3", "reason": "Mandatory machine and human quality gates failed.", "package_allowed": false, "openutau_allowed": false},
+    "gyu-singer-rc9": {"status": "blocked", "project_model": null, "reason": "RC9 and OpenUtau work are blocked by the failed RC8 gate.", "package_allowed": false, "openutau_allowed": false},
+    "hybrid-compact-experimental": {"status": "blocked", "project_model": null, "reason": "Compact research baseline without production approval.", "package_allowed": false, "openutau_allowed": false},
+    "loop": {"status": "blocked", "project_model": null, "reason": "Source-loop comparison renderer is not neural SVS.", "package_allowed": false, "openutau_allowed": false},
+    "neural-vocalizer-baseline": {"status": "blocked", "project_model": null, "reason": "Per-note neural vocalizer comparison baseline.", "package_allowed": false, "openutau_allowed": false}
+  }
+}

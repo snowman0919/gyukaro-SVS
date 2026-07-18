@@ -57,6 +57,25 @@ with `scripts/package_openutau_safe.py --diagnostic-package` only when the
 output directory name ends in `-diagnostic`; such output is marked
 `NOT A RELEASE` and contains no checkpoint or audio.
 
+## Local voicebank project factory
+
+The factory accepts only a local recording directory plus an explicit rights
+manifest. It performs non-destructive inspection, transcript trust handling,
+alignment hooks, coverage planning, frozen split generation, and fail-closed
+training/package decisions:
+
+```sh
+PYTHONPATH=src python -m gyu_singer.voicebank.cli init \
+  --input /path/to/authorized-recordings --name "Singer Name" \
+  --languages ko,ja,en --workspace /path/to/workspace \
+  --rights-manifest /path/to/rights.json
+PYTHONPATH=src python -m gyu_singer.voicebank.cli build \
+  --workspace /path/to/workspace
+```
+
+Start from `configs/voicebank_rights.template.json`. The factory has no network
+acquisition feature and never treats automatic STT as ground truth.
+
 ## Experimental compact model
 
 `--backend hybrid-compact-experimental` remains an inspectable phrase-level TriSinger model,

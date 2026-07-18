@@ -19,6 +19,7 @@ dev = ["pytest>=8,<9"]
 
 [project.scripts]
 gyu-singer = "gyu_singer.cli:main"
+gyu-voicebank = "gyu_singer.voicebank.cli:main"
 
 [tool.setuptools]
 package-dir = {"" = "src"}
@@ -27,6 +28,7 @@ package-dir = {"" = "src"}
 where = ["src"]
 
 [tool.setuptools.package-data]
+"gyu_singer" = ["backend_registry.json", "voicebank_factory.json"]
 "gyu_singer.frontend" = ["english_lexicon.json"]
 
 [tool.pytest.ini_options]

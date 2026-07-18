@@ -1,0 +1,15 @@
+{
+  "audio_corrupt": 0,
+  "audio_or_checkpoint_bundled": false,
+  "audio_valid": 1,
+  "diagnostic_package": "diagnostic_package_not_a_release",
+  "dry_run_workspace_created": false,
+  "normalized_channels": 1,
+  "normalized_sample_rate": 48000,
+  "release": "refused",
+  "resource_estimate_files": 1,
+  "resume_status": "dataset_needs_more_recording",
+  "source_unchanged": true,
+  "status": "dataset_needs_more_recording",
+  "training": "blocked"
+}

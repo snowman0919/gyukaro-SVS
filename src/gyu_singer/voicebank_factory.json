@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "target_sample_rate": 48000,
+  "network_acquisition": false,
+  "automatic_stt_ground_truth": false,
+  "korean_whisper_role": "untrusted_draft_transcript",
+  "seeds": [7, 21, 42],
+  "coverage_thresholds": {
+    "minimum_total_duration_seconds": 60,
+    "minimum_unique_phones": 20,
+    "minimum_clips_per_language": 5,
+    "required_tags": ["rapid_transitions", "sustain", "large_interval", "phrase_boundaries", "voiced_unvoiced_balance"]
+  },
+  "checkpoint_selection": "preservation gates, identity, smallest update, earliest step",
+  "early_stop": "first persistent preservation regression",
+  "maximum_release_state_without_human_approval": "voicebank_candidate_human_pending"
+}
