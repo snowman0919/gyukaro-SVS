@@ -74,6 +74,23 @@ Status is therefore `diagnostic_reject`, not human-pending. The route is not con
 
 The failure is architectural rather than another CTC threshold issue. The frozen v0.7 identity ablation already measured only `+0.00200` mean WavLM and `+0.00134` mean ECAPA over no identity across six phrases, with held-out JA changing `-0.02389/-0.01070`. The bounded FiLM path therefore does not reliably override source-speaker information in SoulX. Duplicate removal, global warp, chunking, DiffSinger, ACE-Step, and safe-duration remapping are closed for this defect. Another content source should not be added until identity is conditioned inside a score-native singer or the SoulX identity path is retrained against multi-seed final-output speaker losses; either is an architecture-level change, not an RC8 local runtime patch.
 
+### Truncated final-WAV identity gradient feasibility
+
+Status: **K=2 and K=4 feasibility pass; zero optimizer steps; runtime unchanged.**
+
+A fixed 3.0-second voiced crop was decoded with the production 64-step SoulX equations. Steps `64-K` ran under stop-gradient with the current adapter condition, the state was detached, and only the final K steps plus frozen vocoder stayed differentiable. The candidate started from the current v0.7 identity adapter. Identity-OFF repeated exactly, and both truncated variants were bit-identical to the current v0.7 WAV before backward.
+
+| final differentiable steps | adapter grad norm | frozen parameter grads | peak allocated | peak reserved | backward-path runtime |
+|---:|---:|---:|---:|---:|---:|
+| 2 | 0.000552965 | 0 | 12.481 GB | 12.753 GB | 10.4705 s |
+| 4 | 0.001651947 | 0 | 20.654 GB | 21.070 GB | 11.1632 s |
+
+All loss and audio tensors were finite. SoulX, vocoder, WavLM, and ECAPA parameters received no gradients; only `SoulXRealLatentAdapters.identity` did. Relative parameter drift was exactly zero because feasibility used no optimizer. The SoulX environment's older Transformers did not automatically migrate WavLM's legacy weight-normalization keys, so the probe maps the two shape-identical tensors and requires an empty missing/unexpected-key audit before use. Optional PEFT is disabled only inside this diagnostic because that venv's pinned Transformers predates the installed PEFT cache API.
+
+The six emitted paths collapse to two unique WAV hashes: identity-OFF and current-v0.7/truncated. Free Whisper transcribed both as `아` with lyric similarity `1.0`; clipping was zero. Waveform and FFT-256/1024/4096 analysis is recorded in `artifacts/reports/truncated_identity_feasibility/audio_analysis.json` and `feasibility_unique_waveform_multires_stft.png`. K-specific evidence is in `k2/feasibility.json` and `k4/feasibility.json`.
+
+This result authorizes only the next bounded optimizer diagnostic. It is not evidence of speaker improvement, does not create a human A/B candidate, and does not connect anything to RC8, RC9, OpenUtau, or packaging.
+
 ## Scope and preserved baseline
 
 RC7 remains frozen at `ae8944070f3dc38e310b33f29d95f4bcd3c81def`; its WAVs and checkpoint hashes are recorded in `docs/rc7_baseline.md`. RC8 writes only new artifacts and retains phrase-level SoulX decoding, 48 kHz PCM-24 output, the RC7 base spectral correction at strength 0.5, and the protected Rapid KO 64-step/CFG 2.0 policy. It uses no per-note TTS, waveform pitch shifting, or phase-vocoder note control.
