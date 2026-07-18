@@ -1,0 +1,22 @@
+{
+  "protocol_version": 1,
+  "status": "frozen_before_phone_calibration",
+  "representations": ["ko_components_v1", "ko_canonical_v1", "ko_onset_rhyme_v1"],
+  "seeds": [7, 21, 42],
+  "primary_evidence": "phone_centered",
+  "whisper_role": "auxiliary_stt_observation",
+  "probes": [
+    {"id": "single_ga", "text": "가", "categories": ["single_syllable"]},
+    {"id": "contrast_gga_kha", "text": "가까카", "categories": ["minimal_contrast", "tense", "aspirated"]},
+    {"id": "repeat_da", "text": "다다다", "categories": ["repeated_syllable"]},
+    {"id": "ordinary", "text": "하늘을 향해 노래해 작은 빛을 따라가", "score_path": "examples/quality_ko.json", "categories": ["ordinary"]},
+    {"id": "rapid", "text": "빠르게 노래하자아", "score_path": "examples/review_rapid_ko.json", "categories": ["rapid", "tense"]},
+    {"id": "sustain", "text": "아", "score_path": "examples/review_sustain_ko.json", "categories": ["sustain"]},
+    {"id": "large_interval", "text": "높이 날아", "score_path": "examples/review_large_interval_ko.json", "categories": ["large_interval", "coda"]},
+    {"id": "phrase_boundary", "text": "빛을 따라", "score_path": "examples/review_phrase_boundary_ko.json", "categories": ["phrase_boundary", "coda"]},
+    {"id": "coda_gaps", "text": "값", "categories": ["coda"]},
+    {"id": "liaison_osi", "text": "옷이", "categories": ["liaison"]},
+    {"id": "nasalization_gungmul", "text": "국물", "categories": ["nasalization"]},
+    {"id": "liquid_silla", "text": "신라", "categories": ["liquid_assimilation"]}
+  ]
+}
