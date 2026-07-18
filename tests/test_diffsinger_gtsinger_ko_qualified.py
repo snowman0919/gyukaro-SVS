@@ -3,11 +3,13 @@ from pathlib import Path
 import sys
 
 import pytest
+import torch
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 from prepare_diffsinger_gtsinger_ko_qualified import (
     corpus_summary,
+    ctc_metrics,
     normalized_phones,
     normalized_text,
     row_rejections,
@@ -104,3 +106,15 @@ def test_song_split_never_leaks_complete_song():
     assert not set(splits["train"]) & set(splits["test"])
     by_song = {name.split("#")[3]: split for split, names in splits.items() for name in names}
     assert len(by_song) == 6
+
+
+def test_ctc_metrics_require_complete_monotonic_target():
+    log_probs = torch.log_softmax(
+        torch.tensor([[[8.0, 0.0, 0.0], [0.0, 8.0, 0.0],
+                       [8.0, 0.0, 0.0], [0.0, 0.0, 8.0]]]),
+        -1,
+    )
+    result = ctc_metrics(log_probs, torch.tensor([[1, 2]]))
+    assert result["ctc_monotonic"] is True
+    assert result["ctc_unknown_ratio"] == 0.0
+    assert 0.0 < result["ctc_coverage"] <= 1.0
