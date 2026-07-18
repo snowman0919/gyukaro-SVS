@@ -11,6 +11,7 @@ MODEL_FIELDS = {
 }
 MODEL_STATUSES = {
     "accepted_experimental_baseline", "foundation_only", "foundation_ko_lexical_unverified",
+    "foundation_machine_inconclusive",
     "rejected", "blocked", "production_approved",
 }
 

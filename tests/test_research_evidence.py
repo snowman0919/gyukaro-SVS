@@ -36,7 +36,7 @@ def test_status_registry_separates_versions_and_preserves_rejections():
     models = {row["identifier"]: row for row in registry["models"]}
     assert registry["production_approved_model"] is None
     assert models["gtsinger-ja-soprano"]["status"] == "foundation_only"
-    assert models["gtsinger-ko-soprano"]["status"] == "foundation_ko_lexical_unverified"
+    assert models["gtsinger-ko-soprano"]["status"] == "foundation_machine_inconclusive"
     assert models["gtsinger-ja-tenor"]["status"] == "rejected"
     assert models["gtsinger-gyu-mix20"]["status"] == "rejected"
     assert models["rc8-candidate-3"]["status"] == "rejected"
@@ -105,4 +105,4 @@ def test_research_registry_check_cli():
         text=True,
     )
     assert result.returncode == 0, result.stderr
-    assert "PASS models=9 evidence=8" in result.stdout
+    assert "PASS models=9 evidence=9" in result.stdout

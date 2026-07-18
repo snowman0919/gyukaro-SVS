@@ -129,13 +129,13 @@
       "software_version": "0.2.0",
       "model_family": "DiffSinger GTSinger soprano with inferred Korean phones",
       "experiment_id": "gtsinger-ko-foundation-5x3",
-      "status": "foundation_ko_lexical_unverified",
+      "status": "foundation_machine_inconclusive",
       "release_status": "blocked",
       "allowed_uses": ["phone_centered_lexical_reassessment"],
       "blocked_uses": ["identity_training", "runtime", "package", "openutau", "release"],
-      "reason": "Previous 0/15 decision relied on Korean singing Whisper and requires phone-centered reassessment.",
-      "evidence_paths": ["artifacts/reports/gtsinger_gyu_identity_diagnostic/foundation_ko_evaluation.json"],
-      "commit": "28d3bc268e37713c61cb4f0bfd72c4122ab03528",
+      "reason": "MMS target-conditioned alignment and HuBERT seed consistency were measured, but no calibrated independent Korean singing phone recognizer is locally available.",
+      "evidence_paths": ["artifacts/reports/korean_phone_reassessment/evaluation.json"],
+      "commit": "84b64d58ce647678a7543292669b19e14e93feea",
       "checkpoint_hash": "f7ab385ccf2b4cb7f16973d177e3d1924b840971fe241df9e6dec3cebf4b9916",
       "human_approval_state": "review_required"
     }
