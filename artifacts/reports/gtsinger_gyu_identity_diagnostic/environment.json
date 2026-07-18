@@ -1,0 +1,15 @@
+{
+  "python": "3.11.14",
+  "platform": "Linux-6.17.0-1021-nvidia-aarch64-with-glibc2.39",
+  "pytorch": "2.11.0+cu130",
+  "cuda_build": "13.0",
+  "cuda_available": true,
+  "gpu": "NVIDIA GB10",
+  "gpu_total_bytes": 128452014080,
+  "system_memory_bytes": 128452014080,
+  "disk_total_bytes": 982819848192,
+  "disk_free_bytes_at_freeze": 27616616448,
+  "diffsinger_cache_checkout": "753b7cc622aadf802b3145d7bb8f7df4afa213c4",
+  "diffsinger_required_revision": "0619d61d5301c4340db442a15cf3e73e197e9101",
+  "source_recordings_present_in_worktree": false
+}
