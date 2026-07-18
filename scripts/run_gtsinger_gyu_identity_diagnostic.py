@@ -3,15 +3,18 @@
 from __future__ import annotations
 
 import argparse
+from difflib import SequenceMatcher
 import hashlib
 import importlib.metadata
 import json
 import math
 import os
 import platform
+import re
 import shutil
 import subprocess
 import sys
+import time
 from pathlib import Path
 
 import numpy as np
@@ -122,6 +125,42 @@ def distribution(values: list[float]) -> dict:
         "maximum": float(np.max(data)),
         "standard_deviation": float(np.std(data)),
     }
+
+
+def _normalized(text: str) -> str:
+    return re.sub(r"[^a-zA-Z가-힣ぁ-んァ-ン一-龯]", "", text).lower()
+
+
+def transcript_flags(expected: str, transcript: str) -> dict:
+    expected_value = _normalized(expected)
+    observed = _normalized(transcript)
+    repeated = bool(expected_value and observed.count(expected_value) > 1)
+    if observed != expected_value and not repeated:
+        repeated = any(
+            observed == observed[:size] * (len(observed) // size)
+            and len(observed) // size >= 2
+            for size in range(1, len(observed) // 2 + 1)
+            if len(observed) % size == 0
+        )
+    omitted = len(observed) < 0.8 * len(expected_value)
+    return {"repetition_detected": repeated, "omission_detected": omitted}
+
+
+def render_jobs(protocol: dict) -> list[dict]:
+    return [
+        {
+            "case": case["id"],
+            "seed": seed,
+            "title": f'{case["id"]}_foundation_seed{seed}',
+            "ds_path": case.get("ds_path", f'inputs/{case["id"]}.ds'),
+            "audio_path": (
+                "data/external/work/gtsinger_gyu_identity_diagnostic/outputs/"
+                f'{case["id"]}_foundation_seed{seed}.wav'
+            ),
+        }
+        for case in protocol["cases"]
+        for seed in protocol["seeds"]
+    ]
 
 
 def _heldout_limits(root: Path) -> tuple[float, float]:
@@ -393,12 +432,318 @@ def freeze() -> None:
                       "cases": len(manifest["cases"]), "seeds": manifest["seeds"]}, indent=2))
 
 
+def _prepare_inference_experiment(protocol: dict) -> str:
+    source = ROOT / "data/cache/diffsinger/checkpoints/gtsinger_ja_gyu_identity"
+    target = ROOT / "data/cache/diffsinger/checkpoints/gtsinger_gyu_protocol_init"
+    target.mkdir(parents=True, exist_ok=True)
+    for name in ("config.yaml", "dictionary-gyu.txt", "lang_map.json", "spk_map.json"):
+        destination = target / name
+        if not destination.exists():
+            shutil.copy2(source / name, destination)
+    checkpoint = target / "model_ckpt_steps_0.ckpt"
+    if not checkpoint.exists():
+        shutil.copy2(ROOT / protocol["models"]["combined_vocabulary_initialization"], checkpoint)
+    expected = protocol["models"]["combined_vocabulary_initialization_sha256"]
+    if sha256(checkpoint) != expected:
+        raise ValueError("protocol inference checkpoint hash mismatch")
+    if json.loads((target / "spk_map.json").read_text()).get("gts_ja_soprano") != 0:
+        raise ValueError("foundation speaker id changed")
+    return target.name
+
+
+def render_foundation() -> None:
+    protocol = json.loads(MANIFEST.read_text())
+    validate_protocol(protocol)
+    experiment = _prepare_inference_experiment(protocol)
+    output = WORK / "outputs"
+    logs = WORK / "logs"
+    output.mkdir(parents=True, exist_ok=True)
+    logs.mkdir(parents=True, exist_ok=True)
+    diffsinger = ROOT / "data/cache/diffsinger"
+    python = ROOT.parent.parent / ".venv-diffsinger/bin/python"
+    if not python.is_file():
+        python = Path("/home/kotori9/code/gyukaro/.venv-diffsinger/bin/python")
+    rows = []
+    for job in render_jobs(protocol):
+        path = ROOT / job["audio_path"]
+        if path.exists():
+            raise FileExistsError(f"frozen output already exists: {path}")
+        command = [
+            "/usr/bin/time", "-f", "%M", "-o", str(logs / f'{job["title"]}.rss'),
+            str(python), "scripts/infer.py", "acoustic", str(ROOT / job["ds_path"]),
+            "--exp", experiment, "--ckpt", "0", "--spk", "gts_ja_soprano",
+            "--out", str(output), "--title", job["title"], "--depth", "0",
+            "--seed", str(job["seed"]),
+        ]
+        started = time.perf_counter()
+        process = subprocess.run(
+            command, cwd=diffsinger, env=os.environ | {
+                "PYTHONPATH": f"{ROOT / 'scripts'}:{diffsinger}",
+            }, capture_output=True, text=True,
+        )
+        (logs / f'{job["title"]}.log').write_text(process.stdout + process.stderr)
+        if process.returncode:
+            raise RuntimeError(f"DiffSinger render failed for {job['title']}; see local log")
+        if not path.is_file():
+            raise FileNotFoundError(f"DiffSinger did not create {path}")
+        rows.append(job | {
+            "command": command[6:],
+            "runtime_seconds": round(time.perf_counter() - started, 4),
+            "peak_process_rss_kib": int((logs / f'{job["title"]}.rss').read_text().strip()),
+            "peak_gpu_memory_bytes": None,
+            "peak_gpu_memory_note": "nvidia-smi reports N/A on unified-memory NVIDIA GB10",
+            "audio_sha256": sha256(path),
+        })
+        print(f"rendered {job['case']} seed{job['seed']}", flush=True)
+    report = {
+        "status": "foundation_render_complete",
+        "protocol_sha256": sha256(MANIFEST),
+        "diffsinger_revision": protocol["models"]["diffsinger_revision"],
+        "experiment": experiment,
+        "rows": rows,
+    }
+    (WORK / "render_manifest.json").write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n")
+    print(json.dumps({"status": report["status"], "outputs": len(rows)}, indent=2))
+
+
+def _plot_failure(path: Path, target_f0: np.ndarray, label: str) -> str:
+    import librosa
+    import matplotlib.pyplot as plt
+    import soundfile as sf
+
+    audio, rate = sf.read(path, dtype="float32", always_2d=True)
+    mono = audio.mean(1)
+    figure, axes = plt.subplots(5, 1, figsize=(14, 12), constrained_layout=True)
+    times = np.arange(len(mono)) / rate
+    axes[0].plot(times, mono, linewidth=0.35)
+    axes[0].set_title(f"{label} waveform")
+    axes[1].plot(np.arange(len(target_f0)) * 0.02, target_f0, linewidth=0.7)
+    axes[1].set_title("nominal score F0")
+    for axis, size in zip(axes[2:], (256, 1024, 4096)):
+        spectrum = librosa.amplitude_to_db(
+            np.abs(librosa.stft(mono, n_fft=size, hop_length=max(64, size // 4))), ref=np.max
+        )
+        librosa.display.specshow(spectrum, sr=rate, hop_length=max(64, size // 4),
+                                 x_axis="time", y_axis="hz", ax=axis)
+        axis.set_title(f"STFT {size}")
+    plots = WORK / "failure_plots"
+    plots.mkdir(parents=True, exist_ok=True)
+    output = plots / f"{label}.png"
+    figure.savefig(output, dpi=120)
+    plt.close(figure)
+    return str(output.relative_to(ROOT))
+
+
+def evaluate_foundation() -> None:
+    import librosa
+    import soundfile as sf
+    import torch
+    from speechbrain.inference.speaker import EncoderClassifier
+    from transformers import (
+        AutoFeatureExtractor,
+        AutoModelForAudioXVector,
+        AutoModelForSpeechSeq2Seq,
+        AutoProcessor,
+    )
+
+    sys.path.insert(0, str(ROOT / "data/cache/soulx-singer"))
+    from preprocess.tools.f0_extraction import F0Extractor
+    from evaluate_rc4_artifact_matrix import acoustics, audio16
+
+    protocol = json.loads(MANIFEST.read_text())
+    validate_protocol(protocol)
+    render_report = json.loads((WORK / "render_manifest.json").read_text())
+    jobs = {(row["case"], row["seed"]): row for row in render_report["rows"]}
+    if set(jobs) != {(case["id"], seed) for case in protocol["cases"] for seed in protocol["seeds"]}:
+        raise ValueError("render manifest matrix mismatch")
+    case_map = {row["id"]: row for row in protocol["cases"]}
+
+    cache = ROOT / "data/cache"
+    processor = AutoProcessor.from_pretrained(cache / "whisper-large-v3-turbo")
+    whisper = AutoModelForSpeechSeq2Seq.from_pretrained(
+        cache / "whisper-large-v3-turbo", dtype=torch.float16
+    ).cuda().eval()
+    extractor = F0Extractor(
+        str(cache / "soulx-singer/pretrained_models/SoulX-Singer-Preprocess/rmvpe/rmvpe.pt"),
+        device="cuda", target_sr=24_000, hop_size=480, verbose=False,
+    )
+
+    def transcribe(path: Path) -> str:
+        inputs = processor(audio=audio16(path), sampling_rate=16_000, return_tensors="pt",
+                           return_attention_mask=True)
+        with torch.inference_mode():
+            tokens = whisper.generate(
+                inputs.input_features.cuda().half(),
+                attention_mask=(inputs.attention_mask.cuda()
+                                if "attention_mask" in inputs else None),
+                language="ko", task="transcribe", max_new_tokens=96,
+            )
+        return processor.batch_decode(tokens, skip_special_tokens=True)[0]
+
+    reference_audit = []
+    for reference in protocol["identity_references"]:
+        path = ROOT / reference["path"]
+        audio, rate = sf.read(path, dtype="float32", always_2d=True)
+        mono = audio.mean(1)
+        f0 = np.asarray(extractor.process(str(path), verbose=False), dtype=np.float32)
+        voiced = f0[f0 > 1]
+        rms = float(np.sqrt(np.mean(mono * mono)))
+        noise = float(np.percentile(np.abs(mono), 10))
+        reference_audit.append({
+            "path": reference["path"], "sha256": sha256(path), "sample_rate": rate,
+            "channels": audio.shape[1], "duration_seconds": round(len(mono) / rate, 6),
+            "clip_fraction": round(float(np.mean(np.abs(mono) >= 0.999)), 8),
+            "silence_ratio": round(float(np.mean(np.abs(mono) < 1e-4)), 6),
+            "snr_proxy_db": round(20 * math.log10(max(rms, 1e-8) / max(noise, 1e-8)), 3),
+            "whisper_transcript": transcribe(path),
+            "pitch_hz_min": round(float(np.min(voiced)), 3) if len(voiced) else None,
+            "pitch_hz_median": round(float(np.median(voiced)), 3) if len(voiced) else None,
+            "pitch_hz_max": round(float(np.max(voiced)), 3) if len(voiced) else None,
+        })
+
+    rows = []
+    for case in protocol["cases"]:
+        target = np.asarray(json.loads((ROOT / case["ds_path"]).read_text())[0]["f0_seq"].split(),
+                            dtype=np.float32)
+        for seed in protocol["seeds"]:
+            render = jobs[(case["id"], seed)]
+            path = ROOT / render["audio_path"]
+            transcript = transcribe(path)
+            observed = np.asarray(extractor.process(str(path), verbose=False), dtype=np.float32)
+            frames = min(len(target), len(observed))
+            target_aligned, observed_aligned = target[:frames], observed[:frames]
+            both = (target_aligned > 1) & (observed_aligned > 1)
+            if not np.any(both):
+                raise ValueError(f"no jointly voiced frames: {case['id']} seed{seed}")
+            cents = np.abs(1200 * np.log2(observed_aligned[both] / target_aligned[both]))
+            flags = transcript_flags(case["expected_lyrics"], transcript)
+            row = {
+                "condition": "unadapted_gtsinger_soprano_combined_vocab_init",
+                "case": case["id"], "language": "ko", "stress_category": case["stress_category"],
+                "seed": seed, "expected_text": case["expected_lyrics"],
+                "whisper_transcript": transcript,
+                "lyric_similarity": round(SequenceMatcher(
+                    None, _normalized(case["expected_lyrics"]), _normalized(transcript)
+                ).ratio(), 6),
+                **flags,
+                "pitch_mae_cents": round(float(np.mean(cents)), 4),
+                "pitch_p90_abs_cents": round(float(np.percentile(cents, 90)), 4),
+                "gross_error_over_600_cents": round(float(np.mean(cents > 600)), 6),
+                "target_voiced_ratio": round(float(np.mean(target_aligned > 1)), 6),
+                "observed_voiced_ratio": round(float(np.mean(observed_aligned > 1)), 6),
+                "voicing_accuracy": round(float(np.mean(
+                    (target_aligned > 1) == (observed_aligned > 1)
+                )), 6),
+                "target_f0_frames": len(target), "observed_f0_frames": len(observed),
+                "timing_grid_mismatch_frames": abs(len(target) - len(observed)),
+                "audio_path": render["audio_path"], "audio_sha256": sha256(path),
+                "sample_rate": sf.info(path).samplerate,
+                "runtime_seconds": render["runtime_seconds"],
+                "peak_process_rss_kib": render["peak_process_rss_kib"],
+                "peak_gpu_memory_bytes": render["peak_gpu_memory_bytes"],
+            } | acoustics(path)
+            row["waveform_discontinuity"] = row["sample_jump_p999"]
+            rows.append(row)
+            print(f"metrics {case['id']} seed{seed}: {transcript}", flush=True)
+
+    del whisper, extractor
+    torch.cuda.empty_cache()
+    feature_extractor = AutoFeatureExtractor.from_pretrained(cache / "wavlm-base-plus-sv")
+    wavlm = AutoModelForAudioXVector.from_pretrained(cache / "wavlm-base-plus-sv").cuda().eval()
+    ecapa = EncoderClassifier.from_hparams(
+        source=str(cache / "spkrec-ecapa-voxceleb"),
+        savedir=str(cache / "spkrec-ecapa-voxceleb"), run_opts={"device": "cuda:0"},
+    )
+
+    def speaker(path: Path) -> tuple[np.ndarray, np.ndarray]:
+        audio = audio16(path)
+        values = feature_extractor(audio, sampling_rate=16_000, return_tensors="pt")
+        with torch.inference_mode():
+            first = wavlm(**{name: value.cuda() for name, value in values.items()}).embeddings
+            second = ecapa.encode_batch(torch.from_numpy(audio).unsqueeze(0).cuda())
+        first = torch.nn.functional.normalize(first, dim=-1).squeeze().cpu().numpy()
+        second = second.squeeze().cpu().numpy()
+        second /= max(np.linalg.norm(second), 1e-8)
+        return first, second
+
+    reference_embeddings = {
+        row["path"]: speaker(ROOT / row["path"]) for row in reference_audit
+    }
+    for row in reference_audit:
+        wavlm_values = [float(np.dot(reference_embeddings[row["path"]][0], value[0]))
+                        for name, value in reference_embeddings.items() if name != row["path"]]
+        ecapa_values = [float(np.dot(reference_embeddings[row["path"]][1], value[1]))
+                        for name, value in reference_embeddings.items() if name != row["path"]]
+        row["wavlm_to_other_references"] = distribution(wavlm_values)
+        row["ecapa_to_other_references"] = distribution(ecapa_values)
+        row["embedding_outlier"] = False
+    duplicate_transcripts = {
+        value for value in (_normalized(row["whisper_transcript"]) for row in reference_audit)
+        if value and sum(_normalized(other["whisper_transcript"]) == value for other in reference_audit) > 1
+    }
+    for row in reference_audit:
+        row["duplicate_content"] = _normalized(row["whisper_transcript"]) in duplicate_transcripts
+
+    for row in rows:
+        current = speaker(ROOT / row["audio_path"])
+        wavlm_values = {
+            name: round(float(np.dot(value[0], current[0])), 7)
+            for name, value in reference_embeddings.items()
+        }
+        ecapa_values = {
+            name: round(float(np.dot(value[1], current[1])), 7)
+            for name, value in reference_embeddings.items()
+        }
+        row["wavlm_similarity"] = {"values": wavlm_values,
+                                    "distribution": distribution(list(wavlm_values.values()))}
+        row["ecapa_similarity"] = {"values": ecapa_values,
+                                    "distribution": distribution(list(ecapa_values.values()))}
+
+    del wavlm, ecapa
+    torch.cuda.empty_cache()
+    validate_matrix(rows, protocol, root=ROOT)
+    decision = gate_foundation(rows, protocol)
+    target_by_case = {
+        case["id"]: np.asarray(json.loads((ROOT / case["ds_path"]).read_text())[0]["f0_seq"].split(),
+                               dtype=np.float32)
+        for case in protocol["cases"]
+    }
+    failure_plots = []
+    for failure in decision["failures"]:
+        row = next(item for item in rows if item["case"] == failure["case"]
+                   and item["seed"] == failure["seed"])
+        failure_plots.append(_plot_failure(
+            ROOT / row["audio_path"], target_by_case[row["case"]],
+            f'{row["case"]}_seed{row["seed"]}',
+        ))
+    result = {
+        "status": decision["status"],
+        "candidate_status": "diagnostic_reject" if not decision["identity_training_allowed"]
+                            else "foundation_gate_pass_identity_training_required",
+        "protocol_path": str(MANIFEST.relative_to(ROOT)), "protocol_sha256": sha256(MANIFEST),
+        "reference_audit": reference_audit, "rows": rows, "gate": decision,
+        "failure_plots": failure_plots,
+        "identity_training_started": False,
+        "runtime_integration": False, "package_openutau": "blocked", "release_allowed": False,
+    }
+    REPORT.mkdir(parents=True, exist_ok=True)
+    (REPORT / "foundation_ko_evaluation.json").write_text(
+        json.dumps(result, ensure_ascii=False, indent=2) + "\n"
+    )
+    print(json.dumps({"status": result["status"], "pass_count": decision["pass_count"],
+                      "total_count": decision["total_count"], "failure_plots": len(failure_plots)}, indent=2))
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("command", choices=("freeze",))
+    parser.add_argument("command", choices=("freeze", "render-foundation", "evaluate-foundation"))
     args = parser.parse_args()
     if args.command == "freeze":
         freeze()
+    elif args.command == "render-foundation":
+        render_foundation()
+    elif args.command == "evaluate-foundation":
+        evaluate_foundation()
 
 
 if __name__ == "__main__":

@@ -1,0 +1,1547 @@
+{
+  "status": "foundation_ko_gate_reject",
+  "candidate_status": "diagnostic_reject",
+  "protocol_path": "data/manifests/gtsinger_gyu_identity_protocol.json",
+  "protocol_sha256": "f138edfc8270dbc9a04043ff83d40f06ab101b3798608e7b41b6c88c9aa93996",
+  "reference_audit": [
+    {
+      "path": "data/processed/master/212.wav",
+      "sha256": "b7e2e58b63d6bd9dd54f26063ed7fd16ef06ce14c497f1edf620fc3480b799c4",
+      "sample_rate": 48000,
+      "channels": 1,
+      "duration_seconds": 17.304229,
+      "clip_fraction": 0.0,
+      "silence_ratio": 0.040479,
+      "snr_proxy_db": 40.849,
+      "whisper_transcript": " 아침이 오면 닫힌 창문 너머로 조용히 번지는 빛을 따라 걸어가 아직은 서툰 마음이라 해도 멈추지 않고 다시 노래할 거야",
+      "pitch_hz_min": 115.117,
+      "pitch_hz_median": 141.847,
+      "pitch_hz_max": 163.61,
+      "wavlm_to_other_references": {
+        "mean": 0.9521427601575851,
+        "median": 0.9580464661121368,
+        "minimum": 0.9090046882629395,
+        "maximum": 0.9834734201431274,
+        "standard_deviation": 0.030845947889793435
+      },
+      "ecapa_to_other_references": {
+        "mean": 0.7647387832403183,
+        "median": 0.8005370199680328,
+        "minimum": 0.5766023397445679,
+        "maximum": 0.8812787532806396,
+        "standard_deviation": 0.12045796443824293
+      },
+      "embedding_outlier": false,
+      "duplicate_content": false
+    },
+    {
+      "path": "data/processed/master/215.wav",
+      "sha256": "889758edb40fbba14a8e157598d608c5db486f4f44460ef56528e7e8e5a2992f",
+      "sample_rate": 48000,
+      "channels": 1,
+      "duration_seconds": 24.838062,
+      "clip_fraction": 0.0,
+      "silence_ratio": 0.030005,
+      "snr_proxy_db": 39.41,
+      "whisper_transcript": " 멀어진 계절의 끝에서 잊혀진 이름을 다시 불러 흩어진 바람 사이로 작은 목소리가 피어나",
+      "pitch_hz_min": 127.743,
+      "pitch_hz_median": 213.942,
+      "pitch_hz_max": 357.961,
+      "wavlm_to_other_references": {
+        "mean": 0.9401358067989349,
+        "median": 0.9327955543994904,
+        "minimum": 0.9090046882629395,
+        "maximum": 0.9859474301338196,
+        "standard_deviation": 0.02823813238714731
+      },
+      "ecapa_to_other_references": {
+        "mean": 0.6555393487215042,
+        "median": 0.619878500699997,
+        "minimum": 0.5766023397445679,
+        "maximum": 0.8057980537414551,
+        "standard_deviation": 0.0894132370501655
+      },
+      "embedding_outlier": false,
+      "duplicate_content": false
+    },
+    {
+      "path": "data/processed/master/216.wav",
+      "sha256": "106b008c13abccc2a7f09b3e665fb7cbe7fbf4486acffee9f6a80e40656642c3",
+      "sample_rate": 48000,
+      "channels": 1,
+      "duration_seconds": 20.393062,
+      "clip_fraction": 0.0,
+      "silence_ratio": 0.032312,
+      "snr_proxy_db": 36.965,
+      "whisper_transcript": " 푸른 밤하늘 아래서 나는 나의 길을 찾아가 흔들리는 시간 속에도 이 노래만은 남아있어 가장 낮은 마음의 자리에서 다시 작은 숨을 고르고 아직 보이지 않는 내일을 향해 천천히 걸어가",
+      "pitch_hz_min": 97.427,
+      "pitch_hz_median": 122.226,
+      "pitch_hz_max": 204.271,
+      "wavlm_to_other_references": {
+        "mean": 0.9616717994213104,
+        "median": 0.9669768810272217,
+        "minimum": 0.9301537275314331,
+        "maximum": 0.9825797080993652,
+        "standard_deviation": 0.02112401362404876
+      },
+      "ecapa_to_other_references": {
+        "mean": 0.785232424736023,
+        "median": 0.8019302785396576,
+        "minimum": 0.6375814080238342,
+        "maximum": 0.8994877338409424,
+        "standard_deviation": 0.10955032624955911
+      },
+      "embedding_outlier": false,
+      "duplicate_content": false
+    },
+    {
+      "path": "data/processed/master/219.wav",
+      "sha256": "83d922254988d5f31b0a485a27dc13300d53d613daae6297bb66fa586bed0c49",
+      "sample_rate": 48000,
+      "channels": 1,
+      "duration_seconds": 33.016167,
+      "clip_fraction": 0.0,
+      "silence_ratio": 0.026109,
+      "snr_proxy_db": 38.005,
+      "whisper_transcript": " 잠시 멈춰 서서 숨을 고르면 멀리 사라진 빛도 다시 보여",
+      "pitch_hz_min": 121.523,
+      "pitch_hz_median": 171.353,
+      "pitch_hz_max": 227.394,
+      "wavlm_to_other_references": {
+        "mean": 0.9603167325258255,
+        "median": 0.9592058062553406,
+        "minimum": 0.9369078874588013,
+        "maximum": 0.9859474301338196,
+        "standard_deviation": 0.017654677273970795
+      },
+      "ecapa_to_other_references": {
+        "mean": 0.7501340955495834,
+        "median": 0.7360782623291016,
+        "minimum": 0.7225818037986755,
+        "maximum": 0.8057980537414551,
+        "standard_deviation": 0.03302903218562999
+      },
+      "embedding_outlier": false,
+      "duplicate_content": false
+    },
+    {
+      "path": "data/processed/master/220.wav",
+      "sha256": "7dca1d4c4e6146326e9507461f8160f42a4746d0a967ef1e19f7cd6cbaa48e69",
+      "sample_rate": 48000,
+      "channels": 1,
+      "duration_seconds": 20.874208,
+      "clip_fraction": 0.0,
+      "silence_ratio": 0.036647,
+      "snr_proxy_db": 41.194,
+      "whisper_transcript": " 오늘의 하늘은 맑아 가벼운 바람이 불어 닫힌 문을 열고서 다시 앞으로 가 손끝에 닿은 햇살 마음에 번지는 노래 넘어져도 괜찮아 다시 시작하면 돼",
+      "pitch_hz_min": 100.796,
+      "pitch_hz_median": 132.465,
+      "pitch_hz_max": 189.74,
+      "wavlm_to_other_references": {
+        "mean": 0.9662833511829376,
+        "median": 0.9731113016605377,
+        "minimum": 0.9354373812675476,
+        "maximum": 0.9834734201431274,
+        "standard_deviation": 0.019490482211248692
+      },
+      "ecapa_to_other_references": {
+        "mean": 0.7719606012105942,
+        "median": 0.7930895388126373,
+        "minimum": 0.6021755933761597,
+        "maximum": 0.8994877338409424,
+        "standard_deviation": 0.11650412581036394
+      },
+      "embedding_outlier": false,
+      "duplicate_content": false
+    }
+  ],
+  "rows": [
+    {
+      "condition": "unadapted_gtsinger_soprano_combined_vocab_init",
+      "case": "quality_ko",
+      "language": "ko",
+      "stress_category": "ordinary",
+      "seed": 7,
+      "expected_text": "하늘을향해 노래해작은 빛을따라가",
+      "whisper_transcript": " 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우",
+      "lyric_similarity": 0.0,
+      "repetition_detected": true,
+      "omission_detected": false,
+      "pitch_mae_cents": 4.1683,
+      "pitch_p90_abs_cents": 2.394,
+      "gross_error_over_600_cents": 0.0,
+      "target_voiced_ratio": 0.937751,
+      "observed_voiced_ratio": 0.931727,
+      "voicing_accuracy": 0.98996,
+      "target_f0_frames": 498,
+      "observed_f0_frames": 499,
+      "timing_grid_mismatch_frames": 1,
+      "audio_path": "data/external/work/gtsinger_gyu_identity_diagnostic/outputs/quality_ko_foundation_seed7.wav",
+      "audio_sha256": "0dcf76fceb93e412fef7dbbcf758a77dccbdb9ec466514cbeeaa70ef04cc9182",
+      "sample_rate": 44100,
+      "runtime_seconds": 5.0488,
+      "peak_process_rss_kib": 2265368,
+      "peak_gpu_memory_bytes": null,
+      "peak": 0.386093,
+      "rms": 0.119522,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.001929,
+      "hf_energy_ratio_p95": 0.007034,
+      "hf_spike_p99_over_median": 36.4863,
+      "spectral_flatness_mean": 0.000552,
+      "spectral_flux_p95": 0.227112,
+      "spectral_flux_max": 0.612525,
+      "sample_jump_p999": 0.064232,
+      "waveform_discontinuity": 0.064232,
+      "wavlm_similarity": {
+        "values": {
+          "data/processed/master/212.wav": 0.43138,
+          "data/processed/master/215.wav": 0.5780828,
+          "data/processed/master/216.wav": 0.457349,
+          "data/processed/master/219.wav": 0.5383695,
+          "data/processed/master/220.wav": 0.4561571
+        },
+        "distribution": {
+          "mean": 0.49226768000000004,
+          "median": 0.457349,
+          "minimum": 0.43138,
+          "maximum": 0.5780828,
+          "standard_deviation": 0.056071758318404816
+        }
+      },
+      "ecapa_similarity": {
+        "values": {
+          "data/processed/master/212.wav": 0.1548897,
+          "data/processed/master/215.wav": 0.1471656,
+          "data/processed/master/216.wav": 0.1314179,
+          "data/processed/master/219.wav": 0.0769672,
+          "data/processed/master/220.wav": 0.1396033
+        },
+        "distribution": {
+          "mean": 0.13000874,
+          "median": 0.1396033,
+          "minimum": 0.0769672,
+          "maximum": 0.1548897,
+          "standard_deviation": 0.027643683888555808
+        }
+      }
+    },
+    {
+      "condition": "unadapted_gtsinger_soprano_combined_vocab_init",
+      "case": "quality_ko",
+      "language": "ko",
+      "stress_category": "ordinary",
+      "seed": 21,
+      "expected_text": "하늘을향해 노래해작은 빛을따라가",
+      "whisper_transcript": " 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우",
+      "lyric_similarity": 0.0,
+      "repetition_detected": true,
+      "omission_detected": false,
+      "pitch_mae_cents": 4.0954,
+      "pitch_p90_abs_cents": 2.3675,
+      "gross_error_over_600_cents": 0.0,
+      "target_voiced_ratio": 0.937751,
+      "observed_voiced_ratio": 0.931727,
+      "voicing_accuracy": 0.98996,
+      "target_f0_frames": 498,
+      "observed_f0_frames": 499,
+      "timing_grid_mismatch_frames": 1,
+      "audio_path": "data/external/work/gtsinger_gyu_identity_diagnostic/outputs/quality_ko_foundation_seed21.wav",
+      "audio_sha256": "34df1868406ac5fa219b9be8ec075aee68f6bb22ebca8a1eddd038b3402272fb",
+      "sample_rate": 44100,
+      "runtime_seconds": 5.1244,
+      "peak_process_rss_kib": 2239296,
+      "peak_gpu_memory_bytes": null,
+      "peak": 0.385703,
+      "rms": 0.119536,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.001924,
+      "hf_energy_ratio_p95": 0.007069,
+      "hf_spike_p99_over_median": 36.8224,
+      "spectral_flatness_mean": 0.000552,
+      "spectral_flux_p95": 0.232218,
+      "spectral_flux_max": 0.612567,
+      "sample_jump_p999": 0.064163,
+      "waveform_discontinuity": 0.064163,
+      "wavlm_similarity": {
+        "values": {
+          "data/processed/master/212.wav": 0.4310779,
+          "data/processed/master/215.wav": 0.5792704,
+          "data/processed/master/216.wav": 0.4573349,
+          "data/processed/master/219.wav": 0.5394498,
+          "data/processed/master/220.wav": 0.456131
+        },
+        "distribution": {
+          "mean": 0.4926528,
+          "median": 0.4573349,
+          "minimum": 0.4310779,
+          "maximum": 0.5792704,
+          "standard_deviation": 0.05668374032193004
+        }
+      },
+      "ecapa_similarity": {
+        "values": {
+          "data/processed/master/212.wav": 0.1548736,
+          "data/processed/master/215.wav": 0.1482051,
+          "data/processed/master/216.wav": 0.132176,
+          "data/processed/master/219.wav": 0.0758609,
+          "data/processed/master/220.wav": 0.1396556
+        },
+        "distribution": {
+          "mean": 0.13015424,
+          "median": 0.1396556,
+          "minimum": 0.0758609,
+          "maximum": 0.1548736,
+          "standard_deviation": 0.028209964300764365
+        }
+      }
+    },
+    {
+      "condition": "unadapted_gtsinger_soprano_combined_vocab_init",
+      "case": "quality_ko",
+      "language": "ko",
+      "stress_category": "ordinary",
+      "seed": 42,
+      "expected_text": "하늘을향해 노래해작은 빛을따라가",
+      "whisper_transcript": " 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우",
+      "lyric_similarity": 0.0,
+      "repetition_detected": true,
+      "omission_detected": false,
+      "pitch_mae_cents": 4.1583,
+      "pitch_p90_abs_cents": 2.3416,
+      "gross_error_over_600_cents": 0.0,
+      "target_voiced_ratio": 0.937751,
+      "observed_voiced_ratio": 0.931727,
+      "voicing_accuracy": 0.98996,
+      "target_f0_frames": 498,
+      "observed_f0_frames": 499,
+      "timing_grid_mismatch_frames": 1,
+      "audio_path": "data/external/work/gtsinger_gyu_identity_diagnostic/outputs/quality_ko_foundation_seed42.wav",
+      "audio_sha256": "424afd69848764ab89b6f0bbc09978a52fd4489ebb86d24b781e4e563b83bd9d",
+      "sample_rate": 44100,
+      "runtime_seconds": 5.1312,
+      "peak_process_rss_kib": 2239256,
+      "peak_gpu_memory_bytes": null,
+      "peak": 0.386017,
+      "rms": 0.119552,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.001924,
+      "hf_energy_ratio_p95": 0.007008,
+      "hf_spike_p99_over_median": 36.6688,
+      "spectral_flatness_mean": 0.000552,
+      "spectral_flux_p95": 0.231305,
+      "spectral_flux_max": 0.612895,
+      "sample_jump_p999": 0.064154,
+      "waveform_discontinuity": 0.064154,
+      "wavlm_similarity": {
+        "values": {
+          "data/processed/master/212.wav": 0.4223553,
+          "data/processed/master/215.wav": 0.5704675,
+          "data/processed/master/216.wav": 0.4494368,
+          "data/processed/master/219.wav": 0.5300925,
+          "data/processed/master/220.wav": 0.4461837
+        },
+        "distribution": {
+          "mean": 0.4837071600000001,
+          "median": 0.4494368,
+          "minimum": 0.4223553,
+          "maximum": 0.5704675,
+          "standard_deviation": 0.056613557941878195
+        }
+      },
+      "ecapa_similarity": {
+        "values": {
+          "data/processed/master/212.wav": 0.1557922,
+          "data/processed/master/215.wav": 0.1462607,
+          "data/processed/master/216.wav": 0.1317917,
+          "data/processed/master/219.wav": 0.0746529,
+          "data/processed/master/220.wav": 0.1399661
+        },
+        "distribution": {
+          "mean": 0.12969271999999998,
+          "median": 0.1399661,
+          "minimum": 0.0746529,
+          "maximum": 0.1557922,
+          "standard_deviation": 0.028618213280524694
+        }
+      }
+    },
+    {
+      "condition": "unadapted_gtsinger_soprano_combined_vocab_init",
+      "case": "rapid_ko",
+      "language": "ko",
+      "stress_category": "rapid",
+      "seed": 7,
+      "expected_text": "빠르게노래하자아",
+      "whisper_transcript": " 야다 야다 야다 야다",
+      "lyric_similarity": 0.0,
+      "repetition_detected": true,
+      "omission_detected": false,
+      "pitch_mae_cents": 6.1433,
+      "pitch_p90_abs_cents": 13.0452,
+      "gross_error_over_600_cents": 0.0,
+      "target_voiced_ratio": 0.88,
+      "observed_voiced_ratio": 0.86,
+      "voicing_accuracy": 0.98,
+      "target_f0_frames": 100,
+      "observed_f0_frames": 101,
+      "timing_grid_mismatch_frames": 1,
+      "audio_path": "data/external/work/gtsinger_gyu_identity_diagnostic/outputs/rapid_ko_foundation_seed7.wav",
+      "audio_sha256": "e0ccc95dc40157f014998fdfc133eb9423cb3808f80d956c8f332eac9b9aed3f",
+      "sample_rate": 44100,
+      "runtime_seconds": 5.0074,
+      "peak_process_rss_kib": 2225448,
+      "peak_gpu_memory_bytes": null,
+      "peak": 0.4427,
+      "rms": 0.099386,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.002599,
+      "hf_energy_ratio_p95": 0.009372,
+      "hf_spike_p99_over_median": 15.7328,
+      "spectral_flatness_mean": 0.000841,
+      "spectral_flux_p95": 0.351179,
+      "spectral_flux_max": 0.535776,
+      "sample_jump_p999": 0.057935,
+      "waveform_discontinuity": 0.057935,
+      "wavlm_similarity": {
+        "values": {
+          "data/processed/master/212.wav": 0.5356076,
+          "data/processed/master/215.wav": 0.6940119,
+          "data/processed/master/216.wav": 0.5640371,
+          "data/processed/master/219.wav": 0.6387605,
+          "data/processed/master/220.wav": 0.5398138
+        },
+        "distribution": {
+          "mean": 0.59444618,
+          "median": 0.5640371,
+          "minimum": 0.5356076,
+          "maximum": 0.6940119,
+          "standard_deviation": 0.06204591709936763
+        }
+      },
+      "ecapa_similarity": {
+        "values": {
+          "data/processed/master/212.wav": 0.1692201,
+          "data/processed/master/215.wav": 0.255204,
+          "data/processed/master/216.wav": 0.2084075,
+          "data/processed/master/219.wav": 0.2489043,
+          "data/processed/master/220.wav": 0.2068398
+        },
+        "distribution": {
+          "mean": 0.21771513999999997,
+          "median": 0.2084075,
+          "minimum": 0.1692201,
+          "maximum": 0.255204,
+          "standard_deviation": 0.031416086365720346
+        }
+      }
+    },
+    {
+      "condition": "unadapted_gtsinger_soprano_combined_vocab_init",
+      "case": "rapid_ko",
+      "language": "ko",
+      "stress_category": "rapid",
+      "seed": 21,
+      "expected_text": "빠르게노래하자아",
+      "whisper_transcript": " 야다 야다 야다 야다",
+      "lyric_similarity": 0.0,
+      "repetition_detected": true,
+      "omission_detected": false,
+      "pitch_mae_cents": 6.4125,
+      "pitch_p90_abs_cents": 13.2687,
+      "gross_error_over_600_cents": 0.0,
+      "target_voiced_ratio": 0.88,
+      "observed_voiced_ratio": 0.86,
+      "voicing_accuracy": 0.98,
+      "target_f0_frames": 100,
+      "observed_f0_frames": 101,
+      "timing_grid_mismatch_frames": 1,
+      "audio_path": "data/external/work/gtsinger_gyu_identity_diagnostic/outputs/rapid_ko_foundation_seed21.wav",
+      "audio_sha256": "299f7f055bcd42c15f7c95783ce71e2f60d1759e5e5b245ee23d4967676a84b2",
+      "sample_rate": 44100,
+      "runtime_seconds": 5.0009,
+      "peak_process_rss_kib": 2225156,
+      "peak_gpu_memory_bytes": null,
+      "peak": 0.442343,
+      "rms": 0.09943,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.002594,
+      "hf_energy_ratio_p95": 0.009408,
+      "hf_spike_p99_over_median": 15.6315,
+      "spectral_flatness_mean": 0.000836,
+      "spectral_flux_p95": 0.340439,
+      "spectral_flux_max": 0.509829,
+      "sample_jump_p999": 0.058087,
+      "waveform_discontinuity": 0.058087,
+      "wavlm_similarity": {
+        "values": {
+          "data/processed/master/212.wav": 0.5392705,
+          "data/processed/master/215.wav": 0.6973472,
+          "data/processed/master/216.wav": 0.5668664,
+          "data/processed/master/219.wav": 0.6418792,
+          "data/processed/master/220.wav": 0.5428156
+        },
+        "distribution": {
+          "mean": 0.59763578,
+          "median": 0.5668664,
+          "minimum": 0.5392705,
+          "maximum": 0.6973472,
+          "standard_deviation": 0.06206184058180678
+        }
+      },
+      "ecapa_similarity": {
+        "values": {
+          "data/processed/master/212.wav": 0.1704968,
+          "data/processed/master/215.wav": 0.2581581,
+          "data/processed/master/216.wav": 0.2087953,
+          "data/processed/master/219.wav": 0.2511972,
+          "data/processed/master/220.wav": 0.2068014
+        },
+        "distribution": {
+          "mean": 0.21908976,
+          "median": 0.2087953,
+          "minimum": 0.1704968,
+          "maximum": 0.2581581,
+          "standard_deviation": 0.032172902739578846
+        }
+      }
+    },
+    {
+      "condition": "unadapted_gtsinger_soprano_combined_vocab_init",
+      "case": "rapid_ko",
+      "language": "ko",
+      "stress_category": "rapid",
+      "seed": 42,
+      "expected_text": "빠르게노래하자아",
+      "whisper_transcript": " 야다 야다 야다 야다",
+      "lyric_similarity": 0.0,
+      "repetition_detected": true,
+      "omission_detected": false,
+      "pitch_mae_cents": 6.5325,
+      "pitch_p90_abs_cents": 13.08,
+      "gross_error_over_600_cents": 0.0,
+      "target_voiced_ratio": 0.88,
+      "observed_voiced_ratio": 0.86,
+      "voicing_accuracy": 0.98,
+      "target_f0_frames": 100,
+      "observed_f0_frames": 101,
+      "timing_grid_mismatch_frames": 1,
+      "audio_path": "data/external/work/gtsinger_gyu_identity_diagnostic/outputs/rapid_ko_foundation_seed42.wav",
+      "audio_sha256": "af7a8c0ce76b250ea1df7f5ad9115ba4d6275373dcf4eb9e76e45d00b69b6d18",
+      "sample_rate": 44100,
+      "runtime_seconds": 4.9147,
+      "peak_process_rss_kib": 2237000,
+      "peak_gpu_memory_bytes": null,
+      "peak": 0.442864,
+      "rms": 0.099448,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.002597,
+      "hf_energy_ratio_p95": 0.009478,
+      "hf_spike_p99_over_median": 15.7349,
+      "spectral_flatness_mean": 0.000837,
+      "spectral_flux_p95": 0.336235,
+      "spectral_flux_max": 0.573508,
+      "sample_jump_p999": 0.057992,
+      "waveform_discontinuity": 0.057992,
+      "wavlm_similarity": {
+        "values": {
+          "data/processed/master/212.wav": 0.5337579,
+          "data/processed/master/215.wav": 0.6939138,
+          "data/processed/master/216.wav": 0.5628053,
+          "data/processed/master/219.wav": 0.6385638,
+          "data/processed/master/220.wav": 0.5389743
+        },
+        "distribution": {
+          "mean": 0.59360302,
+          "median": 0.5628053,
+          "minimum": 0.5337579,
+          "maximum": 0.6939138,
+          "standard_deviation": 0.06260664392261896
+        }
+      },
+      "ecapa_similarity": {
+        "values": {
+          "data/processed/master/212.wav": 0.1678499,
+          "data/processed/master/215.wav": 0.2563865,
+          "data/processed/master/216.wav": 0.2080013,
+          "data/processed/master/219.wav": 0.2504078,
+          "data/processed/master/220.wav": 0.2061278
+        },
+        "distribution": {
+          "mean": 0.21775466,
+          "median": 0.2080013,
+          "minimum": 0.1678499,
+          "maximum": 0.2563865,
+          "standard_deviation": 0.032494441337102574
+        }
+      }
+    },
+    {
+      "condition": "unadapted_gtsinger_soprano_combined_vocab_init",
+      "case": "large_interval_ko",
+      "language": "ko",
+      "stress_category": "large_interval",
+      "seed": 7,
+      "expected_text": "높이날아",
+      "whisper_transcript": " 아 아",
+      "lyric_similarity": 0.333333,
+      "repetition_detected": true,
+      "omission_detected": true,
+      "pitch_mae_cents": 10.8098,
+      "pitch_p90_abs_cents": 5.8005,
+      "gross_error_over_600_cents": 0.004405,
+      "target_voiced_ratio": 0.9875,
+      "observed_voiced_ratio": 0.945833,
+      "voicing_accuracy": 0.958333,
+      "target_f0_frames": 240,
+      "observed_f0_frames": 241,
+      "timing_grid_mismatch_frames": 1,
+      "audio_path": "data/external/work/gtsinger_gyu_identity_diagnostic/outputs/large_interval_ko_foundation_seed7.wav",
+      "audio_sha256": "ef23f371cbb9c72848806738404ef577754afb7803b260cf1662ebc22fa568df",
+      "sample_rate": 44100,
+      "runtime_seconds": 4.8503,
+      "peak_process_rss_kib": 2277220,
+      "peak_gpu_memory_bytes": null,
+      "peak": 0.445109,
+      "rms": 0.124094,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.003983,
+      "hf_energy_ratio_p95": 0.01369,
+      "hf_spike_p99_over_median": 38.3962,
+      "spectral_flatness_mean": 0.001198,
+      "spectral_flux_p95": 0.165271,
+      "spectral_flux_max": 0.513764,
+      "sample_jump_p999": 0.085692,
+      "waveform_discontinuity": 0.085692,
+      "wavlm_similarity": {
+        "values": {
+          "data/processed/master/212.wav": 0.3746631,
+          "data/processed/master/215.wav": 0.5325463,
+          "data/processed/master/216.wav": 0.4478814,
+          "data/processed/master/219.wav": 0.4950079,
+          "data/processed/master/220.wav": 0.4070084
+        },
+        "distribution": {
+          "mean": 0.4514214200000001,
+          "median": 0.4478814,
+          "minimum": 0.3746631,
+          "maximum": 0.5325463,
+          "standard_deviation": 0.057197753749859796
+        }
+      },
+      "ecapa_similarity": {
+        "values": {
+          "data/processed/master/212.wav": 0.11651,
+          "data/processed/master/215.wav": 0.132383,
+          "data/processed/master/216.wav": 0.0540507,
+          "data/processed/master/219.wav": 0.0748512,
+          "data/processed/master/220.wav": 0.0834716
+        },
+        "distribution": {
+          "mean": 0.09225330000000001,
+          "median": 0.0834716,
+          "minimum": 0.0540507,
+          "maximum": 0.132383,
+          "standard_deviation": 0.028418903226690505
+        }
+      }
+    },
+    {
+      "condition": "unadapted_gtsinger_soprano_combined_vocab_init",
+      "case": "large_interval_ko",
+      "language": "ko",
+      "stress_category": "large_interval",
+      "seed": 21,
+      "expected_text": "높이날아",
+      "whisper_transcript": " 아 아",
+      "lyric_similarity": 0.333333,
+      "repetition_detected": true,
+      "omission_detected": true,
+      "pitch_mae_cents": 10.8378,
+      "pitch_p90_abs_cents": 5.67,
+      "gross_error_over_600_cents": 0.004405,
+      "target_voiced_ratio": 0.9875,
+      "observed_voiced_ratio": 0.945833,
+      "voicing_accuracy": 0.958333,
+      "target_f0_frames": 240,
+      "observed_f0_frames": 241,
+      "timing_grid_mismatch_frames": 1,
+      "audio_path": "data/external/work/gtsinger_gyu_identity_diagnostic/outputs/large_interval_ko_foundation_seed21.wav",
+      "audio_sha256": "799a62c9e505c95074f54d963679c1ea6bdb9c20ba74214c802ca3d55a9f1740",
+      "sample_rate": 44100,
+      "runtime_seconds": 4.7226,
+      "peak_process_rss_kib": 2277368,
+      "peak_gpu_memory_bytes": null,
+      "peak": 0.444808,
+      "rms": 0.124111,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.003986,
+      "hf_energy_ratio_p95": 0.013685,
+      "hf_spike_p99_over_median": 38.2693,
+      "spectral_flatness_mean": 0.001197,
+      "spectral_flux_p95": 0.1634,
+      "spectral_flux_max": 0.483373,
+      "sample_jump_p999": 0.085592,
+      "waveform_discontinuity": 0.085592,
+      "wavlm_similarity": {
+        "values": {
+          "data/processed/master/212.wav": 0.379371,
+          "data/processed/master/215.wav": 0.5346531,
+          "data/processed/master/216.wav": 0.4525902,
+          "data/processed/master/219.wav": 0.4981398,
+          "data/processed/master/220.wav": 0.412441
+        },
+        "distribution": {
+          "mean": 0.4554390199999999,
+          "median": 0.4525902,
+          "minimum": 0.379371,
+          "maximum": 0.5346531,
+          "standard_deviation": 0.05610974291313051
+        }
+      },
+      "ecapa_similarity": {
+        "values": {
+          "data/processed/master/212.wav": 0.1164709,
+          "data/processed/master/215.wav": 0.1345213,
+          "data/processed/master/216.wav": 0.05442,
+          "data/processed/master/219.wav": 0.0764379,
+          "data/processed/master/220.wav": 0.0838038
+        },
+        "distribution": {
+          "mean": 0.09313078,
+          "median": 0.0838038,
+          "minimum": 0.05442,
+          "maximum": 0.1345213,
+          "standard_deviation": 0.028712734576518486
+        }
+      }
+    },
+    {
+      "condition": "unadapted_gtsinger_soprano_combined_vocab_init",
+      "case": "large_interval_ko",
+      "language": "ko",
+      "stress_category": "large_interval",
+      "seed": 42,
+      "expected_text": "높이날아",
+      "whisper_transcript": " 아 아",
+      "lyric_similarity": 0.333333,
+      "repetition_detected": true,
+      "omission_detected": true,
+      "pitch_mae_cents": 10.8282,
+      "pitch_p90_abs_cents": 5.924,
+      "gross_error_over_600_cents": 0.004405,
+      "target_voiced_ratio": 0.9875,
+      "observed_voiced_ratio": 0.945833,
+      "voicing_accuracy": 0.958333,
+      "target_f0_frames": 240,
+      "observed_f0_frames": 241,
+      "timing_grid_mismatch_frames": 1,
+      "audio_path": "data/external/work/gtsinger_gyu_identity_diagnostic/outputs/large_interval_ko_foundation_seed42.wav",
+      "audio_sha256": "4869d4ad6dd7928fa734646ae48be914e1ff02b8d81f4e265077dbc00468d0b8",
+      "sample_rate": 44100,
+      "runtime_seconds": 4.8625,
+      "peak_process_rss_kib": 2253944,
+      "peak_gpu_memory_bytes": null,
+      "peak": 0.444914,
+      "rms": 0.124117,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.003984,
+      "hf_energy_ratio_p95": 0.013686,
+      "hf_spike_p99_over_median": 38.6897,
+      "spectral_flatness_mean": 0.001198,
+      "spectral_flux_p95": 0.164712,
+      "spectral_flux_max": 0.543817,
+      "sample_jump_p999": 0.085765,
+      "waveform_discontinuity": 0.085765,
+      "wavlm_similarity": {
+        "values": {
+          "data/processed/master/212.wav": 0.3859262,
+          "data/processed/master/215.wav": 0.5418438,
+          "data/processed/master/216.wav": 0.4589413,
+          "data/processed/master/219.wav": 0.5056804,
+          "data/processed/master/220.wav": 0.4188976
+        },
+        "distribution": {
+          "mean": 0.4622578600000001,
+          "median": 0.4589413,
+          "minimum": 0.3859262,
+          "maximum": 0.5418438,
+          "standard_deviation": 0.05645719238784728
+        }
+      },
+      "ecapa_similarity": {
+        "values": {
+          "data/processed/master/212.wav": 0.1141288,
+          "data/processed/master/215.wav": 0.1323902,
+          "data/processed/master/216.wav": 0.0507198,
+          "data/processed/master/219.wav": 0.0747151,
+          "data/processed/master/220.wav": 0.0814212
+        },
+        "distribution": {
+          "mean": 0.09067502000000001,
+          "median": 0.0814212,
+          "minimum": 0.0507198,
+          "maximum": 0.1323902,
+          "standard_deviation": 0.029075790186916677
+        }
+      }
+    },
+    {
+      "condition": "unadapted_gtsinger_soprano_combined_vocab_init",
+      "case": "sustain_ko",
+      "language": "ko",
+      "stress_category": "sustain",
+      "seed": 7,
+      "expected_text": "아",
+      "whisper_transcript": " 다",
+      "lyric_similarity": 0.0,
+      "repetition_detected": false,
+      "omission_detected": false,
+      "pitch_mae_cents": 1.4287,
+      "pitch_p90_abs_cents": 1.8118,
+      "gross_error_over_600_cents": 0.0,
+      "target_voiced_ratio": 1.0,
+      "observed_voiced_ratio": 0.99,
+      "voicing_accuracy": 0.99,
+      "target_f0_frames": 300,
+      "observed_f0_frames": 301,
+      "timing_grid_mismatch_frames": 1,
+      "audio_path": "data/external/work/gtsinger_gyu_identity_diagnostic/outputs/sustain_ko_foundation_seed7.wav",
+      "audio_sha256": "7e55ccfcfcf90f47c5fbd15f7f0231b9a036f99e57ba0f72810a3ed4884fe894",
+      "sample_rate": 44100,
+      "runtime_seconds": 5.0126,
+      "peak_process_rss_kib": 2277736,
+      "peak_gpu_memory_bytes": null,
+      "peak": 0.340061,
+      "rms": 0.135005,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.001353,
+      "hf_energy_ratio_p95": 0.00071,
+      "hf_spike_p99_over_median": 16.6671,
+      "spectral_flatness_mean": 0.000388,
+      "spectral_flux_p95": 0.012387,
+      "spectral_flux_max": 0.453661,
+      "sample_jump_p999": 0.043985,
+      "waveform_discontinuity": 0.043985,
+      "wavlm_similarity": {
+        "values": {
+          "data/processed/master/212.wav": 0.3073457,
+          "data/processed/master/215.wav": 0.3647895,
+          "data/processed/master/216.wav": 0.3398773,
+          "data/processed/master/219.wav": 0.3344396,
+          "data/processed/master/220.wav": 0.3021846
+        },
+        "distribution": {
+          "mean": 0.32972734,
+          "median": 0.3344396,
+          "minimum": 0.3021846,
+          "maximum": 0.3647895,
+          "standard_deviation": 0.022865355811672813
+        }
+      },
+      "ecapa_similarity": {
+        "values": {
+          "data/processed/master/212.wav": 0.070759,
+          "data/processed/master/215.wav": 0.0406726,
+          "data/processed/master/216.wav": 0.0286371,
+          "data/processed/master/219.wav": 0.0375142,
+          "data/processed/master/220.wav": 0.0564286
+        },
+        "distribution": {
+          "mean": 0.0468023,
+          "median": 0.0406726,
+          "minimum": 0.0286371,
+          "maximum": 0.070759,
+          "standard_deviation": 0.01496933960680965
+        }
+      }
+    },
+    {
+      "condition": "unadapted_gtsinger_soprano_combined_vocab_init",
+      "case": "sustain_ko",
+      "language": "ko",
+      "stress_category": "sustain",
+      "seed": 21,
+      "expected_text": "아",
+      "whisper_transcript": " 다",
+      "lyric_similarity": 0.0,
+      "repetition_detected": false,
+      "omission_detected": false,
+      "pitch_mae_cents": 1.4181,
+      "pitch_p90_abs_cents": 1.8432,
+      "gross_error_over_600_cents": 0.0,
+      "target_voiced_ratio": 1.0,
+      "observed_voiced_ratio": 0.99,
+      "voicing_accuracy": 0.99,
+      "target_f0_frames": 300,
+      "observed_f0_frames": 301,
+      "timing_grid_mismatch_frames": 1,
+      "audio_path": "data/external/work/gtsinger_gyu_identity_diagnostic/outputs/sustain_ko_foundation_seed21.wav",
+      "audio_sha256": "cc28a09de2dd7e4f9f01b263d7ccc36729f04e74f4e1889267f6da1db0bfbc8e",
+      "sample_rate": 44100,
+      "runtime_seconds": 4.7699,
+      "peak_process_rss_kib": 2252092,
+      "peak_gpu_memory_bytes": null,
+      "peak": 0.340061,
+      "rms": 0.135003,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.00135,
+      "hf_energy_ratio_p95": 0.000709,
+      "hf_spike_p99_over_median": 16.44,
+      "spectral_flatness_mean": 0.00039,
+      "spectral_flux_p95": 0.012419,
+      "spectral_flux_max": 0.454786,
+      "sample_jump_p999": 0.043981,
+      "waveform_discontinuity": 0.043981,
+      "wavlm_similarity": {
+        "values": {
+          "data/processed/master/212.wav": 0.3067535,
+          "data/processed/master/215.wav": 0.3641113,
+          "data/processed/master/216.wav": 0.3395931,
+          "data/processed/master/219.wav": 0.3338028,
+          "data/processed/master/220.wav": 0.3015486
+        },
+        "distribution": {
+          "mean": 0.32916186000000003,
+          "median": 0.3338028,
+          "minimum": 0.3015486,
+          "maximum": 0.3641113,
+          "standard_deviation": 0.02287548545518543
+        }
+      },
+      "ecapa_similarity": {
+        "values": {
+          "data/processed/master/212.wav": 0.0713764,
+          "data/processed/master/215.wav": 0.040665,
+          "data/processed/master/216.wav": 0.0291301,
+          "data/processed/master/219.wav": 0.0376008,
+          "data/processed/master/220.wav": 0.0564751
+        },
+        "distribution": {
+          "mean": 0.04704948,
+          "median": 0.040665,
+          "minimum": 0.0291301,
+          "maximum": 0.0713764,
+          "standard_deviation": 0.015045163124858438
+        }
+      }
+    },
+    {
+      "condition": "unadapted_gtsinger_soprano_combined_vocab_init",
+      "case": "sustain_ko",
+      "language": "ko",
+      "stress_category": "sustain",
+      "seed": 42,
+      "expected_text": "아",
+      "whisper_transcript": " 다",
+      "lyric_similarity": 0.0,
+      "repetition_detected": false,
+      "omission_detected": false,
+      "pitch_mae_cents": 1.4288,
+      "pitch_p90_abs_cents": 1.8631,
+      "gross_error_over_600_cents": 0.0,
+      "target_voiced_ratio": 1.0,
+      "observed_voiced_ratio": 0.99,
+      "voicing_accuracy": 0.99,
+      "target_f0_frames": 300,
+      "observed_f0_frames": 301,
+      "timing_grid_mismatch_frames": 1,
+      "audio_path": "data/external/work/gtsinger_gyu_identity_diagnostic/outputs/sustain_ko_foundation_seed42.wav",
+      "audio_sha256": "561080d99776915b64833697f7d13fb98278e7bf6981168ec08e8e93d8eb06c6",
+      "sample_rate": 44100,
+      "runtime_seconds": 4.7554,
+      "peak_process_rss_kib": 2277800,
+      "peak_gpu_memory_bytes": null,
+      "peak": 0.339995,
+      "rms": 0.135012,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.001364,
+      "hf_energy_ratio_p95": 0.000711,
+      "hf_spike_p99_over_median": 16.68,
+      "spectral_flatness_mean": 0.00039,
+      "spectral_flux_p95": 0.012446,
+      "spectral_flux_max": 0.453297,
+      "sample_jump_p999": 0.043987,
+      "waveform_discontinuity": 0.043987,
+      "wavlm_similarity": {
+        "values": {
+          "data/processed/master/212.wav": 0.3076745,
+          "data/processed/master/215.wav": 0.3640421,
+          "data/processed/master/216.wav": 0.3404773,
+          "data/processed/master/219.wav": 0.3338844,
+          "data/processed/master/220.wav": 0.3021904
+        },
+        "distribution": {
+          "mean": 0.32965374000000003,
+          "median": 0.3338844,
+          "minimum": 0.3021904,
+          "maximum": 0.3640421,
+          "standard_deviation": 0.02260499623327549
+        }
+      },
+      "ecapa_similarity": {
+        "values": {
+          "data/processed/master/212.wav": 0.0714467,
+          "data/processed/master/215.wav": 0.0406873,
+          "data/processed/master/216.wav": 0.0287318,
+          "data/processed/master/219.wav": 0.0379898,
+          "data/processed/master/220.wav": 0.0561172
+        },
+        "distribution": {
+          "mean": 0.046994560000000005,
+          "median": 0.0406873,
+          "minimum": 0.0287318,
+          "maximum": 0.0714467,
+          "standard_deviation": 0.015070005609368565
+        }
+      }
+    },
+    {
+      "condition": "unadapted_gtsinger_soprano_combined_vocab_init",
+      "case": "phrase_boundary_ko",
+      "language": "ko",
+      "stress_category": "phrase_boundary",
+      "seed": 7,
+      "expected_text": "빛을따라",
+      "whisper_transcript": " 다아... 다아...",
+      "lyric_similarity": 0.0,
+      "repetition_detected": true,
+      "omission_detected": false,
+      "pitch_mae_cents": 3.1888,
+      "pitch_p90_abs_cents": 7.1422,
+      "gross_error_over_600_cents": 0.0,
+      "target_voiced_ratio": 0.816216,
+      "observed_voiced_ratio": 0.864865,
+      "voicing_accuracy": 0.918919,
+      "target_f0_frames": 185,
+      "observed_f0_frames": 186,
+      "timing_grid_mismatch_frames": 1,
+      "audio_path": "data/external/work/gtsinger_gyu_identity_diagnostic/outputs/phrase_boundary_ko_foundation_seed7.wav",
+      "audio_sha256": "ae6ebe9433047c335629a174240f08d2f4038c2a7cb3fd66b71cb755ddf674a1",
+      "sample_rate": 44100,
+      "runtime_seconds": 4.6986,
+      "peak_process_rss_kib": 2257208,
+      "peak_gpu_memory_bytes": null,
+      "peak": 0.269677,
+      "rms": 0.084541,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.000901,
+      "hf_energy_ratio_p95": 0.002327,
+      "hf_spike_p99_over_median": 11.6093,
+      "spectral_flatness_mean": 0.00021,
+      "spectral_flux_p95": 0.223439,
+      "spectral_flux_max": 0.530118,
+      "sample_jump_p999": 0.035422,
+      "waveform_discontinuity": 0.035422,
+      "wavlm_similarity": {
+        "values": {
+          "data/processed/master/212.wav": 0.4170597,
+          "data/processed/master/215.wav": 0.5469564,
+          "data/processed/master/216.wav": 0.4632892,
+          "data/processed/master/219.wav": 0.5083921,
+          "data/processed/master/220.wav": 0.4217611
+        },
+        "distribution": {
+          "mean": 0.47149169999999996,
+          "median": 0.4632892,
+          "minimum": 0.4170597,
+          "maximum": 0.5469564,
+          "standard_deviation": 0.050119490565766936
+        }
+      },
+      "ecapa_similarity": {
+        "values": {
+          "data/processed/master/212.wav": 0.1883526,
+          "data/processed/master/215.wav": 0.3185099,
+          "data/processed/master/216.wav": 0.2453963,
+          "data/processed/master/219.wav": 0.2678636,
+          "data/processed/master/220.wav": 0.2204214
+        },
+        "distribution": {
+          "mean": 0.24810875999999998,
+          "median": 0.2453963,
+          "minimum": 0.1883526,
+          "maximum": 0.3185099,
+          "standard_deviation": 0.044025720250081085
+        }
+      }
+    },
+    {
+      "condition": "unadapted_gtsinger_soprano_combined_vocab_init",
+      "case": "phrase_boundary_ko",
+      "language": "ko",
+      "stress_category": "phrase_boundary",
+      "seed": 21,
+      "expected_text": "빛을따라",
+      "whisper_transcript": " 다아... 다아...",
+      "lyric_similarity": 0.0,
+      "repetition_detected": true,
+      "omission_detected": false,
+      "pitch_mae_cents": 10.4758,
+      "pitch_p90_abs_cents": 8.5006,
+      "gross_error_over_600_cents": 0.006667,
+      "target_voiced_ratio": 0.816216,
+      "observed_voiced_ratio": 0.940541,
+      "voicing_accuracy": 0.864865,
+      "target_f0_frames": 185,
+      "observed_f0_frames": 186,
+      "timing_grid_mismatch_frames": 1,
+      "audio_path": "data/external/work/gtsinger_gyu_identity_diagnostic/outputs/phrase_boundary_ko_foundation_seed21.wav",
+      "audio_sha256": "c35726c7c8f1e6fe719a2825d2f341a0ca81e1aa779826ceca4efb78d0ad5a12",
+      "sample_rate": 44100,
+      "runtime_seconds": 4.8957,
+      "peak_process_rss_kib": 2238392,
+      "peak_gpu_memory_bytes": null,
+      "peak": 0.310439,
+      "rms": 0.085454,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.000897,
+      "hf_energy_ratio_p95": 0.002307,
+      "hf_spike_p99_over_median": 11.1607,
+      "spectral_flatness_mean": 0.000208,
+      "spectral_flux_p95": 0.236325,
+      "spectral_flux_max": 0.525653,
+      "sample_jump_p999": 0.03522,
+      "waveform_discontinuity": 0.03522,
+      "wavlm_similarity": {
+        "values": {
+          "data/processed/master/212.wav": 0.4102173,
+          "data/processed/master/215.wav": 0.5350057,
+          "data/processed/master/216.wav": 0.4571432,
+          "data/processed/master/219.wav": 0.4954035,
+          "data/processed/master/220.wav": 0.411574
+        },
+        "distribution": {
+          "mean": 0.46186874,
+          "median": 0.4571432,
+          "minimum": 0.4102173,
+          "maximum": 0.5350057,
+          "standard_deviation": 0.04835981368932681
+        }
+      },
+      "ecapa_similarity": {
+        "values": {
+          "data/processed/master/212.wav": 0.1819475,
+          "data/processed/master/215.wav": 0.308914,
+          "data/processed/master/216.wav": 0.2424966,
+          "data/processed/master/219.wav": 0.2606572,
+          "data/processed/master/220.wav": 0.2157599
+        },
+        "distribution": {
+          "mean": 0.24195504000000004,
+          "median": 0.2424966,
+          "minimum": 0.1819475,
+          "maximum": 0.308914,
+          "standard_deviation": 0.042709850425053
+        }
+      }
+    },
+    {
+      "condition": "unadapted_gtsinger_soprano_combined_vocab_init",
+      "case": "phrase_boundary_ko",
+      "language": "ko",
+      "stress_category": "phrase_boundary",
+      "seed": 42,
+      "expected_text": "빛을따라",
+      "whisper_transcript": " 다아... 다아...",
+      "lyric_similarity": 0.0,
+      "repetition_detected": true,
+      "omission_detected": false,
+      "pitch_mae_cents": 3.1306,
+      "pitch_p90_abs_cents": 7.3373,
+      "gross_error_over_600_cents": 0.0,
+      "target_voiced_ratio": 0.816216,
+      "observed_voiced_ratio": 0.918919,
+      "voicing_accuracy": 0.864865,
+      "target_f0_frames": 185,
+      "observed_f0_frames": 186,
+      "timing_grid_mismatch_frames": 1,
+      "audio_path": "data/external/work/gtsinger_gyu_identity_diagnostic/outputs/phrase_boundary_ko_foundation_seed42.wav",
+      "audio_sha256": "c0797fe649f4465b238db378abc73e8fcdc073198f0587362fd12f6ad4f60e93",
+      "sample_rate": 44100,
+      "runtime_seconds": 4.7135,
+      "peak_process_rss_kib": 2252700,
+      "peak_gpu_memory_bytes": null,
+      "peak": 0.282174,
+      "rms": 0.085163,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.00089,
+      "hf_energy_ratio_p95": 0.002307,
+      "hf_spike_p99_over_median": 11.3785,
+      "spectral_flatness_mean": 0.000207,
+      "spectral_flux_p95": 0.233589,
+      "spectral_flux_max": 0.566135,
+      "sample_jump_p999": 0.035249,
+      "waveform_discontinuity": 0.035249,
+      "wavlm_similarity": {
+        "values": {
+          "data/processed/master/212.wav": 0.4097113,
+          "data/processed/master/215.wav": 0.5385618,
+          "data/processed/master/216.wav": 0.4559133,
+          "data/processed/master/219.wav": 0.4981724,
+          "data/processed/master/220.wav": 0.4115233
+        },
+        "distribution": {
+          "mean": 0.46277641999999997,
+          "median": 0.4559133,
+          "minimum": 0.4097113,
+          "maximum": 0.5385618,
+          "standard_deviation": 0.049972374184919406
+        }
+      },
+      "ecapa_similarity": {
+        "values": {
+          "data/processed/master/212.wav": 0.1938974,
+          "data/processed/master/215.wav": 0.3174788,
+          "data/processed/master/216.wav": 0.2526177,
+          "data/processed/master/219.wav": 0.2692032,
+          "data/processed/master/220.wav": 0.2251152
+        },
+        "distribution": {
+          "mean": 0.25166246000000003,
+          "median": 0.2526177,
+          "minimum": 0.1938974,
+          "maximum": 0.3174788,
+          "standard_deviation": 0.041669988779724915
+        }
+      }
+    }
+  ],
+  "gate": {
+    "status": "foundation_ko_gate_reject",
+    "pass_count": 0,
+    "total_count": 15,
+    "pass_ratio": 0.0,
+    "identity_training_allowed": false,
+    "failures": [
+      {
+        "case": "quality_ko",
+        "seed": 7,
+        "pass": false,
+        "failure_taxonomy": [
+          "foundation_content_failure"
+        ]
+      },
+      {
+        "case": "quality_ko",
+        "seed": 21,
+        "pass": false,
+        "failure_taxonomy": [
+          "foundation_content_failure"
+        ]
+      },
+      {
+        "case": "quality_ko",
+        "seed": 42,
+        "pass": false,
+        "failure_taxonomy": [
+          "foundation_content_failure"
+        ]
+      },
+      {
+        "case": "rapid_ko",
+        "seed": 7,
+        "pass": false,
+        "failure_taxonomy": [
+          "foundation_content_failure"
+        ]
+      },
+      {
+        "case": "rapid_ko",
+        "seed": 21,
+        "pass": false,
+        "failure_taxonomy": [
+          "foundation_content_failure"
+        ]
+      },
+      {
+        "case": "rapid_ko",
+        "seed": 42,
+        "pass": false,
+        "failure_taxonomy": [
+          "foundation_content_failure"
+        ]
+      },
+      {
+        "case": "large_interval_ko",
+        "seed": 7,
+        "pass": false,
+        "failure_taxonomy": [
+          "foundation_content_failure"
+        ]
+      },
+      {
+        "case": "large_interval_ko",
+        "seed": 21,
+        "pass": false,
+        "failure_taxonomy": [
+          "foundation_content_failure"
+        ]
+      },
+      {
+        "case": "large_interval_ko",
+        "seed": 42,
+        "pass": false,
+        "failure_taxonomy": [
+          "foundation_content_failure"
+        ]
+      },
+      {
+        "case": "sustain_ko",
+        "seed": 7,
+        "pass": false,
+        "failure_taxonomy": [
+          "foundation_content_failure"
+        ]
+      },
+      {
+        "case": "sustain_ko",
+        "seed": 21,
+        "pass": false,
+        "failure_taxonomy": [
+          "foundation_content_failure"
+        ]
+      },
+      {
+        "case": "sustain_ko",
+        "seed": 42,
+        "pass": false,
+        "failure_taxonomy": [
+          "foundation_content_failure"
+        ]
+      },
+      {
+        "case": "phrase_boundary_ko",
+        "seed": 7,
+        "pass": false,
+        "failure_taxonomy": [
+          "foundation_content_failure"
+        ]
+      },
+      {
+        "case": "phrase_boundary_ko",
+        "seed": 21,
+        "pass": false,
+        "failure_taxonomy": [
+          "foundation_content_failure"
+        ]
+      },
+      {
+        "case": "phrase_boundary_ko",
+        "seed": 42,
+        "pass": false,
+        "failure_taxonomy": [
+          "foundation_content_failure"
+        ]
+      }
+    ],
+    "decisions": [
+      {
+        "case": "quality_ko",
+        "seed": 7,
+        "pass": false,
+        "failure_taxonomy": [
+          "foundation_content_failure"
+        ]
+      },
+      {
+        "case": "quality_ko",
+        "seed": 21,
+        "pass": false,
+        "failure_taxonomy": [
+          "foundation_content_failure"
+        ]
+      },
+      {
+        "case": "quality_ko",
+        "seed": 42,
+        "pass": false,
+        "failure_taxonomy": [
+          "foundation_content_failure"
+        ]
+      },
+      {
+        "case": "rapid_ko",
+        "seed": 7,
+        "pass": false,
+        "failure_taxonomy": [
+          "foundation_content_failure"
+        ]
+      },
+      {
+        "case": "rapid_ko",
+        "seed": 21,
+        "pass": false,
+        "failure_taxonomy": [
+          "foundation_content_failure"
+        ]
+      },
+      {
+        "case": "rapid_ko",
+        "seed": 42,
+        "pass": false,
+        "failure_taxonomy": [
+          "foundation_content_failure"
+        ]
+      },
+      {
+        "case": "large_interval_ko",
+        "seed": 7,
+        "pass": false,
+        "failure_taxonomy": [
+          "foundation_content_failure"
+        ]
+      },
+      {
+        "case": "large_interval_ko",
+        "seed": 21,
+        "pass": false,
+        "failure_taxonomy": [
+          "foundation_content_failure"
+        ]
+      },
+      {
+        "case": "large_interval_ko",
+        "seed": 42,
+        "pass": false,
+        "failure_taxonomy": [
+          "foundation_content_failure"
+        ]
+      },
+      {
+        "case": "sustain_ko",
+        "seed": 7,
+        "pass": false,
+        "failure_taxonomy": [
+          "foundation_content_failure"
+        ]
+      },
+      {
+        "case": "sustain_ko",
+        "seed": 21,
+        "pass": false,
+        "failure_taxonomy": [
+          "foundation_content_failure"
+        ]
+      },
+      {
+        "case": "sustain_ko",
+        "seed": 42,
+        "pass": false,
+        "failure_taxonomy": [
+          "foundation_content_failure"
+        ]
+      },
+      {
+        "case": "phrase_boundary_ko",
+        "seed": 7,
+        "pass": false,
+        "failure_taxonomy": [
+          "foundation_content_failure"
+        ]
+      },
+      {
+        "case": "phrase_boundary_ko",
+        "seed": 21,
+        "pass": false,
+        "failure_taxonomy": [
+          "foundation_content_failure"
+        ]
+      },
+      {
+        "case": "phrase_boundary_ko",
+        "seed": 42,
+        "pass": false,
+        "failure_taxonomy": [
+          "foundation_content_failure"
+        ]
+      }
+    ],
+    "aggregate": {
+      "lyric_similarity": {
+        "mean": 0.06666659999999999,
+        "median": 0.0,
+        "minimum": 0.0,
+        "maximum": 0.333333,
+        "standard_deviation": 0.1333332
+      },
+      "pitch_mae_cents": {
+        "mean": 5.67046,
+        "median": 4.1683,
+        "minimum": 1.4181,
+        "maximum": 10.8378,
+        "standard_deviation": 3.4450479576342623
+      },
+      "pitch_p90_abs_cents": {
+        "mean": 6.159313333333333,
+        "median": 5.8005,
+        "minimum": 1.8118,
+        "maximum": 13.2687,
+        "standard_deviation": 4.108780275599506
+      },
+      "gross_error_over_600_cents": {
+        "mean": 0.0013254666666666667,
+        "median": 0.0,
+        "minimum": 0.0,
+        "maximum": 0.006667,
+        "standard_deviation": 0.0022554827381787304
+      },
+      "voicing_accuracy": {
+        "mean": 0.9602352000000001,
+        "median": 0.98,
+        "minimum": 0.864865,
+        "maximum": 0.99,
+        "standard_deviation": 0.04194384872850844
+      },
+      "clip_fraction": {
+        "mean": 0.0,
+        "median": 0.0,
+        "minimum": 0.0,
+        "maximum": 0.0,
+        "standard_deviation": 0.0
+      },
+      "hf_spike_p99_over_median": {
+        "mean": 23.757833333333334,
+        "median": 16.6671,
+        "minimum": 11.1607,
+        "maximum": 38.6897,
+        "standard_deviation": 11.41772965533088
+      },
+      "sample_jump_p999": {
+        "mean": 0.0574304,
+        "median": 0.057992,
+        "minimum": 0.03522,
+        "maximum": 0.085765,
+        "standard_deviation": 0.01740597042703068
+      },
+      "spectral_flux_p95": {
+        "mean": 0.19616506666666664,
+        "median": 0.227112,
+        "minimum": 0.012387,
+        "maximum": 0.351179,
+        "standard_deviation": 0.10832679947668639
+      }
+    }
+  },
+  "failure_plots": [
+    "data/external/work/gtsinger_gyu_identity_diagnostic/failure_plots/quality_ko_seed7.png",
+    "data/external/work/gtsinger_gyu_identity_diagnostic/failure_plots/quality_ko_seed21.png",
+    "data/external/work/gtsinger_gyu_identity_diagnostic/failure_plots/quality_ko_seed42.png",
+    "data/external/work/gtsinger_gyu_identity_diagnostic/failure_plots/rapid_ko_seed7.png",
+    "data/external/work/gtsinger_gyu_identity_diagnostic/failure_plots/rapid_ko_seed21.png",
+    "data/external/work/gtsinger_gyu_identity_diagnostic/failure_plots/rapid_ko_seed42.png",
+    "data/external/work/gtsinger_gyu_identity_diagnostic/failure_plots/large_interval_ko_seed7.png",
+    "data/external/work/gtsinger_gyu_identity_diagnostic/failure_plots/large_interval_ko_seed21.png",
+    "data/external/work/gtsinger_gyu_identity_diagnostic/failure_plots/large_interval_ko_seed42.png",
+    "data/external/work/gtsinger_gyu_identity_diagnostic/failure_plots/sustain_ko_seed7.png",
+    "data/external/work/gtsinger_gyu_identity_diagnostic/failure_plots/sustain_ko_seed21.png",
+    "data/external/work/gtsinger_gyu_identity_diagnostic/failure_plots/sustain_ko_seed42.png",
+    "data/external/work/gtsinger_gyu_identity_diagnostic/failure_plots/phrase_boundary_ko_seed7.png",
+    "data/external/work/gtsinger_gyu_identity_diagnostic/failure_plots/phrase_boundary_ko_seed21.png",
+    "data/external/work/gtsinger_gyu_identity_diagnostic/failure_plots/phrase_boundary_ko_seed42.png"
+  ],
+  "identity_training_started": false,
+  "runtime_integration": false,
+  "package_openutau": "blocked",
+  "release_allowed": false
+}

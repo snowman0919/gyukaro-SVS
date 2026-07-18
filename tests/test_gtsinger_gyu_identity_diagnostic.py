@@ -13,6 +13,8 @@ from run_gtsinger_gyu_identity_diagnostic import (  # noqa: E402
     distribution,
     gate_foundation,
     protocol_manifest,
+    render_jobs,
+    transcript_flags,
     validate_matrix,
     validate_protocol,
 )
@@ -159,6 +161,35 @@ def test_matrix_requires_every_case_seed_and_finite_metric():
     broken[0]["pitch_mae_cents"] = float("nan")
     with pytest.raises(ValueError, match="non-finite"):
         validate_matrix(broken, _protocol())
+
+
+def test_matrix_rejects_missing_wav_when_file_check_is_enabled(tmp_path):
+    rows = [_row(case, seed) for case in CASES for seed in SEEDS]
+
+    with pytest.raises(ValueError, match="missing WAV"):
+        validate_matrix(rows, _protocol(), root=tmp_path)
+
+
+def test_transcript_flags_repetition_and_omission():
+    expected = "빠르게노래하자아"
+
+    assert transcript_flags(expected, expected) == {
+        "repetition_detected": False,
+        "omission_detected": False,
+    }
+    assert transcript_flags(expected, expected + expected)["repetition_detected"] is True
+    assert transcript_flags(expected, "빠르게")["omission_detected"] is True
+    assert transcript_flags(expected, "와우 와우 와우 와우")["repetition_detected"] is True
+    assert transcript_flags("빛을따라", "다아... 다아...")["repetition_detected"] is True
+
+
+def test_render_jobs_freeze_deterministic_case_seed_paths():
+    jobs = render_jobs(_protocol())
+
+    assert len(jobs) == 15
+    assert len({(row["case"], row["seed"]) for row in jobs}) == 15
+    assert jobs[0]["title"] == "quality_ko_foundation_seed7"
+    assert jobs[-1]["audio_path"].endswith("phrase_boundary_ko_foundation_seed42.wav")
 
 
 @pytest.mark.parametrize(
