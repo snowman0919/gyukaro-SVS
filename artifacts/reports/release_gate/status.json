@@ -1,0 +1,21 @@
+{
+  "failed_gate_count": 11,
+  "failed_gates": [
+    "approved_foundation",
+    "approved_identity_candidate",
+    "phone_centered_lexical_gate",
+    "score_pitch_gate",
+    "voicing_gate",
+    "artifact_gate",
+    "multi_seed_gate",
+    "long_form_continuity_gate",
+    "human_approval_record",
+    "license_provenance_validation",
+    "reproducible_package_manifest"
+  ],
+  "openutau_release_created": false,
+  "release_package_created": false,
+  "source_sha256": "c7c1f23e5cb778ee4264300478f3d22bc2da9447bf8b8c7aef3a5bb51647482b",
+  "status": "release_blocked",
+  "whisper_role": "auxiliary_only"
+}

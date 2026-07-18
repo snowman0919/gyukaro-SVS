@@ -51,6 +51,12 @@ With no production-approved backend, `render` and `serve` fail closed when
 `--backend` is omitted. Every current backend requires the explicit diagnostic
 override and writes an `EXPERIMENTAL_OVERRIDE` record to stderr.
 
+The central release gate currently fails all 11 required dimensions. The safe
+OpenUtau packager refuses release output. It can emit metadata-only evidence
+with `scripts/package_openutau_safe.py --diagnostic-package` only when the
+output directory name ends in `-diagnostic`; such output is marked
+`NOT A RELEASE` and contains no checkpoint or audio.
+
 ## Experimental compact model
 
 `--backend hybrid-compact-experimental` remains an inspectable phrase-level TriSinger model,
