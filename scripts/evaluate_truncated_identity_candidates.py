@@ -165,7 +165,8 @@ def render_matrix(args) -> dict:
     import torch
 
     root = Path.cwd()
-    output = Path(args.output)
+    output = Path(args.output).resolve()
+    (output / "render_failure.json").unlink(missing_ok=True)
     listening = output / "listening"
     listening.mkdir(parents=True, exist_ok=True)
     rows = [row for row in _manifest(Path(args.manifest)) if row["split"] in {"heldout", "protected"}]
@@ -332,7 +333,8 @@ def analyze_matrix(args) -> dict:
     from transformers.models.wavlm import modeling_wavlm
 
     root = Path.cwd()
-    output = Path(args.output)
+    output = Path(args.output).resolve()
+    (output / "analyze_failure.json").unlink(missing_ok=True)
     render_report = json.loads((output / "render_manifest.json").read_text())
     rows = render_report["rows"]
     if render_report.get("status") != "render_complete" or len(rows) != 72:
