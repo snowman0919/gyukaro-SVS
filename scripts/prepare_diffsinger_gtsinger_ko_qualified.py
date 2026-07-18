@@ -500,7 +500,7 @@ def qualify(protocol: dict) -> dict:
             aligned, sampling_rate=16000, return_tensors="pt", return_attention_mask=True
         )
         generation = {
-            key: value.to(device, dtype if key == "input_features" else None)
+            key: (value.to(device, dtype=dtype) if key == "input_features" else value.to(device))
             for key, value in whisper_inputs.items()
         }
         with torch.inference_mode():
