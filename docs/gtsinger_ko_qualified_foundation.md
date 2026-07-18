@@ -26,6 +26,8 @@ The frozen source gate required at least 200 accepted rows and 1,800 seconds. On
 - Full local row evidence: `data/external/work/gtsinger_ko_source_qualification/all_rows.jsonl`
 - Local source cache: `data/external/raw/gtsinger-lfs/`
 - Original project recordings under `data/source/`: unchanged and uncommitted
+- Frozen protocol SHA-256: `76fc8ccd326f4c8cae7326b942e5243c13ad488c7e10afebee4478c404f19720`
+- Accepted manifest SHA-256: `e94561648dd25c4ae83300f5d35de11a1d99708b9435c5f8da87110bfc3208d4`
 
 Row rejection counts: `{"whisper": 226, "duration": 50, "clipping": 10}`. Accepted stress coverage was fast=69, high-register=40, sustained=62, and large-interval=61; these do not override the failed row-count and duration minimums.
 
@@ -34,7 +36,7 @@ Row rejection counts: `{"whisper": 226, "duration": 50, "clipping": 10}`. Accept
 - Python 3.11.14; PyTorch 2.11.0+cu130; CUDA build 13.0
 - GPU: NVIDIA GB10; reported total memory 128452014080 bytes
 - System memory: 128452014080 bytes
-- Disk at evidence freeze: 23316504576 bytes free of 982819848192
+- Disk at evidence freeze: 23298646016 bytes free of 982819848192
 - DiffSinger checkout: `753b7cc622aadf802b3145d7bb8f7df4afa213c4`
 - Tools: `{"torchaudio": "2.11.0", "transformers": "5.8.1", "numpy": "2.3.5", "scipy": "1.17.1", "soundfile": "0.13.1"}`
 
@@ -44,6 +46,15 @@ Row rejection counts: `{"whisper": 226, "duration": 50, "clipping": 10}`. Accept
 - No generated WAV is presented as a usable singer.
 - Production renderer, RC7/RC8 decisions, package configuration, and OpenUtau paths remain unchanged.
 - Public release remains unauthorized; GTSinger-derived work is governed by CC BY-NC-SA 4.0.
+
+## Repository verification
+
+- Full pytest: 225 passed
+- Dataset validation: `PASS recordings=132 sequential=106..237 pcm=48k_mono corrupt=0`
+- Existing voicebank factory smoke: `PASS status=dataset_needs_more_recording release=refused`
+- `git diff --check`: required clean before and after the evidence commit
+- Protected production renderer/package/OpenUtau paths: unchanged from `9b443ee`
+- Committed WAV/checkpoint/cache/external dataset: none
 
 ## Next valid requirement
 

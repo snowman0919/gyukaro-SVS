@@ -512,10 +512,18 @@ def record_environment() -> dict:
     return summary
 
 
-def write_source_report() -> dict:
+def write_source_report(test_count: int, dataset_result: str, smoke_result: str) -> dict:
     summary = record_environment()
     if summary["status"] != "foundation_source_gate_reject":
         raise ValueError("source rejection report requires a rejected source gate")
+    summary["verification"] = {
+        "pytest_passed": test_count,
+        "dataset_validation": dataset_result,
+        "voicebank_factory_smoke": smoke_result,
+    }
+    summary["protocol_sha256"] = _sha256(PROTOCOL)
+    summary["accepted_manifest_sha256"] = _sha256(MANIFEST)
+    SUMMARY.write_text(json.dumps(summary, ensure_ascii=False, indent=2) + "\n")
     counts = summary["corpus"]["counts"]
     failed = ", ".join(summary["corpus"]["failed_minimums"])
     environment = summary["environment"]
@@ -547,6 +555,8 @@ The frozen source gate required at least 200 accepted rows and 1,800 seconds. On
 - Full local row evidence: `data/external/work/gtsinger_ko_source_qualification/all_rows.jsonl`
 - Local source cache: `data/external/raw/gtsinger-lfs/`
 - Original project recordings under `data/source/`: unchanged and uncommitted
+- Frozen protocol SHA-256: `{summary["protocol_sha256"]}`
+- Accepted manifest SHA-256: `{summary["accepted_manifest_sha256"]}`
 
 Row rejection counts: `{json.dumps(summary["rejection_counts"], ensure_ascii=False)}`. Accepted stress coverage was fast={counts["fast_rows"]}, high-register={counts["high_register_rows"]}, sustained={counts["sustained_rows"]}, and large-interval={counts["large_interval_rows"]}; these do not override the failed row-count and duration minimums.
 
@@ -565,6 +575,15 @@ Row rejection counts: `{json.dumps(summary["rejection_counts"], ensure_ascii=Fal
 - No generated WAV is presented as a usable singer.
 - Production renderer, RC7/RC8 decisions, package configuration, and OpenUtau paths remain unchanged.
 - Public release remains unauthorized; GTSinger-derived work is governed by CC BY-NC-SA 4.0.
+
+## Repository verification
+
+- Full pytest: {test_count} passed
+- Dataset validation: `{dataset_result}`
+- Existing voicebank factory smoke: `{smoke_result}`
+- `git diff --check`: required clean before and after the evidence commit
+- Protected production renderer/package/OpenUtau paths: unchanged from `9b443ee`
+- Committed WAV/checkpoint/cache/external dataset: none
 
 ## Next valid requirement
 
@@ -702,6 +721,9 @@ def main() -> None:
     parser.add_argument("--prepare", action="store_true")
     parser.add_argument("--record-environment", action="store_true")
     parser.add_argument("--report-source", action="store_true")
+    parser.add_argument("--test-count", type=int)
+    parser.add_argument("--dataset-result")
+    parser.add_argument("--smoke-result")
     args = parser.parse_args()
     protocol = json.loads(PROTOCOL.read_text())
     if args.download:
@@ -718,7 +740,13 @@ def main() -> None:
     if args.record_environment and not args.report_source:
         print(json.dumps(record_environment(), ensure_ascii=False, indent=2))
     if args.report_source:
-        print(json.dumps(write_source_report(), ensure_ascii=False, indent=2))
+        if args.test_count is None or not args.dataset_result or not args.smoke_result:
+            parser.error("--report-source requires --test-count, --dataset-result, and --smoke-result")
+        print(json.dumps(
+            write_source_report(args.test_count, args.dataset_result, args.smoke_result),
+            ensure_ascii=False,
+            indent=2,
+        ))
 
 
 if __name__ == "__main__":

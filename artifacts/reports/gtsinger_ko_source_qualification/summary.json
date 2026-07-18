@@ -53,7 +53,7 @@
     "gpu_total_bytes": 128452014080,
     "system_memory_bytes": 128452014080,
     "disk_total_bytes": 982819848192,
-    "disk_free_bytes": 23316504576,
+    "disk_free_bytes": 23298646016,
     "diffsinger_revision": "753b7cc622aadf802b3145d7bb8f7df4afa213c4",
     "versions": {
       "torchaudio": "2.11.0",
@@ -62,5 +62,12 @@
       "scipy": "1.17.1",
       "soundfile": "0.13.1"
     }
-  }
+  },
+  "verification": {
+    "pytest_passed": 225,
+    "dataset_validation": "PASS recordings=132 sequential=106..237 pcm=48k_mono corrupt=0",
+    "voicebank_factory_smoke": "PASS status=dataset_needs_more_recording release=refused"
+  },
+  "protocol_sha256": "76fc8ccd326f4c8cae7326b942e5243c13ad488c7e10afebee4478c404f19720",
+  "accepted_manifest_sha256": "e94561648dd25c4ae83300f5d35de11a1d99708b9435c5f8da87110bfc3208d4"
 }
