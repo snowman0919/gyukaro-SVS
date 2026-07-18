@@ -113,6 +113,21 @@ def test_protocol_is_deterministic_and_freezes_five_cases_three_seeds():
     assert first["production_runtime_modified"] is False
 
 
+def test_protocol_restarts_on_unavailable_reported_diffsinger_revision():
+    protocol = protocol_manifest(ROOT)
+
+    assert protocol["protocol_revision"] == 2
+    assert protocol["invalidated_protocol_revision"] == 1
+    assert protocol["models"]["reported_diffsinger_revision"] == (
+        "0619d61d5301c4340db442a15cf3e73e197e9101"
+    )
+    assert protocol["models"]["reported_revision_available"] is False
+    assert protocol["models"]["diffsinger_revision"] == (
+        "753b7cc622aadf802b3145d7bb8f7df4afa213c4"
+    )
+    assert protocol["protocol_restart_reason"] == "invalid_reported_diffsinger_revision"
+
+
 def test_protocol_rejects_split_leakage():
     protocol = protocol_manifest(ROOT)
     protocol["adaptation_splits"]["validation_ids"].append(

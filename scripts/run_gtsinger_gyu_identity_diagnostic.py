@@ -54,7 +54,8 @@ INIT_CHECKPOINT = ROOT / "data/cache/diffsinger/checkpoints/gtsinger_ja_gyu_iden
 VOCODER = ROOT / "data/external/work/diffsinger_score_native/vocoder_exported/model.ckpt"
 SOURCE_SHA256 = "dd31b42469ef2caa307799212b30fa44b2f1b7186c2f3a14eae45a2a80a6da8a"
 VOCODER_SHA256 = "0b6728a7e677afdf0d1abc8d1fc1ac376631f6055062d2578db7d8ae4ba24729"
-DIFFSINGER_REVISION = "0619d61d5301c4340db442a15cf3e73e197e9101"
+REPORTED_DIFFSINGER_REVISION = "0619d61d5301c4340db442a15cf3e73e197e9101"
+DIFFSINGER_REVISION = "753b7cc622aadf802b3145d7bb8f7df4afa213c4"
 
 
 def sha256(path: Path) -> str:
@@ -177,8 +178,22 @@ def protocol_manifest(root: Path = ROOT) -> dict:
         "vocoder_checkpoint": str(VOCODER.relative_to(ROOT)),
         "vocoder_checkpoint_sha256": sha256(root / VOCODER.relative_to(ROOT)),
     }
+    cache_revision = subprocess.run(
+        ["git", "-C", str(root / "data/cache/diffsinger"), "rev-parse", "HEAD"],
+        check=True, capture_output=True, text=True,
+    ).stdout.strip()
+    if cache_revision != DIFFSINGER_REVISION:
+        raise ValueError(f"actual DiffSinger checkout changed: {cache_revision}")
+    reported_available = subprocess.run(
+        ["git", "-C", str(root / "data/cache/diffsinger"), "cat-file", "-e",
+         f"{REPORTED_DIFFSINGER_REVISION}^{{commit}}"],
+        capture_output=True,
+    ).returncode == 0
     manifest = {
         "status": "frozen_before_rendering",
+        "protocol_revision": 2,
+        "invalidated_protocol_revision": 1,
+        "protocol_restart_reason": "invalid_reported_diffsinger_revision",
         "authoritative_spec": "docs/superpowers/specs/2026-07-18-gtsinger-gyu-preservation-identity-design.md",
         "design_commit": "6d8f933f9a0087a8b4f0b4b742aca61aaad255c3",
         "cases": cases,
@@ -190,6 +205,8 @@ def protocol_manifest(root: Path = ROOT) -> dict:
         "labels": "inferred score-timed phoneme split",
         "models": model_files | {
             "gtsinger_dataset_revision": "4426c862beed558b7e1cb8a4dce7e8c0c83bb208",
+            "reported_diffsinger_revision": REPORTED_DIFFSINGER_REVISION,
+            "reported_revision_available": reported_available,
             "diffsinger_revision": DIFFSINGER_REVISION,
             "whisper": "data/cache/whisper-large-v3-turbo",
             "wavlm": "data/cache/wavlm-base-plus-sv",
@@ -256,6 +273,10 @@ def validate_protocol(protocol: dict) -> None:
         raise ValueError("foundation checkpoint hash mismatch")
     if protocol["models"]["vocoder_checkpoint_sha256"] != VOCODER_SHA256:
         raise ValueError("vocoder checkpoint hash mismatch")
+    if protocol["models"]["reported_revision_available"]:
+        raise ValueError("protocol restart is invalid because the reported revision became available")
+    if protocol["models"]["diffsinger_revision"] != DIFFSINGER_REVISION:
+        raise ValueError("actual DiffSinger revision changed")
 
 
 REQUIRED_METRICS = (
@@ -347,7 +368,9 @@ def _environment(root: Path) -> dict:
         "disk_total_bytes": disk.total,
         "disk_free_bytes_at_freeze": disk.free,
         "diffsinger_cache_checkout": cache_revision,
-        "diffsinger_required_revision": DIFFSINGER_REVISION,
+        "diffsinger_reported_revision": REPORTED_DIFFSINGER_REVISION,
+        "diffsinger_reported_revision_available": False,
+        "diffsinger_actual_revision": DIFFSINGER_REVISION,
         "source_recordings_present_in_worktree": (root / "data/source").exists(),
     }
 

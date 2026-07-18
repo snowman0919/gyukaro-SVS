@@ -8,8 +8,10 @@
   "gpu_total_bytes": 128452014080,
   "system_memory_bytes": 128452014080,
   "disk_total_bytes": 982819848192,
-  "disk_free_bytes_at_freeze": 27616616448,
+  "disk_free_bytes_at_freeze": 27616337920,
   "diffsinger_cache_checkout": "753b7cc622aadf802b3145d7bb8f7df4afa213c4",
-  "diffsinger_required_revision": "0619d61d5301c4340db442a15cf3e73e197e9101",
+  "diffsinger_reported_revision": "0619d61d5301c4340db442a15cf3e73e197e9101",
+  "diffsinger_reported_revision_available": false,
+  "diffsinger_actual_revision": "753b7cc622aadf802b3145d7bb8f7df4afa213c4",
   "source_recordings_present_in_worktree": false
 }

@@ -12,7 +12,7 @@
 
 - Use branch `codex/gtsinger-gyu-identity-design` at design commit `6d8f933f9a0087a8b4f0b4b742aca61aaad255c3`.
 - Pin GTSinger soprano checkpoint SHA-256 `dd31b42469ef2caa307799212b30fa44b2f1b7186c2f3a14eae45a2a80a6da8a` and vocoder SHA-256 `0b6728a7e677afdf0d1abc8d1fc1ac376631f6055062d2578db7d8ae4ba24729`.
-- Use DiffSinger revision `0619d61d5301c4340db442a15cf3e73e197e9101`; do not mutate the cache checkout at `753b7cc622aadf802b3145d7bb8f7df4afa213c4`.
+- Preserve the unavailable reported DiffSinger revision `0619d61d5301c4340db442a15cf3e73e197e9101` as an erratum and execute protocol revision 2 at the evidenced foundation-code revision `753b7cc622aadf802b3145d7bb8f7df4afa213c4`.
 - Freeze cases `quality_ko`, `rapid_ko`, `large_interval_ko`, `sustain_ko`, and `phrase_boundary_ko`; freeze seeds 7, 21, and 42.
 - Foundation KO failure stops before optimizer initialization with `foundation_ko_gate_reject` and final conclusion `diagnostic_reject`.
 - Do not modify renderer, package, OpenUtau, main, RC7 evidence, source recordings, or rejected SoulX paths.
@@ -85,7 +85,7 @@ Run the focused tests and confirm the new behavior is absent.
 
 - [ ] **Step 3: Add minimum orchestration**
 
-Fetch the pinned DiffSinger commit into an ignored detached worktree, create an ignored inference experiment from the already-generated combined-vocabulary initialization, and call the official CLI at depth 0 for all 15 rows. Record command, runtime, SHA, and peak-memory evidence. Do not render a replacement after a failure.
+Use the unchanged cache checkout at the protocol-revision-2 DiffSinger commit, create an ignored inference experiment from the already-generated combined-vocabulary initialization, and call the official CLI at depth 0 for all 15 rows. Record command, runtime, SHA, and peak-memory evidence. Do not render a replacement after a failure.
 
 - [ ] **Step 4: Evaluate every WAV once**
 

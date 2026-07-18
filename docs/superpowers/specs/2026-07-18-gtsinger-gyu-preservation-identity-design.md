@@ -1,6 +1,6 @@
 # GTSinger GYU Preservation-First Identity Adaptation Design
 
-**Status:** Architecture approved; written spec awaiting user review; implementation not started  
+**Status:** Approved and executing as a bounded diagnostic
 **Date:** 2026-07-18  
 **Branch:** `codex/gtsinger-gyu-identity-design`  
 **Base commit:** `20423ec3a48a55a1026ffa1237679a61cf7af073`
@@ -54,6 +54,10 @@ The experiment pins the following inputs before any result is observed:
 | Official DiffSinger code | upstream revision | `0619d61d5301c4340db442a15cf3e73e197e9101` |
 
 The effective dictionary, model configuration, phoneme inventory, sample rate, mel configuration, and inference settings must be fingerprinted alongside these revisions. A mismatch invalidates comparison results rather than silently creating a new foundation.
+
+#### Execution provenance erratum
+
+Before any new render, Git and GitHub both rejected `0619d61d5301c4340db442a15cf3e73e197e9101` as an unavailable OpenVPI DiffSinger commit. The local DiffSinger clone reflog shows it was cloned directly at `753b7cc622aadf802b3145d7bb8f7df4afa213c4`, and the frozen soprano checkpoint was created after that clone without an intervening checkout. The original protocol revision is therefore invalidated for incorrect provenance. Execution protocol revision 2 pins the evidenced code revision `753b7cc622aadf802b3145d7bb8f7df4afa213c4` before any new KO output is rendered; it retains the unavailable hash as an explicit reported-value error rather than silently replacing it.
 
 ### 3.2 Accepted score-native anchor
 
