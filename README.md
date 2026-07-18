@@ -28,7 +28,7 @@ used to claim production or OpenUtau readiness:
 ```sh
 GYU_SINGER_CACHE="$PWD/data/cache" \
 GYU_SOULX_PYTHON="$PWD/.venv-soulx/bin/python" \
-PYTHONPATH=src python -m gyu_singer.cli --backend hybrid-svs \
+PYTHONPATH=src python -m gyu_singer.cli --backend hybrid-svs --allow-experimental \
   --reference data/processed/master/216.wav \
   render examples/quality_ko.json --output gyu-ko.wav
 ```
@@ -40,12 +40,16 @@ Status and evidence hashes are recorded in `configs/project_status.json` and
 
 ```sh
 GYU_SINGER_CACHE="$PWD/data/cache" GYU_SOULX_PYTHON="$PWD/.venv-soulx/bin/python" \
-PYTHONPATH=src python -m gyu_singer.cli --backend hybrid-svs serve --port 8765
+PYTHONPATH=src python -m gyu_singer.cli --backend hybrid-svs --allow-experimental serve --port 8765
 python integrations/openutau/bridge.py examples/openutau_smoke.ustx --language ko \
   --output song.json --render-url http://127.0.0.1:8765 --wav song.wav
 ```
 
 The bridge above is diagnostic infrastructure, not an approved voicebank path.
+
+With no production-approved backend, `render` and `serve` fail closed when
+`--backend` is omitted. Every current backend requires the explicit diagnostic
+override and writes an `EXPERIMENTAL_OVERRIDE` record to stderr.
 
 ## Experimental compact model
 

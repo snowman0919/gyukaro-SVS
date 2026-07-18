@@ -1,6 +1,10 @@
 from __future__ import annotations
 
 import argparse
+import json
+import sys
+
+from .runtime_policy import RuntimePolicyError, load_backend_registry, resolve_backend
 
 
 def make_renderer(args):
@@ -37,14 +41,18 @@ def make_renderer(args):
     if args.backend == "gyu-singer-rc9":
         from .inference.rc9 import GyuSingerRC9Renderer
         return GyuSingerRC9Renderer(args.reference)
-    from .inference import HybridRenderer, load_hybrid_model
-    from .inference.codec import MossCodecDecoder
-    return HybridRenderer(load_hybrid_model(args.checkpoint), MossCodecDecoder(args.audio_tokenizer), args.reference)
+    if args.backend == "hybrid-compact-experimental":
+        from .inference import HybridRenderer, load_hybrid_model
+        from .inference.codec import MossCodecDecoder
+        return HybridRenderer(load_hybrid_model(args.checkpoint), MossCodecDecoder(args.audio_tokenizer), args.reference)
+    raise ValueError(f"backend has no renderer factory: {args.backend}")
 
 
 def main() -> None:
+    registry = load_backend_registry()
     parser = argparse.ArgumentParser(prog="gyu-singer")
-    parser.add_argument("--backend", choices=("hybrid-svs", "hybrid-soulx-phrase", "orchestration-v0.4", "gyu-singer-v0.5", "gyu-singer-v0.6", "gyu-singer-v0.7", "gyu-singer-v0.8", "gyu-singer-rc5", "gyu-singer-rc6", "gyu-singer-rc8", "gyu-singer-rc9", "hybrid-compact-experimental", "loop", "neural-vocalizer-baseline"), default="hybrid-svs")
+    parser.add_argument("--backend", choices=tuple(registry["backends"]), default=None)
+    parser.add_argument("--allow-experimental", action="store_true", help="explicitly run a non-production diagnostic backend")
     parser.add_argument("--model", default="checkpoints/gyu_v1_experimental.npz", help="loop or baseline vocalizer model")
     parser.add_argument("--checkpoint", default="checkpoints/gyu_hybrid_v0.2.pt")
     parser.add_argument("--audio-tokenizer", default="data/cache/moss-audio-tokenizer-nano")
@@ -66,6 +74,17 @@ def main() -> None:
         if not text:
             parser.error("frontend requires text or --text")
         print(phonemize(args.language, text)); return
+    try:
+        decision = resolve_backend(args.backend, args.allow_experimental, registry)
+    except RuntimePolicyError as error:
+        parser.error(str(error))
+    args.backend = decision.backend
+    if decision.experimental_override:
+        print("EXPERIMENTAL_OVERRIDE " + json.dumps({
+            "backend": decision.backend,
+            "status": decision.status,
+            "reason": decision.reason,
+        }, ensure_ascii=False, sort_keys=True), file=sys.stderr)
     renderer = make_renderer(args)
     if args.command == "render":
         renderer.render_file(args.input, args.output); return

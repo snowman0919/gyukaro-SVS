@@ -1,0 +1,25 @@
+{
+  "backend_status_counts": {
+    "accepted_experimental_baseline": 0,
+    "blocked": 10,
+    "candidate_human_pending": 0,
+    "foundation_only": 0,
+    "production_approved": 0,
+    "rejected": 4
+  },
+  "default_render": "blocked_no_production_backend",
+  "experimental_override": "required_and_logged",
+  "identity_optimizer_steps": 0,
+  "identity_runtime_integration": false,
+  "identity_training_authorized": false,
+  "package_openutau_nonproduction": "blocked",
+  "production_approved_backend": null,
+  "rc8_default": "blocked",
+  "rc9_default": "blocked",
+  "source_sha256": {
+    "backend_registry": "767ec5007ce9a5ea96b3c0972f010f4bf9b4ea52cf594108f9744c20225eae9e",
+    "identity_protocol": "7da2b10f55a27ceed062a83635256786977a9294e51c60118a208cb5846e0326",
+    "project_status": "3f7940ad6a2abf28d2abb2806e430961b2bf52188ab95bf7ea8022a5dc38aeda"
+  },
+  "status": "runtime_safety_complete"
+}
