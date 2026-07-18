@@ -478,9 +478,11 @@ def render_foundation() -> None:
     output.mkdir(parents=True, exist_ok=True)
     logs.mkdir(parents=True, exist_ok=True)
     diffsinger = ROOT / "data/cache/diffsinger"
-    python = ROOT.parent.parent / ".venv-diffsinger/bin/python"
+    python = Path(os.environ.get("GYUKARO_DIFFSINGER_PYTHON", ROOT / ".venv-diffsinger/bin/python"))
+    if not python.is_file() and ".worktrees" in ROOT.parts:
+        python = ROOT.parent.parent / ".venv-diffsinger/bin/python"
     if not python.is_file():
-        python = Path("/home/kotori9/code/gyukaro/.venv-diffsinger/bin/python")
+        python = Path(sys.executable)
     rows = []
     for job in render_jobs(protocol):
         path = ROOT / job["audio_path"]
