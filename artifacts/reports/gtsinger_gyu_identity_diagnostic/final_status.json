@@ -1,0 +1,23 @@
+{
+  "report_header": "NOT A RELEASE REPORT — EXPERIMENT REJECTED",
+  "conclusion": "diagnostic_reject",
+  "training_status": "not_started_foundation_gate_failed",
+  "checkpoint_selected": null,
+  "human_ab_generated": false,
+  "runtime_integration": false,
+  "package_openutau": "blocked",
+  "release_allowed": false,
+  "failure_taxonomy": [
+    "foundation_content_failure"
+  ],
+  "foundation_gate": "foundation_ko_gate_reject",
+  "foundation_pass_count": 0,
+  "foundation_total_count": 15,
+  "optimizer_steps": 0,
+  "test_count": 133,
+  "dataset_validation": "PASS recordings=132 sequential=106..237 pcm=48k_mono corrupt=0",
+  "local_evidence_count": 66,
+  "local_evidence_bytes": 24290488,
+  "report_path": "docs/final_gtsinger_gyu_identity_diagnostic.md",
+  "evaluation_path": "artifacts/reports/gtsinger_gyu_identity_diagnostic/foundation_ko_evaluation.json"
+}

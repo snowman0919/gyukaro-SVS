@@ -127,6 +127,24 @@ def distribution(values: list[float]) -> dict:
     }
 
 
+def final_status(evaluation: dict) -> dict:
+    if evaluation["status"] != "foundation_ko_gate_reject":
+        raise ValueError("final status is only valid for the completed foundation rejection path")
+    if evaluation.get("identity_training_started"):
+        raise ValueError("rejected foundation must not start identity training")
+    return {
+        "report_header": "NOT A RELEASE REPORT — EXPERIMENT REJECTED",
+        "conclusion": "diagnostic_reject",
+        "training_status": "not_started_foundation_gate_failed",
+        "checkpoint_selected": None,
+        "human_ab_generated": False,
+        "runtime_integration": False,
+        "package_openutau": "blocked",
+        "release_allowed": False,
+        "failure_taxonomy": ["foundation_content_failure"],
+    }
+
+
 def _normalized(text: str) -> str:
     return re.sub(r"[^a-zA-Z가-힣ぁ-んァ-ン一-龯]", "", text).lower()
 
@@ -734,9 +752,213 @@ def evaluate_foundation() -> None:
                       "total_count": decision["total_count"], "failure_plots": len(failure_plots)}, indent=2))
 
 
+def _metric(value: float) -> str:
+    return f"{value:.6f}"
+
+
+def write_final_report(test_count: int, dataset_result: str) -> None:
+    protocol = json.loads(MANIFEST.read_text())
+    environment = json.loads((REPORT / "environment.json").read_text())
+    evaluation_path = REPORT / "foundation_ko_evaluation.json"
+    evaluation = json.loads(evaluation_path.read_text())
+    status = final_status(evaluation)
+    gate = evaluation["gate"]
+    aggregate = gate["aggregate"]
+    commits = subprocess.run(
+        ["git", "log", "--reverse", "--format=%H %s", "6d8f933..HEAD"],
+        cwd=ROOT, check=True, capture_output=True, text=True,
+    ).stdout.strip().splitlines()
+    evidence_files = [path for path in WORK.rglob("*") if path.is_file()]
+    evidence_bytes = sum(path.stat().st_size for path in evidence_files)
+    rows = evaluation["rows"]
+    table = [
+        "| Case | Seed | Whisper | Lyric | Repeat | Pitch MAE | Pitch p90 | Voicing | Clip | HF spike | Jump | WavLM | ECAPA | WAV path | SHA-256 |",
+        "|---|---:|---|---:|---|---:|---:|---:|---:|---:|---:|---:|---:|---|---|",
+    ]
+    for row in rows:
+        transcript = row["whisper_transcript"].strip().replace("|", "\\|")
+        table.append(
+            f'| {row["case"]} | {row["seed"]} | {transcript} | '
+            f'{_metric(row["lyric_similarity"])} | {row["repetition_detected"]} | '
+            f'{_metric(row["pitch_mae_cents"])} | {_metric(row["pitch_p90_abs_cents"])} | '
+            f'{_metric(row["voicing_accuracy"])} | {_metric(row["clip_fraction"])} | '
+            f'{_metric(row["hf_spike_p99_over_median"])} | {_metric(row["sample_jump_p999"])} | '
+            f'{_metric(row["wavlm_similarity"]["distribution"]["mean"])} | '
+            f'{_metric(row["ecapa_similarity"]["distribution"]["mean"])} | '
+            f'`{row["audio_path"]}` | '
+            f'`{row["audio_sha256"]}` |'
+        )
+    distributions = []
+    for name, values in aggregate.items():
+        distributions.append(
+            f'| {name} | {_metric(values["mean"])} | {_metric(values["median"])} | '
+            f'{_metric(values["minimum"])} | {_metric(values["maximum"])} | '
+            f'{_metric(values["standard_deviation"])} |'
+        )
+    tools = ", ".join(f"{name} {version}" for name, version in protocol["tool_versions"].items())
+    commit_lines = "\n".join(f"- `{line}`" for line in commits) or "- none"
+    reference_lines = "\n".join(
+        f'- `{row["path"]}` — `{row["sha256"]}`; {row["sample_rate"]} Hz, '
+        f'{row["channels"]} ch, clip={row["clip_fraction"]}, transcript=`{row["whisper_transcript"].strip()}`'
+        for row in evaluation["reference_audit"]
+    )
+    report = f'''{status["report_header"]}
+
+# GTSinger-to-GYU preservation identity diagnostic
+
+## Decision
+
+- Conclusion: `{status["conclusion"]}`
+- Foundation gate: `{evaluation["status"]}` ({gate["pass_count"]}/{gate["total_count"]}, pass ratio {gate["pass_ratio"]:.3f})
+- Training: `{status["training_status"]}`
+- Failure taxonomy: `foundation_content_failure`
+- Selected checkpoint: none
+- Human A/B: not generated
+- Runtime integration: false
+- Package/OpenUtau: blocked and unchanged
+- RC9, production, and v1.0.0 remain prohibited.
+
+The frozen Korean foundation emitted repeated or substituted syllables on every phrase×seed item. Mandatory lexical qualification therefore failed before optimizer initialization. Identity scores cannot compensate for this failure, and the approved protocol forbids attempting to repair it with the adapter.
+
+## Authority and provenance
+
+- Specification: `{protocol["authoritative_spec"]}`
+- Approved design commit: `{protocol["design_commit"]}`
+- Starting commit: `6d8f933f9a0087a8b4f0b4b742aca61aaad255c3`
+- Protocol revision: {protocol["protocol_revision"]}; invalidated revision: {protocol["invalidated_protocol_revision"]}
+- Protocol manifest: `{MANIFEST.relative_to(ROOT)}` (`{sha256(MANIFEST)}`)
+- DiffSinger actual cached revision: `{protocol["models"]["diffsinger_revision"]}`
+- Reported but unavailable DiffSinger revision: `{protocol["models"]["reported_diffsinger_revision"]}`; retained as a provenance erratum and not used.
+- GTSinger dataset revision: `{protocol["models"]["gtsinger_dataset_revision"]}`
+- Foundation checkpoint SHA-256: `{protocol["models"]["foundation_checkpoint_sha256"]}`
+- Combined-vocabulary zero-step initialization SHA-256: `{protocol["models"]["combined_vocabulary_initialization_sha256"]}`
+- Vocoder SHA-256: `{protocol["models"]["vocoder_checkpoint_sha256"]}`
+- RMVPE SHA-256: `{protocol["models"]["rmvpe_sha256"]}`
+
+Implementation commits before this report:
+
+{commit_lines}
+
+## Environment
+
+- Python {environment["python"]}; PyTorch {environment["pytorch"]}; CUDA build {environment["cuda_build"]}
+- GPU: {environment["gpu"]}; unified memory {environment["gpu_total_bytes"]} bytes
+- System memory: {environment["system_memory_bytes"]} bytes
+- Disk at freeze: {environment["disk_free_bytes_at_freeze"]} free of {environment["disk_total_bytes"]} bytes
+- Libraries: {tools}
+- Peak GPU memory: unavailable (`nvidia-smi` reports N/A for this GB10 unified-memory system); per-render peak process RSS and runtime are retained sample-wise.
+
+## Frozen protocol
+
+- Cases: ordinary `quality_ko`, rapid `rapid_ko`, large interval `large_interval_ko`, sustain `sustain_ko`, phrase boundary `phrase_boundary_ko`
+- Seeds: {protocol["seeds"]}
+- Identity references: 212, 215, 216, 219, 220; one fixed set for every sample
+- Adapter (authorized but not instantiated): {json.dumps(protocol["adapter"], ensure_ascii=False)}
+- Optimizer (frozen but not initialized): {json.dumps(protocol["optimizer"], ensure_ascii=False)}
+- Loss weights (frozen but not evaluated): {json.dumps(protocol["loss_weights"], ensure_ascii=False)}
+- Adaptation split sizes: train {len(protocol["adaptation_splits"]["train_ids"])}, validation {len(protocol["adaptation_splits"]["validation_ids"])}, held-out {len(protocol["adaptation_splits"]["test_ids"])}; no split leakage.
+- All phoneme splits are marked inferred; score timing and nominal F0 are not relabeled as GYU supervision.
+
+### Fixed reference audit
+
+{reference_lines}
+
+No source recording, external dataset, rendered WAV, plot, cache, or checkpoint is committed. The audit found no clipping or duplicate reference transcript; no favorable per-phrase reference selection occurred.
+
+## Parameter and feasibility audit
+
+- Executed foundation state dict: 210 tensors, 27,274,368 values.
+- Trainable parameters in the executed experiment: 0 (0%).
+- The authorized identity adapter was deliberately not instantiated because the pre-optimizer foundation gate failed.
+- Consequently initialization equivalence, adapter gradient isolation, update norms, adapter VRAM, and optimizer feasibility are not applicable—not passed.
+- Foundation, variance/pitch/duration predictors, phoneme encoder, decoder, and vocoder were not modified.
+
+## Training and checkpoint selection
+
+- Optimizer steps: 0 of the frozen maximum {protocol["optimizer"]["maximum_steps"]}.
+- Training/validation/held-out checkpoint selection was never entered.
+- Selected checkpoint: none.
+- No held-out-guided tuning, seed selection, reference selection, or loss-weight change occurred.
+
+## Korean qualification results (5×3)
+
+{chr(10).join(table)}
+
+Aggregate distributions:
+
+| Metric | Mean | Median | Minimum | Maximum | Std |
+|---|---:|---:|---:|---:|---:|
+{chr(10).join(distributions)}
+
+Observed lexical failures were stable across seeds: ordinary produced repeated `와우`; rapid produced repeated `야다`; large interval produced `아 아`; sustain produced `다`; phrase boundary produced repeated `다아`. Pitch, voicing, clipping, and artifact metrics passing on some rows do not override the 0/15 lexical result.
+
+## Japanese held-out and identity-candidate evaluation
+
+The previously verified unadapted soprano Japanese gate remains the external foundation reference (5/5 phrases and 15/15 seed matrix) in `artifacts/reports/diffsinger_gtsinger_heldout_set/aggregate_evaluation.json`. No adapted candidate exists, so a new candidate Japanese 5×3 matrix, identity-gain comparison, protected regression matrix, or human A/B set would be misleading and was not generated after the mandatory Korean early-stop.
+
+WavLM and ECAPA were nevertheless recorded for every Korean foundation WAV against every fixed reference to make the rejection auditable. The compact evaluation contains each sample's per-reference values and mean/median/minimum/maximum/standard deviation. They are baseline observations, not identity improvements: no trained condition exists from which to compute a gain.
+
+## Machine gates
+
+- Korean lexical validity all phrases/seeds: FAIL (0/15)
+- No repetition/omission/substitution: FAIL
+- Seed stability: FAIL at the lexical level across all seeds
+- Pitch/voicing/clipping/artifact preservation: measured, but cannot promote a lexically failed foundation
+- WavLM and ECAPA held-out improvement: NOT EVALUATED; no candidate
+- Individual regression limits: NOT EVALUATED; no candidate
+- Overall mandatory gate: FAIL
+
+Failure taxonomy is `foundation_content_failure`, not `adapter_content_regression`: the failure occurred before an adapter or optimizer existed.
+
+## Evidence
+
+- Compact evaluation: `{evaluation_path.relative_to(ROOT)}`
+- Local WAVs: `data/external/work/gtsinger_gyu_identity_diagnostic/outputs/`
+- Local render logs: `data/external/work/gtsinger_gyu_identity_diagnostic/logs/`
+- Local waveform + FFT 256/1024/4096 plots: `data/external/work/gtsinger_gyu_identity_diagnostic/failure_plots/`
+- Local DS inputs: `data/external/work/gtsinger_gyu_identity_diagnostic/inputs/`
+- Local evidence: {len(evidence_files)} files, {evidence_bytes} bytes; ignored and uncommitted.
+- Every WAV path and SHA-256 is recorded in the sample table and compact JSON.
+
+## Repository verification
+
+- Relevant/full test suite: {test_count} passed.
+- Dataset validation: `{dataset_result}`.
+- `git diff --check`: PASS before report commit and required again after commit.
+- Production renderer imports no experimental adapter; package config selects no checkpoint; OpenUtau paths are unchanged.
+- Previous RC7 and rejected SoulX evidence are unchanged. RC7 remains an accepted experimental baseline; RC8 candidate 3, v0.7 adapter, truncated K=2, and truncated K=4 remain rejected.
+
+## Final conclusion
+
+`diagnostic_reject`
+
+The bounded experiment completed at its mandatory early-stop. The unadapted Korean score-native lexical foundation is not qualified, so GTSinger-to-GYU identity adaptation, checkpoint creation, runtime integration, packaging, OpenUtau work, RC9, and release work remain blocked.
+'''
+    document = ROOT / "docs/final_gtsinger_gyu_identity_diagnostic.md"
+    document.write_text(report)
+    final_json = status | {
+        "foundation_gate": evaluation["status"],
+        "foundation_pass_count": gate["pass_count"],
+        "foundation_total_count": gate["total_count"],
+        "optimizer_steps": 0,
+        "test_count": test_count,
+        "dataset_validation": dataset_result,
+        "local_evidence_count": len(evidence_files),
+        "local_evidence_bytes": evidence_bytes,
+        "report_path": str(document.relative_to(ROOT)),
+        "evaluation_path": str(evaluation_path.relative_to(ROOT)),
+    }
+    (REPORT / "final_status.json").write_text(
+        json.dumps(final_json, ensure_ascii=False, indent=2) + "\n"
+    )
+    print(json.dumps(final_json, ensure_ascii=False, indent=2))
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("command", choices=("freeze", "render-foundation", "evaluate-foundation"))
+    parser.add_argument("command", choices=("freeze", "render-foundation", "evaluate-foundation", "finalize"))
+    parser.add_argument("--test-count", type=int)
+    parser.add_argument("--dataset-result")
     args = parser.parse_args()
     if args.command == "freeze":
         freeze()
@@ -744,6 +966,10 @@ def main() -> None:
         render_foundation()
     elif args.command == "evaluate-foundation":
         evaluate_foundation()
+    elif args.command == "finalize":
+        if args.test_count is None or not args.dataset_result:
+            parser.error("finalize requires --test-count and --dataset-result")
+        write_final_report(args.test_count, args.dataset_result)
 
 
 if __name__ == "__main__":

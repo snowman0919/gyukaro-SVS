@@ -11,6 +11,7 @@ from run_gtsinger_gyu_identity_diagnostic import (  # noqa: E402
     SEEDS,
     build_score_ds,
     distribution,
+    final_status,
     gate_foundation,
     protocol_manifest,
     render_jobs,
@@ -224,3 +225,22 @@ def test_all_rows_must_pass_before_training_is_allowed():
     assert result["status"] == "foundation_ko_gate_pass"
     assert result["pass_count"] == 15
     assert result["identity_training_allowed"] is True
+
+
+def test_foundation_reject_final_status_forbids_training_and_release():
+    evaluation = {
+        "status": "foundation_ko_gate_reject",
+        "candidate_status": "diagnostic_reject",
+        "identity_training_started": False,
+        "gate": {"pass_count": 0, "total_count": 15},
+    }
+
+    result = final_status(evaluation)
+
+    assert result["report_header"] == "NOT A RELEASE REPORT — EXPERIMENT REJECTED"
+    assert result["conclusion"] == "diagnostic_reject"
+    assert result["training_status"] == "not_started_foundation_gate_failed"
+    assert result["checkpoint_selected"] is None
+    assert result["human_ab_generated"] is False
+    assert result["runtime_integration"] is False
+    assert result["package_openutau"] == "blocked"
