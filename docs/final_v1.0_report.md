@@ -1,3 +1,4 @@
+NOT A RELEASE REPORT — v1.0.0 PROHIBITED
 Overall status: FINAL DIAGNOSTIC FAILURE
 RC7: accepted experimental baseline
 RC8 candidate 3: rejected
