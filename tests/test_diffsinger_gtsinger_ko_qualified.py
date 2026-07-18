@@ -1,8 +1,11 @@
+import csv
 import json
 from pathlib import Path
 import sys
 
+import numpy as np
 import pytest
+import soundfile as sf
 import torch
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -14,6 +17,7 @@ from prepare_diffsinger_gtsinger_ko_qualified import (
     normalized_text,
     row_rejections,
     song_splits,
+    write_training_data,
 )
 
 GATES = json.loads((ROOT / "configs/gtsinger_ko_qualified_protocol.json").read_text())["row_gates"]
@@ -118,3 +122,23 @@ def test_ctc_metrics_require_complete_monotonic_target():
     assert result["ctc_monotonic"] is True
     assert result["ctc_unknown_ratio"] == 0.0
     assert 0.0 < result["ctc_coverage"] <= 1.0
+
+
+def test_training_export_preserves_phone_duration_and_song_split(tmp_path):
+    rows = []
+    for index in range(6):
+        row = source_row(
+            f"Korean#KO-Soprano-2#Breathy#song-{index}#Control_Group#0000"
+        )
+        source = tmp_path / f"source-{index}.wav"
+        sf.write(source, np.zeros(48000 * 2, dtype=np.float32), 48000)
+        rows.append(row | {"source_path": str(source), "audio_duration_seconds": 2.0})
+    result = write_training_data(rows, tmp_path, tmp_path / "raw")
+    csv_rows = list(csv.DictReader((tmp_path / "raw/transcriptions.csv").open()))
+    assert len(csv_rows) == 6
+    assert all(
+        len(row["ph_seq"].split()) == len(row["ph_dur"].split())
+        for row in csv_rows
+    )
+    assert result["song_split_leakage"] is False
+    assert result["rows"] == 6

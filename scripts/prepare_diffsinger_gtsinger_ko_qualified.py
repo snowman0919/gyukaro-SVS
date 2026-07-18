@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 from collections import Counter
+import csv
 from difflib import SequenceMatcher
 import hashlib
 import json
@@ -124,6 +125,178 @@ def song_splits(rows: list[dict]) -> dict[str, list[str]]:
         song = row["item_name"].split("#")[3]
         result[split_by_song[song]].append(row["item_name"])
     return {name: sorted(values) for name, values in result.items()}
+
+
+def write_training_data(rows: list[dict], dataset_root: Path, output: Path) -> dict:
+    """Export accepted rows deterministically without complete-song leakage."""
+    output = Path(output)
+    wavs = output / "wavs"
+    wavs.mkdir(parents=True, exist_ok=True)
+    ordered = sorted(
+        rows,
+        key=lambda row: hashlib.sha256(row["item_name"].encode()).digest(),
+    )
+    item_splits = song_splits(ordered)
+    split_lookup = {
+        item_name: split
+        for split, item_names in item_splits.items()
+        for item_name in item_names
+    }
+    split_names = {"train": [], "validation": [], "test": []}
+    phones: set[str] = set()
+    names_by_item: dict[str, str] = {}
+    with (output / "transcriptions.csv").open("w", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=("name", "ph_seq", "ph_dur"))
+        writer.writeheader()
+        for index, row in enumerate(ordered):
+            name = f"gtsko{index:04d}"
+            names_by_item[row["item_name"]] = name
+            source_value = row.get("source_path", row.get("wav_fn"))
+            source = Path(source_value)
+            if not source.is_absolute():
+                source = dataset_root / source
+            if not source.is_file():
+                raise FileNotFoundError(source)
+            sequence = normalized_phones(row)
+            durations = [float(value) for value in row["ph_durs"]]
+            audio_duration = sf.info(source).duration
+            delta = audio_duration - sum(durations)
+            if delta > 0.001:
+                sequence.append("SP")
+                durations.append(delta)
+            elif delta < -0.001:
+                durations[-1] += delta
+            if durations[-1] <= 0 or abs(sum(durations) - audio_duration) >= 0.002:
+                raise ValueError(
+                    f"invalid alignment for {row['item_name']}: {delta:+.4f}s"
+                )
+            target = wavs / f"{name}.wav"
+            if not target.exists():
+                target.symlink_to(source.resolve())
+            writer.writerow({
+                "name": name,
+                "ph_seq": " ".join(sequence),
+                "ph_dur": " ".join(f"{value:.7f}" for value in durations),
+            })
+            split_names[split_lookup[row["item_name"]]].append(name)
+            phones.update(sequence)
+
+    songs_by_split = {
+        split: {
+            item_name.split("#")[3]
+            for item_name in item_names
+        }
+        for split, item_names in item_splits.items()
+    }
+    leakage = any(
+        songs_by_split[left] & songs_by_split[right]
+        for index, left in enumerate(songs_by_split)
+        for right in list(songs_by_split)[index + 1:]
+    )
+    if leakage:
+        raise RuntimeError("complete-song split leakage")
+    split_record = {
+        "splits": {name: sorted(values) for name, values in split_names.items()},
+        "songs": {name: sorted(values) for name, values in songs_by_split.items()},
+        "names_by_item": names_by_item,
+    }
+    (output / "split.json").write_text(
+        json.dumps(split_record, ensure_ascii=False, indent=2) + "\n"
+    )
+    return {
+        "rows": len(ordered),
+        "phones": sorted(phones),
+        "song_split_leakage": leakage,
+        "split_counts": {name: len(values) for name, values in split_names.items()},
+    }
+
+
+def build_config(summary: dict, raw_dir: Path, dictionary: Path) -> dict:
+    """Build the frozen 15k medium DiffSinger foundation configuration."""
+    import yaml
+
+    split = json.loads((raw_dir / "split.json").read_text())["splits"]
+    base = yaml.safe_load((ROOT / "configs/diffsinger_pjs_compact.yaml").read_text())
+    work = ROOT / "data/external/work/diffsinger_score_native"
+    base.update({
+        "dictionaries": {"ko": str(dictionary)},
+        "datasets": [{
+            "raw_data_dir": str(raw_dir),
+            "speaker": "gts_ko_soprano_2",
+            "spk_id": 0,
+            "language": "ko",
+            "test_prefixes": split["validation"] + split["test"],
+        }],
+        "binary_data_dir": str(work / "binary_gtsinger_ko_qualified"),
+        "binarizer_cls": "diffsinger_neutral_augmentation_binarizer.NeutralAugmentationBinarizer",
+        "finetune_enabled": False,
+        "finetune_ckpt_path": None,
+        "finetune_strict_shapes": True,
+        "frozen_params": ["model.diffusion"],
+        "hidden_size": 256,
+        "num_heads": 4,
+        "enc_layers": 6,
+        "backbone_args": {
+            "num_channels": 512,
+            "num_layers": 6,
+            "kernel_size": 15,
+            "dropout_rate": 0.0,
+            "use_conditioner_cache": True,
+            "glu_type": "atanglu",
+        },
+        "shallow_diffusion_args": {
+            "train_aux_decoder": True,
+            "train_diffusion": False,
+            "aux_decoder_arch": "convnext",
+            "aux_decoder_grad": 0.1,
+            "aux_decoder_args": {
+                "num_channels": 384,
+                "num_layers": 6,
+                "kernel_size": 7,
+                "dropout_rate": 0.1,
+            },
+        },
+        "use_key_shift_embed": True,
+        "use_speed_embed": True,
+        "augmentation_args": {
+            "random_pitch_shifting": {"enabled": True, "range": [-2.0, 12.0], "scale": 1.0},
+            "fixed_pitch_shifting": {"enabled": False, "targets": [-5.0, 5.0], "scale": 0.5},
+            "random_time_stretching": {"enabled": True, "range": [0.95, 4.5], "scale": 2.0},
+        },
+        "max_updates": 15000,
+        "val_check_interval": 1000,
+        "num_ckpt_keep": 5,
+        "max_batch_frames": 16000,
+        "max_batch_size": 6,
+        "optimizer_args": {"lr": 0.0003},
+        "work_dir": str(CACHE / "diffsinger/checkpoints/gtsinger_ko_qualified"),
+    })
+    return base
+
+
+def prepare_training(protocol: dict) -> dict:
+    summary = json.loads(SUMMARY.read_text())
+    if not summary.get("training_allowed"):
+        raise RuntimeError("source qualification rejected; training export is forbidden")
+    rows = [json.loads(line) for line in MANIFEST.read_text().splitlines() if line]
+    raw = ROOT / "data/external/work/diffsinger_score_native/raw/gtsinger_ko_qualified"
+    export = write_training_data(rows, ROOT, raw)
+    dictionary = ROOT / "data/external/work/diffsinger_score_native/dictionary-gtsinger-ko-qualified.txt"
+    dictionary.parent.mkdir(parents=True, exist_ok=True)
+    dictionary.write_text("".join(
+        f"{phone}\t{phone}\n" for phone in export["phones"] if phone not in ("AP", "SP")
+    ))
+    config = build_config(summary, raw, dictionary)
+    import yaml
+
+    config_path = ROOT / "configs/diffsinger_gtsinger_ko_qualified.yaml"
+    config_path.write_text(yaml.safe_dump(config, sort_keys=False))
+    return {
+        "status": "ready_for_binarization",
+        "config": str(config_path.relative_to(ROOT)),
+        "raw_data_dir": str(raw),
+        "dictionary": str(dictionary),
+    } | export
 
 
 def ctc_metrics(
@@ -409,15 +582,20 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--download", action="store_true")
     parser.add_argument("--qualify", action="store_true")
+    parser.add_argument("--prepare", action="store_true")
     args = parser.parse_args()
     protocol = json.loads(PROTOCOL.read_text())
     if args.download:
         download_sources(protocol)
-    if not args.qualify:
-        parser.error("--qualify is required")
-    summary = qualify(protocol)
-    print(json.dumps(summary, ensure_ascii=False, indent=2))
-    raise SystemExit(0 if summary["training_allowed"] else 2)
+    if not args.qualify and not args.prepare:
+        parser.error("--qualify or --prepare is required")
+    if args.qualify:
+        summary = qualify(protocol)
+        print(json.dumps(summary, ensure_ascii=False, indent=2))
+        if not summary["training_allowed"]:
+            raise SystemExit(2)
+    if args.prepare:
+        print(json.dumps(prepare_training(protocol), ensure_ascii=False, indent=2))
 
 
 if __name__ == "__main__":
