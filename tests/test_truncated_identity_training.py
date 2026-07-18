@@ -199,3 +199,19 @@ def test_candidate_gate_rejects_one_phrase_seed_and_rapid_regression():
     assert {failure["metric"] for failure in result["individual_failures"]} >= {
         "lyric_similarity", "hf_spike_p99_over_median",
     }
+
+
+def test_rejected_checkpoint_is_deleted_but_human_pending_is_retained(tmp_path):
+    evaluator = load_evaluator()
+    rejected = tmp_path / "k2" / "identity_adapter_diagnostic.pt"
+    retained = tmp_path / "k4" / "identity_adapter_diagnostic.pt"
+    rejected.parent.mkdir(); retained.parent.mkdir()
+    rejected.write_bytes(b"rejected"); retained.write_bytes(b"retained")
+    disposition = evaluator.dispose_candidate_checkpoints(
+        {"k2": rejected, "k4": retained},
+        {"k2": {"status": "diagnostic_reject"}, "k4": {"status": "human_pending"}},
+    )
+    assert not rejected.exists()
+    assert retained.exists()
+    assert disposition["k2"]["deleted"] is True
+    assert disposition["k4"]["deleted"] is False

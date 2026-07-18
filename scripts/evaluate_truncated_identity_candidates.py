@@ -148,6 +148,33 @@ def candidate_gates(rows: list[dict], candidate_name: str) -> dict:
     }
 
 
+def dispose_candidate_checkpoints(paths: dict[str, Path], gates: dict[str, dict]) -> dict:
+    disposition = {}
+    for candidate, raw_path in paths.items():
+        path = Path(raw_path)
+        existed = path.exists()
+        digest = _sha(path) if existed else None
+        rejected = gates[candidate]["status"] == "diagnostic_reject"
+        if rejected and existed:
+            path.unlink()
+        disposition[candidate] = {
+            "status": gates[candidate]["status"], "path": str(path), "sha256_before_disposal": digest,
+            "existed_before_disposal": existed, "deleted": rejected and existed,
+            "retained_for_human_ab": not rejected and path.exists(), "runtime_integration": False,
+        }
+        training_report = path.parent / "training.json"
+        if training_report.exists():
+            training = json.loads(training_report.read_text())
+            training["heldout_evaluation_status"] = gates[candidate]["status"]
+            training["checkpoint_disposition"] = disposition[candidate]
+            if rejected:
+                training["rejected_checkpoint_path"] = training.get("checkpoint")
+                training["checkpoint"] = None
+                training["status"] = "diagnostic_reject"
+            training_report.write_text(json.dumps(training, indent=2) + "\n")
+    return disposition
+
+
 def _sha(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
@@ -422,6 +449,9 @@ def analyze_matrix(args) -> dict:
         }
     gates = {candidate: candidate_gates(rows, candidate) for candidate in ("k2", "k4")}
     eligible = [candidate for candidate, result in gates.items() if result["status"] == "human_pending"]
+    checkpoint_disposition = dispose_candidate_checkpoints(
+        {"k2": Path(args.k2), "k4": Path(args.k4)}, gates,
+    )
     report = {
         "status": "human_pending" if eligible else "diagnostic_reject",
         "eligible_candidates": eligible,
@@ -431,6 +461,7 @@ def analyze_matrix(args) -> dict:
         "heldout_ja": "excluded_content_source_failure",
         "identity_reference_centroid": "real GYU master rows 171..194",
         "aggregate_heldout": aggregate, "candidate_gates": gates,
+        "checkpoint_disposition": checkpoint_disposition,
         "rows": rows, "waveform_multires_stft": plots,
         "constraints": {
             "phrase_level_soulx_decode": True, "total_steps": 64,

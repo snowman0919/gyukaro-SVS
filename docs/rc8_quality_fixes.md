@@ -91,6 +91,41 @@ The six emitted paths collapse to two unique WAV hashes: identity-OFF and curren
 
 This result authorizes only the next bounded optimizer diagnostic. It is not evidence of speaker improvement, does not create a human A/B candidate, and does not connect anything to RC8, RC9, OpenUtau, or packaging.
 
+### Truncated final-WAV identity training and held-out gate
+
+Status: **K=2 and K=4 diagnostic reject; experiment checkpoints deleted; runtime unchanged.**
+
+The fixed input corpus contains three training phrases (`korean`, `english`, `japanese`), three validation phrases, five held-out phrases, and protected Rapid KO. Free Whisper passed every training/validation source with similarity at least `0.9286`. The known held-out Japanese OmniVoice failure remained excluded: its source repeated `新しい歌を風に乗せて`, scored `0.7222`, and was never loaded by training or identity promotion evaluation.
+
+Both candidates started from the exact v0.7 adapter and ran 18 AdamW updates at `1e-4`, with SoulX, vocoder, WavLM, ECAPA, and the style adapter frozen. Every training decode used 64 total steps; only the final K steps were differentiable. Identity-OFF WAVs supplied waveform, FFT-256/1024/4096, frozen-content, and pitch-period preservation targets in addition to the two speaker losses and adapter/update regularizers.
+
+| candidate | selected epoch | validation loss | max grad norm | max relative step | selected drift | peak allocated | training time |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| K=2 | 2 | 1.201825 | 0.040979 | 0.000806 | 0.004433 | 12.520 GB | 236.86 s |
+| K=4 | 2 | 1.198866 | 0.084783 | 0.000816 | 0.004470 | 20.692 GB | 243.35 s |
+
+No frozen parameter received a gradient, no tensor became non-finite, and non-identity adapter state stayed byte-identical. Training safety therefore passed, but safety was not treated as evidence of effectiveness.
+
+The final matrix used the same source, target F0, reference, CFG, FP32 precision, and diffusion seed inside each comparison. Identity OFF, current v0.7, K=2, and K=4 were each rendered for all five held-out phrases plus protected Rapid KO at seeds 7/21/42: 72 actual one-pass phrase-level SoulX WAVs. Mean rendering time was 19.15 seconds per file. No per-note TTS, final-WAV stitching, or waveform pitch shifting was used.
+
+| held-out mean | identity OFF | current v0.7 | K=2 | K=4 |
+|---|---:|---:|---:|---:|
+| WavLM-to-GYU | 0.609605 | 0.604288 | 0.605255 | 0.604923 |
+| ECAPA-to-GYU | 0.107812 | 0.111448 | 0.111169 | 0.111036 |
+| Whisper lyric similarity | 0.689982 | 0.718896 | 0.718896 | 0.718896 |
+| RMVPE pitch MAE, cents | 46.5396 | 43.1837 | 43.7598 | 43.7438 |
+| voicing accuracy | 0.834781 | 0.828301 | 0.827387 | 0.828732 |
+| HF spike p99/median | 737.491 | 717.467 | 721.644 | 716.571 |
+| sample jump p99.9 | 0.174625 | 0.170596 | 0.170691 | 0.170666 |
+
+K=2 changed held-out WavLM/ECAPA by `-0.00435/+0.00336` versus identity OFF and `+0.00097/-0.00028` versus current v0.7. K=4 changed them by `-0.00468/+0.00322` versus OFF and `+0.00064/-0.00041` versus v0.7. Both therefore fail all four mandatory mean gates (`+0.01/+0.01` versus OFF and `+0.005/+0.005` versus v0.7). Phrase×seed pass ratios were only `6/18` for K=2 and `8/18` for K=4, and both failed protected Rapid KO.
+
+Free Whisper also exposed failures that averages hide. Held-out KO remained exact across conditions, but held-out EN seed 7 became a long `Mmmm…` loop under every identity condition. At seed 21, identity OFF transcribed `Kyrie might play the boss, stay quiet driver`, while current/K=2/K=4 changed the ending to `traitor`. Rapid KO seed 7 changed from identity-OFF `아르기 너의 하자` to adapted `아르키 노예 하자`. Individual candidate failures additionally include pitch regression, voicing regression, HF-spike increases, and nonzero clipping samples. These are direct final-WAV results, not source-only proxies.
+
+The rejected K=2 checkpoint SHA was `2da9aaebbfa2e5055a30aa3630d5db2110fa387dd2ad8711bce3664c38decf22`; K=4 was `acdfedfafeee6ca7c0659f512b66ae8fa35ba21fbd9e2f4484b97567f69caabc`. Both files were deleted after the gate failed. No human A/B candidate was created, and neither checkpoint is callable from the renderer or package.
+
+Full sample-wise metrics, mean/median/minimum/standard deviation, transcripts, pass reasons, checkpoint disposition, and output paths are in `artifacts/reports/truncated_identity_evaluation/evaluation.json`. The 72 WAVs are under `artifacts/reports/truncated_identity_evaluation/listening/`; 18 matched-condition waveform plus FFT-256/1024/4096 comparisons are under `waveform_multires_stft/`. Training histories remain in `artifacts/reports/truncated_identity_training/k2/training.json` and `k4/training.json`. This closes the truncated-backprop diagnostic without changing RC8 and does not authorize RC9, OpenUtau, packaging, or release work.
+
 ## Scope and preserved baseline
 
 RC7 remains frozen at `ae8944070f3dc38e310b33f29d95f4bcd3c81def`; its WAVs and checkpoint hashes are recorded in `docs/rc7_baseline.md`. RC8 writes only new artifacts and retains phrase-level SoulX decoding, 48 kHz PCM-24 output, the RC7 base spectral correction at strength 0.5, and the protected Rapid KO 64-step/CFG 2.0 policy. It uses no per-note TTS, waveform pitch shifting, or phase-vocoder note control.
