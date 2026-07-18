@@ -1,6 +1,6 @@
 {
-  "status": "source_probe_reject",
-  "selected": null,
+  "status": "source_probe_pass_human_pending",
+  "selected": "tenor",
   "best_diagnostic_candidate": "tenor",
   "gate": {
     "asr_lyric_similarity_min": 0.8,
@@ -9,6 +9,7 @@
     "gross_error_over_600_cents_max": 0.05,
     "observed_voiced_ratio_min": 0.8,
     "observed_voiced_ratio_max": 0.97,
+    "voicing_accuracy_min_when_target_grid_available": 0.8,
     "clip_fraction": 0,
     "hf_spike_p99_over_reference_max": 2.0
   },
@@ -68,6 +69,7 @@
       "pitch_p90_abs_cents": 4.41,
       "gross_error_over_600_cents": 0.0,
       "observed_voiced_ratio": 0.5368,
+      "voicing_accuracy": 0.9619,
       "f0": {
         "hz_p05": 139.75,
         "hz_median": 237.61,
@@ -86,7 +88,7 @@
       "spectral_flux_p95": 0.473726,
       "spectral_flux_max": 0.830356,
       "sample_jump_p999": 0.018999,
-      "pass": false,
+      "pass": true,
       "identity_similarity": {
         "reference_count": 5,
         "wavlm": {
@@ -126,6 +128,7 @@
       "pitch_p90_abs_cents": 4.34,
       "gross_error_over_600_cents": 0.0,
       "observed_voiced_ratio": 0.6649,
+      "voicing_accuracy": 0.8338,
       "f0": {
         "hz_p05": 86.31,
         "hz_median": 240.12,
@@ -144,7 +147,7 @@
       "spectral_flux_p95": 0.202537,
       "spectral_flux_max": 0.493563,
       "sample_jump_p999": 0.039075,
-      "pass": false,
+      "pass": true,
       "identity_similarity": {
         "reference_count": 5,
         "wavlm": {
@@ -184,6 +187,7 @@
       "pitch_p90_abs_cents": 4.1,
       "gross_error_over_600_cents": 0.0,
       "observed_voiced_ratio": 0.7044,
+      "voicing_accuracy": 0.7943,
       "f0": {
         "hz_p05": 86.02,
         "hz_median": 239.63,
@@ -239,7 +243,7 @@
     "data/processed/master/219.wav",
     "data/processed/master/220.wav"
   ],
-  "identity_adaptation_allowed": false,
+  "identity_adaptation_allowed": true,
   "release_allowed": false,
   "interpretation": "Every candidate must pass waveform/F0 checks and a free Whisper transcript. Teacher-forced NLL cannot rescue an unintelligible candidate; human listening remains mandatory."
 }

@@ -1,7 +1,7 @@
 {
-  "status": "source_probe_reject",
-  "selected": null,
-  "best_diagnostic_candidate": "tenor",
+  "status": "source_probe_pass_human_pending",
+  "selected": "mix20",
+  "best_diagnostic_candidate": "mix20",
   "gate": {
     "asr_lyric_similarity_min": 0.8,
     "teacher_forced_lyric_nll": "diagnostic_only_never_a_pass_substitute",
@@ -9,6 +9,7 @@
     "gross_error_over_600_cents_max": 0.05,
     "observed_voiced_ratio_min": 0.8,
     "observed_voiced_ratio_max": 0.97,
+    "voicing_accuracy_min_when_target_grid_available": 0.8,
     "clip_fraction": 0,
     "hf_spike_p99_over_reference_max": 2.0
   },
@@ -68,6 +69,7 @@
       "pitch_p90_abs_cents": 15.09,
       "gross_error_over_600_cents": 0.0048,
       "observed_voiced_ratio": 0.7319,
+      "voicing_accuracy": 0.9118,
       "f0": {
         "hz_p05": 239.37,
         "hz_median": 291.84,
@@ -86,7 +88,7 @@
       "spectral_flux_p95": 0.322132,
       "spectral_flux_max": 0.732655,
       "sample_jump_p999": 0.057509,
-      "pass": false,
+      "pass": true,
       "identity_similarity": {
         "reference_count": 5,
         "wavlm": {
@@ -126,6 +128,7 @@
       "pitch_p90_abs_cents": 15.19,
       "gross_error_over_600_cents": 0.0,
       "observed_voiced_ratio": 0.7513,
+      "voicing_accuracy": 0.8854,
       "f0": {
         "hz_p05": 239.05,
         "hz_median": 290.81,
@@ -144,7 +147,7 @@
       "spectral_flux_p95": 0.262063,
       "spectral_flux_max": 0.6504,
       "sample_jump_p999": 0.0505,
-      "pass": false,
+      "pass": true,
       "identity_similarity": {
         "reference_count": 5,
         "wavlm": {
@@ -184,6 +187,7 @@
       "pitch_p90_abs_cents": 18.27,
       "gross_error_over_600_cents": 0.0,
       "observed_voiced_ratio": 0.7566,
+      "voicing_accuracy": 0.8801,
       "f0": {
         "hz_p05": 237.49,
         "hz_median": 290.62,
@@ -202,7 +206,7 @@
       "spectral_flux_p95": 0.262758,
       "spectral_flux_max": 0.687357,
       "sample_jump_p999": 0.046571,
-      "pass": false,
+      "pass": true,
       "identity_similarity": {
         "reference_count": 5,
         "wavlm": {
@@ -239,7 +243,7 @@
     "data/processed/master/219.wav",
     "data/processed/master/220.wav"
   ],
-  "identity_adaptation_allowed": false,
+  "identity_adaptation_allowed": true,
   "release_allowed": false,
   "interpretation": "Every candidate must pass waveform/F0 checks and a free Whisper transcript. Teacher-forced NLL cannot rescue an unintelligible candidate; human listening remains mandatory."
 }

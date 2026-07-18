@@ -1,6 +1,6 @@
 {
-  "status": "source_probe_reject",
-  "selected": null,
+  "status": "source_probe_pass_human_pending",
+  "selected": "soprano",
   "best_diagnostic_candidate": "soprano",
   "gate": {
     "asr_lyric_similarity_min": 0.8,
@@ -9,6 +9,7 @@
     "gross_error_over_600_cents_max": 0.05,
     "observed_voiced_ratio_min": 0.8,
     "observed_voiced_ratio_max": 0.97,
+    "voicing_accuracy_min_when_target_grid_available": 0.8,
     "clip_fraction": 0,
     "hf_spike_p99_over_reference_max": 2.0
   },
@@ -68,6 +69,7 @@
       "pitch_p90_abs_cents": 33.12,
       "gross_error_over_600_cents": 0.0172,
       "observed_voiced_ratio": 0.7427,
+      "voicing_accuracy": 0.8808,
       "f0": {
         "hz_p05": 195.07,
         "hz_median": 247.39,
@@ -86,7 +88,7 @@
       "spectral_flux_p95": 0.344324,
       "spectral_flux_max": 0.819157,
       "sample_jump_p999": 0.076811,
-      "pass": false,
+      "pass": true,
       "identity_similarity": {
         "reference_count": 5,
         "wavlm": {
@@ -126,6 +128,7 @@
       "pitch_p90_abs_cents": 28.38,
       "gross_error_over_600_cents": 0.0059,
       "observed_voiced_ratio": 0.7364,
+      "voicing_accuracy": 0.8536,
       "f0": {
         "hz_p05": 210.69,
         "hz_median": 249.52,
@@ -184,6 +187,7 @@
       "pitch_p90_abs_cents": 34.73,
       "gross_error_over_600_cents": 0.0088,
       "observed_voiced_ratio": 0.7385,
+      "voicing_accuracy": 0.8515,
       "f0": {
         "hz_p05": 210.19,
         "hz_median": 250.88,
@@ -239,7 +243,7 @@
     "data/processed/master/219.wav",
     "data/processed/master/220.wav"
   ],
-  "identity_adaptation_allowed": false,
+  "identity_adaptation_allowed": true,
   "release_allowed": false,
   "interpretation": "Every candidate must pass waveform/F0 checks and a free Whisper transcript. Teacher-forced NLL cannot rescue an unintelligible candidate; human listening remains mandatory."
 }

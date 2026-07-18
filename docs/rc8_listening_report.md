@@ -30,22 +30,22 @@ RC9 OpenUtau work: **not authorized for release by this historical pass**.
 
 Final `v1.0.0` tag/release: **not allowed**.
 
-## Candidate 3 listening request
+## Candidate 3 failure-evidence files
 
-Status: **machine gate complete; human listening pending.**
+Status: **rejected; not human-pending.**
 
 Directory: `artifacts/reports/rc8_candidate3_full/listening/`
 
 The nine files were rendered through one actual `gyu-singer-rc8` resident path. Free Whisper transcripts were preserved for every case; the aggregate waveform/RMVPE result is recorded in `artifacts/reports/rc8_candidate3_full/evaluation.json`. This candidate replaces the rejected stronger stationary spectral gate with a bounded `64 steps / CFG 1.5` policy only for long neutral Korean notes.
 
-Listen to all nine files against the frozen RC7 files. Pay particular attention to sustained noise, EN and JA transitions, Large Interval tearing/identity, and protected Rapid KO. No human verdict has been inferred from machine metrics.
+The nine files are preserved for confirming the failure modes against frozen RC7. They are not a promotion listening set and cannot authorize RC8.
 
 EN decoder A/B (same OmniVoice source, F0, identity, style, CTC warp, and seed):
 
 - current: `artifacts/reports/rc8_en_decode_sweep/listening/s32_c1.5.wav`
 - alternative: `artifacts/reports/rc8_en_decode_sweep/listening/s32_c2.wav`
 
-Free Whisper favors the alternative, but waveform diagnostics are mixed. Human review should select neither unless the transition improvement outweighs its increased noise and discontinuity.
+Free Whisper favors the alternative, but waveform diagnostics are mixed. Neither decoder setting is selected; the files are diagnostic evidence only.
 
 ## JA duplicate-span diagnostic listening files
 
@@ -58,4 +58,4 @@ Directories:
 
 Each contains `current_rc8.wav`, `global_ctc_025.wav`, `chunked_single_decode.wav`, and `duplicate_span_candidate.wav`. The duplicate candidate is byte-identical to current RC8 because both JA alignments failed the bounded CTC confidence gate; no source interval was removed. Held-out Whisper remains the repeated `新しい歌を風に乗せて新しい歌を風に乗せて届ける` at similarity `0.7222`. Chunking reaches only `0.8966` and materially worsens HF spike, sample jump, and voicing. A is rejected and not integrated.
 
-Direct waveform/STFT review images are `quality_ja/waveform_multires_stft.png` and `heldout_ja/waveform_multires_stft.png` under the same report directory. Human listening remains required for a future RC8 candidate, but these files cannot approve RC8 or authorize RC9/OpenUtau work.
+Direct waveform/STFT review images are `quality_ja/waveform_multires_stft.png` and `heldout_ja/waveform_multires_stft.png` under the same report directory. These files cannot approve RC8 or authorize RC9/OpenUtau work.

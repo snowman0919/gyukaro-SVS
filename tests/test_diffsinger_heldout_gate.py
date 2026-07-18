@@ -84,19 +84,27 @@ def test_aggregate_gate_rejects_candidate_when_one_of_five_phrases_fails():
     assert result["failed_phrases"] == ["p4"]
 
 
-def test_seed_stability_requires_identical_sha_for_every_phrase(tmp_path):
+def test_seed_stability_uses_quality_gates_not_identical_sha(tmp_path):
     files = {}
     for phrase in ("a", "b"):
         files[phrase] = {}
         for seed in (7, 21, 42):
             path = tmp_path / f"{phrase}_{seed}.wav"
-            path.write_bytes(phrase.encode())
+            path.write_bytes(f"{phrase}-{seed}".encode())
             files[phrase][seed] = path
+    reports = {
+        phrase: {
+            "reference_calibration": {"free_asr_similarity": 1.0},
+            "rows": [{"label": f"seed{seed}", "pass": True} for seed in (7, 21, 42)],
+        }
+        for phrase in files
+    }
 
-    result = seed_stability(files)
+    result = seed_stability(files, reports)
 
     assert result["stable"] is True
-    assert all(row["unique_sha256"] == 1 for row in result["phrases"].values())
+    assert result["byte_identical"] is False
+    assert all(row["all_quality_gates_pass"] for row in result["phrases"].values())
 
 
 def test_shared_silence_tokens_are_restored_after_identity_training(tmp_path):

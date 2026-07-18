@@ -1,0 +1,249 @@
+{
+  "status": "source_probe_pass_human_pending",
+  "selected": "seed42",
+  "best_diagnostic_candidate": "seed42",
+  "gate": {
+    "asr_lyric_similarity_min": 0.8,
+    "teacher_forced_lyric_nll": "diagnostic_only_never_a_pass_substitute",
+    "pitch_p90_abs_cents_max": 100,
+    "gross_error_over_600_cents_max": 0.05,
+    "observed_voiced_ratio_min": 0.8,
+    "observed_voiced_ratio_max": 0.97,
+    "voicing_accuracy_min_when_target_grid_available": 0.8,
+    "clip_fraction": 0,
+    "hf_spike_p99_over_reference_max": 2.0
+  },
+  "reference_calibration": {
+    "used": true,
+    "free_asr_similarity": 1.0,
+    "teacher_forced_lyric_nll": 3.7344,
+    "free_asr_reference_pass": true,
+    "waveform_analysis": {
+      "audio_path": "data/external/raw/gtsinger-lfs/Japanese/JA-Soprano-1/Mixed_Voice_and_Falsetto/行かないで/Control_Group/0001.wav",
+      "duration_seconds": 15.965,
+      "free_asr_transcript": "ずっと泣いてただけど",
+      "f0": {
+        "hz_p05": 192.73,
+        "hz_median": 239.63,
+        "hz_p95": 346.17,
+        "midi_p05": 54.71,
+        "midi_median": 58.48,
+        "midi_p95": 64.85
+      },
+      "observed_voiced_ratio": 0.637,
+      "peak": 0.470642,
+      "rms": 0.135918,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.002661,
+      "hf_energy_ratio_p95": 0.007754,
+      "hf_spike_p99_over_median": 54.0432,
+      "spectral_flatness_mean": 0.002097,
+      "spectral_flux_p95": 0.488479,
+      "spectral_flux_max": 0.910567,
+      "sample_jump_p999": 0.098104
+    }
+  },
+  "target_f0": {
+    "hz_p05": 192.73,
+    "hz_median": 239.63,
+    "hz_p95": 346.17,
+    "midi_p05": 54.71,
+    "midi_median": 58.48,
+    "midi_p95": 64.85
+  },
+  "expected_text_sha256": [
+    "7d5e630fd821c17fc36bcc702d395fe896252d6beecce600f43369b1c844ddb7"
+  ],
+  "expected_text_characters": [
+    10
+  ],
+  "rows": [
+    {
+      "label": "seed7",
+      "audio_path": "artifacts/reports/diffsinger_gtsinger_heldout_set/listening/seed_stability/gtsja0380_soprano_seed7.wav",
+      "audio_sha256": "4d5089c2859e66ec87d469af87f9c00bf6a5e049961bd9721c83caa4150890fd",
+      "asr_transcript": "ずっと 泣いてただけど",
+      "asr_lyric_similarity": 1.0,
+      "teacher_forced_lyric_nll": 4.0,
+      "pitch_median_abs_cents": 1.6,
+      "pitch_p90_abs_cents": 6.68,
+      "gross_error_over_600_cents": 0.0088,
+      "observed_voiced_ratio": 0.5782,
+      "voicing_accuracy": 0.9262,
+      "f0": {
+        "hz_p05": 192.4,
+        "hz_median": 239.67,
+        "hz_p95": 347.7,
+        "midi_p05": 54.68,
+        "midi_median": 58.48,
+        "midi_p95": 64.92
+      },
+      "peak": 0.562844,
+      "rms": 0.098981,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.011225,
+      "hf_energy_ratio_p95": 0.043499,
+      "hf_spike_p99_over_median": 56.3924,
+      "spectral_flatness_mean": 0.013944,
+      "spectral_flux_p95": 0.462755,
+      "spectral_flux_max": 0.739812,
+      "sample_jump_p999": 0.049736,
+      "pass": true,
+      "identity_similarity": {
+        "reference_count": 5,
+        "wavlm": {
+          "values": {
+            "data/processed/master/212.wav": 0.49108,
+            "data/processed/master/215.wav": 0.61411,
+            "data/processed/master/216.wav": 0.56611,
+            "data/processed/master/219.wav": 0.58229,
+            "data/processed/master/220.wav": 0.50397
+          },
+          "mean": 0.55151,
+          "min": 0.49108,
+          "max": 0.61411
+        },
+        "ecapa": {
+          "values": {
+            "data/processed/master/212.wav": 0.12358,
+            "data/processed/master/215.wav": 0.24585,
+            "data/processed/master/216.wav": 0.16777,
+            "data/processed/master/219.wav": 0.1662,
+            "data/processed/master/220.wav": 0.18244
+          },
+          "mean": 0.17717,
+          "min": 0.12358,
+          "max": 0.24585
+        }
+      }
+    },
+    {
+      "label": "seed21",
+      "audio_path": "artifacts/reports/diffsinger_gtsinger_heldout_set/listening/seed_stability/gtsja0380_soprano_seed21.wav",
+      "audio_sha256": "a1586d0ba175747499f2c9d4525228f454cad792316044a29f12d656707c20d7",
+      "asr_transcript": "ずっと 泣いてただけど",
+      "asr_lyric_similarity": 1.0,
+      "teacher_forced_lyric_nll": 3.9805,
+      "pitch_median_abs_cents": 1.53,
+      "pitch_p90_abs_cents": 6.67,
+      "gross_error_over_600_cents": 0.0088,
+      "observed_voiced_ratio": 0.5832,
+      "voicing_accuracy": 0.9237,
+      "f0": {
+        "hz_p05": 192.21,
+        "hz_median": 239.65,
+        "hz_p95": 347.66,
+        "midi_p05": 54.66,
+        "midi_median": 58.48,
+        "midi_p95": 64.92
+      },
+      "peak": 0.562531,
+      "rms": 0.098998,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.011449,
+      "hf_energy_ratio_p95": 0.043836,
+      "hf_spike_p99_over_median": 58.0518,
+      "spectral_flatness_mean": 0.014388,
+      "spectral_flux_p95": 0.454885,
+      "spectral_flux_max": 0.741781,
+      "sample_jump_p999": 0.049751,
+      "pass": true,
+      "identity_similarity": {
+        "reference_count": 5,
+        "wavlm": {
+          "values": {
+            "data/processed/master/212.wav": 0.49341,
+            "data/processed/master/215.wav": 0.61507,
+            "data/processed/master/216.wav": 0.56775,
+            "data/processed/master/219.wav": 0.58322,
+            "data/processed/master/220.wav": 0.50563
+          },
+          "mean": 0.55302,
+          "min": 0.49341,
+          "max": 0.61507
+        },
+        "ecapa": {
+          "values": {
+            "data/processed/master/212.wav": 0.12368,
+            "data/processed/master/215.wav": 0.24338,
+            "data/processed/master/216.wav": 0.16644,
+            "data/processed/master/219.wav": 0.16499,
+            "data/processed/master/220.wav": 0.18154
+          },
+          "mean": 0.17601,
+          "min": 0.12368,
+          "max": 0.24338
+        }
+      }
+    },
+    {
+      "label": "seed42",
+      "audio_path": "artifacts/reports/diffsinger_gtsinger_heldout_set/listening/seed_stability/gtsja0380_soprano_seed42.wav",
+      "audio_sha256": "2bfbfc8d3a8f0a6367890c3c986bf9f55e695d0c64e42a4184d3550c2b02bcdd",
+      "asr_transcript": "ずっと抱きてただけど",
+      "asr_lyric_similarity": 0.8,
+      "teacher_forced_lyric_nll": 4.0117,
+      "pitch_median_abs_cents": 1.57,
+      "pitch_p90_abs_cents": 6.86,
+      "gross_error_over_600_cents": 0.0109,
+      "observed_voiced_ratio": 0.5845,
+      "voicing_accuracy": 0.9224,
+      "f0": {
+        "hz_p05": 192.16,
+        "hz_median": 239.63,
+        "hz_p95": 347.76,
+        "midi_p05": 54.66,
+        "midi_median": 58.48,
+        "midi_p95": 64.93
+      },
+      "peak": 0.56234,
+      "rms": 0.099027,
+      "clip_fraction": 0.0,
+      "hf_energy_ratio_mean": 0.011554,
+      "hf_energy_ratio_p95": 0.043724,
+      "hf_spike_p99_over_median": 55.9799,
+      "spectral_flatness_mean": 0.014588,
+      "spectral_flux_p95": 0.464948,
+      "spectral_flux_max": 0.718213,
+      "sample_jump_p999": 0.049804,
+      "pass": true,
+      "identity_similarity": {
+        "reference_count": 5,
+        "wavlm": {
+          "values": {
+            "data/processed/master/212.wav": 0.49597,
+            "data/processed/master/215.wav": 0.61801,
+            "data/processed/master/216.wav": 0.56998,
+            "data/processed/master/219.wav": 0.58606,
+            "data/processed/master/220.wav": 0.50807
+          },
+          "mean": 0.55562,
+          "min": 0.49597,
+          "max": 0.61801
+        },
+        "ecapa": {
+          "values": {
+            "data/processed/master/212.wav": 0.12342,
+            "data/processed/master/215.wav": 0.24377,
+            "data/processed/master/216.wav": 0.16614,
+            "data/processed/master/219.wav": 0.16437,
+            "data/processed/master/220.wav": 0.1808
+          },
+          "mean": 0.1757,
+          "min": 0.12342,
+          "max": 0.24377
+        }
+      }
+    }
+  ],
+  "identity_reference_paths": [
+    "data/processed/master/212.wav",
+    "data/processed/master/215.wav",
+    "data/processed/master/216.wav",
+    "data/processed/master/219.wav",
+    "data/processed/master/220.wav"
+  ],
+  "identity_adaptation_allowed": true,
+  "release_allowed": false,
+  "interpretation": "Every candidate must pass waveform/F0 checks and a free Whisper transcript. Teacher-forced NLL cannot rescue an unintelligible candidate; human listening remains mandatory."
+}

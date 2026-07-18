@@ -22,16 +22,33 @@ def _sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
-def seed_stability(paths: dict[str, dict[int, Path]]) -> dict:
+def seed_stability(paths: dict[str, dict[int, Path]], reports: dict[str, dict]) -> dict:
     phrases = {}
     for phrase, values in paths.items():
         hashes = {str(seed): _sha256(Path(path)) for seed, path in values.items()}
-        phrases[phrase] = {"sha256": hashes, "unique_sha256": len(set(hashes.values()))}
+        report = reports[phrase]
+        rows = {row["label"]: row for row in report["rows"]}
+        quality = {
+            str(seed): bool(
+                report["reference_calibration"]["free_asr_similarity"] >= .8
+                and rows[f"seed{seed}"]["pass"]
+            )
+            for seed in SEEDS
+        }
+        phrases[phrase] = {
+            "sha256": hashes,
+            "unique_sha256": len(set(hashes.values())),
+            "quality_gate": quality,
+            "all_quality_gates_pass": all(quality.values()),
+        }
     return {
         "seeds": list(SEEDS),
         "phrases": phrases,
+        "byte_identical": bool(phrases) and all(
+            phrases[phrase]["unique_sha256"] == 1 for phrase in paths
+        ),
         "stable": bool(phrases) and all(
-            len(values) == len(SEEDS) and phrases[phrase]["unique_sha256"] == 1
+            len(values) == len(SEEDS) and phrases[phrase]["all_quality_gates_pass"]
             for phrase, values in paths.items()
         ),
     }
@@ -158,7 +175,13 @@ def main() -> None:
         }
         for report in reports
     }
-    stability = seed_stability(seed_paths)
+    seed_reports = {
+        report["id"]: json.loads(
+            (args.report_dir / "seed_stability" / f"evaluation_{report['id']}.json").read_text()
+        )
+        for report in reports
+    }
+    stability = seed_stability(seed_paths, seed_reports)
     foundation_pass = candidates["soprano"]["status"] == "qualified_foundation_only" and stability["stable"]
     if candidates["tenor"]["status"] != "qualified_foundation_only":
         candidates["mix20"]["status"] = "reject_unqualified_identity_baseline"

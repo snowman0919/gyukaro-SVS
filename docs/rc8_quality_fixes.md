@@ -1,8 +1,8 @@
 # RC8 local quality candidate
 
-Status: **historical candidate invalidated by later human review; reaccreditation required.**
+Status: **candidate 3 rejected; final diagnostic failure; not human-pending.**
 
-The pass recorded below reflects the review available at that time. A later listening review reported excessive pitch and unintelligible output, so it is not a current release authorization. A fresh waveform/RMVPE/free-Whisper re-audit also classifies RC8 only as `objective_nonregression_human_pending`: aggregate high-frequency spikes and transition discontinuities regress, while WavLM and ECAPA identity scores do not improve. RC8 therefore remains comparison evidence, not an accepted release baseline.
+The pass recorded below reflects a historical review that has been superseded. A later listening review reported excessive pitch and unintelligible output, and the final mandatory machine gate failed. RC8 candidate 3 is rejected and retained only as comparison evidence; RC7 is the accepted experimental baseline.
 
 ## Candidate 3 re-audit (2026-07-18)
 
@@ -21,7 +21,7 @@ The actual `gyu-singer-rc8` backend then rendered all nine cases into `artifacts
 | WavLM-to-GYU | 0.617891 | 0.612911 |
 | ECAPA-to-GYU | 0.118516 | 0.114609 |
 
-Candidate 3 remains `objective_nonregression_human_pending`, not accepted RC8. Sustained noise proxies improved, but aggregate HF spikes, discontinuity, and identity still do not establish material improvement. EN and JA preserve or improve Whisper/F0 while retaining artifact trade-offs; Large Interval improves F0/voicing/HF but loses speaker similarity. Human listening is mandatory before any promotion, and RC9 remains unauthorized.
+Candidate 3 is rejected, not `human_pending`. Sustained noise proxies improved, but aggregate HF spikes, discontinuity, and identity regressions fail the mandatory gate. EN and JA retain artifact trade-offs; Large Interval improves some F0/voicing/HF measures but loses speaker similarity. RC9 remains blocked.
 
 ### English decoder isolation
 
@@ -44,7 +44,7 @@ Identical F0, identity, style, decoder settings, and seed were used for the four
 
 The grouped source improves text coverage but misses the `0.90` gate and more than doubles the HF-spike proxy while reducing voicing. Global warp does not remove the repetition. The normal quality phrase remains protected: the candidate SHA equals current RC8, while global warp reduces lyric similarity from `0.8571` to `0.7857` and chunking raises HF spike from `186.6091` to `579.8170` with a large WavLM drop.
 
-Evidence and WAVs: `artifacts/reports/rc8_ja_duplicate_span/evaluation.json`, `artifacts/reports/rc8_ja_duplicate_span/quality_ja/`, and `artifacts/reports/rc8_ja_duplicate_span/heldout_ja/`. The two `waveform_multires_stft.png` files contain waveform plus FFT-256/1024/4096 comparisons. All nine existing RC8 candidate WAV hashes still match their manifest. A is not promoted, RC8 remains human-pending, and RC9 remains unauthorized.
+Evidence and WAVs: `artifacts/reports/rc8_ja_duplicate_span/evaluation.json`, `artifacts/reports/rc8_ja_duplicate_span/quality_ja/`, and `artifacts/reports/rc8_ja_duplicate_span/heldout_ja/`. The two `waveform_multires_stft.png` files contain waveform plus FFT-256/1024/4096 comparisons. All nine existing RC8 candidate WAV hashes still match their manifest. A and RC8 candidate 3 are rejected, and RC9 remains blocked.
 
 ### OmniVoice duration-collapse grid
 
@@ -170,7 +170,7 @@ RC7 and RC8 were evaluated against target F0 rebuilt with the current frontend.
 | WavLM-to-GYU | 0.617891 | 0.619059 |
 | ECAPA-to-GYU | 0.118516 | 0.122516 |
 
-The candidate passes ASR, pitch, voicing, clipping, and identity non-regression. It does not achieve a global 5% HF-spike reduction; English and Japanese local fixes increase that aggregate. Therefore the report status is `objective_nonregression_human_pending`, not “materially improved.” The listening decision is authoritative for the remaining perceptual defects.
+This historical nine-file aggregate appeared to pass several isolated checks, but it did not achieve a global 5% HF-spike reduction and did not predict the later seed-specific lexical, clipping, Rapid, and identity failures. The final status is `rejected`, not `objective_nonregression_human_pending`.
 
 Human review passed eight cases and rejected the first Large Interval candidate. A follow-up score-domain sweep found an 80 ms large-jump onset transition that keeps exact ASR while changing the failure-region pYIN/YIN disagreement from about 1203 to 4 cents. Relative to the failed RC8 interval file, pitch MAE improves from 11.41 to 10.55 cents, voicing from 0.6958 to 0.7292, and HF spike p99/median from 92.55 to 50.71. The actual-backend retest then passed listening and the bounded transition is integrated.
 

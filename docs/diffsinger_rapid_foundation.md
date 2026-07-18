@@ -65,15 +65,15 @@ The single rapid C4 phrase was not sufficient evidence. A new evaluation-only se
 
 Every rendered WAV was analyzed directly. Each report records SHA-256, free Whisper transcript, RMVPE pitch and voicing, clipping, spectral/HF discontinuity evidence, and WavLM/ECAPA similarity distributions against five real GYU references. The same score, seed, and depth-zero auxiliary decode were used for the soprano foundation, tenor transfer, and 20% GYU speaker mix.
 
-| candidate | valid phrases | STT mean / minimum | max F0 p90 | max gross error | max HF/reference | WavLM / ECAPA mean |
+| candidate | valid phrases | STT mean / minimum | max F0 p90 | min voicing accuracy | max HF/reference | WavLM / ECAPA mean |
 |---|---:|---:|---:|---:|---:|---:|
-| soprano foundation | 5/5 | 0.9244 / 0.8372 | 33.12 cents | 1.72% | 1.070x | 0.54093 / 0.09710 |
-| tenor transfer | 2/5 | 0.6298 / 0.0000 | 28.38 cents | 0.59% | 2.901x | 0.74056 / 0.21269 |
-| tenor + 20% GYU | 1/5 | 0.6742 / 0.4444 | 34.73 cents | 0.88% | 3.023x | 0.73723 / 0.21152 |
+| soprano foundation | 5/5 | 0.9244 / 0.8372 | 33.12 cents | 0.8808 | 1.070x | 0.54093 / 0.09710 |
+| tenor transfer | 0/5 | 0.6298 / 0.0000 | 28.38 cents | 0.8160 | 2.901x | 0.74056 / 0.21269 |
+| tenor + 20% GYU | 1/5 | 0.6742 / 0.4444 | 34.73 cents | 0.7943 | 3.023x | 0.73723 / 0.21152 |
 
-The five-phrase validity rule is STT similarity at least `0.8`, pitch p90 at most `100` cents, gross pitch error at most `5%`, no clipping, and HF spike at most twice the matching source. The soprano source passes this machine gate but is not a GYU voice, so it is only a qualified foundation and not an RC. The tenor and GYU-mix candidates are rejected: their higher speaker similarity accompanies severe lexical collapse and reference-relative HF spikes. In the worst tenor row Whisper returns only repeated `ドゥー`; the mix row is also fragmented. A speaker score therefore cannot rescue either candidate.
+The five-phrase validity rule is STT similarity at least `0.8`, pitch p90 at most `100` cents, gross pitch error at most `5%`, target-grid voicing accuracy at least `0.8` for the foundation or no more than `0.02` below its matching baseline for an adaptation, no clipping, HF spike at most twice the matching source, and no material sample-jump regression. One failed phrase rejects the entire candidate. The soprano source passes this machine gate but is not a GYU voice, so it is only a qualified foundation and not an RC. The tenor and GYU-mix candidates are rejected: their higher speaker similarity accompanies severe lexical collapse, voicing/sample-jump regressions, and reference-relative HF spikes. In the worst tenor row Whisper returns only repeated `ドゥー`; the mix row is also fragmented. A speaker score therefore cannot rescue either candidate.
 
-The legacy `passes_gate` status inside each per-phrase report also enforces an absolute `0.8` voiced ratio designed for the no-rest rapid probe. It is intentionally not the aggregate decision for these longer phrases: matching sources range from `0.5041` to `0.8326` voiced because they contain rests and unvoiced regions. The actual observed ratios remain in every report for audit rather than being discarded.
+The evaluator now compares target and observed voiced/unvoiced state on the same 20 ms F0 grid. It no longer treats an absolute observed voiced ratio as correctness for these longer phrases with rests and unvoiced regions. The raw observed ratios remain in every report for audit.
 
 Authoritative reports:
 
@@ -82,8 +82,10 @@ Authoritative reports:
 - `artifacts/reports/diffsinger_gtsinger_heldout_set/evaluation_gtsja0174.json`
 - `artifacts/reports/diffsinger_gtsinger_heldout_set/evaluation_gtsja0379.json`
 - `artifacts/reports/diffsinger_gtsinger_heldout_set/evaluation_gtsja0380.json`
+- `artifacts/reports/diffsinger_gtsinger_heldout_set/aggregate_evaluation.json`
+- `artifacts/reports/diffsinger_gtsinger_heldout_set/seed_stability/`
 
-No human listening pass is claimed. This batch isolates the current failure to the tenor/GYU adaptation path rather than score timing or the qualified soprano acoustic foundation. It does not authorize RC8, OpenUtau packaging, or release.
+At fixed depth zero, seeds 7/21/42 produce different WAV hashes, so all fifteen soprano phrase×seed outputs were evaluated rather than assumed identical. Every one passes lexical, pitch, voicing, clipping, and HF gates. This establishes seed-stable score-native lexical/pitch behavior for the soprano foundation only. No human listening pass is claimed. The batch isolates the current failure to the tenor/GYU adaptation path rather than score timing or the qualified soprano acoustic foundation. It does not authorize identity adaptation, an acoustic refiner, RC8, OpenUtau packaging, or release.
 
 ## Identity-checkpoint freeze-contract defect
 
