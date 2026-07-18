@@ -72,31 +72,43 @@ def passes_gate(row: dict, reference: dict | None = None) -> bool:
     spike_ok = reference is None or (
         row["hf_spike_p99_over_median"] <= 2 * reference["hf_spike_p99_over_median"]
     )
+    voicing_ok = (
+        row["voicing_accuracy"] >= .8
+        if "voicing_accuracy" in row
+        else .8 <= row["observed_voiced_ratio"] <= .97
+    )
     return bool(
         row["asr_lyric_similarity"] >= .8
         and row["pitch_p90_abs_cents"] <= 100
         and row["gross_error_over_600_cents"] <= .05
-        and row["observed_voiced_ratio"] >= .8
-        and row["observed_voiced_ratio"] <= .97
+        and voicing_ok
         and row["clip_fraction"] == 0
         and spike_ok
     )
 
 
-def pitch_errors(target: np.ndarray, observed: np.ndarray, *, max_frame_delta: int = 1) -> np.ndarray:
-    """Compare equal-hop F0 without inventing pitch across unvoiced boundaries."""
+def _equal_hop_f0(target: np.ndarray, observed: np.ndarray, max_frame_delta: int = 1):
     if abs(len(target) - len(observed)) > max_frame_delta:
         raise ValueError(
             f"F0 grid length mismatch exceeds {max_frame_delta} frame: "
             f"target={len(target)}, observed={len(observed)}"
         )
     frames = min(len(target), len(observed))
-    target = target[:frames]
-    observed = observed[:frames]
+    return target[:frames], observed[:frames]
+
+
+def pitch_errors(target: np.ndarray, observed: np.ndarray, *, max_frame_delta: int = 1) -> np.ndarray:
+    """Compare equal-hop F0 without inventing pitch across unvoiced boundaries."""
+    target, observed = _equal_hop_f0(target, observed, max_frame_delta)
     both = (observed > 1) & (target > 1)
     if not np.any(both):
         raise ValueError("candidate and target have no jointly voiced F0 frames")
     return np.abs(1200 * np.log2(observed[both] / target[both]))
+
+
+def voicing_accuracy(target: np.ndarray, observed: np.ndarray, *, max_frame_delta: int = 1) -> float:
+    target, observed = _equal_hop_f0(target, observed, max_frame_delta)
+    return float(np.mean((target > 1) == (observed > 1)))
 
 
 def _stats(values: dict[str, float]) -> dict:
@@ -211,6 +223,7 @@ def main() -> None:
             "pitch_p90_abs_cents": round(float(np.percentile(cents, 90)), 2),
             "gross_error_over_600_cents": round(float(np.mean(cents > 600)), 4),
             "observed_voiced_ratio": round(float(np.mean(observed > 1)), 4),
+            "voicing_accuracy": round(voicing_accuracy(target, observed), 4),
             "f0": f0_summary(observed),
         } | acoustics(path)
         metrics["pass"] = passes_gate(metrics, reference_metrics)
@@ -267,9 +280,10 @@ def main() -> None:
         )
 
     candidate = max(rows, key=candidate_key)
+    source_pass = reference_asr_similarity is None or reference_asr_similarity >= .8
     report = {
-        "status": "source_probe_pass_human_pending" if candidate["pass"] else "source_probe_reject",
-        "selected": candidate["label"] if candidate["pass"] else None,
+        "status": "source_probe_pass_human_pending" if candidate["pass"] and source_pass else "source_probe_reject",
+        "selected": candidate["label"] if candidate["pass"] and source_pass else None,
         "best_diagnostic_candidate": candidate["label"],
         "gate": {
             "asr_lyric_similarity_min": .8,
@@ -278,6 +292,7 @@ def main() -> None:
             "gross_error_over_600_cents_max": .05,
             "observed_voiced_ratio_min": .8,
             "observed_voiced_ratio_max": .97,
+            "voicing_accuracy_min_when_target_grid_available": .8,
             "clip_fraction": 0,
             "hf_spike_p99_over_reference_max": 2.0,
         },
@@ -300,7 +315,7 @@ def main() -> None:
         "expected_text_characters": [len(normalized(value)) for value in args.expected_text],
         "rows": rows,
         "identity_reference_paths": identity_reference_paths,
-        "identity_adaptation_allowed": bool(candidate["pass"]),
+        "identity_adaptation_allowed": bool(candidate["pass"] and source_pass),
         "release_allowed": False,
         "interpretation": (
             "Every candidate must pass waveform/F0 checks and a free Whisper transcript. "

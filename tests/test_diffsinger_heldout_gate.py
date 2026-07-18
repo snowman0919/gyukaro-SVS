@@ -6,7 +6,11 @@ import torch
 
 sys.path.insert(0, str(Path("scripts").resolve()))
 from build_diffsinger_gtsinger_heldout_set import build_ds_row  # noqa: E402
-from evaluate_diffsinger_pjs_rapid import similarity_summary  # noqa: E402
+from evaluate_diffsinger_pjs_rapid import similarity_summary, voicing_accuracy  # noqa: E402
+from summarize_diffsinger_gtsinger_heldout_gate import (  # noqa: E402
+    aggregate_candidate_gate,
+    seed_stability,
+)
 from prepare_diffsinger_gtsinger_gyu_identity import (  # noqa: E402
     build_strict_identity_checkpoint,
     restore_shared_token_rows,
@@ -36,6 +40,63 @@ def test_identity_summary_keeps_every_reference_and_distribution():
     assert result["wavlm"]["values"] == {"a.wav": 1.0, "b.wav": 0.0}
     assert result["wavlm"]["mean"] == .5
     assert result["ecapa"]["min"] == 0.0
+
+
+def test_voicing_accuracy_uses_equal_hop_grid():
+    target = np.array([440.0, 0.0, 660.0], dtype=np.float32)
+    observed = np.array([440.0, 440.0, 660.0, 0.0], dtype=np.float32)
+
+    assert voicing_accuracy(target, observed) == 2 / 3
+
+
+def _gate_report(identifier: str, *, failed_label: str | None = None) -> dict:
+    reference = {
+        "free_asr_similarity": 1.0,
+        "waveform_analysis": {"hf_spike_p99_over_median": 100.0},
+    }
+    rows = []
+    for label in ("soprano", "tenor", "mix20"):
+        rows.append({
+            "label": label,
+            "asr_lyric_similarity": 0.7 if label == failed_label else 0.9,
+            "pitch_p90_abs_cents": 40.0,
+            "gross_error_over_600_cents": 0.0,
+            "voicing_accuracy": 0.9,
+            "clip_fraction": 0.0,
+            "hf_spike_p99_over_median": 100.0,
+            "sample_jump_p999": 0.1,
+            "identity_similarity": {
+                "wavlm": {"mean": 0.6, "values": {"a": 0.6}},
+                "ecapa": {"mean": 0.2, "values": {"a": 0.2}},
+            },
+        })
+    return {"id": identifier, "reference_calibration": reference, "rows": rows}
+
+
+def test_aggregate_gate_rejects_candidate_when_one_of_five_phrases_fails():
+    reports = [_gate_report(f"p{index}", failed_label="mix20" if index == 4 else None)
+               for index in range(5)]
+
+    result = aggregate_candidate_gate(reports, "mix20", baseline_label="tenor")
+
+    assert result["status"] == "reject"
+    assert result["passed_phrases"] == 4
+    assert result["failed_phrases"] == ["p4"]
+
+
+def test_seed_stability_requires_identical_sha_for_every_phrase(tmp_path):
+    files = {}
+    for phrase in ("a", "b"):
+        files[phrase] = {}
+        for seed in (7, 21, 42):
+            path = tmp_path / f"{phrase}_{seed}.wav"
+            path.write_bytes(phrase.encode())
+            files[phrase][seed] = path
+
+    result = seed_stability(files)
+
+    assert result["stable"] is True
+    assert all(row["unique_sha256"] == 1 for row in result["phrases"].values())
 
 
 def test_shared_silence_tokens_are_restored_after_identity_training(tmp_path):
