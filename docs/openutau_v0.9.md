@@ -133,6 +133,7 @@ cd /home/kotori9/code/gyukaro
 export GYU_SOULX_RUNTIME_DIR=/home/kotori9/code/gyukaro/.venv-soulx
 export GYU_SOULX_PYTHON=/home/kotori9/code/gyukaro/.venv-soulx/bin/python
 export GYU_SINGER_CACHE=/home/kotori9/code/gyukaro/data/cache
+./scripts/openutau_v09_full_runtime_readiness.sh
 
 ./scripts/openutau_v09_operational_check.sh /home/kotori9/code/gyukaro/artifacts/package/gyu-singer-v0.9-openutau
 ```
