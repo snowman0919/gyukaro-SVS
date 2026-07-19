@@ -438,3 +438,13 @@ voice_parts:
     assert score["notes"][0] == {"pitch": 60.25, "start": 0.0, "duration": 1.5, "lyric": "sing"}
     assert score["curves"]["pitch"][-1] == {"time": 1.5, "value": 1.0}
     assert score["style"]["preset"] == "energetic"
+
+
+def test_openutau_bridge_normalizes_render_url() -> None:
+    bridge_path = "integrations/openutau/bridge.py"
+    spec = __import__("importlib.util").util.spec_from_file_location("ustx_bridge_render_url", bridge_path)
+    bridge = __import__("importlib.util").util.module_from_spec(spec); spec.loader.exec_module(bridge)
+    assert bridge._resolve_render_url("http://127.0.0.1:8765") == "http://127.0.0.1:8765/render"
+    assert bridge._resolve_render_url("http://127.0.0.1:8765/") == "http://127.0.0.1:8765/render"
+    assert bridge._resolve_render_url("http://127.0.0.1:8765/render") == "http://127.0.0.1:8765/render"
+    assert bridge._resolve_render_url("http://127.0.0.1:8765/render/") == "http://127.0.0.1:8765/render"
