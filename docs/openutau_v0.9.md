@@ -53,6 +53,8 @@ dotnet build OpenUtau/OpenUtau.csproj -c Release
 # If you run from repository source checkout root, use <repo-root>/data/cache
 export GYU_SINGER_CACHE=/absolute/path/to/pinned/model-cache
 export GYU_SOULX_PYTHON=/absolute/path/to/.venv-soulx/bin/python  # optional when auto-discovery does not apply
+# or
+export GYU_SOULX_RUNTIME_DIR=/absolute/path/to/.venv-root  # optional: directory containing .venv/bin/python or bin/python
 export GYU_RENDERER_URL=http://127.0.0.1:8765/render
 ./serve.sh 8765
 ```
@@ -76,6 +78,8 @@ For repeatable smoke checks (recommended), run:
 export GYU_SINGER_CACHE=/absolute/path/to/pinned/model-cache
 # If you run from repository source checkout root, use <repo-root>/data/cache
 export GYU_SOULX_PYTHON=/absolute/path/to/.venv-soulx/bin/python
+# or
+export GYU_SOULX_RUNTIME_DIR=/absolute/path/to/.venv-root
 export OPENUTAU_REPO=/absolute/path/to/patched/OpenUtau
 export GYU_SMOKE_PORT=8765
 export GYU_SMOKE_OUTPUT_DIR=/tmp/gyu-v09-smoke
@@ -89,6 +93,8 @@ Equivalent manual flow:
 ```sh
 export GYU_SINGER_CACHE=/absolute/path/to/pinned/model-cache
 export GYU_SOULX_PYTHON=/absolute/path/to/.venv-soulx/bin/python
+# or
+export GYU_SOULX_RUNTIME_DIR=/absolute/path/to/.venv-root
 ./serve.sh 8765 >/tmp/gyu-singer-v0.9-serve.log 2>&1 &
 sleep 2
 curl -s http://127.0.0.1:8765/health

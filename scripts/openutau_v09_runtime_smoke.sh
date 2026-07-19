@@ -25,15 +25,32 @@ if [ ! -d "$GYU_SINGER_CACHE" ] || [ ! -d "$GYU_SINGER_CACHE/omnivoice/.venv/bin
   exit 2
 fi
 if [ -z "${GYU_SOULX_PYTHON:-}" ]; then
-  if [ -x "$ROOT_DIR/.venv-soulx/bin/python" ]; then
+  if [ -n "${GYU_SOULX_RUNTIME_DIR:-}" ] && [ -d "$GYU_SOULX_RUNTIME_DIR" ]; then
+    if [ -x "$GYU_SOULX_RUNTIME_DIR/.venv/bin/python" ]; then
+      GYU_SOULX_PYTHON="$GYU_SOULX_RUNTIME_DIR/.venv/bin/python"
+    elif [ -x "$GYU_SOULX_RUNTIME_DIR/bin/python" ]; then
+      GYU_SOULX_PYTHON="$GYU_SOULX_RUNTIME_DIR/bin/python"
+    fi
+  fi
+  if [ -z "${GYU_SOULX_PYTHON:-}" ] && [ -x "$ROOT_DIR/.venv-soulx/bin/python" ]; then
     GYU_SOULX_PYTHON="$ROOT_DIR/.venv-soulx/bin/python"
-  elif [ -x "$HOME/.venv-soulx/bin/python" ]; then
+  elif [ -z "${GYU_SOULX_PYTHON:-}" ] && [ -x "$ROOT_DIR/data/cache/soulx-singer/.venv/bin/python" ]; then
+    GYU_SOULX_PYTHON="$ROOT_DIR/data/cache/soulx-singer/.venv/bin/python"
+  elif [ -z "${GYU_SOULX_PYTHON:-}" ] && [ -x "$ROOT_DIR/data/cache/soulx-singer/.venv-soulx/bin/python" ]; then
+    GYU_SOULX_PYTHON="$ROOT_DIR/data/cache/soulx-singer/.venv-soulx/bin/python"
+  elif [ -z "${GYU_SOULX_PYTHON:-}" ] && [ -n "${GYU_SINGER_CACHE:-}" ] && [ -x "$GYU_SINGER_CACHE/soulx-singer/.venv/bin/python" ]; then
+    GYU_SOULX_PYTHON="$GYU_SINGER_CACHE/soulx-singer/.venv/bin/python"
+  elif [ -z "${GYU_SOULX_PYTHON:-}" ] && [ -n "${GYU_SINGER_CACHE:-}" ] && [ -x "$GYU_SINGER_CACHE/soulx-singer/.venv-soulx/bin/python" ]; then
+    GYU_SOULX_PYTHON="$GYU_SINGER_CACHE/soulx-singer/.venv-soulx/bin/python"
+  elif [ -z "${GYU_SOULX_PYTHON:-}" ] && [ -x "$HOME/.venv-soulx/bin/python" ]; then
     GYU_SOULX_PYTHON="$HOME/.venv-soulx/bin/python"
-  else
+  fi
+  if [ -z "${GYU_SOULX_PYTHON:-}" ]; then
     echo "GYU_SOULX_PYTHON is required and no auto-discover match was found" >&2
     exit 2
   fi
 fi
+export GYU_SOULX_PYTHON
 if [ ! -x "$GYU_SOULX_PYTHON" ]; then
   echo "Invalid GYU_SOULX_PYTHON: $GYU_SOULX_PYTHON" >&2
   exit 2
