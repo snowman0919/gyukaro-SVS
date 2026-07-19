@@ -3,11 +3,18 @@ set -eu
 
 SCRIPT_DIR="$(CDPATH= cd -- "$(dirname "$0")" && pwd)"
 ROOT="$(CDPATH= cd -- "$SCRIPT_DIR/.." && pwd)"
+if [ -d "$ROOT/artifacts/package/gyu-singer-v0.9-openutau" ]; then
+  DEFAULT_PACKAGE_DIR="$ROOT/artifacts/package/gyu-singer-v0.9-openutau"
+elif [ -f "$ROOT/serve.sh" ] && [ -d "$ROOT/scripts" ] && [ -f "$ROOT/integrations/openutau/test_resident_fork.sh" ]; then
+  DEFAULT_PACKAGE_DIR="$ROOT"
+else
+  DEFAULT_PACKAGE_DIR="$ROOT/artifacts/package/gyu-singer-v0.9-openutau"
+fi
 
 export GYU_SOULX_RUNTIME_DIR="${GYU_SOULX_RUNTIME_DIR:-$ROOT/.venv-soulx}"
 export GYU_SOULX_PYTHON="${GYU_SOULX_PYTHON:-$ROOT/.venv-soulx/bin/python}"
 export GYU_SINGER_CACHE="${GYU_SINGER_CACHE:-$ROOT/data/cache}"
-export GYU_V09_PACKAGE_DIR="${GYU_V09_PACKAGE_DIR:-$ROOT/artifacts/package/gyu-singer-v0.9-openutau}"
+export GYU_V09_PACKAGE_DIR="${GYU_V09_PACKAGE_DIR:-$DEFAULT_PACKAGE_DIR}"
 export GYU_V09_READINESS_OUTPUT_DIR="${GYU_V09_READINESS_OUTPUT_DIR:-$ROOT/artifacts/reports/openutau_v09}"
 export GYU_SMOKE_OUTPUT_DIR="${GYU_SMOKE_OUTPUT_DIR:-/tmp/gyu-v09-operational-check}"
 export GYU_SMOKE_PORT="${GYU_SMOKE_PORT:-8780}"
