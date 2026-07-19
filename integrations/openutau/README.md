@@ -21,6 +21,8 @@ Start the GPU-resident renderer once; models stay loaded across phrase requests:
 ```sh
 export GYU_SINGER_CACHE=/absolute/path/to/pinned/model-cache
 export GYU_SOULX_PYTHON=/absolute/path/to/.venv-soulx/bin/python  # optional when auto-discovery does not apply
+# or
+export GYU_SOULX_RUNTIME_DIR=/absolute/path/to/.venv-root
 ./serve.sh 8765
 export GYU_RENDERER_URL=http://127.0.0.1:8765/render
 curl http://127.0.0.1:8765/health
