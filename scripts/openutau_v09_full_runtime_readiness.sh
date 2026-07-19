@@ -21,10 +21,6 @@ if [ ! -d "$GYU_SINGER_CACHE" ]; then
   echo "cannot find cache dir: $GYU_SINGER_CACHE" >&2
   exit 2
 fi
-if [ ! -d "$GYU_V09_PACKAGE_DIR" ]; then
-  echo "cannot find package dir: $GYU_V09_PACKAGE_DIR" >&2
-  exit 2
-fi
 
 cd "$ROOT"
 
