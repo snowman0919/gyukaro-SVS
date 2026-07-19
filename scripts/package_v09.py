@@ -29,6 +29,7 @@ FILES = [
     Path("examples/quality_en.json"),
     Path("examples/quality_ja.json"),
     Path("examples/openutau_v09.ustx"),
+    Path("examples/openutau_v10_longform.ustx"),
     Path("integrations/openutau"),
     Path("artifacts/reports/openutau_v09/behavior.json"),
     Path("artifacts/reports/openutau_v09/outputs"),
