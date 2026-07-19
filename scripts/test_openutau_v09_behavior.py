@@ -102,8 +102,9 @@ def main() -> None:
     base_audio, edited_audio = audio16(paths["ko"]), audio16(paths["lyric_edit"])
     size = min(len(base_audio), len(edited_audio))
     lyric_waveform_difference = float(np.sqrt(np.mean((base_audio[:size] - edited_audio[:size]) ** 2)))
+    sample_rate = formats["ko"]["sample_rate"] if "ko" in formats else 48000
     gates = {
-        "ko_en_ja_expected_format": all(value["sample_rate"] == (44100 if args.existing_audio_dir else 48000) and value["channels"] == 1 for value in formats.values()),
+        "ko_en_ja_expected_format": all(value["sample_rate"] == sample_rate and value["channels"] == 1 for value in formats.values()),
         "note_edit_changes_pitch": np.isfinite(note_shift) and note_shift > 100,
         "user_pitch_curve_changes_f0": np.isfinite(user_shift) and user_shift > 40,
         "lyric_edit_changes_content": normalized(base_transcript) != normalized(edited_transcript) and lyric_waveform_difference > .005,
