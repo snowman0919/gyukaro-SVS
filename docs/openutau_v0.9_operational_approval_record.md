@@ -1,6 +1,6 @@
 # OpenUtau v0.9 실사용 운영 승인 기록 (Runtime-path 기준)
 
-생성시각: 2026-07-19T21:38:35Z
+생성시각: 2026-07-19T21:43:26Z
 패키지: `/home/kotori9/code/gyukaro/artifacts/package/gyu-singer-v0.9-openutau`
 readiness 요약: `/home/kotori9/code/gyukaro/artifacts/reports/openutau_v09/readiness_summary.json`
 behavior JSON: `/tmp/gyu-v09-operational-check/openutau_v09_operational_behavior.json`
@@ -27,6 +27,7 @@ smoke WAV: `/tmp/gyu-v09-operational-check/openutau_v09_smoke.wav`
 export GYU_SOULX_RUNTIME_DIR=/home/kotori9/code/gyukaro/.venv-soulx
 export GYU_SOULX_PYTHON=/home/kotori9/code/gyukaro/.venv-soulx/bin/python
 export GYU_SINGER_CACHE=/home/kotori9/code/gyukaro/data/cache
+export GYU_V09_PACKAGE_DIR=/home/kotori9/code/gyukaro/artifacts/package/gyu-singer-v0.9-openutau
 cd /home/kotori9/code/gyukaro
 ./scripts/openutau_v09_full_runtime_readiness.sh
 ```
