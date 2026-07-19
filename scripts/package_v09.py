@@ -18,6 +18,7 @@ FILES = [
     Path("scripts/generate_omnivoice_phrase.py"),
     Path("scripts/test_openutau_v09_behavior.py"),
     Path("scripts/openutau_v09_runtime_smoke.sh"),
+    Path("scripts/verify_v09_runtime_paths.sh"),
     Path("checkpoints/gyu_prosody_v0.5.pt"),
     Path("checkpoints/gyu_teacher_identity_v0.5.pt"),
     Path("checkpoints/gyu_acoustic_style_adapter_v0.5.pt"),
