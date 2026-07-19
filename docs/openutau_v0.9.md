@@ -50,6 +50,7 @@ git clone https://github.com/stakira/OpenUtau.git
 git -C OpenUtau checkout 27573ac5c888d927119d5f65a207312d79194b1f
 ./integrations/openutau/install_fork.sh OpenUtau
 dotnet build OpenUtau/OpenUtau.csproj -c Release
+# If you run from repository source checkout root, use <repo-root>/data/cache
 export GYU_SINGER_CACHE=/absolute/path/to/pinned/model-cache
 export GYU_SOULX_PYTHON=/absolute/path/to/.venv-soulx/bin/python  # optional when auto-discovery does not apply
 export GYU_RENDERER_URL=http://127.0.0.1:8765/render
@@ -73,6 +74,7 @@ For repeatable smoke checks (recommended), run:
 
 ```sh
 export GYU_SINGER_CACHE=/absolute/path/to/pinned/model-cache
+# If you run from repository source checkout root, use <repo-root>/data/cache
 export GYU_SOULX_PYTHON=/absolute/path/to/.venv-soulx/bin/python
 export OPENUTAU_REPO=/absolute/path/to/patched/OpenUtau
 export GYU_SMOKE_PORT=8765
