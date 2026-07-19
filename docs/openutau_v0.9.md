@@ -186,6 +186,13 @@ For a single fixed-runtime-path check (source-tree and packaged tree), use:
 ./scripts/verify_v09_runtime_paths.sh /path/to/gyu-singer-v0.9-openutau
 ```
 
+or one-command operational snapshot:
+
+```sh
+cd /home/kotori9/code/gyukaro
+./scripts/openutau_v09_ready_check.sh
+```
+
 Equivalent manual flow:
 
 ```sh
