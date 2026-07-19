@@ -175,7 +175,7 @@ GYU_SOULX_RUNTIME_DIR=/home/kotori9/code/gyukaro/.venv-soulx \
 GYU_SOULX_PYTHON=/home/kotori9/code/gyukaro/.venv-soulx/bin/python \
 GYU_SINGER_CACHE=/home/kotori9/code/gyukaro/data/cache \
 ./scripts/openutau_v09_operational_check.sh /home/kotori9/code/gyukaro/artifacts/package/gyu-singer-v0.9-openutau >/tmp/openutau_v09_operational_check_stdout.log
-jq -r '(.pass and ([.gates[]] | all) ) | tostring' /tmp/gyu-v09-operational-check/openutau_v09_operational_behavior.json
+jq -r '(.pass and (.gates | all(.))) | tostring' /tmp/gyu-v09-operational-check/openutau_v09_operational_behavior.json
 ```
 
 `pass: true`가 출력되고 `/tmp/gyu-v09-operational-check/openutau_v09_operational_behavior.json`에서 `ko/en/ja`가 48k mono인지를 확인하면 OpenUtau 경로는 실사용 조건을 만족한 상태입니다.
