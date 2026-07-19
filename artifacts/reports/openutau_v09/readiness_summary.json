@@ -1,0 +1,89 @@
+{
+  "generated_at": "2026-07-19T20:06:14.277979Z",
+  "working_root": "/home/kotori9/code/gyukaro",
+  "dataset_validation": {
+    "command": "python scripts/validate_dataset.py",
+    "returncode": 0,
+    "stdout_tail": "PASS recordings=132 sequential=106..237 pcm=48k_mono corrupt=0",
+    "stderr_tail": "",
+    "pass": true
+  },
+  "pytest_check": {
+    "command": "python -m pytest tests/test_openutau_diffsinger_package.py tests/test_openutau_native_evaluation.py tests/test_hybrid.py::test_openutau_bridge_normalizes_render_url -q",
+    "returncode": 0,
+    "stdout_tail": "../../.pyenv/versions/3.11.14/lib/python3.11/site-packages/opentelemetry/util/_importlib_metadata.py:32\n  /home/kotori9/.pyenv/versions/3.11.14/lib/python3.11/site-packages/opentelemetry/util/_importlib_metadata.py:32: DeprecationWarning: SelectableGroups dict interface is deprecated. Use select.\n    return EntryPoints(ep for group_eps in eps.values() for ep in group_eps)\n\n<frozen importlib._bootstrap>:241\n  <frozen importlib._bootstrap>:241: DeprecationWarning: builtin type SwigPyPacked has no __module__ attribute\n\n<frozen importlib._bootstrap>:241\n  <frozen importlib._bootstrap>:241: DeprecationWarning: builtin type SwigPyObject has no __module__ attribute\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n5 passed, 3 warnings in 3.40s",
+    "stderr_tail": "sys:1: DeprecationWarning: builtin type swigvarlink has no __module__ attribute",
+    "pass": true
+  },
+  "package": {
+    "zip": "artifacts/package/gyu-singer-v0.9-openutau.zip",
+    "declared_sha256": "ff8890c703af76439da135a8c4738706faa4e0bd330cf4f8bbc1241739e99e10",
+    "actual_sha256": "ff8890c703af76439da135a8c4738706faa4e0bd330cf4f8bbc1241739e99e10",
+    "hash_match": true
+  },
+  "verify_v09_runtime_paths": {
+    "command": "bash scripts/verify_v09_runtime_paths.sh /tmp/gyu-v09-clean/gyu-singer-v0.9-openutau",
+    "returncode": 0,
+    "stdout": "smoke_status=0\nrender_size=1428524",
+    "smoke_status_0": true
+  },
+  "operational_check": {
+    "command": "bash scripts/openutau_v09_operational_check.sh /tmp/gyu-v09-clean/gyu-singer-v0.9-openutau >/tmp/gyu-v09-readiness/operational_check_stdout.log 2>&1",
+    "returncode": 0,
+    "pass": true,
+    "gates": {
+      "ko_en_ja_expected_format": true,
+      "note_edit_changes_pitch": true,
+      "user_pitch_curve_changes_f0": true,
+      "lyric_edit_changes_content": true,
+      "energetic_style_changes_audio": true
+    },
+    "formats": {
+      "ko": {
+        "sample_rate": 48000,
+        "channels": 1,
+        "seconds": 2.12
+      },
+      "en": {
+        "sample_rate": 48000,
+        "channels": 1,
+        "seconds": 2.12
+      },
+      "ja": {
+        "sample_rate": 48000,
+        "channels": 1,
+        "seconds": 2.12
+      },
+      "note_pitch_edit": {
+        "sample_rate": 48000,
+        "channels": 1,
+        "seconds": 2.12
+      },
+      "lyric_edit": {
+        "sample_rate": 48000,
+        "channels": 1,
+        "seconds": 2.12
+      },
+      "user_pitch_edit": {
+        "sample_rate": 48000,
+        "channels": 1,
+        "seconds": 2.12
+      },
+      "style_energetic": {
+        "sample_rate": 48000,
+        "channels": 1,
+        "seconds": 2.12
+      }
+    },
+    "outputs": {
+      "ko": "/tmp/gyu-v09-operational-check/outputs/ko.wav",
+      "en": "/tmp/gyu-v09-operational-check/outputs/en.wav",
+      "ja": "/tmp/gyu-v09-operational-check/outputs/ja.wav",
+      "note_pitch_edit": "/tmp/gyu-v09-operational-check/outputs/note_pitch_edit.wav",
+      "lyric_edit": "/tmp/gyu-v09-operational-check/outputs/lyric_edit.wav",
+      "user_pitch_edit": "/tmp/gyu-v09-operational-check/outputs/user_pitch_edit.wav",
+      "style_energetic": "/tmp/gyu-v09-operational-check/outputs/style_energetic.wav"
+    }
+  },
+  "READY": true
+}
