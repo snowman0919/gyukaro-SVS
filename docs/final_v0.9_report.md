@@ -47,7 +47,7 @@ On the 24-row independent score set, v0.5 has the lowest pitch MAE (134.5467 cen
 
 Current OpenUtau has an internal `IRenderer` API but no external renderer-registration API. The smallest supported solution is a pinned maintained fork. `install_fork.sh` applies three registration hunks and installs `GyuSingerRenderer.cs`; it adds a virtual singer whose dummy OTOs form phrases but never synthesize audio. The renderer maps notes, lyrics, tempo, phonemes, final OpenUtau pitch including vibrato/PITD, dynamics, breathiness, tension, and GYUS style. Complete request SHA-256 controls phrase caching and edit invalidation.
 
-`examples/openutau_v09.ustx` loads three GYU tracks. Seven native tests pass. A separate test invokes the real C# renderer and receives resident phrase audio. `scripts/test_openutau_v09_behavior.py` reports:
+`examples/openutau_v09.ustx` loads three GYU tracks. The package-native verification suite (4 tests total: 3 package tests + 1 native integration test) and a separate resident C# renderer test pass. Ad-hoc endpoint checks are available via `scripts/test_openutau_v09_behavior.py`.
 
 - note pitch +2 semitones -> +200.41 cents RMVPE;
 - PITD +1 semitone -> +92.52 cents RMVPE;
