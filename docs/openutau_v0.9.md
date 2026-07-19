@@ -136,6 +136,13 @@ export GYU_SINGER_CACHE=/home/kotori9/code/gyukaro/data/cache
 ./scripts/openutau_v09_full_runtime_readiness.sh
 ```
 
+또는 운영 반출에서 권장되는 최종 명령:
+
+```sh
+cd /home/kotori9/code/gyukaro
+./scripts/openutau_v09_production_readiness.sh
+```
+
 또는, 수동 체크(동일 동작):
 
 ```sh
