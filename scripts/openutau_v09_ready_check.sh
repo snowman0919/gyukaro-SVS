@@ -6,6 +6,64 @@ ROOT="$(CDPATH= cd -- "$SCRIPT_DIR/.." && pwd)"
 PACKAGE_DIR="${GYU_V09_PACKAGE_DIR:-$ROOT/artifacts/package/gyu-singer-v0.9-openutau}"
 OUTPUT_DIR="${GYU_V09_READINESS_OUTPUT_DIR:-$ROOT/artifacts/reports/openutau_v09}"
 
+if [ -z "${GYU_SOULX_RUNTIME_DIR:-}" ] && [ -x "$ROOT/.venv-soulx/.venv/bin/python" ]; then
+  GYU_SOULX_RUNTIME_DIR="$ROOT/.venv-soulx"
+elif [ -z "${GYU_SOULX_RUNTIME_DIR:-}" ] && [ -x "$ROOT/.venv-soulx/bin/python" ]; then
+  GYU_SOULX_RUNTIME_DIR="$ROOT/.venv-soulx"
+elif [ -z "${GYU_SOULX_RUNTIME_DIR:-}" ] && [ -x "$ROOT/../.venv-soulx/bin/python" ]; then
+  GYU_SOULX_RUNTIME_DIR="$ROOT/../.venv-soulx"
+elif [ -z "${GYU_SOULX_RUNTIME_DIR:-}" ] && [ -x "$ROOT/../../.venv-soulx/bin/python" ]; then
+  GYU_SOULX_RUNTIME_DIR="$ROOT/../../.venv-soulx"
+elif [ -z "${GYU_SOULX_RUNTIME_DIR:-}" ] && [ -x "$ROOT/../../../.venv-soulx/bin/python" ]; then
+  GYU_SOULX_RUNTIME_DIR="$ROOT/../../../.venv-soulx"
+elif [ -z "${GYU_SOULX_RUNTIME_DIR:-}" ] && [ -x "$HOME/.venv-soulx/bin/python" ]; then
+  GYU_SOULX_RUNTIME_DIR="$HOME/.venv-soulx"
+fi
+
+if [ -z "${GYU_SOULX_PYTHON:-}" ]; then
+  if [ -n "${GYU_SOULX_RUNTIME_DIR:-}" ] && [ -x "$GYU_SOULX_RUNTIME_DIR/.venv/bin/python" ]; then
+    GYU_SOULX_PYTHON="$GYU_SOULX_RUNTIME_DIR/.venv/bin/python"
+  elif [ -n "${GYU_SOULX_RUNTIME_DIR:-}" ] && [ -x "$GYU_SOULX_RUNTIME_DIR/bin/python" ]; then
+    GYU_SOULX_PYTHON="$GYU_SOULX_RUNTIME_DIR/bin/python"
+  elif [ -x "$ROOT/.venv-soulx/.venv/bin/python" ]; then
+    GYU_SOULX_PYTHON="$ROOT/.venv-soulx/.venv/bin/python"
+  elif [ -x "$ROOT/../.venv-soulx/.venv/bin/python" ]; then
+    GYU_SOULX_PYTHON="$ROOT/../.venv-soulx/.venv/bin/python"
+  elif [ -x "$ROOT/../../.venv-soulx/.venv/bin/python" ]; then
+    GYU_SOULX_PYTHON="$ROOT/../../.venv-soulx/.venv/bin/python"
+  elif [ -x "$ROOT/../../../.venv-soulx/.venv/bin/python" ]; then
+    GYU_SOULX_PYTHON="$ROOT/../../../.venv-soulx/.venv/bin/python"
+  elif [ -x "$HOME/.venv-soulx/.venv/bin/python" ]; then
+    GYU_SOULX_PYTHON="$HOME/.venv-soulx/.venv/bin/python"
+  elif [ -x "$ROOT/.venv-soulx/bin/python" ]; then
+    GYU_SOULX_PYTHON="$ROOT/.venv-soulx/bin/python"
+  elif [ -x "$ROOT/../.venv-soulx/bin/python" ]; then
+    GYU_SOULX_PYTHON="$ROOT/../.venv-soulx/bin/python"
+  elif [ -x "$ROOT/../../.venv-soulx/bin/python" ]; then
+    GYU_SOULX_PYTHON="$ROOT/../../.venv-soulx/bin/python"
+  elif [ -x "$ROOT/../../../.venv-soulx/bin/python" ]; then
+    GYU_SOULX_PYTHON="$ROOT/../../../.venv-soulx/bin/python"
+  elif [ -x "$HOME/.venv-soulx/bin/python" ]; then
+    GYU_SOULX_PYTHON="$HOME/.venv-soulx/bin/python"
+  fi
+fi
+
+if [ -n "${GYU_SOULX_PYTHON:-}" ]; then
+  export GYU_SOULX_PYTHON
+fi
+if [ -n "${GYU_SOULX_RUNTIME_DIR:-}" ]; then
+  export GYU_SOULX_RUNTIME_DIR
+fi
+
+if [ -z "${GYU_SINGER_CACHE:-}" ]; then
+  if [ -d "$ROOT/data/cache" ]; then
+    GYU_SINGER_CACHE="$ROOT/data/cache"
+  elif [ -d "$ROOT/../../data/cache" ]; then
+    GYU_SINGER_CACHE="$ROOT/../../data/cache"
+  fi
+fi
+export GYU_SINGER_CACHE
+
 ensure_package_dir() {
   if [ -d "$PACKAGE_DIR" ]; then
     return 0
