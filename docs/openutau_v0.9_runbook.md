@@ -128,6 +128,14 @@ cd /home/kotori9/code/gyukaro
 ./scripts/openutau_v09_full_runtime_readiness.sh
 ```
 
+원하면 패키지 테스트까지 포함한 오퍼레이션 체크도 한 번에 실행합니다.
+
+```sh
+cd /home/kotori9/code/gyukaro
+export GYU_OPS_RUN_PKG_TESTS=1
+./scripts/openutau_v09_ops_check.sh
+```
+
 기록 산출물:
 - `openutau_v09-readiness-summary`(기본: `artifacts/reports/openutau_v09/readiness_summary.json`)
 - `openutau_v09-operational-behavior`(기본: `$GYU_SMOKE_OUTPUT_DIR/openutau_v09_operational_behavior.json`, 기본값 `/tmp/gyu-v09-operational-check/openutau_v09_operational_behavior.json`)
