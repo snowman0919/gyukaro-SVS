@@ -67,12 +67,17 @@ def main() -> None:
     (root / "PACKAGE.json").write_text(json.dumps(metadata, indent=2) + "\n")
     (root / "serve.sh").write_text("""#!/bin/sh
 set -eu
-cd "$(dirname "$0")"
+SCRIPT_DIR="$(CDPATH= cd -- "$(dirname "$0")" && pwd)"
+cd "$SCRIPT_DIR"
 : "${GYU_SINGER_CACHE:?set GYU_SINGER_CACHE to the pinned model cache}"
+if [ ! -d "$GYU_SINGER_CACHE" ]; then
+  echo "missing GYU_SINGER_CACHE: $GYU_SINGER_CACHE"
+  exit 2
+fi
 if [ -z "${GYU_SOULX_PYTHON:-}" ] && [ -x "$GYU_SINGER_CACHE/soulx-singer/.venv/bin/python" ]; then
   GYU_SOULX_PYTHON=$GYU_SINGER_CACHE/soulx-singer/.venv/bin/python
-elif [ -z "${GYU_SOULX_PYTHON:-}" ] && [ -x "$(CDPATH= cd -- "$(dirname "$0")" && pwd)/.venv-soulx/bin/python" ]; then
-  GYU_SOULX_PYTHON="$(CDPATH= cd -- "$(dirname "$0")" && pwd)/.venv-soulx/bin/python"
+elif [ -z "${GYU_SOULX_PYTHON:-}" ] && [ -x "$SCRIPT_DIR/.venv-soulx/bin/python" ]; then
+  GYU_SOULX_PYTHON="$SCRIPT_DIR/.venv-soulx/bin/python"
 elif [ -z "${GYU_SOULX_PYTHON:-}" ] && [ -x "$HOME/.venv-soulx/bin/python" ]; then
   GYU_SOULX_PYTHON="$HOME/.venv-soulx/bin/python"
 fi
@@ -88,12 +93,17 @@ exec env PYTHONPATH=src python -m gyu_singer.cli --backend gyu-singer-v0.8 --ref
 """)
     (root / "render.sh").write_text("""#!/bin/sh
 set -eu
-cd "$(dirname "$0")"
+SCRIPT_DIR="$(CDPATH= cd -- "$(dirname "$0")" && pwd)"
+cd "$SCRIPT_DIR"
 : "${GYU_SINGER_CACHE:?set GYU_SINGER_CACHE to the pinned model cache}"
+if [ ! -d "$GYU_SINGER_CACHE" ]; then
+  echo "missing GYU_SINGER_CACHE: $GYU_SINGER_CACHE"
+  exit 2
+fi
 if [ -z "${GYU_SOULX_PYTHON:-}" ] && [ -x "$GYU_SINGER_CACHE/soulx-singer/.venv/bin/python" ]; then
   GYU_SOULX_PYTHON=$GYU_SINGER_CACHE/soulx-singer/.venv/bin/python
-elif [ -z "${GYU_SOULX_PYTHON:-}" ] && [ -x "$(CDPATH= cd -- "$(dirname "$0")" && pwd)/.venv-soulx/bin/python" ]; then
-  GYU_SOULX_PYTHON="$(CDPATH= cd -- "$(dirname "$0")" && pwd)/.venv-soulx/bin/python"
+elif [ -z "${GYU_SOULX_PYTHON:-}" ] && [ -x "$SCRIPT_DIR/.venv-soulx/bin/python" ]; then
+  GYU_SOULX_PYTHON="$SCRIPT_DIR/.venv-soulx/bin/python"
 elif [ -z "${GYU_SOULX_PYTHON:-}" ] && [ -x "$HOME/.venv-soulx/bin/python" ]; then
   GYU_SOULX_PYTHON="$HOME/.venv-soulx/bin/python"
 fi
