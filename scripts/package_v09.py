@@ -32,7 +32,6 @@ FILES = [
     Path("examples/openutau_v10_longform.ustx"),
     Path("integrations/openutau"),
     Path("artifacts/reports/openutau_v09/behavior.json"),
-    Path("artifacts/reports/openutau_v09/outputs"),
     Path("docs/v0.6_baseline.md"),
     Path("docs/real_latent_dataset.md"),
     Path("docs/identity_adapter_v0.7.md"),
