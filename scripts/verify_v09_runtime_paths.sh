@@ -1,14 +1,30 @@
 #!/usr/bin/env sh
 set -eu
-ROOT=${1:-/tmp/gyu-singer-v0.9-openutau-test3}
-RUNTIME_DIR=${GYU_SOULX_RUNTIME_DIR:-/home/kotori9/code/gyukaro/.venv-soulx}
-CACHE_DIR=${GYU_SINGER_CACHE:-/home/kotori9/code/gyukaro/data/cache}
+
+ROOT=${1:-$(pwd)}
+RUNTIME_DIR=${GYU_SOULX_RUNTIME_DIR:-}
+CACHE_DIR=${GYU_SINGER_CACHE:-}
+
 cd "$ROOT"
-rm -f /tmp/v09-verify-serve.log /tmp/v09-verify-render.wav /tmp/v09-verify-smoke.log
+if [ -z "$RUNTIME_DIR" ] && [ -d "$ROOT/.venv-soulx" ]; then
+  RUNTIME_DIR="$ROOT/.venv-soulx"
+elif [ -z "$RUNTIME_DIR" ] && [ -d "$HOME/.venv-soulx" ]; then
+  RUNTIME_DIR="$HOME/.venv-soulx"
+fi
+if [ -z "$CACHE_DIR" ] && [ -d "$ROOT/data/cache" ]; then
+  CACHE_DIR="$ROOT/data/cache"
+elif [ -z "$CACHE_DIR" ] && [ -d "$HOME/code/gyukaro/data/cache" ]; then
+  CACHE_DIR="$HOME/code/gyukaro/data/cache"
+fi
+if [ -z "$RUNTIME_DIR" ] || [ -z "$CACHE_DIR" ]; then
+  echo "set GYU_SOULX_RUNTIME_DIR and GYU_SINGER_CACHE" >&2
+  exit 2
+fi
 
 export GYU_SOULX_RUNTIME_DIR="$RUNTIME_DIR"
 export GYU_SINGER_CACHE="$CACHE_DIR"
 unset GYU_SOULX_PYTHON
+rm -f /tmp/v09-verify-serve.log /tmp/v09-verify-render.wav /tmp/v09-verify-smoke.log
 
 if [ -f "gyu-singer-v0.9-openutau/scripts/openutau_v09_runtime_smoke.sh" ]; then
   cd gyu-singer-v0.9-openutau
@@ -27,10 +43,10 @@ if [ "$status" -ne 0 ]; then
   exit 2
 fi
 
-bash ./serve.sh 8777 >/tmp/v09-verify-serve.log 2>&1 &
+bash ./serve.sh 8777 > /tmp/v09-verify-serve.log 2>&1 &
 SERVE_PID=$!
 sleep 10
-python - <<PY
+python - <<'PY'
 import time, urllib.request
 ok=False
 for _ in range(30):
