@@ -1,6 +1,6 @@
 # OpenUtau v0.9 실사용 운영 승인 기록 (Runtime-path 기준)
 
-생성시각: 2026-07-19T21:43:26Z
+생성시각: 2026-07-19T21:54:38Z
 패키지: `/home/kotori9/code/gyukaro/artifacts/package/gyu-singer-v0.9-openutau`
 readiness 요약: `/home/kotori9/code/gyukaro/artifacts/reports/openutau_v09/readiness_summary.json`
 behavior JSON: `/tmp/gyu-v09-operational-check/openutau_v09_operational_behavior.json`
@@ -13,7 +13,7 @@ smoke WAV: `/tmp/gyu-v09-operational-check/openutau_v09_smoke.wav`
 - verify_v09_runtime_paths: `true`
 - operational check: `true`
 - behavioral gates: ko_en_ja_expected_format=true, note_edit_changes_pitch=true, user_pitch_curve_changes_f0=true, lyric_edit_changes_content=true, energetic_style_changes_audio=true
-- 패키지 해시 일치: `true` (`ff8890c703af76439da135a8c4738706faa4e0bd330cf4f8bbc1241739e99e10`)
+- 패키지 해시 일치: `true` (`6172867781121abdb471c64d20a492f332b90655af04063c80293ec737f57fcd`)
 - smoke 파일 SHA-256: `8cc08abadd0f5fc381ae9caea15fcae04072954ff489a8ca254230a1100c04eb`
 - smoke size: `305324` bytes
 
