@@ -26,6 +26,14 @@ remain available for reproducing evidence with local caches, but must not be
 used to claim production or OpenUtau readiness:
 
 ```sh
+export GYU_SINGER_CACHE="$PWD/data/cache"
+export GYU_SOULX_PYTHON="$PWD/.venv-soulx/bin/python"  # optional if discoverable in cache
+export PYTHONPATH=src
+
+./serve.sh 8765
+./render.sh examples/quality_ko.json gyu-ko.wav
+
+# Equivalent legacy direct CLI
 GYU_SINGER_CACHE="$PWD/data/cache" \
 GYU_SOULX_PYTHON="$PWD/.venv-soulx/bin/python" \
 PYTHONPATH=src python -m gyu_singer.cli --backend hybrid-svs --allow-experimental \
@@ -39,8 +47,14 @@ Status and evidence hashes are recorded in `configs/project_status.json` and
 ## Historical renderer API
 
 ```sh
+export GYU_SINGER_CACHE="$PWD/data/cache"
+export GYU_SOULX_PYTHON="$PWD/.venv-soulx/bin/python"  # optional if discoverable in cache
+./serve.sh 8765
+
+# Equivalent legacy direct CLI
 GYU_SINGER_CACHE="$PWD/data/cache" GYU_SOULX_PYTHON="$PWD/.venv-soulx/bin/python" \
-PYTHONPATH=src python -m gyu_singer.cli --backend hybrid-svs --allow-experimental serve --port 8765
+PYTHONPATH=src python -m gyu_singer.cli --backend hybrid-svs --allow-experimental \
+  serve --port 8765
 python integrations/openutau/bridge.py examples/openutau_smoke.ustx --language ko \
   --output song.json --render-url http://127.0.0.1:8765 --wav song.wav
 ```
