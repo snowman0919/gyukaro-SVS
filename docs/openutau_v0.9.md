@@ -192,6 +192,14 @@ cd /home/kotori9/code/gyukaro
 ./scripts/openutau_v09_ready_check.sh
 ```
 
+필요 시 패키지 테스트(5개)까지 포함한 오퍼레이션 단일 체크는 아래입니다.
+
+```sh
+cd /home/kotori9/code/gyukaro
+export GYU_OPS_RUN_PKG_TESTS=1
+./scripts/openutau_v09_ops_check.sh
+```
+
 환경이 다른 경로를 쓸 때는 아래 변수로 덮어쓸 수 있습니다.
 
 ```sh
