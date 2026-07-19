@@ -53,7 +53,7 @@ dotnet test OpenUtau/OpenUtau.Test/OpenUtau.Test.csproj -c Release \
   --filter FullyQualifiedName~GyuSingerRendererTest
 GYU_RENDERER_URL=http://127.0.0.1:8765/render \
 ./integrations/openutau/test_resident_fork.sh OpenUtau dotnet
-PYTHONPATH=src python scripts/test_openutau_v09_behavior.py
+python -m pytest tests/test_openutau_diffsinger_package.py tests/test_openutau_native_evaluation.py
 ```
 
 The native tests load the three-language USTX and verify payload invalidation. The resident test executes the real C# `IRenderer.Render` path. The behavioral test verifies 48 kHz KO/EN/JA output, note-pitch and PITD F0 changes, Whisper-observed lyric changes, and latent energetic-style audio change.
