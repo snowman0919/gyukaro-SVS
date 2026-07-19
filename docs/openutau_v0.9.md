@@ -143,6 +143,13 @@ cd /home/kotori9/code/gyukaro
 ./scripts/openutau_v09_production_readiness.sh
 ```
 
+또는 승인 문서까지 동시에 갱신하려면:
+
+```sh
+cd /home/kotori9/code/gyukaro
+./scripts/openutau_v09_collect_approval_record.sh
+```
+
 또는, 수동 체크(동일 동작):
 
 ```sh
@@ -205,6 +212,12 @@ cd /home/kotori9/code/gyukaro
 cd /home/kotori9/code/gyukaro
 export GYU_OPS_RUN_PKG_TESTS=1
 ./scripts/openutau_v09_ops_check.sh
+```
+
+승인 기록은 다음 경로로 갱신됩니다.
+
+```sh
+/home/kotori9/code/gyukaro/artifacts/reports/openutau_v09/operational_approval_record.md
 ```
 
 환경이 다른 경로를 쓸 때는 아래 변수로 덮어쓸 수 있습니다.
