@@ -126,5 +126,5 @@ cd /home/kotori9/code/gyukaro
 
 기록 산출물:
 - `openutau_v09-readiness-summary`(기본: `artifacts/reports/openutau_v09/readiness_summary.json`)
-- `openutau_v09-operational-behavior`(기본: `/tmp/gyu-v09-operational-check/openutau_v09_operational_behavior.json`)
-- `openutau_v09-smoke.wav`(기본: `/tmp/gyu-v09-package-local/openutau_v09_smoke.wav`)
+- `openutau_v09-operational-behavior`(기본: `$GYU_SMOKE_OUTPUT_DIR/openutau_v09_operational_behavior.json`, 기본값 `/tmp/gyu-v09-operational-check/openutau_v09_operational_behavior.json`)
+- `openutau_v09-smoke.wav`(기본: `$GYU_SMOKE_OUTPUT_DIR/openutau_v09_smoke.wav`, 기본값 `/tmp/gyu-v09-operational-check/openutau_v09_smoke.wav`)
