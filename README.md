@@ -25,8 +25,11 @@ quality gate: F0 correlation >= 0.90, pitch MAE <= 100 cents, held-note F0 CV
 ## Renderer API and OpenUtau
 
 ```sh
-GYU_SINGER_CACHE="$PWD/data/cache" GYU_SOULX_PYTHON="$PWD/.venv-soulx/bin/python" \
 ./serve.sh 8765
+export GYU_SINGER_CACHE="$PWD/data/cache"
+export GYU_SOULX_PYTHON="$PWD/.venv-soulx/bin/python"
+./serve.sh 8765
+curl -s http://127.0.0.1:8765/health
 python integrations/openutau/bridge.py examples/openutau_smoke.ustx --language ko \
   --output song.json --render-url http://127.0.0.1:8765 --wav song.wav
 ```
