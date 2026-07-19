@@ -11,11 +11,10 @@ concatenation.  It requires the locally cached upstream models and the pinned
 SoulX Python environment:
 
 ```sh
-GYU_SINGER_CACHE="$PWD/data/cache" \
-GYU_SOULX_PYTHON="$PWD/.venv-soulx/bin/python" \
-PYTHONPATH=src python -m gyu_singer.cli --backend hybrid-svs \
-  --reference data/processed/master/216.wav \
-  render examples/quality_ko.json --output gyu-ko.wav
+export GYU_SINGER_CACHE="$PWD/data/cache"
+export GYU_SOULX_PYTHON="$PWD/.venv-soulx/bin/python"  # optional if discoverable in cache
+./serve.sh 8765
+./render.sh examples/quality_ko.json gyu-ko.wav
 ```
 
 `artifacts/reports/soulx_heldout_smoke.json` records the fixed held-out KO/EN/JA
@@ -27,7 +26,7 @@ quality gate: F0 correlation >= 0.90, pitch MAE <= 100 cents, held-note F0 CV
 
 ```sh
 GYU_SINGER_CACHE="$PWD/data/cache" GYU_SOULX_PYTHON="$PWD/.venv-soulx/bin/python" \
-PYTHONPATH=src python -m gyu_singer.cli --backend hybrid-svs serve --port 8765
+./serve.sh 8765
 python integrations/openutau/bridge.py examples/openutau_smoke.ustx --language ko \
   --output song.json --render-url http://127.0.0.1:8765 --wav song.wav
 ```
