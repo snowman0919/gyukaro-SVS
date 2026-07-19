@@ -50,6 +50,7 @@ Status and evidence hashes are recorded in `configs/project_status.json` and
 export GYU_SINGER_CACHE="$PWD/data/cache"
 export GYU_SOULX_PYTHON="$PWD/.venv-soulx/bin/python"  # optional if discoverable in cache
 ./serve.sh 8765
+curl -s http://127.0.0.1:8765/health
 
 # Equivalent legacy direct CLI
 GYU_SINGER_CACHE="$PWD/data/cache" GYU_SOULX_PYTHON="$PWD/.venv-soulx/bin/python" \
@@ -58,6 +59,11 @@ PYTHONPATH=src python -m gyu_singer.cli --backend hybrid-svs --allow-experimenta
 python integrations/openutau/bridge.py examples/openutau_smoke.ustx --language ko \
   --output song.json --render-url http://127.0.0.1:8765 --wav song.wav
 ```
+
+`artifacts/reports/soulx_heldout_smoke.json` records the fixed held-out KO/EN/JA
+quality gate: F0 correlation >= 0.90, pitch MAE <= 100 cents, held-note F0 CV
+<= 0.10, and lyric similarity >= 0.50.  The package builder is
+`scripts/package_quality_runtime.py`; it intentionally excludes upstream model caches.
 
 The bridge above is diagnostic infrastructure, not an approved voicebank path.
 

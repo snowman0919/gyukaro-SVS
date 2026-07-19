@@ -53,7 +53,28 @@ dotnet build OpenUtau/OpenUtau.csproj -c Release
 export GYU_SINGER_CACHE=/absolute/path/to/pinned/model-cache
 export GYU_SOULX_PYTHON=/absolute/path/to/.venv-soulx/bin/python  # optional when auto-discovery does not apply
 export GYU_RENDERER_URL=http://127.0.0.1:8765/render
-./serve.sh
+./serve.sh 8765
 ```
 
+For source-tree developers (before packaging), start the renderer with:
+
+```sh
+./serve.sh 8765
+```
+
+Note: if `dotnet` is not on PATH, these helpers can still run with local runtimes
+such as `/tmp/dotnet/dotnet`.
+
 Then open `examples/openutau_v09.ustx`. All three tracks use the phrase renderer. The headless `bridge.py` remains only a debugging/export path and is not counted as the v0.9 integration.
+
+## Runtime smoke
+
+```sh
+export GYU_SINGER_CACHE=/absolute/path/to/pinned/model-cache
+export GYU_SOULX_PYTHON=/absolute/path/to/.venv-soulx/bin/python
+./serve.sh 8765 >/tmp/gyu-singer-v0.9-serve.log 2>&1 &
+sleep 2
+curl -s http://127.0.0.1:8765/health
+python integrations/openutau/bridge.py examples/openutau_v09.ustx --language ko \
+  --output /tmp/openutau-v09-request.json --render-url http://127.0.0.1:8765/render --wav /tmp/openutau-v09-smoke.wav
+```
