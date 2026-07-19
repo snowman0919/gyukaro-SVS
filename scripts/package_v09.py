@@ -57,7 +57,7 @@ def main() -> None:
     commit = subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip()
     metadata = {
         "version": "v0.9", "backend": "gyu-singer-v0.8", "integration": "OpenUtau GYU-SINGER maintained fork",
-        "git_commit": commit, "external_cache_required": True, "training_teacher_models_bundled": False,
+        "git_commit": "see docs/v0.9_release_baseline.md", "external_cache_required": True, "training_teacher_models_bundled": False,
         "openutau_revision": "27573ac5c888d927119d5f65a207312d79194b1f",
         "soulx_revision": "81aeb3ae772c70093c3de74dc23c92d983801ae4",
         "omnivoice_revision": "1574e06a767808c9343740ba695e7515c3d484e2",
