@@ -50,8 +50,10 @@ git clone https://github.com/stakira/OpenUtau.git
 git -C OpenUtau checkout 27573ac5c888d927119d5f65a207312d79194b1f
 ./integrations/openutau/install_fork.sh OpenUtau
 dotnet build OpenUtau/OpenUtau.csproj -c Release
-./serve.sh
+export GYU_SINGER_CACHE=/absolute/path/to/pinned/model-cache
+export GYU_SOULX_PYTHON=/absolute/path/to/.venv-soulx/bin/python  # optional when auto-discovery does not apply
 export GYU_RENDERER_URL=http://127.0.0.1:8765/render
+./serve.sh
 ```
 
 Then open `examples/openutau_v09.ustx`. All three tracks use the phrase renderer. The headless `bridge.py` remains only a debugging/export path and is not counted as the v0.9 integration.
