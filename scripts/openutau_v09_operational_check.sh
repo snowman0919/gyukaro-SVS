@@ -45,14 +45,14 @@ fi
 
 trap 'if [ -n "${SERVE_PID:-}" ] && kill -0 "$SERVE_PID" >/dev/null 2>&1; then kill "$SERVE_PID" >/dev/null 2>&1 || true; fi' EXIT
 
-printf '\n[1/3] fixed-path smoke (package source path)...\n'
+printf '\n[1/3] fixed-path smoke (package source path)...\n' >&2
 cd "$SCRIPT_DIR"
 if ! GYU_SOULX_RUNTIME_DIR="$GYU_SOULX_RUNTIME_DIR" GYU_SINGER_CACHE="$GYU_SINGER_CACHE" ./scripts/verify_v09_runtime_paths.sh "$PACKAGE_DIR"; then
   echo "verify_v09_runtime_paths failed" >&2
   exit 2
 fi
 
-printf '\n[2/3] start runtime and run phrase-level behavior check...\n'
+printf '\n[2/3] start runtime and run phrase-level behavior check...\n' >&2
 cd "$PACKAGE_DIR"
 setsid env GYU_SOULX_RUNTIME_DIR="$GYU_SOULX_RUNTIME_DIR" GYU_SOULX_PYTHON="$GYU_SOULX_PYTHON" GYU_SINGER_CACHE="$GYU_SINGER_CACHE" \
   ./serve.sh "$PORT" >/tmp/openutau_v09_operational_serve.log 2>&1 &
@@ -72,7 +72,7 @@ if [ "$ready" -ne 1 ]; then
   exit 2
 fi
 
-printf '\n[3/3] render behavior output...\n'
+printf '\n[3/3] render behavior output...\n' >&2
 cd "$SCRIPT_DIR"
 REPORT_PATH="$OUTPUT_DIR/openutau_v09_operational_behavior.json"
 LOG_PATH="$OUTPUT_DIR/openutau_v09_operational_behavior.log"
