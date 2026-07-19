@@ -7,7 +7,21 @@ OUTPUT_DIR="${GYU_SMOKE_OUTPUT_DIR:-/tmp/gyu-v09-smoke}"
 OPENUTAU_REPO="${OPENUTAU_REPO:-/tmp/OpenUtau}"
 
 if [ -z "${GYU_SINGER_CACHE:-}" ]; then
-  echo "GYU_SINGER_CACHE is required (pin/cache root)" >&2
+  if [ -d "$ROOT_DIR/data/cache" ]; then
+    GYU_SINGER_CACHE="$ROOT_DIR/data/cache"
+  else
+    echo "GYU_SINGER_CACHE is required (pin/cache root)" >&2
+    exit 2
+  fi
+fi
+if [ ! -d "$GYU_SINGER_CACHE" ] || [ ! -d "$GYU_SINGER_CACHE/omnivoice/.venv/bin" ]; then
+  if [ "$GYU_SINGER_CACHE" != "$ROOT_DIR/data/cache" ] && [ -d "$ROOT_DIR/data/cache/omnivoice/.venv/bin" ]; then
+    echo "GYU_SINGER_CACHE does not point to pinned cache; falling back to ROOT_DIR/data/cache" >&2
+    GYU_SINGER_CACHE="$ROOT_DIR/data/cache"
+  fi
+fi
+if [ ! -d "$GYU_SINGER_CACHE" ] || [ ! -d "$GYU_SINGER_CACHE/omnivoice/.venv/bin" ]; then
+  echo "missing or invalid cache layout: $GYU_SINGER_CACHE" >&2
   exit 2
 fi
 if [ -z "${GYU_SOULX_PYTHON:-}" ]; then

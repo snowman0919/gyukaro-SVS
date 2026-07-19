@@ -17,6 +17,7 @@ FILES = [
     Path("scripts/probe_soulx_score.py"),
     Path("scripts/generate_omnivoice_phrase.py"),
     Path("scripts/test_openutau_v09_behavior.py"),
+    Path("scripts/openutau_v09_runtime_smoke.sh"),
     Path("checkpoints/gyu_prosody_v0.5.pt"),
     Path("checkpoints/gyu_teacher_identity_v0.5.pt"),
     Path("checkpoints/gyu_acoustic_style_adapter_v0.5.pt"),
@@ -69,7 +70,13 @@ def main() -> None:
 set -eu
 SCRIPT_DIR="$(CDPATH= cd -- "$(dirname "$0")" && pwd)"
 cd "$SCRIPT_DIR"
+if [ -z "${GYU_SINGER_CACHE:-}" ] && [ -d "$SCRIPT_DIR/data/cache" ]; then
+  GYU_SINGER_CACHE="$SCRIPT_DIR/data/cache"
+fi
 : "${GYU_SINGER_CACHE:?set GYU_SINGER_CACHE to the pinned model cache}"
+if [ ! -d "$GYU_SINGER_CACHE/omnivoice/.venv/bin" ] && [ -d "$SCRIPT_DIR/data/cache/omnivoice/.venv/bin" ]; then
+  GYU_SINGER_CACHE="$SCRIPT_DIR/data/cache"
+fi
 if [ ! -d "$GYU_SINGER_CACHE" ]; then
   echo "missing GYU_SINGER_CACHE: $GYU_SINGER_CACHE"
   exit 2
@@ -102,7 +109,13 @@ exec env PYTHONPATH=src "$GYU_SOULX_PYTHON" -m gyu_singer.cli --backend gyu-sing
 set -eu
 SCRIPT_DIR="$(CDPATH= cd -- "$(dirname "$0")" && pwd)"
 cd "$SCRIPT_DIR"
+if [ -z "${GYU_SINGER_CACHE:-}" ] && [ -d "$SCRIPT_DIR/data/cache" ]; then
+  GYU_SINGER_CACHE="$SCRIPT_DIR/data/cache"
+fi
 : "${GYU_SINGER_CACHE:?set GYU_SINGER_CACHE to the pinned model cache}"
+if [ ! -d "$GYU_SINGER_CACHE/omnivoice/.venv/bin" ] && [ -d "$SCRIPT_DIR/data/cache/omnivoice/.venv/bin" ]; then
+  GYU_SINGER_CACHE="$SCRIPT_DIR/data/cache"
+fi
 if [ ! -d "$GYU_SINGER_CACHE" ]; then
   echo "missing GYU_SINGER_CACHE: $GYU_SINGER_CACHE"
   exit 2
@@ -130,8 +143,8 @@ fi
 export PYTORCH_CUDA_ALLOC_CONF="${PYTORCH_CUDA_ALLOC_CONF:-max_split_size_mb:64,expandable_segments:True}"
 export GYU_SINGER_CACHE GYU_SOULX_PYTHON
 exec env PYTHONPATH=src "$GYU_SOULX_PYTHON" -m gyu_singer.cli --backend gyu-singer-v0.8 --reference data/processed/master/216.wav render "${1:-examples/quality_ko.json}" --output "${2:-output.wav}"
-""")
-    for path in (root / "serve.sh", root / "render.sh", root / "integrations/openutau/install_fork.sh", root / "integrations/openutau/test_resident_fork.sh"):
+    """)
+    for path in (root / "serve.sh", root / "render.sh", root / "scripts/openutau_v09_runtime_smoke.sh", root / "integrations/openutau/install_fork.sh", root / "integrations/openutau/test_resident_fork.sh"):
         path.chmod(0o755)
     archive = root.parent / f"{NAME}.zip"
     with zipfile.ZipFile(archive, "w", zipfile.ZIP_DEFLATED) as output:
