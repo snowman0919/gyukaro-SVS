@@ -88,6 +88,88 @@ export GYU_SMOKE_OUTPUT_DIR=/tmp/gyu-v09-smoke
 
 The script runs: resident boot, `/health`, `/model`, bridge render, and resident integration test.
 
+## 실사용 실행 체크리스트 (빠른 점검)
+
+1) 서비스 부팅
+```sh
+cd /path/to/gyu-singer-v0.9-openutau
+export GYU_SINGER_CACHE=/absolute/path/to/pinned/model-cache
+export GYU_SOULX_RUNTIME_DIR=/absolute/path/to/.venv-soulx
+./serve.sh 8765
+```
+
+2) 기본 헬스 + 메타데이터 확인
+```sh
+curl -fsS http://127.0.0.1:8765/health
+curl -s http://127.0.0.1:8765/model
+```
+
+3) KO/EN/JA 3개 트랙 브릿지 렌더 체크 (짧은 버전)
+```sh
+python integrations/openutau/bridge.py examples/openutau_v09.ustx --language ko \
+  --output /tmp/openutau-v09-request.json --render-url http://127.0.0.1:8765 --wav /tmp/openutau-v09-smoke.wav
+```
+
+4) OpenUtau resident 통합 테스트
+```sh
+cd /tmp/OpenUtau
+GYU_RENDERER_URL=http://127.0.0.1:8765/render dotnet test OpenUtau.Test/OpenUtau.Test.csproj -c Release --filter FullyQualifiedName~GyuSingerResidentIntegrationTest
+```
+
+5) 파이프라인 게이트
+```sh
+python -m pytest tests/test_openutau_diffsinger_package.py tests/test_openutau_native_evaluation.py
+```
+
+모든 단계가 통과되면 운영 환경에서 곧바로 사용 가능합니다.
+
+### 실사용 최종 점검(권장 단일 명령군)
+
+아래는 현재 검증 기준으로 통과한 최소 운영 체크입니다.
+
+```sh
+cd /home/kotori9/code/gyukaro
+# 지정 런타임 패키지와 캐시 경로가 고정된 실행 체크(권장)
+export GYU_SOULX_RUNTIME_DIR=/home/kotori9/code/gyukaro/.venv-soulx
+export GYU_SOULX_PYTHON=/home/kotori9/code/gyukaro/.venv-soulx/bin/python
+export GYU_SINGER_CACHE=/home/kotori9/code/gyukaro/data/cache
+
+./scripts/openutau_v09_operational_check.sh /home/kotori9/code/gyukaro/artifacts/package/gyu-singer-v0.9-openutau
+```
+
+또는, 수동 체크(동일 동작):
+
+```sh
+cd /home/kotori9/code/gyukaro
+export GYU_SOULX_RUNTIME_DIR=/home/kotori9/code/gyukaro/.venv-soulx
+export GYU_SOULX_PYTHON=/home/kotori9/code/gyukaro/.venv-soulx/bin/python
+export GYU_SINGER_CACHE=/home/kotori9/code/gyukaro/data/cache
+export OPENUTAU_REPO=/tmp/OpenUtau
+export GYU_SMOKE_OUTPUT_DIR=/tmp/gyu-v09-smoke
+
+# 1) 패키지 경로 기준 고정 런타임 경로 검사
+./scripts/verify_v09_runtime_paths.sh /home/kotori9/code/gyukaro/artifacts/package/gyu-singer-v0.9-openutau
+
+# 기대 출력:
+# smoke_status=0
+# render_size=1428524
+
+# 2) 패키지 스크립트의 phrase-level 동작 검증
+cd /home/kotori9/code/gyukaro/artifacts/package/gyu-singer-v0.9-openutau
+setsid env GYU_SOULX_RUNTIME_DIR=$GYU_SOULX_RUNTIME_DIR \
+  GYU_SOULX_PYTHON=$GYU_SOULX_PYTHON \
+  GYU_SINGER_CACHE=$GYU_SINGER_CACHE \
+  ./serve.sh 8780 >/tmp/v09-ready-serve.log 2>&1 < /dev/null &
+sleep 2
+cd /home/kotori9/code/gyukaro
+PYTHONPATH=src python artifacts/package/gyu-singer-v0.9-openutau/scripts/test_openutau_v09_behavior.py \
+  --render-url http://127.0.0.1:8780 \
+  --output /tmp/gyu-v09-ready-behavior.json
+cat /tmp/gyu-v09-ready-behavior.json
+```
+
+`pass: true`가 출력되고 `/tmp/gyu-v09-ready-behavior.json`에서 `ko/en/ja`가 48k mono인지를 확인하면 OpenUtau 경로는 실사용 조건을 만족한 상태입니다.
+
 For a single fixed-runtime-path check (source-tree and packaged tree), use:
 
 ```sh
@@ -106,6 +188,7 @@ sleep 2
 curl -s http://127.0.0.1:8765/health
 python integrations/openutau/bridge.py examples/openutau_v09.ustx --language ko \
   --output /tmp/openutau-v09-request.json --render-url http://127.0.0.1:8765 --wav /tmp/openutau-v09-smoke.wav
+  # --render-url may be the base service URL or .../render endpoint
 
 cd /tmp/OpenUtau
 GYU_RENDERER_URL=http://127.0.0.1:8765/render dotnet test OpenUtau.Test/OpenUtau.Test.csproj -c Release --filter FullyQualifiedName~GyuSingerResidentIntegrationTest
