@@ -1,36 +1,80 @@
-# GYU Singer
+# GYU Singer Research Stack
 
-Personalized trilingual neural singing runtime for authorized GYU recordings.
+**No production-approved singing model currently exists.**
+**OpenUtau and release paths remain blocked.**
 
-## Quality path
+This repository contains research evidence, bounded experiment tooling, and
+experimental renderers for authorized GYU recordings. Model status is defined
+by `configs/project_status.json`; model names and successful WAV generation do
+not imply release quality.
 
-The quality-tested path generates one duration-locked lyric phrase with
-OmniVoice, then uses SoulX-Singer SVC with the complete score-derived 50 Hz F0 contour. It
-does not use per-note TTS, pitch shifting, phase-vocoder timing, or waveform
-concatenation.  It requires the locally cached upstream models and the pinned
-SoulX Python environment:
+## Strongest validated capability
+
+The GTSinger Japanese soprano foundation passed the historical Japanese
+held-out matrix under the recorded evaluation protocol. It is foundation-only,
+not a GYU singer. Korean lexical validity requires reassessment with
+phone-centered evaluation; Korean Whisper is auxiliary evidence only.
+
+The former OmniVoice-to-SoulX phrase path, RC8 candidate 3, truncated K=2/K=4,
+GTSinger tenor, and GYU mix20 paths are rejected. RC7 is retained only as an
+accepted experimental baseline.
+
+## Explicit experimental rendering
+
+Rejected and experimental backends are not quality paths. Historical commands
+remain available for reproducing evidence with local caches, but must not be
+used to claim production or OpenUtau readiness:
 
 ```sh
 GYU_SINGER_CACHE="$PWD/data/cache" \
 GYU_SOULX_PYTHON="$PWD/.venv-soulx/bin/python" \
-PYTHONPATH=src python -m gyu_singer.cli --backend hybrid-svs \
+PYTHONPATH=src python -m gyu_singer.cli --backend hybrid-svs --allow-experimental \
   --reference data/processed/master/216.wav \
   render examples/quality_ko.json --output gyu-ko.wav
 ```
 
-`artifacts/reports/soulx_heldout_smoke.json` records the fixed held-out KO/EN/JA
-quality gate: F0 correlation >= 0.90, pitch MAE <= 100 cents, held-note F0 CV
-<= 0.10, and lyric similarity >= 0.50.  The package builder is
-`scripts/package_quality_runtime.py`; it intentionally excludes upstream model caches.
+Status and evidence hashes are recorded in `configs/project_status.json` and
+`configs/research_evidence.json`.
 
-## Renderer API and OpenUtau
+## Historical renderer API
 
 ```sh
 GYU_SINGER_CACHE="$PWD/data/cache" GYU_SOULX_PYTHON="$PWD/.venv-soulx/bin/python" \
-PYTHONPATH=src python -m gyu_singer.cli --backend hybrid-svs serve --port 8765
+PYTHONPATH=src python -m gyu_singer.cli --backend hybrid-svs --allow-experimental serve --port 8765
 python integrations/openutau/bridge.py examples/openutau_smoke.ustx --language ko \
   --output song.json --render-url http://127.0.0.1:8765 --wav song.wav
 ```
+
+The bridge above is diagnostic infrastructure, not an approved voicebank path.
+
+With no production-approved backend, `render` and `serve` fail closed when
+`--backend` is omitted. Every current backend requires the explicit diagnostic
+override and writes an `EXPERIMENTAL_OVERRIDE` record to stderr.
+
+The central release gate currently fails all 11 required dimensions. The safe
+OpenUtau packager refuses release output. It can emit metadata-only evidence
+with `scripts/package_openutau_safe.py --diagnostic-package` only when the
+output directory name ends in `-diagnostic`; such output is marked
+`NOT A RELEASE` and contains no checkpoint or audio.
+
+## Local voicebank project factory
+
+The factory accepts only a local recording directory plus an explicit rights
+manifest. It performs non-destructive inspection, transcript trust handling,
+alignment hooks, coverage planning, frozen split generation, and fail-closed
+training/package decisions:
+
+```sh
+PYTHONPATH=src python -m gyu_singer.voicebank.cli init \
+  --input /path/to/authorized-recordings --name "Singer Name" \
+  --languages ko,ja,en --workspace /path/to/workspace \
+  --rights-manifest /path/to/rights.json
+PYTHONPATH=src python -m gyu_singer.voicebank.cli build \
+  --workspace /path/to/workspace
+```
+
+Start from `configs/voicebank_rights.template.json`. The factory has no network
+acquisition feature and never treats automatic STT as ground truth.
 
 ## Experimental compact model
 

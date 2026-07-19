@@ -1,0 +1,10 @@
+{
+  "status": "alignment_audit_complete_training_blocked",
+  "rows": 149,
+  "classification_counts": {
+    "inferred_only": 149
+  },
+  "manual_rows": 0,
+  "inferred_rows": 149,
+  "training_started": false
+}

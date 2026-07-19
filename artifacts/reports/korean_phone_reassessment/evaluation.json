@@ -1,0 +1,2382 @@
+{
+  "status": "foundation_machine_inconclusive",
+  "primary_gate": "phone_centered",
+  "whisper_role": "auxiliary_stt_observation",
+  "whisper_primary_weight": 0.0,
+  "calibration_status": "insufficient_phone_recognition",
+  "calibration_reason": "MMS_FA supplies a target-conditioned path and HuBERT supplies content consistency, but no calibrated independent Korean singing phone recognizer is local.",
+  "mms_model": "https://dl.fbaipublicfiles.com/mms/torchaudio/ctc_alignment_mling_uroman/model.pt",
+  "hubert_model": "data/cache/hubert-base-ls960",
+  "calibration": [
+    {
+      "id": "gyu_real_212",
+      "audio_path": "data/processed/master/212.wav",
+      "audio_sha256": "b7e2e58b63d6bd9dd54f26063ed7fd16ef06ce14c497f1edf620fc3480b799c4",
+      "script_source": "known_recording_script",
+      "matched_mean_log_score": -1.415386,
+      "mismatched_mean_log_score": -5.321093,
+      "score_margin": 3.905707
+    },
+    {
+      "id": "gyu_real_215",
+      "audio_path": "data/processed/master/215.wav",
+      "audio_sha256": "889758edb40fbba14a8e157598d608c5db486f4f44460ef56528e7e8e5a2992f",
+      "script_source": "known_recording_script",
+      "matched_mean_log_score": -1.361619,
+      "mismatched_mean_log_score": -4.919307,
+      "score_margin": 3.557688
+    },
+    {
+      "id": "gyu_real_216",
+      "audio_path": "data/processed/master/216.wav",
+      "audio_sha256": "106b008c13abccc2a7f09b3e665fb7cbe7fbf4486acffee9f6a80e40656642c3",
+      "script_source": "known_recording_script",
+      "matched_mean_log_score": -1.164951,
+      "mismatched_mean_log_score": -4.980289,
+      "score_margin": 3.815338
+    },
+    {
+      "id": "gyu_real_219",
+      "audio_path": "data/processed/master/219.wav",
+      "audio_sha256": "83d922254988d5f31b0a485a27dc13300d53d613daae6297bb66fa586bed0c49",
+      "script_source": "known_recording_script",
+      "matched_mean_log_score": -1.42588,
+      "mismatched_mean_log_score": -5.368917,
+      "score_margin": 3.943037
+    },
+    {
+      "id": "gyu_real_220",
+      "audio_path": "data/processed/master/220.wav",
+      "audio_sha256": "7dca1d4c4e6146326e9507461f8160f42a4746d0a967ef1e19f7cd6cbaa48e69",
+      "script_source": "known_recording_script",
+      "matched_mean_log_score": -1.332708,
+      "mismatched_mean_log_score": -6.062664,
+      "score_margin": 4.729956
+    }
+  ],
+  "representations": [
+    {
+      "representation": "ko_components_v1",
+      "observed_symbols": 30,
+      "maximum_symbols": 68,
+      "unknown_characters": []
+    },
+    {
+      "representation": "ko_canonical_v1",
+      "observed_symbols": 30,
+      "maximum_symbols": 68,
+      "unknown_characters": []
+    },
+    {
+      "representation": "ko_onset_rhyme_v1",
+      "observed_symbols": 32,
+      "maximum_symbols": 607,
+      "unknown_characters": []
+    }
+  ],
+  "rendered_representation": "ko_components_v1",
+  "unrendered_representations": [
+    "ko_canonical_v1",
+    "ko_onset_rhyme_v1"
+  ],
+  "representation_selection": null,
+  "representation_selection_status": "lexical_machine_inconclusive",
+  "aggregate": {
+    "seed_content_consistency": 0.9997950985151427,
+    "phrase_seed_count": 15,
+    "machine_inconclusive_count": 15
+  },
+  "rows": [
+    {
+      "case": "quality_ko",
+      "stress_category": "ordinary",
+      "seed": 7,
+      "representation": "ko_components_v1",
+      "expected_lyrics": "하늘을향해 노래해작은 빛을따라가",
+      "expected_phones": [
+        "ko_onset_18",
+        "ko_nucleus_0",
+        "ko_onset_2",
+        "ko_nucleus_18",
+        "ko_coda_8",
+        "ko_onset_11",
+        "ko_nucleus_18",
+        "ko_coda_8",
+        "ko_onset_18",
+        "ko_nucleus_2",
+        "ko_coda_21",
+        "ko_onset_18",
+        "ko_nucleus_1",
+        "ko_onset_2",
+        "ko_nucleus_8",
+        "ko_onset_5",
+        "ko_nucleus_1",
+        "ko_onset_18",
+        "ko_nucleus_1",
+        "ko_onset_12",
+        "ko_nucleus_0",
+        "ko_coda_1",
+        "ko_onset_11",
+        "ko_nucleus_18",
+        "ko_coda_4",
+        "ko_onset_7",
+        "ko_nucleus_20",
+        "ko_coda_23",
+        "ko_onset_11",
+        "ko_nucleus_18",
+        "ko_coda_8",
+        "ko_onset_4",
+        "ko_nucleus_0",
+        "ko_onset_5",
+        "ko_nucleus_0",
+        "ko_onset_0",
+        "ko_nucleus_0",
+        "SP"
+      ],
+      "aligned_phones_or_posterior_path": [
+        {
+          "symbol": "h",
+          "start_frame": 3,
+          "end_frame": 4,
+          "mean_log_score": -3.693619
+        },
+        {
+          "symbol": "a",
+          "start_frame": 8,
+          "end_frame": 9,
+          "mean_log_score": -1.376616
+        },
+        {
+          "symbol": "n",
+          "start_frame": 28,
+          "end_frame": 29,
+          "mean_log_score": -1.702999
+        },
+        {
+          "symbol": "e",
+          "start_frame": 32,
+          "end_frame": 33,
+          "mean_log_score": -5.412846
+        },
+        {
+          "symbol": "u",
+          "start_frame": 36,
+          "end_frame": 37,
+          "mean_log_score": -2.882762
+        },
+        {
+          "symbol": "l",
+          "start_frame": 47,
+          "end_frame": 48,
+          "mean_log_score": -9.950939
+        },
+        {
+          "symbol": "e",
+          "start_frame": 61,
+          "end_frame": 62,
+          "mean_log_score": -4.474643
+        },
+        {
+          "symbol": "u",
+          "start_frame": 62,
+          "end_frame": 63,
+          "mean_log_score": -6.972233
+        },
+        {
+          "symbol": "l",
+          "start_frame": 69,
+          "end_frame": 70,
+          "mean_log_score": -5.375005
+        },
+        {
+          "symbol": "h",
+          "start_frame": 77,
+          "end_frame": 78,
+          "mean_log_score": -4.16113
+        },
+        {
+          "symbol": "y",
+          "start_frame": 78,
+          "end_frame": 79,
+          "mean_log_score": -5.463487
+        },
+        {
+          "symbol": "a",
+          "start_frame": 92,
+          "end_frame": 93,
+          "mean_log_score": -0.85111
+        },
+        {
+          "symbol": "n",
+          "start_frame": 110,
+          "end_frame": 111,
+          "mean_log_score": -1.076592
+        },
+        {
+          "symbol": "g",
+          "start_frame": 111,
+          "end_frame": 112,
+          "mean_log_score": -1.597833
+        },
+        {
+          "symbol": "h",
+          "start_frame": 124,
+          "end_frame": 125,
+          "mean_log_score": -5.33033
+        },
+        {
+          "symbol": "a",
+          "start_frame": 131,
+          "end_frame": 132,
+          "mean_log_score": -1.467783
+        },
+        {
+          "symbol": "e",
+          "start_frame": 139,
+          "end_frame": 140,
+          "mean_log_score": -5.177056
+        },
+        {
+          "symbol": "n",
+          "start_frame": 145,
+          "end_frame": 146,
+          "mean_log_score": -2.35298
+        },
+        {
+          "symbol": "o",
+          "start_frame": 148,
+          "end_frame": 149,
+          "mean_log_score": -3.03824
+        },
+        {
+          "symbol": "r",
+          "start_frame": 155,
+          "end_frame": 156,
+          "mean_log_score": -4.655749
+        },
+        {
+          "symbol": "a",
+          "start_frame": 158,
+          "end_frame": 159,
+          "mean_log_score": -1.426286
+        },
+        {
+          "symbol": "e",
+          "start_frame": 168,
+          "end_frame": 169,
+          "mean_log_score": -4.378828
+        },
+        {
+          "symbol": "h",
+          "start_frame": 173,
+          "end_frame": 174,
+          "mean_log_score": -4.358932
+        },
+        {
+          "symbol": "a",
+          "start_frame": 178,
+          "end_frame": 179,
+          "mean_log_score": -1.618351
+        },
+        {
+          "symbol": "e",
+          "start_frame": 191,
+          "end_frame": 192,
+          "mean_log_score": -4.441036
+        },
+        {
+          "symbol": "j",
+          "start_frame": 197,
+          "end_frame": 198,
+          "mean_log_score": -7.365642
+        },
+        {
+          "symbol": "a",
+          "start_frame": 203,
+          "end_frame": 205,
+          "mean_log_score": -1.087185
+        },
+        {
+          "symbol": "g",
+          "start_frame": 220,
+          "end_frame": 221,
+          "mean_log_score": -1.366485
+        },
+        {
+          "symbol": "e",
+          "start_frame": 222,
+          "end_frame": 223,
+          "mean_log_score": -4.021708
+        },
+        {
+          "symbol": "u",
+          "start_frame": 231,
+          "end_frame": 232,
+          "mean_log_score": -4.772883
+        },
+        {
+          "symbol": "n",
+          "start_frame": 242,
+          "end_frame": 243,
+          "mean_log_score": -1.212185
+        },
+        {
+          "symbol": "b",
+          "start_frame": 250,
+          "end_frame": 251,
+          "mean_log_score": -5.327858
+        },
+        {
+          "symbol": "i",
+          "start_frame": 256,
+          "end_frame": 257,
+          "mean_log_score": -3.92717
+        },
+        {
+          "symbol": "c",
+          "start_frame": 278,
+          "end_frame": 279,
+          "mean_log_score": -3.69501
+        },
+        {
+          "symbol": "h",
+          "start_frame": 281,
+          "end_frame": 282,
+          "mean_log_score": -3.090882
+        },
+        {
+          "symbol": "e",
+          "start_frame": 285,
+          "end_frame": 286,
+          "mean_log_score": -3.999551
+        },
+        {
+          "symbol": "u",
+          "start_frame": 318,
+          "end_frame": 319,
+          "mean_log_score": -4.784794
+        },
+        {
+          "symbol": "l",
+          "start_frame": 333,
+          "end_frame": 334,
+          "mean_log_score": -5.311991
+        },
+        {
+          "symbol": "t",
+          "start_frame": 340,
+          "end_frame": 341,
+          "mean_log_score": -1.712099
+        },
+        {
+          "symbol": "t",
+          "start_frame": 374,
+          "end_frame": 375,
+          "mean_log_score": -1.37322
+        },
+        {
+          "symbol": "a",
+          "start_frame": 379,
+          "end_frame": 380,
+          "mean_log_score": -1.468543
+        },
+        {
+          "symbol": "r",
+          "start_frame": 411,
+          "end_frame": 412,
+          "mean_log_score": -3.948536
+        },
+        {
+          "symbol": "a",
+          "start_frame": 418,
+          "end_frame": 419,
+          "mean_log_score": -1.559453
+        },
+        {
+          "symbol": "g",
+          "start_frame": 450,
+          "end_frame": 451,
+          "mean_log_score": -1.770986
+        },
+        {
+          "symbol": "a",
+          "start_frame": 463,
+          "end_frame": 464,
+          "mean_log_score": -1.649026
+        }
+      ],
+      "phone_insertions": null,
+      "phone_deletions": null,
+      "phone_substitutions": null,
+      "phone_error_rate": null,
+      "alignment_confidence": 0.030751,
+      "alignment_mean_log_score": -3.481835,
+      "alignment_coverage": 0.092555,
+      "alignment_monotonic": true,
+      "boundary_deviation": null,
+      "duration_deviation": null,
+      "auxiliary_stt_observation": " 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우",
+      "auxiliary_stt_lyric_similarity": 0.0,
+      "pitch_mae_cents": 4.1683,
+      "pitch_p90_abs_cents": 2.394,
+      "gross_pitch_error_rate": 0.0,
+      "voicing_accuracy": 0.98996,
+      "clip_fraction": 0.0,
+      "hf_spike": 36.4863,
+      "sample_jump": 0.064232,
+      "waveform_discontinuity": 0.064232,
+      "audio_path": "data/external/work/gtsinger_gyu_identity_diagnostic/outputs/quality_ko_foundation_seed7.wav",
+      "audio_sha256": "0dcf76fceb93e412fef7dbbcf758a77dccbdb9ec466514cbeeaa70ef04cc9182",
+      "uncertainty_reason": "MMS_FA is target-conditioned alignment, not independent phone recognition",
+      "seed_content_consistency": 0.9997950985151427,
+      "machine_lexical_decision": "foundation_machine_inconclusive"
+    },
+    {
+      "case": "quality_ko",
+      "stress_category": "ordinary",
+      "seed": 21,
+      "representation": "ko_components_v1",
+      "expected_lyrics": "하늘을향해 노래해작은 빛을따라가",
+      "expected_phones": [
+        "ko_onset_18",
+        "ko_nucleus_0",
+        "ko_onset_2",
+        "ko_nucleus_18",
+        "ko_coda_8",
+        "ko_onset_11",
+        "ko_nucleus_18",
+        "ko_coda_8",
+        "ko_onset_18",
+        "ko_nucleus_2",
+        "ko_coda_21",
+        "ko_onset_18",
+        "ko_nucleus_1",
+        "ko_onset_2",
+        "ko_nucleus_8",
+        "ko_onset_5",
+        "ko_nucleus_1",
+        "ko_onset_18",
+        "ko_nucleus_1",
+        "ko_onset_12",
+        "ko_nucleus_0",
+        "ko_coda_1",
+        "ko_onset_11",
+        "ko_nucleus_18",
+        "ko_coda_4",
+        "ko_onset_7",
+        "ko_nucleus_20",
+        "ko_coda_23",
+        "ko_onset_11",
+        "ko_nucleus_18",
+        "ko_coda_8",
+        "ko_onset_4",
+        "ko_nucleus_0",
+        "ko_onset_5",
+        "ko_nucleus_0",
+        "ko_onset_0",
+        "ko_nucleus_0",
+        "SP"
+      ],
+      "aligned_phones_or_posterior_path": [
+        {
+          "symbol": "h",
+          "start_frame": 3,
+          "end_frame": 4,
+          "mean_log_score": -3.813155
+        },
+        {
+          "symbol": "a",
+          "start_frame": 8,
+          "end_frame": 9,
+          "mean_log_score": -1.499557
+        },
+        {
+          "symbol": "n",
+          "start_frame": 28,
+          "end_frame": 29,
+          "mean_log_score": -2.154443
+        },
+        {
+          "symbol": "e",
+          "start_frame": 32,
+          "end_frame": 33,
+          "mean_log_score": -5.108373
+        },
+        {
+          "symbol": "u",
+          "start_frame": 36,
+          "end_frame": 37,
+          "mean_log_score": -3.24378
+        },
+        {
+          "symbol": "l",
+          "start_frame": 69,
+          "end_frame": 70,
+          "mean_log_score": -5.285383
+        },
+        {
+          "symbol": "e",
+          "start_frame": 74,
+          "end_frame": 75,
+          "mean_log_score": -5.367255
+        },
+        {
+          "symbol": "u",
+          "start_frame": 77,
+          "end_frame": 78,
+          "mean_log_score": -5.921868
+        },
+        {
+          "symbol": "l",
+          "start_frame": 78,
+          "end_frame": 79,
+          "mean_log_score": -4.682651
+        },
+        {
+          "symbol": "h",
+          "start_frame": 79,
+          "end_frame": 80,
+          "mean_log_score": -5.686873
+        },
+        {
+          "symbol": "y",
+          "start_frame": 84,
+          "end_frame": 85,
+          "mean_log_score": -7.14456
+        },
+        {
+          "symbol": "a",
+          "start_frame": 92,
+          "end_frame": 93,
+          "mean_log_score": -1.027978
+        },
+        {
+          "symbol": "n",
+          "start_frame": 110,
+          "end_frame": 111,
+          "mean_log_score": -1.403975
+        },
+        {
+          "symbol": "g",
+          "start_frame": 111,
+          "end_frame": 112,
+          "mean_log_score": -1.875239
+        },
+        {
+          "symbol": "h",
+          "start_frame": 124,
+          "end_frame": 125,
+          "mean_log_score": -5.334017
+        },
+        {
+          "symbol": "a",
+          "start_frame": 131,
+          "end_frame": 132,
+          "mean_log_score": -1.728098
+        },
+        {
+          "symbol": "e",
+          "start_frame": 139,
+          "end_frame": 140,
+          "mean_log_score": -5.311693
+        },
+        {
+          "symbol": "n",
+          "start_frame": 145,
+          "end_frame": 146,
+          "mean_log_score": -2.600518
+        },
+        {
+          "symbol": "o",
+          "start_frame": 148,
+          "end_frame": 149,
+          "mean_log_score": -3.70443
+        },
+        {
+          "symbol": "r",
+          "start_frame": 150,
+          "end_frame": 151,
+          "mean_log_score": -4.945256
+        },
+        {
+          "symbol": "a",
+          "start_frame": 158,
+          "end_frame": 159,
+          "mean_log_score": -1.679196
+        },
+        {
+          "symbol": "e",
+          "start_frame": 168,
+          "end_frame": 169,
+          "mean_log_score": -4.52896
+        },
+        {
+          "symbol": "h",
+          "start_frame": 173,
+          "end_frame": 174,
+          "mean_log_score": -4.807893
+        },
+        {
+          "symbol": "a",
+          "start_frame": 181,
+          "end_frame": 182,
+          "mean_log_score": -1.883267
+        },
+        {
+          "symbol": "e",
+          "start_frame": 191,
+          "end_frame": 192,
+          "mean_log_score": -4.489442
+        },
+        {
+          "symbol": "j",
+          "start_frame": 197,
+          "end_frame": 198,
+          "mean_log_score": -7.164245
+        },
+        {
+          "symbol": "a",
+          "start_frame": 203,
+          "end_frame": 205,
+          "mean_log_score": -1.216591
+        },
+        {
+          "symbol": "g",
+          "start_frame": 220,
+          "end_frame": 221,
+          "mean_log_score": -1.514003
+        },
+        {
+          "symbol": "e",
+          "start_frame": 222,
+          "end_frame": 223,
+          "mean_log_score": -3.911287
+        },
+        {
+          "symbol": "u",
+          "start_frame": 231,
+          "end_frame": 232,
+          "mean_log_score": -4.661216
+        },
+        {
+          "symbol": "n",
+          "start_frame": 242,
+          "end_frame": 243,
+          "mean_log_score": -1.486291
+        },
+        {
+          "symbol": "b",
+          "start_frame": 250,
+          "end_frame": 251,
+          "mean_log_score": -5.391755
+        },
+        {
+          "symbol": "i",
+          "start_frame": 256,
+          "end_frame": 257,
+          "mean_log_score": -3.968386
+        },
+        {
+          "symbol": "c",
+          "start_frame": 278,
+          "end_frame": 279,
+          "mean_log_score": -3.669415
+        },
+        {
+          "symbol": "h",
+          "start_frame": 280,
+          "end_frame": 281,
+          "mean_log_score": -3.228656
+        },
+        {
+          "symbol": "e",
+          "start_frame": 285,
+          "end_frame": 286,
+          "mean_log_score": -3.851951
+        },
+        {
+          "symbol": "u",
+          "start_frame": 318,
+          "end_frame": 319,
+          "mean_log_score": -4.797191
+        },
+        {
+          "symbol": "l",
+          "start_frame": 333,
+          "end_frame": 334,
+          "mean_log_score": -5.319465
+        },
+        {
+          "symbol": "t",
+          "start_frame": 340,
+          "end_frame": 341,
+          "mean_log_score": -1.833245
+        },
+        {
+          "symbol": "t",
+          "start_frame": 374,
+          "end_frame": 375,
+          "mean_log_score": -1.531402
+        },
+        {
+          "symbol": "a",
+          "start_frame": 379,
+          "end_frame": 380,
+          "mean_log_score": -1.627165
+        },
+        {
+          "symbol": "r",
+          "start_frame": 411,
+          "end_frame": 412,
+          "mean_log_score": -4.05281
+        },
+        {
+          "symbol": "a",
+          "start_frame": 418,
+          "end_frame": 419,
+          "mean_log_score": -1.671601
+        },
+        {
+          "symbol": "g",
+          "start_frame": 450,
+          "end_frame": 451,
+          "mean_log_score": -1.953133
+        },
+        {
+          "symbol": "a",
+          "start_frame": 463,
+          "end_frame": 464,
+          "mean_log_score": -1.886655
+        }
+      ],
+      "phone_insertions": null,
+      "phone_deletions": null,
+      "phone_substitutions": null,
+      "phone_error_rate": null,
+      "alignment_confidence": 0.028588,
+      "alignment_mean_log_score": -3.554763,
+      "alignment_coverage": 0.092555,
+      "alignment_monotonic": true,
+      "boundary_deviation": null,
+      "duration_deviation": null,
+      "auxiliary_stt_observation": " 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우",
+      "auxiliary_stt_lyric_similarity": 0.0,
+      "pitch_mae_cents": 4.0954,
+      "pitch_p90_abs_cents": 2.3675,
+      "gross_pitch_error_rate": 0.0,
+      "voicing_accuracy": 0.98996,
+      "clip_fraction": 0.0,
+      "hf_spike": 36.8224,
+      "sample_jump": 0.064163,
+      "waveform_discontinuity": 0.064163,
+      "audio_path": "data/external/work/gtsinger_gyu_identity_diagnostic/outputs/quality_ko_foundation_seed21.wav",
+      "audio_sha256": "34df1868406ac5fa219b9be8ec075aee68f6bb22ebca8a1eddd038b3402272fb",
+      "uncertainty_reason": "MMS_FA is target-conditioned alignment, not independent phone recognition",
+      "seed_content_consistency": 0.9997950985151427,
+      "machine_lexical_decision": "foundation_machine_inconclusive"
+    },
+    {
+      "case": "quality_ko",
+      "stress_category": "ordinary",
+      "seed": 42,
+      "representation": "ko_components_v1",
+      "expected_lyrics": "하늘을향해 노래해작은 빛을따라가",
+      "expected_phones": [
+        "ko_onset_18",
+        "ko_nucleus_0",
+        "ko_onset_2",
+        "ko_nucleus_18",
+        "ko_coda_8",
+        "ko_onset_11",
+        "ko_nucleus_18",
+        "ko_coda_8",
+        "ko_onset_18",
+        "ko_nucleus_2",
+        "ko_coda_21",
+        "ko_onset_18",
+        "ko_nucleus_1",
+        "ko_onset_2",
+        "ko_nucleus_8",
+        "ko_onset_5",
+        "ko_nucleus_1",
+        "ko_onset_18",
+        "ko_nucleus_1",
+        "ko_onset_12",
+        "ko_nucleus_0",
+        "ko_coda_1",
+        "ko_onset_11",
+        "ko_nucleus_18",
+        "ko_coda_4",
+        "ko_onset_7",
+        "ko_nucleus_20",
+        "ko_coda_23",
+        "ko_onset_11",
+        "ko_nucleus_18",
+        "ko_coda_8",
+        "ko_onset_4",
+        "ko_nucleus_0",
+        "ko_onset_5",
+        "ko_nucleus_0",
+        "ko_onset_0",
+        "ko_nucleus_0",
+        "SP"
+      ],
+      "aligned_phones_or_posterior_path": [
+        {
+          "symbol": "h",
+          "start_frame": 3,
+          "end_frame": 4,
+          "mean_log_score": -3.688272
+        },
+        {
+          "symbol": "a",
+          "start_frame": 8,
+          "end_frame": 9,
+          "mean_log_score": -1.45767
+        },
+        {
+          "symbol": "n",
+          "start_frame": 28,
+          "end_frame": 29,
+          "mean_log_score": -1.950749
+        },
+        {
+          "symbol": "e",
+          "start_frame": 32,
+          "end_frame": 33,
+          "mean_log_score": -5.168393
+        },
+        {
+          "symbol": "u",
+          "start_frame": 36,
+          "end_frame": 37,
+          "mean_log_score": -3.217123
+        },
+        {
+          "symbol": "l",
+          "start_frame": 69,
+          "end_frame": 70,
+          "mean_log_score": -5.338948
+        },
+        {
+          "symbol": "e",
+          "start_frame": 74,
+          "end_frame": 75,
+          "mean_log_score": -5.403313
+        },
+        {
+          "symbol": "u",
+          "start_frame": 77,
+          "end_frame": 78,
+          "mean_log_score": -5.972137
+        },
+        {
+          "symbol": "l",
+          "start_frame": 78,
+          "end_frame": 79,
+          "mean_log_score": -4.633027
+        },
+        {
+          "symbol": "h",
+          "start_frame": 79,
+          "end_frame": 80,
+          "mean_log_score": -5.659232
+        },
+        {
+          "symbol": "y",
+          "start_frame": 84,
+          "end_frame": 85,
+          "mean_log_score": -7.060687
+        },
+        {
+          "symbol": "a",
+          "start_frame": 92,
+          "end_frame": 93,
+          "mean_log_score": -1.000687
+        },
+        {
+          "symbol": "n",
+          "start_frame": 110,
+          "end_frame": 111,
+          "mean_log_score": -1.355434
+        },
+        {
+          "symbol": "g",
+          "start_frame": 111,
+          "end_frame": 112,
+          "mean_log_score": -1.803242
+        },
+        {
+          "symbol": "h",
+          "start_frame": 124,
+          "end_frame": 125,
+          "mean_log_score": -5.254584
+        },
+        {
+          "symbol": "a",
+          "start_frame": 131,
+          "end_frame": 132,
+          "mean_log_score": -1.714447
+        },
+        {
+          "symbol": "e",
+          "start_frame": 139,
+          "end_frame": 140,
+          "mean_log_score": -5.327594
+        },
+        {
+          "symbol": "n",
+          "start_frame": 145,
+          "end_frame": 146,
+          "mean_log_score": -2.556979
+        },
+        {
+          "symbol": "o",
+          "start_frame": 148,
+          "end_frame": 149,
+          "mean_log_score": -3.634301
+        },
+        {
+          "symbol": "r",
+          "start_frame": 155,
+          "end_frame": 156,
+          "mean_log_score": -4.79564
+        },
+        {
+          "symbol": "a",
+          "start_frame": 158,
+          "end_frame": 159,
+          "mean_log_score": -1.6736
+        },
+        {
+          "symbol": "e",
+          "start_frame": 168,
+          "end_frame": 169,
+          "mean_log_score": -4.548218
+        },
+        {
+          "symbol": "h",
+          "start_frame": 173,
+          "end_frame": 174,
+          "mean_log_score": -4.79515
+        },
+        {
+          "symbol": "a",
+          "start_frame": 181,
+          "end_frame": 182,
+          "mean_log_score": -1.75695
+        },
+        {
+          "symbol": "e",
+          "start_frame": 191,
+          "end_frame": 192,
+          "mean_log_score": -4.535487
+        },
+        {
+          "symbol": "j",
+          "start_frame": 197,
+          "end_frame": 198,
+          "mean_log_score": -7.198893
+        },
+        {
+          "symbol": "a",
+          "start_frame": 203,
+          "end_frame": 205,
+          "mean_log_score": -1.210097
+        },
+        {
+          "symbol": "g",
+          "start_frame": 220,
+          "end_frame": 221,
+          "mean_log_score": -1.472401
+        },
+        {
+          "symbol": "e",
+          "start_frame": 222,
+          "end_frame": 223,
+          "mean_log_score": -3.908898
+        },
+        {
+          "symbol": "u",
+          "start_frame": 231,
+          "end_frame": 232,
+          "mean_log_score": -4.640856
+        },
+        {
+          "symbol": "n",
+          "start_frame": 242,
+          "end_frame": 243,
+          "mean_log_score": -1.457166
+        },
+        {
+          "symbol": "b",
+          "start_frame": 250,
+          "end_frame": 251,
+          "mean_log_score": -5.418605
+        },
+        {
+          "symbol": "i",
+          "start_frame": 256,
+          "end_frame": 257,
+          "mean_log_score": -4.002915
+        },
+        {
+          "symbol": "c",
+          "start_frame": 278,
+          "end_frame": 279,
+          "mean_log_score": -3.649848
+        },
+        {
+          "symbol": "h",
+          "start_frame": 280,
+          "end_frame": 281,
+          "mean_log_score": -3.225799
+        },
+        {
+          "symbol": "e",
+          "start_frame": 285,
+          "end_frame": 286,
+          "mean_log_score": -3.89865
+        },
+        {
+          "symbol": "u",
+          "start_frame": 318,
+          "end_frame": 319,
+          "mean_log_score": -4.801471
+        },
+        {
+          "symbol": "l",
+          "start_frame": 333,
+          "end_frame": 334,
+          "mean_log_score": -5.361627
+        },
+        {
+          "symbol": "t",
+          "start_frame": 340,
+          "end_frame": 341,
+          "mean_log_score": -1.854534
+        },
+        {
+          "symbol": "t",
+          "start_frame": 374,
+          "end_frame": 375,
+          "mean_log_score": -1.539936
+        },
+        {
+          "symbol": "a",
+          "start_frame": 379,
+          "end_frame": 380,
+          "mean_log_score": -1.62684
+        },
+        {
+          "symbol": "r",
+          "start_frame": 411,
+          "end_frame": 412,
+          "mean_log_score": -4.031961
+        },
+        {
+          "symbol": "a",
+          "start_frame": 418,
+          "end_frame": 419,
+          "mean_log_score": -1.685719
+        },
+        {
+          "symbol": "g",
+          "start_frame": 450,
+          "end_frame": 451,
+          "mean_log_score": -1.929397
+        },
+        {
+          "symbol": "a",
+          "start_frame": 463,
+          "end_frame": 464,
+          "mean_log_score": -1.913866
+        }
+      ],
+      "phone_insertions": null,
+      "phone_deletions": null,
+      "phone_substitutions": null,
+      "phone_error_rate": null,
+      "alignment_confidence": 0.029122,
+      "alignment_mean_log_score": -3.536252,
+      "alignment_coverage": 0.092555,
+      "alignment_monotonic": true,
+      "boundary_deviation": null,
+      "duration_deviation": null,
+      "auxiliary_stt_observation": " 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우 와우",
+      "auxiliary_stt_lyric_similarity": 0.0,
+      "pitch_mae_cents": 4.1583,
+      "pitch_p90_abs_cents": 2.3416,
+      "gross_pitch_error_rate": 0.0,
+      "voicing_accuracy": 0.98996,
+      "clip_fraction": 0.0,
+      "hf_spike": 36.6688,
+      "sample_jump": 0.064154,
+      "waveform_discontinuity": 0.064154,
+      "audio_path": "data/external/work/gtsinger_gyu_identity_diagnostic/outputs/quality_ko_foundation_seed42.wav",
+      "audio_sha256": "424afd69848764ab89b6f0bbc09978a52fd4489ebb86d24b781e4e563b83bd9d",
+      "uncertainty_reason": "MMS_FA is target-conditioned alignment, not independent phone recognition",
+      "seed_content_consistency": 0.9997950985151427,
+      "machine_lexical_decision": "foundation_machine_inconclusive"
+    },
+    {
+      "case": "rapid_ko",
+      "stress_category": "rapid",
+      "seed": 7,
+      "representation": "ko_components_v1",
+      "expected_lyrics": "빠르게노래하자아",
+      "expected_phones": [
+        "ko_onset_8",
+        "ko_nucleus_0",
+        "ko_onset_5",
+        "ko_nucleus_18",
+        "ko_onset_0",
+        "ko_nucleus_5",
+        "ko_onset_2",
+        "ko_nucleus_8",
+        "ko_onset_5",
+        "ko_nucleus_1",
+        "ko_onset_18",
+        "ko_nucleus_0",
+        "ko_onset_12",
+        "ko_nucleus_0",
+        "ko_onset_11",
+        "ko_nucleus_0"
+      ],
+      "aligned_phones_or_posterior_path": [
+        {
+          "symbol": "p",
+          "start_frame": 2,
+          "end_frame": 3,
+          "mean_log_score": -6.256958
+        },
+        {
+          "symbol": "p",
+          "start_frame": 4,
+          "end_frame": 5,
+          "mean_log_score": -6.407166
+        },
+        {
+          "symbol": "a",
+          "start_frame": 15,
+          "end_frame": 16,
+          "mean_log_score": -2.487894
+        },
+        {
+          "symbol": "r",
+          "start_frame": 29,
+          "end_frame": 30,
+          "mean_log_score": -3.989066
+        },
+        {
+          "symbol": "e",
+          "start_frame": 30,
+          "end_frame": 31,
+          "mean_log_score": -3.960662
+        },
+        {
+          "symbol": "u",
+          "start_frame": 31,
+          "end_frame": 32,
+          "mean_log_score": -3.572306
+        },
+        {
+          "symbol": "g",
+          "start_frame": 37,
+          "end_frame": 38,
+          "mean_log_score": -3.834719
+        },
+        {
+          "symbol": "e",
+          "start_frame": 41,
+          "end_frame": 42,
+          "mean_log_score": -3.415784
+        },
+        {
+          "symbol": "n",
+          "start_frame": 44,
+          "end_frame": 45,
+          "mean_log_score": -3.986607
+        },
+        {
+          "symbol": "o",
+          "start_frame": 48,
+          "end_frame": 49,
+          "mean_log_score": -4.54098
+        },
+        {
+          "symbol": "r",
+          "start_frame": 51,
+          "end_frame": 52,
+          "mean_log_score": -3.576171
+        },
+        {
+          "symbol": "a",
+          "start_frame": 53,
+          "end_frame": 54,
+          "mean_log_score": -1.863427
+        },
+        {
+          "symbol": "e",
+          "start_frame": 67,
+          "end_frame": 68,
+          "mean_log_score": -3.048105
+        },
+        {
+          "symbol": "h",
+          "start_frame": 78,
+          "end_frame": 79,
+          "mean_log_score": -3.371862
+        },
+        {
+          "symbol": "a",
+          "start_frame": 81,
+          "end_frame": 82,
+          "mean_log_score": -1.876583
+        },
+        {
+          "symbol": "j",
+          "start_frame": 90,
+          "end_frame": 91,
+          "mean_log_score": -4.328965
+        },
+        {
+          "symbol": "a",
+          "start_frame": 93,
+          "end_frame": 94,
+          "mean_log_score": -1.90634
+        },
+        {
+          "symbol": "a",
+          "start_frame": 99,
+          "end_frame": 100,
+          "mean_log_score": -3.301179
+        }
+      ],
+      "phone_insertions": null,
+      "phone_deletions": null,
+      "phone_substitutions": null,
+      "phone_error_rate": null,
+      "alignment_confidence": 0.025955,
+      "alignment_mean_log_score": -3.651376,
+      "alignment_coverage": 0.18,
+      "alignment_monotonic": true,
+      "boundary_deviation": 0.04375,
+      "duration_deviation": 0.0375,
+      "auxiliary_stt_observation": " 야다 야다 야다 야다",
+      "auxiliary_stt_lyric_similarity": 0.0,
+      "pitch_mae_cents": 6.1433,
+      "pitch_p90_abs_cents": 13.0452,
+      "gross_pitch_error_rate": 0.0,
+      "voicing_accuracy": 0.98,
+      "clip_fraction": 0.0,
+      "hf_spike": 15.7328,
+      "sample_jump": 0.057935,
+      "waveform_discontinuity": 0.057935,
+      "audio_path": "data/external/work/gtsinger_gyu_identity_diagnostic/outputs/rapid_ko_foundation_seed7.wav",
+      "audio_sha256": "e0ccc95dc40157f014998fdfc133eb9423cb3808f80d956c8f332eac9b9aed3f",
+      "uncertainty_reason": "MMS_FA is target-conditioned alignment, not independent phone recognition",
+      "seed_content_consistency": 0.9997950985151427,
+      "machine_lexical_decision": "foundation_machine_inconclusive"
+    },
+    {
+      "case": "rapid_ko",
+      "stress_category": "rapid",
+      "seed": 21,
+      "representation": "ko_components_v1",
+      "expected_lyrics": "빠르게노래하자아",
+      "expected_phones": [
+        "ko_onset_8",
+        "ko_nucleus_0",
+        "ko_onset_5",
+        "ko_nucleus_18",
+        "ko_onset_0",
+        "ko_nucleus_5",
+        "ko_onset_2",
+        "ko_nucleus_8",
+        "ko_onset_5",
+        "ko_nucleus_1",
+        "ko_onset_18",
+        "ko_nucleus_0",
+        "ko_onset_12",
+        "ko_nucleus_0",
+        "ko_onset_11",
+        "ko_nucleus_0"
+      ],
+      "aligned_phones_or_posterior_path": [
+        {
+          "symbol": "p",
+          "start_frame": 2,
+          "end_frame": 3,
+          "mean_log_score": -6.250455
+        },
+        {
+          "symbol": "p",
+          "start_frame": 4,
+          "end_frame": 5,
+          "mean_log_score": -6.354673
+        },
+        {
+          "symbol": "a",
+          "start_frame": 15,
+          "end_frame": 16,
+          "mean_log_score": -2.474394
+        },
+        {
+          "symbol": "r",
+          "start_frame": 29,
+          "end_frame": 30,
+          "mean_log_score": -3.993271
+        },
+        {
+          "symbol": "e",
+          "start_frame": 30,
+          "end_frame": 31,
+          "mean_log_score": -4.041346
+        },
+        {
+          "symbol": "u",
+          "start_frame": 31,
+          "end_frame": 32,
+          "mean_log_score": -3.628117
+        },
+        {
+          "symbol": "g",
+          "start_frame": 37,
+          "end_frame": 38,
+          "mean_log_score": -3.862932
+        },
+        {
+          "symbol": "e",
+          "start_frame": 41,
+          "end_frame": 42,
+          "mean_log_score": -3.41474
+        },
+        {
+          "symbol": "n",
+          "start_frame": 42,
+          "end_frame": 43,
+          "mean_log_score": -3.882514
+        },
+        {
+          "symbol": "o",
+          "start_frame": 48,
+          "end_frame": 49,
+          "mean_log_score": -4.553226
+        },
+        {
+          "symbol": "r",
+          "start_frame": 51,
+          "end_frame": 52,
+          "mean_log_score": -3.615903
+        },
+        {
+          "symbol": "a",
+          "start_frame": 53,
+          "end_frame": 54,
+          "mean_log_score": -1.894719
+        },
+        {
+          "symbol": "e",
+          "start_frame": 67,
+          "end_frame": 68,
+          "mean_log_score": -3.04481
+        },
+        {
+          "symbol": "h",
+          "start_frame": 78,
+          "end_frame": 79,
+          "mean_log_score": -3.416175
+        },
+        {
+          "symbol": "a",
+          "start_frame": 81,
+          "end_frame": 82,
+          "mean_log_score": -1.900904
+        },
+        {
+          "symbol": "j",
+          "start_frame": 90,
+          "end_frame": 91,
+          "mean_log_score": -4.413461
+        },
+        {
+          "symbol": "a",
+          "start_frame": 93,
+          "end_frame": 94,
+          "mean_log_score": -1.94368
+        },
+        {
+          "symbol": "a",
+          "start_frame": 99,
+          "end_frame": 100,
+          "mean_log_score": -3.307644
+        }
+      ],
+      "phone_insertions": null,
+      "phone_deletions": null,
+      "phone_substitutions": null,
+      "phone_error_rate": null,
+      "alignment_confidence": 0.025572,
+      "alignment_mean_log_score": -3.666276,
+      "alignment_coverage": 0.18,
+      "alignment_monotonic": true,
+      "boundary_deviation": 0.04375,
+      "duration_deviation": 0.0375,
+      "auxiliary_stt_observation": " 야다 야다 야다 야다",
+      "auxiliary_stt_lyric_similarity": 0.0,
+      "pitch_mae_cents": 6.4125,
+      "pitch_p90_abs_cents": 13.2687,
+      "gross_pitch_error_rate": 0.0,
+      "voicing_accuracy": 0.98,
+      "clip_fraction": 0.0,
+      "hf_spike": 15.6315,
+      "sample_jump": 0.058087,
+      "waveform_discontinuity": 0.058087,
+      "audio_path": "data/external/work/gtsinger_gyu_identity_diagnostic/outputs/rapid_ko_foundation_seed21.wav",
+      "audio_sha256": "299f7f055bcd42c15f7c95783ce71e2f60d1759e5e5b245ee23d4967676a84b2",
+      "uncertainty_reason": "MMS_FA is target-conditioned alignment, not independent phone recognition",
+      "seed_content_consistency": 0.9997950985151427,
+      "machine_lexical_decision": "foundation_machine_inconclusive"
+    },
+    {
+      "case": "rapid_ko",
+      "stress_category": "rapid",
+      "seed": 42,
+      "representation": "ko_components_v1",
+      "expected_lyrics": "빠르게노래하자아",
+      "expected_phones": [
+        "ko_onset_8",
+        "ko_nucleus_0",
+        "ko_onset_5",
+        "ko_nucleus_18",
+        "ko_onset_0",
+        "ko_nucleus_5",
+        "ko_onset_2",
+        "ko_nucleus_8",
+        "ko_onset_5",
+        "ko_nucleus_1",
+        "ko_onset_18",
+        "ko_nucleus_0",
+        "ko_onset_12",
+        "ko_nucleus_0",
+        "ko_onset_11",
+        "ko_nucleus_0"
+      ],
+      "aligned_phones_or_posterior_path": [
+        {
+          "symbol": "p",
+          "start_frame": 2,
+          "end_frame": 3,
+          "mean_log_score": -6.299981
+        },
+        {
+          "symbol": "p",
+          "start_frame": 4,
+          "end_frame": 5,
+          "mean_log_score": -6.301613
+        },
+        {
+          "symbol": "a",
+          "start_frame": 15,
+          "end_frame": 16,
+          "mean_log_score": -2.52477
+        },
+        {
+          "symbol": "r",
+          "start_frame": 29,
+          "end_frame": 30,
+          "mean_log_score": -4.029369
+        },
+        {
+          "symbol": "e",
+          "start_frame": 30,
+          "end_frame": 31,
+          "mean_log_score": -4.097627
+        },
+        {
+          "symbol": "u",
+          "start_frame": 31,
+          "end_frame": 32,
+          "mean_log_score": -3.654348
+        },
+        {
+          "symbol": "g",
+          "start_frame": 37,
+          "end_frame": 38,
+          "mean_log_score": -3.821143
+        },
+        {
+          "symbol": "e",
+          "start_frame": 41,
+          "end_frame": 42,
+          "mean_log_score": -3.423798
+        },
+        {
+          "symbol": "n",
+          "start_frame": 42,
+          "end_frame": 43,
+          "mean_log_score": -3.896832
+        },
+        {
+          "symbol": "o",
+          "start_frame": 48,
+          "end_frame": 49,
+          "mean_log_score": -4.60437
+        },
+        {
+          "symbol": "r",
+          "start_frame": 51,
+          "end_frame": 52,
+          "mean_log_score": -3.625919
+        },
+        {
+          "symbol": "a",
+          "start_frame": 53,
+          "end_frame": 54,
+          "mean_log_score": -1.918476
+        },
+        {
+          "symbol": "e",
+          "start_frame": 67,
+          "end_frame": 68,
+          "mean_log_score": -3.062147
+        },
+        {
+          "symbol": "h",
+          "start_frame": 78,
+          "end_frame": 79,
+          "mean_log_score": -3.441626
+        },
+        {
+          "symbol": "a",
+          "start_frame": 81,
+          "end_frame": 82,
+          "mean_log_score": -1.931089
+        },
+        {
+          "symbol": "j",
+          "start_frame": 90,
+          "end_frame": 91,
+          "mean_log_score": -4.447387
+        },
+        {
+          "symbol": "a",
+          "start_frame": 93,
+          "end_frame": 94,
+          "mean_log_score": -1.973
+        },
+        {
+          "symbol": "a",
+          "start_frame": 99,
+          "end_frame": 100,
+          "mean_log_score": -3.342742
+        }
+      ],
+      "phone_insertions": null,
+      "phone_deletions": null,
+      "phone_substitutions": null,
+      "phone_error_rate": null,
+      "alignment_confidence": 0.025005,
+      "alignment_mean_log_score": -3.68868,
+      "alignment_coverage": 0.18,
+      "alignment_monotonic": true,
+      "boundary_deviation": 0.04375,
+      "duration_deviation": 0.0375,
+      "auxiliary_stt_observation": " 야다 야다 야다 야다",
+      "auxiliary_stt_lyric_similarity": 0.0,
+      "pitch_mae_cents": 6.5325,
+      "pitch_p90_abs_cents": 13.08,
+      "gross_pitch_error_rate": 0.0,
+      "voicing_accuracy": 0.98,
+      "clip_fraction": 0.0,
+      "hf_spike": 15.7349,
+      "sample_jump": 0.057992,
+      "waveform_discontinuity": 0.057992,
+      "audio_path": "data/external/work/gtsinger_gyu_identity_diagnostic/outputs/rapid_ko_foundation_seed42.wav",
+      "audio_sha256": "af7a8c0ce76b250ea1df7f5ad9115ba4d6275373dcf4eb9e76e45d00b69b6d18",
+      "uncertainty_reason": "MMS_FA is target-conditioned alignment, not independent phone recognition",
+      "seed_content_consistency": 0.9997950985151427,
+      "machine_lexical_decision": "foundation_machine_inconclusive"
+    },
+    {
+      "case": "large_interval_ko",
+      "stress_category": "large_interval",
+      "seed": 7,
+      "representation": "ko_components_v1",
+      "expected_lyrics": "높이날아",
+      "expected_phones": [
+        "ko_onset_2",
+        "ko_nucleus_8",
+        "ko_coda_26",
+        "ko_onset_11",
+        "ko_nucleus_20",
+        "ko_onset_2",
+        "ko_nucleus_0",
+        "ko_coda_8",
+        "ko_onset_11",
+        "ko_nucleus_0"
+      ],
+      "aligned_phones_or_posterior_path": [
+        {
+          "symbol": "n",
+          "start_frame": 2,
+          "end_frame": 3,
+          "mean_log_score": -3.749152
+        },
+        {
+          "symbol": "o",
+          "start_frame": 47,
+          "end_frame": 48,
+          "mean_log_score": -1.286385
+        },
+        {
+          "symbol": "p",
+          "start_frame": 59,
+          "end_frame": 60,
+          "mean_log_score": -4.722221
+        },
+        {
+          "symbol": "i",
+          "start_frame": 64,
+          "end_frame": 65,
+          "mean_log_score": -4.881663
+        },
+        {
+          "symbol": "n",
+          "start_frame": 108,
+          "end_frame": 109,
+          "mean_log_score": -3.036236
+        },
+        {
+          "symbol": "a",
+          "start_frame": 123,
+          "end_frame": 124,
+          "mean_log_score": -2.721143
+        },
+        {
+          "symbol": "l",
+          "start_frame": 187,
+          "end_frame": 188,
+          "mean_log_score": -4.997756
+        },
+        {
+          "symbol": "a",
+          "start_frame": 193,
+          "end_frame": 194,
+          "mean_log_score": -1.762707
+        }
+      ],
+      "phone_insertions": null,
+      "phone_deletions": null,
+      "phone_substitutions": null,
+      "phone_error_rate": null,
+      "alignment_confidence": 0.033552,
+      "alignment_mean_log_score": -3.394658,
+      "alignment_coverage": 0.033333,
+      "alignment_monotonic": true,
+      "boundary_deviation": 0.113542,
+      "duration_deviation": 0.179167,
+      "auxiliary_stt_observation": " 아 아",
+      "auxiliary_stt_lyric_similarity": 0.333333,
+      "pitch_mae_cents": 10.8098,
+      "pitch_p90_abs_cents": 5.8005,
+      "gross_pitch_error_rate": 0.004405,
+      "voicing_accuracy": 0.958333,
+      "clip_fraction": 0.0,
+      "hf_spike": 38.3962,
+      "sample_jump": 0.085692,
+      "waveform_discontinuity": 0.085692,
+      "audio_path": "data/external/work/gtsinger_gyu_identity_diagnostic/outputs/large_interval_ko_foundation_seed7.wav",
+      "audio_sha256": "ef23f371cbb9c72848806738404ef577754afb7803b260cf1662ebc22fa568df",
+      "uncertainty_reason": "MMS_FA is target-conditioned alignment, not independent phone recognition",
+      "seed_content_consistency": 0.9997950985151427,
+      "machine_lexical_decision": "foundation_machine_inconclusive"
+    },
+    {
+      "case": "large_interval_ko",
+      "stress_category": "large_interval",
+      "seed": 21,
+      "representation": "ko_components_v1",
+      "expected_lyrics": "높이날아",
+      "expected_phones": [
+        "ko_onset_2",
+        "ko_nucleus_8",
+        "ko_coda_26",
+        "ko_onset_11",
+        "ko_nucleus_20",
+        "ko_onset_2",
+        "ko_nucleus_0",
+        "ko_coda_8",
+        "ko_onset_11",
+        "ko_nucleus_0"
+      ],
+      "aligned_phones_or_posterior_path": [
+        {
+          "symbol": "n",
+          "start_frame": 2,
+          "end_frame": 3,
+          "mean_log_score": -3.73447
+        },
+        {
+          "symbol": "o",
+          "start_frame": 47,
+          "end_frame": 48,
+          "mean_log_score": -1.283055
+        },
+        {
+          "symbol": "p",
+          "start_frame": 59,
+          "end_frame": 60,
+          "mean_log_score": -4.72478
+        },
+        {
+          "symbol": "i",
+          "start_frame": 64,
+          "end_frame": 65,
+          "mean_log_score": -4.868743
+        },
+        {
+          "symbol": "n",
+          "start_frame": 108,
+          "end_frame": 109,
+          "mean_log_score": -3.031812
+        },
+        {
+          "symbol": "a",
+          "start_frame": 123,
+          "end_frame": 124,
+          "mean_log_score": -2.732738
+        },
+        {
+          "symbol": "l",
+          "start_frame": 187,
+          "end_frame": 188,
+          "mean_log_score": -5.003293
+        },
+        {
+          "symbol": "a",
+          "start_frame": 193,
+          "end_frame": 194,
+          "mean_log_score": -1.758354
+        }
+      ],
+      "phone_insertions": null,
+      "phone_deletions": null,
+      "phone_substitutions": null,
+      "phone_error_rate": null,
+      "alignment_confidence": 0.033636,
+      "alignment_mean_log_score": -3.392156,
+      "alignment_coverage": 0.033333,
+      "alignment_monotonic": true,
+      "boundary_deviation": 0.113542,
+      "duration_deviation": 0.179167,
+      "auxiliary_stt_observation": " 아 아",
+      "auxiliary_stt_lyric_similarity": 0.333333,
+      "pitch_mae_cents": 10.8378,
+      "pitch_p90_abs_cents": 5.67,
+      "gross_pitch_error_rate": 0.004405,
+      "voicing_accuracy": 0.958333,
+      "clip_fraction": 0.0,
+      "hf_spike": 38.2693,
+      "sample_jump": 0.085592,
+      "waveform_discontinuity": 0.085592,
+      "audio_path": "data/external/work/gtsinger_gyu_identity_diagnostic/outputs/large_interval_ko_foundation_seed21.wav",
+      "audio_sha256": "799a62c9e505c95074f54d963679c1ea6bdb9c20ba74214c802ca3d55a9f1740",
+      "uncertainty_reason": "MMS_FA is target-conditioned alignment, not independent phone recognition",
+      "seed_content_consistency": 0.9997950985151427,
+      "machine_lexical_decision": "foundation_machine_inconclusive"
+    },
+    {
+      "case": "large_interval_ko",
+      "stress_category": "large_interval",
+      "seed": 42,
+      "representation": "ko_components_v1",
+      "expected_lyrics": "높이날아",
+      "expected_phones": [
+        "ko_onset_2",
+        "ko_nucleus_8",
+        "ko_coda_26",
+        "ko_onset_11",
+        "ko_nucleus_20",
+        "ko_onset_2",
+        "ko_nucleus_0",
+        "ko_coda_8",
+        "ko_onset_11",
+        "ko_nucleus_0"
+      ],
+      "aligned_phones_or_posterior_path": [
+        {
+          "symbol": "n",
+          "start_frame": 2,
+          "end_frame": 3,
+          "mean_log_score": -3.665217
+        },
+        {
+          "symbol": "o",
+          "start_frame": 47,
+          "end_frame": 48,
+          "mean_log_score": -1.275099
+        },
+        {
+          "symbol": "p",
+          "start_frame": 59,
+          "end_frame": 60,
+          "mean_log_score": -4.738339
+        },
+        {
+          "symbol": "i",
+          "start_frame": 64,
+          "end_frame": 65,
+          "mean_log_score": -4.858526
+        },
+        {
+          "symbol": "n",
+          "start_frame": 108,
+          "end_frame": 109,
+          "mean_log_score": -2.987243
+        },
+        {
+          "symbol": "a",
+          "start_frame": 123,
+          "end_frame": 124,
+          "mean_log_score": -2.715865
+        },
+        {
+          "symbol": "l",
+          "start_frame": 187,
+          "end_frame": 188,
+          "mean_log_score": -4.962834
+        },
+        {
+          "symbol": "a",
+          "start_frame": 193,
+          "end_frame": 194,
+          "mean_log_score": -1.753519
+        }
+      ],
+      "phone_insertions": null,
+      "phone_deletions": null,
+      "phone_substitutions": null,
+      "phone_error_rate": null,
+      "alignment_confidence": 0.034404,
+      "alignment_mean_log_score": -3.36958,
+      "alignment_coverage": 0.033333,
+      "alignment_monotonic": true,
+      "boundary_deviation": 0.113542,
+      "duration_deviation": 0.179167,
+      "auxiliary_stt_observation": " 아 아",
+      "auxiliary_stt_lyric_similarity": 0.333333,
+      "pitch_mae_cents": 10.8282,
+      "pitch_p90_abs_cents": 5.924,
+      "gross_pitch_error_rate": 0.004405,
+      "voicing_accuracy": 0.958333,
+      "clip_fraction": 0.0,
+      "hf_spike": 38.6897,
+      "sample_jump": 0.085765,
+      "waveform_discontinuity": 0.085765,
+      "audio_path": "data/external/work/gtsinger_gyu_identity_diagnostic/outputs/large_interval_ko_foundation_seed42.wav",
+      "audio_sha256": "4869d4ad6dd7928fa734646ae48be914e1ff02b8d81f4e265077dbc00468d0b8",
+      "uncertainty_reason": "MMS_FA is target-conditioned alignment, not independent phone recognition",
+      "seed_content_consistency": 0.9997950985151427,
+      "machine_lexical_decision": "foundation_machine_inconclusive"
+    },
+    {
+      "case": "sustain_ko",
+      "stress_category": "sustain",
+      "seed": 7,
+      "representation": "ko_components_v1",
+      "expected_lyrics": "아",
+      "expected_phones": [
+        "ko_onset_11",
+        "ko_nucleus_0"
+      ],
+      "aligned_phones_or_posterior_path": [
+        {
+          "symbol": "a",
+          "start_frame": 8,
+          "end_frame": 9,
+          "mean_log_score": -1.692034
+        }
+      ],
+      "phone_insertions": null,
+      "phone_deletions": null,
+      "phone_substitutions": null,
+      "phone_error_rate": null,
+      "alignment_confidence": 0.184145,
+      "alignment_mean_log_score": -1.692034,
+      "alignment_coverage": 0.003344,
+      "alignment_monotonic": true,
+      "boundary_deviation": 0.9699,
+      "duration_deviation": 0.9699,
+      "auxiliary_stt_observation": " 다",
+      "auxiliary_stt_lyric_similarity": 0.0,
+      "pitch_mae_cents": 1.4287,
+      "pitch_p90_abs_cents": 1.8118,
+      "gross_pitch_error_rate": 0.0,
+      "voicing_accuracy": 0.99,
+      "clip_fraction": 0.0,
+      "hf_spike": 16.6671,
+      "sample_jump": 0.043985,
+      "waveform_discontinuity": 0.043985,
+      "audio_path": "data/external/work/gtsinger_gyu_identity_diagnostic/outputs/sustain_ko_foundation_seed7.wav",
+      "audio_sha256": "7e55ccfcfcf90f47c5fbd15f7f0231b9a036f99e57ba0f72810a3ed4884fe894",
+      "uncertainty_reason": "MMS_FA is target-conditioned alignment, not independent phone recognition",
+      "seed_content_consistency": 0.9997950985151427,
+      "machine_lexical_decision": "foundation_machine_inconclusive"
+    },
+    {
+      "case": "sustain_ko",
+      "stress_category": "sustain",
+      "seed": 21,
+      "representation": "ko_components_v1",
+      "expected_lyrics": "아",
+      "expected_phones": [
+        "ko_onset_11",
+        "ko_nucleus_0"
+      ],
+      "aligned_phones_or_posterior_path": [
+        {
+          "symbol": "a",
+          "start_frame": 8,
+          "end_frame": 9,
+          "mean_log_score": -1.693134
+        }
+      ],
+      "phone_insertions": null,
+      "phone_deletions": null,
+      "phone_substitutions": null,
+      "phone_error_rate": null,
+      "alignment_confidence": 0.183942,
+      "alignment_mean_log_score": -1.693134,
+      "alignment_coverage": 0.003344,
+      "alignment_monotonic": true,
+      "boundary_deviation": 0.9699,
+      "duration_deviation": 0.9699,
+      "auxiliary_stt_observation": " 다",
+      "auxiliary_stt_lyric_similarity": 0.0,
+      "pitch_mae_cents": 1.4181,
+      "pitch_p90_abs_cents": 1.8432,
+      "gross_pitch_error_rate": 0.0,
+      "voicing_accuracy": 0.99,
+      "clip_fraction": 0.0,
+      "hf_spike": 16.44,
+      "sample_jump": 0.043981,
+      "waveform_discontinuity": 0.043981,
+      "audio_path": "data/external/work/gtsinger_gyu_identity_diagnostic/outputs/sustain_ko_foundation_seed21.wav",
+      "audio_sha256": "cc28a09de2dd7e4f9f01b263d7ccc36729f04e74f4e1889267f6da1db0bfbc8e",
+      "uncertainty_reason": "MMS_FA is target-conditioned alignment, not independent phone recognition",
+      "seed_content_consistency": 0.9997950985151427,
+      "machine_lexical_decision": "foundation_machine_inconclusive"
+    },
+    {
+      "case": "sustain_ko",
+      "stress_category": "sustain",
+      "seed": 42,
+      "representation": "ko_components_v1",
+      "expected_lyrics": "아",
+      "expected_phones": [
+        "ko_onset_11",
+        "ko_nucleus_0"
+      ],
+      "aligned_phones_or_posterior_path": [
+        {
+          "symbol": "a",
+          "start_frame": 8,
+          "end_frame": 9,
+          "mean_log_score": -1.686159
+        }
+      ],
+      "phone_insertions": null,
+      "phone_deletions": null,
+      "phone_substitutions": null,
+      "phone_error_rate": null,
+      "alignment_confidence": 0.18523,
+      "alignment_mean_log_score": -1.686159,
+      "alignment_coverage": 0.003344,
+      "alignment_monotonic": true,
+      "boundary_deviation": 0.9699,
+      "duration_deviation": 0.9699,
+      "auxiliary_stt_observation": " 다",
+      "auxiliary_stt_lyric_similarity": 0.0,
+      "pitch_mae_cents": 1.4288,
+      "pitch_p90_abs_cents": 1.8631,
+      "gross_pitch_error_rate": 0.0,
+      "voicing_accuracy": 0.99,
+      "clip_fraction": 0.0,
+      "hf_spike": 16.68,
+      "sample_jump": 0.043987,
+      "waveform_discontinuity": 0.043987,
+      "audio_path": "data/external/work/gtsinger_gyu_identity_diagnostic/outputs/sustain_ko_foundation_seed42.wav",
+      "audio_sha256": "561080d99776915b64833697f7d13fb98278e7bf6981168ec08e8e93d8eb06c6",
+      "uncertainty_reason": "MMS_FA is target-conditioned alignment, not independent phone recognition",
+      "seed_content_consistency": 0.9997950985151427,
+      "machine_lexical_decision": "foundation_machine_inconclusive"
+    },
+    {
+      "case": "phrase_boundary_ko",
+      "stress_category": "phrase_boundary",
+      "seed": 7,
+      "representation": "ko_components_v1",
+      "expected_lyrics": "빛을따라",
+      "expected_phones": [
+        "ko_onset_7",
+        "ko_nucleus_20",
+        "ko_coda_23",
+        "ko_onset_11",
+        "ko_nucleus_18",
+        "ko_coda_8",
+        "SP",
+        "ko_onset_4",
+        "ko_nucleus_0",
+        "ko_onset_5",
+        "ko_nucleus_0"
+      ],
+      "aligned_phones_or_posterior_path": [
+        {
+          "symbol": "b",
+          "start_frame": 0,
+          "end_frame": 1,
+          "mean_log_score": -7.276652
+        },
+        {
+          "symbol": "i",
+          "start_frame": 1,
+          "end_frame": 2,
+          "mean_log_score": -6.421022
+        },
+        {
+          "symbol": "c",
+          "start_frame": 2,
+          "end_frame": 3,
+          "mean_log_score": -2.885118
+        },
+        {
+          "symbol": "h",
+          "start_frame": 3,
+          "end_frame": 4,
+          "mean_log_score": -3.381438
+        },
+        {
+          "symbol": "e",
+          "start_frame": 4,
+          "end_frame": 5,
+          "mean_log_score": -7.565485
+        },
+        {
+          "symbol": "u",
+          "start_frame": 7,
+          "end_frame": 8,
+          "mean_log_score": -4.531858
+        },
+        {
+          "symbol": "l",
+          "start_frame": 27,
+          "end_frame": 28,
+          "mean_log_score": -6.993082
+        },
+        {
+          "symbol": "t",
+          "start_frame": 39,
+          "end_frame": 40,
+          "mean_log_score": -2.602541
+        },
+        {
+          "symbol": "t",
+          "start_frame": 107,
+          "end_frame": 108,
+          "mean_log_score": -1.746725
+        },
+        {
+          "symbol": "a",
+          "start_frame": 112,
+          "end_frame": 114,
+          "mean_log_score": -1.366721
+        },
+        {
+          "symbol": "r",
+          "start_frame": 139,
+          "end_frame": 140,
+          "mean_log_score": -9.842421
+        },
+        {
+          "symbol": "a",
+          "start_frame": 152,
+          "end_frame": 153,
+          "mean_log_score": -0.907056
+        }
+      ],
+      "phone_insertions": null,
+      "phone_deletions": null,
+      "phone_substitutions": null,
+      "phone_error_rate": null,
+      "alignment_confidence": 0.009787,
+      "alignment_mean_log_score": -4.626677,
+      "alignment_coverage": 0.070652,
+      "alignment_monotonic": true,
+      "boundary_deviation": 0.201858,
+      "duration_deviation": 0.10014,
+      "auxiliary_stt_observation": " 다아... 다아...",
+      "auxiliary_stt_lyric_similarity": 0.0,
+      "pitch_mae_cents": 3.1888,
+      "pitch_p90_abs_cents": 7.1422,
+      "gross_pitch_error_rate": 0.0,
+      "voicing_accuracy": 0.918919,
+      "clip_fraction": 0.0,
+      "hf_spike": 11.6093,
+      "sample_jump": 0.035422,
+      "waveform_discontinuity": 0.035422,
+      "audio_path": "data/external/work/gtsinger_gyu_identity_diagnostic/outputs/phrase_boundary_ko_foundation_seed7.wav",
+      "audio_sha256": "ae6ebe9433047c335629a174240f08d2f4038c2a7cb3fd66b71cb755ddf674a1",
+      "uncertainty_reason": "MMS_FA is target-conditioned alignment, not independent phone recognition",
+      "seed_content_consistency": 0.9997950985151427,
+      "machine_lexical_decision": "foundation_machine_inconclusive"
+    },
+    {
+      "case": "phrase_boundary_ko",
+      "stress_category": "phrase_boundary",
+      "seed": 21,
+      "representation": "ko_components_v1",
+      "expected_lyrics": "빛을따라",
+      "expected_phones": [
+        "ko_onset_7",
+        "ko_nucleus_20",
+        "ko_coda_23",
+        "ko_onset_11",
+        "ko_nucleus_18",
+        "ko_coda_8",
+        "SP",
+        "ko_onset_4",
+        "ko_nucleus_0",
+        "ko_onset_5",
+        "ko_nucleus_0"
+      ],
+      "aligned_phones_or_posterior_path": [
+        {
+          "symbol": "b",
+          "start_frame": 0,
+          "end_frame": 1,
+          "mean_log_score": -7.044493
+        },
+        {
+          "symbol": "i",
+          "start_frame": 1,
+          "end_frame": 2,
+          "mean_log_score": -6.154836
+        },
+        {
+          "symbol": "c",
+          "start_frame": 2,
+          "end_frame": 3,
+          "mean_log_score": -2.715111
+        },
+        {
+          "symbol": "h",
+          "start_frame": 3,
+          "end_frame": 4,
+          "mean_log_score": -3.524814
+        },
+        {
+          "symbol": "e",
+          "start_frame": 4,
+          "end_frame": 5,
+          "mean_log_score": -7.419112
+        },
+        {
+          "symbol": "u",
+          "start_frame": 7,
+          "end_frame": 8,
+          "mean_log_score": -4.401122
+        },
+        {
+          "symbol": "l",
+          "start_frame": 27,
+          "end_frame": 28,
+          "mean_log_score": -6.724509
+        },
+        {
+          "symbol": "t",
+          "start_frame": 39,
+          "end_frame": 40,
+          "mean_log_score": -2.365888
+        },
+        {
+          "symbol": "t",
+          "start_frame": 107,
+          "end_frame": 108,
+          "mean_log_score": -1.381225
+        },
+        {
+          "symbol": "a",
+          "start_frame": 112,
+          "end_frame": 114,
+          "mean_log_score": -1.272595
+        },
+        {
+          "symbol": "r",
+          "start_frame": 139,
+          "end_frame": 140,
+          "mean_log_score": -9.65208
+        },
+        {
+          "symbol": "a",
+          "start_frame": 152,
+          "end_frame": 153,
+          "mean_log_score": -0.926168
+        }
+      ],
+      "phone_insertions": null,
+      "phone_deletions": null,
+      "phone_substitutions": null,
+      "phone_error_rate": null,
+      "alignment_confidence": 0.011503,
+      "alignment_mean_log_score": -4.465163,
+      "alignment_coverage": 0.070652,
+      "alignment_monotonic": true,
+      "boundary_deviation": 0.201858,
+      "duration_deviation": 0.10014,
+      "auxiliary_stt_observation": " 다아... 다아...",
+      "auxiliary_stt_lyric_similarity": 0.0,
+      "pitch_mae_cents": 10.4758,
+      "pitch_p90_abs_cents": 8.5006,
+      "gross_pitch_error_rate": 0.006667,
+      "voicing_accuracy": 0.864865,
+      "clip_fraction": 0.0,
+      "hf_spike": 11.1607,
+      "sample_jump": 0.03522,
+      "waveform_discontinuity": 0.03522,
+      "audio_path": "data/external/work/gtsinger_gyu_identity_diagnostic/outputs/phrase_boundary_ko_foundation_seed21.wav",
+      "audio_sha256": "c35726c7c8f1e6fe719a2825d2f341a0ca81e1aa779826ceca4efb78d0ad5a12",
+      "uncertainty_reason": "MMS_FA is target-conditioned alignment, not independent phone recognition",
+      "seed_content_consistency": 0.9997950985151427,
+      "machine_lexical_decision": "foundation_machine_inconclusive"
+    },
+    {
+      "case": "phrase_boundary_ko",
+      "stress_category": "phrase_boundary",
+      "seed": 42,
+      "representation": "ko_components_v1",
+      "expected_lyrics": "빛을따라",
+      "expected_phones": [
+        "ko_onset_7",
+        "ko_nucleus_20",
+        "ko_coda_23",
+        "ko_onset_11",
+        "ko_nucleus_18",
+        "ko_coda_8",
+        "SP",
+        "ko_onset_4",
+        "ko_nucleus_0",
+        "ko_onset_5",
+        "ko_nucleus_0"
+      ],
+      "aligned_phones_or_posterior_path": [
+        {
+          "symbol": "b",
+          "start_frame": 0,
+          "end_frame": 1,
+          "mean_log_score": -7.545371
+        },
+        {
+          "symbol": "i",
+          "start_frame": 1,
+          "end_frame": 2,
+          "mean_log_score": -6.543882
+        },
+        {
+          "symbol": "c",
+          "start_frame": 2,
+          "end_frame": 3,
+          "mean_log_score": -2.839191
+        },
+        {
+          "symbol": "h",
+          "start_frame": 3,
+          "end_frame": 4,
+          "mean_log_score": -3.556802
+        },
+        {
+          "symbol": "e",
+          "start_frame": 4,
+          "end_frame": 5,
+          "mean_log_score": -7.883762
+        },
+        {
+          "symbol": "u",
+          "start_frame": 7,
+          "end_frame": 8,
+          "mean_log_score": -4.630938
+        },
+        {
+          "symbol": "l",
+          "start_frame": 27,
+          "end_frame": 28,
+          "mean_log_score": -7.040759
+        },
+        {
+          "symbol": "t",
+          "start_frame": 39,
+          "end_frame": 40,
+          "mean_log_score": -2.598313
+        },
+        {
+          "symbol": "t",
+          "start_frame": 107,
+          "end_frame": 108,
+          "mean_log_score": -1.522136
+        },
+        {
+          "symbol": "a",
+          "start_frame": 112,
+          "end_frame": 114,
+          "mean_log_score": -1.306744
+        },
+        {
+          "symbol": "r",
+          "start_frame": 139,
+          "end_frame": 140,
+          "mean_log_score": -9.820814
+        },
+        {
+          "symbol": "a",
+          "start_frame": 152,
+          "end_frame": 153,
+          "mean_log_score": -0.937117
+        }
+      ],
+      "phone_insertions": null,
+      "phone_deletions": null,
+      "phone_substitutions": null,
+      "phone_error_rate": null,
+      "alignment_confidence": 0.009228,
+      "alignment_mean_log_score": -4.685486,
+      "alignment_coverage": 0.070652,
+      "alignment_monotonic": true,
+      "boundary_deviation": 0.201858,
+      "duration_deviation": 0.10014,
+      "auxiliary_stt_observation": " 다아... 다아...",
+      "auxiliary_stt_lyric_similarity": 0.0,
+      "pitch_mae_cents": 3.1306,
+      "pitch_p90_abs_cents": 7.3373,
+      "gross_pitch_error_rate": 0.0,
+      "voicing_accuracy": 0.864865,
+      "clip_fraction": 0.0,
+      "hf_spike": 11.3785,
+      "sample_jump": 0.035249,
+      "waveform_discontinuity": 0.035249,
+      "audio_path": "data/external/work/gtsinger_gyu_identity_diagnostic/outputs/phrase_boundary_ko_foundation_seed42.wav",
+      "audio_sha256": "c0797fe649f4465b238db378abc73e8fcdc073198f0587362fd12f6ad4f60e93",
+      "uncertainty_reason": "MMS_FA is target-conditioned alignment, not independent phone recognition",
+      "seed_content_consistency": 0.9997950985151427,
+      "machine_lexical_decision": "foundation_machine_inconclusive"
+    }
+  ],
+  "linguistic_adapter": {
+    "implementation": "KoreanLinguisticAdapter",
+    "status": "not_started_no_selected_representation",
+    "optimizer_steps": 0,
+    "identity_objective_used": false
+  },
+  "identity_training_allowed": false,
+  "human_review_required": true
+}

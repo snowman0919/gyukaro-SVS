@@ -6,11 +6,20 @@ build-backend = "setuptools.build_meta"
 name = "gyu-singer"
 version = "0.2.0"
 description = "GYU experimental score-controlled singing renderer"
-requires-python = ">=3.11"
+requires-python = ">=3.11,<3.12"
 dependencies = ["numpy>=1.24", "scipy>=1.10", "soundfile>=0.12", "torch", "torchaudio", "torchcodec", "transformers", "onnxruntime"]
+
+[project.optional-dependencies]
+evaluation = ["librosa>=0.11,<0.12", "transformers>=5.8,<6", "speechbrain>=1.1,<2", "onnxruntime>=1.27,<2"]
+diffsinger = ["lightning>=2.3,<3", "pytorch-lightning>=2.6,<3", "PyYAML>=6,<7"]
+training = ["lightning>=2.3,<3", "pytorch-lightning>=2.6,<3"]
+openutau = ["PyYAML>=6,<7"]
+factory = ["soundfile>=0.12,<1", "scipy>=1.10,<2"]
+dev = ["pytest>=8,<9"]
 
 [project.scripts]
 gyu-singer = "gyu_singer.cli:main"
+gyu-voicebank = "gyu_singer.voicebank.cli:main"
 
 [tool.setuptools]
 package-dir = {"" = "src"}
@@ -19,6 +28,7 @@ package-dir = {"" = "src"}
 where = ["src"]
 
 [tool.setuptools.package-data]
+"gyu_singer" = ["backend_registry.json", "voicebank_factory.json"]
 "gyu_singer.frontend" = ["english_lexicon.json"]
 
 [tool.pytest.ini_options]

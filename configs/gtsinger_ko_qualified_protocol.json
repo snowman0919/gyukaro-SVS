@@ -1,0 +1,43 @@
+{
+  "schema": 1,
+  "dataset": "GTSinger/GTSinger",
+  "dataset_revision": "4426c862beed558b7e1cb8a4dce7e8c0c83bb208",
+  "dataset_license": "CC-BY-NC-SA-4.0",
+  "language": "Korean",
+  "singer": "KO-Soprano-2",
+  "group": "Control_Group",
+  "diffsinger_revision": "753b7cc622aadf802b3145d7bb8f7df4afa213c4",
+  "seeds": [7, 21, 42],
+  "checkpoints": [5000, 10000, 15000],
+  "row_gates": {
+    "duration_min_seconds": 2.0,
+    "duration_max_seconds": 15.0,
+    "duration_delta_max_seconds": 0.05,
+    "clipping_samples_max": 0,
+    "whisper_similarity_min": 0.8,
+    "ctc_coverage_min": 0.9,
+    "ctc_unknown_ratio_max": 0.05,
+    "ctc_monotonic_required": true
+  },
+  "corpus_minimums": {
+    "rows": 200,
+    "duration_seconds": 1800.0,
+    "fast_rows": 40,
+    "high_register_rows": 20,
+    "sustained_rows": 20,
+    "large_interval_rows": 20
+  },
+  "foundation_gates": {
+    "lyric_similarity_min": 0.9,
+    "pitch_mae_mean_max_cents": 20.0,
+    "pitch_mae_row_max_cents": 35.0,
+    "pitch_p90_max_cents": 60.0,
+    "gross_pitch_error_max": 0.03,
+    "voicing_accuracy_min": 0.9,
+    "clipping_samples_max": 0,
+    "hf_spike_ratio_to_source_max": 1.1,
+    "sample_jump_ratio_to_source_max": 1.1,
+    "waveform_discontinuity_ratio_to_source_max": 1.1,
+    "stft_spike_ratio_to_source_max": 1.1
+  }
+}

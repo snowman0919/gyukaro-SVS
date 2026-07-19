@@ -1,0 +1,27 @@
+{
+  "protocol_version": 1,
+  "foundation": "gtsinger-ja-soprano",
+  "foundation_checkpoint_sha256": "dd31b42469ef2caa307799212b30fa44b2f1b7186c2f3a14eae45a2a80a6da8a",
+  "selected_representation": null,
+  "candidate_representations": ["ko_components_v1", "ko_canonical_v1", "ko_onset_rhyme_v1"],
+  "adapter": {"type": "KoreanLinguisticAdapter", "hidden_size": 64, "foundation_size": 256, "limit": 0.5, "initial_projection": "zero"},
+  "frozen_modules": ["acoustic_decoder", "variance_predictors", "pitch_predictor", "duration_predictor", "vocoder", "soprano_speaker_condition"],
+  "trainable_modules": ["korean_phone_embeddings", "linguistic_projection_adapter"],
+  "identity_objective_used": false,
+  "training_sources": [
+    {"path": "data/manifests/diffsinger_ko_phoneme_prior.jsonl", "role": "low_trust_teacher_speech_linguistic_prior_only", "license_provenance": "existing locally authorized teacher corpus manifest"},
+    {"path": "data/manifests/real_phoneme_alignment_all.jsonl", "role": "inferred_real_gyu_alignment_low_weight", "label_status": "inferred_only"}
+  ],
+  "seeds": [7, 21, 42],
+  "optimizer": "AdamW",
+  "learning_rate": 0.0001,
+  "weight_decay": 0.0001,
+  "maximum_steps": 200,
+  "evaluation_interval": 25,
+  "early_stop_failed_intervals": 3,
+  "loss_weights": {"phone_content": 2.0, "duration": 1.0, "pitch": 2.0, "voicing": 2.0, "spectral": 1.0, "adapter_regularization": 0.1},
+  "checkpoint_selection": "all preservation gates, then lowest phone error, then smallest update, then earliest checkpoint",
+  "stop_conditions": ["non_finite", "gradient_leakage", "update_ratio_exceeded", "preservation_divergence", "validation_clipping"],
+  "training_status": "blocked_no_selected_representation",
+  "optimizer_steps": 0
+}

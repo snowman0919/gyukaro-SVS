@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "foundation": "gtsinger-ko-soprano",
+  "foundation_checkpoint_sha256": "f7ab385ccf2b4cb7f16973d177e3d1924b840971fe241df9e6dec3cebf4b9916",
+  "authorized_foundation_statuses": ["foundation_candidate_human_pending"],
+  "required_human_approval_state": "approved",
+  "identity_references": ["212", "215", "216", "219", "220"],
+  "seeds": [7, 21, 42],
+  "candidates": [
+    {"type": "fixed_gyu_speaker_embedding", "enabled": true, "order": 1, "trainable": false},
+    {"type": "small_film", "enabled": true, "order": 2, "initialization": "zero_equivalent", "limit": 0.25},
+    {"type": "low_rank_residual", "enabled": true, "order": 3, "initialization": "zero_equivalent", "rank": 8, "limit": 0.25},
+    {"type": "vocoder_conditioning", "enabled": false, "order": 4, "reason": "optional last candidate; not authorized by the current foundation gate"}
+  ],
+  "preservation_metrics": ["phone_lexical", "duration", "pitch", "voicing", "clipping", "hf_spike", "sample_jump", "seed_stability", "japanese_foundation"],
+  "identity_metrics": ["wavlm_multi_reference", "ecapa_multi_reference", "speaker_consistency_distribution", "blind_human_similarity_ab"],
+  "valid_results": ["identity_diagnostic_reject", "identity_machine_inconclusive", "identity_candidate_human_pending"],
+  "checkpoint_selection": "all preservation gates, then both identity metrics, then consistency, then least invasive candidate",
+  "selected_candidate": null,
+  "training_status": "blocked_foundation_machine_inconclusive",
+  "optimizer_steps": 0,
+  "runtime_integration": false
+}

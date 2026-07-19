@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "candidate_backend": null,
+  "whisper_role": "auxiliary_only",
+  "gates": {
+    "approved_foundation": {"passed": false, "method": "project_status", "evidence": ["configs/project_status.json"]},
+    "approved_identity_candidate": {"passed": false, "method": "identity_protocol", "evidence": ["configs/gtsinger_gyu_identity_candidates.json"]},
+    "phone_centered_lexical_gate": {"passed": false, "method": "target_conditioned_alignment_inconclusive", "evidence": ["artifacts/reports/korean_phone_reassessment/evaluation.json"]},
+    "score_pitch_gate": {"passed": false, "method": "candidate_required", "evidence": []},
+    "voicing_gate": {"passed": false, "method": "candidate_required", "evidence": []},
+    "artifact_gate": {"passed": false, "method": "candidate_required", "evidence": []},
+    "multi_seed_gate": {"passed": false, "method": "candidate_required", "evidence": []},
+    "long_form_continuity_gate": {"passed": false, "method": "candidate_required", "evidence": []},
+    "human_approval_record": {"passed": false, "method": "signed_or_recorded_review", "evidence": []},
+    "license_provenance_validation": {"passed": false, "method": "candidate_assets_required", "evidence": []},
+    "reproducible_package_manifest": {"passed": false, "method": "package_candidate_required", "evidence": []}
+  }
+}
