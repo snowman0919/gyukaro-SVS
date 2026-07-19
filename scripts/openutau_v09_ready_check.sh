@@ -22,7 +22,13 @@ ensure_package_dir() {
   fi
 
   rm -rf "$PACKAGE_DIR"
-  unzip -q "$package_zip" -d "$ROOT/artifacts/package/"
+  package_parent="$(dirname "$PACKAGE_DIR")"
+  mkdir -p "$package_parent"
+  unzip -q "$package_zip" -d "$package_parent"
+  if [ ! -d "$PACKAGE_DIR" ]; then
+    echo "package archive extracted but target dir missing: $PACKAGE_DIR" >&2
+    return 2
+  fi
 }
 
 export GYU_SOULX_RUNTIME_DIR="${GYU_SOULX_RUNTIME_DIR:-$ROOT/.venv-soulx}"
