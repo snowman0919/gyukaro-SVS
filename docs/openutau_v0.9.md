@@ -69,6 +69,21 @@ Then open `examples/openutau_v09.ustx`. All three tracks use the phrase renderer
 
 ## Runtime smoke
 
+For repeatable smoke checks (recommended), run:
+
+```sh
+export GYU_SINGER_CACHE=/absolute/path/to/pinned/model-cache
+export GYU_SOULX_PYTHON=/absolute/path/to/.venv-soulx/bin/python
+export OPENUTAU_REPO=/absolute/path/to/patched/OpenUtau
+export GYU_SMOKE_PORT=8765
+export GYU_SMOKE_OUTPUT_DIR=/tmp/gyu-v09-smoke
+./scripts/openutau_v09_runtime_smoke.sh
+```
+
+The script runs: resident boot, `/health`, `/model`, bridge render, and resident integration test.
+
+Equivalent manual flow:
+
 ```sh
 export GYU_SINGER_CACHE=/absolute/path/to/pinned/model-cache
 export GYU_SOULX_PYTHON=/absolute/path/to/.venv-soulx/bin/python
@@ -77,4 +92,7 @@ sleep 2
 curl -s http://127.0.0.1:8765/health
 python integrations/openutau/bridge.py examples/openutau_v09.ustx --language ko \
   --output /tmp/openutau-v09-request.json --render-url http://127.0.0.1:8765 --wav /tmp/openutau-v09-smoke.wav
+
+cd /tmp/OpenUtau
+GYU_RENDERER_URL=http://127.0.0.1:8765/render dotnet test OpenUtau.Test/OpenUtau.Test.csproj -c Release --filter FullyQualifiedName~GyuSingerResidentIntegrationTest
 ```
