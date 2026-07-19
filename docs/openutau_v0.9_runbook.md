@@ -88,3 +88,29 @@ scripts/openutau_v09_runtime_smoke.sh
 | 오디오 출력 | ko/en/ja 48kHz mono, WAV 존재 |  |
 
 비고: `/tmp/gyu-v09-runtime-readiness/readiness_summary.json`, `/tmp/gyu-v09-operational-check/openutau_v09_operational_behavior.json`를 보존해 감사 근거로 첨부하세요.
+
+## 7) 운영 승인 기록 템플릿
+
+```
+점검 일시: ____-__-__ __:__
+점검자: ____________________
+호스트: ____________________
+브랜치/빌드: ____________________
+
+1) READY 체크
+- readiness_summary 경로: ___________________________________
+- READY=True: _____ (Y/N)
+- 실패 항목(있다면): _______________________________________
+
+2) smoke/동작 확인
+- pass: _____ (Y/N)
+- ko/en/ja WAV 존재: _____ (Y/N)
+- ko/en/ja 샘플레이트: _____ Hz, 채널: _____
+
+3) OpenUtau 통합 테스트
+- openutau_resident_test.log 보존 경로: ____________________
+- Passed/Failed: ____________________
+
+4) 비고
+- 특이 이슈/메모: ___________________________________________
+```
