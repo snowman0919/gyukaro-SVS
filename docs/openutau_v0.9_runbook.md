@@ -114,3 +114,17 @@ scripts/openutau_v09_runtime_smoke.sh
 4) 비고
 - 특이 이슈/메모: ___________________________________________
 ```
+
+## 8) 실사용 단일 실행(권장)
+
+아래 한 줄로 지정 경로 기준 전체 체크를 실행합니다.
+
+```sh
+cd /home/kotori9/code/gyukaro
+./scripts/openutau_v09_full_runtime_readiness.sh
+```
+
+기록 산출물:
+- `openutau_v09-readiness-summary`(기본: `artifacts/reports/openutau_v09/readiness_summary.json`)
+- `openutau_v09-operational-behavior`(기본: `/tmp/gyu-v09-operational-check/openutau_v09_operational_behavior.json`)
+- `openutau_v09-smoke.wav`(기본: `/tmp/gyu-v09-package-local/openutau_v09_smoke.wav`)
