@@ -13,12 +13,15 @@ git -C OpenUtau checkout 27573ac5c888d927119d5f65a207312d79194b1f
 dotnet build OpenUtau/OpenUtau.csproj -c Release
 ```
 
+If `dotnet` is not on `PATH` (for example custom runtime installs at `/tmp/dotnet`),
+the OpenUtau integration test helpers now auto-resolve dotnet from common runtime paths.
+
 Start the GPU-resident renderer once; models stay loaded across phrase requests:
 
 ```sh
 export GYU_SINGER_CACHE=/absolute/path/to/pinned/model-cache
 export GYU_SOULX_PYTHON=/absolute/path/to/.venv-soulx/bin/python  # optional when auto-discovery does not apply
-./serve.sh
+./serve.sh 8765
 export GYU_RENDERER_URL=http://127.0.0.1:8765/render
 curl http://127.0.0.1:8765/health
 curl http://127.0.0.1:8765/model
@@ -49,7 +52,7 @@ Only `breathy` and `energetic` have held-out acoustic-direction evidence. `soft`
 dotnet test OpenUtau/OpenUtau.Test/OpenUtau.Test.csproj -c Release \
   --filter FullyQualifiedName~GyuSingerRendererTest
 GYU_RENDERER_URL=http://127.0.0.1:8765/render \
-  ./integrations/openutau/test_resident_fork.sh OpenUtau dotnet
+./integrations/openutau/test_resident_fork.sh OpenUtau dotnet
 PYTHONPATH=src python scripts/test_openutau_v09_behavior.py
 ```
 
