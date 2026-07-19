@@ -193,6 +193,14 @@ cd /home/kotori9/code/gyukaro
 ./scripts/openutau_v09_ready_check.sh
 ```
 
+환경이 다른 경로를 쓸 때는 아래 변수로 덮어쓸 수 있습니다.
+
+```sh
+export GYU_V09_PACKAGE_DIR=/path/to/gyu-singer-v0.9-openutau
+export GYU_V09_READINESS_OUTPUT_DIR=/path/to/artifacts/reports/openutau_v0.9
+./scripts/openutau_v09_ready_check.sh
+```
+
 Equivalent manual flow:
 
 ```sh
