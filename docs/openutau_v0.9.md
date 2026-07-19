@@ -168,6 +168,8 @@ PYTHONPATH=src python artifacts/package/gyu-singer-v0.9-openutau/scripts/test_op
 cat /tmp/gyu-v09-ready-behavior.json
 ```
 
+`openutau_v09_operational_check.sh`는 상태 로그와 함께 JSON을 출력하므로, JSON만 파싱하려면 고정 경로 파일(`/tmp/gyu-v09-operational-check/openutau_v09_operational_behavior.json`)을 사용하세요.
+
 `pass: true`가 출력되고 `/tmp/gyu-v09-ready-behavior.json`에서 `ko/en/ja`가 48k mono인지를 확인하면 OpenUtau 경로는 실사용 조건을 만족한 상태입니다.
 
 For a single fixed-runtime-path check (source-tree and packaged tree), use:
