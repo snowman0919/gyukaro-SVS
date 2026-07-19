@@ -88,6 +88,12 @@ export GYU_SMOKE_OUTPUT_DIR=/tmp/gyu-v09-smoke
 
 The script runs: resident boot, `/health`, `/model`, bridge render, and resident integration test.
 
+For a single fixed-runtime-path check (source-tree and packaged tree), use:
+
+```sh
+scripts/verify_v09_runtime_paths.sh /tmp/gyu-singer-v0.9-openutau
+```
+
 Equivalent manual flow:
 
 ```sh
