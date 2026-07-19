@@ -1,6 +1,6 @@
 # OpenUtau v0.9 실사용 운영 승인 기록 (Runtime-path 기준)
 
-생성시각: 2026-07-19T21:32:10Z
+생성시각: 2026-07-19T21:38:04Z
 패키지: `/home/kotori9/code/gyukaro/artifacts/package/gyu-singer-v0.9-openutau`
 readiness 요약: `/home/kotori9/code/gyukaro/artifacts/reports/openutau_v09/readiness_summary.json`
 behavior JSON: `/tmp/gyu-v09-operational-check/openutau_v09_operational_behavior.json`
@@ -8,12 +8,12 @@ smoke WAV: `/tmp/gyu-v09-operational-check/openutau_v09_smoke.wav`
 
 ## 1) 통과 요약
 - `READY`: `true`
-- dataset validation: `pass`
-- pytest: `pass` (`5 passed, 3 warnings`)
-- verify_v09_runtime_paths: `pass`
-- operational check: `pass`
-- behavioral gates: all true (`ko/en/ja` format, note edit, user pitch curve, lyric edit, energetic style)
-- 패키지 해시 일치: `ff8890c703af76439da135a8c4738706faa4e0bd330cf4f8bbc1241739e99e10`
+- dataset validation: `true`
+- pytest: `true`
+- verify_v09_runtime_paths: `true`
+- operational check: `true`
+- behavioral gates: all true (`ko_en_ja_expected_format`, `note_edit_changes_pitch`, `user_pitch_curve_changes_f0`, `lyric_edit_changes_content`, `energetic_style_changes_audio`)
+- 패키지 해시 일치: `true` (`ff8890c703af76439da135a8c4738706faa4e0bd330cf4f8bbc1241739e99e10`)
 - smoke 파일 SHA-256: `8cc08abadd0f5fc381ae9caea15fcae04072954ff489a8ca254230a1100c04eb`
 
 ## 2) 형식 검증
@@ -31,6 +31,4 @@ cd /home/kotori9/code/gyukaro
 ```
 
 ## 4) 판단
-지정된 runtime 경로 기준으로 **오퍼레이션 체크가 재현 가능한 범위에서 통과**했습니다.
-
-OpenUtau 통합 smoke(`openutau_v09` 패키지)도 동작하고, `/tmp/gyu-v09-operational-check/openutau_v09_operational_behavior.json`에 제어별 gate pass 결과가 기록됩니다.
+지정된 runtime 경로 기준으로 오퍼레이션 체크가 재현 가능한 범위에서 통과.
