@@ -76,5 +76,5 @@ export GYU_SOULX_PYTHON=/absolute/path/to/.venv-soulx/bin/python
 sleep 2
 curl -s http://127.0.0.1:8765/health
 python integrations/openutau/bridge.py examples/openutau_v09.ustx --language ko \
-  --output /tmp/openutau-v09-request.json --render-url http://127.0.0.1:8765/render --wav /tmp/openutau-v09-smoke.wav
+  --output /tmp/openutau-v09-request.json --render-url http://127.0.0.1:8765 --wav /tmp/openutau-v09-smoke.wav
 ```
