@@ -82,16 +82,24 @@ if [ ! -d "$GYU_SINGER_CACHE" ]; then
   exit 2
 fi
 if [ -z "${GYU_SOULX_PYTHON:-}" ]; then
-  if [ -x "$GYU_SINGER_CACHE/soulx-singer/.venv/bin/python" ]; then
+  if [ -n "${GYU_SOULX_RUNTIME_DIR:-}" ] && [ -d "$GYU_SOULX_RUNTIME_DIR" ]; then
+    if [ -x "$GYU_SOULX_RUNTIME_DIR/.venv/bin/python" ]; then
+      GYU_SOULX_PYTHON="$GYU_SOULX_RUNTIME_DIR/.venv/bin/python"
+    elif [ -x "$GYU_SOULX_RUNTIME_DIR/bin/python" ]; then
+      GYU_SOULX_PYTHON="$GYU_SOULX_RUNTIME_DIR/bin/python"
+    fi
+  fi
+  if [ -z "${GYU_SOULX_PYTHON:-}" ] && [ -x "$GYU_SINGER_CACHE/soulx-singer/.venv/bin/python" ]; then
     GYU_SOULX_PYTHON="$GYU_SINGER_CACHE/soulx-singer/.venv/bin/python"
-  elif [ -x "$GYU_SINGER_CACHE/soulx-singer/.venv-soulx/bin/python" ]; then
+  elif [ -z "${GYU_SOULX_PYTHON:-}" ] && [ -x "$GYU_SINGER_CACHE/soulx-singer/.venv-soulx/bin/python" ]; then
     GYU_SOULX_PYTHON="$GYU_SINGER_CACHE/soulx-singer/.venv-soulx/bin/python"
-  elif [ -x "$SCRIPT_DIR/.venv-soulx/bin/python" ]; then
+  elif [ -z "${GYU_SOULX_PYTHON:-}" ] && [ -x "$SCRIPT_DIR/.venv-soulx/bin/python" ]; then
     GYU_SOULX_PYTHON="$SCRIPT_DIR/.venv-soulx/bin/python"
-  elif [ -x "$HOME/.venv-soulx/bin/python" ]; then
+  elif [ -z "${GYU_SOULX_PYTHON:-}" ] && [ -x "$HOME/.venv-soulx/bin/python" ]; then
     GYU_SOULX_PYTHON="$HOME/.venv-soulx/bin/python"
   fi
 fi
+export GYU_SOULX_PYTHON
 : "${GYU_SOULX_PYTHON:?set GYU_SOULX_PYTHON to the pinned SoulX Python}"
 if [ ! -x "$GYU_SOULX_PYTHON" ]; then
   echo "invalid GYU_SOULX_PYTHON: $GYU_SOULX_PYTHON"
@@ -121,16 +129,24 @@ if [ ! -d "$GYU_SINGER_CACHE" ]; then
   exit 2
 fi
 if [ -z "${GYU_SOULX_PYTHON:-}" ]; then
-  if [ -x "$GYU_SINGER_CACHE/soulx-singer/.venv/bin/python" ]; then
+  if [ -n "${GYU_SOULX_RUNTIME_DIR:-}" ] && [ -d "$GYU_SOULX_RUNTIME_DIR" ]; then
+    if [ -x "$GYU_SOULX_RUNTIME_DIR/.venv/bin/python" ]; then
+      GYU_SOULX_PYTHON="$GYU_SOULX_RUNTIME_DIR/.venv/bin/python"
+    elif [ -x "$GYU_SOULX_RUNTIME_DIR/bin/python" ]; then
+      GYU_SOULX_PYTHON="$GYU_SOULX_RUNTIME_DIR/bin/python"
+    fi
+  fi
+  if [ -z "${GYU_SOULX_PYTHON:-}" ] && [ -x "$GYU_SINGER_CACHE/soulx-singer/.venv/bin/python" ]; then
     GYU_SOULX_PYTHON="$GYU_SINGER_CACHE/soulx-singer/.venv/bin/python"
-  elif [ -x "$GYU_SINGER_CACHE/soulx-singer/.venv-soulx/bin/python" ]; then
+  elif [ -z "${GYU_SOULX_PYTHON:-}" ] && [ -x "$GYU_SINGER_CACHE/soulx-singer/.venv-soulx/bin/python" ]; then
     GYU_SOULX_PYTHON="$GYU_SINGER_CACHE/soulx-singer/.venv-soulx/bin/python"
-  elif [ -x "$SCRIPT_DIR/.venv-soulx/bin/python" ]; then
+  elif [ -z "${GYU_SOULX_PYTHON:-}" ] && [ -x "$SCRIPT_DIR/.venv-soulx/bin/python" ]; then
     GYU_SOULX_PYTHON="$SCRIPT_DIR/.venv-soulx/bin/python"
-  elif [ -x "$HOME/.venv-soulx/bin/python" ]; then
+  elif [ -z "${GYU_SOULX_PYTHON:-}" ] && [ -x "$HOME/.venv-soulx/bin/python" ]; then
     GYU_SOULX_PYTHON="$HOME/.venv-soulx/bin/python"
   fi
 fi
+export GYU_SOULX_PYTHON
 : "${GYU_SOULX_PYTHON:?set GYU_SOULX_PYTHON to the pinned SoulX Python}"
 if [ ! -x "$GYU_SOULX_PYTHON" ]; then
   echo "invalid GYU_SOULX_PYTHON: $GYU_SOULX_PYTHON"
