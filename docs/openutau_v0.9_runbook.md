@@ -5,6 +5,7 @@
 
 ## 사전 조건
 - `/home/kotori9/code/gyukaro/artifacts/package/gyu-singer-v0.9-openutau` 존재
+  (없으면 `gyu-singer-v0.9-openutau.zip`에서 런북/검증 스크립트가 자동 복원)
 - `.venv-soulx` 존재 (`/home/kotori9/code/gyukaro/.venv-soulx`)
 - `data/cache` 존재 (`/home/kotori9/code/gyukaro/data/cache`)
 - OpenUtau 소스/빌드 경로: `/tmp/OpenUtau`
@@ -28,6 +29,9 @@ export OPENUTAU_REPO=/tmp/OpenUtau
 cd /home/kotori9/code/gyukaro
 /home/kotori9/code/gyukaro/scripts/openutau_v09_ready_check.sh
 ```
+
+※ 패키지 폴더가 없으면 자동 복원 순서는 아래와 같습니다.
+`{GYU_V09_PACKAGE_DIR}.zip` → `artifacts/package/{basename of GYU_V09_PACKAGE_DIR}.zip`
 
 성공 조건
 - 출력에 `READY= True` 표시
