@@ -13,6 +13,13 @@ import yaml
 STYLE_PRESETS = ("neutral", "soft", "breathy", "energetic", "dark", "bright")
 
 
+def _resolve_render_url(raw_url: str) -> str:
+    base_url = raw_url.rstrip("/")
+    if base_url.endswith("/render"):
+        base_url = base_url[:-7]
+    return base_url + "/render"
+
+
 def _tick_to_seconds(tick: int, tempos: list[dict], resolution: int) -> float:
     ordered = sorted(tempos, key=lambda tempo: int(tempo.get("position", 0)))
     elapsed = 0.0
@@ -82,7 +89,7 @@ def main() -> None:
     Path(args.output).write_text(json.dumps(score, ensure_ascii=False, indent=2) + "\n")
     if args.render_url:
         if not args.wav: parser.error("--wav is required with --render-url")
-        request = urllib.request.Request(args.render_url.rstrip("/") + "/render", data=json.dumps(score).encode(), headers={"Content-Type": "application/json"}, method="POST")
+        request = urllib.request.Request(_resolve_render_url(args.render_url), data=json.dumps(score).encode(), headers={"Content-Type": "application/json"}, method="POST")
         Path(args.wav).write_bytes(urllib.request.urlopen(request).read())
 
 
