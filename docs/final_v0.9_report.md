@@ -1,8 +1,8 @@
 Overall status: Achieved; all v0.7, v0.8, and v0.9 semantic gates passed with real measured paths
 Highest achieved version: v0.9
 Package: artifacts/package/gyu-singer-v0.9-openutau.zip
-Package SHA-256: 91839be510c478dde3bfcbad0fcfd238c31d8f828cf87074f942a0bbcafaaf63
-Git commit: bb6dc624ef4f6318342cb3441bf3059b786a2ed8
+Package SHA-256: ff8890c703af76439da135a8c4738706faa4e0bd330cf4f8bbc1241739e99e10 (recomputed via `python scripts/package_v09.py` at this working state)
+Git commit: 1c311c6cfe7d31fa61745db915c2c1d5469909d3
 Real SoulX latent training: 117 actual `SoulXSingerSVC.infer_segment.gt_decoder_inp` tensors; real GYU 24, accepted pseudo 45, teacher 48
 Identity adapter: v0.7 separable real-latent FiLM, active in production; final-audio effect measurable but quality gain modest
 Style adapter: v0.7 separable real-latent FiLM, active; breathy and energetic proxy directions validated, other presets relative/unverified
