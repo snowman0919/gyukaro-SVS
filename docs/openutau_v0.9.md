@@ -221,3 +221,6 @@ GYU_RENDERER_URL=http://127.0.0.1:8765/render dotnet test OpenUtau.Test/OpenUtau
 cd /path/to/gyukaro
 python -m pytest tests/test_openutau_diffsinger_package.py tests/test_openutau_native_evaluation.py
 ```
+
+
+운영팀용 상세 런북: [docs/openutau_v0.9_runbook.md](docs/openutau_v0.9_runbook.md)
