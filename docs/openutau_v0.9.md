@@ -97,4 +97,7 @@ python integrations/openutau/bridge.py examples/openutau_v09.ustx --language ko 
 
 cd /tmp/OpenUtau
 GYU_RENDERER_URL=http://127.0.0.1:8765/render dotnet test OpenUtau.Test/OpenUtau.Test.csproj -c Release --filter FullyQualifiedName~GyuSingerResidentIntegrationTest
+
+cd /path/to/gyukaro
+python -m pytest tests/test_openutau_diffsinger_package.py tests/test_openutau_native_evaluation.py
 ```
