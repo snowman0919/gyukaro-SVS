@@ -178,7 +178,7 @@ GYU_SINGER_CACHE=/home/kotori9/code/gyukaro/data/cache \
 jq -r '(.pass and ([.gates[]] | all) ) | tostring' /tmp/gyu-v09-operational-check/openutau_v09_operational_behavior.json
 ```
 
-`pass: true`가 출력되고 `/tmp/gyu-v09-ready-behavior.json`에서 `ko/en/ja`가 48k mono인지를 확인하면 OpenUtau 경로는 실사용 조건을 만족한 상태입니다.
+`pass: true`가 출력되고 `/tmp/gyu-v09-operational-check/openutau_v09_operational_behavior.json`에서 `ko/en/ja`가 48k mono인지를 확인하면 OpenUtau 경로는 실사용 조건을 만족한 상태입니다.
 
 For a single fixed-runtime-path check (source-tree and packaged tree), use:
 
