@@ -29,7 +29,7 @@ Only breathy and energetic have repeated acoustic-proxy direction evidence. Soft
 
 ## Evidence
 
-The overlay compiles on .NET 8 against the pinned official tree. Seven native tests pass: KO/EN/JA language mapping, multi-note payload, note/lyric invalidation, PITD/style authority, and loading all three `GYU-SINGER` tracks from `examples/openutau_v09.ustx`. A separate resident integration test executes the real C# `IRenderer.Render` call and receives non-silent 44.1 kHz phrase samples from the running v0.8 backend.
+The overlay compiles on .NET 8 against the pinned official tree. The native package checks run through 4 tests (package checks + OpenUtau `OpenUtau.Test` mapping integration), and a separate resident integration test executes the real C# `IRenderer.Render` call and receives non-silent 44.1 kHz phrase samples from the running v0.8 backend.
 
 The reproducible behavioral report is `artifacts/reports/openutau_v09/behavior.json`:
 
