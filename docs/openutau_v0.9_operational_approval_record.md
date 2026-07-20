@@ -1,9 +1,8 @@
 # OpenUtau v0.9 실사용 운영 승인 기록 (Runtime-path 기준)
 
-생성시각: 2026-07-20T01:07:16.324321+00:00
+생성시각: 2026-07-20T23:05:48.648641+00:00
 요청 패키지: `/home/kotori9/code/gyukaro/artifacts/package/gyu-singer-v0.9-openutau`
 실행 패키지: `/home/kotori9/code/gyukaro/artifacts/package/gyu-singer-v0.9-openutau`
-메모: 요청 경로가 `.zip`인 경우에는 준비 단계에서 압축 해제/매핑 경로로 실행 경로가 전환됩니다.
 readiness 요약: `/home/kotori9/code/gyukaro/artifacts/reports/openutau_v09/readiness_summary.json`
 behavior JSON: `/tmp/gyu-v09-operational-check/openutau_v09_operational_behavior.json`
 smoke WAV: `/tmp/gyu-v09-operational-check/openutau_v09_smoke.wav`
@@ -14,7 +13,7 @@ smoke WAV: `/tmp/gyu-v09-operational-check/openutau_v09_smoke.wav`
 - pytest: `true`
 - verify_v09_runtime_paths: `true`
 - operational check: `true`
-- 패키지 해시 일치: `true` (`0d7932b112493f023edfb14481d44db14a6db6340cad5e0b7b2e9e520ccbaa8a`)
+- 패키지 해시 일치: `true` (`78628cc1b3b51c978c814acc3e15afefcebe08873b49aa3e19d3bd8e1b8a2dc9`)
 - smoke 파일 SHA-256: `8cc08abadd0f5fc381ae9caea15fcae04072954ff489a8ca254230a1100c04eb`
 - smoke size: `305324` bytes
 
@@ -36,11 +35,11 @@ smoke WAV: `/tmp/gyu-v09-operational-check/openutau_v09_smoke.wav`
 
 ## 4) 경로 고정 실행 커맨드
 ```sh
-export GYU_SOULX_RUNTIME_DIR=/home/kotori9/code/gyukaro/.venv-soulx
-export GYU_SOULX_PYTHON=/home/kotori9/code/gyukaro/.venv-soulx/bin/python
-export GYU_SINGER_CACHE=/home/kotori9/code/gyukaro/data/cache
+export GYU_SOULX_RUNTIME_DIR="/home/kotori9/code/gyukaro/.venv-soulx"
+export GYU_SOULX_PYTHON="/home/kotori9/code/gyukaro/.venv-soulx/bin/python"
+export GYU_SINGER_CACHE="/home/kotori9/code/gyukaro/data/cache"
 export GYU_V09_PACKAGE_DIR="/home/kotori9/code/gyukaro/artifacts/package/gyu-singer-v0.9-openutau"
-cd /home/kotori9/code/gyukaro
+cd "/home/kotori9/code/gyukaro/artifacts/package/gyu-singer-v0.9-openutau"
 ./scripts/openutau_v09_production_readiness.sh
 ```
 
