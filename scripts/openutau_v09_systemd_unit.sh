@@ -23,10 +23,10 @@ Environment=GYU_SINGER_CACHE=$ROOT/data/cache
 Environment=GYU_SOULX_RUNTIME_DIR=$ROOT/.venv-soulx
 Environment=GYU_SOULX_PYTHON=$ROOT/.venv-soulx/bin/python
 WorkingDirectory=$ROOT
-ExecStart=$ROOT/scripts/openutau_v09_go_live.sh $PORT
-ExecStop=$ROOT/scripts/openutau_v09_go_live.sh --stop $PORT
+ExecStart=$ROOT/scripts/openutau_v09_go_live.sh $PORT --run
 StandardOutput=append:$ROOT/artifacts/reports/openutau_v09/openutau-v09-service.log
 StandardError=append:$ROOT/artifacts/reports/openutau_v09/openutau-v09-service.err
+KillMode=control-group
 
 [Install]
 WantedBy=default.target
