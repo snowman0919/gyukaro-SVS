@@ -12,14 +12,16 @@ export GYU_SOULX_PYTHON="${GYU_SOULX_PYTHON:-/home/kotori9/code/gyukaro/.venv-so
 
 MODE="start"
 PORT="8765"
+arg1="${1-}"
+arg2="${2-}"
 
-if [ "${1#--}" != "$1" ]; then
-  MODE="${1#--}"
+if [ -n "$arg1" ] && [ "${arg1#--}" != "$arg1" ]; then
+  MODE="${arg1#--}"
   case "$MODE" in
     status|stop|run)
-      if [ -n "${2:-}" ] && [ "${2#--}" = "$2" ]; then
-        PORT="$2"
-      elif [ "${2:-}" = "--help" ] || [ "${2:-}" = "-h" ]; then
+      if [ -n "${arg2}" ] && [ "${arg2#--}" = "$arg2" ]; then
+        PORT="$arg2"
+      elif [ "$arg2" = "--help" ] || [ "$arg2" = "-h" ]; then
         MODE="help"
       fi
       ;;
@@ -27,24 +29,24 @@ if [ "${1#--}" != "$1" ]; then
       MODE="help"
       ;;
     *)
-      echo "unknown option: $1" >&2
+      echo "unknown option: $arg1" >&2
       exit 2
       ;;
   esac
 else
-  if [ -n "${1:-}" ]; then
-    PORT="$1"
+  if [ -n "$arg1" ]; then
+    PORT="$arg1"
   fi
-  if [ -n "${2:-}" ]; then
-    case "${2#--}" in
+  if [ -n "$arg2" ]; then
+    case "${arg2#--}" in
       status|stop|run)
-        MODE="${2#--}"
+        MODE="${arg2#--}"
         ;;
       help|h)
         MODE="help"
         ;;
       *)
-        echo "unknown option: $2" >&2
+        echo "unknown option: $arg2" >&2
         exit 2
         ;;
     esac
