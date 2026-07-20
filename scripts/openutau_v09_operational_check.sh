@@ -7,6 +7,49 @@ PORT="${GYU_SMOKE_PORT:-8780}"
 OUTPUT_DIR="${GYU_SMOKE_OUTPUT_DIR:-/tmp/gyu-v09-operational-check}"
 mkdir -p "$OUTPUT_DIR"
 
+ensure_package_dir() {
+  if [ -d "$PACKAGE_DIR" ]; then
+    return 0
+  fi
+
+  package_zip="${PACKAGE_DIR}.zip"
+  if [ ! -f "$package_zip" ]; then
+    package_zip="${SCRIPT_DIR}/artifacts/package/$(basename "$PACKAGE_DIR").zip"
+  fi
+  if [ ! -f "$package_zip" ] && [ -f "$SCRIPT_DIR/artifacts/package/$(basename "$PACKAGE_DIR").zip" ]; then
+    package_zip="$SCRIPT_DIR/artifacts/package/$(basename "$PACKAGE_DIR").zip"
+  fi
+
+  if [ ! -f "$package_zip" ]; then
+    echo "cannot find package dir or archive: $PACKAGE_DIR (or $package_zip)" >&2
+    return 2
+  fi
+
+  package_parent="$(dirname "$PACKAGE_DIR")"
+  rm -rf "$PACKAGE_DIR"
+  mkdir -p "$package_parent"
+  unzip -q "$package_zip" -d "$package_parent"
+  if [ ! -d "$PACKAGE_DIR" ]; then
+    echo "package archive extracted but target dir missing: $PACKAGE_DIR" >&2
+    return 2
+  fi
+}
+
+if command -v lsof >/dev/null 2>&1; then
+  for _ in $(seq 0 9); do
+    if [ -z "$(lsof -tiTCP:"$PORT" -sTCP:LISTEN || true)" ]; then
+      break
+    fi
+    PORT=$((PORT + 1))
+  done
+  if [ -n "$(lsof -tiTCP:"$PORT" -sTCP:LISTEN || true)" ]; then
+    echo "cannot find free smoke port in range; set GYU_SMOKE_PORT to an unused value" >&2
+    exit 2
+  fi
+fi
+
+export GYU_SMOKE_PORT="$PORT"
+
 export GYU_SOULX_RUNTIME_DIR="${GYU_SOULX_RUNTIME_DIR:-$SCRIPT_DIR/.venv-soulx}"
 export GYU_SOULX_PYTHON="${GYU_SOULX_PYTHON:-}"
 if [ -z "$GYU_SOULX_PYTHON" ]; then
@@ -38,8 +81,7 @@ if [ ! -x "$GYU_SOULX_PYTHON" ]; then
   echo "invalid GYU_SOULX_PYTHON: $GYU_SOULX_PYTHON" >&2
   exit 2
 fi
-if [ ! -d "$PACKAGE_DIR" ]; then
-  echo "cannot find package dir: $PACKAGE_DIR" >&2
+if ! ensure_package_dir; then
   exit 2
 fi
 
