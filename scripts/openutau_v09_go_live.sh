@@ -11,12 +11,44 @@ export GYU_SOULX_RUNTIME_DIR="${GYU_SOULX_RUNTIME_DIR:-/home/kotori9/code/gyukar
 export GYU_SOULX_PYTHON="${GYU_SOULX_PYTHON:-/home/kotori9/code/gyukaro/.venv-soulx/bin/python}"
 
 MODE="start"
-if [ "${1:-}" = "--status" ] || [ "${1:-}" = "--stop" ]; then
+PORT="8765"
+
+if [ "${1#--}" != "$1" ]; then
   MODE="${1#--}"
-  PORT="${2:-8765}"
+  case "$MODE" in
+    status|stop|run)
+      if [ -n "${2:-}" ] && [ "${2#--}" = "$2" ]; then
+        PORT="$2"
+      elif [ "${2:-}" = "--help" ] || [ "${2:-}" = "-h" ]; then
+        MODE="help"
+      fi
+      ;;
+    help|h)
+      MODE="help"
+      ;;
+    *)
+      echo "unknown option: $1" >&2
+      exit 2
+      ;;
+  esac
 else
-  PORT="${1:-8765}"
-  [ -n "${2:-}" ] && MODE="${2#--}"
+  if [ -n "${1:-}" ]; then
+    PORT="$1"
+  fi
+  if [ -n "${2:-}" ]; then
+    case "${2#--}" in
+      status|stop|run)
+        MODE="${2#--}"
+        ;;
+      help|h)
+        MODE="help"
+        ;;
+      *)
+        echo "unknown option: $2" >&2
+        exit 2
+        ;;
+    esac
+  fi
 fi
 PID_FILE="${GYU_V09_SERVICE_PID_FILE:-/tmp/gyu-v09-go-live.pid}"
 LOG_FILE="${GYU_V09_SERVICE_LOG:-/tmp/gyu-v09-go-live.log}"
@@ -43,7 +75,7 @@ case "$MODE" in
     exit 2
     ;;
   help|-h)
-    cat <<EOF
+  cat <<EOF
 Usage: $(basename "$0") [PORT] [--stop|--status|--run|--help]
        $(basename "$0") --status [PORT]
        $(basename "$0") --stop [PORT]
