@@ -6,6 +6,10 @@ ROOT="$(CDPATH= cd -- "$SCRIPT_DIR/.." && pwd)"
 PACKAGE_DIR="${GYU_V09_PACKAGE_DIR:-$ROOT/artifacts/package/gyu-singer-v0.9-openutau}"
 OUTPUT_DIR="${GYU_V09_READINESS_OUTPUT_DIR:-$ROOT/artifacts/reports/openutau_v09}"
 
+if [ ! -d "$PACKAGE_DIR" ] && [ -f "$ROOT/serve.sh" ] && [ -f "$ROOT/scripts/openutau_v09_runtime_smoke.sh" ]; then
+  PACKAGE_DIR="$ROOT"
+fi
+
 if [ -z "${GYU_SOULX_RUNTIME_DIR:-}" ] && [ -x "$ROOT/.venv-soulx/.venv/bin/python" ]; then
   GYU_SOULX_RUNTIME_DIR="$ROOT/.venv-soulx"
 elif [ -z "${GYU_SOULX_RUNTIME_DIR:-}" ] && [ -x "$ROOT/.venv-soulx/bin/python" ]; then
