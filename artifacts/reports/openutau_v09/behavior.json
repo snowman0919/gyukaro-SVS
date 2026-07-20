@@ -1,6 +1,6 @@
 {
   "protocol": "Native OpenUtau mapping is compiled/tested separately; these requests reproduce its phrase payload against the resident service.",
-  "renderer_url": "http://127.0.0.1:8765",
+  "renderer_url": "http://127.0.0.1:8790/render/",
   "project": "examples/openutau_v09.ustx",
   "formats": {
     "ko": {
