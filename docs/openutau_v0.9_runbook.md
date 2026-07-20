@@ -162,3 +162,20 @@ cd /home/kotori9/code/gyukaro
 - `openutau_v09-operational-behavior`(기본: `$GYU_SMOKE_OUTPUT_DIR/openutau_v09_operational_behavior.json`, 기본값 `/tmp/gyu-v09-operational-check/openutau_v09_operational_behavior.json`)
 - `openutau_v09-smoke.wav`(기본: `$GYU_SMOKE_OUTPUT_DIR/openutau_v09_smoke.wav`, 기본값 `/tmp/gyu-v09-operational-check/openutau_v09_smoke.wav`)
 - `openutau_v09-operational-approval`(기본: `artifacts/reports/openutau_v09/operational_approval_record.md`)
+
+## 9) 실사용 재현 체크(권장)
+
+운영 환경 변수를 고정해서, 검증을 한 번에 재현합니다.
+
+```sh
+cd /home/kotori9/code/gyukaro
+./scripts/openutau_v09_ops_repro_check.sh
+```
+
+성공 조건
+- 스크립트 종료 코드 0
+- 아래 경로가 최신으로 갱신됨:
+  - `artifacts/reports/openutau_v09/readiness_summary.json`
+  - `/tmp/gyu-v09-operational-check-repro/openutau_v09_operational_behavior.json`
+  - `/tmp/gyu-v09-operational-check-repro/openutau_v09_smoke.wav`
+- `operational_approval_record.md` 생성/업데이트됨
