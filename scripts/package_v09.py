@@ -11,6 +11,11 @@ from pathlib import Path
 
 
 NAME = "gyu-singer-v0.9-openutau"
+CHARACTER_LIBRARY_NAME = "GYU-SINGER"
+CHARACTER_LIBRARY_DIR = Path("openutau_character_library") / CHARACTER_LIBRARY_NAME
+CHARACTER_SOURCE_DIR = Path("gyu")
+
+
 FILES = [
     Path("pyproject.toml"),
     Path("src/gyu_singer"),
@@ -50,6 +55,80 @@ FILES = [
 ]
 
 
+def build_character_metadata_text() -> str:
+    image_file = (
+        "portraits/gh.png"
+        if (CHARACTER_SOURCE_DIR / "gh.png").exists()
+        else "portraits/0.png" if (CHARACTER_SOURCE_DIR / "0.png").exists()
+        else "portraits/" + sorted([name.name for name in CHARACTER_SOURCE_DIR.glob("*.png")])[0]
+    )
+    return "\n".join([
+        "name=GYU-SINGER",
+        "author=GYU Singer project",
+        "voice=GYU-SINGER",
+        f"image={image_file}",
+        "version=0.9-openutau",
+        "text_file_encoding=utf-8",
+        "default_phonemizer=OpenUtau.Core.DefaultPhonemizer",
+        "",
+    ])
+
+
+def build_character_yaml() -> str:
+    image_file = (
+        "portraits/gh.png"
+        if (CHARACTER_SOURCE_DIR / "gh.png").exists()
+        else "portraits/0.png" if (CHARACTER_SOURCE_DIR / "0.png").exists()
+        else "portraits/" + sorted([name.name for name in CHARACTER_SOURCE_DIR.glob("*.png")])[0]
+    )
+    return "\n".join([
+        "name: GYU-SINGER",
+        "text_file_encoding: utf-8",
+        f"image: {image_file}",
+        f"portrait: {image_file}",
+        "portrait_opacity: 0.67",
+        "author: GYU Singer project",
+        "version: 0.9-openutau",
+        "default_phonemizer: OpenUtau.Core.DefaultPhonemizer",
+        "subbanks:",
+        "  - color: \"\"",
+        "    prefix: \"\"",
+        "    suffix: \"\"",
+        "    tone_ranges:",
+        "      - C2-C6",
+        "",
+    ])
+
+
+def copy_character_metadata(root: Path, source_dir: Path = CHARACTER_SOURCE_DIR) -> None:
+    if not source_dir.exists():
+        raise FileNotFoundError(f"missing character source dir: {source_dir}")
+    png_files = sorted(source_dir.glob("*.png"))
+    if not png_files:
+        raise FileNotFoundError(f"no png files found in {source_dir}")
+
+    character_root = root / CHARACTER_LIBRARY_DIR
+    portrait_root = character_root / "portraits"
+    portrait_root.mkdir(parents=True, exist_ok=True)
+    for png in png_files:
+        shutil.copy2(png, portrait_root / png.name)
+
+    urls = source_dir / "as" / "urls.txt"
+    if urls.exists():
+        as_dir = character_root / "as"
+        as_dir.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(urls, as_dir / "urls.txt")
+
+    (character_root / "character.txt").write_text(build_character_metadata_text(), encoding="utf-8")
+    (character_root / "character.yaml").write_text(build_character_yaml(), encoding="utf-8")
+    (character_root / "README.md").write_text(
+        "This is an OpenUtau character metadata bundle for the v0.9 runtime package.\n"
+        "It is used for singer metadata discovery, portrait preview, and OpenUtau configuration.\n"
+        "Actual GYU phrase rendering is performed through the maintained OpenUtau fork renderer.\n",
+        encoding="utf-8",
+    )
+
+
 def copy(source: Path, root: Path) -> None:
     destination = root / source
     destination.parent.mkdir(parents=True, exist_ok=True)
@@ -63,6 +142,7 @@ def main() -> None:
     missing = [str(path) for path in FILES if not path.exists()]
     if missing: raise FileNotFoundError(f"package inputs missing: {missing}")
     for source in FILES: copy(source, root)
+    copy_character_metadata(root)
     commit = subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip()
     metadata = {
         "version": "v0.9", "backend": "gyu-singer-v0.8", "integration": "OpenUtau GYU-SINGER maintained fork",
@@ -74,6 +154,7 @@ def main() -> None:
         "moss_source_revision": "ad99ec5f26debf1d6c1a4dc8461b2bcb787ec9af",
         "moss_model_revision": "be7766a6735b98bd793f7c79fb720b4d0f5d13b8",
         "higgs_inference_required": False,
+        "openutau_character_library": str(CHARACTER_LIBRARY_DIR),
     }
     (root / "PACKAGE.json").write_text(json.dumps(metadata, indent=2) + "\n")
     (root / "serve.sh").write_text("""#!/bin/sh

@@ -41,6 +41,21 @@ The reproducible behavioral report is `artifacts/reports/openutau_v09/behavior.j
 
 This proves causal editor behavior, not a listening-quality preference. The energetic effect is small but nonzero and agrees with the prior held-out energy proxy direction.
 
+## Character metadata bundle (OpenUtau singer discovery)
+
+`scripts/package_v09.py` now includes `openutau_character_library/GYU-SINGER/` in the archive.
+It contains:
+
+- `character.txt`
+- `character.yaml`
+- `README.md`
+- portrait image files copied from `gyu/*.png`
+- `as/urls.txt` when present
+
+OpenUtau uses this bundle for singer metadata/portrait discovery and configuration.
+It does **not** replace the maintained OpenUtau renderer path:
+actual phrase rendering is still performed by the forked GYU renderer path described above.
+
 ## Install and test
 
 See `integrations/openutau/README.md`. The essential commands are:
