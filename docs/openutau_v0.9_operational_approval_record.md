@@ -1,7 +1,9 @@
 # OpenUtau v0.9 실사용 운영 승인 기록 (Runtime-path 기준)
 
 생성시각: 2026-07-20T01:07:16.324321+00:00
-패키지: `/home/kotori9/code/gyukaro/artifacts/package/gyu-singer-v0.9-openutau`
+요청 패키지: `/home/kotori9/code/gyukaro/artifacts/package/gyu-singer-v0.9-openutau`
+실행 패키지: `/home/kotori9/code/gyukaro/artifacts/package/gyu-singer-v0.9-openutau`
+메모: 요청 경로가 `.zip`인 경우에는 준비 단계에서 압축 해제/매핑 경로로 실행 경로가 전환됩니다.
 readiness 요약: `/home/kotori9/code/gyukaro/artifacts/reports/openutau_v09/readiness_summary.json`
 behavior JSON: `/tmp/gyu-v09-operational-check/openutau_v09_operational_behavior.json`
 smoke WAV: `/tmp/gyu-v09-operational-check/openutau_v09_smoke.wav`
