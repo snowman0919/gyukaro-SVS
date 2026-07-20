@@ -159,6 +159,8 @@ cd /home/kotori9/code/gyukaro
 ```sh
 cd /home/kotori9/code/gyukaro
 ./scripts/openutau_v09_ops.sh start-systemd
+./scripts/openutau_v09_ops.sh systemd-restart
+./scripts/openutau_v09_ops.sh systemd-quickstart
 ./scripts/openutau_v09_ops.sh systemd-status
 ```
 
