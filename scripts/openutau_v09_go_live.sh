@@ -14,6 +14,12 @@ MODE="start"
 PORT="8765"
 arg1="${1-}"
 arg2="${2-}"
+case "$arg1" in
+  -h) arg1="--help" ;;
+esac
+case "$arg2" in
+  -h) arg2="--help" ;;
+esac
 
 if [ -n "$arg1" ] && [ "${arg1#--}" != "$arg1" ]; then
   MODE="${arg1#--}"
@@ -81,6 +87,7 @@ case "$MODE" in
 Usage: $(basename "$0") [PORT] [--stop|--status|--run|--help]
        $(basename "$0") --status [PORT]
        $(basename "$0") --stop [PORT]
+       $(basename "$0") -h | --help
   modes:
     --run: run resident serve in foreground (for systemd unit)
   default PORT=8765
