@@ -17,6 +17,8 @@ case "$PACKAGE_ARG" in
   *.zip)
     if [ -f "$PACKAGE_ARG" ]; then
       PACKAGE_DIR_PREPARED="${PACKAGE_ARG%.zip}"
+    else
+      PACKAGE_DIR_PREPARED="$PACKAGE_ARG"
     fi
     ;;
 esac
@@ -84,7 +86,7 @@ fi
 export GYU_SOULX_RUNTIME_DIR="${GYU_SOULX_RUNTIME_DIR:-$ROOT/.venv-soulx}"
 export GYU_SOULX_PYTHON="${GYU_SOULX_PYTHON:-$ROOT/.venv-soulx/bin/python}"
 export GYU_SINGER_CACHE="${GYU_SINGER_CACHE:-$ROOT/data/cache}"
-export GYU_V09_PACKAGE_DIR="${PACKAGE_DIR_PREPARED:-$DEFAULT_PACKAGE_DIR}"
+export GYU_V09_PACKAGE_DIR="${PACKAGE_ARG:-$DEFAULT_PACKAGE_DIR}"
 export GYU_V09_READINESS_OUTPUT_DIR="${GYU_V09_READINESS_OUTPUT_DIR:-$ROOT/artifacts/reports/openutau_v09}"
 export GYU_SMOKE_OUTPUT_DIR="${GYU_SMOKE_OUTPUT_DIR:-/tmp/gyu-v09-operational-check}"
 export GYU_SMOKE_PORT="${GYU_SMOKE_PORT:-8780}"
@@ -103,6 +105,8 @@ cd "$ROOT"
 
 echo "[FULL READY] step 1/3: scripted readiness check"
 "$SCRIPT_DIR/openutau_v09_ready_check.sh"
+
+export GYU_V09_PACKAGE_DIR="${PACKAGE_DIR_PREPARED:-$DEFAULT_PACKAGE_DIR}"
 
 echo "[FULL READY] step 2/3: resident+behavior operational check"
 "$SCRIPT_DIR/openutau_v09_operational_check.sh" "$GYU_V09_PACKAGE_DIR"
