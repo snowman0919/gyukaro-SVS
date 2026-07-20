@@ -12,6 +12,15 @@ export GYU_SMOKE_PORT="${GYU_SMOKE_PORT:-8780}"
 
 SUBCMD="${1:-}"
 case "$SUBCMD" in
+  -h|--help)
+    cat <<EOF
+Usage: $(basename "$0") {start|stop|status|start-systemd|stop-systemd|systemd-status|readiness}
+  -h|--help
+  env: GYU_SOULX_RUNTIME_DIR GYU_SOULX_PYTHON GYU_SINGER_CACHE GYU_SMOKE_PORT
+  note: start uses fixed port from GYU_SMOKE_PORT (default 8780 for ops checks)
+EOF
+    exit 0
+    ;;
   start)
     cd "$ROOT"
     "$SCRIPT_DIR/openutau_v09_go_live.sh" "$GYU_SMOKE_PORT"
