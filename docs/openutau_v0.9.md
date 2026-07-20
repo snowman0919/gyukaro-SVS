@@ -251,3 +251,32 @@ python -m pytest tests/test_openutau_diffsinger_package.py tests/test_openutau_n
 
 
 운영팀용 상세 런북: [docs/openutau_v0.9_runbook.md](docs/openutau_v0.9_runbook.md)
+
+## 실사용 Go-Live 요약 (권장)
+
+현재 고정 경로 기준으로 아래 명령을 실행했을 때 모두 통과되어야 실사용 투입 조건을 만족합니다.
+
+```sh
+cd /home/kotori9/code/gyukaro
+export GYU_SOULX_RUNTIME_DIR=/home/kotori9/code/gyukaro/.venv-soulx
+export GYU_SOULX_PYTHON=/home/kotori9/code/gyukaro/.venv-soulx/bin/python
+export GYU_SINGER_CACHE=/home/kotori9/code/gyukaro/data/cache
+export GYU_V09_PACKAGE_DIR=/home/kotori9/code/gyukaro/artifacts/package/gyu-singer-v0.9-openutau
+./scripts/openutau_v09_production_readiness.sh
+```
+
+필수 확인값(문서 갱신 기준):
+
+- `READY: true`
+- dataset/pytest/runtime/operational 모두 pass
+- `openutau_v0.9` 패키지 hash match
+- smoke WAV: `/tmp/gyu-v09-operational-check/openutau_v09_smoke.wav`
+- smoke SHA: `8cc08abadd0f5fc381ae9caea15fcae04072954ff489a8ca254230a1100c04eb`
+- bridge 렌더(ko/en/ja) WAV 생성 성공 (`pcm_s24le`, `48kHz`, `1ch`, `2.120000s`)
+
+최종 증빙은 고정 산출물에서 관리합니다.
+
+- `/tmp/openutau_v09_go_live_evidence.json`
+- `/tmp/openutau_v09_operational_check_stdout.log`
+- `/home/kotori9/code/gyukaro/docs/openutau_v0.9_go_live_evidence.md`
+- `/home/kotori9/code/gyukaro/docs/openutau_v0.9_operational_approval_record.md`
