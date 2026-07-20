@@ -6,10 +6,14 @@ ROOT="$(CDPATH= cd -- "$SCRIPT_DIR/.." && pwd)"
 
 OUTPUT_MD="${OPENUTAU_V09_APPROVAL_REPORT:-$ROOT/artifacts/reports/openutau_v09/operational_approval_record.md}"
 OP_OUTPUT_DIR="${GYU_SMOKE_OUTPUT_DIR:-/tmp/gyu-v09-operational-check}"
-PKG_DIR="${GYU_V09_PACKAGE_DIR:-$ROOT/artifacts/package/gyu-singer-v0.9-openutau}"
-if [ ! -d "$PKG_DIR" ] && [ -f "$ROOT/serve.sh" ] && [ -f "$ROOT/scripts/openutau_v09_runtime_smoke.sh" ]; then
+if [ -n "${GYU_V09_PACKAGE_DIR:-}" ]; then
+  PKG_DIR="$GYU_V09_PACKAGE_DIR"
+elif [ -f "$ROOT/serve.sh" ] && [ -f "$ROOT/scripts/openutau_v09_runtime_smoke.sh" ]; then
   PKG_DIR="$ROOT"
+else
+  PKG_DIR="$ROOT/artifacts/package/gyu-singer-v0.9-openutau"
 fi
+REQUESTED_PKG_DIR="$PKG_DIR"
 
 SOULX_RUNTIME_DIR="${GYU_SOULX_RUNTIME_DIR:-$ROOT/.venv-soulx}"
 if [ ! -d "$SOULX_RUNTIME_DIR" ] && [ -x "$ROOT/.venv-soulx/bin/python" ]; then
@@ -44,6 +48,19 @@ BEHAVIOR_JSON="$OP_OUTPUT_DIR/openutau_v09_operational_behavior.json"
 SMOKE_WAV="$OP_OUTPUT_DIR/openutau_v09_smoke.wav"
 PKG_REPORT="$ROOT/artifacts/reports/openutau_v09/behavior.json"
 
+if [ -f "$READY_SUMMARY" ]; then
+  READY_PKG_DIR="$(python - "$READY_SUMMARY" <<'PY'
+import json
+import pathlib
+import sys
+print(json.loads(pathlib.Path(sys.argv[1]).read_text(encoding="utf-8")).get("package_dir", ""))
+PY
+<<< "$READY_SUMMARY")"
+  if [ -n "$READY_PKG_DIR" ]; then
+    PKG_DIR="$READY_PKG_DIR"
+  fi
+fi
+
 for path in "$READY_SUMMARY" "$BEHAVIOR_JSON" "$SMOKE_WAV"; do
   if [ ! -f "$path" ]; then
     echo "missing $path" >&2
@@ -54,7 +71,7 @@ done
 
 mkdir -p "$(dirname "$OUTPUT_MD")"
 
-python - "$READY_SUMMARY" "$BEHAVIOR_JSON" "$SMOKE_WAV" "$OUTPUT_MD" "$PKG_DIR" "$PKG_REPORT" "$SOULX_RUNTIME_DIR" "$SOULX_PYTHON" "$SINGER_CACHE" <<'PY'
+python - "$READY_SUMMARY" "$BEHAVIOR_JSON" "$SMOKE_WAV" "$OUTPUT_MD" "$PKG_DIR" "$PKG_REPORT" "$SOULX_RUNTIME_DIR" "$SOULX_PYTHON" "$SINGER_CACHE" "$REQUESTED_PKG_DIR" <<'PY'
 import hashlib
 import json
 import sys
@@ -70,6 +87,7 @@ pkg_report = Path(sys.argv[6])
 runtime_dir = sys.argv[7]
 py_path = sys.argv[8]
 cache_dir = sys.argv[9]
+requested_pkg_dir = sys.argv[10]
 
 ready = json.loads(ready_path.read_text(encoding="utf-8"))
 behavior = json.loads(behavior_path.read_text(encoding="utf-8"))
@@ -82,7 +100,8 @@ lines = []
 lines.append("# OpenUtau v0.9 실사용 운영 승인 기록 (Runtime-path 기준)")
 lines.append("")
 lines.append(f"생성시각: {datetime.now(timezone.utc).isoformat()}")
-lines.append(f"패키지: `{pkg_dir}`")
+lines.append(f"요청 패키지: `{requested_pkg_dir}`")
+lines.append(f"실행 패키지: `{pkg_dir}`")
 lines.append(f"readiness 요약: `{ready_path}`")
 lines.append(f"behavior JSON: `{behavior_path}`")
 lines.append(f"smoke WAV: `{smoke_path}`")
