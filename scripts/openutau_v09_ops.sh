@@ -14,7 +14,7 @@ SUBCMD="${1:-}"
 case "$SUBCMD" in
   -h|--help)
     cat <<EOF
-Usage: $(basename "$0") {start|stop|status|start-systemd|stop-systemd|systemd-status|readiness}
+Usage: $(basename "$0") {start|stop|status|start-systemd|stop-systemd|systemd-restart|systemd-quickstart|systemd-status|readiness}
   -h|--help
   env: GYU_SOULX_RUNTIME_DIR GYU_SOULX_PYTHON GYU_SINGER_CACHE GYU_SMOKE_PORT
   note: start uses fixed port from GYU_SMOKE_PORT (default 8780 for ops checks)
@@ -41,6 +41,26 @@ EOF
     systemctl --user stop gyu-openutau-v0.9.service || true
     systemctl --user disable gyu-openutau-v0.9.service || true
     ;;
+  systemd-restart)
+    "$SCRIPT_DIR/openutau_v09_ops.sh" stop-systemd
+    "$SCRIPT_DIR/openutau_v09_ops.sh" start-systemd
+    ;;
+  systemd-quickstart)
+    "$SCRIPT_DIR/openutau_v09_ops.sh" start-systemd
+    i=0
+    while [ "$i" -lt 40 ]; do
+      if health="$(curl -sS "http://127.0.0.1:${GYU_SMOKE_PORT}/health" 2>/dev/null)"; then
+        if printf '%s' "$health" | grep -q '"status":[[:space:]]*"ok"'; then
+          echo "$health"
+          exit 0
+        fi
+      fi
+      i=$((i + 1))
+      sleep 0.5
+    done
+    echo "systemd-quickstart health check failed on port ${GYU_SMOKE_PORT}" >&2
+    exit 2
+    ;;
   systemd-status)
     systemctl --user status gyu-openutau-v0.9.service --no-pager -l
     ;;
@@ -49,7 +69,7 @@ EOF
     ;;
   *)
     cat <<EOF
-Usage: $(basename "$0") {start|stop|status|start-systemd|stop-systemd|systemd-status|readiness}
+Usage: $(basename "$0") {start|stop|status|start-systemd|stop-systemd|systemd-restart|systemd-quickstart|systemd-status|readiness}
   env: GYU_SOULX_RUNTIME_DIR GYU_SOULX_PYTHON GYU_SINGER_CACHE GYU_SMOKE_PORT
 EOF
     exit 2
