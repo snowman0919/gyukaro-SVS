@@ -280,3 +280,48 @@ export GYU_V09_PACKAGE_DIR=/home/kotori9/code/gyukaro/artifacts/package/gyu-sing
 - `/tmp/openutau_v09_operational_check_stdout.log`
 - `/home/kotori9/code/gyukaro/docs/openutau_v0.9_go_live_evidence.md`
 - `/home/kotori9/code/gyukaro/docs/openutau_v0.9_operational_approval_record.md`
+
+## 실사용 원클릭 런치(선택)
+
+고정 경로 기준으로 바로 운영 서비스를 띄우고 기본 헬스를 검사하려면:
+
+```sh
+cd /home/kotori9/code/gyukaro
+./scripts/openutau_v09_go_live.sh
+```
+
+서비스 중지/상태 확인:
+
+```sh
+./scripts/openutau_v09_go_live.sh 8765 --status   # 실행 중 확인
+./scripts/openutau_v09_go_live.sh 8765 --stop     # 종료
+```
+
+기록:
+- PID: `/tmp/gyu-v09-go-live.pid`
+- 로그: `/tmp/gyu-v09-go-live.log`
+- 헬스 결과: `/tmp/gyu-v09-go-live-health.json`
+- 시작 체크: `/tmp/gyu-v09-go-live-check.json`
+
+## systemd 자동실행(선택)
+
+부팅 자동기동/감시가 필요하면 다음으로 유저 서비스 파일을 생성할 수 있습니다.
+
+```sh
+cd /home/kotori9/code/gyukaro
+./scripts/openutau_v09_systemd_unit.sh 8765 gyu-openutau-v0.9.service print
+# 출력된 내용을 user unit으로 저장하거나 직접 설치
+./scripts/openutau_v09_systemd_unit.sh 8765 gyu-openutau-v0.9.service apply
+
+# 기동/중지
+systemctl --user start gyu-openutau-v0.9.service
+systemctl --user stop gyu-openutau-v0.9.service
+
+# 상태 확인
+systemctl --user status gyu-openutau-v0.9.service
+```
+
+설치 시 생성/기록 위치:
+
+- unit: `~/.config/systemd/user/gyu-openutau-v0.9.service`
+- 서비스 로그: `artifacts/reports/openutau_v09/openutau-v09-service.log`
