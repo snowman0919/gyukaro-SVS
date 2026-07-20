@@ -63,6 +63,10 @@ LOG_FILE="${GYU_V09_SERVICE_LOG:-/tmp/gyu-v09-go-live.log}"
 
 case "$MODE" in
   stop)
+    if ! [[ "$PORT" =~ ^[0-9]+$ ]] || [ "$PORT" -lt 1 ] || [ "$PORT" -gt 65535 ]; then
+      echo "invalid PORT: $PORT (expected integer 1..65535)" >&2
+      exit 2
+    fi
     if [ -f "$PID_FILE" ]; then
       pid="$(cat "$PID_FILE")"
       if kill -0 "$pid" 2>/dev/null; then
@@ -75,6 +79,10 @@ case "$MODE" in
     exit 0
     ;;
   status)
+    if ! [[ "$PORT" =~ ^[0-9]+$ ]] || [ "$PORT" -lt 1 ] || [ "$PORT" -gt 65535 ]; then
+      echo "invalid PORT: $PORT (expected integer 1..65535)" >&2
+      exit 2
+    fi
     if health="$(curl -sSfS "http://127.0.0.1:${PORT}/health")"; then
       printf 'service alive on %s\n' "$PORT"
       printf '%s\n' "$health"
@@ -120,6 +128,10 @@ fi
 validate_env
 
 check_port_free() {
+  if ! [[ "$PORT" =~ ^[0-9]+$ ]] || [ "$PORT" -lt 1 ] || [ "$PORT" -gt 65535 ]; then
+    echo "invalid PORT: $PORT (expected integer 1..65535)" >&2
+    exit 2
+  fi
   local pids
   pids="$(lsof -tiTCP:"$PORT" -sTCP:LISTEN || true)"
   if [ -z "$pids" ]; then
