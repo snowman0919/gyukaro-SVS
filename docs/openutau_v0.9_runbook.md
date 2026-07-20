@@ -143,6 +143,13 @@ cd /home/kotori9/code/gyukaro
 ./scripts/openutau_v09_production_readiness.sh
 ```
 
+승인 증빙까지 생성하는 통합 경로는 아래 한 줄로도 가능합니다.
+
+```sh
+cd /home/kotori9/code/gyukaro
+./scripts/openutau_v09_oneclick_operational_check.sh
+```
+
 승인 증빙을 기록까지 새로 생성하려면 아래를 사용하세요.
 
 ```sh
