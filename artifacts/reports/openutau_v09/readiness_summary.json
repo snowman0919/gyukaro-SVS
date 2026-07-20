@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-20T01:03:08.793477+00:00",
+  "generated_at": "2026-07-20T23:01:39.866597+00:00",
   "working_root": "/home/kotori9/code/gyukaro",
   "package_dir": "/home/kotori9/code/gyukaro/artifacts/package/gyu-singer-v0.9-openutau",
   "output_dir": "/home/kotori9/code/gyukaro/artifacts/reports/openutau_v09",
@@ -13,14 +13,14 @@
   "pytest_check": {
     "command": "python -m pytest tests/test_openutau_diffsinger_package.py tests/test_openutau_native_evaluation.py tests/test_hybrid.py::test_openutau_bridge_normalizes_render_url -q",
     "returncode": 0,
-    "stdout_tail": "../../.pyenv/versions/3.11.14/lib/python3.11/site-packages/opentelemetry/util/_importlib_metadata.py:32\n  /home/kotori9/.pyenv/versions/3.11.14/lib/python3.11/site-packages/opentelemetry/util/_importlib_metadata.py:32: DeprecationWarning: SelectableGroups dict interface is deprecated. Use select.\n    return EntryPoints(ep for group_eps in eps.values() for ep in group_eps)\n\n<frozen importlib._bootstrap>:241\n  <frozen importlib._bootstrap>:241: DeprecationWarning: builtin type SwigPyPacked has no __module__ attribute\n\n<frozen importlib._bootstrap>:241\n  <frozen importlib._bootstrap>:241: DeprecationWarning: builtin type SwigPyObject has no __module__ attribute\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n5 passed, 3 warnings in 3.34s",
+    "stdout_tail": "../../.pyenv/versions/3.11.14/lib/python3.11/site-packages/opentelemetry/util/_importlib_metadata.py:32\n  /home/kotori9/.pyenv/versions/3.11.14/lib/python3.11/site-packages/opentelemetry/util/_importlib_metadata.py:32: DeprecationWarning: SelectableGroups dict interface is deprecated. Use select.\n    return EntryPoints(ep for group_eps in eps.values() for ep in group_eps)\n\n<frozen importlib._bootstrap>:241\n  <frozen importlib._bootstrap>:241: DeprecationWarning: builtin type SwigPyPacked has no __module__ attribute\n\n<frozen importlib._bootstrap>:241\n  <frozen importlib._bootstrap>:241: DeprecationWarning: builtin type SwigPyObject has no __module__ attribute\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n5 passed, 3 warnings in 3.25s",
     "stderr_tail": "sys:1: DeprecationWarning: builtin type swigvarlink has no __module__ attribute",
     "pass": true
   },
   "package": {
     "zip": "/home/kotori9/code/gyukaro/artifacts/package/gyu-singer-v0.9-openutau.zip",
-    "declared_sha256": "0d7932b112493f023edfb14481d44db14a6db6340cad5e0b7b2e9e520ccbaa8a",
-    "actual_sha256": "0d7932b112493f023edfb14481d44db14a6db6340cad5e0b7b2e9e520ccbaa8a",
+    "declared_sha256": "78628cc1b3b51c978c814acc3e15afefcebe08873b49aa3e19d3bd8e1b8a2dc9",
+    "actual_sha256": "78628cc1b3b51c978c814acc3e15afefcebe08873b49aa3e19d3bd8e1b8a2dc9",
     "hash_match": true,
     "hash_skipped": false
   },
@@ -28,14 +28,14 @@
     "command": "bash scripts/verify_v09_runtime_paths.sh /home/kotori9/code/gyukaro/artifacts/package/gyu-singer-v0.9-openutau",
     "returncode": 0,
     "stdout": "smoke_status=0\nrender_size=1428524",
-    "stderr_tail": "Loading weights:  48%|████▊     | 251/527 [00:02<00:02, 103.97it/s]\nLoading weights:  62%|██████▏   | 329/527 [00:02<00:01, 157.92it/s]\nLoading weights:  69%|██████▉   | 366/527 [00:02<00:01, 138.75it/s]\nLoading weights:  75%|███████▍  | 394/527 [00:02<00:00, 133.47it/s]\nLoading weights:  79%|███████▉  | 417/527 [00:03<00:00, 111.62it/s]\nLoading weights:  84%|████████▍ | 443/527 [00:03<00:00, 121.22it/s]\nLoading weights:  87%|████████▋ | 461/527 [00:03<00:00, 125.67it/s]\nLoading weights:  91%|█████████ | 478/527 [00:03<00:00, 115.43it/s]\nLoading weights:  94%|█████████▎| 493/527 [00:03<00:00, 119.22it/s]\nLoading weights:  96%|█████████▌| 507/527 [00:03<00:00, 120.62it/s]\nLoading weights:  99%|█████████▉| 521/527 [00:04<00:00, 98.48it/s] \nLoading weights: 100%|██████████| 527/527 [00:04<00:00, 127.77it/s]",
+    "stderr_tail": "Loading weights:  50%|█████     | 265/527 [00:01<00:02, 101.13it/s]\nLoading weights:  63%|██████▎   | 331/527 [00:02<00:01, 149.64it/s]\nLoading weights:  69%|██████▉   | 366/527 [00:02<00:01, 140.80it/s]\nLoading weights:  75%|███████▍  | 394/527 [00:02<00:01, 130.18it/s]\nLoading weights:  79%|███████▉  | 416/527 [00:02<00:00, 129.19it/s]\nLoading weights:  83%|████████▎ | 435/527 [00:03<00:00, 125.19it/s]\nLoading weights:  86%|████████▌ | 452/527 [00:03<00:00, 128.47it/s]\nLoading weights:  89%|████████▉ | 468/527 [00:03<00:00, 126.54it/s]\nLoading weights:  92%|█████████▏| 483/527 [00:03<00:00, 123.21it/s]\nLoading weights:  94%|█████████▍| 497/527 [00:03<00:00, 114.16it/s]\nLoading weights:  98%|█████████▊| 514/527 [00:03<00:00, 116.39it/s]\nLoading weights: 100%|██████████| 527/527 [00:03<00:00, 138.78it/s]",
     "smoke_status_0": true
   },
   "operational_check": {
     "command": "bash scripts/openutau_v09_operational_check.sh /home/kotori9/code/gyukaro/artifacts/package/gyu-singer-v0.9-openutau",
     "returncode": 0,
     "stdout_tail": "  },\n  \"pass\": true,\n  \"outputs\": {\n    \"ko\": \"/tmp/gyu-v09-operational-check/outputs/ko.wav\",\n    \"en\": \"/tmp/gyu-v09-operational-check/outputs/en.wav\",\n    \"ja\": \"/tmp/gyu-v09-operational-check/outputs/ja.wav\",\n    \"note_pitch_edit\": \"/tmp/gyu-v09-operational-check/outputs/note_pitch_edit.wav\",\n    \"lyric_edit\": \"/tmp/gyu-v09-operational-check/outputs/lyric_edit.wav\",\n    \"user_pitch_edit\": \"/tmp/gyu-v09-operational-check/outputs/user_pitch_edit.wav\",\n    \"style_energetic\": \"/tmp/gyu-v09-operational-check/outputs/style_energetic.wav\"\n  }\n}",
-    "stderr_tail": "Loading weights:  81%|████████  | 428/527 [00:03<00:00, 116.54it/s]\nLoading weights:  84%|████████▍ | 442/527 [00:03<00:00, 109.53it/s]\nLoading weights:  87%|████████▋ | 459/527 [00:03<00:00, 114.38it/s]\nLoading weights:  90%|█████████ | 475/527 [00:03<00:00, 113.08it/s]\nLoading weights:  92%|█████████▏| 487/527 [00:03<00:00, 100.14it/s]\nLoading weights:  98%|█████████▊| 514/527 [00:03<00:00, 116.99it/s]\nLoading weights: 100%|█████████▉| 526/527 [00:04<00:00, 112.37it/s]\nLoading weights: 100%|██████████| 527/527 [00:04<00:00, 128.37it/s]\n\n[2/3] start runtime and run phrase-level behavior check...\n\n[3/3] render behavior output...",
+    "stderr_tail": "Loading weights:  82%|████████▏ | 434/527 [00:03<00:00, 119.87it/s]\nLoading weights:  85%|████████▌ | 449/527 [00:03<00:00, 119.86it/s]\nLoading weights:  88%|████████▊ | 463/527 [00:03<00:00, 121.58it/s]\nLoading weights:  91%|█████████ | 477/527 [00:03<00:00, 114.01it/s]\nLoading weights:  93%|█████████▎| 491/527 [00:03<00:00, 109.27it/s]\nLoading weights:  96%|█████████▋| 508/527 [00:03<00:00, 108.18it/s]\nLoading weights: 100%|██████████| 527/527 [00:03<00:00, 125.26it/s]\nLoading weights: 100%|██████████| 527/527 [00:03<00:00, 135.58it/s]\n\n[2/3] start runtime and run phrase-level behavior check...\n\n[3/3] render behavior output...",
     "pass": true,
     "gates": {
       "ko_en_ja_expected_format": true,
