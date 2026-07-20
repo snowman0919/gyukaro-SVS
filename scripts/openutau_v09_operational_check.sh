@@ -2,7 +2,21 @@
 set -eu
 
 SCRIPT_DIR="$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)"
-PACKAGE_DIR="${1:-$SCRIPT_DIR/artifacts/package/gyu-singer-v0.9-openutau}"
+PACKAGE_ARG="${1:-$SCRIPT_DIR/artifacts/package/gyu-singer-v0.9-openutau}"
+PACKAGE_ZIP_HINT=""
+case "$PACKAGE_ARG" in
+  *.zip)
+    if [ -f "$PACKAGE_ARG" ]; then
+      PACKAGE_ZIP_HINT="$PACKAGE_ARG"
+      PACKAGE_DIR="${PACKAGE_ARG%.zip}"
+    else
+      PACKAGE_DIR="$PACKAGE_ARG"
+    fi
+    ;;
+  *)
+    PACKAGE_DIR="$PACKAGE_ARG"
+    ;;
+esac
 PORT="${GYU_SMOKE_PORT:-8780}"
 OUTPUT_DIR="${GYU_SMOKE_OUTPUT_DIR:-/tmp/gyu-v09-operational-check}"
 mkdir -p "$OUTPUT_DIR"
@@ -12,7 +26,7 @@ ensure_package_dir() {
     return 0
   fi
 
-  package_zip="${PACKAGE_DIR}.zip"
+  package_zip="${PACKAGE_ZIP_HINT:-${PACKAGE_DIR}.zip}"
   if [ ! -f "$package_zip" ]; then
     package_zip="${SCRIPT_DIR}/artifacts/package/$(basename "$PACKAGE_DIR").zip"
   fi
