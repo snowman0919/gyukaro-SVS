@@ -88,6 +88,17 @@ export GYU_SMOKE_OUTPUT_DIR=/tmp/gyu-v09-smoke
 
 The script runs: resident boot, `/health`, `/model`, bridge render, and resident integration test.
 
+
+실사용 one-click 보조진입은 아래 한 줄로 시작됩니다.
+
+```sh
+./scripts/openutau_v09_runtime.sh start
+./scripts/openutau_v09_runtime.sh status
+./scripts/openutau_v09_runtime.sh stop
+```
+
+(필요 시 경로는 환경변수로 덮어쓰기 가능: `GYU_SOULX_RUNTIME_DIR`, `GYU_SOULX_PYTHON`, `GYU_SINGER_CACHE`, `GYU_V09_PACKAGE_DIR`, `GYU_SMOKE_PORT`)
+
 ## 실사용 실행 체크리스트 (빠른 점검)
 
 1) 서비스 부팅
@@ -134,6 +145,7 @@ export GYU_SOULX_RUNTIME_DIR=/home/kotori9/code/gyukaro/.venv-soulx
 export GYU_SOULX_PYTHON=/home/kotori9/code/gyukaro/.venv-soulx/bin/python
 export GYU_SINGER_CACHE=/home/kotori9/code/gyukaro/data/cache
 ./scripts/openutau_v09_full_runtime_readiness.sh
+./scripts/openutau_v09_ops.sh readiness
 ```
 
 또는 운영 반출에서 권장되는 최종 명령:
@@ -141,6 +153,13 @@ export GYU_SINGER_CACHE=/home/kotori9/code/gyukaro/data/cache
 ```sh
 cd /home/kotori9/code/gyukaro
 ./scripts/openutau_v09_production_readiness.sh
+```
+
+시스템d 자동기동이 필요한 경우:
+```sh
+cd /home/kotori9/code/gyukaro
+./scripts/openutau_v09_ops.sh start-systemd
+./scripts/openutau_v09_ops.sh systemd-status
 ```
 
 또는 승인 문서까지 동시에 갱신하려면:
@@ -280,6 +299,13 @@ export GYU_V09_PACKAGE_DIR=/home/kotori9/code/gyukaro/artifacts/package/gyu-sing
 - `/tmp/openutau_v09_operational_check_stdout.log`
 - `/home/kotori9/code/gyukaro/docs/openutau_v0.9_go_live_evidence.md`
 - `/home/kotori9/code/gyukaro/docs/openutau_v0.9_operational_approval_record.md`
+
+실사용 승인 문서까지 통합 생성하려면 아래 한 줄을 권장합니다.
+
+```sh
+cd /home/kotori9/code/gyukaro
+./scripts/openutau_v09_oneclick_operational_check.sh
+```
 
 ## 실사용 원클릭 런치(선택)
 
