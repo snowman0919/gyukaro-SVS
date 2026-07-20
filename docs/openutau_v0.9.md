@@ -249,6 +249,11 @@ export GYU_V09_READINESS_OUTPUT_DIR=/path/to/artifacts/reports/openutau_v0.9
 ./scripts/openutau_v09_ready_check.sh
 ```
 
+운영 승인 리포트에는 두 경로가 모두 기록됩니다.
+
+- 요청 패키지: 실행 전 `GYU_V09_PACKAGE_DIR` 값(또는 기본 경로)
+- 실행 패키지: 실제 readiness에서 사용한 경로(`.zip`이면 준비/해제 후 경로)
+
 Equivalent manual flow:
 
 ```sh
@@ -308,6 +313,9 @@ export GYU_V09_PACKAGE_DIR=/home/kotori9/code/gyukaro/artifacts/package/gyu-sing
 cd /home/kotori9/code/gyukaro
 ./scripts/openutau_v09_oneclick_operational_check.sh
 ```
+
+`openutau_v09_oneclick_operational_check.sh`는 `openutau_v09_collect_approval_record.sh`를 통해
+실행 로그와 함께 승인 문서를 갱신하며, `요청 패키지`/`실행 패키지` 경로가 같지 않아도 추적됩니다.
 
 ## 실사용 원클릭 런치(선택)
 
