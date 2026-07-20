@@ -26,7 +26,11 @@ export GYU_SINGER_CACHE="$CACHE_DIR"
 unset GYU_SOULX_PYTHON
 rm -f /tmp/v09-verify-serve.log /tmp/v09-verify-render.wav /tmp/v09-verify-smoke.log
 
-if [ -f "gyu-singer-v0.9-openutau/scripts/openutau_v09_runtime_smoke.sh" ]; then
+if [ -f "$ROOT/gyu-singer-v0.9-openutau/scripts/openutau_v09_runtime_smoke.sh" ]; then
+  cd "$ROOT/gyu-singer-v0.9-openutau"
+elif [ -f "$ROOT/scripts/openutau_v09_runtime_smoke.sh" ]; then
+  cd "$ROOT"
+elif [ -f "gyu-singer-v0.9-openutau/scripts/openutau_v09_runtime_smoke.sh" ]; then
   cd gyu-singer-v0.9-openutau
 elif [ -f "scripts/openutau_v09_runtime_smoke.sh" ]; then
   :
