@@ -7,6 +7,34 @@ ROOT="$(CDPATH= cd -- "$SCRIPT_DIR/.." && pwd)"
 OUTPUT_MD="${OPENUTAU_V09_APPROVAL_REPORT:-$ROOT/artifacts/reports/openutau_v09/operational_approval_record.md}"
 OP_OUTPUT_DIR="${GYU_SMOKE_OUTPUT_DIR:-/tmp/gyu-v09-operational-check}"
 PKG_DIR="${GYU_V09_PACKAGE_DIR:-$ROOT/artifacts/package/gyu-singer-v0.9-openutau}"
+if [ ! -d "$PKG_DIR" ] && [ -f "$ROOT/serve.sh" ] && [ -f "$ROOT/scripts/openutau_v09_runtime_smoke.sh" ]; then
+  PKG_DIR="$ROOT"
+fi
+
+SOULX_RUNTIME_DIR="${GYU_SOULX_RUNTIME_DIR:-$ROOT/.venv-soulx}"
+if [ ! -d "$SOULX_RUNTIME_DIR" ] && [ -x "$ROOT/.venv-soulx/bin/python" ]; then
+  SOULX_RUNTIME_DIR="$ROOT/.venv-soulx"
+fi
+
+SOULX_PYTHON="${GYU_SOULX_PYTHON:-}"
+if [ -z "$SOULX_PYTHON" ]; then
+  if [ -x "$SOULX_RUNTIME_DIR/.venv/bin/python" ]; then
+    SOULX_PYTHON="$SOULX_RUNTIME_DIR/.venv/bin/python"
+  elif [ -x "$SOULX_RUNTIME_DIR/bin/python" ]; then
+    SOULX_PYTHON="$SOULX_RUNTIME_DIR/bin/python"
+  elif [ -x "$ROOT/.venv-soulx/.venv/bin/python" ]; then
+    SOULX_PYTHON="$ROOT/.venv-soulx/.venv/bin/python"
+  elif [ -x "$ROOT/.venv-soulx/bin/python" ]; then
+    SOULX_PYTHON="$ROOT/.venv-soulx/bin/python"
+  elif [ -x "$HOME/.venv-soulx/bin/python" ]; then
+    SOULX_PYTHON="$HOME/.venv-soulx/bin/python"
+  fi
+fi
+
+SINGER_CACHE="${GYU_SINGER_CACHE:-}"
+if [ -z "$SINGER_CACHE" ] && [ -d "$ROOT/data/cache" ]; then
+  SINGER_CACHE="$ROOT/data/cache"
+fi
 
 echo "[APPROVAL] run production readiness check"
 "$SCRIPT_DIR/openutau_v09_production_readiness.sh"
@@ -26,7 +54,7 @@ done
 
 mkdir -p "$(dirname "$OUTPUT_MD")"
 
-python - "$READY_SUMMARY" "$BEHAVIOR_JSON" "$SMOKE_WAV" "$OUTPUT_MD" "$PKG_DIR" "$PKG_REPORT" <<'PY'
+python - "$READY_SUMMARY" "$BEHAVIOR_JSON" "$SMOKE_WAV" "$OUTPUT_MD" "$PKG_DIR" "$PKG_REPORT" "$SOULX_RUNTIME_DIR" "$SOULX_PYTHON" "$SINGER_CACHE" <<'PY'
 import hashlib
 import json
 import sys
@@ -39,6 +67,9 @@ smoke_path = Path(sys.argv[3])
 output_path = Path(sys.argv[4])
 pkg_dir = Path(sys.argv[5])
 pkg_report = Path(sys.argv[6])
+runtime_dir = sys.argv[7]
+py_path = sys.argv[8]
+cache_dir = sys.argv[9]
 
 ready = json.loads(ready_path.read_text(encoding="utf-8"))
 behavior = json.loads(behavior_path.read_text(encoding="utf-8"))
@@ -98,11 +129,11 @@ else:
 lines.append("")
 lines.append("## 4) 경로 고정 실행 커맨드")
 lines.append("```sh")
-lines.append("export GYU_SOULX_RUNTIME_DIR=/home/kotori9/code/gyukaro/.venv-soulx")
-lines.append("export GYU_SOULX_PYTHON=/home/kotori9/code/gyukaro/.venv-soulx/bin/python")
-lines.append("export GYU_SINGER_CACHE=/home/kotori9/code/gyukaro/data/cache")
+lines.append(f'export GYU_SOULX_RUNTIME_DIR="{runtime_dir}"')
+lines.append(f'export GYU_SOULX_PYTHON="{py_path}"')
+lines.append(f'export GYU_SINGER_CACHE="{cache_dir}"')
 lines.append(f'export GYU_V09_PACKAGE_DIR="{pkg_dir}"')
-lines.append("cd /home/kotori9/code/gyukaro")
+lines.append(f'cd "{pkg_dir}"')
 lines.append("./scripts/openutau_v09_production_readiness.sh")
 lines.append("```")
 lines.append("")
