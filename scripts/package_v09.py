@@ -18,8 +18,15 @@ FILES = [
     Path("scripts/generate_omnivoice_phrase.py"),
     Path("scripts/test_openutau_v09_behavior.py"),
     Path("scripts/openutau_v09_runtime_smoke.sh"),
+    Path("scripts/openutau_v09_ops.sh"),
+    Path("scripts/openutau_v09_runtime.sh"),
     Path("scripts/openutau_v09_production_readiness.sh"),
+    Path("scripts/openutau_v09_ops_check.sh"),
+    Path("scripts/openutau_v09_full_runtime_readiness.sh"),
+    Path("scripts/openutau_v09_ready_check.sh"),
+    Path("scripts/openutau_v09_operational_check.sh"),
     Path("scripts/openutau_v09_collect_approval_record.sh"),
+    Path("scripts/report_openutau_v09_readiness.py"),
     Path("scripts/verify_v09_runtime_paths.sh"),
     Path("checkpoints/gyu_prosody_v0.5.pt"),
     Path("checkpoints/gyu_teacher_identity_v0.5.pt"),
@@ -163,7 +170,7 @@ export PYTORCH_CUDA_ALLOC_CONF="${PYTORCH_CUDA_ALLOC_CONF:-max_split_size_mb:64,
 export GYU_SINGER_CACHE GYU_SOULX_PYTHON
 exec env PYTHONPATH=src "$GYU_SOULX_PYTHON" -m gyu_singer.cli --backend gyu-singer-v0.8 --reference data/processed/master/216.wav render "${1:-examples/quality_ko.json}" --output "${2:-output.wav}"
     """)
-    for path in (root / "serve.sh", root / "render.sh", root / "scripts/openutau_v09_runtime_smoke.sh", root / "integrations/openutau/install_fork.sh", root / "integrations/openutau/test_resident_fork.sh"):
+    for path in (root / "serve.sh", root / "render.sh", root / "scripts/openutau_v09_runtime_smoke.sh", root / "scripts/openutau_v09_ops.sh", root / "scripts/openutau_v09_runtime.sh", root / "integrations/openutau/install_fork.sh", root / "integrations/openutau/test_resident_fork.sh"):
         path.chmod(0o755)
     archive = root.parent / f"{NAME}.zip"
     with zipfile.ZipFile(archive, "w", zipfile.ZIP_DEFLATED) as output:
