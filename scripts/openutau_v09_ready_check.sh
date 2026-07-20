@@ -4,8 +4,10 @@ set -eu
 SCRIPT_DIR="$(CDPATH= cd -- "$(dirname "$0")" && pwd)"
 ROOT="$(CDPATH= cd -- "$SCRIPT_DIR/.." && pwd)"
 PACKAGE_DIR="${GYU_V09_PACKAGE_DIR:-$ROOT/artifacts/package/gyu-singer-v0.9-openutau}"
+PACKAGE_ARG_WAS_SET=0
 if [ -n "${GYU_V09_PACKAGE_DIR:-}" ]; then
   PACKAGE_ARG="$GYU_V09_PACKAGE_DIR"
+  PACKAGE_ARG_WAS_SET=1
   PACKAGE_ZIP_HINT=""
   case "$PACKAGE_ARG" in
     *.zip)
@@ -24,7 +26,14 @@ fi
 OUTPUT_DIR="${GYU_V09_READINESS_OUTPUT_DIR:-$ROOT/artifacts/reports/openutau_v09}"
 
 if [ ! -d "$PACKAGE_DIR" ] && [ -f "$ROOT/serve.sh" ] && [ -f "$ROOT/scripts/openutau_v09_runtime_smoke.sh" ]; then
-  PACKAGE_DIR="$ROOT"
+  if [ "$PACKAGE_ARG_WAS_SET" -eq 0 ]; then
+    PACKAGE_DIR="$ROOT"
+  fi
+fi
+
+if [ ! -d "$PACKAGE_DIR" ] && [ -z "${PACKAGE_ZIP_HINT:-}" ]; then
+  echo "cannot find package dir: $PACKAGE_DIR" >&2
+  exit 2
 fi
 
 if [ -z "${GYU_SOULX_RUNTIME_DIR:-}" ] && [ -x "$ROOT/.venv-soulx/.venv/bin/python" ]; then
@@ -100,10 +109,32 @@ ensure_package_dir() {
     return 2
   fi
 
-  rm -rf "$PACKAGE_DIR"
   package_parent="$(dirname "$PACKAGE_DIR")"
+  tmp_extract_dir="$(mktemp -d "${package_parent}/.gyu-v09-pkg.XXXXXX")"
+  mkdir -p "$tmp_extract_dir"
+  unzip -q "$package_zip" -d "$tmp_extract_dir"
+  extracted_dirs_count="$(find "$tmp_extract_dir" -mindepth 1 -maxdepth 1 -type d | wc -l | tr -d ' ')"
+  if [ "$extracted_dirs_count" -eq 0 ]; then
+    rm -rf "$tmp_extract_dir"
+    echo "package archive contains no top-level directory: $package_zip" >&2
+    return 2
+  fi
+  if [ "$extracted_dirs_count" -eq 1 ]; then
+    extracted_dir="$(find "$tmp_extract_dir" -mindepth 1 -maxdepth 1 -type d -print -quit)"
+  else
+    extracted_dir="$(find "$tmp_extract_dir" -mindepth 1 -maxdepth 1 -type d | sort | awk 'NR==1 {print; exit}')"
+  fi
+  if [ -z "${extracted_dir:-}" ]; then
+    rm -rf "$tmp_extract_dir"
+    echo "package archive extracted but target dir missing: $PACKAGE_DIR" >&2
+    return 2
+  fi
+  rm -rf "$PACKAGE_DIR"
   mkdir -p "$package_parent"
-  unzip -q "$package_zip" -d "$package_parent"
+  if [ "$extracted_dir" != "$PACKAGE_DIR" ]; then
+    mv "$extracted_dir" "$PACKAGE_DIR"
+  fi
+  rm -rf "$tmp_extract_dir"
   if [ ! -d "$PACKAGE_DIR" ]; then
     echo "package archive extracted but target dir missing: $PACKAGE_DIR" >&2
     return 2

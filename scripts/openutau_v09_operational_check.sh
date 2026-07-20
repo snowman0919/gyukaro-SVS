@@ -40,9 +40,31 @@ ensure_package_dir() {
   fi
 
   package_parent="$(dirname "$PACKAGE_DIR")"
+  tmp_extract_dir="$(mktemp -d "${package_parent}/.gyu-v09-pkg.XXXXXX")"
+  mkdir -p "$tmp_extract_dir"
+  unzip -q "$package_zip" -d "$tmp_extract_dir"
+  extracted_dirs_count="$(find "$tmp_extract_dir" -mindepth 1 -maxdepth 1 -type d | wc -l | tr -d ' ')"
+  if [ "$extracted_dirs_count" -eq 0 ]; then
+    rm -rf "$tmp_extract_dir"
+    echo "package archive contains no top-level directory: $package_zip" >&2
+    return 2
+  fi
+  if [ "$extracted_dirs_count" -eq 1 ]; then
+    extracted_dir="$(find "$tmp_extract_dir" -mindepth 1 -maxdepth 1 -type d -print -quit)"
+  else
+    extracted_dir="$(find "$tmp_extract_dir" -mindepth 1 -maxdepth 1 -type d | sort | awk 'NR==1 {print; exit}')"
+  fi
+  if [ -z "${extracted_dir:-}" ]; then
+    rm -rf "$tmp_extract_dir"
+    echo "package archive extracted but target dir missing: $PACKAGE_DIR" >&2
+    return 2
+  fi
   rm -rf "$PACKAGE_DIR"
   mkdir -p "$package_parent"
-  unzip -q "$package_zip" -d "$package_parent"
+  if [ "$extracted_dir" != "$PACKAGE_DIR" ]; then
+    mv "$extracted_dir" "$PACKAGE_DIR"
+  fi
+  rm -rf "$tmp_extract_dir"
   if [ ! -d "$PACKAGE_DIR" ]; then
     echo "package archive extracted but target dir missing: $PACKAGE_DIR" >&2
     return 2
