@@ -4,6 +4,23 @@ set -eu
 SCRIPT_DIR="$(CDPATH= cd -- "$(dirname "$0")" && pwd)"
 ROOT="$(CDPATH= cd -- "$SCRIPT_DIR/.." && pwd)"
 PACKAGE_DIR="${GYU_V09_PACKAGE_DIR:-$ROOT/artifacts/package/gyu-singer-v0.9-openutau}"
+if [ -n "${GYU_V09_PACKAGE_DIR:-}" ]; then
+  PACKAGE_ARG="$GYU_V09_PACKAGE_DIR"
+  PACKAGE_ZIP_HINT=""
+  case "$PACKAGE_ARG" in
+    *.zip)
+      if [ -f "$PACKAGE_ARG" ]; then
+        PACKAGE_ZIP_HINT="$PACKAGE_ARG"
+        PACKAGE_DIR="${PACKAGE_ARG%.zip}"
+      else
+        PACKAGE_DIR="$PACKAGE_ARG"
+      fi
+      ;;
+    *)
+      PACKAGE_DIR="$PACKAGE_ARG"
+      ;;
+  esac
+fi
 OUTPUT_DIR="${GYU_V09_READINESS_OUTPUT_DIR:-$ROOT/artifacts/reports/openutau_v09}"
 
 if [ ! -d "$PACKAGE_DIR" ] && [ -f "$ROOT/serve.sh" ] && [ -f "$ROOT/scripts/openutau_v09_runtime_smoke.sh" ]; then
@@ -73,7 +90,7 @@ ensure_package_dir() {
     return 0
   fi
 
-  package_zip="${PACKAGE_DIR}.zip"
+  package_zip="${PACKAGE_ZIP_HINT:-${PACKAGE_DIR}.zip}"
   if [ ! -f "$package_zip" ]; then
     package_zip="$ROOT/artifacts/package/$(basename "$PACKAGE_DIR").zip"
   fi
