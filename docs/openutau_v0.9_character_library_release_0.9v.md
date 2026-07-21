@@ -2,7 +2,7 @@
 
 - Release artifact: `artifacts/package/gyu-singer-openutau-character-library.zip`
 - Alias: `artifacts/package/gyu-singer-v0.9-openutau-character.zip`
-- SHA-256: `155e89891dfcfacb899e113c0b861b6f91b5ff1a24e23b51afbf8e0a96ad659c`
+- SHA-256: `d75ba4d4d2cb8c40b721637b7a62cec588050d7fda4224a0500b6a3b56add72c`
 
 - Included files (within the zip root):
   - `GYU-SINGER/character.txt`
@@ -31,4 +31,6 @@ This is a metadata-only singer package.
 - Structure check: required singer files and portrait assets are present under `GYU-SINGER/`.
 - `scripts/package_openutau_character_library.py` is the reproducible generator.
 - `python scripts/validate_dataset.py` pass: `132` recordings, `corrupt 0`.
-
+- Release binary SHA can be verified from the GitHub release asset:
+  - `gyu-singer-openutau-character-library.zip`
+  - `gyu-singer-openutau-character-library.zip.sha256`
